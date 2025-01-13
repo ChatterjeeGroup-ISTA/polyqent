@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>polyhorn.Solver &mdash; PolyHorn 0.0.5 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
 
   
@@ -86,17 +86,17 @@
            <div itemprop="articleBody">
              
   <h1>Source code for polyhorn.Solver</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span>
 
-<span class="kn">from</span> <span class="nn">.Coefficient</span> <span class="kn">import</span> <span class="n">Element</span>
-<span class="kn">from</span> <span class="nn">.Constraint</span> <span class="kn">import</span> <span class="n">CoefficientConstraint</span>
-<span class="kn">from</span> <span class="nn">.DNF</span> <span class="kn">import</span> <span class="n">DNF</span>
-<span class="kn">from</span> <span class="nn">.Polynomial</span> <span class="kn">import</span> <span class="n">Coefficient</span><span class="p">,</span> <span class="n">Monomial</span><span class="p">,</span> <span class="n">Polynomial</span><span class="p">,</span> <span class="n">UnknownVariable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.Coefficient</span><span class="w"> </span><span class="kn">import</span> <span class="n">Element</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.Constraint</span><span class="w"> </span><span class="kn">import</span> <span class="n">CoefficientConstraint</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.DNF</span><span class="w"> </span><span class="kn">import</span> <span class="n">DNF</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.Polynomial</span><span class="w"> </span><span class="kn">import</span> <span class="n">Coefficient</span><span class="p">,</span> <span class="n">Monomial</span><span class="p">,</span> <span class="n">Polynomial</span><span class="p">,</span> <span class="n">UnknownVariable</span>
 
 
 <div class="viewcode-block" id="Solver">
 <a class="viewcode-back" href="../../polyhorn.Solver.html#polyhorn.Solver.Solver">[docs]</a>
-<span class="k">class</span> <span class="nc">Solver</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Solver</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">    This class consist of some static method which are used in other classes</span>
 <span class="sd">    &quot;&quot;&quot;</span>
@@ -104,7 +104,7 @@
 <div class="viewcode-block" id="Solver.find_equality_constraint">
 <a class="viewcode-back" href="../../polyhorn.Solver.html#polyhorn.Solver.Solver.find_equality_constraint">[docs]</a>
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">find_equality_constraint</span><span class="p">(</span><span class="n">LHS</span><span class="p">:</span> <span class="n">Polynomial</span><span class="p">,</span> <span class="n">RHS</span><span class="p">:</span> <span class="n">Polynomial</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">CoefficientConstraint</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">find_equality_constraint</span><span class="p">(</span><span class="n">LHS</span><span class="p">:</span> <span class="n">Polynomial</span><span class="p">,</span> <span class="n">RHS</span><span class="p">:</span> <span class="n">Polynomial</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">CoefficientConstraint</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">        Given two polynomials that should be equal together, this function </span>
 <span class="sd">        finds constraints for the equality. Moreover, all the Coefficient of</span>
@@ -142,7 +142,7 @@
 <div class="viewcode-block" id="Solver.get_constant_polynomial">
 <a class="viewcode-back" href="../../polyhorn.Solver.html#polyhorn.Solver.Solver.get_constant_polynomial">[docs]</a>
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">get_constant_polynomial</span><span class="p">(</span><span class="n">variables</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">UnknownVariable</span><span class="p">],</span> <span class="n">constant</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Polynomial</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_constant_polynomial</span><span class="p">(</span><span class="n">variables</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">UnknownVariable</span><span class="p">],</span> <span class="n">constant</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Polynomial</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate new polynomial with one monomial and a constant as its coefficient.</span>
 
@@ -171,7 +171,7 @@
 <div class="viewcode-block" id="Solver.get_variable_polynomial">
 <a class="viewcode-back" href="../../polyhorn.Solver.html#polyhorn.Solver.Solver.get_variable_polynomial">[docs]</a>
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">get_variable_polynomial</span><span class="p">(</span><span class="n">variables</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">UnknownVariable</span><span class="p">],</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">type_of_var</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Polynomial</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_variable_polynomial</span><span class="p">(</span><span class="n">variables</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">UnknownVariable</span><span class="p">],</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">type_of_var</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Polynomial</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate new polynomial with one monomial and a new generated variable as its coefficient</span>
 
@@ -203,7 +203,7 @@
 <div class="viewcode-block" id="Solver.get_degree_polynomial">
 <a class="viewcode-back" href="../../polyhorn.Solver.html#polyhorn.Solver.Solver.get_degree_polynomial">[docs]</a>
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">get_degree_polynomial</span><span class="p">(</span><span class="n">variables</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">UnknownVariable</span><span class="p">],</span> <span class="n">degrees</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Polynomial</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_degree_polynomial</span><span class="p">(</span><span class="n">variables</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">UnknownVariable</span><span class="p">],</span> <span class="n">degrees</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Polynomial</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">        Generate new polynomial with one monomial and given degrees</span>
 
@@ -232,7 +232,7 @@
 <div class="viewcode-block" id="Solver.convert_constraints_to_smt_format">
 <a class="viewcode-back" href="../../polyhorn.Solver.html#polyhorn.Solver.Solver.convert_constraints_to_smt_format">[docs]</a>
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">convert_constraints_to_smt_format</span><span class="p">(</span><span class="n">all_constraint</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">DNF</span><span class="p">],</span> <span class="n">precondition</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">DNF</span><span class="p">]],</span> <span class="n">names</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convert_constraints_to_smt_format</span><span class="p">(</span><span class="n">all_constraint</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">DNF</span><span class="p">],</span> <span class="n">precondition</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">DNF</span><span class="p">]],</span> <span class="n">names</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">        Generate string for declaring constraint in smt format</span>
 
@@ -272,7 +272,7 @@
 <div class="viewcode-block" id="Solver.smt_declare_variable_phase">
 <a class="viewcode-back" href="../../polyhorn.Solver.html#polyhorn.Solver.Solver.smt_declare_variable_phase">[docs]</a>
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">smt_declare_variable_phase</span><span class="p">(</span><span class="n">all_constraint</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">DNF</span><span class="p">],</span> <span class="n">real</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">smt_declare_variable_phase</span><span class="p">(</span><span class="n">all_constraint</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">DNF</span><span class="p">],</span> <span class="n">real</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
                                    <span class="n">pre_variables</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">UnknownVariable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate string format for declaring the variables in smt format.</span>
@@ -307,7 +307,7 @@
 <div class="viewcode-block" id="Solver.get_all_variable">
 <a class="viewcode-back" href="../../polyhorn.Solver.html#polyhorn.Solver.Solver.get_all_variable">[docs]</a>
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">get_all_variable</span><span class="p">(</span><span class="n">all_constraints</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">DNF</span><span class="p">],</span> <span class="n">pre_variables</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">UnknownVariable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">UnknownVariable</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_all_variable</span><span class="p">(</span><span class="n">all_constraints</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">DNF</span><span class="p">],</span> <span class="n">pre_variables</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">UnknownVariable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">UnknownVariable</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">        Find all the variables in a list of constraint.</span>
 

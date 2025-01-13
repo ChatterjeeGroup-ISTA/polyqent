@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>polyhorn.main &mdash; PolyHorn 0.0.5 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
 
   
@@ -86,24 +86,24 @@
            <div itemprop="articleBody">
              
   <h1>Source code for polyhorn.main</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span> <span class="nn">json</span>
-<span class="kn">import</span> <span class="nn">random</span>
-<span class="kn">import</span> <span class="nn">string</span>
-<span class="kn">import</span> <span class="nn">uuid</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Callable</span>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">string</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">uuid</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Union</span><span class="p">,</span> <span class="n">Callable</span>
 
-<span class="kn">from</span> <span class="nn">pysmt.fnode</span> <span class="kn">import</span> <span class="n">FNode</span>
-<span class="kn">from</span> <span class="nn">pysmt.operators</span> <span class="kn">import</span> <span class="n">op_to_str</span>
-<span class="kn">from</span> <span class="nn">pysmt.solvers.solver</span> <span class="kn">import</span> <span class="n">Solver</span> <span class="k">as</span> <span class="n">PysmtSolver</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pysmt.fnode</span><span class="w"> </span><span class="kn">import</span> <span class="n">FNode</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pysmt.operators</span><span class="w"> </span><span class="kn">import</span> <span class="n">op_to_str</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pysmt.solvers.solver</span><span class="w"> </span><span class="kn">import</span> <span class="n">Solver</span> <span class="k">as</span> <span class="n">PysmtSolver</span>
 
-<span class="kn">from</span> <span class="nn">polyhorn.Parser</span> <span class="kn">import</span> <span class="n">Parser</span>
-<span class="kn">from</span> <span class="nn">polyhorn.PositiveModel</span> <span class="kn">import</span> <span class="n">PositiveModel</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">polyhorn.Parser</span><span class="w"> </span><span class="kn">import</span> <span class="n">Parser</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">polyhorn.PositiveModel</span><span class="w"> </span><span class="kn">import</span> <span class="n">PositiveModel</span>
 
 
 <div class="viewcode-block" id="add_default_config">
 <a class="viewcode-back" href="../../polyhorn.main.html#polyhorn.main.add_default_config">[docs]</a>
-<span class="k">def</span> <span class="nf">add_default_config</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">add_default_config</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Add default values to the config dictionary</span>
 
@@ -118,7 +118,7 @@
 <span class="sd">        The config dictionary with default values</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">default_config</span> <span class="o">=</span> <span class="p">{</span>
-        <span class="s2">&quot;SAT_heuristic&quot;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+        <span class="s2">&quot;SAT_heuristic&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
         <span class="s2">&quot;degree_of_sat&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
         <span class="s2">&quot;degree_of_nonstrict_unsat&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
         <span class="s2">&quot;degree_of_strict_unsat&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
@@ -139,7 +139,7 @@
 
 <div class="viewcode-block" id="load_config">
 <a class="viewcode-back" href="../../polyhorn.main.html#polyhorn.main.load_config">[docs]</a>
-<span class="k">def</span> <span class="nf">load_config</span><span class="p">(</span><span class="n">config_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">load_config</span><span class="p">(</span><span class="n">config_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Load and parse the config file with default values</span>
 
@@ -164,7 +164,7 @@
 
 <div class="viewcode-block" id="pysmt_to_smt2">
 <a class="viewcode-back" href="../../polyhorn.main.html#polyhorn.main.pysmt_to_smt2">[docs]</a>
-<span class="k">def</span> <span class="nf">pysmt_to_smt2</span><span class="p">(</span><span class="n">solver</span><span class="p">:</span> <span class="n">PysmtSolver</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">pysmt_to_smt2</span><span class="p">(</span><span class="n">solver</span><span class="p">:</span> <span class="n">PysmtSolver</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Convert a pysmt solver to a smt2 string</span>
 
@@ -187,7 +187,7 @@
 
         <span class="n">free_vars</span> <span class="o">|=</span> <span class="n">formula</span><span class="o">.</span><span class="n">get_free_variables</span><span class="p">()</span>
 
-    <span class="k">def</span> <span class="nf">to_smt2</span><span class="p">(</span><span class="n">formula</span><span class="p">:</span> <span class="n">FNode</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">to_smt2</span><span class="p">(</span><span class="n">formula</span><span class="p">:</span> <span class="n">FNode</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
         
         <span class="k">if</span> <span class="n">formula</span><span class="o">.</span><span class="n">is_forall</span><span class="p">():</span>
             <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">formula</span><span class="o">.</span><span class="n">args</span><span class="p">())</span> <span class="o">==</span> <span class="mi">1</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;`Forall` expected 1 argument, got </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">formula</span><span class="o">.</span><span class="n">args</span><span class="p">())</span><span class="si">}</span><span class="s1">&#39;</span>
@@ -244,7 +244,7 @@
 
 <div class="viewcode-block" id="execute">
 <a class="viewcode-back" href="../../polyhorn.main.html#polyhorn.main.execute">[docs]</a>
-<span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="n">formula</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">PysmtSolver</span><span class="p">],</span> <span class="n">config</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">execute</span><span class="p">(</span><span class="n">formula</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">PysmtSolver</span><span class="p">],</span> <span class="n">config</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Execute PolyHorn on the formula with the given configuration</span>
 <span class="sd">    </span>
@@ -286,7 +286,7 @@
 
 <div class="viewcode-block" id="execute_smt2">
 <a class="viewcode-back" href="../../polyhorn.main.html#polyhorn.main.execute_smt2">[docs]</a>
-<span class="k">def</span> <span class="nf">execute_smt2</span><span class="p">(</span><span class="n">smt2</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">config_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">execute_smt2</span><span class="p">(</span><span class="n">smt2</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">config_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Execute PolyHorn on the smt2 system</span>
 
@@ -311,7 +311,7 @@
 
 <div class="viewcode-block" id="execute_readable">
 <a class="viewcode-back" href="../../polyhorn.main.html#polyhorn.main.execute_readable">[docs]</a>
-<span class="k">def</span> <span class="nf">execute_readable</span><span class="p">(</span><span class="n">readable</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">config_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">execute_readable</span><span class="p">(</span><span class="n">readable</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">config_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Execute PolyHorn on the readable system</span>
 
@@ -334,7 +334,7 @@
 
 
 
-<span class="k">def</span> <span class="nf">__execute</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">parser_method</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">__execute</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">parser_method</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Execute PolyHorn on the input system</span>
 
@@ -385,7 +385,7 @@
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">argparse</span> <span class="kn">import</span> <span class="n">ArgumentParser</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">argparse</span><span class="w"> </span><span class="kn">import</span> <span class="n">ArgumentParser</span>
     <span class="n">parser</span> <span class="o">=</span> <span class="n">ArgumentParser</span><span class="p">()</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--smt2&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s2">&quot;Path to the smt2 file&quot;</span><span class="p">)</span>
     <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s2">&quot;--readable&quot;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>

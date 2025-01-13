@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>polyhorn.Convertor &mdash; PolyHorn 0.0.5 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
 
   
@@ -86,19 +86,19 @@
            <div itemprop="articleBody">
              
   <h1>Source code for polyhorn.Convertor</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span>
 
-<span class="kn">import</span> <span class="nn">lark</span>
-<span class="kn">from</span> <span class="nn">lark</span> <span class="kn">import</span> <span class="n">Lark</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">lark</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">lark</span><span class="w"> </span><span class="kn">import</span> <span class="n">Lark</span>
 
-<span class="kn">from</span> <span class="nn">.Polynomial</span> <span class="kn">import</span> <span class="n">Monomial</span><span class="p">,</span> <span class="n">Polynomial</span>
-<span class="kn">from</span> <span class="nn">.Solver</span> <span class="kn">import</span> <span class="n">Solver</span>
-<span class="kn">from</span> <span class="nn">.UnknownVariable</span> <span class="kn">import</span> <span class="n">UnknownVariable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.Polynomial</span><span class="w"> </span><span class="kn">import</span> <span class="n">Monomial</span><span class="p">,</span> <span class="n">Polynomial</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.Solver</span><span class="w"> </span><span class="kn">import</span> <span class="n">Solver</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.UnknownVariable</span><span class="w"> </span><span class="kn">import</span> <span class="n">UnknownVariable</span>
 
 
 <div class="viewcode-block" id="find_index_of_variable">
 <a class="viewcode-back" href="../../polyhorn.Convertor.html#polyhorn.Convertor.find_index_of_variable">[docs]</a>
-<span class="k">def</span> <span class="nf">find_index_of_variable</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">all_variable</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">UnknownVariable</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">find_index_of_variable</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">all_variable</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">UnknownVariable</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Find the index of a variable in the list of variables, given the name of</span>
 <span class="sd">    the variable.</span>
@@ -126,7 +126,7 @@
 
 <div class="viewcode-block" id="traverse">
 <a class="viewcode-back" href="../../polyhorn.Convertor.html#polyhorn.Convertor.traverse">[docs]</a>
-<span class="k">def</span> <span class="nf">traverse</span><span class="p">(</span><span class="n">parse_tree</span><span class="p">:</span> <span class="n">lark</span><span class="o">.</span><span class="n">Tree</span><span class="p">,</span> <span class="n">all_variables</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">UnknownVariable</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Polynomial</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">traverse</span><span class="p">(</span><span class="n">parse_tree</span><span class="p">:</span> <span class="n">lark</span><span class="o">.</span><span class="n">Tree</span><span class="p">,</span> <span class="n">all_variables</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">UnknownVariable</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Polynomial</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function traverse the parse tree generated by lark and return a Polynomial.</span>
 
@@ -184,7 +184,7 @@
 
 <div class="viewcode-block" id="convert_to_desired_poly">
 <a class="viewcode-back" href="../../polyhorn.Convertor.html#polyhorn.Convertor.convert_to_desired_poly">[docs]</a>
-<span class="k">def</span> <span class="nf">convert_to_desired_poly</span><span class="p">(</span><span class="n">poly</span><span class="p">:</span> <span class="n">Polynomial</span><span class="p">,</span> <span class="n">program_variables</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">UnknownVariable</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Polynomial</span><span class="p">:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">convert_to_desired_poly</span><span class="p">(</span><span class="n">poly</span><span class="p">:</span> <span class="n">Polynomial</span><span class="p">,</span> <span class="n">program_variables</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">UnknownVariable</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Polynomial</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function separates program variables from template variables and puts</span>
 <span class="sd">    template variables in Coefficient.</span>
@@ -219,7 +219,7 @@
 
 <div class="viewcode-block" id="convert_general_string_to_poly">
 <a class="viewcode-back" href="../../polyhorn.Convertor.html#polyhorn.Convertor.convert_general_string_to_poly">[docs]</a>
-<span class="k">def</span> <span class="nf">convert_general_string_to_poly</span><span class="p">(</span><span class="n">poly_text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">all_variables</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">UnknownVariable</span><span class="p">],</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">convert_general_string_to_poly</span><span class="p">(</span><span class="n">poly_text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">all_variables</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">UnknownVariable</span><span class="p">],</span>
                                    <span class="n">program_variables</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">UnknownVariable</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Polynomial</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">    This function convert a string to Polynomial.</span>

@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>polyhorn.Farkas &mdash; PolyHorn 0.0.5 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
 
   
@@ -86,17 +86,17 @@
            <div itemprop="articleBody">
              
   <h1>Source code for polyhorn.Farkas</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
 
-<span class="kn">from</span> <span class="nn">.Constraint</span> <span class="kn">import</span> <span class="n">CoefficientConstraint</span><span class="p">,</span> <span class="n">PolynomialConstraint</span>
-<span class="kn">from</span> <span class="nn">.Polynomial</span> <span class="kn">import</span> <span class="n">Polynomial</span>
-<span class="kn">from</span> <span class="nn">.Solver</span> <span class="kn">import</span> <span class="n">Solver</span>
-<span class="kn">from</span> <span class="nn">.UnknownVariable</span> <span class="kn">import</span> <span class="n">UnknownVariable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.Constraint</span><span class="w"> </span><span class="kn">import</span> <span class="n">CoefficientConstraint</span><span class="p">,</span> <span class="n">PolynomialConstraint</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.Polynomial</span><span class="w"> </span><span class="kn">import</span> <span class="n">Polynomial</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.Solver</span><span class="w"> </span><span class="kn">import</span> <span class="n">Solver</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.UnknownVariable</span><span class="w"> </span><span class="kn">import</span> <span class="n">UnknownVariable</span>
 
 
 <div class="viewcode-block" id="Farkas">
 <a class="viewcode-back" href="../../polyhorn.Farkas.html#polyhorn.Farkas.Farkas">[docs]</a>
-<span class="k">class</span> <span class="nc">Farkas</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Farkas</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class that performs the constraint transformation according to Farkas</span>
 <span class="sd">    Lemma.</span>
@@ -120,14 +120,14 @@
 <span class="sd">        The right hand side constraint in algorithm</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variables</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">UnknownVariable</span><span class="p">],</span> <span class="n">LHS</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">PolynomialConstraint</span><span class="p">],</span> <span class="n">RHS</span><span class="p">:</span> <span class="n">PolynomialConstraint</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variables</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">UnknownVariable</span><span class="p">],</span> <span class="n">LHS</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">PolynomialConstraint</span><span class="p">],</span> <span class="n">RHS</span><span class="p">:</span> <span class="n">PolynomialConstraint</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">variables</span> <span class="o">=</span> <span class="n">variables</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">RHS</span> <span class="o">=</span> <span class="n">RHS</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">LHS</span> <span class="o">=</span> <span class="n">LHS</span>
 
 <div class="viewcode-block" id="Farkas.get_poly_sum">
 <a class="viewcode-back" href="../../polyhorn.Farkas.html#polyhorn.Farkas.Farkas.get_poly_sum">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_poly_sum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">need_strict</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Polynomial</span><span class="p">,</span> <span class="n">CoefficientConstraint</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_poly_sum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">need_strict</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Polynomial</span><span class="p">,</span> <span class="n">CoefficientConstraint</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">        This function returns a polynomial y_0 + y_1*f_1 + y_2*f_2 ...+ y_n*f_n</span>
 <span class="sd">        where f_i are left hand side polynomials and y_i are newly created </span>
@@ -172,7 +172,7 @@
 
 <div class="viewcode-block" id="Farkas.get_SAT_constraint">
 <a class="viewcode-back" href="../../polyhorn.Farkas.html#polyhorn.Farkas.Farkas.get_SAT_constraint">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_SAT_constraint</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">CoefficientConstraint</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_SAT_constraint</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">CoefficientConstraint</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">        A function to find the constraints when the LHS =&gt; RHS is satisfiable.</span>
 
@@ -187,7 +187,7 @@
 
 <div class="viewcode-block" id="Farkas.get_UNSAT_constraint">
 <a class="viewcode-back" href="../../polyhorn.Farkas.html#polyhorn.Farkas.Farkas.get_UNSAT_constraint">[docs]</a>
-    <span class="k">def</span> <span class="nf">get_UNSAT_constraint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">need_strict</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">CoefficientConstraint</span><span class="p">]:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_UNSAT_constraint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">need_strict</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">CoefficientConstraint</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">        A function to find the constraints when it is not satisfiable.</span>
 

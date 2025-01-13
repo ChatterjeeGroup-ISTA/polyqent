@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>polyhorn.Constraint &mdash; PolyHorn 0.0.5 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
 
   
@@ -86,15 +86,15 @@
            <div itemprop="articleBody">
              
   <h1>Source code for polyhorn.Constraint</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span> <span class="nn">.Coefficient</span> <span class="kn">import</span> <span class="n">Coefficient</span>
-<span class="kn">from</span> <span class="nn">.Polynomial</span> <span class="kn">import</span> <span class="n">Polynomial</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.Coefficient</span><span class="w"> </span><span class="kn">import</span> <span class="n">Coefficient</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.Polynomial</span><span class="w"> </span><span class="kn">import</span> <span class="n">Polynomial</span>
 
 
 <div class="viewcode-block" id="PolynomialConstraint">
 <a class="viewcode-back" href="../../polyhorn.Constraint.html#polyhorn.Constraint.PolynomialConstraint">[docs]</a>
-<span class="k">class</span> <span class="nc">PolynomialConstraint</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PolynomialConstraint</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">    A class that represent the constraint with a Polynomial on one side and</span>
 <span class="sd">    zero on the other side.</span>
@@ -118,7 +118,7 @@
 <span class="sd">        The relation between Polynomial and zero.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">polynomial</span><span class="p">:</span> <span class="n">Polynomial</span><span class="p">,</span> <span class="n">sign</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">polynomial</span><span class="p">:</span> <span class="n">Polynomial</span><span class="p">,</span> <span class="n">sign</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">polynomial</span> <span class="o">=</span> <span class="n">polynomial</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sign</span> <span class="o">=</span> <span class="n">sign</span>
         <span class="k">if</span> <span class="n">sign</span> <span class="o">==</span> <span class="s1">&#39;&lt;&#39;</span><span class="p">:</span>
@@ -128,7 +128,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">sign</span> <span class="o">=</span> <span class="s1">&#39;&gt;=&#39;</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">polynomial</span> <span class="o">=</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">polynomial</span>
 
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Convert Constraint to string.</span>
 
@@ -141,7 +141,7 @@
 
 <div class="viewcode-block" id="PolynomialConstraint.is_strict">
 <a class="viewcode-back" href="../../polyhorn.Constraint.html#polyhorn.Constraint.PolynomialConstraint.is_strict">[docs]</a>
-    <span class="k">def</span> <span class="nf">is_strict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_strict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Determine if the constraint is strict.</span>
 
@@ -153,7 +153,7 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">sign</span> <span class="o">==</span> <span class="s1">&#39;&gt;&#39;</span></div>
 
 
-    <span class="k">def</span> <span class="fm">__neg__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PolynomialConstraint</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__neg__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">PolynomialConstraint</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Negate a constraint by negating the polynomial and reversing the sign.</span>
 
@@ -173,7 +173,7 @@
 
 <div class="viewcode-block" id="PolynomialConstraint.convert_to_preorder">
 <a class="viewcode-back" href="../../polyhorn.Constraint.html#polyhorn.Constraint.PolynomialConstraint.convert_to_preorder">[docs]</a>
-    <span class="k">def</span> <span class="nf">convert_to_preorder</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convert_to_preorder</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Convert constraint to preorder format.</span>
 
@@ -189,7 +189,7 @@
 
 <div class="viewcode-block" id="CoefficientConstraint">
 <a class="viewcode-back" href="../../polyhorn.Constraint.html#polyhorn.Constraint.CoefficientConstraint">[docs]</a>
-<span class="k">class</span> <span class="nc">CoefficientConstraint</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">CoefficientConstraint</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class that represent the constraint with a Coefficient on one side and</span>
 <span class="sd">    zero on the other side.</span>
@@ -209,11 +209,11 @@
 <span class="sd">        The relation between Coefficient and zero.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coefficient</span><span class="p">:</span> <span class="n">Coefficient</span><span class="p">,</span> <span class="n">sign</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coefficient</span><span class="p">:</span> <span class="n">Coefficient</span><span class="p">,</span> <span class="n">sign</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">coefficient</span> <span class="o">=</span> <span class="n">coefficient</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">sign</span> <span class="o">=</span> <span class="n">sign</span>
 
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Convert Constraint to string.</span>
 
@@ -226,7 +226,7 @@
 
 <div class="viewcode-block" id="CoefficientConstraint.is_strict">
 <a class="viewcode-back" href="../../polyhorn.Constraint.html#polyhorn.Constraint.CoefficientConstraint.is_strict">[docs]</a>
-    <span class="k">def</span> <span class="nf">is_strict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_strict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Determine if the constraint is strict.</span>
 
@@ -240,7 +240,7 @@
 
 <div class="viewcode-block" id="CoefficientConstraint.convert_to_preorder">
 <a class="viewcode-back" href="../../polyhorn.Constraint.html#polyhorn.Constraint.CoefficientConstraint.convert_to_preorder">[docs]</a>
-    <span class="k">def</span> <span class="nf">convert_to_preorder</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convert_to_preorder</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">        Convert constraint to preorder format.</span>
 
@@ -254,7 +254,7 @@
 
 <div class="viewcode-block" id="CoefficientConstraint.is_equality">
 <a class="viewcode-back" href="../../polyhorn.Constraint.html#polyhorn.Constraint.CoefficientConstraint.is_equality">[docs]</a>
-    <span class="k">def</span> <span class="nf">is_equality</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_equality</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Determine if the constraint is in form of a variable equal to constant.</span>
 
@@ -277,7 +277,7 @@
                 <span class="k">return</span> <span class="kc">False</span></div>
 
 
-    <span class="k">def</span> <span class="fm">__neg__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CoefficientConstraint</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__neg__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">CoefficientConstraint</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Negate a constraint by negating the coefficient and reversing the sign.</span>
 

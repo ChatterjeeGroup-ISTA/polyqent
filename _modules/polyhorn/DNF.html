@@ -6,7 +6,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>polyhorn.DNF &mdash; PolyHorn 0.0.5 documentation</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
 
   
@@ -86,14 +86,14 @@
            <div itemprop="articleBody">
              
   <h1>Source code for polyhorn.DNF</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span>
 
 
 <div class="viewcode-block" id="DNF">
 <a class="viewcode-back" href="../../polyhorn.DNF.html#polyhorn.DNF.DNF">[docs]</a>
-<span class="k">class</span> <span class="nc">DNF</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DNF</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class that represents disjunctive normal form.</span>
 
@@ -108,10 +108,10 @@
 <span class="sd">        List of literals that are in DNF.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">literals</span><span class="p">:</span> <span class="n">List</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">literals</span><span class="p">:</span> <span class="n">List</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">literals</span> <span class="o">=</span> <span class="n">literals</span>
 
-    <span class="k">def</span> <span class="fm">__or__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">DNF</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DNF</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__or__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">DNF</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DNF</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">        Or two DNF.</span>
 
@@ -129,7 +129,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">DNF</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">literals</span> <span class="o">+</span> <span class="n">other</span><span class="o">.</span><span class="n">literals</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__and__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">DNF</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DNF</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__and__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">:</span> <span class="n">DNF</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DNF</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">        And two DNF.</span>
 
@@ -156,7 +156,7 @@
                 <span class="n">literal_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">first_literal</span> <span class="o">+</span> <span class="n">second_literal</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">DNF</span><span class="p">(</span><span class="n">literal_list</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="fm">__neg__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DNF</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__neg__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">DNF</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">        Negate a DNF</span>
 
@@ -176,7 +176,7 @@
             <span class="n">result_DNF</span> <span class="o">=</span> <span class="n">result_DNF</span> <span class="o">&amp;</span> <span class="n">DNF</span><span class="p">(</span><span class="n">new_arr</span><span class="p">)</span>
         <span class="k">return</span> <span class="n">result_DNF</span>
 
-    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Convert DNF to string.</span>
 
@@ -193,7 +193,7 @@
 
 <div class="viewcode-block" id="DNF.convert_to_preorder">
 <a class="viewcode-back" href="../../polyhorn.DNF.html#polyhorn.DNF.DNF.convert_to_preorder">[docs]</a>
-    <span class="k">def</span> <span class="nf">convert_to_preorder</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">convert_to_preorder</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Convert DNF to preorder format.</span>
 
