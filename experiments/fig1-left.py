@@ -24,8 +24,8 @@ fig, ((ax0, ax1), (ax2, ax3)) = plt.subplots(nrows=2, ncols=2)
 ms = 1
 plot_shapes = ['s', '^', 'o']
 plot_colors = ['r', 'b', 'k']
-labels = ['Mathsat PolyHorn',
-          'Z3 PolyHorn',
+labels = ['Mathsat PolyQEnt',
+          'Z3 PolyQEnt',
           'Direct Z3']
 
 for i in range(len(list_of_xs['base'])):

@@ -17,10 +17,10 @@ for col_name in ['base time', 'h1 time', 'h2 time', 'h12 time', 'direct-z3-time'
 fig, ax = plt.subplots()
 plot_shapes = ['s', '^', '<', '>', 'o']
 plot_colors = ['r', 'b', 'g', 'y', 'k']
-labels = ['PolyHorn, No Heuristics',
-          'PolyHorn, Assume SAT',
-          'PolyHorn, UNSAT Core',
-          'PolyHorn, Assume SAT & UNSAT Core',
+labels = ['PolyQEnt, No Heuristics',
+          'PolyQEnt, Assume SAT',
+          'PolyQEnt, UNSAT Core',
+          'PolyQEnt, Assume SAT & UNSAT Core',
           'Direct Z3']
 for i in range(len(list_of_xs)):
     ax.plot(list_of_xs[i], list_of_ys[i], plot_shapes[i], color=plot_colors[i], label=labels[i], markersize=4)

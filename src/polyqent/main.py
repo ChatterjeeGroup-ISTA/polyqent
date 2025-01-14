@@ -87,7 +87,7 @@ def pysmt_to_smt2(solver: PysmtSolver) -> str:
         if formula.is_forall() and not formula.arg(0).is_implies():
             # Check for constraint pairs
             raise ValueError(
-                f"PolyHorn expects universally quantified formulas to consist of constraint pairs in the form `forall x, y, ...: (constraint) => (constraint)`")
+                f"PolyQEnt expects universally quantified formulas to consist of constraint pairs in the form `forall x, y, ...: (constraint) => (constraint)`")
 
         free_vars |= formula.get_free_variables()
 
@@ -130,7 +130,7 @@ def pysmt_to_smt2(solver: PysmtSolver) -> str:
         elif formula.is_symbol():
             return str(formula)
         else:
-            raise ValueError(f"PolyHorn does not support '{op_to_str(formula.node_type())}' operator in (sub-)formula {formula}")
+            raise ValueError(f"PolyQEnt does not support '{op_to_str(formula.node_type())}' operator in (sub-)formula {formula}")
     
     constraints = []
     for formula in solver.assertions:
@@ -147,12 +147,12 @@ def pysmt_to_smt2(solver: PysmtSolver) -> str:
 
 def execute(formula: Union[str, PysmtSolver], config: Union[str, dict]) -> Tuple[str, dict]:
     """
-    Execute PolyHorn on the formula with the given configuration
+    Execute PolyQEnt on the formula with the given configuration
     
     Parameters
     ----------
     formula : Union[str, pysmt.solvers.solver.Solver]
-        The formula to execute PolyHorn on. Either a string to a `.smt2` file
+        The formula to execute PolyQEnt on. Either a string to a `.smt2` file
         or a pysmt.Solver object with the constraints already added
     config : Union[str, dict]
         The path to the config file or the parsed config file
@@ -186,7 +186,7 @@ def execute(formula: Union[str, PysmtSolver], config: Union[str, dict]) -> Tuple
 
 def execute_smt2(smt2: str, config_path: str) -> Tuple[str, dict]:
     """
-    Execute PolyHorn on the smt2 system
+    Execute PolyQEnt on the smt2 system
 
     Parameters
     ----------
@@ -208,7 +208,7 @@ def execute_smt2(smt2: str, config_path: str) -> Tuple[str, dict]:
 
 def execute_readable(readable: str, config_path: str) -> Tuple[str, dict]:
     """
-    Execute PolyHorn on the readable system
+    Execute PolyQEnt on the readable system
 
     Parameters
     ----------
@@ -230,7 +230,7 @@ def execute_readable(readable: str, config_path: str) -> Tuple[str, dict]:
 
 def __execute(config: dict, input: str, parser_method: Callable) -> Tuple[str, dict]:
     """
-    Execute PolyHorn on the input system
+    Execute PolyQEnt on the input system
 
     Parameters
     ----------
@@ -263,7 +263,7 @@ def __execute(config: dict, input: str, parser_method: Callable) -> Tuple[str, d
     try:
         if "output_path" not in config:
             output_path_exists = False
-            config["output_path"] = './POLYHORN_delme_' + str(uuid.uuid4()) + ''.join(
+            config["output_path"] = './POLYQENT_delme_' + str(uuid.uuid4()) + ''.join(
                 random.choices(string.ascii_uppercase + string.digits, k=9))
             with open(config["output_path"], 'x') as file:
                 file.write("")

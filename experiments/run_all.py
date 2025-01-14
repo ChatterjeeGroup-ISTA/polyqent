@@ -10,13 +10,13 @@ AST = ["cost-analysis-table-3", "higher-moment-tail-prob"]
 RevTerm = ["all", "best_config"]
 
 def run_polyqent(benchmark, config, output):
-    print(f"./PolyHorn experiments/{benchmark} experiments/{config}")
+    print(f"./PolyQEnt experiments/{benchmark} experiments/{config}")
     
     os.chdir("..")
     os.makedirs("work/",exist_ok=True)
     os.makedirs(Path(output).parent.absolute(),exist_ok=True)
 
-    subprocess.run(f"timeout 180 ./PolyHorn experiments/{benchmark} experiments/{config} > {output}", shell=True)
+    subprocess.run(f"timeout 180 ./PolyQEnt experiments/{benchmark} experiments/{config} > {output}", shell=True)
 
     os.chdir("experiments/")
 

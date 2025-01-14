@@ -43,13 +43,13 @@ where `[polyqent]` is the directory where PolyQEnt is cloned.
 To run PolyQEnt on `input-example.smt2` the following command should be executed:
 
 ```
-./PolyHorn input-example.smt2
+./PolyQEnt input-example.smt2
 ```
 
 To run PolyQEnt on `input-example.smt2` with `config-example.json` the following command should be executed:
 
 ```
-./PolyHorn input-example.smt2 config-example.json
+./PolyQEnt input-example.smt2 config-example.json
 ```
 
 Alternatively, you can directly run PolyQEnt's main python source file as follows:

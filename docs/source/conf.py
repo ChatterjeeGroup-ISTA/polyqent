@@ -10,7 +10,7 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath('../'))
 
-project = 'PolyHorn'
+project = 'PolyQEnt'
 copyright = '2024, Krishnendu Chatterjee, Amir Kafshdar Goharshady, Ehsan Kafshdar Goharshady, Mehrdad Karrabi, Milad Saadat, Maximilian Seeliger, Djordje Zikelic'
 author = 'Krishnendu Chatterjee, Amir Kafshdar Goharshady, Ehsan Kafshdar Goharshady, Mehrdad Karrabi, Milad Saadat, Maximilian Seeliger, Djordje Zikelic'
 release = '0.0.5'
@@ -34,7 +34,7 @@ html_theme = 'sphinx_rtd_theme'
 html_context = {
     'display_github': True,
     'github_user': 'ChatterjeeGroup-ISTA',
-    'github_repo': 'PolyHorn',
+    'github_repo': 'PolyQEnt',
     'github_version': 'main/',
     'conf_py_path': 'docs/source/',
 }
