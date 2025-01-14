@@ -1,7 +1,7 @@
 Convertor module
 =========================
 
-.. automodule:: polyhorn.Convertor
+.. automodule:: polyqent.Convertor
    :members:
    :undoc-members:
    :show-inheritance:

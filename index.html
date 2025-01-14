@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PolyHorn &mdash; PolyHorn 0.0.5 documentation</title>
+  <title>PolyQEnt &mdash; PolyHorn 0.0.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
@@ -18,8 +18,7 @@
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Main module" href="polyhorn.main.html" /> 
+    <link rel="search" title="Search" href="search.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -41,24 +40,7 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">PolyHorn API</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.main.html">Main module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Coefficient.html">Coefficient module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Constant.html">Constant module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Constraint.html">Constraint module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Convertor.html">Convertor module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.DNF.html">DNF module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Farkas.html">Farkas module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Handelman.html">Handelman module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Parser.html">Parser module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Polynomial.html">Polynomial module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.PositiveModel.html">PositiveModel module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Putinar.html">Putinar module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Solver.html">Solver module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.UnknownVariable.html">UnknownVariable module</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Indices and tables</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Indices and tables</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="genindex.html">Index</a></li>
 </ul>
@@ -77,7 +59,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">PolyHorn</li>
+      <li class="breadcrumb-item active">PolyQEnt</li>
       <li class="wy-breadcrumbs-aside">
               <a href="https://github.com/ChatterjeeGroup-ISTA/PolyHorn/blob/main/docs/source/index.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
@@ -87,353 +69,9 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="polyhorn">
-<h1>PolyHorn<a class="headerlink" href="#polyhorn" title="Link to this heading"></a></h1>
-<p>PolyHorn is a solver for Polynomial Constrained Horn Clauses (PHC).</p>
-<p>Given an input PHC in SMT-LIB format and a config file, PolyHorn tried
-to find a valuation of the unknown variables in the input such that all
-the PHCs are satisfied.</p>
-<section id="getting-started">
-<h2>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading"></a></h2>
-<p>PolyHorn is written in Python and can be run as a standalone tool or as
-a Python library. Either way, the input to PolyHorn is an SMT-LIB
-instance containing the PHC and a config file specifying the theorem
-and solver to be used.</p>
-<p>The tool is tested for Python &gt;=3.9 and requires the installation of: -
-<code class="docutils literal notranslate"><span class="pre">Z3</span></code> many package managers provide Z3 as a package. For example, in
-Ubuntu, Z3 can be installed using <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">z3</span></code>.
-Otherwise, you can find more information
-<a class="reference external" href="https://github.com/Z3Prover/z3">here</a> - <code class="docutils literal notranslate"><span class="pre">MathSAT</span></code> can be
-downloaded from <a class="reference external" href="http://mathsat.fbk.eu/download.html">here</a>. - GNU C
-library <code class="docutils literal notranslate"><span class="pre">glibc</span></code> and Gnu Multiprecision Library <code class="docutils literal notranslate"><span class="pre">GMP</span></code> are also
-required</p>
-<p>Next, we can install the package using the following command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>polyhorn
-</pre></div>
-</div>
-</section>
-<section id="standalone-tool">
-<h2>Standalone tool<a class="headerlink" href="#standalone-tool" title="Link to this heading"></a></h2>
-<p>When using the tool via the commandline right from the repository, you
-can use the accompanying solvers from the subfolder <code class="docutils literal notranslate"><span class="pre">solver/</span></code>. For
-this you do not require any installation, however, in order to run
-PolyHorn, Z3 and MathSAT, this following command should be executed
-first:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="n">PolyHorn</span> <span class="n">solver</span><span class="o">/</span><span class="n">z3</span> <span class="n">solver</span><span class="o">/</span><span class="n">mathsat</span>
-</pre></div>
-</div>
-<section id="running-polyhorn">
-<h3>Running PolyHorn<a class="headerlink" href="#running-polyhorn" title="Link to this heading"></a></h3>
-<p>To run PolyHorn on <code class="docutils literal notranslate"><span class="pre">input.smt2</span></code> with <code class="docutils literal notranslate"><span class="pre">config.json</span></code> the following
-command should be executed:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">PolyHorn</span> <span class="nb">input</span><span class="o">-</span><span class="n">example</span><span class="o">.</span><span class="n">smt2</span> <span class="n">config</span><span class="o">-</span><span class="n">example</span><span class="o">.</span><span class="n">json</span>
-</pre></div>
-</div>
-<p>Alternatively, the following command can be used to run PolyHorn using
-python directly:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="n">src</span><span class="o">/</span><span class="n">polyhorn</span><span class="o">/</span><span class="n">main</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">smt2</span> <span class="nb">input</span><span class="o">-</span><span class="n">example</span><span class="o">.</span><span class="n">smt2</span> <span class="o">--</span><span class="n">config</span> <span class="n">config</span><span class="o">-</span><span class="n">example</span><span class="o">.</span><span class="n">json</span>
-</pre></div>
-</div>
-</section>
-</section>
-<section id="api-access">
-<h2>API Access<a class="headerlink" href="#api-access" title="Link to this heading"></a></h2>
-<p>PolyHorn can be used as a Python library. The following code snippet
-shows how to use PolyHorn as a library after the whole installation
-process is completed.</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">polyhorn.main</span><span class="w"> </span><span class="kn">import</span> <span class="n">execute</span>
-
-<span class="n">input_file</span> <span class="o">=</span> <span class="s2">&quot;input-example.smt2&quot;</span>
-<span class="n">config_file</span> <span class="o">=</span> <span class="s2">&quot;config-example.json&quot;</span>
-
-<span class="n">is_sat</span><span class="p">,</span> <span class="n">model</span> <span class="o">=</span> <span class="n">execute</span><span class="p">(</span><span class="n">input_file</span><span class="p">,</span> <span class="n">config_file</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>The <code class="docutils literal notranslate"><span class="pre">execute</span></code> function allows for several different input
-combinations. The first argument can be the path to an <code class="docutils literal notranslate"><span class="pre">.smt2</span></code> input
-file or an instance os the <code class="docutils literal notranslate"><span class="pre">pysmt.solvers.solver.Solver</span></code> class with
-the assertions already added. The second argument can be the path to a
-<code class="docutils literal notranslate"><span class="pre">.json</span></code> config file or a dictionary with the configuration parameters.</p>
-<p>A further example of how to use PolyHorn as a library can be found in
-the <code class="docutils literal notranslate"><span class="pre">example_api.py</span></code> file.</p>
-</section>
-<section id="input-syntax">
-<h2>Input Syntax<a class="headerlink" href="#input-syntax" title="Link to this heading"></a></h2>
-<p>The input syntax of PolyHorn follows the SMTLIB syntax:</p>
-<ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">(declare-const</span> <span class="pre">[var</span> <span class="pre">name]</span> <span class="pre">Real)</span></code> is used for defining new unknown
-variables.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">(assert</span> <span class="pre">phi)</span></code> is used for adding either (i) a quantifier free
-constraint on the unknown variables, or (ii) a PHC of the following
-form:</p></li>
-</ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">assert</span> <span class="p">(</span><span class="n">forall</span> <span class="p">((</span><span class="n">variable</span> <span class="nb">type</span><span class="p">)</span> <span class="o">...</span> <span class="p">)</span> <span class="p">(</span><span class="o">=&gt;</span> <span class="n">phi</span> <span class="n">psi</span><span class="p">)</span> <span class="p">))</span>
-</pre></div>
-</div>
-<p>where <code class="docutils literal notranslate"><span class="pre">phi</span></code> and <code class="docutils literal notranslate"><span class="pre">psi</span></code> are polynomial predicates over the unknown
-variables and the variables defined in the <code class="docutils literal notranslate"><span class="pre">forall</span></code> fragment of the
-assertion. - the <code class="docutils literal notranslate"><span class="pre">(check-sat)</span></code> command at the end specifies that
-PolyHorn should run an SMT-solver after obtaining a fully existential
-system of polynomials. - the <code class="docutils literal notranslate"><span class="pre">(get-model)</span></code> command means that in case
-the SMT-solver returned <code class="docutils literal notranslate"><span class="pre">sat</span></code>, the values for unknown variables should
-be printed.</p>
-<p>See <code class="docutils literal notranslate"><span class="pre">input-example.smt2</span></code> as an example.</p>
-</section>
-<section id="config-files">
-<h2>Config files<a class="headerlink" href="#config-files" title="Link to this heading"></a></h2>
-<p>The config file must be in <code class="docutils literal notranslate"><span class="pre">.json</span></code> format containing the following
-fields: - <code class="docutils literal notranslate"><span class="pre">theorem_name</span></code> which is one of <code class="docutils literal notranslate"><span class="pre">&quot;farkas&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;handelman&quot;</span></code>
-or <code class="docutils literal notranslate"><span class="pre">&quot;putinar&quot;</span></code>. - <code class="docutils literal notranslate"><span class="pre">solver_name</span></code> which is one of <code class="docutils literal notranslate"><span class="pre">&quot;z3&quot;</span></code> or
-<code class="docutils literal notranslate"><span class="pre">&quot;mathsat&quot;</span></code>. - (optional) <code class="docutils literal notranslate"><span class="pre">output_path</span></code> which should be the path to
-a file where PolyHorn will store the obtained polynomial system. If not
-set, PolyHorn will create a temporary file for it and will delete it in
-the end of execution. - (optional) <code class="docutils literal notranslate"><span class="pre">int_value</span></code> which is assigned
-<code class="docutils literal notranslate"><span class="pre">false</span></code> or <code class="docutils literal notranslate"><span class="pre">true</span></code>. When <code class="docutils literal notranslate"><span class="pre">true</span></code>, PolyHorn tries to find integer
-values for unknown variables. - In case <code class="docutils literal notranslate"><span class="pre">handelman</span></code> is chosen for
-<code class="docutils literal notranslate"><span class="pre">theorem_name</span></code>, an additional integer parameter <code class="docutils literal notranslate"><span class="pre">degree_of_sat</span></code>
-should be specified. This is the only parameter required by Handelman’s
-Positivestellensatz. See [1] appendix E for more details. - In case
-<code class="docutils literal notranslate"><span class="pre">putinar</span></code> is chosen for <code class="docutils literal notranslate"><span class="pre">theorem_name</span></code>, four parameters should be
-specified in the config file: (i) <code class="docutils literal notranslate"><span class="pre">degree_of_sat</span></code> the degree of SOS
-polynomials considered when the LHS of PHC are assumed satisfying,
-(ii) <code class="docutils literal notranslate"><span class="pre">degree_of_nonstrict_unsat</span></code>, (iii) <code class="docutils literal notranslate"><span class="pre">degree_of_strict_unsat</span></code> and
-(iv) <code class="docutils literal notranslate"><span class="pre">max_d_of_strict</span></code>, for the remaining three degree parameters of
-Putinar’s positivestellensatz. The names are self-explanatory and the
-details can be found in [1] section 3. - <code class="docutils literal notranslate"><span class="pre">SAT_heuristic</span></code> which should
-be set to <code class="docutils literal notranslate"><span class="pre">true</span></code> if the <code class="docutils literal notranslate"><span class="pre">Assume-SAT</span></code> heuristic should be used. -
-<code class="docutils literal notranslate"><span class="pre">unsat_core_heuristic</span></code> which should be set to <code class="docutils literal notranslate"><span class="pre">true</span></code> if the
-<code class="docutils literal notranslate"><span class="pre">UNSAT</span> <span class="pre">Core</span></code> heuristic should be used.</p>
-<p>The default value is 0 for all integer parameters and <code class="docutils literal notranslate"><span class="pre">false</span></code> for all
-boolean parameters.</p>
-<p>See <code class="docutils literal notranslate"><span class="pre">config-example.json</span></code> as an example.</p>
-<p>[1] Polynomial Reachability Witnesses via Stellensätze. Asadi et.
-al. PLDI 2021.</p>
-</section>
-<section id="citing">
-<h2>Citing<a class="headerlink" href="#citing" title="Link to this heading"></a></h2>
-<div class="line-block">
-<div class="line">If you want to cite PolyHorn, please use the following reference:</div>
-<div class="line">K. Chatterjee, A. K. Goharshady, E. K. Goharshady, M. Karrabi, M.
-Saadat, D. Zikelic</div>
-<div class="line">PolyHorn: A Polynomial Horn Clause Solver</div>
-<div class="line">arXiv 2024, [<a class="reference external" href="https://arxiv.org/abs/2408.03796">https://arxiv.org/abs/2408.03796</a>]</div>
-</div>
+  <section id="polyqent">
+<h1>PolyQEnt<a class="headerlink" href="#polyqent" title="Link to this heading"></a></h1>
 <div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">PolyHorn API</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.main.html">Main module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="polyhorn.main.html#polyhorn.main.add_default_config"><code class="docutils literal notranslate"><span class="pre">add_default_config()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="polyhorn.main.html#polyhorn.main.execute"><code class="docutils literal notranslate"><span class="pre">execute()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="polyhorn.main.html#polyhorn.main.execute_readable"><code class="docutils literal notranslate"><span class="pre">execute_readable()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="polyhorn.main.html#polyhorn.main.execute_smt2"><code class="docutils literal notranslate"><span class="pre">execute_smt2()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="polyhorn.main.html#polyhorn.main.load_config"><code class="docutils literal notranslate"><span class="pre">load_config()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="polyhorn.main.html#polyhorn.main.pysmt_to_smt2"><code class="docutils literal notranslate"><span class="pre">pysmt_to_smt2()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Coefficient.html">Coefficient module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="polyhorn.Coefficient.html#polyhorn.Coefficient.Coefficient"><code class="docutils literal notranslate"><span class="pre">Coefficient</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Coefficient.html#polyhorn.Coefficient.Coefficient.elements"><code class="docutils literal notranslate"><span class="pre">Coefficient.elements</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Coefficient.html#polyhorn.Coefficient.Coefficient.convert_to_preorder"><code class="docutils literal notranslate"><span class="pre">Coefficient.convert_to_preorder()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Coefficient.html#polyhorn.Coefficient.Coefficient.revise"><code class="docutils literal notranslate"><span class="pre">Coefficient.revise()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="polyhorn.Coefficient.html#polyhorn.Coefficient.Element"><code class="docutils literal notranslate"><span class="pre">Element</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Coefficient.html#polyhorn.Coefficient.Element.constant"><code class="docutils literal notranslate"><span class="pre">Element.constant</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Coefficient.html#polyhorn.Coefficient.Element.variables"><code class="docutils literal notranslate"><span class="pre">Element.variables</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Coefficient.html#polyhorn.Coefficient.Element.convert_to_preorder"><code class="docutils literal notranslate"><span class="pre">Element.convert_to_preorder()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Constant.html">Constant module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="polyhorn.Constant.html#polyhorn.Constant.AvailabilityDict"><code class="docutils literal notranslate"><span class="pre">AvailabilityDict</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Constant.html#polyhorn.Constant.AvailabilityDict.available"><code class="docutils literal notranslate"><span class="pre">AvailabilityDict.available()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="polyhorn.Constant.html#polyhorn.Constant.Constant"><code class="docutils literal notranslate"><span class="pre">Constant</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Constant.html#polyhorn.Constant.Constant.command"><code class="docutils literal notranslate"><span class="pre">Constant.command</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Constant.html#polyhorn.Constant.Constant.default_path"><code class="docutils literal notranslate"><span class="pre">Constant.default_path</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Constant.html#polyhorn.Constant.Constant.options"><code class="docutils literal notranslate"><span class="pre">Constant.options</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="polyhorn.Constant.html#polyhorn.Constant.Theorem"><code class="docutils literal notranslate"><span class="pre">Theorem</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Constant.html#polyhorn.Constant.Theorem.FARKAS"><code class="docutils literal notranslate"><span class="pre">Theorem.FARKAS</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Constant.html#polyhorn.Constant.Theorem.HANDELMAN"><code class="docutils literal notranslate"><span class="pre">Theorem.HANDELMAN</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Constant.html#polyhorn.Constant.Theorem.PUTINAR"><code class="docutils literal notranslate"><span class="pre">Theorem.PUTINAR</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Constraint.html">Constraint module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="polyhorn.Constraint.html#polyhorn.Constraint.CoefficientConstraint"><code class="docutils literal notranslate"><span class="pre">CoefficientConstraint</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Constraint.html#polyhorn.Constraint.CoefficientConstraint.coefficient"><code class="docutils literal notranslate"><span class="pre">CoefficientConstraint.coefficient</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Constraint.html#polyhorn.Constraint.CoefficientConstraint.sign"><code class="docutils literal notranslate"><span class="pre">CoefficientConstraint.sign</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Constraint.html#polyhorn.Constraint.CoefficientConstraint.convert_to_preorder"><code class="docutils literal notranslate"><span class="pre">CoefficientConstraint.convert_to_preorder()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Constraint.html#polyhorn.Constraint.CoefficientConstraint.is_equality"><code class="docutils literal notranslate"><span class="pre">CoefficientConstraint.is_equality()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Constraint.html#polyhorn.Constraint.CoefficientConstraint.is_strict"><code class="docutils literal notranslate"><span class="pre">CoefficientConstraint.is_strict()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="polyhorn.Constraint.html#polyhorn.Constraint.PolynomialConstraint"><code class="docutils literal notranslate"><span class="pre">PolynomialConstraint</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Constraint.html#polyhorn.Constraint.PolynomialConstraint.polynomial"><code class="docutils literal notranslate"><span class="pre">PolynomialConstraint.polynomial</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Constraint.html#polyhorn.Constraint.PolynomialConstraint.sign"><code class="docutils literal notranslate"><span class="pre">PolynomialConstraint.sign</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Constraint.html#polyhorn.Constraint.PolynomialConstraint.convert_to_preorder"><code class="docutils literal notranslate"><span class="pre">PolynomialConstraint.convert_to_preorder()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Constraint.html#polyhorn.Constraint.PolynomialConstraint.is_strict"><code class="docutils literal notranslate"><span class="pre">PolynomialConstraint.is_strict()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Convertor.html">Convertor module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="polyhorn.Convertor.html#polyhorn.Convertor.convert_general_string_to_poly"><code class="docutils literal notranslate"><span class="pre">convert_general_string_to_poly()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="polyhorn.Convertor.html#polyhorn.Convertor.convert_to_desired_poly"><code class="docutils literal notranslate"><span class="pre">convert_to_desired_poly()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="polyhorn.Convertor.html#polyhorn.Convertor.find_index_of_variable"><code class="docutils literal notranslate"><span class="pre">find_index_of_variable()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="polyhorn.Convertor.html#polyhorn.Convertor.traverse"><code class="docutils literal notranslate"><span class="pre">traverse()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.DNF.html">DNF module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="polyhorn.DNF.html#polyhorn.DNF.DNF"><code class="docutils literal notranslate"><span class="pre">DNF</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.DNF.html#polyhorn.DNF.DNF.literals"><code class="docutils literal notranslate"><span class="pre">DNF.literals</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.DNF.html#polyhorn.DNF.DNF.convert_to_preorder"><code class="docutils literal notranslate"><span class="pre">DNF.convert_to_preorder()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Farkas.html">Farkas module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="polyhorn.Farkas.html#polyhorn.Farkas.Farkas"><code class="docutils literal notranslate"><span class="pre">Farkas</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Farkas.html#polyhorn.Farkas.Farkas.variables"><code class="docutils literal notranslate"><span class="pre">Farkas.variables</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Farkas.html#polyhorn.Farkas.Farkas.LHS"><code class="docutils literal notranslate"><span class="pre">Farkas.LHS</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Farkas.html#polyhorn.Farkas.Farkas.RHS"><code class="docutils literal notranslate"><span class="pre">Farkas.RHS</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Farkas.html#polyhorn.Farkas.Farkas.get_SAT_constraint"><code class="docutils literal notranslate"><span class="pre">Farkas.get_SAT_constraint()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Farkas.html#polyhorn.Farkas.Farkas.get_UNSAT_constraint"><code class="docutils literal notranslate"><span class="pre">Farkas.get_UNSAT_constraint()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Farkas.html#polyhorn.Farkas.Farkas.get_poly_sum"><code class="docutils literal notranslate"><span class="pre">Farkas.get_poly_sum()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Handelman.html">Handelman module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="polyhorn.Handelman.html#polyhorn.Handelman.Handelman"><code class="docutils literal notranslate"><span class="pre">Handelman</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Handelman.html#polyhorn.Handelman.Handelman.variables"><code class="docutils literal notranslate"><span class="pre">Handelman.variables</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Handelman.html#polyhorn.Handelman.Handelman.LHS"><code class="docutils literal notranslate"><span class="pre">Handelman.LHS</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Handelman.html#polyhorn.Handelman.Handelman.RHS"><code class="docutils literal notranslate"><span class="pre">Handelman.RHS</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Handelman.html#polyhorn.Handelman.Handelman.max_d_for_sat"><code class="docutils literal notranslate"><span class="pre">Handelman.max_d_for_sat</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Handelman.html#polyhorn.Handelman.Handelman.max_d_for_unsat"><code class="docutils literal notranslate"><span class="pre">Handelman.max_d_for_unsat</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Handelman.html#polyhorn.Handelman.Handelman.get_SAT_constraint"><code class="docutils literal notranslate"><span class="pre">Handelman.get_SAT_constraint()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Handelman.html#polyhorn.Handelman.Handelman.get_UNSAT_constraint"><code class="docutils literal notranslate"><span class="pre">Handelman.get_UNSAT_constraint()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Handelman.html#polyhorn.Handelman.Handelman.get_lists_with_fixed_len"><code class="docutils literal notranslate"><span class="pre">Handelman.get_lists_with_fixed_len()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Handelman.html#polyhorn.Handelman.Handelman.get_monoids"><code class="docutils literal notranslate"><span class="pre">Handelman.get_monoids()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Handelman.html#polyhorn.Handelman.Handelman.get_poly_sum"><code class="docutils literal notranslate"><span class="pre">Handelman.get_poly_sum()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Parser.html">Parser module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="polyhorn.Parser.html#polyhorn.Parser.Parser"><code class="docutils literal notranslate"><span class="pre">Parser</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Parser.html#polyhorn.Parser.Parser.model"><code class="docutils literal notranslate"><span class="pre">Parser.model</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Parser.html#polyhorn.Parser.Parser.parse_readable_file"><code class="docutils literal notranslate"><span class="pre">Parser.parse_readable_file()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Parser.html#polyhorn.Parser.Parser.parse_smt_file"><code class="docutils literal notranslate"><span class="pre">Parser.parse_smt_file()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Parser.html#polyhorn.Parser.Parser.traverse_readable_tree"><code class="docutils literal notranslate"><span class="pre">Parser.traverse_readable_tree()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Parser.html#polyhorn.Parser.Parser.traverse_smt_tree"><code class="docutils literal notranslate"><span class="pre">Parser.traverse_smt_tree()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Polynomial.html">Polynomial module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="polyhorn.Polynomial.html#polyhorn.Polynomial.Monomial"><code class="docutils literal notranslate"><span class="pre">Monomial</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Polynomial.html#polyhorn.Polynomial.Monomial.variables"><code class="docutils literal notranslate"><span class="pre">Monomial.variables</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Polynomial.html#polyhorn.Polynomial.Monomial.degrees"><code class="docutils literal notranslate"><span class="pre">Monomial.degrees</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Polynomial.html#polyhorn.Polynomial.Monomial.coefficient"><code class="docutils literal notranslate"><span class="pre">Monomial.coefficient</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Polynomial.html#polyhorn.Polynomial.Monomial.convert_to_preorder"><code class="docutils literal notranslate"><span class="pre">Monomial.convert_to_preorder()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Polynomial.html#polyhorn.Polynomial.Monomial.get_deg"><code class="docutils literal notranslate"><span class="pre">Monomial.get_deg()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Polynomial.html#polyhorn.Polynomial.Monomial.is_mono"><code class="docutils literal notranslate"><span class="pre">Monomial.is_mono()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="polyhorn.Polynomial.html#polyhorn.Polynomial.Polynomial"><code class="docutils literal notranslate"><span class="pre">Polynomial</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Polynomial.html#polyhorn.Polynomial.Polynomial.variables"><code class="docutils literal notranslate"><span class="pre">Polynomial.variables</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Polynomial.html#polyhorn.Polynomial.Polynomial.monomials"><code class="docutils literal notranslate"><span class="pre">Polynomial.monomials</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Polynomial.html#polyhorn.Polynomial.Polynomial.dict_from_degrees_to_monomials"><code class="docutils literal notranslate"><span class="pre">Polynomial.dict_from_degrees_to_monomials</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Polynomial.html#polyhorn.Polynomial.Polynomial.add_variables"><code class="docutils literal notranslate"><span class="pre">Polynomial.add_variables()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Polynomial.html#polyhorn.Polynomial.Polynomial.convert_to_preorder"><code class="docutils literal notranslate"><span class="pre">Polynomial.convert_to_preorder()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Polynomial.html#polyhorn.Polynomial.Polynomial.get_deg"><code class="docutils literal notranslate"><span class="pre">Polynomial.get_deg()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Polynomial.html#polyhorn.Polynomial.Polynomial.get_monomial_by_degree"><code class="docutils literal notranslate"><span class="pre">Polynomial.get_monomial_by_degree()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Polynomial.html#polyhorn.Polynomial.Polynomial.is_linear"><code class="docutils literal notranslate"><span class="pre">Polynomial.is_linear()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Polynomial.html#polyhorn.Polynomial.Polynomial.revise"><code class="docutils literal notranslate"><span class="pre">Polynomial.revise()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.PositiveModel.html">PositiveModel module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="polyhorn.PositiveModel.html#polyhorn.PositiveModel.PositiveModel"><code class="docutils literal notranslate"><span class="pre">PositiveModel</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.PositiveModel.html#polyhorn.PositiveModel.PositiveModel.paired_constraint"><code class="docutils literal notranslate"><span class="pre">PositiveModel.paired_constraint</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.PositiveModel.html#polyhorn.PositiveModel.PositiveModel.template_variables"><code class="docutils literal notranslate"><span class="pre">PositiveModel.template_variables</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.PositiveModel.html#polyhorn.PositiveModel.PositiveModel.program_variables"><code class="docutils literal notranslate"><span class="pre">PositiveModel.program_variables</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.PositiveModel.html#polyhorn.PositiveModel.PositiveModel.theorem_name"><code class="docutils literal notranslate"><span class="pre">PositiveModel.theorem_name</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.PositiveModel.html#polyhorn.PositiveModel.PositiveModel.get_SAT"><code class="docutils literal notranslate"><span class="pre">PositiveModel.get_SAT</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.PositiveModel.html#polyhorn.PositiveModel.PositiveModel.get_UNSAT"><code class="docutils literal notranslate"><span class="pre">PositiveModel.get_UNSAT</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.PositiveModel.html#polyhorn.PositiveModel.PositiveModel.get_strict"><code class="docutils literal notranslate"><span class="pre">PositiveModel.get_strict</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.PositiveModel.html#polyhorn.PositiveModel.PositiveModel.degree_of_sat"><code class="docutils literal notranslate"><span class="pre">PositiveModel.degree_of_sat</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.PositiveModel.html#polyhorn.PositiveModel.PositiveModel.degree_of_nonstrict_unsat"><code class="docutils literal notranslate"><span class="pre">PositiveModel.degree_of_nonstrict_unsat</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.PositiveModel.html#polyhorn.PositiveModel.PositiveModel.degree_of_strict_unsat"><code class="docutils literal notranslate"><span class="pre">PositiveModel.degree_of_strict_unsat</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.PositiveModel.html#polyhorn.PositiveModel.PositiveModel.max_d_of_strict"><code class="docutils literal notranslate"><span class="pre">PositiveModel.max_d_of_strict</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.PositiveModel.html#polyhorn.PositiveModel.PositiveModel.preconditions"><code class="docutils literal notranslate"><span class="pre">PositiveModel.preconditions</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.PositiveModel.html#polyhorn.PositiveModel.PositiveModel.instructions"><code class="docutils literal notranslate"><span class="pre">PositiveModel.instructions</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.PositiveModel.html#polyhorn.PositiveModel.PositiveModel.add_paired_constraint"><code class="docutils literal notranslate"><span class="pre">PositiveModel.add_paired_constraint()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.PositiveModel.html#polyhorn.PositiveModel.PositiveModel.core_iteration"><code class="docutils literal notranslate"><span class="pre">PositiveModel.core_iteration()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.PositiveModel.html#polyhorn.PositiveModel.PositiveModel.create_smt_file"><code class="docutils literal notranslate"><span class="pre">PositiveModel.create_smt_file()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.PositiveModel.html#polyhorn.PositiveModel.PositiveModel.get_equality_constraint"><code class="docutils literal notranslate"><span class="pre">PositiveModel.get_equality_constraint()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.PositiveModel.html#polyhorn.PositiveModel.PositiveModel.get_generated_constraints"><code class="docutils literal notranslate"><span class="pre">PositiveModel.get_generated_constraints()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.PositiveModel.html#polyhorn.PositiveModel.PositiveModel.get_polynomial"><code class="docutils literal notranslate"><span class="pre">PositiveModel.get_polynomial()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.PositiveModel.html#polyhorn.PositiveModel.PositiveModel.remove_equality_constraints"><code class="docutils literal notranslate"><span class="pre">PositiveModel.remove_equality_constraints()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.PositiveModel.html#polyhorn.PositiveModel.PositiveModel.run_on_solver"><code class="docutils literal notranslate"><span class="pre">PositiveModel.run_on_solver()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Putinar.html">Putinar module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="polyhorn.Putinar.html#polyhorn.Putinar.Putinar"><code class="docutils literal notranslate"><span class="pre">Putinar</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Putinar.html#polyhorn.Putinar.Putinar.variables"><code class="docutils literal notranslate"><span class="pre">Putinar.variables</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Putinar.html#polyhorn.Putinar.Putinar.LHS"><code class="docutils literal notranslate"><span class="pre">Putinar.LHS</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Putinar.html#polyhorn.Putinar.Putinar.RHS"><code class="docutils literal notranslate"><span class="pre">Putinar.RHS</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Putinar.html#polyhorn.Putinar.Putinar.max_d_for_sat"><code class="docutils literal notranslate"><span class="pre">Putinar.max_d_for_sat</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Putinar.html#polyhorn.Putinar.Putinar.max_d_for_unsat"><code class="docutils literal notranslate"><span class="pre">Putinar.max_d_for_unsat</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Putinar.html#polyhorn.Putinar.Putinar.max_d_for_unsat_strict"><code class="docutils literal notranslate"><span class="pre">Putinar.max_d_for_unsat_strict</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Putinar.html#polyhorn.Putinar.Putinar.degree_for_new_var"><code class="docutils literal notranslate"><span class="pre">Putinar.degree_for_new_var</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Putinar.html#polyhorn.Putinar.Putinar.get_SAT_constraint"><code class="docutils literal notranslate"><span class="pre">Putinar.get_SAT_constraint()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Putinar.html#polyhorn.Putinar.Putinar.get_UNSAT_constraint"><code class="docutils literal notranslate"><span class="pre">Putinar.get_UNSAT_constraint()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Putinar.html#polyhorn.Putinar.Putinar.get_general_template"><code class="docutils literal notranslate"><span class="pre">Putinar.get_general_template()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Putinar.html#polyhorn.Putinar.Putinar.get_lower_triangular_matrix"><code class="docutils literal notranslate"><span class="pre">Putinar.get_lower_triangular_matrix()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Putinar.html#polyhorn.Putinar.Putinar.get_monoids"><code class="docutils literal notranslate"><span class="pre">Putinar.get_monoids()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Putinar.html#polyhorn.Putinar.Putinar.get_poly_sum"><code class="docutils literal notranslate"><span class="pre">Putinar.get_poly_sum()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Putinar.html#polyhorn.Putinar.Putinar.get_sum_of_square"><code class="docutils literal notranslate"><span class="pre">Putinar.get_sum_of_square()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Putinar.html#polyhorn.Putinar.Putinar.handel_strict"><code class="docutils literal notranslate"><span class="pre">Putinar.handel_strict()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Solver.html">Solver module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="polyhorn.Solver.html#polyhorn.Solver.Solver"><code class="docutils literal notranslate"><span class="pre">Solver</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Solver.html#polyhorn.Solver.Solver.convert_constraints_to_smt_format"><code class="docutils literal notranslate"><span class="pre">Solver.convert_constraints_to_smt_format()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Solver.html#polyhorn.Solver.Solver.find_equality_constraint"><code class="docutils literal notranslate"><span class="pre">Solver.find_equality_constraint()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Solver.html#polyhorn.Solver.Solver.get_all_variable"><code class="docutils literal notranslate"><span class="pre">Solver.get_all_variable()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Solver.html#polyhorn.Solver.Solver.get_constant_polynomial"><code class="docutils literal notranslate"><span class="pre">Solver.get_constant_polynomial()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Solver.html#polyhorn.Solver.Solver.get_degree_polynomial"><code class="docutils literal notranslate"><span class="pre">Solver.get_degree_polynomial()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Solver.html#polyhorn.Solver.Solver.get_variable_polynomial"><code class="docutils literal notranslate"><span class="pre">Solver.get_variable_polynomial()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.Solver.html#polyhorn.Solver.Solver.smt_declare_variable_phase"><code class="docutils literal notranslate"><span class="pre">Solver.smt_declare_variable_phase()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.UnknownVariable.html">UnknownVariable module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="polyhorn.UnknownVariable.html#polyhorn.UnknownVariable.UnknownVariable"><code class="docutils literal notranslate"><span class="pre">UnknownVariable</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.UnknownVariable.html#polyhorn.UnknownVariable.UnknownVariable.id"><code class="docutils literal notranslate"><span class="pre">UnknownVariable.id</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.UnknownVariable.html#polyhorn.UnknownVariable.UnknownVariable.name"><code class="docutils literal notranslate"><span class="pre">UnknownVariable.name</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.UnknownVariable.html#polyhorn.UnknownVariable.UnknownVariable.type"><code class="docutils literal notranslate"><span class="pre">UnknownVariable.type</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.UnknownVariable.html#polyhorn.UnknownVariable.UnknownVariable.number_of_variables"><code class="docutils literal notranslate"><span class="pre">UnknownVariable.number_of_variables</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.UnknownVariable.html#polyhorn.UnknownVariable.UnknownVariable.convert_to_preorder"><code class="docutils literal notranslate"><span class="pre">UnknownVariable.convert_to_preorder()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="polyhorn.UnknownVariable.html#polyhorn.UnknownVariable.UnknownVariable.get_new_id"><code class="docutils literal notranslate"><span class="pre">UnknownVariable.get_new_id()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
 </div>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Indices and tables</span></p>
@@ -442,14 +80,11 @@ Saadat, D. Zikelic</div>
 </ul>
 </div>
 </section>
-</section>
 
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="polyhorn.main.html" class="btn btn-neutral float-right" title="Main module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
+          <footer>
 
   <hr/>
 

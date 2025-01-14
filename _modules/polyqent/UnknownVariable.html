@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>polyhorn.UnknownVariable &mdash; PolyHorn 0.0.5 documentation</title>
+  <title>polyqent.UnknownVariable &mdash; PolyHorn 0.0.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
 
@@ -39,24 +39,7 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">PolyHorn API</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.main.html">Main module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Coefficient.html">Coefficient module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Constant.html">Constant module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Constraint.html">Constraint module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Convertor.html">Convertor module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.DNF.html">DNF module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Farkas.html">Farkas module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Handelman.html">Handelman module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Parser.html">Parser module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Polynomial.html">Polynomial module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.PositiveModel.html">PositiveModel module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Putinar.html">Putinar module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Solver.html">Solver module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.UnknownVariable.html">UnknownVariable module</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Indices and tables</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Indices and tables</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../genindex.html">Index</a></li>
 </ul>
@@ -76,7 +59,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
-      <li class="breadcrumb-item active">polyhorn.UnknownVariable</li>
+      <li class="breadcrumb-item active">polyqent.UnknownVariable</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -85,11 +68,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for polyhorn.UnknownVariable</h1><div class="highlight"><pre>
+  <h1>Source code for polyqent.UnknownVariable</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
 <div class="viewcode-block" id="UnknownVariable">
-<a class="viewcode-back" href="../../polyhorn.UnknownVariable.html#polyhorn.UnknownVariable.UnknownVariable">[docs]</a>
+<a class="viewcode-back" href="../../polyhorn.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">UnknownVariable</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class represents a variable that is not known yet.</span>
@@ -116,7 +99,7 @@
     <span class="n">number_of_variables</span> <span class="o">=</span> <span class="mi">0</span>
 
 <div class="viewcode-block" id="UnknownVariable.get_new_id">
-<a class="viewcode-back" href="../../polyhorn.UnknownVariable.html#polyhorn.UnknownVariable.UnknownVariable.get_new_id">[docs]</a>
+<a class="viewcode-back" href="../../polyhorn.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable.get_new_id">[docs]</a>
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_new_id</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; </span>
@@ -195,7 +178,7 @@
         <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>
 
 <div class="viewcode-block" id="UnknownVariable.convert_to_preorder">
-<a class="viewcode-back" href="../../polyhorn.UnknownVariable.html#polyhorn.UnknownVariable.UnknownVariable.convert_to_preorder">[docs]</a>
+<a class="viewcode-back" href="../../polyhorn.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable.convert_to_preorder">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">convert_to_preorder</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Convert variables into preorder format of a fraction.</span>

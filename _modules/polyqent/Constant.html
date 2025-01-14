@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>polyhorn.Constant &mdash; PolyHorn 0.0.5 documentation</title>
+  <title>polyqent.Constant &mdash; PolyHorn 0.0.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
 
@@ -39,24 +39,7 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">PolyHorn API</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.main.html">Main module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Coefficient.html">Coefficient module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Constant.html">Constant module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Constraint.html">Constraint module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Convertor.html">Convertor module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.DNF.html">DNF module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Farkas.html">Farkas module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Handelman.html">Handelman module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Parser.html">Parser module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Polynomial.html">Polynomial module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.PositiveModel.html">PositiveModel module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Putinar.html">Putinar module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Solver.html">Solver module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.UnknownVariable.html">UnknownVariable module</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Indices and tables</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Indices and tables</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../genindex.html">Index</a></li>
 </ul>
@@ -76,7 +59,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
-      <li class="breadcrumb-item active">polyhorn.Constant</li>
+      <li class="breadcrumb-item active">polyqent.Constant</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -85,7 +68,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for polyhorn.Constant</h1><div class="highlight"><pre>
+  <h1>Source code for polyqent.Constant</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">shutil</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
@@ -95,7 +78,7 @@
 
 
 <div class="viewcode-block" id="Theorem">
-<a class="viewcode-back" href="../../polyhorn.Constant.html#polyhorn.Constant.Theorem">[docs]</a>
+<a class="viewcode-back" href="../../polyhorn.Constant.html#polyqent.Constant.Theorem">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Theorem</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Theorem is a class which is used to define the type of theorems that can be used in the solver.</span>
@@ -107,7 +90,7 @@
 
 
 <div class="viewcode-block" id="AvailabilityDict">
-<a class="viewcode-back" href="../../polyhorn.Constant.html#polyhorn.Constant.AvailabilityDict">[docs]</a>
+<a class="viewcode-back" href="../../polyhorn.Constant.html#polyqent.Constant.AvailabilityDict">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">AvailabilityDict</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    AvailabilityDict is a class which is used to define a dictionary that can</span>
@@ -154,7 +137,7 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
 <div class="viewcode-block" id="AvailabilityDict.available">
-<a class="viewcode-back" href="../../polyhorn.Constant.html#polyhorn.Constant.AvailabilityDict.available">[docs]</a>
+<a class="viewcode-back" href="../../polyhorn.Constant.html#polyqent.Constant.AvailabilityDict.available">[docs]</a>
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">available</span><span class="p">(</span><span class="n">item</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">shutil</span><span class="o">.</span><span class="n">which</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></div>
@@ -163,7 +146,7 @@
 
 
 <div class="viewcode-block" id="Constant">
-<a class="viewcode-back" href="../../polyhorn.Constant.html#polyhorn.Constant.Constant">[docs]</a>
+<a class="viewcode-back" href="../../polyhorn.Constant.html#polyqent.Constant.Constant">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Constant</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class consist of some constant dictionaries which are used for configuration of the solvers.</span>

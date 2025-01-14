@@ -18,9 +18,7 @@
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="DNF module" href="polyhorn.DNF.html" />
-    <link rel="prev" title="Constraint module" href="polyhorn.Constraint.html" /> 
+    <link rel="search" title="Search" href="search.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -42,30 +40,7 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">PolyHorn API</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.main.html">Main module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Coefficient.html">Coefficient module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Constant.html">Constant module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Constraint.html">Constraint module</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Convertor module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#polyhorn.Convertor.convert_general_string_to_poly"><code class="docutils literal notranslate"><span class="pre">convert_general_string_to_poly()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="#polyhorn.Convertor.convert_to_desired_poly"><code class="docutils literal notranslate"><span class="pre">convert_to_desired_poly()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="#polyhorn.Convertor.find_index_of_variable"><code class="docutils literal notranslate"><span class="pre">find_index_of_variable()</span></code></a></li>
-<li class="toctree-l2"><a class="reference internal" href="#polyhorn.Convertor.traverse"><code class="docutils literal notranslate"><span class="pre">traverse()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.DNF.html">DNF module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Farkas.html">Farkas module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Handelman.html">Handelman module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Parser.html">Parser module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Polynomial.html">Polynomial module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.PositiveModel.html">PositiveModel module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Putinar.html">Putinar module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Solver.html">Solver module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.UnknownVariable.html">UnknownVariable module</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Indices and tables</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Indices and tables</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="genindex.html">Index</a></li>
 </ul>
@@ -94,61 +69,61 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-polyhorn.Convertor">
-<span id="convertor-module"></span><h1>Convertor module<a class="headerlink" href="#module-polyhorn.Convertor" title="Link to this heading"></a></h1>
+  <section id="module-polyqent.Convertor">
+<span id="convertor-module"></span><h1>Convertor module<a class="headerlink" href="#module-polyqent.Convertor" title="Link to this heading"></a></h1>
 <dl class="py function">
-<dt class="sig sig-object py" id="polyhorn.Convertor.convert_general_string_to_poly">
-<span class="sig-prename descclassname"><span class="pre">polyhorn.Convertor.</span></span><span class="sig-name descname"><span class="pre">convert_general_string_to_poly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poly_text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_variables</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyhorn.UnknownVariable.html#polyhorn.UnknownVariable.UnknownVariable" title="polyhorn.UnknownVariable.UnknownVariable"><span class="pre">UnknownVariable</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">program_variables</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyhorn.UnknownVariable.html#polyhorn.UnknownVariable.UnknownVariable" title="polyhorn.UnknownVariable.UnknownVariable"><span class="pre">UnknownVariable</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="polyhorn.Polynomial.html#polyhorn.Polynomial.Polynomial" title="polyhorn.Polynomial.Polynomial"><span class="pre">Polynomial</span></a></span></span><a class="reference internal" href="_modules/polyhorn/Convertor.html#convert_general_string_to_poly"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyhorn.Convertor.convert_general_string_to_poly" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="polyqent.Convertor.convert_general_string_to_poly">
+<span class="sig-prename descclassname"><span class="pre">polyqent.Convertor.</span></span><span class="sig-name descname"><span class="pre">convert_general_string_to_poly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poly_text</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_variables</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyhorn.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable" title="polyqent.UnknownVariable.UnknownVariable"><span class="pre">UnknownVariable</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">program_variables</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyhorn.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable" title="polyqent.UnknownVariable.UnknownVariable"><span class="pre">UnknownVariable</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="polyhorn.Polynomial.html#polyqent.Polynomial.Polynomial" title="polyqent.Polynomial.Polynomial"><span class="pre">Polynomial</span></a></span></span><a class="reference internal" href="_modules/polyqent/Convertor.html#convert_general_string_to_poly"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.Convertor.convert_general_string_to_poly" title="Link to this definition"></a></dt>
 <dd><p>This function convert a string to Polynomial.</p>
 <p>It uses Lark to parse the string.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>poly_text</strong> (<em>str</em>) – Text that should be converted to the Polynomial.</p></li>
-<li><p><strong>all_variables</strong> (<em>List</em><em>[</em><a class="reference internal" href="polyhorn.UnknownVariable.html#polyhorn.UnknownVariable.UnknownVariable" title="polyhorn.UnknownVariable.UnknownVariable"><em>UnknownVariable</em></a><em>]</em>) – List of all variables in the text.</p></li>
-<li><p><strong>program_variables</strong> (<em>List</em><em>[</em><a class="reference internal" href="polyhorn.UnknownVariable.html#polyhorn.UnknownVariable.UnknownVariable" title="polyhorn.UnknownVariable.UnknownVariable"><em>UnknownVariable</em></a><em>]</em>) – List of program variables.</p></li>
+<li><p><strong>all_variables</strong> (<em>List</em><em>[</em><a class="reference internal" href="polyhorn.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable" title="polyqent.UnknownVariable.UnknownVariable"><em>UnknownVariable</em></a><em>]</em>) – List of all variables in the text.</p></li>
+<li><p><strong>program_variables</strong> (<em>List</em><em>[</em><a class="reference internal" href="polyhorn.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable" title="polyqent.UnknownVariable.UnknownVariable"><em>UnknownVariable</em></a><em>]</em>) – List of program variables.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Polynomial that the input string represents.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="polyhorn.Polynomial.html#polyhorn.Polynomial.Polynomial" title="polyhorn.Polynomial.Polynomial">Polynomial</a></p>
+<dd class="field-odd"><p><a class="reference internal" href="polyhorn.Polynomial.html#polyqent.Polynomial.Polynomial" title="polyqent.Polynomial.Polynomial">Polynomial</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="polyhorn.Convertor.convert_to_desired_poly">
-<span class="sig-prename descclassname"><span class="pre">polyhorn.Convertor.</span></span><span class="sig-name descname"><span class="pre">convert_to_desired_poly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poly</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polyhorn.Polynomial.html#polyhorn.Polynomial.Polynomial" title="polyhorn.Polynomial.Polynomial"><span class="pre">Polynomial</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">program_variables</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyhorn.UnknownVariable.html#polyhorn.UnknownVariable.UnknownVariable" title="polyhorn.UnknownVariable.UnknownVariable"><span class="pre">UnknownVariable</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="polyhorn.Polynomial.html#polyhorn.Polynomial.Polynomial" title="polyhorn.Polynomial.Polynomial"><span class="pre">Polynomial</span></a></span></span><a class="reference internal" href="_modules/polyhorn/Convertor.html#convert_to_desired_poly"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyhorn.Convertor.convert_to_desired_poly" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="polyqent.Convertor.convert_to_desired_poly">
+<span class="sig-prename descclassname"><span class="pre">polyqent.Convertor.</span></span><span class="sig-name descname"><span class="pre">convert_to_desired_poly</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poly</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polyhorn.Polynomial.html#polyqent.Polynomial.Polynomial" title="polyqent.Polynomial.Polynomial"><span class="pre">Polynomial</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">program_variables</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyhorn.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable" title="polyqent.UnknownVariable.UnknownVariable"><span class="pre">UnknownVariable</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="polyhorn.Polynomial.html#polyqent.Polynomial.Polynomial" title="polyqent.Polynomial.Polynomial"><span class="pre">Polynomial</span></a></span></span><a class="reference internal" href="_modules/polyqent/Convertor.html#convert_to_desired_poly"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.Convertor.convert_to_desired_poly" title="Link to this definition"></a></dt>
 <dd><p>This function separates program variables from template variables and puts
 template variables in Coefficient.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>poly</strong> (<a class="reference internal" href="polyhorn.Polynomial.html#polyhorn.Polynomial.Polynomial" title="polyhorn.Polynomial.Polynomial"><em>Polynomial</em></a>) – Polynomial that should be converted.</p></li>
-<li><p><strong>program_variables</strong> (<em>List</em><em>[</em><a class="reference internal" href="polyhorn.UnknownVariable.html#polyhorn.UnknownVariable.UnknownVariable" title="polyhorn.UnknownVariable.UnknownVariable"><em>UnknownVariable</em></a><em>]</em>) – List of program variables.</p></li>
+<li><p><strong>poly</strong> (<a class="reference internal" href="polyhorn.Polynomial.html#polyqent.Polynomial.Polynomial" title="polyqent.Polynomial.Polynomial"><em>Polynomial</em></a>) – Polynomial that should be converted.</p></li>
+<li><p><strong>program_variables</strong> (<em>List</em><em>[</em><a class="reference internal" href="polyhorn.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable" title="polyqent.UnknownVariable.UnknownVariable"><em>UnknownVariable</em></a><em>]</em>) – List of program variables.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Polynomial with separated program variables from template variables.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="polyhorn.Polynomial.html#polyhorn.Polynomial.Polynomial" title="polyhorn.Polynomial.Polynomial">Polynomial</a></p>
+<dd class="field-odd"><p><a class="reference internal" href="polyhorn.Polynomial.html#polyqent.Polynomial.Polynomial" title="polyqent.Polynomial.Polynomial">Polynomial</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="polyhorn.Convertor.find_index_of_variable">
-<span class="sig-prename descclassname"><span class="pre">polyhorn.Convertor.</span></span><span class="sig-name descname"><span class="pre">find_index_of_variable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_variable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyhorn.UnknownVariable.html#polyhorn.UnknownVariable.UnknownVariable" title="polyhorn.UnknownVariable.UnknownVariable"><span class="pre">UnknownVariable</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/polyhorn/Convertor.html#find_index_of_variable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyhorn.Convertor.find_index_of_variable" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="polyqent.Convertor.find_index_of_variable">
+<span class="sig-prename descclassname"><span class="pre">polyqent.Convertor.</span></span><span class="sig-name descname"><span class="pre">find_index_of_variable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_variable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyhorn.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable" title="polyqent.UnknownVariable.UnknownVariable"><span class="pre">UnknownVariable</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/polyqent/Convertor.html#find_index_of_variable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.Convertor.find_index_of_variable" title="Link to this definition"></a></dt>
 <dd><p>Find the index of a variable in the list of variables, given the name of
 the variable.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>name</strong> (<em>str</em>) – The name of the variable.</p></li>
-<li><p><strong>all_variable</strong> (<em>List</em><em>[</em><a class="reference internal" href="polyhorn.UnknownVariable.html#polyhorn.UnknownVariable.UnknownVariable" title="polyhorn.UnknownVariable.UnknownVariable"><em>UnknownVariable</em></a><em>]</em>) – List of all variables to search.</p></li>
+<li><p><strong>all_variable</strong> (<em>List</em><em>[</em><a class="reference internal" href="polyhorn.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable" title="polyqent.UnknownVariable.UnknownVariable"><em>UnknownVariable</em></a><em>]</em>) – List of all variables to search.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -161,21 +136,21 @@ the variable.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="polyhorn.Convertor.traverse">
-<span class="sig-prename descclassname"><span class="pre">polyhorn.Convertor.</span></span><span class="sig-name descname"><span class="pre">traverse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parse_tree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tree</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_variables</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyhorn.UnknownVariable.html#polyhorn.UnknownVariable.UnknownVariable" title="polyhorn.UnknownVariable.UnknownVariable"><span class="pre">UnknownVariable</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="polyhorn.Polynomial.html#polyhorn.Polynomial.Polynomial" title="polyhorn.Polynomial.Polynomial"><span class="pre">Polynomial</span></a></span></span><a class="reference internal" href="_modules/polyhorn/Convertor.html#traverse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyhorn.Convertor.traverse" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="polyqent.Convertor.traverse">
+<span class="sig-prename descclassname"><span class="pre">polyqent.Convertor.</span></span><span class="sig-name descname"><span class="pre">traverse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">parse_tree</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tree</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">all_variables</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyhorn.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable" title="polyqent.UnknownVariable.UnknownVariable"><span class="pre">UnknownVariable</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="polyhorn.Polynomial.html#polyqent.Polynomial.Polynomial" title="polyqent.Polynomial.Polynomial"><span class="pre">Polynomial</span></a></span></span><a class="reference internal" href="_modules/polyqent/Convertor.html#traverse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.Convertor.traverse" title="Link to this definition"></a></dt>
 <dd><p>This function traverse the parse tree generated by lark and return a Polynomial.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>parse_tree</strong> (<em>lark.Tree</em>) – A node in parse tree.(starting from root)</p></li>
-<li><p><strong>all_variables</strong> (<em>List</em><em>[</em><a class="reference internal" href="polyhorn.UnknownVariable.html#polyhorn.UnknownVariable.UnknownVariable" title="polyhorn.UnknownVariable.UnknownVariable"><em>UnknownVariable</em></a><em>]</em>) – List of variables in the polynomial.</p></li>
+<li><p><strong>all_variables</strong> (<em>List</em><em>[</em><a class="reference internal" href="polyhorn.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable" title="polyqent.UnknownVariable.UnknownVariable"><em>UnknownVariable</em></a><em>]</em>) – List of variables in the polynomial.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>Polynomial that the parse tree represents.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="polyhorn.Polynomial.html#polyhorn.Polynomial.Polynomial" title="polyhorn.Polynomial.Polynomial">Polynomial</a></p>
+<dd class="field-odd"><p><a class="reference internal" href="polyhorn.Polynomial.html#polyqent.Polynomial.Polynomial" title="polyqent.Polynomial.Polynomial">Polynomial</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -185,10 +160,7 @@ the variable.</p>
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="polyhorn.Constraint.html" class="btn btn-neutral float-left" title="Constraint module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="polyhorn.DNF.html" class="btn btn-neutral float-right" title="DNF module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
+          <footer>
 
   <hr/>
 

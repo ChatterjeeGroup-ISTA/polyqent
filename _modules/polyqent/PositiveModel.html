@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>polyhorn.PositiveModel &mdash; PolyHorn 0.0.5 documentation</title>
+  <title>polyqent.PositiveModel &mdash; PolyHorn 0.0.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
 
@@ -39,24 +39,7 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">PolyHorn API</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.main.html">Main module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Coefficient.html">Coefficient module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Constant.html">Constant module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Constraint.html">Constraint module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Convertor.html">Convertor module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.DNF.html">DNF module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Farkas.html">Farkas module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Handelman.html">Handelman module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Parser.html">Parser module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Polynomial.html">Polynomial module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.PositiveModel.html">PositiveModel module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Putinar.html">Putinar module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Solver.html">Solver module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.UnknownVariable.html">UnknownVariable module</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Indices and tables</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Indices and tables</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../genindex.html">Index</a></li>
 </ul>
@@ -76,7 +59,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
-      <li class="breadcrumb-item active">polyhorn.PositiveModel</li>
+      <li class="breadcrumb-item active">polyqent.PositiveModel</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -85,7 +68,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for polyhorn.PositiveModel</h1><div class="highlight"><pre>
+  <h1>Source code for polyqent.PositiveModel</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">subprocess</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
@@ -102,7 +85,7 @@
 
 
 <div class="viewcode-block" id="PositiveModel">
-<a class="viewcode-back" href="../../polyhorn.PositiveModel.html#polyhorn.PositiveModel.PositiveModel">[docs]</a>
+<a class="viewcode-back" href="../../polyhorn.PositiveModel.html#polyqent.PositiveModel.PositiveModel">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">PositiveModel</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class is the main class which gets some horn clause as input and find</span>
@@ -186,7 +169,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">instructions</span> <span class="o">=</span> <span class="p">[]</span>
 
 <div class="viewcode-block" id="PositiveModel.add_paired_constraint">
-<a class="viewcode-back" href="../../polyhorn.PositiveModel.html#polyhorn.PositiveModel.PositiveModel.add_paired_constraint">[docs]</a>
+<a class="viewcode-back" href="../../polyhorn.PositiveModel.html#polyqent.PositiveModel.PositiveModel.add_paired_constraint">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">add_paired_constraint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lhs</span><span class="p">:</span> <span class="n">DNF</span><span class="p">,</span> <span class="n">rhs</span><span class="p">:</span> <span class="n">DNF</span><span class="p">,</span> <span class="n">program_variables</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">UnknownVariable</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Add set of horn clause constraint for lhs =&gt; rhs</span>
@@ -228,7 +211,7 @@
         <span class="k">return</span> <span class="n">res</span>
 
 <div class="viewcode-block" id="PositiveModel.get_polynomial">
-<a class="viewcode-back" href="../../polyhorn.PositiveModel.html#polyhorn.PositiveModel.PositiveModel.get_polynomial">[docs]</a>
+<a class="viewcode-back" href="../../polyhorn.PositiveModel.html#polyqent.PositiveModel.PositiveModel.get_polynomial">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_polynomial</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">poly_str</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">program_variables</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">UnknownVariable</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Polynomial</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Generate a polynomial from a given string based on the template and</span>
@@ -251,7 +234,7 @@
 
 
 <div class="viewcode-block" id="PositiveModel.get_generated_constraints">
-<a class="viewcode-back" href="../../polyhorn.PositiveModel.html#polyhorn.PositiveModel.PositiveModel.get_generated_constraints">[docs]</a>
+<a class="viewcode-back" href="../../polyhorn.PositiveModel.html#polyqent.PositiveModel.PositiveModel.get_generated_constraints">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_generated_constraints</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">DNF</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function find the constraint for the list of the class&#39;s horn</span>
@@ -316,7 +299,7 @@
 
 
 <div class="viewcode-block" id="PositiveModel.create_smt_file">
-<a class="viewcode-back" href="../../polyhorn.PositiveModel.html#polyhorn.PositiveModel.PositiveModel.create_smt_file">[docs]</a>
+<a class="viewcode-back" href="../../polyhorn.PositiveModel.html#polyqent.PositiveModel.PositiveModel.create_smt_file">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">create_smt_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;checking.txt&quot;</span><span class="p">,</span> <span class="n">solver_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;default&#39;</span><span class="p">,</span> <span class="n">solver_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;default&quot;</span><span class="p">,</span>
                         <span class="n">core_iteration_heuristic</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
                         <span class="n">constant_heuristic</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">real_values</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">):</span>
@@ -374,7 +357,7 @@
 
 
 <div class="viewcode-block" id="PositiveModel.run_on_solver">
-<a class="viewcode-back" href="../../polyhorn.PositiveModel.html#polyhorn.PositiveModel.PositiveModel.run_on_solver">[docs]</a>
+<a class="viewcode-back" href="../../polyhorn.PositiveModel.html#polyqent.PositiveModel.PositiveModel.run_on_solver">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">run_on_solver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">output_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;checking.txt&quot;</span><span class="p">,</span> <span class="n">solver_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;z3&#39;</span><span class="p">,</span> <span class="n">core_iteration_heuristic</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
                       <span class="n">constant_heuristic</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">real_values</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">bool</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; </span>
@@ -440,7 +423,7 @@
 
 
 <div class="viewcode-block" id="PositiveModel.get_equality_constraint">
-<a class="viewcode-back" href="../../polyhorn.PositiveModel.html#polyhorn.PositiveModel.PositiveModel.get_equality_constraint">[docs]</a>
+<a class="viewcode-back" href="../../polyhorn.PositiveModel.html#polyqent.PositiveModel.PositiveModel.get_equality_constraint">[docs]</a>
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_equality_constraint</span><span class="p">(</span><span class="n">all_constraint</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">DNF</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">CoefficientConstraint</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -466,7 +449,7 @@
 
 
 <div class="viewcode-block" id="PositiveModel.remove_equality_constraints">
-<a class="viewcode-back" href="../../polyhorn.PositiveModel.html#polyhorn.PositiveModel.PositiveModel.remove_equality_constraints">[docs]</a>
+<a class="viewcode-back" href="../../polyhorn.PositiveModel.html#polyqent.PositiveModel.PositiveModel.remove_equality_constraints">[docs]</a>
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">remove_equality_constraints</span><span class="p">(</span><span class="n">all_constraint</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">DNF</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">DNF</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; </span>
@@ -517,7 +500,7 @@
 
 
 <div class="viewcode-block" id="PositiveModel.core_iteration">
-<a class="viewcode-back" href="../../polyhorn.PositiveModel.html#polyhorn.PositiveModel.PositiveModel.core_iteration">[docs]</a>
+<a class="viewcode-back" href="../../polyhorn.PositiveModel.html#polyqent.PositiveModel.PositiveModel.core_iteration">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">core_iteration</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">all_constraint</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">DNF</span><span class="p">],</span> <span class="n">solver_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;./solver/z3&#39;</span><span class="p">,</span>
                        <span class="n">saving_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;save_for_core_iteration_heuristic_temp.txt&#39;</span><span class="p">,</span> <span class="n">real_values</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">DNF</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>

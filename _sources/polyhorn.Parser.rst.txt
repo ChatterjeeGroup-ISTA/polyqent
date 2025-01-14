@@ -1,7 +1,7 @@
 Parser module
 ======================
 
-.. automodule:: polyhorn.Parser
+.. automodule:: polyqent.Parser
    :members:
    :undoc-members:
    :show-inheritance:

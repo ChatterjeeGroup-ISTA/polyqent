@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>polyhorn.Putinar &mdash; PolyHorn 0.0.5 documentation</title>
+  <title>polyqent.Putinar &mdash; PolyHorn 0.0.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
 
@@ -39,24 +39,7 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">PolyHorn API</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.main.html">Main module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Coefficient.html">Coefficient module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Constant.html">Constant module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Constraint.html">Constraint module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Convertor.html">Convertor module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.DNF.html">DNF module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Farkas.html">Farkas module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Handelman.html">Handelman module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Parser.html">Parser module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Polynomial.html">Polynomial module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.PositiveModel.html">PositiveModel module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Putinar.html">Putinar module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Solver.html">Solver module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.UnknownVariable.html">UnknownVariable module</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Indices and tables</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Indices and tables</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../genindex.html">Index</a></li>
 </ul>
@@ -76,7 +59,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
-      <li class="breadcrumb-item active">polyhorn.Putinar</li>
+      <li class="breadcrumb-item active">polyqent.Putinar</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -85,7 +68,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for polyhorn.Putinar</h1><div class="highlight"><pre>
+  <h1>Source code for polyqent.Putinar</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Tuple</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -97,7 +80,7 @@
 
 
 <div class="viewcode-block" id="Putinar">
-<a class="viewcode-back" href="../../polyhorn.Putinar.html#polyhorn.Putinar.Putinar">[docs]</a>
+<a class="viewcode-back" href="../../polyhorn.Putinar.html#polyqent.Putinar.Putinar">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Putinar</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">    A class that performs the constraint transformation according to Putinar</span>
@@ -149,7 +132,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">degree_for_new_var</span> <span class="o">=</span> <span class="n">degree_for_new_var</span>
 
 <div class="viewcode-block" id="Putinar.get_lower_triangular_matrix">
-<a class="viewcode-back" href="../../polyhorn.Putinar.html#polyhorn.Putinar.Putinar.get_lower_triangular_matrix">[docs]</a>
+<a class="viewcode-back" href="../../polyhorn.Putinar.html#polyqent.Putinar.Putinar.get_lower_triangular_matrix">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_lower_triangular_matrix</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dim</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">Polynomial</span><span class="p">]],</span> <span class="n">List</span><span class="p">[</span><span class="n">CoefficientConstraint</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function generates a lower triangular matrix `L` with positive</span>
@@ -183,7 +166,7 @@
 
 
 <div class="viewcode-block" id="Putinar.get_monoids">
-<a class="viewcode-back" href="../../polyhorn.Putinar.html#polyhorn.Putinar.Putinar.get_monoids">[docs]</a>
+<a class="viewcode-back" href="../../polyhorn.Putinar.html#polyqent.Putinar.Putinar.get_monoids">[docs]</a>
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_monoids</span><span class="p">(</span><span class="n">variables</span><span class="p">,</span> <span class="n">max_d</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Polynomial</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; </span>
@@ -216,7 +199,7 @@
 
 
 <div class="viewcode-block" id="Putinar.get_sum_of_square">
-<a class="viewcode-back" href="../../polyhorn.Putinar.html#polyhorn.Putinar.Putinar.get_sum_of_square">[docs]</a>
+<a class="viewcode-back" href="../../polyhorn.Putinar.html#polyqent.Putinar.Putinar.get_sum_of_square">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_sum_of_square</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_d</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Polynomial</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">CoefficientConstraint</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">        The function generates a new sum-of-square template on the set of class </span>
@@ -253,7 +236,7 @@
 
 
 <div class="viewcode-block" id="Putinar.get_poly_sum">
-<a class="viewcode-back" href="../../polyhorn.Putinar.html#polyhorn.Putinar.Putinar.get_poly_sum">[docs]</a>
+<a class="viewcode-back" href="../../polyhorn.Putinar.html#polyqent.Putinar.Putinar.get_poly_sum">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_poly_sum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_d</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Polynomial</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="n">CoefficientConstraint</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">        This function returns a polynomial `y_0(rhs is struct) + h_0 + h_1*g_1 ... + h_n*g_n`</span>
@@ -301,7 +284,7 @@
 
 
 <div class="viewcode-block" id="Putinar.get_SAT_constraint">
-<a class="viewcode-back" href="../../polyhorn.Putinar.html#polyhorn.Putinar.Putinar.get_SAT_constraint">[docs]</a>
+<a class="viewcode-back" href="../../polyhorn.Putinar.html#polyqent.Putinar.Putinar.get_SAT_constraint">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_SAT_constraint</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">CoefficientConstraint</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">        A function to find the constraints when the LHS =&gt; RHS is satisfiable</span>
@@ -316,7 +299,7 @@
 
 
 <div class="viewcode-block" id="Putinar.get_UNSAT_constraint">
-<a class="viewcode-back" href="../../polyhorn.Putinar.html#polyhorn.Putinar.Putinar.get_UNSAT_constraint">[docs]</a>
+<a class="viewcode-back" href="../../polyhorn.Putinar.html#polyqent.Putinar.Putinar.get_UNSAT_constraint">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_UNSAT_constraint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">need_strict</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">CoefficientConstraint</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">        A function to find the constraints when it is not satisfiable.</span>
@@ -345,7 +328,7 @@
 
 
 <div class="viewcode-block" id="Putinar.handel_strict">
-<a class="viewcode-back" href="../../polyhorn.Putinar.html#polyhorn.Putinar.Putinar.handel_strict">[docs]</a>
+<a class="viewcode-back" href="../../polyhorn.Putinar.html#polyqent.Putinar.Putinar.handel_strict">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">handel_strict</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">max_d</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">power_of_new_var</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">CoefficientConstraint</span><span class="p">]]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">        Handles the second form of unsatisfiablity</span>
@@ -401,7 +384,7 @@
 
 
 <div class="viewcode-block" id="Putinar.get_general_template">
-<a class="viewcode-back" href="../../polyhorn.Putinar.html#polyhorn.Putinar.Putinar.get_general_template">[docs]</a>
+<a class="viewcode-back" href="../../polyhorn.Putinar.html#polyqent.Putinar.Putinar.get_general_template">[docs]</a>
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_general_template</span><span class="p">(</span><span class="n">all_variables</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">UnknownVariable</span><span class="p">],</span> <span class="n">all_monoids</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Polynomial</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Polynomial</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>

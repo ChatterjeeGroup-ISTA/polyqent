@@ -18,9 +18,7 @@
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="UnknownVariable module" href="polyhorn.UnknownVariable.html" />
-    <link rel="prev" title="Putinar module" href="polyhorn.Putinar.html" /> 
+    <link rel="search" title="Search" href="search.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -42,36 +40,7 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">PolyHorn API</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.main.html">Main module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Coefficient.html">Coefficient module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Constant.html">Constant module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Constraint.html">Constraint module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Convertor.html">Convertor module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.DNF.html">DNF module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Farkas.html">Farkas module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Handelman.html">Handelman module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Parser.html">Parser module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Polynomial.html">Polynomial module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.PositiveModel.html">PositiveModel module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Putinar.html">Putinar module</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Solver module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#polyhorn.Solver.Solver"><code class="docutils literal notranslate"><span class="pre">Solver</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#polyhorn.Solver.Solver.convert_constraints_to_smt_format"><code class="docutils literal notranslate"><span class="pre">Solver.convert_constraints_to_smt_format()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#polyhorn.Solver.Solver.find_equality_constraint"><code class="docutils literal notranslate"><span class="pre">Solver.find_equality_constraint()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#polyhorn.Solver.Solver.get_all_variable"><code class="docutils literal notranslate"><span class="pre">Solver.get_all_variable()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#polyhorn.Solver.Solver.get_constant_polynomial"><code class="docutils literal notranslate"><span class="pre">Solver.get_constant_polynomial()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#polyhorn.Solver.Solver.get_degree_polynomial"><code class="docutils literal notranslate"><span class="pre">Solver.get_degree_polynomial()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#polyhorn.Solver.Solver.get_variable_polynomial"><code class="docutils literal notranslate"><span class="pre">Solver.get_variable_polynomial()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#polyhorn.Solver.Solver.smt_declare_variable_phase"><code class="docutils literal notranslate"><span class="pre">Solver.smt_declare_variable_phase()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.UnknownVariable.html">UnknownVariable module</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Indices and tables</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Indices and tables</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="genindex.html">Index</a></li>
 </ul>
@@ -100,22 +69,22 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-polyhorn.Solver">
-<span id="solver-module"></span><h1>Solver module<a class="headerlink" href="#module-polyhorn.Solver" title="Link to this heading"></a></h1>
+  <section id="module-polyqent.Solver">
+<span id="solver-module"></span><h1>Solver module<a class="headerlink" href="#module-polyqent.Solver" title="Link to this heading"></a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="polyhorn.Solver.Solver">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">polyhorn.Solver.</span></span><span class="sig-name descname"><span class="pre">Solver</span></span><a class="reference internal" href="_modules/polyhorn/Solver.html#Solver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyhorn.Solver.Solver" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="polyqent.Solver.Solver">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">polyqent.Solver.</span></span><span class="sig-name descname"><span class="pre">Solver</span></span><a class="reference internal" href="_modules/polyqent/Solver.html#Solver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.Solver.Solver" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>This class consist of some static method which are used in other classes</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="polyhorn.Solver.Solver.convert_constraints_to_smt_format">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">convert_constraints_to_smt_format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">all_constraint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyhorn.DNF.html#polyhorn.DNF.DNF" title="polyhorn.DNF.DNF"><span class="pre">DNF</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precondition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyhorn.DNF.html#polyhorn.DNF.DNF" title="polyhorn.DNF.DNF"><span class="pre">DNF</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/polyhorn/Solver.html#Solver.convert_constraints_to_smt_format"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyhorn.Solver.Solver.convert_constraints_to_smt_format" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="polyqent.Solver.Solver.convert_constraints_to_smt_format">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">convert_constraints_to_smt_format</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">all_constraint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyhorn.DNF.html#polyqent.DNF.DNF" title="polyqent.DNF.DNF"><span class="pre">DNF</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">precondition</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyhorn.DNF.html#polyqent.DNF.DNF" title="polyqent.DNF.DNF"><span class="pre">DNF</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/polyqent/Solver.html#Solver.convert_constraints_to_smt_format"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.Solver.Solver.convert_constraints_to_smt_format" title="Link to this definition"></a></dt>
 <dd><p>Generate string for declaring constraint in smt format</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>all_constraint</strong> (<em>List</em><em>[</em><a class="reference internal" href="polyhorn.DNF.html#polyhorn.DNF.DNF" title="polyhorn.DNF.DNF"><em>DNF</em></a><em>]</em>) – Constraints that should be converted to smt format</p></li>
-<li><p><strong>precondition</strong> (<em>List</em><em>[</em><em>List</em><em>[</em><a class="reference internal" href="polyhorn.DNF.html#polyhorn.DNF.DNF" title="polyhorn.DNF.DNF"><em>DNF</em></a><em>]</em><em>]</em>) – List of precondition that should be added to the constraints</p></li>
+<li><p><strong>all_constraint</strong> (<em>List</em><em>[</em><a class="reference internal" href="polyhorn.DNF.html#polyqent.DNF.DNF" title="polyqent.DNF.DNF"><em>DNF</em></a><em>]</em>) – Constraints that should be converted to smt format</p></li>
+<li><p><strong>precondition</strong> (<em>List</em><em>[</em><em>List</em><em>[</em><a class="reference internal" href="polyhorn.DNF.html#polyqent.DNF.DNF" title="polyqent.DNF.DNF"><em>DNF</em></a><em>]</em><em>]</em>) – List of precondition that should be added to the constraints</p></li>
 <li><p><strong>names</strong> (<em>List</em><em>[</em><em>str</em><em>]</em><em>, </em><em>optional</em>) – List of name for each constraint, by default None</p></li>
 </ul>
 </dd>
@@ -129,55 +98,55 @@
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="polyhorn.Solver.Solver.find_equality_constraint">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">find_equality_constraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">LHS</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polyhorn.Polynomial.html#polyhorn.Polynomial.Polynomial" title="polyhorn.Polynomial.Polynomial"><span class="pre">Polynomial</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">RHS</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polyhorn.Polynomial.html#polyhorn.Polynomial.Polynomial" title="polyhorn.Polynomial.Polynomial"><span class="pre">Polynomial</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyhorn.Constraint.html#polyhorn.Constraint.CoefficientConstraint" title="polyhorn.Constraint.CoefficientConstraint"><span class="pre">CoefficientConstraint</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/polyhorn/Solver.html#Solver.find_equality_constraint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyhorn.Solver.Solver.find_equality_constraint" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="polyqent.Solver.Solver.find_equality_constraint">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">find_equality_constraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">LHS</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polyhorn.Polynomial.html#polyqent.Polynomial.Polynomial" title="polyqent.Polynomial.Polynomial"><span class="pre">Polynomial</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">RHS</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polyhorn.Polynomial.html#polyqent.Polynomial.Polynomial" title="polyqent.Polynomial.Polynomial"><span class="pre">Polynomial</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyhorn.Constraint.html#polyqent.Constraint.CoefficientConstraint" title="polyqent.Constraint.CoefficientConstraint"><span class="pre">CoefficientConstraint</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/polyqent/Solver.html#Solver.find_equality_constraint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.Solver.Solver.find_equality_constraint" title="Link to this definition"></a></dt>
 <dd><p>Given two polynomials that should be equal together, this function
 finds constraints for the equality. Moreover, all the Coefficient of
 each Monomial in each side should be equal.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>LHS</strong> (<a class="reference internal" href="polyhorn.Polynomial.html#polyhorn.Polynomial.Polynomial" title="polyhorn.Polynomial.Polynomial"><em>Polynomial</em></a>) – left hand side of the equality</p></li>
-<li><p><strong>RHS</strong> (<a class="reference internal" href="polyhorn.Polynomial.html#polyhorn.Polynomial.Polynomial" title="polyhorn.Polynomial.Polynomial"><em>Polynomial</em></a>) – right hand side of the equality</p></li>
+<li><p><strong>LHS</strong> (<a class="reference internal" href="polyhorn.Polynomial.html#polyqent.Polynomial.Polynomial" title="polyqent.Polynomial.Polynomial"><em>Polynomial</em></a>) – left hand side of the equality</p></li>
+<li><p><strong>RHS</strong> (<a class="reference internal" href="polyhorn.Polynomial.html#polyqent.Polynomial.Polynomial" title="polyqent.Polynomial.Polynomial"><em>Polynomial</em></a>) – right hand side of the equality</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>list of the constraints that needs to be true for equality</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List[<a class="reference internal" href="polyhorn.Constraint.html#polyhorn.Constraint.CoefficientConstraint" title="polyhorn.Constraint.CoefficientConstraint">CoefficientConstraint</a>]</p>
+<dd class="field-odd"><p>List[<a class="reference internal" href="polyhorn.Constraint.html#polyqent.Constraint.CoefficientConstraint" title="polyqent.Constraint.CoefficientConstraint">CoefficientConstraint</a>]</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="polyhorn.Solver.Solver.get_all_variable">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_all_variable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">all_constraints</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyhorn.DNF.html#polyhorn.DNF.DNF" title="polyhorn.DNF.DNF"><span class="pre">DNF</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pre_variables</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyhorn.UnknownVariable.html#polyhorn.UnknownVariable.UnknownVariable" title="polyhorn.UnknownVariable.UnknownVariable"><span class="pre">UnknownVariable</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyhorn.UnknownVariable.html#polyhorn.UnknownVariable.UnknownVariable" title="polyhorn.UnknownVariable.UnknownVariable"><span class="pre">UnknownVariable</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/polyhorn/Solver.html#Solver.get_all_variable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyhorn.Solver.Solver.get_all_variable" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="polyqent.Solver.Solver.get_all_variable">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_all_variable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">all_constraints</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyhorn.DNF.html#polyqent.DNF.DNF" title="polyqent.DNF.DNF"><span class="pre">DNF</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pre_variables</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyhorn.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable" title="polyqent.UnknownVariable.UnknownVariable"><span class="pre">UnknownVariable</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyhorn.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable" title="polyqent.UnknownVariable.UnknownVariable"><span class="pre">UnknownVariable</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/polyqent/Solver.html#Solver.get_all_variable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.Solver.Solver.get_all_variable" title="Link to this definition"></a></dt>
 <dd><p>Find all the variables in a list of constraint.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>all_constraints</strong> (<em>List</em><em>[</em><a class="reference internal" href="polyhorn.DNF.html#polyhorn.DNF.DNF" title="polyhorn.DNF.DNF"><em>DNF</em></a><em>]</em>) – List of constraints</p></li>
-<li><p><strong>pre_variables</strong> (<em>List</em><em>[</em><a class="reference internal" href="polyhorn.UnknownVariable.html#polyhorn.UnknownVariable.UnknownVariable" title="polyhorn.UnknownVariable.UnknownVariable"><em>UnknownVariable</em></a><em>]</em><em>, </em><em>optional</em>) – List of variables that should be defined but might not be in constraints, by default []</p></li>
+<li><p><strong>all_constraints</strong> (<em>List</em><em>[</em><a class="reference internal" href="polyhorn.DNF.html#polyqent.DNF.DNF" title="polyqent.DNF.DNF"><em>DNF</em></a><em>]</em>) – List of constraints</p></li>
+<li><p><strong>pre_variables</strong> (<em>List</em><em>[</em><a class="reference internal" href="polyhorn.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable" title="polyqent.UnknownVariable.UnknownVariable"><em>UnknownVariable</em></a><em>]</em><em>, </em><em>optional</em>) – List of variables that should be defined but might not be in constraints, by default []</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>List of variables used in constraints</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List[<a class="reference internal" href="polyhorn.UnknownVariable.html#polyhorn.UnknownVariable.UnknownVariable" title="polyhorn.UnknownVariable.UnknownVariable">UnknownVariable</a>]</p>
+<dd class="field-odd"><p>List[<a class="reference internal" href="polyhorn.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable" title="polyqent.UnknownVariable.UnknownVariable">UnknownVariable</a>]</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="polyhorn.Solver.Solver.get_constant_polynomial">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_constant_polynomial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variables</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyhorn.UnknownVariable.html#polyhorn.UnknownVariable.UnknownVariable" title="polyhorn.UnknownVariable.UnknownVariable"><span class="pre">UnknownVariable</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constant</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="polyhorn.Polynomial.html#polyhorn.Polynomial.Polynomial" title="polyhorn.Polynomial.Polynomial"><span class="pre">Polynomial</span></a></span></span><a class="reference internal" href="_modules/polyhorn/Solver.html#Solver.get_constant_polynomial"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyhorn.Solver.Solver.get_constant_polynomial" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="polyqent.Solver.Solver.get_constant_polynomial">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_constant_polynomial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variables</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyhorn.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable" title="polyqent.UnknownVariable.UnknownVariable"><span class="pre">UnknownVariable</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constant</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="polyhorn.Polynomial.html#polyqent.Polynomial.Polynomial" title="polyqent.Polynomial.Polynomial"><span class="pre">Polynomial</span></a></span></span><a class="reference internal" href="_modules/polyqent/Solver.html#Solver.get_constant_polynomial"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.Solver.Solver.get_constant_polynomial" title="Link to this definition"></a></dt>
 <dd><p>Generate new polynomial with one monomial and a constant as its coefficient.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>variables</strong> (<em>List</em><em>[</em><a class="reference internal" href="polyhorn.UnknownVariable.html#polyhorn.UnknownVariable.UnknownVariable" title="polyhorn.UnknownVariable.UnknownVariable"><em>UnknownVariable</em></a><em>]</em>) – Polynomial variables</p></li>
+<li><p><strong>variables</strong> (<em>List</em><em>[</em><a class="reference internal" href="polyhorn.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable" title="polyqent.UnknownVariable.UnknownVariable"><em>UnknownVariable</em></a><em>]</em>) – Polynomial variables</p></li>
 <li><p><strong>constant</strong> (<em>str</em>) – The constant of the new polynomial</p></li>
 </ul>
 </dd>
@@ -185,19 +154,19 @@ each Monomial in each side should be equal.</p>
 <dd class="field-even"><p>Polynomial with constant as its coefficient</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="polyhorn.Polynomial.html#polyhorn.Polynomial.Polynomial" title="polyhorn.Polynomial.Polynomial">Polynomial</a></p>
+<dd class="field-odd"><p><a class="reference internal" href="polyhorn.Polynomial.html#polyqent.Polynomial.Polynomial" title="polyqent.Polynomial.Polynomial">Polynomial</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="polyhorn.Solver.Solver.get_degree_polynomial">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_degree_polynomial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variables</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyhorn.UnknownVariable.html#polyhorn.UnknownVariable.UnknownVariable" title="polyhorn.UnknownVariable.UnknownVariable"><span class="pre">UnknownVariable</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">degrees</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="polyhorn.Polynomial.html#polyhorn.Polynomial.Polynomial" title="polyhorn.Polynomial.Polynomial"><span class="pre">Polynomial</span></a></span></span><a class="reference internal" href="_modules/polyhorn/Solver.html#Solver.get_degree_polynomial"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyhorn.Solver.Solver.get_degree_polynomial" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="polyqent.Solver.Solver.get_degree_polynomial">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_degree_polynomial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variables</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyhorn.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable" title="polyqent.UnknownVariable.UnknownVariable"><span class="pre">UnknownVariable</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">degrees</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="polyhorn.Polynomial.html#polyqent.Polynomial.Polynomial" title="polyqent.Polynomial.Polynomial"><span class="pre">Polynomial</span></a></span></span><a class="reference internal" href="_modules/polyqent/Solver.html#Solver.get_degree_polynomial"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.Solver.Solver.get_degree_polynomial" title="Link to this definition"></a></dt>
 <dd><p>Generate new polynomial with one monomial and given degrees</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>variables</strong> (<em>List</em><em>[</em><a class="reference internal" href="polyhorn.UnknownVariable.html#polyhorn.UnknownVariable.UnknownVariable" title="polyhorn.UnknownVariable.UnknownVariable"><em>UnknownVariable</em></a><em>]</em>) – Polynomial variables</p></li>
+<li><p><strong>variables</strong> (<em>List</em><em>[</em><a class="reference internal" href="polyhorn.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable" title="polyqent.UnknownVariable.UnknownVariable"><em>UnknownVariable</em></a><em>]</em>) – Polynomial variables</p></li>
 <li><p><strong>degrees</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>) – Degree of the monomial</p></li>
 </ul>
 </dd>
@@ -205,19 +174,19 @@ each Monomial in each side should be equal.</p>
 <dd class="field-even"><p>Polynomial with given degree set</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="polyhorn.Polynomial.html#polyhorn.Polynomial.Polynomial" title="polyhorn.Polynomial.Polynomial">Polynomial</a></p>
+<dd class="field-odd"><p><a class="reference internal" href="polyhorn.Polynomial.html#polyqent.Polynomial.Polynomial" title="polyqent.Polynomial.Polynomial">Polynomial</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="polyhorn.Solver.Solver.get_variable_polynomial">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_variable_polynomial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variables</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyhorn.UnknownVariable.html#polyhorn.UnknownVariable.UnknownVariable" title="polyhorn.UnknownVariable.UnknownVariable"><span class="pre">UnknownVariable</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_of_var</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="polyhorn.Polynomial.html#polyhorn.Polynomial.Polynomial" title="polyhorn.Polynomial.Polynomial"><span class="pre">Polynomial</span></a></span></span><a class="reference internal" href="_modules/polyhorn/Solver.html#Solver.get_variable_polynomial"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyhorn.Solver.Solver.get_variable_polynomial" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="polyqent.Solver.Solver.get_variable_polynomial">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_variable_polynomial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variables</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyhorn.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable" title="polyqent.UnknownVariable.UnknownVariable"><span class="pre">UnknownVariable</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type_of_var</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="polyhorn.Polynomial.html#polyqent.Polynomial.Polynomial" title="polyqent.Polynomial.Polynomial"><span class="pre">Polynomial</span></a></span></span><a class="reference internal" href="_modules/polyqent/Solver.html#Solver.get_variable_polynomial"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.Solver.Solver.get_variable_polynomial" title="Link to this definition"></a></dt>
 <dd><p>Generate new polynomial with one monomial and a new generated variable as its coefficient</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>variables</strong> (<em>List</em><em>[</em><a class="reference internal" href="polyhorn.UnknownVariable.html#polyhorn.UnknownVariable.UnknownVariable" title="polyhorn.UnknownVariable.UnknownVariable"><em>UnknownVariable</em></a><em>]</em>) – Polynomial variables</p></li>
+<li><p><strong>variables</strong> (<em>List</em><em>[</em><a class="reference internal" href="polyhorn.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable" title="polyqent.UnknownVariable.UnknownVariable"><em>UnknownVariable</em></a><em>]</em>) – Polynomial variables</p></li>
 <li><p><strong>name</strong> (<em>str</em>) – Name of the new variable</p></li>
 <li><p><strong>type_of_var</strong> (<em>str</em><em>, </em><em>optional</em>) – Type of the new variable, by default None</p></li>
 </ul>
@@ -226,21 +195,21 @@ each Monomial in each side should be equal.</p>
 <dd class="field-even"><p>Polynomial with new variable as its coefficient</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="polyhorn.Polynomial.html#polyhorn.Polynomial.Polynomial" title="polyhorn.Polynomial.Polynomial">Polynomial</a></p>
+<dd class="field-odd"><p><a class="reference internal" href="polyhorn.Polynomial.html#polyqent.Polynomial.Polynomial" title="polyqent.Polynomial.Polynomial">Polynomial</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="polyhorn.Solver.Solver.smt_declare_variable_phase">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">smt_declare_variable_phase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">all_constraint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyhorn.DNF.html#polyhorn.DNF.DNF" title="polyhorn.DNF.DNF"><span class="pre">DNF</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">real</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pre_variables</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyhorn.UnknownVariable.html#polyhorn.UnknownVariable.UnknownVariable" title="polyhorn.UnknownVariable.UnknownVariable"><span class="pre">UnknownVariable</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/polyhorn/Solver.html#Solver.smt_declare_variable_phase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyhorn.Solver.Solver.smt_declare_variable_phase" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="polyqent.Solver.Solver.smt_declare_variable_phase">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">smt_declare_variable_phase</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">all_constraint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyhorn.DNF.html#polyqent.DNF.DNF" title="polyqent.DNF.DNF"><span class="pre">DNF</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">real</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pre_variables</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyhorn.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable" title="polyqent.UnknownVariable.UnknownVariable"><span class="pre">UnknownVariable</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/polyqent/Solver.html#Solver.smt_declare_variable_phase"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.Solver.Solver.smt_declare_variable_phase" title="Link to this definition"></a></dt>
 <dd><p>Generate string format for declaring the variables in smt format.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>all_constraint</strong> (<em>List</em><em>[</em><a class="reference internal" href="polyhorn.DNF.html#polyhorn.DNF.DNF" title="polyhorn.DNF.DNF"><em>DNF</em></a><em>]</em>) – Constraint that their variable should be generated</p></li>
+<li><p><strong>all_constraint</strong> (<em>List</em><em>[</em><a class="reference internal" href="polyhorn.DNF.html#polyqent.DNF.DNF" title="polyqent.DNF.DNF"><em>DNF</em></a><em>]</em>) – Constraint that their variable should be generated</p></li>
 <li><p><strong>real</strong> (<em>bool</em><em>, </em><em>optional</em>) – Variables should be declared as integer or real valued, by default True</p></li>
-<li><p><strong>pre_variables</strong> (<em>List</em><em>[</em><a class="reference internal" href="polyhorn.UnknownVariable.html#polyhorn.UnknownVariable.UnknownVariable" title="polyhorn.UnknownVariable.UnknownVariable"><em>UnknownVariable</em></a><em>]</em><em>, </em><em>optional</em>) – List of variables that should be defined but might not be in constraints, by default []</p></li>
+<li><p><strong>pre_variables</strong> (<em>List</em><em>[</em><a class="reference internal" href="polyhorn.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable" title="polyqent.UnknownVariable.UnknownVariable"><em>UnknownVariable</em></a><em>]</em><em>, </em><em>optional</em>) – List of variables that should be defined but might not be in constraints, by default []</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
@@ -259,10 +228,7 @@ each Monomial in each side should be equal.</p>
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="polyhorn.Putinar.html" class="btn btn-neutral float-left" title="Putinar module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="polyhorn.UnknownVariable.html" class="btn btn-neutral float-right" title="UnknownVariable module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
+          <footer>
 
   <hr/>
 

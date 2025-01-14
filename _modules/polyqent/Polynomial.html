@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>polyhorn.Polynomial &mdash; PolyHorn 0.0.5 documentation</title>
+  <title>polyqent.Polynomial &mdash; PolyHorn 0.0.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
 
@@ -39,24 +39,7 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">PolyHorn API</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.main.html">Main module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Coefficient.html">Coefficient module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Constant.html">Constant module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Constraint.html">Constraint module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Convertor.html">Convertor module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.DNF.html">DNF module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Farkas.html">Farkas module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Handelman.html">Handelman module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Parser.html">Parser module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Polynomial.html">Polynomial module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.PositiveModel.html">PositiveModel module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Putinar.html">Putinar module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Solver.html">Solver module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.UnknownVariable.html">UnknownVariable module</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Indices and tables</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Indices and tables</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../genindex.html">Index</a></li>
 </ul>
@@ -76,7 +59,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
-      <li class="breadcrumb-item active">polyhorn.Polynomial</li>
+      <li class="breadcrumb-item active">polyqent.Polynomial</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -85,7 +68,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for polyhorn.Polynomial</h1><div class="highlight"><pre>
+  <h1>Source code for polyqent.Polynomial</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span><span class="w"> </span><span class="nn">__future__</span><span class="w"> </span><span class="kn">import</span> <span class="n">annotations</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span>
@@ -97,7 +80,7 @@
 
 
 <div class="viewcode-block" id="Monomial">
-<a class="viewcode-back" href="../../polyhorn.Polynomial.html#polyhorn.Polynomial.Monomial">[docs]</a>
+<a class="viewcode-back" href="../../polyhorn.Polynomial.html#polyqent.Polynomial.Monomial">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Monomial</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class that represent a Monomial.</span>
@@ -228,7 +211,7 @@
         <span class="k">return</span> <span class="n">Monomial</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">variables</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">degrees</span><span class="p">,</span> <span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">coefficient</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Monomial.is_mono">
-<a class="viewcode-back" href="../../polyhorn.Polynomial.html#polyhorn.Polynomial.Monomial.is_mono">[docs]</a>
+<a class="viewcode-back" href="../../polyhorn.Polynomial.html#polyqent.Polynomial.Monomial.is_mono">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">is_mono</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Determine if the Monomial is a monomial.</span>
@@ -247,7 +230,7 @@
 
 
 <div class="viewcode-block" id="Monomial.get_deg">
-<a class="viewcode-back" href="../../polyhorn.Polynomial.html#polyhorn.Polynomial.Monomial.get_deg">[docs]</a>
+<a class="viewcode-back" href="../../polyhorn.Polynomial.html#polyqent.Polynomial.Monomial.get_deg">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_deg</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Determine the degree of Monomial.</span>
@@ -261,7 +244,7 @@
 
 
 <div class="viewcode-block" id="Monomial.convert_to_preorder">
-<a class="viewcode-back" href="../../polyhorn.Polynomial.html#polyhorn.Polynomial.Monomial.convert_to_preorder">[docs]</a>
+<a class="viewcode-back" href="../../polyhorn.Polynomial.html#polyqent.Polynomial.Monomial.convert_to_preorder">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">convert_to_preorder</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Convert Monomial to preorder format.</span>
@@ -284,7 +267,7 @@
 
 
 <div class="viewcode-block" id="Polynomial">
-<a class="viewcode-back" href="../../polyhorn.Polynomial.html#polyhorn.Polynomial.Polynomial">[docs]</a>
+<a class="viewcode-back" href="../../polyhorn.Polynomial.html#polyqent.Polynomial.Polynomial">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Polynomial</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class that represent the Polynomial.</span>
@@ -325,7 +308,7 @@
                 <span class="n">monomial</span><span class="o">.</span><span class="n">degrees</span><span class="p">)]</span> <span class="o">=</span> <span class="n">monomial</span>
 
 <div class="viewcode-block" id="Polynomial.get_monomial_by_degree">
-<a class="viewcode-back" href="../../polyhorn.Polynomial.html#polyhorn.Polynomial.Polynomial.get_monomial_by_degree">[docs]</a>
+<a class="viewcode-back" href="../../polyhorn.Polynomial.html#polyqent.Polynomial.Polynomial.get_monomial_by_degree">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_monomial_by_degree</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">degree</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Monomial</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Get a Monomial by its degree.</span>
@@ -436,7 +419,7 @@
                           <span class="p">)</span><span class="o">.</span><span class="n">revise</span><span class="p">()</span>
 
 <div class="viewcode-block" id="Polynomial.revise">
-<a class="viewcode-back" href="../../polyhorn.Polynomial.html#polyhorn.Polynomial.Polynomial.revise">[docs]</a>
+<a class="viewcode-back" href="../../polyhorn.Polynomial.html#polyqent.Polynomial.Polynomial.revise">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">revise</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Polynomial</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Revise the Polynomial</span>
@@ -473,7 +456,7 @@
 
 
 <div class="viewcode-block" id="Polynomial.add_variables">
-<a class="viewcode-back" href="../../polyhorn.Polynomial.html#polyhorn.Polynomial.Polynomial.add_variables">[docs]</a>
+<a class="viewcode-back" href="../../polyhorn.Polynomial.html#polyqent.Polynomial.Polynomial.add_variables">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">add_variables</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_variables</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">UnknownVariable</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Polynomial</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        This function adds a set of new variable to each Monomial of a</span>
@@ -500,7 +483,7 @@
 
 
 <div class="viewcode-block" id="Polynomial.is_linear">
-<a class="viewcode-back" href="../../polyhorn.Polynomial.html#polyhorn.Polynomial.Polynomial.is_linear">[docs]</a>
+<a class="viewcode-back" href="../../polyhorn.Polynomial.html#polyqent.Polynomial.Polynomial.is_linear">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">is_linear</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Determine if the Polynomial is linear.</span>
@@ -517,7 +500,7 @@
 
 
 <div class="viewcode-block" id="Polynomial.get_deg">
-<a class="viewcode-back" href="../../polyhorn.Polynomial.html#polyhorn.Polynomial.Polynomial.get_deg">[docs]</a>
+<a class="viewcode-back" href="../../polyhorn.Polynomial.html#polyqent.Polynomial.Polynomial.get_deg">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_deg</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Determine degree of Polynomial.</span>
@@ -533,7 +516,7 @@
         <span class="k">return</span> <span class="n">deg</span></div>
 
 <div class="viewcode-block" id="Polynomial.convert_to_preorder">
-<a class="viewcode-back" href="../../polyhorn.Polynomial.html#polyhorn.Polynomial.Polynomial.convert_to_preorder">[docs]</a>
+<a class="viewcode-back" href="../../polyhorn.Polynomial.html#polyqent.Polynomial.Polynomial.convert_to_preorder">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">convert_to_preorder</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Convert Polynomial to preorder format.</span>

@@ -18,9 +18,7 @@
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Farkas module" href="polyhorn.Farkas.html" />
-    <link rel="prev" title="Convertor module" href="polyhorn.Convertor.html" /> 
+    <link rel="search" title="Search" href="search.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -42,31 +40,7 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">PolyHorn API</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.main.html">Main module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Coefficient.html">Coefficient module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Constant.html">Constant module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Constraint.html">Constraint module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Convertor.html">Convertor module</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">DNF module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#polyhorn.DNF.DNF"><code class="docutils literal notranslate"><span class="pre">DNF</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#polyhorn.DNF.DNF.literals"><code class="docutils literal notranslate"><span class="pre">DNF.literals</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#polyhorn.DNF.DNF.convert_to_preorder"><code class="docutils literal notranslate"><span class="pre">DNF.convert_to_preorder()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Farkas.html">Farkas module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Handelman.html">Handelman module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Parser.html">Parser module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Polynomial.html">Polynomial module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.PositiveModel.html">PositiveModel module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Putinar.html">Putinar module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Solver.html">Solver module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.UnknownVariable.html">UnknownVariable module</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Indices and tables</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Indices and tables</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="genindex.html">Index</a></li>
 </ul>
@@ -95,11 +69,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-polyhorn.DNF">
-<span id="dnf-module"></span><h1>DNF module<a class="headerlink" href="#module-polyhorn.DNF" title="Link to this heading"></a></h1>
+  <section id="module-polyqent.DNF">
+<span id="dnf-module"></span><h1>DNF module<a class="headerlink" href="#module-polyqent.DNF" title="Link to this heading"></a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="polyhorn.DNF.DNF">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">polyhorn.DNF.</span></span><span class="sig-name descname"><span class="pre">DNF</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">literals</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/polyhorn/DNF.html#DNF"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyhorn.DNF.DNF" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="polyqent.DNF.DNF">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">polyqent.DNF.</span></span><span class="sig-name descname"><span class="pre">DNF</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">literals</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/polyqent/DNF.html#DNF"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.DNF.DNF" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A class that represents disjunctive normal form.</p>
 <dl class="field-list simple">
@@ -108,8 +82,8 @@
 </dd>
 </dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="polyhorn.DNF.DNF.literals">
-<span class="sig-name descname"><span class="pre">literals</span></span><a class="headerlink" href="#polyhorn.DNF.DNF.literals" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="polyqent.DNF.DNF.literals">
+<span class="sig-name descname"><span class="pre">literals</span></span><a class="headerlink" href="#polyqent.DNF.DNF.literals" title="Link to this definition"></a></dt>
 <dd><p>List of literals that are in DNF.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -119,8 +93,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="polyhorn.DNF.DNF.convert_to_preorder">
-<span class="sig-name descname"><span class="pre">convert_to_preorder</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/polyhorn/DNF.html#DNF.convert_to_preorder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyhorn.DNF.DNF.convert_to_preorder" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="polyqent.DNF.DNF.convert_to_preorder">
+<span class="sig-name descname"><span class="pre">convert_to_preorder</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/polyqent/DNF.html#DNF.convert_to_preorder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.DNF.DNF.convert_to_preorder" title="Link to this definition"></a></dt>
 <dd><p>Convert DNF to preorder format.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -139,10 +113,7 @@
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="polyhorn.Convertor.html" class="btn btn-neutral float-left" title="Convertor module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="polyhorn.Farkas.html" class="btn btn-neutral float-right" title="Farkas module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
+          <footer>
 
   <hr/>
 

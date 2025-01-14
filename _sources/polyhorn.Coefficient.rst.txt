@@ -1,7 +1,7 @@
 Coefficient module
 ===========================
 
-.. automodule:: polyhorn.Coefficient
+.. automodule:: polyqent.Coefficient
    :members:
    :undoc-members:
    :show-inheritance:

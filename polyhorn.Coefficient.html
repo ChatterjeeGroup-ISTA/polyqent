@@ -18,9 +18,7 @@
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Constant module" href="polyhorn.Constant.html" />
-    <link rel="prev" title="Main module" href="polyhorn.main.html" /> 
+    <link rel="search" title="Search" href="search.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -42,38 +40,7 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">PolyHorn API</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.main.html">Main module</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Coefficient module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#polyhorn.Coefficient.Coefficient"><code class="docutils literal notranslate"><span class="pre">Coefficient</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#polyhorn.Coefficient.Coefficient.elements"><code class="docutils literal notranslate"><span class="pre">Coefficient.elements</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#polyhorn.Coefficient.Coefficient.convert_to_preorder"><code class="docutils literal notranslate"><span class="pre">Coefficient.convert_to_preorder()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#polyhorn.Coefficient.Coefficient.revise"><code class="docutils literal notranslate"><span class="pre">Coefficient.revise()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#polyhorn.Coefficient.Element"><code class="docutils literal notranslate"><span class="pre">Element</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#polyhorn.Coefficient.Element.constant"><code class="docutils literal notranslate"><span class="pre">Element.constant</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#polyhorn.Coefficient.Element.variables"><code class="docutils literal notranslate"><span class="pre">Element.variables</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#polyhorn.Coefficient.Element.convert_to_preorder"><code class="docutils literal notranslate"><span class="pre">Element.convert_to_preorder()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Constant.html">Constant module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Constraint.html">Constraint module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Convertor.html">Convertor module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.DNF.html">DNF module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Farkas.html">Farkas module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Handelman.html">Handelman module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Parser.html">Parser module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Polynomial.html">Polynomial module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.PositiveModel.html">PositiveModel module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Putinar.html">Putinar module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Solver.html">Solver module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.UnknownVariable.html">UnknownVariable module</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Indices and tables</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Indices and tables</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="genindex.html">Index</a></li>
 </ul>
@@ -102,11 +69,11 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-polyhorn.Coefficient">
-<span id="coefficient-module"></span><h1>Coefficient module<a class="headerlink" href="#module-polyhorn.Coefficient" title="Link to this heading"></a></h1>
+  <section id="module-polyqent.Coefficient">
+<span id="coefficient-module"></span><h1>Coefficient module<a class="headerlink" href="#module-polyqent.Coefficient" title="Link to this heading"></a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="polyhorn.Coefficient.Coefficient">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">polyhorn.Coefficient.</span></span><span class="sig-name descname"><span class="pre">Coefficient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elements</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#polyhorn.Coefficient.Element" title="polyhorn.Coefficient.Element"><span class="pre">Element</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/polyhorn/Coefficient.html#Coefficient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyhorn.Coefficient.Coefficient" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="polyqent.Coefficient.Coefficient">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">polyqent.Coefficient.</span></span><span class="sig-name descname"><span class="pre">Coefficient</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">elements</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#polyqent.Coefficient.Element" title="polyqent.Coefficient.Element"><span class="pre">Element</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/polyqent/Coefficient.html#Coefficient"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.Coefficient.Coefficient" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A class that represent a coefficient.</p>
 <p>It consists a list of elements that should be added together to form the coefficient.</p>
@@ -122,23 +89,23 @@
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>elements</strong> (<em>List</em><em>[</em><a class="reference internal" href="#polyhorn.Coefficient.Element" title="polyhorn.Coefficient.Element"><em>Element</em></a><em>]</em><em>, </em><em>optional</em>) – The list of elements that should be added together, by default []</p>
+<dd class="field-odd"><p><strong>elements</strong> (<em>List</em><em>[</em><a class="reference internal" href="#polyqent.Coefficient.Element" title="polyqent.Coefficient.Element"><em>Element</em></a><em>]</em><em>, </em><em>optional</em>) – The list of elements that should be added together, by default []</p>
 </dd>
 </dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="polyhorn.Coefficient.Coefficient.elements">
-<span class="sig-name descname"><span class="pre">elements</span></span><a class="headerlink" href="#polyhorn.Coefficient.Coefficient.elements" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="polyqent.Coefficient.Coefficient.elements">
+<span class="sig-name descname"><span class="pre">elements</span></span><a class="headerlink" href="#polyqent.Coefficient.Coefficient.elements" title="Link to this definition"></a></dt>
 <dd><p>The list of elements that should be added together</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List[<a class="reference internal" href="#polyhorn.Coefficient.Element" title="polyhorn.Coefficient.Element">Element</a>]</p>
+<dd class="field-odd"><p>List[<a class="reference internal" href="#polyqent.Coefficient.Element" title="polyqent.Coefficient.Element">Element</a>]</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="polyhorn.Coefficient.Coefficient.convert_to_preorder">
-<span class="sig-name descname"><span class="pre">convert_to_preorder</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/polyhorn/Coefficient.html#Coefficient.convert_to_preorder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyhorn.Coefficient.Coefficient.convert_to_preorder" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="polyqent.Coefficient.Coefficient.convert_to_preorder">
+<span class="sig-name descname"><span class="pre">convert_to_preorder</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/polyqent/Coefficient.html#Coefficient.convert_to_preorder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.Coefficient.Coefficient.convert_to_preorder" title="Link to this definition"></a></dt>
 <dd><p>Convert Coefficient to preorder format string.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -151,8 +118,8 @@
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="polyhorn.Coefficient.Coefficient.revise">
-<span class="sig-name descname"><span class="pre">revise</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#polyhorn.Coefficient.Coefficient" title="polyhorn.Coefficient.Coefficient"><span class="pre">Coefficient</span></a></span></span><a class="reference internal" href="_modules/polyhorn/Coefficient.html#Coefficient.revise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyhorn.Coefficient.Coefficient.revise" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="polyqent.Coefficient.Coefficient.revise">
+<span class="sig-name descname"><span class="pre">revise</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#polyqent.Coefficient.Coefficient" title="polyqent.Coefficient.Coefficient"><span class="pre">Coefficient</span></a></span></span><a class="reference internal" href="_modules/polyqent/Coefficient.html#Coefficient.revise"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.Coefficient.Coefficient.revise" title="Link to this definition"></a></dt>
 <dd><p>Revise the Coefficient.</p>
 <p>It sorts the elements and combines the elements with the same variables.</p>
 <p class="rubric">Examples</p>
@@ -162,7 +129,7 @@
 <dd class="field-odd"><p>The revised format of the Coefficient.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="#polyhorn.Coefficient.Coefficient" title="polyhorn.Coefficient.Coefficient">Coefficient</a></p>
+<dd class="field-even"><p><a class="reference internal" href="#polyqent.Coefficient.Coefficient" title="polyqent.Coefficient.Coefficient">Coefficient</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -170,8 +137,8 @@
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="polyhorn.Coefficient.Element">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">polyhorn.Coefficient.</span></span><span class="sig-name descname"><span class="pre">Element</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">constant</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Fraction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variables</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyhorn.UnknownVariable.html#polyhorn.UnknownVariable.UnknownVariable" title="polyhorn.UnknownVariable.UnknownVariable"><span class="pre">UnknownVariable</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/polyhorn/Coefficient.html#Element"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyhorn.Coefficient.Element" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="polyqent.Coefficient.Element">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">polyqent.Coefficient.</span></span><span class="sig-name descname"><span class="pre">Element</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">constant</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Fraction</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variables</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyhorn.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable" title="polyqent.UnknownVariable.UnknownVariable"><span class="pre">UnknownVariable</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/polyqent/Coefficient.html#Element"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.Coefficient.Element" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A class that represent an element.</p>
 <p>It consists a rational constant and a set of variables which should be
@@ -193,13 +160,13 @@ multiplied together to form the element.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>constant</strong> (<em>Union</em><em>[</em><em>float</em><em>, </em><em>str</em><em>, </em><em>Fraction</em><em>]</em>) – It is the constant to multiply with other variables</p></li>
-<li><p><strong>variables</strong> (<em>List</em><em>[</em><a class="reference internal" href="polyhorn.UnknownVariable.html#polyhorn.UnknownVariable.UnknownVariable" title="polyhorn.UnknownVariable.UnknownVariable"><em>UnknownVariable</em></a><em>]</em><em>, </em><em>optional</em>) – The sorted list of variables that should be multiplied together, by default []</p></li>
+<li><p><strong>variables</strong> (<em>List</em><em>[</em><a class="reference internal" href="polyhorn.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable" title="polyqent.UnknownVariable.UnknownVariable"><em>UnknownVariable</em></a><em>]</em><em>, </em><em>optional</em>) – The sorted list of variables that should be multiplied together, by default []</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="polyhorn.Coefficient.Element.constant">
-<span class="sig-name descname"><span class="pre">constant</span></span><a class="headerlink" href="#polyhorn.Coefficient.Element.constant" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="polyqent.Coefficient.Element.constant">
+<span class="sig-name descname"><span class="pre">constant</span></span><a class="headerlink" href="#polyqent.Coefficient.Element.constant" title="Link to this definition"></a></dt>
 <dd><p>The constant of the element</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -209,19 +176,19 @@ multiplied together to form the element.</p>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="polyhorn.Coefficient.Element.variables">
-<span class="sig-name descname"><span class="pre">variables</span></span><a class="headerlink" href="#polyhorn.Coefficient.Element.variables" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="polyqent.Coefficient.Element.variables">
+<span class="sig-name descname"><span class="pre">variables</span></span><a class="headerlink" href="#polyqent.Coefficient.Element.variables" title="Link to this definition"></a></dt>
 <dd><p>The sorted list of variables that should be multiplied together</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>List[<a class="reference internal" href="polyhorn.UnknownVariable.html#polyhorn.UnknownVariable.UnknownVariable" title="polyhorn.UnknownVariable.UnknownVariable">UnknownVariable</a>]</p>
+<dd class="field-odd"><p>List[<a class="reference internal" href="polyhorn.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable" title="polyqent.UnknownVariable.UnknownVariable">UnknownVariable</a>]</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="polyhorn.Coefficient.Element.convert_to_preorder">
-<span class="sig-name descname"><span class="pre">convert_to_preorder</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/polyhorn/Coefficient.html#Element.convert_to_preorder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyhorn.Coefficient.Element.convert_to_preorder" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="polyqent.Coefficient.Element.convert_to_preorder">
+<span class="sig-name descname"><span class="pre">convert_to_preorder</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/polyqent/Coefficient.html#Element.convert_to_preorder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.Coefficient.Element.convert_to_preorder" title="Link to this definition"></a></dt>
 <dd><p>Convert Element to preorder format string.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -240,10 +207,7 @@ multiplied together to form the element.</p>
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="polyhorn.main.html" class="btn btn-neutral float-left" title="Main module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="polyhorn.Constant.html" class="btn btn-neutral float-right" title="Constant module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
+          <footer>
 
   <hr/>
 

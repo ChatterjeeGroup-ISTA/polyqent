@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>polyhorn.Convertor &mdash; PolyHorn 0.0.5 documentation</title>
+  <title>polyqent.Convertor &mdash; PolyHorn 0.0.5 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
 
@@ -39,24 +39,7 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">PolyHorn API</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.main.html">Main module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Coefficient.html">Coefficient module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Constant.html">Constant module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Constraint.html">Constraint module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Convertor.html">Convertor module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.DNF.html">DNF module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Farkas.html">Farkas module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Handelman.html">Handelman module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Parser.html">Parser module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Polynomial.html">Polynomial module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.PositiveModel.html">PositiveModel module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Putinar.html">Putinar module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.Solver.html">Solver module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../polyhorn.UnknownVariable.html">UnknownVariable module</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Indices and tables</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Indices and tables</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../genindex.html">Index</a></li>
 </ul>
@@ -76,7 +59,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
-      <li class="breadcrumb-item active">polyhorn.Convertor</li>
+      <li class="breadcrumb-item active">polyqent.Convertor</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -85,7 +68,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for polyhorn.Convertor</h1><div class="highlight"><pre>
+  <h1>Source code for polyqent.Convertor</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">lark</span>
@@ -97,7 +80,7 @@
 
 
 <div class="viewcode-block" id="find_index_of_variable">
-<a class="viewcode-back" href="../../polyhorn.Convertor.html#polyhorn.Convertor.find_index_of_variable">[docs]</a>
+<a class="viewcode-back" href="../../polyhorn.Convertor.html#polyqent.Convertor.find_index_of_variable">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">find_index_of_variable</span><span class="p">(</span><span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">all_variable</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">UnknownVariable</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Find the index of a variable in the list of variables, given the name of</span>
@@ -125,7 +108,7 @@
 
 
 <div class="viewcode-block" id="traverse">
-<a class="viewcode-back" href="../../polyhorn.Convertor.html#polyhorn.Convertor.traverse">[docs]</a>
+<a class="viewcode-back" href="../../polyhorn.Convertor.html#polyqent.Convertor.traverse">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">traverse</span><span class="p">(</span><span class="n">parse_tree</span><span class="p">:</span> <span class="n">lark</span><span class="o">.</span><span class="n">Tree</span><span class="p">,</span> <span class="n">all_variables</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">UnknownVariable</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Polynomial</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function traverse the parse tree generated by lark and return a Polynomial.</span>
@@ -183,7 +166,7 @@
 
 
 <div class="viewcode-block" id="convert_to_desired_poly">
-<a class="viewcode-back" href="../../polyhorn.Convertor.html#polyhorn.Convertor.convert_to_desired_poly">[docs]</a>
+<a class="viewcode-back" href="../../polyhorn.Convertor.html#polyqent.Convertor.convert_to_desired_poly">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">convert_to_desired_poly</span><span class="p">(</span><span class="n">poly</span><span class="p">:</span> <span class="n">Polynomial</span><span class="p">,</span> <span class="n">program_variables</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">UnknownVariable</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Polynomial</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This function separates program variables from template variables and puts</span>
@@ -218,7 +201,7 @@
 
 
 <div class="viewcode-block" id="convert_general_string_to_poly">
-<a class="viewcode-back" href="../../polyhorn.Convertor.html#polyhorn.Convertor.convert_general_string_to_poly">[docs]</a>
+<a class="viewcode-back" href="../../polyhorn.Convertor.html#polyqent.Convertor.convert_general_string_to_poly">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">convert_general_string_to_poly</span><span class="p">(</span><span class="n">poly_text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">all_variables</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">UnknownVariable</span><span class="p">],</span>
                                    <span class="n">program_variables</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">UnknownVariable</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Polynomial</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; </span>

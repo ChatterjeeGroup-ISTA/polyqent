@@ -18,9 +18,7 @@
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Convertor module" href="polyhorn.Convertor.html" />
-    <link rel="prev" title="Constant module" href="polyhorn.Constant.html" /> 
+    <link rel="search" title="Search" href="search.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -42,41 +40,7 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">PolyHorn API</span></p>
-<ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.main.html">Main module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Coefficient.html">Coefficient module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Constant.html">Constant module</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Constraint module</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#polyhorn.Constraint.CoefficientConstraint"><code class="docutils literal notranslate"><span class="pre">CoefficientConstraint</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#polyhorn.Constraint.CoefficientConstraint.coefficient"><code class="docutils literal notranslate"><span class="pre">CoefficientConstraint.coefficient</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#polyhorn.Constraint.CoefficientConstraint.sign"><code class="docutils literal notranslate"><span class="pre">CoefficientConstraint.sign</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#polyhorn.Constraint.CoefficientConstraint.convert_to_preorder"><code class="docutils literal notranslate"><span class="pre">CoefficientConstraint.convert_to_preorder()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#polyhorn.Constraint.CoefficientConstraint.is_equality"><code class="docutils literal notranslate"><span class="pre">CoefficientConstraint.is_equality()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#polyhorn.Constraint.CoefficientConstraint.is_strict"><code class="docutils literal notranslate"><span class="pre">CoefficientConstraint.is_strict()</span></code></a></li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="#polyhorn.Constraint.PolynomialConstraint"><code class="docutils literal notranslate"><span class="pre">PolynomialConstraint</span></code></a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#polyhorn.Constraint.PolynomialConstraint.polynomial"><code class="docutils literal notranslate"><span class="pre">PolynomialConstraint.polynomial</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#polyhorn.Constraint.PolynomialConstraint.sign"><code class="docutils literal notranslate"><span class="pre">PolynomialConstraint.sign</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#polyhorn.Constraint.PolynomialConstraint.convert_to_preorder"><code class="docutils literal notranslate"><span class="pre">PolynomialConstraint.convert_to_preorder()</span></code></a></li>
-<li class="toctree-l3"><a class="reference internal" href="#polyhorn.Constraint.PolynomialConstraint.is_strict"><code class="docutils literal notranslate"><span class="pre">PolynomialConstraint.is_strict()</span></code></a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Convertor.html">Convertor module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.DNF.html">DNF module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Farkas.html">Farkas module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Handelman.html">Handelman module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Parser.html">Parser module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Polynomial.html">Polynomial module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.PositiveModel.html">PositiveModel module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Putinar.html">Putinar module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.Solver.html">Solver module</a></li>
-<li class="toctree-l1"><a class="reference internal" href="polyhorn.UnknownVariable.html">UnknownVariable module</a></li>
-</ul>
-<p class="caption" role="heading"><span class="caption-text">Indices and tables</span></p>
+              <p class="caption" role="heading"><span class="caption-text">Indices and tables</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="genindex.html">Index</a></li>
 </ul>
@@ -105,36 +69,36 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="module-polyhorn.Constraint">
-<span id="constraint-module"></span><h1>Constraint module<a class="headerlink" href="#module-polyhorn.Constraint" title="Link to this heading"></a></h1>
+  <section id="module-polyqent.Constraint">
+<span id="constraint-module"></span><h1>Constraint module<a class="headerlink" href="#module-polyqent.Constraint" title="Link to this heading"></a></h1>
 <dl class="py class">
-<dt class="sig sig-object py" id="polyhorn.Constraint.CoefficientConstraint">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">polyhorn.Constraint.</span></span><span class="sig-name descname"><span class="pre">CoefficientConstraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coefficient</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polyhorn.Coefficient.html#polyhorn.Coefficient.Coefficient" title="polyhorn.Coefficient.Coefficient"><span class="pre">Coefficient</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sign</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/polyhorn/Constraint.html#CoefficientConstraint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyhorn.Constraint.CoefficientConstraint" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="polyqent.Constraint.CoefficientConstraint">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">polyqent.Constraint.</span></span><span class="sig-name descname"><span class="pre">CoefficientConstraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">coefficient</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polyhorn.Coefficient.html#polyqent.Coefficient.Coefficient" title="polyqent.Coefficient.Coefficient"><span class="pre">Coefficient</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sign</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/polyqent/Constraint.html#CoefficientConstraint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.Constraint.CoefficientConstraint" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A class that represent the constraint with a Coefficient on one side and
 zero on the other side.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>coefficient</strong> (<a class="reference internal" href="polyhorn.Coefficient.html#polyhorn.Coefficient.Coefficient" title="polyhorn.Coefficient.Coefficient"><em>Coefficient</em></a>) – The Coefficient represented in constraint.</p></li>
+<li><p><strong>coefficient</strong> (<a class="reference internal" href="polyhorn.Coefficient.html#polyqent.Coefficient.Coefficient" title="polyqent.Coefficient.Coefficient"><em>Coefficient</em></a>) – The Coefficient represented in constraint.</p></li>
 <li><p><strong>sign</strong> (<em>str</em>) – The relation between Coefficient and zero.</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="polyhorn.Constraint.CoefficientConstraint.coefficient">
-<span class="sig-name descname"><span class="pre">coefficient</span></span><a class="headerlink" href="#polyhorn.Constraint.CoefficientConstraint.coefficient" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="polyqent.Constraint.CoefficientConstraint.coefficient">
+<span class="sig-name descname"><span class="pre">coefficient</span></span><a class="headerlink" href="#polyqent.Constraint.CoefficientConstraint.coefficient" title="Link to this definition"></a></dt>
 <dd><p>The Coefficient represented in constraint.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="polyhorn.Coefficient.html#polyhorn.Coefficient.Coefficient" title="polyhorn.Coefficient.Coefficient">Coefficient</a></p>
+<dd class="field-odd"><p><a class="reference internal" href="polyhorn.Coefficient.html#polyqent.Coefficient.Coefficient" title="polyqent.Coefficient.Coefficient">Coefficient</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="polyhorn.Constraint.CoefficientConstraint.sign">
-<span class="sig-name descname"><span class="pre">sign</span></span><a class="headerlink" href="#polyhorn.Constraint.CoefficientConstraint.sign" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="polyqent.Constraint.CoefficientConstraint.sign">
+<span class="sig-name descname"><span class="pre">sign</span></span><a class="headerlink" href="#polyqent.Constraint.CoefficientConstraint.sign" title="Link to this definition"></a></dt>
 <dd><p>The relation between Coefficient and zero.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -144,8 +108,8 @@ zero on the other side.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="polyhorn.Constraint.CoefficientConstraint.convert_to_preorder">
-<span class="sig-name descname"><span class="pre">convert_to_preorder</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/polyhorn/Constraint.html#CoefficientConstraint.convert_to_preorder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyhorn.Constraint.CoefficientConstraint.convert_to_preorder" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="polyqent.Constraint.CoefficientConstraint.convert_to_preorder">
+<span class="sig-name descname"><span class="pre">convert_to_preorder</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/polyqent/Constraint.html#CoefficientConstraint.convert_to_preorder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.Constraint.CoefficientConstraint.convert_to_preorder" title="Link to this definition"></a></dt>
 <dd><p>Convert constraint to preorder format.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -158,8 +122,8 @@ zero on the other side.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="polyhorn.Constraint.CoefficientConstraint.is_equality">
-<span class="sig-name descname"><span class="pre">is_equality</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/polyhorn/Constraint.html#CoefficientConstraint.is_equality"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyhorn.Constraint.CoefficientConstraint.is_equality" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="polyqent.Constraint.CoefficientConstraint.is_equality">
+<span class="sig-name descname"><span class="pre">is_equality</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/polyqent/Constraint.html#CoefficientConstraint.is_equality"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.Constraint.CoefficientConstraint.is_equality" title="Link to this definition"></a></dt>
 <dd><p>Determine if the constraint is in form of a variable equal to constant.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -172,8 +136,8 @@ zero on the other side.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="polyhorn.Constraint.CoefficientConstraint.is_strict">
-<span class="sig-name descname"><span class="pre">is_strict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/polyhorn/Constraint.html#CoefficientConstraint.is_strict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyhorn.Constraint.CoefficientConstraint.is_strict" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="polyqent.Constraint.CoefficientConstraint.is_strict">
+<span class="sig-name descname"><span class="pre">is_strict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/polyqent/Constraint.html#CoefficientConstraint.is_strict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.Constraint.CoefficientConstraint.is_strict" title="Link to this definition"></a></dt>
 <dd><p>Determine if the constraint is strict.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -188,8 +152,8 @@ zero on the other side.</p>
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="polyhorn.Constraint.PolynomialConstraint">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">polyhorn.Constraint.</span></span><span class="sig-name descname"><span class="pre">PolynomialConstraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">polynomial</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polyhorn.Polynomial.html#polyhorn.Polynomial.Polynomial" title="polyhorn.Polynomial.Polynomial"><span class="pre">Polynomial</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sign</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/polyhorn/Constraint.html#PolynomialConstraint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyhorn.Constraint.PolynomialConstraint" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="polyqent.Constraint.PolynomialConstraint">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">polyqent.Constraint.</span></span><span class="sig-name descname"><span class="pre">PolynomialConstraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">polynomial</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polyhorn.Polynomial.html#polyqent.Polynomial.Polynomial" title="polyqent.Polynomial.Polynomial"><span class="pre">Polynomial</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">sign</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/polyqent/Constraint.html#PolynomialConstraint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.Constraint.PolynomialConstraint" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A class that represent the constraint with a Polynomial on one side and
 zero on the other side.</p>
@@ -198,25 +162,25 @@ zero on the other side.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>polynomial</strong> (<a class="reference internal" href="polyhorn.Polynomial.html#polyhorn.Polynomial.Polynomial" title="polyhorn.Polynomial.Polynomial"><em>Polynomial</em></a>) – The Polynomial represented in constraint.</p></li>
+<li><p><strong>polynomial</strong> (<a class="reference internal" href="polyhorn.Polynomial.html#polyqent.Polynomial.Polynomial" title="polyqent.Polynomial.Polynomial"><em>Polynomial</em></a>) – The Polynomial represented in constraint.</p></li>
 <li><p><strong>sign</strong> (<em>str</em>) – The relation between Polynomial and zero.</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="polyhorn.Constraint.PolynomialConstraint.polynomial">
-<span class="sig-name descname"><span class="pre">polynomial</span></span><a class="headerlink" href="#polyhorn.Constraint.PolynomialConstraint.polynomial" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="polyqent.Constraint.PolynomialConstraint.polynomial">
+<span class="sig-name descname"><span class="pre">polynomial</span></span><a class="headerlink" href="#polyqent.Constraint.PolynomialConstraint.polynomial" title="Link to this definition"></a></dt>
 <dd><p>The Polynomial represented in constraint.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="polyhorn.Polynomial.html#polyhorn.Polynomial.Polynomial" title="polyhorn.Polynomial.Polynomial">Polynomial</a></p>
+<dd class="field-odd"><p><a class="reference internal" href="polyhorn.Polynomial.html#polyqent.Polynomial.Polynomial" title="polyqent.Polynomial.Polynomial">Polynomial</a></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="polyhorn.Constraint.PolynomialConstraint.sign">
-<span class="sig-name descname"><span class="pre">sign</span></span><a class="headerlink" href="#polyhorn.Constraint.PolynomialConstraint.sign" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="polyqent.Constraint.PolynomialConstraint.sign">
+<span class="sig-name descname"><span class="pre">sign</span></span><a class="headerlink" href="#polyqent.Constraint.PolynomialConstraint.sign" title="Link to this definition"></a></dt>
 <dd><p>The relation between Polynomial and zero.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
@@ -226,8 +190,8 @@ zero on the other side.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="polyhorn.Constraint.PolynomialConstraint.convert_to_preorder">
-<span class="sig-name descname"><span class="pre">convert_to_preorder</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/polyhorn/Constraint.html#PolynomialConstraint.convert_to_preorder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyhorn.Constraint.PolynomialConstraint.convert_to_preorder" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="polyqent.Constraint.PolynomialConstraint.convert_to_preorder">
+<span class="sig-name descname"><span class="pre">convert_to_preorder</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/polyqent/Constraint.html#PolynomialConstraint.convert_to_preorder"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.Constraint.PolynomialConstraint.convert_to_preorder" title="Link to this definition"></a></dt>
 <dd><p>Convert constraint to preorder format.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -240,8 +204,8 @@ zero on the other side.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="polyhorn.Constraint.PolynomialConstraint.is_strict">
-<span class="sig-name descname"><span class="pre">is_strict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/polyhorn/Constraint.html#PolynomialConstraint.is_strict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyhorn.Constraint.PolynomialConstraint.is_strict" title="Link to this definition"></a></dt>
+<dt class="sig sig-object py" id="polyqent.Constraint.PolynomialConstraint.is_strict">
+<span class="sig-name descname"><span class="pre">is_strict</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">bool</span></span></span><a class="reference internal" href="_modules/polyqent/Constraint.html#PolynomialConstraint.is_strict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.Constraint.PolynomialConstraint.is_strict" title="Link to this definition"></a></dt>
 <dd><p>Determine if the constraint is strict.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -260,10 +224,7 @@ zero on the other side.</p>
 
            </div>
           </div>
-          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="polyhorn.Constant.html" class="btn btn-neutral float-left" title="Constant module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="polyhorn.Convertor.html" class="btn btn-neutral float-right" title="Convertor module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-    </div>
+          <footer>
 
   <hr/>
 
