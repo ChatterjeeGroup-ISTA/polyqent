@@ -18,7 +18,9 @@
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Main module" href="polyqent.main.html" />
+    <link rel="prev" title="PolyQEnt" href="index.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -41,7 +43,20 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">PolyQEnt API</span></p>
-<ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">PolyQEnt</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#getting-started">Getting Started</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#experiments">Experiments</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#standalone-tool">Standalone tool</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#running-polyqent">Running PolyQEnt</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#api-access">API Access</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#input-syntax">Input Syntax</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#config-files-optional">Config files (Optional)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#citing">Citing</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="polyqent.main.html">Main module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="polyqent.Coefficient.html">Coefficient module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="polyqent.Constant.html">Constant module</a></li>
@@ -51,6 +66,7 @@
 <li class="toctree-l1"><a class="reference internal" href="polyqent.Farkas.html">Farkas module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="polyqent.Handelman.html">Handelman module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="polyqent.Parser.html">Parser module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Polynomial.html">Polynomial module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="polyqent.PositiveModel.html">PositiveModel module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="polyqent.Putinar.html">Putinar module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="polyqent.Solver.html">Solver module</a></li>
@@ -87,12 +103,119 @@
              
   <section id="polyqent">
 <h1>PolyQEnt<a class="headerlink" href="#polyqent" title="Link to this heading"></a></h1>
+<p>PolyQEnt is a solver for Polynomial Horn Clauses (PHC).</p>
+<p>Given an input PHC in SMT-LIB format and an optional config file, PolyQEnt finds a valuation of the unknown variables in the input such that all the PHCs are satisfied.</p>
+<section id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading"></a></h2>
+<p>PolyQEnt is written in Python and can be run as a standalone tool or as a Python library. Either way, the input to PolyQEnt is an SMT-LIB instance containing the PHC and an optional config file specifying the theorem and solver to be used.</p>
+<p>The tool is tested for Python &gt;=3.9 and requires the installation of:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Z3</span></code> many package managers provide Z3 as a package. For example, in Ubuntu, Z3 can be installed using <code class="docutils literal notranslate"><span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">z3</span></code>. Otherwise, you can find more information <a class="reference external" href="https://github.com/Z3Prover/z3">here</a></p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">MathSAT</span></code> can be downloaded from <a class="reference external" href="http://mathsat.fbk.eu/download.html">here</a>.</p></li>
+<li><p>GNU C library <code class="docutils literal notranslate"><span class="pre">glibc</span></code> and Gnu Multiprecision Library <code class="docutils literal notranslate"><span class="pre">GMP</span></code> are also required.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pysmt</span></code> python library.</p></li>
+</ul>
+<p>Next, we can install the package using the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>polyqent
+</pre></div>
+</div>
+</section>
+<section id="experiments">
+<h2>Experiments<a class="headerlink" href="#experiments" title="Link to this heading"></a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">experiments</span></code> folder contains the material to run all the experiments presented in the tool paper. Please see <code class="docutils literal notranslate"><span class="pre">experiments/README.md</span></code> for detailed instructions.</p>
+</section>
+<section id="standalone-tool">
+<h2>Standalone tool<a class="headerlink" href="#standalone-tool" title="Link to this heading"></a></h2>
+<p>To try PolyQEnt, first, clone this repository.
+When using the tool via the commandline, you can use the accompanying solvers from the subfolder <code class="docutils literal notranslate"><span class="pre">solver/</span></code>. For this you do not require any installation, however, in order to run PolyQEnt, Z3 and MathSAT, the following command should be executed first:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">chmod</span> <span class="o">+</span><span class="n">x</span> <span class="n">PolyQEnt</span> <span class="n">solver</span><span class="o">/</span><span class="n">z3</span> <span class="n">solver</span><span class="o">/</span><span class="n">mathsat</span>
+</pre></div>
+</div>
+<p>Also add solvers to PATH:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>export PATH=$PATH:[polyqent]/solver
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">[polyqent]</span></code> is the directory where PolyQEnt is cloned.</p>
+<section id="running-polyqent">
+<h3>Running PolyQEnt<a class="headerlink" href="#running-polyqent" title="Link to this heading"></a></h3>
+<p>To run PolyQEnt on <code class="docutils literal notranslate"><span class="pre">input-example.smt2</span></code> the following command should be executed:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">PolyQEnt</span> <span class="nb">input</span><span class="o">-</span><span class="n">example</span><span class="o">.</span><span class="n">smt2</span>
+</pre></div>
+</div>
+<p>To run PolyQEnt on <code class="docutils literal notranslate"><span class="pre">input-example.smt2</span></code> with <code class="docutils literal notranslate"><span class="pre">config-example.json</span></code> the following command should be executed:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">./</span><span class="n">PolyQEnt</span> <span class="nb">input</span><span class="o">-</span><span class="n">example</span><span class="o">.</span><span class="n">smt2</span> <span class="n">config</span><span class="o">-</span><span class="n">example</span><span class="o">.</span><span class="n">json</span>
+</pre></div>
+</div>
+<p>Alternatively, you can directly run PolyQEnt’s main python source file as follows:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="n">src</span><span class="o">/</span><span class="n">polyqent</span><span class="o">/</span><span class="n">main</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">smt2</span> <span class="nb">input</span><span class="o">-</span><span class="n">example</span><span class="o">.</span><span class="n">smt2</span> <span class="o">--</span><span class="n">config</span> <span class="n">config</span><span class="o">-</span><span class="n">example</span><span class="o">.</span><span class="n">json</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="api-access">
+<h2>API Access<a class="headerlink" href="#api-access" title="Link to this heading"></a></h2>
+<p>PolyQEnt can be used as a Python library. The following code snippet shows how to use PolyQEnt as a library after the whole installation process is completed.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">polyqent.main</span><span class="w"> </span><span class="kn">import</span> <span class="n">execute</span>
+
+<span class="n">input_file</span> <span class="o">=</span> <span class="s2">&quot;input-example.smt2&quot;</span>
+<span class="n">config_file</span> <span class="o">=</span> <span class="s2">&quot;config-example.json&quot;</span>
+
+<span class="n">is_sat</span><span class="p">,</span> <span class="n">model</span> <span class="o">=</span> <span class="n">execute</span><span class="p">(</span><span class="n">input_file</span><span class="p">,</span> <span class="n">config_file</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">execute</span></code> function allows for several different input combinations. The first argument can be the path to an <code class="docutils literal notranslate"><span class="pre">.smt2</span></code> input file or an instance os the <code class="docutils literal notranslate"><span class="pre">pysmt.solvers.solver.Solver</span></code> class with the assertions already added. The second argument can be the path to a <code class="docutils literal notranslate"><span class="pre">.json</span></code> config file or a dictionary with the configuration parameters.</p>
+<p>A further example of how to use PolyQEnt as a library can be found in the <code class="docutils literal notranslate"><span class="pre">example_api.py</span></code> file.</p>
+</section>
+<section id="input-syntax">
+<h2>Input Syntax<a class="headerlink" href="#input-syntax" title="Link to this heading"></a></h2>
+<p>The input syntax of PolyQEnt follows the SMTLIB syntax:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">(declare-const</span> <span class="pre">[var</span> <span class="pre">name]</span> <span class="pre">Real)</span></code> is used for defining new unknown variables.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">(assert</span> <span class="pre">phi)</span></code> is used for adding either (i) a quantifier free constraint on the unknown variables, or (ii) a PHC of the following form:</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">(</span><span class="k">assert</span> <span class="p">(</span><span class="n">forall</span> <span class="p">((</span><span class="n">variable</span> <span class="nb">type</span><span class="p">)</span> <span class="o">...</span> <span class="p">)</span> <span class="p">(</span><span class="o">=&gt;</span> <span class="n">phi</span> <span class="n">psi</span><span class="p">)</span> <span class="p">))</span>
+</pre></div>
+</div>
+<p>where <code class="docutils literal notranslate"><span class="pre">phi</span></code> and <code class="docutils literal notranslate"><span class="pre">psi</span></code> are polynomial predicates over the unknown variables and the variables defined in the <code class="docutils literal notranslate"><span class="pre">forall</span></code> fragment of the assertion.</p>
+<ul class="simple">
+<li><p>the <code class="docutils literal notranslate"><span class="pre">(check-sat)</span></code> command at the end specifies that PolyQEnt should run an SMT-solver after obtaining a fully existential system of polynomials.</p></li>
+<li><p>the <code class="docutils literal notranslate"><span class="pre">(get-model)</span></code> command means that in case the SMT-solver returned <code class="docutils literal notranslate"><span class="pre">sat</span></code>, the values for unknown variables should be printed.</p></li>
+</ul>
+<p>See <code class="docutils literal notranslate"><span class="pre">input-example.smt2</span></code> as an example.</p>
+</section>
+<section id="config-files-optional">
+<h2>Config files (Optional)<a class="headerlink" href="#config-files-optional" title="Link to this heading"></a></h2>
+<p>The config file must be in <code class="docutils literal notranslate"><span class="pre">.json</span></code> format containing the following fields:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">theorem_name</span></code> which is one of <code class="docutils literal notranslate"><span class="pre">&quot;farkas&quot;</span></code>, <code class="docutils literal notranslate"><span class="pre">&quot;handelman&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;putinar&quot;</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">solver_name</span></code> which is one of <code class="docutils literal notranslate"><span class="pre">&quot;z3&quot;</span></code> or <code class="docutils literal notranslate"><span class="pre">&quot;mathsat&quot;</span></code>.</p></li>
+<li><p>(optional) <code class="docutils literal notranslate"><span class="pre">output_path</span></code> which should be the path to a file where PolyQEnt will store the obtained polynomial system. If not set, PolyQEnt will create a temporary file for it and will delete it in the end of execution.</p></li>
+<li><p>(optional) <code class="docutils literal notranslate"><span class="pre">int_value</span></code> which is assigned <code class="docutils literal notranslate"><span class="pre">false</span></code> or <code class="docutils literal notranslate"><span class="pre">true</span></code>. When <code class="docutils literal notranslate"><span class="pre">true</span></code>, PolyQEnt tries to find integer values for unknown variables.</p></li>
+<li><p>In case <code class="docutils literal notranslate"><span class="pre">handelman</span></code> is chosen for <code class="docutils literal notranslate"><span class="pre">theorem_name</span></code>, an additional integer parameter <code class="docutils literal notranslate"><span class="pre">degree_of_sat</span></code> should be specified. This is the only parameter required by Handelman’s Positivestellensatz. See [1] appendix E for more details.</p></li>
+<li><p>In case <code class="docutils literal notranslate"><span class="pre">putinar</span></code> is chosen for <code class="docutils literal notranslate"><span class="pre">theorem_name</span></code>, four parameters should be specified in the config file: (i) <code class="docutils literal notranslate"><span class="pre">degree_of_sat</span></code> the degree of SOS polynomials considered when the LHS of PHCs are assumed satisfying, (ii) <code class="docutils literal notranslate"><span class="pre">degree_of_nonstrict_unsat</span></code>, (iii) <code class="docutils literal notranslate"><span class="pre">degree_of_strict_unsat</span></code> and (iv) <code class="docutils literal notranslate"><span class="pre">max_d_of_strict</span></code>, for the remaining three degree parameters of Putinar’s positivestellensatz. The names are self-explanatory and the details can be found in [1] section 3.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SAT_heuristic</span></code> which should be set to <code class="docutils literal notranslate"><span class="pre">true</span></code> if the <code class="docutils literal notranslate"><span class="pre">Assume-SAT</span></code> heuristic should be used.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">unsat_core_heuristic</span></code> which should be set to <code class="docutils literal notranslate"><span class="pre">true</span></code> if the <code class="docutils literal notranslate"><span class="pre">UNSAT</span> <span class="pre">Core</span></code> heuristic should be used.</p></li>
+</ul>
+<p>The default value is 0 for all integer parameters and <code class="docutils literal notranslate"><span class="pre">false</span></code> for all boolean parameters. Default theorem is set based on the degree of Horn Clauses and default solver is z3. Also, all heuristics are set t false as default.</p>
+<p>See <code class="docutils literal notranslate"><span class="pre">config-example.json</span></code> as an example.</p>
+<p>[1] Polynomial Reachability Witnesses via Stellensätze. Asadi et. al. PLDI 2021.</p>
+</section>
+<section id="citing">
+<h2>Citing<a class="headerlink" href="#citing" title="Link to this heading"></a></h2>
+<p>To cite PolyQEnt, please use the following reference:<br />
+K. Chatterjee, A. K. Goharshady, E. K. Goharshady, M. Karrabi, M. Saadat, M. Seeliger, D. Zikelic<br />
+PolyHorn: A Polynomial Horn Clause Solver<br />
+arXiv 2024, [https://arxiv.org/abs/2408.03796]</p>
+</section>
 </section>
 
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="PolyQEnt" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="polyqent.main.html" class="btn btn-neutral float-right" title="Main module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

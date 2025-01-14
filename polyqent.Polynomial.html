@@ -18,7 +18,9 @@
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="PositiveModel module" href="polyqent.PositiveModel.html" />
+    <link rel="prev" title="Parser module" href="polyqent.Parser.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -41,7 +43,8 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">PolyQEnt API</span></p>
-<ul>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="README.html">PolyQEnt</a></li>
 <li class="toctree-l1"><a class="reference internal" href="polyqent.main.html">Main module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="polyqent.Coefficient.html">Coefficient module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="polyqent.Constant.html">Constant module</a></li>
@@ -51,6 +54,30 @@
 <li class="toctree-l1"><a class="reference internal" href="polyqent.Farkas.html">Farkas module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="polyqent.Handelman.html">Handelman module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="polyqent.Parser.html">Parser module</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Polynomial module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#polyqent.Polynomial.Monomial"><code class="docutils literal notranslate"><span class="pre">Monomial</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.Polynomial.Monomial.variables"><code class="docutils literal notranslate"><span class="pre">Monomial.variables</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.Polynomial.Monomial.degrees"><code class="docutils literal notranslate"><span class="pre">Monomial.degrees</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.Polynomial.Monomial.coefficient"><code class="docutils literal notranslate"><span class="pre">Monomial.coefficient</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.Polynomial.Monomial.convert_to_preorder"><code class="docutils literal notranslate"><span class="pre">Monomial.convert_to_preorder()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.Polynomial.Monomial.get_deg"><code class="docutils literal notranslate"><span class="pre">Monomial.get_deg()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.Polynomial.Monomial.is_mono"><code class="docutils literal notranslate"><span class="pre">Monomial.is_mono()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#polyqent.Polynomial.Polynomial"><code class="docutils literal notranslate"><span class="pre">Polynomial</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.Polynomial.Polynomial.variables"><code class="docutils literal notranslate"><span class="pre">Polynomial.variables</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.Polynomial.Polynomial.monomials"><code class="docutils literal notranslate"><span class="pre">Polynomial.monomials</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.Polynomial.Polynomial.dict_from_degrees_to_monomials"><code class="docutils literal notranslate"><span class="pre">Polynomial.dict_from_degrees_to_monomials</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.Polynomial.Polynomial.add_variables"><code class="docutils literal notranslate"><span class="pre">Polynomial.add_variables()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.Polynomial.Polynomial.convert_to_preorder"><code class="docutils literal notranslate"><span class="pre">Polynomial.convert_to_preorder()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.Polynomial.Polynomial.get_deg"><code class="docutils literal notranslate"><span class="pre">Polynomial.get_deg()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.Polynomial.Polynomial.get_monomial_by_degree"><code class="docutils literal notranslate"><span class="pre">Polynomial.get_monomial_by_degree()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.Polynomial.Polynomial.is_linear"><code class="docutils literal notranslate"><span class="pre">Polynomial.is_linear()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.Polynomial.Polynomial.revise"><code class="docutils literal notranslate"><span class="pre">Polynomial.revise()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="polyqent.PositiveModel.html">PositiveModel module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="polyqent.Putinar.html">Putinar module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="polyqent.Solver.html">Solver module</a></li>
@@ -77,7 +104,7 @@
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">Polynomial module</li>
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/ChatterjeeGroup-ISTA/PolyQEnt/blob/main/docs/source/polyqent.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/ChatterjeeGroup-ISTA/PolyQEnt/blob/main/docs/source/polyqent.Polynomial.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -334,7 +361,10 @@ revise it returns <cite>(3*a + 2*a*b + 1*a)*x^1</cite>.</p>
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="polyqent.Parser.html" class="btn btn-neutral float-left" title="Parser module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="polyqent.PositiveModel.html" class="btn btn-neutral float-right" title="PositiveModel module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

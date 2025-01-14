@@ -3,13 +3,14 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-.. include:: README.rst
-
+.. include:: ../../README.md
+   :parser: myst
 
 .. toctree::
    :caption: PolyQEnt API
    :maxdepth: 4
 
+   README
    polyqent.main
    polyqent.Coefficient
    polyqent.Constant

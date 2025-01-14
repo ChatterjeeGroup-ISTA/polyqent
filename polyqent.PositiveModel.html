@@ -20,7 +20,7 @@
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Putinar module" href="polyqent.Putinar.html" />
-    <link rel="prev" title="Parser module" href="polyqent.Parser.html" /> 
+    <link rel="prev" title="Polynomial module" href="polyqent.Polynomial.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -44,6 +44,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">PolyQEnt API</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="README.html">PolyQEnt</a></li>
 <li class="toctree-l1"><a class="reference internal" href="polyqent.main.html">Main module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="polyqent.Coefficient.html">Coefficient module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="polyqent.Constant.html">Constant module</a></li>
@@ -53,6 +54,7 @@
 <li class="toctree-l1"><a class="reference internal" href="polyqent.Farkas.html">Farkas module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="polyqent.Handelman.html">Handelman module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="polyqent.Parser.html">Parser module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Polynomial.html">Polynomial module</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">PositiveModel module</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#polyqent.PositiveModel.PositiveModel"><code class="docutils literal notranslate"><span class="pre">PositiveModel</span></code></a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#polyqent.PositiveModel.PositiveModel.paired_constraint"><code class="docutils literal notranslate"><span class="pre">PositiveModel.paired_constraint</span></code></a></li>
@@ -372,7 +374,7 @@ clause constraints based on the class configurations.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="polyqent.PositiveModel.PositiveModel.get_polynomial">
-<span class="sig-name descname"><span class="pre">get_polynomial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poly_str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">program_variables</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyqent.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable" title="polyqent.UnknownVariable.UnknownVariable"><span class="pre">UnknownVariable</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="polyqent.html#polyqent.Polynomial.Polynomial" title="polyqent.Polynomial.Polynomial"><span class="pre">Polynomial</span></a></span></span><a class="reference internal" href="_modules/polyqent/PositiveModel.html#PositiveModel.get_polynomial"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.PositiveModel.PositiveModel.get_polynomial" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_polynomial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poly_str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">program_variables</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyqent.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable" title="polyqent.UnknownVariable.UnknownVariable"><span class="pre">UnknownVariable</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="polyqent.Polynomial.html#polyqent.Polynomial.Polynomial" title="polyqent.Polynomial.Polynomial"><span class="pre">Polynomial</span></a></span></span><a class="reference internal" href="_modules/polyqent/PositiveModel.html#PositiveModel.get_polynomial"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.PositiveModel.PositiveModel.get_polynomial" title="Link to this definition"></a></dt>
 <dd><p>Generate a polynomial from a given string based on the template and
 program variable in the class.</p>
 <dl class="field-list simple">
@@ -386,7 +388,7 @@ program variable in the class.</p>
 <dd class="field-even"><p>Polynomial of the given string.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="polyqent.html#polyqent.Polynomial.Polynomial" title="polyqent.Polynomial.Polynomial">Polynomial</a></p>
+<dd class="field-odd"><p><a class="reference internal" href="polyqent.Polynomial.html#polyqent.Polynomial.Polynomial" title="polyqent.Polynomial.Polynomial">Polynomial</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -441,7 +443,7 @@ with a given configuration and finds values for the template variables.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="polyqent.Parser.html" class="btn btn-neutral float-left" title="Parser module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="polyqent.Polynomial.html" class="btn btn-neutral float-left" title="Polynomial module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="polyqent.Putinar.html" class="btn btn-neutral float-right" title="Putinar module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

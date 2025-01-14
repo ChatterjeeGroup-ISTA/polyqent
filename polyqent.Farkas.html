@@ -44,6 +44,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">PolyQEnt API</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="README.html">PolyQEnt</a></li>
 <li class="toctree-l1"><a class="reference internal" href="polyqent.main.html">Main module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="polyqent.Coefficient.html">Coefficient module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="polyqent.Constant.html">Constant module</a></li>
@@ -64,6 +65,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="polyqent.Handelman.html">Handelman module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="polyqent.Parser.html">Parser module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Polynomial.html">Polynomial module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="polyqent.PositiveModel.html">PositiveModel module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="polyqent.Putinar.html">Putinar module</a></li>
 <li class="toctree-l1"><a class="reference internal" href="polyqent.Solver.html">Solver module</a></li>
@@ -188,7 +190,7 @@ Lemma.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="polyqent.Farkas.Farkas.get_poly_sum">
-<span class="sig-name descname"><span class="pre">get_poly_sum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">need_strict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyqent.html#polyqent.Polynomial.Polynomial" title="polyqent.Polynomial.Polynomial"><span class="pre">Polynomial</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="polyqent.Constraint.html#polyqent.Constraint.CoefficientConstraint" title="polyqent.Constraint.CoefficientConstraint"><span class="pre">CoefficientConstraint</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/polyqent/Farkas.html#Farkas.get_poly_sum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.Farkas.Farkas.get_poly_sum" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">get_poly_sum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">need_strict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyqent.Polynomial.html#polyqent.Polynomial.Polynomial" title="polyqent.Polynomial.Polynomial"><span class="pre">Polynomial</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="polyqent.Constraint.html#polyqent.Constraint.CoefficientConstraint" title="polyqent.Constraint.CoefficientConstraint"><span class="pre">CoefficientConstraint</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/polyqent/Farkas.html#Farkas.get_poly_sum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.Farkas.Farkas.get_poly_sum" title="Link to this definition"></a></dt>
 <dd><p>This function returns a polynomial y_0 + y_1*f_1 + y_2*f_2 …+ y_n*f_n
 where f_i are left hand side polynomials and y_i are newly created
 variable in farkas theorem.</p>
@@ -200,7 +202,7 @@ variable in farkas theorem.</p>
 <dd class="field-even"><p>polynomial of sum of all left hand side with new variables and corresponding constraints.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>Tuple[<a class="reference internal" href="polyqent.html#polyqent.Polynomial.Polynomial" title="polyqent.Polynomial.Polynomial">Polynomial</a>, <a class="reference internal" href="polyqent.Constraint.html#polyqent.Constraint.CoefficientConstraint" title="polyqent.Constraint.CoefficientConstraint">CoefficientConstraint</a>]</p>
+<dd class="field-odd"><p>Tuple[<a class="reference internal" href="polyqent.Polynomial.html#polyqent.Polynomial.Polynomial" title="polyqent.Polynomial.Polynomial">Polynomial</a>, <a class="reference internal" href="polyqent.Constraint.html#polyqent.Constraint.CoefficientConstraint" title="polyqent.Constraint.CoefficientConstraint">CoefficientConstraint</a>]</p>
 </dd>
 </dl>
 </dd></dl>
