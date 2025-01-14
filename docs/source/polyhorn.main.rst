@@ -1,7 +1,7 @@
 Main module
 ====================
 
-.. automodule:: polyhorn.main
+.. automodule:: polyqent.main
    :members:
    :undoc-members:
    :show-inheritance:

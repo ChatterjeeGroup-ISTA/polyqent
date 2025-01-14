@@ -1,7 +1,7 @@
 Polynomial module
 ==========================
 
-.. automodule:: polyhorn.Polynomial
+.. automodule:: polyqent.Polynomial
    :members:
    :undoc-members:
    :show-inheritance:

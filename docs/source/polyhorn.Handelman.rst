@@ -1,7 +1,7 @@
 Handelman module
 =========================
 
-.. automodule:: polyhorn.Handelman
+.. automodule:: polyqent.Handelman
    :members:
    :undoc-members:
    :show-inheritance:

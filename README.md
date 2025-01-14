@@ -16,7 +16,7 @@ The tool is tested for Python >=3.9 and requires the installation of:
 
 Next, we can install the package using the following command:
 ```bash
-pip install polyhorn
+pip install polyqent
 ```
 
 ## Experiments
@@ -34,9 +34,9 @@ chmod +x PolyQEnt solver/z3 solver/mathsat
 Also add solvers to PATH:
 
 ```
-export PATH=$PATH:[polyhorn]/solver
+export PATH=$PATH:[polyqent]/solver
 ```
-where `[polyhorn]` is the directory where PolyQEnt is cloned.
+where `[polyqent]` is the directory where PolyQEnt is cloned.
 
 ### Running PolyQEnt 
 
@@ -55,7 +55,7 @@ To run PolyQEnt on `input-example.smt2` with `config-example.json` the following
 Alternatively, you can directly run PolyQEnt's main python source file as follows:
 
 ```
-python3 src/polyhorn/main.py --smt2 input-example.smt2 --config config-example.json
+python3 src/polyqent/main.py --smt2 input-example.smt2 --config config-example.json
 ```
 
 
@@ -64,7 +64,7 @@ python3 src/polyhorn/main.py --smt2 input-example.smt2 --config config-example.j
 PolyQEnt can be used as a Python library. The following code snippet shows how to use PolyQEnt as a library after the whole installation process is completed.
 
 ```python
-from polyhorn.main import execute
+from polyqent.main import execute
 
 input_file = "input-example.smt2"
 config_file = "config-example.json"

@@ -1,4 +1,4 @@
-from src.polyhorn.main import add_default_config, execute, load_config
+from src.polyqent.main import add_default_config, execute, load_config
 
 
 def get_test_solver_instance():

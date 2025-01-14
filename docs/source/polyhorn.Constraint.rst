@@ -1,7 +1,7 @@
 Constraint module
 ==========================
 
-.. automodule:: polyhorn.Constraint
+.. automodule:: polyqent.Constraint
    :members:
    :undoc-members:
    :show-inheritance:

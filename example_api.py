@@ -2,7 +2,7 @@ from pysmt.shortcuts import (GE, GT, LE, And, Equals, ForAll, Implies, Minus,
                              Real, Solver, Symbol)
 from pysmt.typing import REAL
 
-from polyhorn.main import execute
+from polyqent.main import execute
 
 # Create symbols
 x = Symbol("x", REAL)

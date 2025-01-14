@@ -9,8 +9,8 @@ from pysmt.fnode import FNode
 from pysmt.operators import op_to_str
 from pysmt.solvers.solver import Solver as PysmtSolver
 
-from polyhorn.Parser import Parser
-from polyhorn.PositiveModel import PositiveModel
+from polyqent.Parser import Parser
+from polyqent.PositiveModel import PositiveModel
 
 
 def add_default_config(config: dict) -> dict:

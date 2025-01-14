@@ -1,7 +1,7 @@
 import subprocess
 
 def test_cmd_tool():
-    cmd = "./PolyHorn tests/res/test_instance.smt2 tests/res/test_config.json"
+    cmd = "./PolyQEnt tests/res/test_instance.smt2 tests/res/test_config.json"
     process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = process.communicate()
     out, err = out.decode('utf-8'), err.decode('utf-8')

@@ -1,7 +1,7 @@
 Constant module
 ========================
 
-.. automodule:: polyhorn.Constant
+.. automodule:: polyqent.Constant
    :members:
    :undoc-members:
    :show-inheritance:

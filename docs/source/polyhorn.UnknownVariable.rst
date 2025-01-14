@@ -1,7 +1,7 @@
 UnknownVariable module
 ===============================
 
-.. automodule:: polyhorn.UnknownVariable
+.. automodule:: polyqent.UnknownVariable
    :members:
    :undoc-members:
    :show-inheritance:

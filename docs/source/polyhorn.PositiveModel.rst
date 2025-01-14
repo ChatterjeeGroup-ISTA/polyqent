@@ -1,7 +1,7 @@
 PositiveModel module
 =============================
 
-.. automodule:: polyhorn.PositiveModel
+.. automodule:: polyqent.PositiveModel
    :members:
    :undoc-members:
    :show-inheritance:

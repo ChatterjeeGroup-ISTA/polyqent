@@ -1,4 +1,4 @@
-# Process to Release a new PolyHorn Version
+# Process to Release a new PolyQEnt Version
 This document is intended as a knowledge base for future additions requiring a new build and release of the whole project. When following these steps, in the end, the new version is published to the python package index (PyPI) and a new release is added to the GitHub repository containing binaries.
 
 ## Step 1: Make changes

@@ -1,7 +1,7 @@
 Putinar module
 =======================
 
-.. automodule:: polyhorn.Putinar
+.. automodule:: polyqent.Putinar
    :members:
    :undoc-members:
    :show-inheritance:

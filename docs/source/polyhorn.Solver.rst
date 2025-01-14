@@ -1,7 +1,7 @@
 Solver module
 ======================
 
-.. automodule:: polyhorn.Solver
+.. automodule:: polyqent.Solver
    :members:
    :undoc-members:
    :show-inheritance:

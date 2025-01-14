@@ -10,20 +10,20 @@
    :caption: PolyHorn API
    :maxdepth: 4
 
-   polyhorn.main
-   polyhorn.Coefficient
-   polyhorn.Constant
-   polyhorn.Constraint
-   polyhorn.Convertor
-   polyhorn.DNF
-   polyhorn.Farkas
-   polyhorn.Handelman
-   polyhorn.Parser
-   polyhorn.Polynomial
-   polyhorn.PositiveModel
-   polyhorn.Putinar
-   polyhorn.Solver
-   polyhorn.UnknownVariable
+   polyqent.main
+   polyqent.Coefficient
+   polyqent.Constant
+   polyqent.Constraint
+   polyqent.Convertor
+   polyqent.DNF
+   polyqent.Farkas
+   polyqent.Handelman
+   polyqent.Parser
+   polyqent.Polynomial
+   polyqent.PositiveModel
+   polyqent.Putinar
+   polyqent.Solver
+   polyqent.UnknownVariable
 
 
 .. toctree::

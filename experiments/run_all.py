@@ -9,7 +9,7 @@ linpol = ["linear", "poly"]
 AST = ["cost-analysis-table-3", "higher-moment-tail-prob"]
 RevTerm = ["all", "best_config"]
 
-def run_polyhorn(benchmark, config, output):
+def run_polyqent(benchmark, config, output):
     print(f"./PolyHorn experiments/{benchmark} experiments/{config}")
     
     os.chdir("..")
@@ -40,7 +40,7 @@ for config in linpol:
             for solver in solvers:
                 config_file = f"configs-{heuristic}/{solver}/{path}/{benchmark}.json"
                 output_file = f"outputs/{heuristic}/{solver}/{path}/{benchmark}.out"
-                run_polyhorn(input_file, config_file,output_file)
+                run_polyqent(input_file, config_file,output_file)
         run_z3(input_file, f"outputs/direct-z3/{benchmark}.out")
 
 # Non-Termination
@@ -53,7 +53,7 @@ for config in RevTerm:
             for solver in solvers:
                 config_file = f"configs-{heuristic}/{solver}/{path}/{benchmark}.json"
                 output_file = f"outputs/{heuristic}/{solver}/{path}/{benchmark}.out"
-                run_polyhorn(input_file, config_file,output_file)
+                run_polyqent(input_file, config_file,output_file)
         run_z3(input_file, f"outputs/direct-z3/{benchmark}.out")
 
 #Almost sure termination
@@ -66,7 +66,7 @@ for config in AST:
             for solver in solvers:
                 config_file = f"configs-{heuristic}/{solver}/{path}/{benchmark}.json"
                 output_file = f"outputs/{heuristic}/{solver}/{path}/{benchmark}.out"
-                run_polyhorn(input_file, config_file,output_file)
+                run_polyqent(input_file, config_file,output_file)
         run_z3(input_file, f"outputs/direct-z3/{benchmark}.out")
 
 #Synthesis
@@ -79,6 +79,6 @@ for config in linpol:
             for solver in solvers:
                 config_file = f"configs-{heuristic}/{solver}/{path}/{benchmark}.json"
                 output_file = f"outputs/{heuristic}/{solver}/{path}/{benchmark}.out"
-                run_polyhorn(input_file, config_file,output_file)
+                run_polyqent(input_file, config_file,output_file)
         run_z3(input_file, f"outputs/direct-z3/{benchmark}.out")
 
