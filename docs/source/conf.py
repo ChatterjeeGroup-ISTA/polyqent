@@ -18,7 +18,7 @@ release = '0.0.5'
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = []
+# extensions = []
 
 #templates_path = ['_templates']
 exclude_patterns = []
@@ -42,8 +42,16 @@ html_context = {
 extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.viewcode',
-    'sphinx.ext.napoleon'
+    'sphinx.ext.napoleon',
+    'myst_parser',
 ]
+
+
+source_suffix = {
+    '.rst': 'restructuredtext',
+    '.md': 'markdown',
+}
+
 
 autodoc_default_options = {
     'exclude-members': 'number_of_variables'

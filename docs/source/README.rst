@@ -1,4 +1,3 @@
-PolyQEnt
-========
 
-.. mdinclude:: ../../README.md
+.. include:: ../../README.md
+   :parser: myst
