@@ -7,7 +7,7 @@
 
 
 .. toctree::
-   :caption: PolyHorn API
+   :caption: PolyQEnt API
    :maxdepth: 4
 
    polyqent.main
