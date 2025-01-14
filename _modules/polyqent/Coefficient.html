@@ -39,7 +39,23 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Indices and tables</span></p>
+              <p class="caption" role="heading"><span class="caption-text">PolyQEnt API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.main.html">Main module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Coefficient.html">Coefficient module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Constant.html">Constant module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Constraint.html">Constraint module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Convertor.html">Convertor module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.DNF.html">DNF module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Farkas.html">Farkas module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Handelman.html">Handelman module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Parser.html">Parser module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.PositiveModel.html">PositiveModel module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Putinar.html">Putinar module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Solver.html">Solver module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.UnknownVariable.html">UnknownVariable module</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Indices and tables</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../genindex.html">Index</a></li>
 </ul>
@@ -80,7 +96,7 @@
 
 
 <div class="viewcode-block" id="Element">
-<a class="viewcode-back" href="../../polyhorn.Coefficient.html#polyqent.Coefficient.Element">[docs]</a>
+<a class="viewcode-back" href="../../polyqent.Coefficient.html#polyqent.Coefficient.Element">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Element</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class that represent an element.</span>
@@ -229,7 +245,7 @@
         <span class="k">return</span> <span class="n">Element</span><span class="p">(</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">constant</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">variables</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Element.convert_to_preorder">
-<a class="viewcode-back" href="../../polyhorn.Coefficient.html#polyqent.Coefficient.Element.convert_to_preorder">[docs]</a>
+<a class="viewcode-back" href="../../polyqent.Coefficient.html#polyqent.Coefficient.Element.convert_to_preorder">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">convert_to_preorder</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Convert Element to preorder format string.</span>
@@ -261,7 +277,7 @@
 
 
 <div class="viewcode-block" id="Coefficient">
-<a class="viewcode-back" href="../../polyhorn.Coefficient.html#polyqent.Coefficient.Coefficient">[docs]</a>
+<a class="viewcode-back" href="../../polyqent.Coefficient.html#polyqent.Coefficient.Coefficient">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Coefficient</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class that represent a coefficient.</span>
@@ -351,7 +367,7 @@
             <span class="k">return</span> <span class="n">Coefficient</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">elements</span> <span class="o">+</span> <span class="p">[</span><span class="n">other</span><span class="p">])</span><span class="o">.</span><span class="n">revise</span><span class="p">()</span>
 
 <div class="viewcode-block" id="Coefficient.revise">
-<a class="viewcode-back" href="../../polyhorn.Coefficient.html#polyqent.Coefficient.Coefficient.revise">[docs]</a>
+<a class="viewcode-back" href="../../polyqent.Coefficient.html#polyqent.Coefficient.Coefficient.revise">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">revise</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Coefficient</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">        Revise the Coefficient.</span>
@@ -418,7 +434,7 @@
         <span class="k">return</span> <span class="bp">self</span> <span class="o">+</span> <span class="p">(</span><span class="o">-</span><span class="n">other</span><span class="p">)</span>
 
 <div class="viewcode-block" id="Coefficient.convert_to_preorder">
-<a class="viewcode-back" href="../../polyhorn.Coefficient.html#polyqent.Coefficient.Coefficient.convert_to_preorder">[docs]</a>
+<a class="viewcode-back" href="../../polyqent.Coefficient.html#polyqent.Coefficient.Coefficient.convert_to_preorder">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">convert_to_preorder</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Convert Coefficient to preorder format string.</span>

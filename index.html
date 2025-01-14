@@ -18,7 +18,8 @@
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Main module" href="polyqent.main.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -40,7 +41,23 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Indices and tables</span></p>
+              <p class="caption" role="heading"><span class="caption-text">PolyQEnt API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.main.html">Main module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Coefficient.html">Coefficient module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Constant.html">Constant module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Constraint.html">Constraint module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Convertor.html">Convertor module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.DNF.html">DNF module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Farkas.html">Farkas module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Handelman.html">Handelman module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Parser.html">Parser module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.PositiveModel.html">PositiveModel module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Putinar.html">Putinar module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Solver.html">Solver module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.UnknownVariable.html">UnknownVariable module</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Indices and tables</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="genindex.html">Index</a></li>
 </ul>
@@ -72,6 +89,197 @@
   <section id="polyqent">
 <h1>PolyQEnt<a class="headerlink" href="#polyqent" title="Link to this heading"></a></h1>
 <div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">PolyQEnt API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.main.html">Main module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="polyqent.main.html#polyqent.main.add_default_config"><code class="docutils literal notranslate"><span class="pre">add_default_config()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="polyqent.main.html#polyqent.main.execute"><code class="docutils literal notranslate"><span class="pre">execute()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="polyqent.main.html#polyqent.main.execute_readable"><code class="docutils literal notranslate"><span class="pre">execute_readable()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="polyqent.main.html#polyqent.main.execute_smt2"><code class="docutils literal notranslate"><span class="pre">execute_smt2()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="polyqent.main.html#polyqent.main.load_config"><code class="docutils literal notranslate"><span class="pre">load_config()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="polyqent.main.html#polyqent.main.pysmt_to_smt2"><code class="docutils literal notranslate"><span class="pre">pysmt_to_smt2()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Coefficient.html">Coefficient module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="polyqent.Coefficient.html#polyqent.Coefficient.Coefficient"><code class="docutils literal notranslate"><span class="pre">Coefficient</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Coefficient.html#polyqent.Coefficient.Coefficient.elements"><code class="docutils literal notranslate"><span class="pre">Coefficient.elements</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Coefficient.html#polyqent.Coefficient.Coefficient.convert_to_preorder"><code class="docutils literal notranslate"><span class="pre">Coefficient.convert_to_preorder()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Coefficient.html#polyqent.Coefficient.Coefficient.revise"><code class="docutils literal notranslate"><span class="pre">Coefficient.revise()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="polyqent.Coefficient.html#polyqent.Coefficient.Element"><code class="docutils literal notranslate"><span class="pre">Element</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Coefficient.html#polyqent.Coefficient.Element.constant"><code class="docutils literal notranslate"><span class="pre">Element.constant</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Coefficient.html#polyqent.Coefficient.Element.variables"><code class="docutils literal notranslate"><span class="pre">Element.variables</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Coefficient.html#polyqent.Coefficient.Element.convert_to_preorder"><code class="docutils literal notranslate"><span class="pre">Element.convert_to_preorder()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Constant.html">Constant module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="polyqent.Constant.html#polyqent.Constant.AvailabilityDict"><code class="docutils literal notranslate"><span class="pre">AvailabilityDict</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Constant.html#polyqent.Constant.AvailabilityDict.available"><code class="docutils literal notranslate"><span class="pre">AvailabilityDict.available()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="polyqent.Constant.html#polyqent.Constant.Constant"><code class="docutils literal notranslate"><span class="pre">Constant</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Constant.html#polyqent.Constant.Constant.command"><code class="docutils literal notranslate"><span class="pre">Constant.command</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Constant.html#polyqent.Constant.Constant.default_path"><code class="docutils literal notranslate"><span class="pre">Constant.default_path</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Constant.html#polyqent.Constant.Constant.options"><code class="docutils literal notranslate"><span class="pre">Constant.options</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="polyqent.Constant.html#polyqent.Constant.Theorem"><code class="docutils literal notranslate"><span class="pre">Theorem</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Constant.html#polyqent.Constant.Theorem.FARKAS"><code class="docutils literal notranslate"><span class="pre">Theorem.FARKAS</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Constant.html#polyqent.Constant.Theorem.HANDELMAN"><code class="docutils literal notranslate"><span class="pre">Theorem.HANDELMAN</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Constant.html#polyqent.Constant.Theorem.PUTINAR"><code class="docutils literal notranslate"><span class="pre">Theorem.PUTINAR</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Constraint.html">Constraint module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="polyqent.Constraint.html#polyqent.Constraint.CoefficientConstraint"><code class="docutils literal notranslate"><span class="pre">CoefficientConstraint</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Constraint.html#polyqent.Constraint.CoefficientConstraint.coefficient"><code class="docutils literal notranslate"><span class="pre">CoefficientConstraint.coefficient</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Constraint.html#polyqent.Constraint.CoefficientConstraint.sign"><code class="docutils literal notranslate"><span class="pre">CoefficientConstraint.sign</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Constraint.html#polyqent.Constraint.CoefficientConstraint.convert_to_preorder"><code class="docutils literal notranslate"><span class="pre">CoefficientConstraint.convert_to_preorder()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Constraint.html#polyqent.Constraint.CoefficientConstraint.is_equality"><code class="docutils literal notranslate"><span class="pre">CoefficientConstraint.is_equality()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Constraint.html#polyqent.Constraint.CoefficientConstraint.is_strict"><code class="docutils literal notranslate"><span class="pre">CoefficientConstraint.is_strict()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="polyqent.Constraint.html#polyqent.Constraint.PolynomialConstraint"><code class="docutils literal notranslate"><span class="pre">PolynomialConstraint</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Constraint.html#polyqent.Constraint.PolynomialConstraint.polynomial"><code class="docutils literal notranslate"><span class="pre">PolynomialConstraint.polynomial</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Constraint.html#polyqent.Constraint.PolynomialConstraint.sign"><code class="docutils literal notranslate"><span class="pre">PolynomialConstraint.sign</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Constraint.html#polyqent.Constraint.PolynomialConstraint.convert_to_preorder"><code class="docutils literal notranslate"><span class="pre">PolynomialConstraint.convert_to_preorder()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Constraint.html#polyqent.Constraint.PolynomialConstraint.is_strict"><code class="docutils literal notranslate"><span class="pre">PolynomialConstraint.is_strict()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Convertor.html">Convertor module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="polyqent.Convertor.html#polyqent.Convertor.convert_general_string_to_poly"><code class="docutils literal notranslate"><span class="pre">convert_general_string_to_poly()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="polyqent.Convertor.html#polyqent.Convertor.convert_to_desired_poly"><code class="docutils literal notranslate"><span class="pre">convert_to_desired_poly()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="polyqent.Convertor.html#polyqent.Convertor.find_index_of_variable"><code class="docutils literal notranslate"><span class="pre">find_index_of_variable()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="polyqent.Convertor.html#polyqent.Convertor.traverse"><code class="docutils literal notranslate"><span class="pre">traverse()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.DNF.html">DNF module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="polyqent.DNF.html#polyqent.DNF.DNF"><code class="docutils literal notranslate"><span class="pre">DNF</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.DNF.html#polyqent.DNF.DNF.literals"><code class="docutils literal notranslate"><span class="pre">DNF.literals</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.DNF.html#polyqent.DNF.DNF.convert_to_preorder"><code class="docutils literal notranslate"><span class="pre">DNF.convert_to_preorder()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Farkas.html">Farkas module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="polyqent.Farkas.html#polyqent.Farkas.Farkas"><code class="docutils literal notranslate"><span class="pre">Farkas</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Farkas.html#polyqent.Farkas.Farkas.variables"><code class="docutils literal notranslate"><span class="pre">Farkas.variables</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Farkas.html#polyqent.Farkas.Farkas.LHS"><code class="docutils literal notranslate"><span class="pre">Farkas.LHS</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Farkas.html#polyqent.Farkas.Farkas.RHS"><code class="docutils literal notranslate"><span class="pre">Farkas.RHS</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Farkas.html#polyqent.Farkas.Farkas.get_SAT_constraint"><code class="docutils literal notranslate"><span class="pre">Farkas.get_SAT_constraint()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Farkas.html#polyqent.Farkas.Farkas.get_UNSAT_constraint"><code class="docutils literal notranslate"><span class="pre">Farkas.get_UNSAT_constraint()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Farkas.html#polyqent.Farkas.Farkas.get_poly_sum"><code class="docutils literal notranslate"><span class="pre">Farkas.get_poly_sum()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Handelman.html">Handelman module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="polyqent.Handelman.html#polyqent.Handelman.Handelman"><code class="docutils literal notranslate"><span class="pre">Handelman</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Handelman.html#polyqent.Handelman.Handelman.variables"><code class="docutils literal notranslate"><span class="pre">Handelman.variables</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Handelman.html#polyqent.Handelman.Handelman.LHS"><code class="docutils literal notranslate"><span class="pre">Handelman.LHS</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Handelman.html#polyqent.Handelman.Handelman.RHS"><code class="docutils literal notranslate"><span class="pre">Handelman.RHS</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Handelman.html#polyqent.Handelman.Handelman.max_d_for_sat"><code class="docutils literal notranslate"><span class="pre">Handelman.max_d_for_sat</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Handelman.html#polyqent.Handelman.Handelman.max_d_for_unsat"><code class="docutils literal notranslate"><span class="pre">Handelman.max_d_for_unsat</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Handelman.html#polyqent.Handelman.Handelman.get_SAT_constraint"><code class="docutils literal notranslate"><span class="pre">Handelman.get_SAT_constraint()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Handelman.html#polyqent.Handelman.Handelman.get_UNSAT_constraint"><code class="docutils literal notranslate"><span class="pre">Handelman.get_UNSAT_constraint()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Handelman.html#polyqent.Handelman.Handelman.get_lists_with_fixed_len"><code class="docutils literal notranslate"><span class="pre">Handelman.get_lists_with_fixed_len()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Handelman.html#polyqent.Handelman.Handelman.get_monoids"><code class="docutils literal notranslate"><span class="pre">Handelman.get_monoids()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Handelman.html#polyqent.Handelman.Handelman.get_poly_sum"><code class="docutils literal notranslate"><span class="pre">Handelman.get_poly_sum()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Parser.html">Parser module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="polyqent.Parser.html#polyqent.Parser.Parser"><code class="docutils literal notranslate"><span class="pre">Parser</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Parser.html#polyqent.Parser.Parser.model"><code class="docutils literal notranslate"><span class="pre">Parser.model</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Parser.html#polyqent.Parser.Parser.parse_readable_file"><code class="docutils literal notranslate"><span class="pre">Parser.parse_readable_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Parser.html#polyqent.Parser.Parser.parse_smt_file"><code class="docutils literal notranslate"><span class="pre">Parser.parse_smt_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Parser.html#polyqent.Parser.Parser.traverse_readable_tree"><code class="docutils literal notranslate"><span class="pre">Parser.traverse_readable_tree()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Parser.html#polyqent.Parser.Parser.traverse_smt_tree"><code class="docutils literal notranslate"><span class="pre">Parser.traverse_smt_tree()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.PositiveModel.html">PositiveModel module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="polyqent.PositiveModel.html#polyqent.PositiveModel.PositiveModel"><code class="docutils literal notranslate"><span class="pre">PositiveModel</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.PositiveModel.html#polyqent.PositiveModel.PositiveModel.paired_constraint"><code class="docutils literal notranslate"><span class="pre">PositiveModel.paired_constraint</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.PositiveModel.html#polyqent.PositiveModel.PositiveModel.template_variables"><code class="docutils literal notranslate"><span class="pre">PositiveModel.template_variables</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.PositiveModel.html#polyqent.PositiveModel.PositiveModel.program_variables"><code class="docutils literal notranslate"><span class="pre">PositiveModel.program_variables</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.PositiveModel.html#polyqent.PositiveModel.PositiveModel.theorem_name"><code class="docutils literal notranslate"><span class="pre">PositiveModel.theorem_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.PositiveModel.html#polyqent.PositiveModel.PositiveModel.get_SAT"><code class="docutils literal notranslate"><span class="pre">PositiveModel.get_SAT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.PositiveModel.html#polyqent.PositiveModel.PositiveModel.get_UNSAT"><code class="docutils literal notranslate"><span class="pre">PositiveModel.get_UNSAT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.PositiveModel.html#polyqent.PositiveModel.PositiveModel.get_strict"><code class="docutils literal notranslate"><span class="pre">PositiveModel.get_strict</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.PositiveModel.html#polyqent.PositiveModel.PositiveModel.degree_of_sat"><code class="docutils literal notranslate"><span class="pre">PositiveModel.degree_of_sat</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.PositiveModel.html#polyqent.PositiveModel.PositiveModel.degree_of_nonstrict_unsat"><code class="docutils literal notranslate"><span class="pre">PositiveModel.degree_of_nonstrict_unsat</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.PositiveModel.html#polyqent.PositiveModel.PositiveModel.degree_of_strict_unsat"><code class="docutils literal notranslate"><span class="pre">PositiveModel.degree_of_strict_unsat</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.PositiveModel.html#polyqent.PositiveModel.PositiveModel.max_d_of_strict"><code class="docutils literal notranslate"><span class="pre">PositiveModel.max_d_of_strict</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.PositiveModel.html#polyqent.PositiveModel.PositiveModel.preconditions"><code class="docutils literal notranslate"><span class="pre">PositiveModel.preconditions</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.PositiveModel.html#polyqent.PositiveModel.PositiveModel.instructions"><code class="docutils literal notranslate"><span class="pre">PositiveModel.instructions</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.PositiveModel.html#polyqent.PositiveModel.PositiveModel.add_paired_constraint"><code class="docutils literal notranslate"><span class="pre">PositiveModel.add_paired_constraint()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.PositiveModel.html#polyqent.PositiveModel.PositiveModel.core_iteration"><code class="docutils literal notranslate"><span class="pre">PositiveModel.core_iteration()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.PositiveModel.html#polyqent.PositiveModel.PositiveModel.create_smt_file"><code class="docutils literal notranslate"><span class="pre">PositiveModel.create_smt_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.PositiveModel.html#polyqent.PositiveModel.PositiveModel.get_equality_constraint"><code class="docutils literal notranslate"><span class="pre">PositiveModel.get_equality_constraint()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.PositiveModel.html#polyqent.PositiveModel.PositiveModel.get_generated_constraints"><code class="docutils literal notranslate"><span class="pre">PositiveModel.get_generated_constraints()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.PositiveModel.html#polyqent.PositiveModel.PositiveModel.get_polynomial"><code class="docutils literal notranslate"><span class="pre">PositiveModel.get_polynomial()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.PositiveModel.html#polyqent.PositiveModel.PositiveModel.remove_equality_constraints"><code class="docutils literal notranslate"><span class="pre">PositiveModel.remove_equality_constraints()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.PositiveModel.html#polyqent.PositiveModel.PositiveModel.run_on_solver"><code class="docutils literal notranslate"><span class="pre">PositiveModel.run_on_solver()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Putinar.html">Putinar module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="polyqent.Putinar.html#polyqent.Putinar.Putinar"><code class="docutils literal notranslate"><span class="pre">Putinar</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Putinar.html#polyqent.Putinar.Putinar.variables"><code class="docutils literal notranslate"><span class="pre">Putinar.variables</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Putinar.html#polyqent.Putinar.Putinar.LHS"><code class="docutils literal notranslate"><span class="pre">Putinar.LHS</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Putinar.html#polyqent.Putinar.Putinar.RHS"><code class="docutils literal notranslate"><span class="pre">Putinar.RHS</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Putinar.html#polyqent.Putinar.Putinar.max_d_for_sat"><code class="docutils literal notranslate"><span class="pre">Putinar.max_d_for_sat</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Putinar.html#polyqent.Putinar.Putinar.max_d_for_unsat"><code class="docutils literal notranslate"><span class="pre">Putinar.max_d_for_unsat</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Putinar.html#polyqent.Putinar.Putinar.max_d_for_unsat_strict"><code class="docutils literal notranslate"><span class="pre">Putinar.max_d_for_unsat_strict</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Putinar.html#polyqent.Putinar.Putinar.degree_for_new_var"><code class="docutils literal notranslate"><span class="pre">Putinar.degree_for_new_var</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Putinar.html#polyqent.Putinar.Putinar.get_SAT_constraint"><code class="docutils literal notranslate"><span class="pre">Putinar.get_SAT_constraint()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Putinar.html#polyqent.Putinar.Putinar.get_UNSAT_constraint"><code class="docutils literal notranslate"><span class="pre">Putinar.get_UNSAT_constraint()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Putinar.html#polyqent.Putinar.Putinar.get_general_template"><code class="docutils literal notranslate"><span class="pre">Putinar.get_general_template()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Putinar.html#polyqent.Putinar.Putinar.get_lower_triangular_matrix"><code class="docutils literal notranslate"><span class="pre">Putinar.get_lower_triangular_matrix()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Putinar.html#polyqent.Putinar.Putinar.get_monoids"><code class="docutils literal notranslate"><span class="pre">Putinar.get_monoids()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Putinar.html#polyqent.Putinar.Putinar.get_poly_sum"><code class="docutils literal notranslate"><span class="pre">Putinar.get_poly_sum()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Putinar.html#polyqent.Putinar.Putinar.get_sum_of_square"><code class="docutils literal notranslate"><span class="pre">Putinar.get_sum_of_square()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Putinar.html#polyqent.Putinar.Putinar.handel_strict"><code class="docutils literal notranslate"><span class="pre">Putinar.handel_strict()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Solver.html">Solver module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="polyqent.Solver.html#polyqent.Solver.Solver"><code class="docutils literal notranslate"><span class="pre">Solver</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Solver.html#polyqent.Solver.Solver.convert_constraints_to_smt_format"><code class="docutils literal notranslate"><span class="pre">Solver.convert_constraints_to_smt_format()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Solver.html#polyqent.Solver.Solver.find_equality_constraint"><code class="docutils literal notranslate"><span class="pre">Solver.find_equality_constraint()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Solver.html#polyqent.Solver.Solver.get_all_variable"><code class="docutils literal notranslate"><span class="pre">Solver.get_all_variable()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Solver.html#polyqent.Solver.Solver.get_constant_polynomial"><code class="docutils literal notranslate"><span class="pre">Solver.get_constant_polynomial()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Solver.html#polyqent.Solver.Solver.get_degree_polynomial"><code class="docutils literal notranslate"><span class="pre">Solver.get_degree_polynomial()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Solver.html#polyqent.Solver.Solver.get_variable_polynomial"><code class="docutils literal notranslate"><span class="pre">Solver.get_variable_polynomial()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.Solver.html#polyqent.Solver.Solver.smt_declare_variable_phase"><code class="docutils literal notranslate"><span class="pre">Solver.smt_declare_variable_phase()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.UnknownVariable.html">UnknownVariable module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="polyqent.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable"><code class="docutils literal notranslate"><span class="pre">UnknownVariable</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable.id"><code class="docutils literal notranslate"><span class="pre">UnknownVariable.id</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable.name"><code class="docutils literal notranslate"><span class="pre">UnknownVariable.name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable.type"><code class="docutils literal notranslate"><span class="pre">UnknownVariable.type</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable.number_of_variables"><code class="docutils literal notranslate"><span class="pre">UnknownVariable.number_of_variables</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable.convert_to_preorder"><code class="docutils literal notranslate"><span class="pre">UnknownVariable.convert_to_preorder()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="polyqent.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable.get_new_id"><code class="docutils literal notranslate"><span class="pre">UnknownVariable.get_new_id()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 </div>
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Indices and tables</span></p>
@@ -84,7 +292,9 @@
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="polyqent.main.html" class="btn btn-neutral float-right" title="Main module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

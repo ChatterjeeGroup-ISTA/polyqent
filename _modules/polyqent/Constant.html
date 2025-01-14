@@ -39,7 +39,23 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Indices and tables</span></p>
+              <p class="caption" role="heading"><span class="caption-text">PolyQEnt API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.main.html">Main module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Coefficient.html">Coefficient module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Constant.html">Constant module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Constraint.html">Constraint module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Convertor.html">Convertor module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.DNF.html">DNF module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Farkas.html">Farkas module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Handelman.html">Handelman module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Parser.html">Parser module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.PositiveModel.html">PositiveModel module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Putinar.html">Putinar module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Solver.html">Solver module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.UnknownVariable.html">UnknownVariable module</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Indices and tables</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../genindex.html">Index</a></li>
 </ul>
@@ -78,7 +94,7 @@
 
 
 <div class="viewcode-block" id="Theorem">
-<a class="viewcode-back" href="../../polyhorn.Constant.html#polyqent.Constant.Theorem">[docs]</a>
+<a class="viewcode-back" href="../../polyqent.Constant.html#polyqent.Constant.Theorem">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Theorem</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Theorem is a class which is used to define the type of theorems that can be used in the solver.</span>
@@ -90,7 +106,7 @@
 
 
 <div class="viewcode-block" id="AvailabilityDict">
-<a class="viewcode-back" href="../../polyhorn.Constant.html#polyqent.Constant.AvailabilityDict">[docs]</a>
+<a class="viewcode-back" href="../../polyqent.Constant.html#polyqent.Constant.AvailabilityDict">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">AvailabilityDict</span><span class="p">(</span><span class="nb">dict</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    AvailabilityDict is a class which is used to define a dictionary that can</span>
@@ -137,7 +153,7 @@
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__setitem__</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
 
 <div class="viewcode-block" id="AvailabilityDict.available">
-<a class="viewcode-back" href="../../polyhorn.Constant.html#polyqent.Constant.AvailabilityDict.available">[docs]</a>
+<a class="viewcode-back" href="../../polyqent.Constant.html#polyqent.Constant.AvailabilityDict.available">[docs]</a>
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">available</span><span class="p">(</span><span class="n">item</span><span class="p">):</span>
         <span class="k">return</span> <span class="n">shutil</span><span class="o">.</span><span class="n">which</span><span class="p">(</span><span class="n">item</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span></div>
@@ -146,7 +162,7 @@
 
 
 <div class="viewcode-block" id="Constant">
-<a class="viewcode-back" href="../../polyhorn.Constant.html#polyqent.Constant.Constant">[docs]</a>
+<a class="viewcode-back" href="../../polyqent.Constant.html#polyqent.Constant.Constant">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Constant</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class consist of some constant dictionaries which are used for configuration of the solvers.</span>

@@ -39,7 +39,23 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Indices and tables</span></p>
+              <p class="caption" role="heading"><span class="caption-text">PolyQEnt API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.main.html">Main module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Coefficient.html">Coefficient module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Constant.html">Constant module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Constraint.html">Constraint module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Convertor.html">Convertor module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.DNF.html">DNF module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Farkas.html">Farkas module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Handelman.html">Handelman module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Parser.html">Parser module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.PositiveModel.html">PositiveModel module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Putinar.html">Putinar module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Solver.html">Solver module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.UnknownVariable.html">UnknownVariable module</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Indices and tables</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../genindex.html">Index</a></li>
 </ul>
@@ -78,7 +94,7 @@
 
 
 <div class="viewcode-block" id="Farkas">
-<a class="viewcode-back" href="../../polyhorn.Farkas.html#polyqent.Farkas.Farkas">[docs]</a>
+<a class="viewcode-back" href="../../polyqent.Farkas.html#polyqent.Farkas.Farkas">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Farkas</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class that performs the constraint transformation according to Farkas</span>
@@ -109,7 +125,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">LHS</span> <span class="o">=</span> <span class="n">LHS</span>
 
 <div class="viewcode-block" id="Farkas.get_poly_sum">
-<a class="viewcode-back" href="../../polyhorn.Farkas.html#polyqent.Farkas.Farkas.get_poly_sum">[docs]</a>
+<a class="viewcode-back" href="../../polyqent.Farkas.html#polyqent.Farkas.Farkas.get_poly_sum">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_poly_sum</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">need_strict</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Polynomial</span><span class="p">,</span> <span class="n">CoefficientConstraint</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">        This function returns a polynomial y_0 + y_1*f_1 + y_2*f_2 ...+ y_n*f_n</span>
@@ -154,7 +170,7 @@
 
 
 <div class="viewcode-block" id="Farkas.get_SAT_constraint">
-<a class="viewcode-back" href="../../polyhorn.Farkas.html#polyqent.Farkas.Farkas.get_SAT_constraint">[docs]</a>
+<a class="viewcode-back" href="../../polyqent.Farkas.html#polyqent.Farkas.Farkas.get_SAT_constraint">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_SAT_constraint</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">CoefficientConstraint</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">        A function to find the constraints when the LHS =&gt; RHS is satisfiable.</span>
@@ -169,7 +185,7 @@
 
 
 <div class="viewcode-block" id="Farkas.get_UNSAT_constraint">
-<a class="viewcode-back" href="../../polyhorn.Farkas.html#polyqent.Farkas.Farkas.get_UNSAT_constraint">[docs]</a>
+<a class="viewcode-back" href="../../polyqent.Farkas.html#polyqent.Farkas.Farkas.get_UNSAT_constraint">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_UNSAT_constraint</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">need_strict</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">CoefficientConstraint</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">        A function to find the constraints when it is not satisfiable.</span>

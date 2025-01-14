@@ -39,7 +39,23 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Indices and tables</span></p>
+              <p class="caption" role="heading"><span class="caption-text">PolyQEnt API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.main.html">Main module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Coefficient.html">Coefficient module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Constant.html">Constant module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Constraint.html">Constraint module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Convertor.html">Convertor module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.DNF.html">DNF module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Farkas.html">Farkas module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Handelman.html">Handelman module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Parser.html">Parser module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.PositiveModel.html">PositiveModel module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Putinar.html">Putinar module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Solver.html">Solver module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.UnknownVariable.html">UnknownVariable module</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Indices and tables</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../genindex.html">Index</a></li>
 </ul>
@@ -78,14 +94,14 @@
 
 
 <div class="viewcode-block" id="Solver">
-<a class="viewcode-back" href="../../polyhorn.Solver.html#polyqent.Solver.Solver">[docs]</a>
+<a class="viewcode-back" href="../../polyqent.Solver.html#polyqent.Solver.Solver">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Solver</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">    This class consist of some static method which are used in other classes</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="Solver.find_equality_constraint">
-<a class="viewcode-back" href="../../polyhorn.Solver.html#polyqent.Solver.Solver.find_equality_constraint">[docs]</a>
+<a class="viewcode-back" href="../../polyqent.Solver.html#polyqent.Solver.Solver.find_equality_constraint">[docs]</a>
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">find_equality_constraint</span><span class="p">(</span><span class="n">LHS</span><span class="p">:</span> <span class="n">Polynomial</span><span class="p">,</span> <span class="n">RHS</span><span class="p">:</span> <span class="n">Polynomial</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">CoefficientConstraint</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; </span>
@@ -123,7 +139,7 @@
 
 
 <div class="viewcode-block" id="Solver.get_constant_polynomial">
-<a class="viewcode-back" href="../../polyhorn.Solver.html#polyqent.Solver.Solver.get_constant_polynomial">[docs]</a>
+<a class="viewcode-back" href="../../polyqent.Solver.html#polyqent.Solver.Solver.get_constant_polynomial">[docs]</a>
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_constant_polynomial</span><span class="p">(</span><span class="n">variables</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">UnknownVariable</span><span class="p">],</span> <span class="n">constant</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Polynomial</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -152,7 +168,7 @@
 
 
 <div class="viewcode-block" id="Solver.get_variable_polynomial">
-<a class="viewcode-back" href="../../polyhorn.Solver.html#polyqent.Solver.Solver.get_variable_polynomial">[docs]</a>
+<a class="viewcode-back" href="../../polyqent.Solver.html#polyqent.Solver.Solver.get_variable_polynomial">[docs]</a>
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_variable_polynomial</span><span class="p">(</span><span class="n">variables</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">UnknownVariable</span><span class="p">],</span> <span class="n">name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">type_of_var</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Polynomial</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
@@ -184,7 +200,7 @@
 
 
 <div class="viewcode-block" id="Solver.get_degree_polynomial">
-<a class="viewcode-back" href="../../polyhorn.Solver.html#polyqent.Solver.Solver.get_degree_polynomial">[docs]</a>
+<a class="viewcode-back" href="../../polyqent.Solver.html#polyqent.Solver.Solver.get_degree_polynomial">[docs]</a>
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_degree_polynomial</span><span class="p">(</span><span class="n">variables</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">UnknownVariable</span><span class="p">],</span> <span class="n">degrees</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Polynomial</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; </span>
@@ -213,7 +229,7 @@
 
 
 <div class="viewcode-block" id="Solver.convert_constraints_to_smt_format">
-<a class="viewcode-back" href="../../polyhorn.Solver.html#polyqent.Solver.Solver.convert_constraints_to_smt_format">[docs]</a>
+<a class="viewcode-back" href="../../polyqent.Solver.html#polyqent.Solver.Solver.convert_constraints_to_smt_format">[docs]</a>
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">convert_constraints_to_smt_format</span><span class="p">(</span><span class="n">all_constraint</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">DNF</span><span class="p">],</span> <span class="n">precondition</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="n">DNF</span><span class="p">]],</span> <span class="n">names</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; </span>
@@ -253,7 +269,7 @@
 
 
 <div class="viewcode-block" id="Solver.smt_declare_variable_phase">
-<a class="viewcode-back" href="../../polyhorn.Solver.html#polyqent.Solver.Solver.smt_declare_variable_phase">[docs]</a>
+<a class="viewcode-back" href="../../polyqent.Solver.html#polyqent.Solver.Solver.smt_declare_variable_phase">[docs]</a>
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">smt_declare_variable_phase</span><span class="p">(</span><span class="n">all_constraint</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">DNF</span><span class="p">],</span> <span class="n">real</span><span class="p">:</span> <span class="nb">bool</span> <span class="o">=</span> <span class="kc">True</span><span class="p">,</span>
                                    <span class="n">pre_variables</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">UnknownVariable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[])</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
@@ -288,7 +304,7 @@
 
 
 <div class="viewcode-block" id="Solver.get_all_variable">
-<a class="viewcode-back" href="../../polyhorn.Solver.html#polyqent.Solver.Solver.get_all_variable">[docs]</a>
+<a class="viewcode-back" href="../../polyqent.Solver.html#polyqent.Solver.Solver.get_all_variable">[docs]</a>
     <span class="nd">@staticmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_all_variable</span><span class="p">(</span><span class="n">all_constraints</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">DNF</span><span class="p">],</span> <span class="n">pre_variables</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">UnknownVariable</span><span class="p">]</span> <span class="o">=</span> <span class="p">[])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">UnknownVariable</span><span class="p">]:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; </span>

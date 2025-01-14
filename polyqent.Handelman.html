@@ -1,0 +1,317 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Handelman module &mdash; PolyHorn 0.0.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=282f96c0"></script>
+      <script src="_static/doctools.js?v=9a2dae69"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Parser module" href="polyqent.Parser.html" />
+    <link rel="prev" title="Farkas module" href="polyqent.Farkas.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PolyHorn
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">PolyQEnt API</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="polyqent.main.html">Main module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Coefficient.html">Coefficient module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Constant.html">Constant module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Constraint.html">Constraint module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Convertor.html">Convertor module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.DNF.html">DNF module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Farkas.html">Farkas module</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Handelman module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#polyqent.Handelman.Handelman"><code class="docutils literal notranslate"><span class="pre">Handelman</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.Handelman.Handelman.variables"><code class="docutils literal notranslate"><span class="pre">Handelman.variables</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.Handelman.Handelman.LHS"><code class="docutils literal notranslate"><span class="pre">Handelman.LHS</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.Handelman.Handelman.RHS"><code class="docutils literal notranslate"><span class="pre">Handelman.RHS</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.Handelman.Handelman.max_d_for_sat"><code class="docutils literal notranslate"><span class="pre">Handelman.max_d_for_sat</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.Handelman.Handelman.max_d_for_unsat"><code class="docutils literal notranslate"><span class="pre">Handelman.max_d_for_unsat</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.Handelman.Handelman.get_SAT_constraint"><code class="docutils literal notranslate"><span class="pre">Handelman.get_SAT_constraint()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.Handelman.Handelman.get_UNSAT_constraint"><code class="docutils literal notranslate"><span class="pre">Handelman.get_UNSAT_constraint()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.Handelman.Handelman.get_lists_with_fixed_len"><code class="docutils literal notranslate"><span class="pre">Handelman.get_lists_with_fixed_len()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.Handelman.Handelman.get_monoids"><code class="docutils literal notranslate"><span class="pre">Handelman.get_monoids()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.Handelman.Handelman.get_poly_sum"><code class="docutils literal notranslate"><span class="pre">Handelman.get_poly_sum()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Parser.html">Parser module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.PositiveModel.html">PositiveModel module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Putinar.html">Putinar module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Solver.html">Solver module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.UnknownVariable.html">UnknownVariable module</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Indices and tables</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="genindex.html">Index</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PolyHorn</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Handelman module</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ChatterjeeGroup-ISTA/PolyHorn/blob/main/docs/source/polyqent.Handelman.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-polyqent.Handelman">
+<span id="handelman-module"></span><h1>Handelman module<a class="headerlink" href="#module-polyqent.Handelman" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="polyqent.Handelman.Handelman">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">polyqent.Handelman.</span></span><span class="sig-name descname"><span class="pre">Handelman</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variables</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyqent.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable" title="polyqent.UnknownVariable.UnknownVariable"><span class="pre">UnknownVariable</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">LHS</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyqent.Constraint.html#polyqent.Constraint.PolynomialConstraint" title="polyqent.Constraint.PolynomialConstraint"><span class="pre">PolynomialConstraint</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">RHS</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polyqent.Constraint.html#polyqent.Constraint.PolynomialConstraint" title="polyqent.Constraint.PolynomialConstraint"><span class="pre">PolynomialConstraint</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_d_for_sat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_d_for_unsat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/polyqent/Handelman.html#Handelman"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.Handelman.Handelman" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>A class that performs the constraint transformation according to Handelman
+Theorem.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>variables</strong> (<em>List</em><em>[</em><a class="reference internal" href="polyqent.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable" title="polyqent.UnknownVariable.UnknownVariable"><em>UnknownVariable</em></a><em>]</em>) – The list of variables of the polynomials.</p></li>
+<li><p><strong>LHS</strong> (<em>List</em><em>[</em><a class="reference internal" href="polyqent.Constraint.html#polyqent.Constraint.PolynomialConstraint" title="polyqent.Constraint.PolynomialConstraint"><em>PolynomialConstraint</em></a><em>]</em>) – The list of left hand side constraints in farkas algorithm</p></li>
+<li><p><strong>RHS</strong> (<a class="reference internal" href="polyqent.Constraint.html#polyqent.Constraint.PolynomialConstraint" title="polyqent.Constraint.PolynomialConstraint"><em>PolynomialConstraint</em></a>) – The right hand side constraint in algorithm</p></li>
+<li><p><strong>max_d_for_sat</strong> (<em>int</em><em>, </em><em>optional</em>) – maximum degree of monoids when finding sat constraints, by default 0</p></li>
+<li><p><strong>max_d_for_unsat</strong> (<em>int</em><em>, </em><em>optional</em>) – maximum degree of monoids when finding unsat constraints, by default 0</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="polyqent.Handelman.Handelman.variables">
+<span class="sig-name descname"><span class="pre">variables</span></span><a class="headerlink" href="#polyqent.Handelman.Handelman.variables" title="Link to this definition"></a></dt>
+<dd><p>The list of variables of the polynomials.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="polyqent.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable" title="polyqent.UnknownVariable.UnknownVariable">UnknownVariable</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="polyqent.Handelman.Handelman.LHS">
+<span class="sig-name descname"><span class="pre">LHS</span></span><a class="headerlink" href="#polyqent.Handelman.Handelman.LHS" title="Link to this definition"></a></dt>
+<dd><p>The list of left hand side constraints in farkas algorithm</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="polyqent.Constraint.html#polyqent.Constraint.PolynomialConstraint" title="polyqent.Constraint.PolynomialConstraint">PolynomialConstraint</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="polyqent.Handelman.Handelman.RHS">
+<span class="sig-name descname"><span class="pre">RHS</span></span><a class="headerlink" href="#polyqent.Handelman.Handelman.RHS" title="Link to this definition"></a></dt>
+<dd><p>The right hand side constraint in algorithm</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="polyqent.Constraint.html#polyqent.Constraint.PolynomialConstraint" title="polyqent.Constraint.PolynomialConstraint">PolynomialConstraint</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="polyqent.Handelman.Handelman.max_d_for_sat">
+<span class="sig-name descname"><span class="pre">max_d_for_sat</span></span><a class="headerlink" href="#polyqent.Handelman.Handelman.max_d_for_sat" title="Link to this definition"></a></dt>
+<dd><p>maximum degree of monoids when finding sat constraints</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="polyqent.Handelman.Handelman.max_d_for_unsat">
+<span class="sig-name descname"><span class="pre">max_d_for_unsat</span></span><a class="headerlink" href="#polyqent.Handelman.Handelman.max_d_for_unsat" title="Link to this definition"></a></dt>
+<dd><p>maximum degree of monoids when finding unsat constraints</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="polyqent.Handelman.Handelman.get_SAT_constraint">
+<span class="sig-name descname"><span class="pre">get_SAT_constraint</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyqent.Constraint.html#polyqent.Constraint.CoefficientConstraint" title="polyqent.Constraint.CoefficientConstraint"><span class="pre">CoefficientConstraint</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/polyqent/Handelman.html#Handelman.get_SAT_constraint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.Handelman.Handelman.get_SAT_constraint" title="Link to this definition"></a></dt>
+<dd><p>A function to find the constraints when the LHS =&gt; RHS is satisfiable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of coefficient constraints when it is satisfiable.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[<a class="reference internal" href="polyqent.Constraint.html#polyqent.Constraint.CoefficientConstraint" title="polyqent.Constraint.CoefficientConstraint">CoefficientConstraint</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="polyqent.Handelman.Handelman.get_UNSAT_constraint">
+<span class="sig-name descname"><span class="pre">get_UNSAT_constraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">need_strict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyqent.Constraint.html#polyqent.Constraint.CoefficientConstraint" title="polyqent.Constraint.CoefficientConstraint"><span class="pre">CoefficientConstraint</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/polyqent/Handelman.html#Handelman.get_UNSAT_constraint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.Handelman.Handelman.get_UNSAT_constraint" title="Link to this definition"></a></dt>
+<dd><p>A function to find the constraints when it is not satisfiable.</p>
+<dl class="simple">
+<dt>Two set of constraint can be generated:</dt><dd><ol class="arabic simple">
+<li><p><cite>LHS =&gt; -1 &gt;= 0</cite></p></li>
+<li><p><cite>LHS =&gt; 0 &gt; 0</cite></p></li>
+</ol>
+</dd>
+</dl>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>need_strict</strong> (<em>bool</em><em>, </em><em>optional</em>) – Determine which set of constraint to generate, by default False</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of coefficient constraints when it is not satisfiable.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="polyqent.Constraint.html#polyqent.Constraint.CoefficientConstraint" title="polyqent.Constraint.CoefficientConstraint">CoefficientConstraint</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="polyqent.Handelman.Handelman.get_lists_with_fixed_len">
+<span class="sig-name descname"><span class="pre">get_lists_with_fixed_len</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lst</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_d</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/polyqent/Handelman.html#Handelman.get_lists_with_fixed_len"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.Handelman.Handelman.get_lists_with_fixed_len" title="Link to this definition"></a></dt>
+<dd><p>This function generates all the list of length n with elements in range
+0 to max_d and sum of all elements is less than or equal to max_d.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lst</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>) – The list that is generated so far.</p></li>
+<li><p><strong>n</strong> (<em>int</em>) – The length of the list.</p></li>
+<li><p><strong>max_d</strong> (<em>int</em>) – The maximum value of each element in the list.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of all the list of length n with elements in range 0 to max_d
+and sum of all elements is less than or equal to max_d.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[List[int]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="polyqent.Handelman.Handelman.get_monoids">
+<span class="sig-name descname"><span class="pre">get_monoids</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_d</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyqent.html#polyqent.Polynomial.Polynomial" title="polyqent.Polynomial.Polynomial"><span class="pre">Polynomial</span></a><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/polyqent/Handelman.html#Handelman.get_monoids"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.Handelman.Handelman.get_monoids" title="Link to this definition"></a></dt>
+<dd><p>This function creates monoids of the given degree of all left hand side
+polynomials.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>max_d</strong> (<em>int</em>) – Maximum degree of each monoid</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of monoids and a list of boolean which the ith element is true
+if the ith monoid is strict.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[List[<a class="reference internal" href="polyqent.html#polyqent.Polynomial.Polynomial" title="polyqent.Polynomial.Polynomial">Polynomial</a>], List[bool]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="polyqent.Handelman.Handelman.get_poly_sum">
+<span class="sig-name descname"><span class="pre">get_poly_sum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">max_d</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">need_strict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyqent.html#polyqent.Polynomial.Polynomial" title="polyqent.Polynomial.Polynomial"><span class="pre">Polynomial</span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="polyqent.Constraint.html#polyqent.Constraint.CoefficientConstraint" title="polyqent.Constraint.CoefficientConstraint"><span class="pre">CoefficientConstraint</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/polyqent/Handelman.html#Handelman.get_poly_sum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.Handelman.Handelman.get_poly_sum" title="Link to this definition"></a></dt>
+<dd><p>This function returns a polynomial <cite>y_0 + y_1*f_1 + y_2*f_2 …+ y_n*f_n</cite>
+where <cite>f_i</cite> are monoids of left hand side polynomials and <cite>y_i</cite> are newly
+created variable in handelman theorem.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>max_d</strong> (<em>int</em>) – Maximum degree of each monoid</p></li>
+<li><p><strong>need_strict</strong> (<em>bool</em><em>, </em><em>optional</em>) – Is it generated for the 0 &gt; 0 case or not, by default False</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Polynomial of sum of all monoids of left hand side with new variables
+and corresponding constraints.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple[<a class="reference internal" href="polyqent.html#polyqent.Polynomial.Polynomial" title="polyqent.Polynomial.Polynomial">Polynomial</a>, <a class="reference internal" href="polyqent.Constraint.html#polyqent.Constraint.CoefficientConstraint" title="polyqent.Constraint.CoefficientConstraint">CoefficientConstraint</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="polyqent.Farkas.html" class="btn btn-neutral float-left" title="Farkas module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="polyqent.Parser.html" class="btn btn-neutral float-right" title="Parser module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Krishnendu Chatterjee, Amir Kafshdar Goharshady, Ehsan Kafshdar Goharshady, Mehrdad Karrabi, Milad Saadat, Maximilian Seeliger, Djordje Zikelic.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -39,7 +39,23 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Indices and tables</span></p>
+              <p class="caption" role="heading"><span class="caption-text">PolyQEnt API</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.main.html">Main module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Coefficient.html">Coefficient module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Constant.html">Constant module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Constraint.html">Constraint module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Convertor.html">Convertor module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.DNF.html">DNF module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Farkas.html">Farkas module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Handelman.html">Handelman module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Parser.html">Parser module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.PositiveModel.html">PositiveModel module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Putinar.html">Putinar module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.Solver.html">Solver module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../polyqent.UnknownVariable.html">UnknownVariable module</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Indices and tables</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../genindex.html">Index</a></li>
 </ul>
@@ -76,7 +92,7 @@
 
 
 <div class="viewcode-block" id="PolynomialConstraint">
-<a class="viewcode-back" href="../../polyhorn.Constraint.html#polyqent.Constraint.PolynomialConstraint">[docs]</a>
+<a class="viewcode-back" href="../../polyqent.Constraint.html#polyqent.Constraint.PolynomialConstraint">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">PolynomialConstraint</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">    A class that represent the constraint with a Polynomial on one side and</span>
@@ -123,7 +139,7 @@
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">polynomial</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">sign</span> <span class="o">+</span> <span class="s2">&quot;0&quot;</span>
 
 <div class="viewcode-block" id="PolynomialConstraint.is_strict">
-<a class="viewcode-back" href="../../polyhorn.Constraint.html#polyqent.Constraint.PolynomialConstraint.is_strict">[docs]</a>
+<a class="viewcode-back" href="../../polyqent.Constraint.html#polyqent.Constraint.PolynomialConstraint.is_strict">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">is_strict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Determine if the constraint is strict.</span>
@@ -155,7 +171,7 @@
             <span class="k">return</span> <span class="n">PolynomialConstraint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">polynomial</span><span class="p">,</span> <span class="s1">&#39;=&#39;</span><span class="p">)</span>
 
 <div class="viewcode-block" id="PolynomialConstraint.convert_to_preorder">
-<a class="viewcode-back" href="../../polyhorn.Constraint.html#polyqent.Constraint.PolynomialConstraint.convert_to_preorder">[docs]</a>
+<a class="viewcode-back" href="../../polyqent.Constraint.html#polyqent.Constraint.PolynomialConstraint.convert_to_preorder">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">convert_to_preorder</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Convert constraint to preorder format.</span>
@@ -171,7 +187,7 @@
 
 
 <div class="viewcode-block" id="CoefficientConstraint">
-<a class="viewcode-back" href="../../polyhorn.Constraint.html#polyqent.Constraint.CoefficientConstraint">[docs]</a>
+<a class="viewcode-back" href="../../polyqent.Constraint.html#polyqent.Constraint.CoefficientConstraint">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">CoefficientConstraint</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A class that represent the constraint with a Coefficient on one side and</span>
@@ -208,7 +224,7 @@
         <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coefficient</span><span class="p">)</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">sign</span> <span class="o">+</span> <span class="s2">&quot;0&quot;</span>
 
 <div class="viewcode-block" id="CoefficientConstraint.is_strict">
-<a class="viewcode-back" href="../../polyhorn.Constraint.html#polyqent.Constraint.CoefficientConstraint.is_strict">[docs]</a>
+<a class="viewcode-back" href="../../polyqent.Constraint.html#polyqent.Constraint.CoefficientConstraint.is_strict">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">is_strict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Determine if the constraint is strict.</span>
@@ -222,7 +238,7 @@
 
 
 <div class="viewcode-block" id="CoefficientConstraint.convert_to_preorder">
-<a class="viewcode-back" href="../../polyhorn.Constraint.html#polyqent.Constraint.CoefficientConstraint.convert_to_preorder">[docs]</a>
+<a class="viewcode-back" href="../../polyqent.Constraint.html#polyqent.Constraint.CoefficientConstraint.convert_to_preorder">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">convert_to_preorder</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot; </span>
 <span class="sd">        Convert constraint to preorder format.</span>
@@ -236,7 +252,7 @@
 
 
 <div class="viewcode-block" id="CoefficientConstraint.is_equality">
-<a class="viewcode-back" href="../../polyhorn.Constraint.html#polyqent.Constraint.CoefficientConstraint.is_equality">[docs]</a>
+<a class="viewcode-back" href="../../polyqent.Constraint.html#polyqent.Constraint.CoefficientConstraint.is_equality">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">is_equality</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Determine if the constraint is in form of a variable equal to constant.</span>

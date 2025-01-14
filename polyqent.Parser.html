@@ -18,7 +18,9 @@
       <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="PositiveModel module" href="polyqent.PositiveModel.html" />
+    <link rel="prev" title="Handelman module" href="polyqent.Handelman.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -40,7 +42,33 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <p class="caption" role="heading"><span class="caption-text">Indices and tables</span></p>
+              <p class="caption" role="heading"><span class="caption-text">PolyQEnt API</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="polyqent.main.html">Main module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Coefficient.html">Coefficient module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Constant.html">Constant module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Constraint.html">Constraint module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Convertor.html">Convertor module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.DNF.html">DNF module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Farkas.html">Farkas module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Handelman.html">Handelman module</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Parser module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#polyqent.Parser.Parser"><code class="docutils literal notranslate"><span class="pre">Parser</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.Parser.Parser.model"><code class="docutils literal notranslate"><span class="pre">Parser.model</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.Parser.Parser.parse_readable_file"><code class="docutils literal notranslate"><span class="pre">Parser.parse_readable_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.Parser.Parser.parse_smt_file"><code class="docutils literal notranslate"><span class="pre">Parser.parse_smt_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.Parser.Parser.traverse_readable_tree"><code class="docutils literal notranslate"><span class="pre">Parser.traverse_readable_tree()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.Parser.Parser.traverse_smt_tree"><code class="docutils literal notranslate"><span class="pre">Parser.traverse_smt_tree()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.PositiveModel.html">PositiveModel module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Putinar.html">Putinar module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Solver.html">Solver module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.UnknownVariable.html">UnknownVariable module</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Indices and tables</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="genindex.html">Index</a></li>
 </ul>
@@ -61,7 +89,7 @@
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
       <li class="breadcrumb-item active">Parser module</li>
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/ChatterjeeGroup-ISTA/PolyHorn/blob/main/docs/source/polyhorn.Parser.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/ChatterjeeGroup-ISTA/PolyHorn/blob/main/docs/source/polyqent.Parser.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -73,12 +101,12 @@
 <span id="parser-module"></span><h1>Parser module<a class="headerlink" href="#module-polyqent.Parser" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="polyqent.Parser.Parser">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">polyqent.Parser.</span></span><span class="sig-name descname"><span class="pre">Parser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polyhorn.PositiveModel.html#polyqent.PositiveModel.PositiveModel" title="polyqent.PositiveModel.PositiveModel"><span class="pre">PositiveModel</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/polyqent/Parser.html#Parser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.Parser.Parser" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">polyqent.Parser.</span></span><span class="sig-name descname"><span class="pre">Parser</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polyqent.PositiveModel.html#polyqent.PositiveModel.PositiveModel" title="polyqent.PositiveModel.PositiveModel"><span class="pre">PositiveModel</span></a></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/polyqent/Parser.html#Parser"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.Parser.Parser" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>This class is used to parse the input file and create a PositiveModel object.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>model</strong> (<a class="reference internal" href="polyhorn.PositiveModel.html#polyqent.PositiveModel.PositiveModel" title="polyqent.PositiveModel.PositiveModel"><em>PositiveModel</em></a>) – The model that will be created.</p>
+<dd class="field-odd"><p><strong>model</strong> (<a class="reference internal" href="polyqent.PositiveModel.html#polyqent.PositiveModel.PositiveModel" title="polyqent.PositiveModel.PositiveModel"><em>PositiveModel</em></a>) – The model that will be created.</p>
 </dd>
 </dl>
 <dl class="py attribute">
@@ -87,7 +115,7 @@
 <dd><p>The model that will be created.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="polyhorn.PositiveModel.html#polyqent.PositiveModel.PositiveModel" title="polyqent.PositiveModel.PositiveModel">PositiveModel</a></p>
+<dd class="field-odd"><p><a class="reference internal" href="polyqent.PositiveModel.html#polyqent.PositiveModel.PositiveModel" title="polyqent.PositiveModel.PositiveModel">PositiveModel</a></p>
 </dd>
 </dl>
 </dd></dl>
@@ -157,7 +185,10 @@ the corresponding object.</p>
 
            </div>
           </div>
-          <footer>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="polyqent.Handelman.html" class="btn btn-neutral float-left" title="Handelman module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="polyqent.PositiveModel.html" class="btn btn-neutral float-right" title="PositiveModel module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
 
   <hr/>
 

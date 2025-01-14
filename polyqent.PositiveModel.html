@@ -1,0 +1,471 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PositiveModel module &mdash; PolyHorn 0.0.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=282f96c0"></script>
+      <script src="_static/doctools.js?v=9a2dae69"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Putinar module" href="polyqent.Putinar.html" />
+    <link rel="prev" title="Parser module" href="polyqent.Parser.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            PolyHorn
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">PolyQEnt API</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="polyqent.main.html">Main module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Coefficient.html">Coefficient module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Constant.html">Constant module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Constraint.html">Constraint module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Convertor.html">Convertor module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.DNF.html">DNF module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Farkas.html">Farkas module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Handelman.html">Handelman module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Parser.html">Parser module</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">PositiveModel module</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#polyqent.PositiveModel.PositiveModel"><code class="docutils literal notranslate"><span class="pre">PositiveModel</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.PositiveModel.PositiveModel.paired_constraint"><code class="docutils literal notranslate"><span class="pre">PositiveModel.paired_constraint</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.PositiveModel.PositiveModel.template_variables"><code class="docutils literal notranslate"><span class="pre">PositiveModel.template_variables</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.PositiveModel.PositiveModel.program_variables"><code class="docutils literal notranslate"><span class="pre">PositiveModel.program_variables</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.PositiveModel.PositiveModel.theorem_name"><code class="docutils literal notranslate"><span class="pre">PositiveModel.theorem_name</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.PositiveModel.PositiveModel.get_SAT"><code class="docutils literal notranslate"><span class="pre">PositiveModel.get_SAT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.PositiveModel.PositiveModel.get_UNSAT"><code class="docutils literal notranslate"><span class="pre">PositiveModel.get_UNSAT</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.PositiveModel.PositiveModel.get_strict"><code class="docutils literal notranslate"><span class="pre">PositiveModel.get_strict</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.PositiveModel.PositiveModel.degree_of_sat"><code class="docutils literal notranslate"><span class="pre">PositiveModel.degree_of_sat</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.PositiveModel.PositiveModel.degree_of_nonstrict_unsat"><code class="docutils literal notranslate"><span class="pre">PositiveModel.degree_of_nonstrict_unsat</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.PositiveModel.PositiveModel.degree_of_strict_unsat"><code class="docutils literal notranslate"><span class="pre">PositiveModel.degree_of_strict_unsat</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.PositiveModel.PositiveModel.max_d_of_strict"><code class="docutils literal notranslate"><span class="pre">PositiveModel.max_d_of_strict</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.PositiveModel.PositiveModel.preconditions"><code class="docutils literal notranslate"><span class="pre">PositiveModel.preconditions</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.PositiveModel.PositiveModel.instructions"><code class="docutils literal notranslate"><span class="pre">PositiveModel.instructions</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.PositiveModel.PositiveModel.add_paired_constraint"><code class="docutils literal notranslate"><span class="pre">PositiveModel.add_paired_constraint()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.PositiveModel.PositiveModel.core_iteration"><code class="docutils literal notranslate"><span class="pre">PositiveModel.core_iteration()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.PositiveModel.PositiveModel.create_smt_file"><code class="docutils literal notranslate"><span class="pre">PositiveModel.create_smt_file()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.PositiveModel.PositiveModel.get_equality_constraint"><code class="docutils literal notranslate"><span class="pre">PositiveModel.get_equality_constraint()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.PositiveModel.PositiveModel.get_generated_constraints"><code class="docutils literal notranslate"><span class="pre">PositiveModel.get_generated_constraints()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.PositiveModel.PositiveModel.get_polynomial"><code class="docutils literal notranslate"><span class="pre">PositiveModel.get_polynomial()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.PositiveModel.PositiveModel.remove_equality_constraints"><code class="docutils literal notranslate"><span class="pre">PositiveModel.remove_equality_constraints()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#polyqent.PositiveModel.PositiveModel.run_on_solver"><code class="docutils literal notranslate"><span class="pre">PositiveModel.run_on_solver()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Putinar.html">Putinar module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.Solver.html">Solver module</a></li>
+<li class="toctree-l1"><a class="reference internal" href="polyqent.UnknownVariable.html">UnknownVariable module</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Indices and tables</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="genindex.html">Index</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">PolyHorn</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">PositiveModel module</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/ChatterjeeGroup-ISTA/PolyHorn/blob/main/docs/source/polyqent.PositiveModel.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-polyqent.PositiveModel">
+<span id="positivemodel-module"></span><h1>PositiveModel module<a class="headerlink" href="#module-polyqent.PositiveModel" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="polyqent.PositiveModel.PositiveModel">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">polyqent.PositiveModel.</span></span><span class="sig-name descname"><span class="pre">PositiveModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">template_variables_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theorem_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_SAT</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_UNSAT</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">get_strict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">degree_of_sat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">degree_of_nonstrict_unsat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">degree_of_strict_unsat</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_d_of_strict</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">preconditions</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyqent.DNF.html#polyqent.DNF.DNF" title="polyqent.DNF.DNF"><span class="pre">DNF</span></a><span class="p"><span class="pre">]</span></span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/polyqent/PositiveModel.html#PositiveModel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.PositiveModel.PositiveModel" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>This class is the main class which gets some horn clause as input and find
+the constraints based on the given theorem and find the template value
+using the given solver.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>template_variables_name</strong> (<em>List</em><em>[</em><em>str</em><em>]</em>) – List of the name of the template variables.</p></li>
+<li><p><strong>theorem_name</strong> (<em>str</em>) – Name of the algorithm should be used to find the constraints.</p></li>
+<li><p><strong>get_SAT</strong> (<em>bool</em><em>, </em><em>optional</em>) – Should constraint for satisfactory added or not, by default True</p></li>
+<li><p><strong>get_UNSAT</strong> (<em>bool</em><em>, </em><em>optional</em>) – Should constraint for unsatisfactory added or not, by default False</p></li>
+<li><p><strong>get_strict</strong> (<em>bool</em><em>, </em><em>optional</em>) – Should constraint for unsatisfactory in strict form added or not, by default False</p></li>
+<li><p><strong>degree_of_sat</strong> (<em>int</em><em>, </em><em>optional</em>) – Maximum degree of monoids when finding sat constraints in handelman or putinar, by default 0</p></li>
+<li><p><strong>degree_of_nonstrict_unsat</strong> (<em>int</em><em>, </em><em>optional</em>) – Maximum degree of monoids when finding unsat constraints in handelman or putinar, by default 0</p></li>
+<li><p><strong>degree_of_strict_unsat</strong> (<em>int</em><em>, </em><em>optional</em>) – Maximum degree of monoids when finding unsat constraints in strict case in handelman or putinar, by default 0</p></li>
+<li><p><strong>max_d_of_strict</strong> (<em>int</em><em>, </em><em>optional</em>) – Degree of new variable that is generated for strict case in right hand side of equality in putinar, by default 0</p></li>
+<li><p><strong>preconditions</strong> (<em>List</em><em>[</em><a class="reference internal" href="polyqent.DNF.html#polyqent.DNF.DNF" title="polyqent.DNF.DNF"><em>DNF</em></a><em>]</em><em>, </em><em>optional</em>) – List of conditions that must be satisfied independent of the horn clauses, by default []</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="polyqent.PositiveModel.PositiveModel.paired_constraint">
+<span class="sig-name descname"><span class="pre">paired_constraint</span></span><a class="headerlink" href="#polyqent.PositiveModel.PositiveModel.paired_constraint" title="Link to this definition"></a></dt>
+<dd><p>List of horn clause constraints.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[Tuple[<a class="reference internal" href="polyqent.DNF.html#polyqent.DNF.DNF" title="polyqent.DNF.DNF">DNF</a>, <a class="reference internal" href="polyqent.DNF.html#polyqent.DNF.DNF" title="polyqent.DNF.DNF">DNF</a>, List[<a class="reference internal" href="polyqent.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable" title="polyqent.UnknownVariable.UnknownVariable">UnknownVariable</a>]]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="polyqent.PositiveModel.PositiveModel.template_variables">
+<span class="sig-name descname"><span class="pre">template_variables</span></span><a class="headerlink" href="#polyqent.PositiveModel.PositiveModel.template_variables" title="Link to this definition"></a></dt>
+<dd><p>List of template variables.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="polyqent.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable" title="polyqent.UnknownVariable.UnknownVariable">UnknownVariable</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="polyqent.PositiveModel.PositiveModel.program_variables">
+<span class="sig-name descname"><span class="pre">program_variables</span></span><a class="headerlink" href="#polyqent.PositiveModel.PositiveModel.program_variables" title="Link to this definition"></a></dt>
+<dd><p>List of program variables.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="polyqent.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable" title="polyqent.UnknownVariable.UnknownVariable">UnknownVariable</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="polyqent.PositiveModel.PositiveModel.theorem_name">
+<span class="sig-name descname"><span class="pre">theorem_name</span></span><a class="headerlink" href="#polyqent.PositiveModel.PositiveModel.theorem_name" title="Link to this definition"></a></dt>
+<dd><p>Name of the algorithm should be used to find the constraints.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="polyqent.PositiveModel.PositiveModel.get_SAT">
+<span class="sig-name descname"><span class="pre">get_SAT</span></span><a class="headerlink" href="#polyqent.PositiveModel.PositiveModel.get_SAT" title="Link to this definition"></a></dt>
+<dd><p>Should constraint for satisfactory added or not.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="polyqent.PositiveModel.PositiveModel.get_UNSAT">
+<span class="sig-name descname"><span class="pre">get_UNSAT</span></span><a class="headerlink" href="#polyqent.PositiveModel.PositiveModel.get_UNSAT" title="Link to this definition"></a></dt>
+<dd><p>Should constraint for unsatisfactory added or not.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="polyqent.PositiveModel.PositiveModel.get_strict">
+<span class="sig-name descname"><span class="pre">get_strict</span></span><a class="headerlink" href="#polyqent.PositiveModel.PositiveModel.get_strict" title="Link to this definition"></a></dt>
+<dd><p>Should constraint for unsatisfactory in strict form added or not.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="polyqent.PositiveModel.PositiveModel.degree_of_sat">
+<span class="sig-name descname"><span class="pre">degree_of_sat</span></span><a class="headerlink" href="#polyqent.PositiveModel.PositiveModel.degree_of_sat" title="Link to this definition"></a></dt>
+<dd><p>Maximum degree of monoids when finding sat constraints in handelman or putinar.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="polyqent.PositiveModel.PositiveModel.degree_of_nonstrict_unsat">
+<span class="sig-name descname"><span class="pre">degree_of_nonstrict_unsat</span></span><a class="headerlink" href="#polyqent.PositiveModel.PositiveModel.degree_of_nonstrict_unsat" title="Link to this definition"></a></dt>
+<dd><p>Maximum degree of monoids when finding unsat constraints in handelman or putinar.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="polyqent.PositiveModel.PositiveModel.degree_of_strict_unsat">
+<span class="sig-name descname"><span class="pre">degree_of_strict_unsat</span></span><a class="headerlink" href="#polyqent.PositiveModel.PositiveModel.degree_of_strict_unsat" title="Link to this definition"></a></dt>
+<dd><p>Maximum degree of monoids when finding unsat constraints in strict case in handelman or putinar.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="polyqent.PositiveModel.PositiveModel.max_d_of_strict">
+<span class="sig-name descname"><span class="pre">max_d_of_strict</span></span><a class="headerlink" href="#polyqent.PositiveModel.PositiveModel.max_d_of_strict" title="Link to this definition"></a></dt>
+<dd><p>Degree of new variable that is generated for strict case in right hand side of equality in putinar.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="polyqent.PositiveModel.PositiveModel.preconditions">
+<span class="sig-name descname"><span class="pre">preconditions</span></span><a class="headerlink" href="#polyqent.PositiveModel.PositiveModel.preconditions" title="Link to this definition"></a></dt>
+<dd><p>List of conditions that must be satisfied independent of the horn clauses.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="polyqent.DNF.html#polyqent.DNF.DNF" title="polyqent.DNF.DNF">DNF</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="polyqent.PositiveModel.PositiveModel.instructions">
+<span class="sig-name descname"><span class="pre">instructions</span></span><a class="headerlink" href="#polyqent.PositiveModel.PositiveModel.instructions" title="Link to this definition"></a></dt>
+<dd><p>List of instructions that should be added to the smt file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[str]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="polyqent.PositiveModel.PositiveModel.add_paired_constraint">
+<span class="sig-name descname"><span class="pre">add_paired_constraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lhs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polyqent.DNF.html#polyqent.DNF.DNF" title="polyqent.DNF.DNF"><span class="pre">DNF</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">rhs</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="polyqent.DNF.html#polyqent.DNF.DNF" title="polyqent.DNF.DNF"><span class="pre">DNF</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">program_variables</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyqent.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable" title="polyqent.UnknownVariable.UnknownVariable"><span class="pre">UnknownVariable</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/polyqent/PositiveModel.html#PositiveModel.add_paired_constraint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.PositiveModel.PositiveModel.add_paired_constraint" title="Link to this definition"></a></dt>
+<dd><p>Add set of horn clause constraint for lhs =&gt; rhs</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lhs</strong> (<a class="reference internal" href="polyqent.DNF.html#polyqent.DNF.DNF" title="polyqent.DNF.DNF"><em>DNF</em></a>) – DNF form of the left hand side of that should be added.</p></li>
+<li><p><strong>rhs</strong> (<a class="reference internal" href="polyqent.DNF.html#polyqent.DNF.DNF" title="polyqent.DNF.DNF"><em>DNF</em></a>) – DNF form of the right hand side of that should be added.</p></li>
+<li><p><strong>program_variables</strong> (<em>List</em><em>[</em><a class="reference internal" href="polyqent.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable" title="polyqent.UnknownVariable.UnknownVariable"><em>UnknownVariable</em></a><em>]</em>) – List of program variables.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="polyqent.PositiveModel.PositiveModel.core_iteration">
+<span class="sig-name descname"><span class="pre">core_iteration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">all_constraint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyqent.DNF.html#polyqent.DNF.DNF" title="polyqent.DNF.DNF"><span class="pre">DNF</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'./solver/z3'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">saving_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'save_for_core_iteration_heuristic_temp.txt'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">real_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyqent.DNF.html#polyqent.DNF.DNF" title="polyqent.DNF.DNF"><span class="pre">DNF</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/polyqent/PositiveModel.html#PositiveModel.core_iteration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.PositiveModel.PositiveModel.core_iteration" title="Link to this definition"></a></dt>
+<dd><p>Perform the core iteration heuristic on set of constraints.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>all_constraint</strong> (<em>List</em><em>[</em><a class="reference internal" href="polyqent.DNF.html#polyqent.DNF.DNF" title="polyqent.DNF.DNF"><em>DNF</em></a><em>]</em>) – List of the constraint that the heuristic should be applied on.</p></li>
+<li><p><strong>solver_path</strong> (<em>str</em><em>, </em><em>optional</em>) – Solver path for finding the core, by default ‘./solver/z3’</p></li>
+<li><p><strong>saving_path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to a file for temporary saving the output_farkas of solver, by default ‘save_for_core_iteration_heuristic_temp.txt’</p></li>
+<li><p><strong>real_values</strong> (<em>bool</em><em>, </em><em>optional</em>) – A boolean that determines if the variables should be integer or real value, by default True</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>List of constraint after performing the heuristic.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="polyqent.DNF.html#polyqent.DNF.DNF" title="polyqent.DNF.DNF">DNF</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="polyqent.PositiveModel.PositiveModel.create_smt_file">
+<span class="sig-name descname"><span class="pre">create_smt_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'checking.txt'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'default'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'default'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">core_iteration_heuristic</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constant_heuristic</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">real_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/polyqent/PositiveModel.html#PositiveModel.create_smt_file"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.PositiveModel.PositiveModel.create_smt_file" title="Link to this definition"></a></dt>
+<dd><p>This function create a smt file based on the given configuration and
+constraints.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>output_path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to the output file, by default “checking.txt”</p></li>
+<li><p><strong>solver_name</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the solver, by default ‘default’</p></li>
+<li><p><strong>solver_path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to the solver, by default “default”</p></li>
+<li><p><strong>core_iteration_heuristic</strong> (<em>bool</em><em>, </em><em>optional</em>) – Should core iteration heuristic be applied or not, by default False</p></li>
+<li><p><strong>constant_heuristic</strong> (<em>bool</em><em>, </em><em>optional</em>) – Should removing constant heuristic be applied or not, by default False</p></li>
+<li><p><strong>real_values</strong> (<em>bool</em><em>, </em><em>optional</em>) – Should the variables be integer or real value, by default True</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="polyqent.PositiveModel.PositiveModel.get_equality_constraint">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">get_equality_constraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">all_constraint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyqent.DNF.html#polyqent.DNF.DNF" title="polyqent.DNF.DNF"><span class="pre">DNF</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="polyqent.Constraint.html#polyqent.Constraint.CoefficientConstraint" title="polyqent.Constraint.CoefficientConstraint"><span class="pre">CoefficientConstraint</span></a></span></span><a class="reference internal" href="_modules/polyqent/PositiveModel.html#PositiveModel.get_equality_constraint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.PositiveModel.PositiveModel.get_equality_constraint" title="Link to this definition"></a></dt>
+<dd><p>Given a list of constraints find a constraint that is in form of a
+variable equal to a constant.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>all_constraint</strong> (<em>List</em><em>[</em><a class="reference internal" href="polyqent.DNF.html#polyqent.DNF.DNF" title="polyqent.DNF.DNF"><em>DNF</em></a><em>]</em>) – List of the constraints.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A equality constraint.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="polyqent.Constraint.html#polyqent.Constraint.CoefficientConstraint" title="polyqent.Constraint.CoefficientConstraint">CoefficientConstraint</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="polyqent.PositiveModel.PositiveModel.get_generated_constraints">
+<span class="sig-name descname"><span class="pre">get_generated_constraints</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyqent.DNF.html#polyqent.DNF.DNF" title="polyqent.DNF.DNF"><span class="pre">DNF</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/polyqent/PositiveModel.html#PositiveModel.get_generated_constraints"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.PositiveModel.PositiveModel.get_generated_constraints" title="Link to this definition"></a></dt>
+<dd><p>This function find the constraint for the list of the class’s horn
+clause constraints based on the class configurations.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of DNF form of constraint for each horn clause.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>List[<a class="reference internal" href="polyqent.DNF.html#polyqent.DNF.DNF" title="polyqent.DNF.DNF">DNF</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="polyqent.PositiveModel.PositiveModel.get_polynomial">
+<span class="sig-name descname"><span class="pre">get_polynomial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">poly_str</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">program_variables</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyqent.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable" title="polyqent.UnknownVariable.UnknownVariable"><span class="pre">UnknownVariable</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="polyqent.html#polyqent.Polynomial.Polynomial" title="polyqent.Polynomial.Polynomial"><span class="pre">Polynomial</span></a></span></span><a class="reference internal" href="_modules/polyqent/PositiveModel.html#PositiveModel.get_polynomial"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.PositiveModel.PositiveModel.get_polynomial" title="Link to this definition"></a></dt>
+<dd><p>Generate a polynomial from a given string based on the template and
+program variable in the class.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>poly_str</strong> (<em>str</em>) – Input string that should be converted to a polynomial.</p></li>
+<li><p><strong>program_variables</strong> (<em>List</em><em>[</em><a class="reference internal" href="polyqent.UnknownVariable.html#polyqent.UnknownVariable.UnknownVariable" title="polyqent.UnknownVariable.UnknownVariable"><em>UnknownVariable</em></a><em>]</em>) – List of program variables.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Polynomial of the given string.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="polyqent.html#polyqent.Polynomial.Polynomial" title="polyqent.Polynomial.Polynomial">Polynomial</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="polyqent.PositiveModel.PositiveModel.remove_equality_constraints">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">remove_equality_constraints</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">all_constraint</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyqent.DNF.html#polyqent.DNF.DNF" title="polyqent.DNF.DNF"><span class="pre">DNF</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="polyqent.DNF.html#polyqent.DNF.DNF" title="polyqent.DNF.DNF"><span class="pre">DNF</span></a><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/polyqent/PositiveModel.html#PositiveModel.remove_equality_constraints"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.PositiveModel.PositiveModel.remove_equality_constraints" title="Link to this definition"></a></dt>
+<dd><p>Remove the equality constraints in each DNF</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>all_constraint</strong> (<em>List</em><em>[</em><a class="reference internal" href="polyqent.DNF.html#polyqent.DNF.DNF" title="polyqent.DNF.DNF"><em>DNF</em></a><em>]</em>) – List of the constraints.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>New list of constraints after the heuristic is performed.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List[<a class="reference internal" href="polyqent.DNF.html#polyqent.DNF.DNF" title="polyqent.DNF.DNF">DNF</a>]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="polyqent.PositiveModel.PositiveModel.run_on_solver">
+<span class="sig-name descname"><span class="pre">run_on_solver</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'checking.txt'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'z3'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">core_iteration_heuristic</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constant_heuristic</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">real_values</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">bool</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">bool</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/polyqent/PositiveModel.html#PositiveModel.run_on_solver"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.PositiveModel.PositiveModel.run_on_solver" title="Link to this definition"></a></dt>
+<dd><p>This function finds the constraints for the clauses and runs a solver
+with a given configuration and finds values for the template variables.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>output_path</strong> (<em>str</em><em>, </em><em>optional</em>) – Path to the output file, by default “checking.txt”</p></li>
+<li><p><strong>solver_name</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the solver, by default ‘z3’</p></li>
+<li><p><strong>core_iteration_heuristic</strong> (<em>bool</em><em>, </em><em>optional</em>) – Should core iteration heuristic be applied or not, by default False</p></li>
+<li><p><strong>constant_heuristic</strong> (<em>bool</em><em>, </em><em>optional</em>) – Should removing constant heuristic be applied or not, by default False</p></li>
+<li><p><strong>real_values</strong> (<em>bool</em><em>, </em><em>optional</em>) – Should the variables be integer or real value, by default True</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>bool</em> – True if the model is satisfiable.</p></li>
+<li><p><em>dict</em> – Dictionary of the template variables and their values.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="polyqent.Parser.html" class="btn btn-neutral float-left" title="Parser module" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="polyqent.Putinar.html" class="btn btn-neutral float-right" title="Putinar module" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Krishnendu Chatterjee, Amir Kafshdar Goharshady, Ehsan Kafshdar Goharshady, Mehrdad Karrabi, Milad Saadat, Maximilian Seeliger, Djordje Zikelic.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
