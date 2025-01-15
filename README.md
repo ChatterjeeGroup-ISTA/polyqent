@@ -1,12 +1,12 @@
 # PolyQEnt
 
-PolyQEnt is a solver for Polynomial Horn Clauses (PHC). 
+PolyQEnt is a solver for Polynomial Quantified Entailments (PQE). 
 
-Given an input PHC in SMT-LIB format and an optional config file, PolyQEnt finds a valuation of the unknown variables in the input such that all the PHCs are satisfied. 
+Given an input PQE in SMT-LIB format and an optional config file, PolyQEnt finds a valuation of the unknown variables in the input such that all the PQEs are satisfied. 
 
 
 ## Getting Started
-PolyQEnt is written in Python and can be run as a standalone tool or as a Python library. Either way, the input to PolyQEnt is an SMT-LIB instance containing the PHC and an optional config file specifying the theorem and solver to be used. 
+PolyQEnt is written in Python and can be run as a standalone tool or as a Python library. Either way, the input to PolyQEnt is an SMT-LIB instance containing the PQE and an optional config file specifying the theorem and solver to be used. 
 
 The tool is tested for Python >=3.9 and requires the installation of:
 - `Z3` many package managers provide Z3 as a package. For example, in Ubuntu, Z3 can be installed using `apt-get install z3`. Otherwise, you can find more information [here](https://github.com/Z3Prover/z3)
@@ -82,7 +82,7 @@ A further example of how to use PolyQEnt as a library can be found in the `examp
 The input syntax of PolyQEnt follows the SMTLIB syntax:
 
  - `(declare-const [var name] Real)` is used for defining new unknown variables. 
- - `(assert phi)` is used for adding either (i) a quantifier free constraint on the unknown variables, or (ii) a PHC of the following form:
+ - `(assert phi)` is used for adding either (i) a quantifier free constraint on the unknown variables, or (ii) a PQE of the following form:
  ```
  (assert (forall ((variable type) ... ) (=> phi psi) ))
  ```
@@ -99,16 +99,14 @@ The input syntax of PolyQEnt follows the SMTLIB syntax:
  - `solver_name` which is one of `"z3"` or `"mathsat"`.
  - (optional) `output_path` which should be the path to a file where PolyQEnt will store the obtained polynomial system. If not set, PolyQEnt will create a temporary file for it and will delete it in the end of execution.
  - (optional) `int_value` which is assigned `false` or `true`. When `true`, PolyQEnt tries to find integer values for unknown variables. 
- - In case `handelman` is chosen for `theorem_name`, an additional integer parameter `degree_of_sat` should be specified. This is the only parameter required by Handelman's Positivestellensatz. See [1] appendix E for more details.
- - In case `putinar` is chosen for `theorem_name`, four parameters should be specified in the config file: (i) `degree_of_sat` the degree of SOS polynomials considered when the LHS of PHCs are assumed satisfying, (ii) `degree_of_nonstrict_unsat`, (iii) `degree_of_strict_unsat` and (iv) `max_d_of_strict`, for the remaining three degree parameters of Putinar's positivestellensatz. The names are self-explanatory and the details can be found in [1] section 3.
+ - In case `handelman` is chosen for `theorem_name`, an additional integer parameter `degree_of_sat` should be specified. This is the only parameter required by Handelman's Positivestellensatz. See the tool paper for more details.
+ - In case `putinar` is chosen for `theorem_name`, four parameters should be specified in the config file: (i) `degree_of_sat` the degree of SOS polynomials considered when the LHS of PQEs are assumed satisfying, (ii) `degree_of_nonstrict_unsat`, (iii) `degree_of_strict_unsat` and (iv) `max_d_of_strict`, for the remaining three degree parameters of Putinar's positivestellensatz. The names are self-explanatory and the details can be found in the tool paper.
  - `SAT_heuristic` which should be set to `true` if the `Assume-SAT` heuristic should be used.
  - `unsat_core_heuristic` which should be set to `true` if the `UNSAT Core` heuristic should be used. 
 
-The default value is 0 for all integer parameters and `false` for all boolean parameters. Default theorem is set based on the degree of Horn Clauses and default solver is z3. Also, all heuristics are set t false as default.
+The default value is 0 for all integer parameters and `false` for all boolean parameters. Default theorem is set based on the degree of PQEs and default solver is z3. Also, all heuristics are set to false as default.
 
 See `config-example.json` as an example. 
-
- [1] Polynomial Reachability Witnesses via Stellensätze. Asadi et. al. PLDI 2021.
 
 ## Citing
 
