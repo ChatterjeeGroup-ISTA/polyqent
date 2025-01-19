@@ -39,7 +39,6 @@ for col_name in ['base', 'h1', 'h2', 'h12']: #, 'direct-z3--time', 'cvc5--time']
     list_of_y = [i+1 for i in range(len(list_of_x))]
     list_of_xs.append(list_of_x)
     list_of_ys.append(list_of_y)
-    print(col_name, list_of_x)
 
 list_of_x = sorted([x/1000 for x in df['direct-z3--time'].dropna()] + [x/1000 for x in df2['direct-z3--time'].dropna()])
 list_of_y = [i+1 for i in range(len(list_of_x))]
@@ -70,5 +69,5 @@ ax.set_xscale('log')
 ax.set_yscale('log')
 plt.legend()
 plt.grid()
-plt.show()
+# plt.show()
 plt.savefig("fig1-right.png")

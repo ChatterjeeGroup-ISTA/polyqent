@@ -67,5 +67,5 @@ ax3.legend()
 ax3.grid()
 
 fig.tight_layout()
-plt.show()
+# plt.show()
 plt.savefig("fig1-left.png")
