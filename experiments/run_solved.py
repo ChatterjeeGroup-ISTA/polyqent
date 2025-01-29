@@ -5,7 +5,7 @@ import time
 from tabulate import tabulate
 
 
-columns = ['base', 'h1', 'h2', 'h12', 'z3']
+columns = ['base-mathsat', 'base-z3', 'h1-mathsat', 'h1-z3', 'h2-mathsat', 'h2-z3', 'h12-mathsat', 'h2-z3', 'direct-z3','cvc5']
 
 list_of_xs = {'base':[], 'h1':[], 'h2':[], 'h12':[]}
 list_of_ys = {'base':[], 'h1':[], 'h2':[], 'h12':[]}
@@ -15,10 +15,10 @@ def run_commands(file_name):
     results = {}
     for col_name in columns:
         results[col_name] = {}
-        df_no_nan = df.dropna(subset=[col_name + ' command'])
+        df_no_nan = df.dropna(subset=[col_name + '-cmd'])
         for index, row in df_no_nan.iterrows():
             exp_name = row['name']
-            command = row[col_name + ' command']
+            command = row[col_name + '-cmd']
 
             print('>>> run experiment ' + exp_name + ' from ' + file_name)
 
@@ -47,10 +47,10 @@ def run_commands(file_name):
 all_results = [run_commands('Results-Termination.csv'), run_commands('Results-Non-termination.csv'), run_commands('Results-almost-sure-termination.csv'), run_commands('Results-polysynth.csv')]
 
 table_data = [[None] + columns,
-              ['Termination', None, None, None, None, None],
-              ['None_termination', None, None, None, None, None],
-              ['AST', None, None, None, None, None],
-              ['Polysynth', None, None, None, None, None]]
+              ['Termination']+[None]*10,
+              ['None_termination']+[None]*10,
+              ['AST']+[None]*10,
+              ['Polysynth']+[None]*10]
 print('\n\n\n=======================================\nResults:\n===========================================\n')
 
 for j in range(len(all_results)):
