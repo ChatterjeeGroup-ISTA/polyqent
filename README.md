@@ -112,7 +112,7 @@ See `config-example.json` as an example.
 
 To cite PolyQEnt, please use the following reference:\
 K. Chatterjee, A. K. Goharshady, E. K. Goharshady, M. Karrabi, M. Saadat, M. Seeliger, D. Zikelic\
-PolyHorn: A Polynomial Horn Clause Solver\
-arXiv 2024, [https://arxiv.org/abs/2408.03796]
+PolyQEnt: A Polynomial Quantified Entailment Solver\
+arXiv 2025, [https://arxiv.org/abs/2408.03796]
 
 
