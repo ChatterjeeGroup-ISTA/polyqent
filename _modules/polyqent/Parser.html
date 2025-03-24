@@ -98,6 +98,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">.PositiveModel</span><span class="w"> </span><span class="kn">import</span> <span class="n">PositiveModel</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.Solver</span><span class="w"> </span><span class="kn">import</span> <span class="n">Solver</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.UnknownVariable</span><span class="w"> </span><span class="kn">import</span> <span class="n">UnknownVariable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.CNF</span><span class="w"> </span><span class="kn">import</span> <span class="n">CNF</span>
 
 
 <div class="viewcode-block" id="Parser">
@@ -160,7 +161,21 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">preconditions</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">dnf</span><span class="p">)</span>
             <span class="k">return</span>
         <span class="k">elif</span> <span class="n">parse_tree</span><span class="o">.</span><span class="n">data</span> <span class="o">==</span> <span class="s1">&#39;dnf&#39;</span><span class="p">:</span>
-            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parse_tree</span><span class="o">.</span><span class="n">children</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parse_tree</span><span class="o">.</span><span class="n">children</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">parse_tree</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> <span class="o">==</span> <span class="s1">&#39;constraint&#39;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">DNF</span><span class="p">([[</span><span class="bp">self</span><span class="o">.</span><span class="n">traverse_readable_tree</span><span class="p">(</span><span class="n">parse_tree</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">])]])</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">parse_tree</span><span class="o">.</span><span class="n">children</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">traverse_readable_tree</span><span class="p">(</span><span class="n">parse_tree</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">parse_tree</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">==</span> <span class="s2">&quot;AND&quot;</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">traverse_readable_tree</span><span class="p">(</span><span class="n">parse_tree</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">traverse_readable_tree</span><span class="p">(</span>
+                        <span class="n">parse_tree</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">traverse_readable_tree</span><span class="p">(</span><span class="n">parse_tree</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">|</span> <span class="bp">self</span><span class="o">.</span><span class="n">traverse_readable_tree</span><span class="p">(</span>
+                        <span class="n">parse_tree</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+        <span class="k">elif</span> <span class="n">parse_tree</span><span class="o">.</span><span class="n">data</span> <span class="o">==</span> <span class="s1">&#39;cnf&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parse_tree</span><span class="o">.</span><span class="n">children</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">parse_tree</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span> <span class="o">==</span> <span class="s1">&#39;constraint&#39;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">CNF</span><span class="p">([[</span><span class="bp">self</span><span class="o">.</span><span class="n">traverse_readable_tree</span><span class="p">(</span><span class="n">parse_tree</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">])]])</span>
+            <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">parse_tree</span><span class="o">.</span><span class="n">children</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">traverse_readable_tree</span><span class="p">(</span><span class="n">parse_tree</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">parse_tree</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">==</span> <span class="s2">&quot;AND&quot;</span><span class="p">:</span>
@@ -177,10 +192,10 @@
                     <span class="n">parse_tree</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
             <span class="k">return</span> <span class="n">literal</span>
         <span class="k">elif</span> <span class="n">parse_tree</span><span class="o">.</span><span class="n">data</span> <span class="o">==</span> <span class="s1">&#39;constraint&#39;</span><span class="p">:</span>
-            <span class="k">return</span> <span class="n">DNF</span><span class="p">([[</span><span class="n">PolynomialConstraint</span><span class="p">(</span>
+            <span class="k">return</span> <span class="n">PolynomialConstraint</span><span class="p">(</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">traverse_readable_tree</span><span class="p">(</span><span class="n">parse_tree</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">traverse_readable_tree</span><span class="p">(</span>
                     <span class="n">parse_tree</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">2</span><span class="p">]),</span>
-                <span class="nb">str</span><span class="p">(</span><span class="n">parse_tree</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">1</span><span class="p">]))]])</span>
+                <span class="nb">str</span><span class="p">(</span><span class="n">parse_tree</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
         <span class="k">elif</span> <span class="n">parse_tree</span><span class="o">.</span><span class="n">data</span> <span class="o">==</span> <span class="s1">&#39;polynomial&#39;</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">convert_to_desired_poly</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">traverse_readable_tree</span><span class="p">(</span><span class="n">parse_tree</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span>
                                            <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">program_variables</span><span class="p">)</span>
@@ -247,10 +262,10 @@
 
 <span class="s2">                precondition : &quot;Precondition:&quot; dnf</span>
 
-<span class="s2">                hornclause : &quot;Horn_clause:&quot; dnf &quot;-&gt;&quot; dnf</span>
+<span class="s2">                hornclause : &quot;Horn_clause:&quot; dnf &quot;-&gt;&quot; cnf</span>
 
 <span class="s2">                dnf : constraint | &quot;(&quot; dnf &quot;)&quot; | dnf LOGICAL_SIGN dnf</span>
-
+<span class="s2">                cnf : constraint | &quot;(&quot; cnf &quot;)&quot; | cnf LOGICAL_SIGN cnf</span>
 
 <span class="s2">                constraint : polynomial COMP_SIGN polynomial </span>
 <span class="s2">                polynomial : expression</span>
@@ -346,6 +361,25 @@
                         <span class="n">result_dnf</span> <span class="o">=</span> <span class="n">result_dnf</span> <span class="o">|</span> <span class="bp">self</span><span class="o">.</span><span class="n">traverse_smt_tree</span><span class="p">(</span>
                             <span class="n">parse_tree</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
                     <span class="k">return</span> <span class="n">result_dnf</span>
+        <span class="k">elif</span> <span class="n">parse_tree</span><span class="o">.</span><span class="n">data</span> <span class="o">==</span> <span class="s1">&#39;cnf&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">parse_tree</span><span class="o">.</span><span class="n">children</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">CNF</span><span class="p">([])</span>
+                <span class="k">for</span> <span class="n">literal</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">traverse_smt_tree</span><span class="p">(</span><span class="n">parse_tree</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">literals</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+                    <span class="n">result</span> <span class="o">=</span> <span class="n">result</span> <span class="o">&amp;</span> <span class="n">CNF</span><span class="p">([[</span><span class="n">literal</span><span class="p">]])</span>
+                <span class="k">return</span> <span class="n">result</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">parse_tree</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="s2">&quot;and&quot;</span><span class="p">:</span>
+                    <span class="n">result_cnf</span> <span class="o">=</span> <span class="n">CNF</span><span class="p">([])</span>
+                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">parse_tree</span><span class="o">.</span><span class="n">children</span><span class="p">)):</span>
+                        <span class="n">result_cnf</span> <span class="o">=</span> <span class="n">result_cnf</span> <span class="o">&amp;</span> <span class="bp">self</span><span class="o">.</span><span class="n">traverse_smt_tree</span><span class="p">(</span>
+                            <span class="n">parse_tree</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                    <span class="k">return</span> <span class="n">result_cnf</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">result_cnf</span> <span class="o">=</span> <span class="n">CNF</span><span class="p">([])</span>
+                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">parse_tree</span><span class="o">.</span><span class="n">children</span><span class="p">)):</span>
+                        <span class="n">result_cnf</span> <span class="o">=</span> <span class="n">result_cnf</span> <span class="o">|</span> <span class="bp">self</span><span class="o">.</span><span class="n">traverse_smt_tree</span><span class="p">(</span>
+                            <span class="n">parse_tree</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+                    <span class="k">return</span> <span class="n">result_cnf</span>
 
         <span class="k">elif</span> <span class="n">parse_tree</span><span class="o">.</span><span class="n">data</span> <span class="o">==</span> <span class="s1">&#39;constraint&#39;</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">parse_tree</span><span class="o">.</span><span class="n">children</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;=&#39;</span><span class="p">:</span>
@@ -454,10 +488,10 @@
 <span class="s2">                assertion: &quot;(assert&quot; precondition  &quot;)&quot; | &quot;(assert&quot; hornclause  &quot;)&quot;</span>
 <span class="s2">                precondition : dnf | &quot;(=&gt;&quot; dnf dnf &quot;)&quot; </span>
 
-<span class="s2">                hornclause : &quot;(forall&quot; &quot;(&quot; program_variables* &quot;)&quot; &quot;(=&gt;&quot; dnf dnf &quot;)&quot; &quot;)&quot;</span>
+<span class="s2">                hornclause : &quot;(forall&quot; &quot;(&quot; program_variables* &quot;)&quot; &quot;(=&gt;&quot; dnf cnf &quot;)&quot; &quot;)&quot;</span>
 <span class="s2">                program_variables : &quot;(&quot; VAR VAR_TYPE &quot;)&quot; </span>
 <span class="s2">                dnf : constraint | &quot;(&quot; LOGICAL_SIGN dnf+ &quot;)&quot; </span>
-
+<span class="s2">                cnf : constraint | &quot;(&quot; LOGICAL_SIGN cnf+ &quot;)&quot; </span>
 
 <span class="s2">                constraint : &quot;(&quot; COMP_SIGN polynomial polynomial &quot;)&quot; </span>
 <span class="s2">                polynomial : expression</span>

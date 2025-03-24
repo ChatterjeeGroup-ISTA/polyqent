@@ -119,11 +119,11 @@
 <dl class="py function">
 <dt class="sig sig-object py" id="polyqent.main.execute">
 <span class="sig-prename descclassname"><span class="pre">polyqent.main.</span></span><span class="sig-name descname"><span class="pre">execute</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">formula</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">Solver</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">dict</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/polyqent/main.html#execute"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.main.execute" title="Link to this definition"></a></dt>
-<dd><p>Execute PolyHorn on the formula with the given configuration</p>
+<dd><p>Execute PolyQEnt on the formula with the given configuration</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>formula</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>pysmt.solvers.solver.Solver</em><em>]</em>) – The formula to execute PolyHorn on. Either a string to a <cite>.smt2</cite> file
+<li><p><strong>formula</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>pysmt.solvers.solver.Solver</em><em>]</em>) – The formula to execute PolyQEnt on. Either a string to a <cite>.smt2</cite> file
 or a pysmt.Solver object with the constraints already added</p></li>
 <li><p><strong>config</strong> (<em>Union</em><em>[</em><em>str</em><em>, </em><em>dict</em><em>]</em>) – The path to the config file or the parsed config file</p></li>
 </ul>
@@ -141,7 +141,7 @@ or a pysmt.Solver object with the constraints already added</p></li>
 <dl class="py function">
 <dt class="sig sig-object py" id="polyqent.main.execute_readable">
 <span class="sig-prename descclassname"><span class="pre">polyqent.main.</span></span><span class="sig-name descname"><span class="pre">execute_readable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">readable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/polyqent/main.html#execute_readable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.main.execute_readable" title="Link to this definition"></a></dt>
-<dd><p>Execute PolyHorn on the readable system</p>
+<dd><p>Execute PolyQEnt on the readable system</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -162,7 +162,7 @@ or a pysmt.Solver object with the constraints already added</p></li>
 <dl class="py function">
 <dt class="sig sig-object py" id="polyqent.main.execute_smt2">
 <span class="sig-prename descclassname"><span class="pre">polyqent.main.</span></span><span class="sig-name descname"><span class="pre">execute_smt2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">smt2</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="pre">dict</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/polyqent/main.html#execute_smt2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#polyqent.main.execute_smt2" title="Link to this definition"></a></dt>
-<dd><p>Execute PolyHorn on the smt2 system</p>
+<dd><p>Execute PolyQEnt on the smt2 system</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">

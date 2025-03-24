@@ -184,7 +184,7 @@
         <span class="k">if</span> <span class="n">formula</span><span class="o">.</span><span class="n">is_forall</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">formula</span><span class="o">.</span><span class="n">arg</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="o">.</span><span class="n">is_implies</span><span class="p">():</span>
             <span class="c1"># Check for constraint pairs</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="sa">f</span><span class="s2">&quot;PolyHorn expects universally quantified formulas to consist of constraint pairs in the form `forall x, y, ...: (constraint) =&gt; (constraint)`&quot;</span><span class="p">)</span>
+                <span class="sa">f</span><span class="s2">&quot;PolyQEnt expects universally quantified formulas to consist of constraint pairs in the form `forall x, y, ...: (constraint) =&gt; (constraint)`&quot;</span><span class="p">)</span>
 
         <span class="n">free_vars</span> <span class="o">|=</span> <span class="n">formula</span><span class="o">.</span><span class="n">get_free_variables</span><span class="p">()</span>
 
@@ -227,7 +227,7 @@
         <span class="k">elif</span> <span class="n">formula</span><span class="o">.</span><span class="n">is_symbol</span><span class="p">():</span>
             <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">formula</span><span class="p">)</span>
         <span class="k">else</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;PolyHorn does not support &#39;</span><span class="si">{</span><span class="n">op_to_str</span><span class="p">(</span><span class="n">formula</span><span class="o">.</span><span class="n">node_type</span><span class="p">())</span><span class="si">}</span><span class="s2">&#39; operator in (sub-)formula </span><span class="si">{</span><span class="n">formula</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;PolyQEnt does not support &#39;</span><span class="si">{</span><span class="n">op_to_str</span><span class="p">(</span><span class="n">formula</span><span class="o">.</span><span class="n">node_type</span><span class="p">())</span><span class="si">}</span><span class="s2">&#39; operator in (sub-)formula </span><span class="si">{</span><span class="n">formula</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
     
     <span class="n">constraints</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">formula</span> <span class="ow">in</span> <span class="n">solver</span><span class="o">.</span><span class="n">assertions</span><span class="p">:</span>
@@ -247,12 +247,12 @@
 <a class="viewcode-back" href="../../polyqent.main.html#polyqent.main.execute">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">execute</span><span class="p">(</span><span class="n">formula</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">PysmtSolver</span><span class="p">],</span> <span class="n">config</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Execute PolyHorn on the formula with the given configuration</span>
+<span class="sd">    Execute PolyQEnt on the formula with the given configuration</span>
 <span class="sd">    </span>
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
 <span class="sd">    formula : Union[str, pysmt.solvers.solver.Solver]</span>
-<span class="sd">        The formula to execute PolyHorn on. Either a string to a `.smt2` file</span>
+<span class="sd">        The formula to execute PolyQEnt on. Either a string to a `.smt2` file</span>
 <span class="sd">        or a pysmt.Solver object with the constraints already added</span>
 <span class="sd">    config : Union[str, dict]</span>
 <span class="sd">        The path to the config file or the parsed config file</span>
@@ -289,7 +289,7 @@
 <a class="viewcode-back" href="../../polyqent.main.html#polyqent.main.execute_smt2">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">execute_smt2</span><span class="p">(</span><span class="n">smt2</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">config_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Execute PolyHorn on the smt2 system</span>
+<span class="sd">    Execute PolyQEnt on the smt2 system</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -314,7 +314,7 @@
 <a class="viewcode-back" href="../../polyqent.main.html#polyqent.main.execute_readable">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">execute_readable</span><span class="p">(</span><span class="n">readable</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">config_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Execute PolyHorn on the readable system</span>
+<span class="sd">    Execute PolyQEnt on the readable system</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -337,7 +337,7 @@
 
 <span class="k">def</span><span class="w"> </span><span class="nf">__execute</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">parser_method</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Execute PolyHorn on the input system</span>
+<span class="sd">    Execute PolyQEnt on the input system</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -370,7 +370,7 @@
     <span class="k">try</span><span class="p">:</span>
         <span class="k">if</span> <span class="s2">&quot;output_path&quot;</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">config</span><span class="p">:</span>
             <span class="n">output_path_exists</span> <span class="o">=</span> <span class="kc">False</span>
-            <span class="n">config</span><span class="p">[</span><span class="s2">&quot;output_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;./POLYHORN_delme_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span> <span class="o">+</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
+            <span class="n">config</span><span class="p">[</span><span class="s2">&quot;output_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;./POLYQENT_delme_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">())</span> <span class="o">+</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
                 <span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_uppercase</span> <span class="o">+</span> <span class="n">string</span><span class="o">.</span><span class="n">digits</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">9</span><span class="p">))</span>
             <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;output_path&quot;</span><span class="p">],</span> <span class="s1">&#39;x&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
                 <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
