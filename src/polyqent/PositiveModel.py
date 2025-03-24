@@ -11,7 +11,7 @@ from .Farkas import Farkas
 from .Handelman import Handelman
 from .Putinar import Putinar
 from .Solver import Solver
-
+from .CNF import CNF
 
 class PositiveModel:
     """
@@ -95,7 +95,7 @@ class PositiveModel:
         self.preconditions = preconditions
         self.instructions = []
 
-    def add_paired_constraint(self, lhs: DNF, rhs: DNF, program_variables: List[UnknownVariable]) -> None:
+    def add_paired_constraint(self, lhs: DNF, rhs: CNF, program_variables: List[UnknownVariable]) -> None:
         """
         Add set of horn clause constraint for lhs => rhs
 
@@ -108,13 +108,17 @@ class PositiveModel:
         program_variables : List[UnknownVariable]
             List of program variables.
         """
-        if len(rhs.literals) > 1:
-            lhs = lhs & (-(DNF(rhs.literals[1:])))
-            rhs = DNF([rhs.literals[0]])
-        for literal in lhs.literals:
-            for item in rhs.literals[0]:
-                self.paired_constraint.append(
-                    (literal, item, program_variables))
+        for rhsLiteral in rhs.literals:
+            new_rhs = CNF([rhsLiteral])
+            new_lhs = lhs
+            if len(rhsLiteral) > 1:
+                for itemInRhsLiteral in rhsLiteral[1:]:
+                    new_lhs = new_lhs & DNF([[-itemInRhsLiteral]])
+                new_rhs = DNF([[rhsLiteral[0]]])
+            for literal in new_lhs.literals:
+                for item in new_rhs.literals[0]:
+                    self.paired_constraint.append(
+                        (literal, item, program_variables))
 
     def __str__(self) -> str:
         """

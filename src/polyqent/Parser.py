@@ -9,6 +9,7 @@ from .DNF import DNF
 from .PositiveModel import PositiveModel
 from .Solver import Solver
 from .UnknownVariable import UnknownVariable
+from .CNF import CNF
 
 
 class Parser:
@@ -67,7 +68,21 @@ class Parser:
             self.model.preconditions.append(dnf)
             return
         elif parse_tree.data == 'dnf':
-            if len(parse_tree.children) == 1:
+            if len(parse_tree.children) == 1 and parse_tree.children[0].data == 'constraint':
+                return DNF([[self.traverse_readable_tree(parse_tree.children[0])]])
+            elif len(parse_tree.children) == 1:
+                return self.traverse_readable_tree(parse_tree.children[0])
+            else:
+                if str(parse_tree.children[1]) == "AND":
+                    return (self.traverse_readable_tree(parse_tree.children[0]) & self.traverse_readable_tree(
+                        parse_tree.children[2]))
+                else:
+                    return (self.traverse_readable_tree(parse_tree.children[0]) | self.traverse_readable_tree(
+                        parse_tree.children[2]))
+        elif parse_tree.data == 'cnf':
+            if len(parse_tree.children) == 1 and parse_tree.children[0].data == 'constraint':
+                return CNF([[self.traverse_readable_tree(parse_tree.children[0])]])
+            elif len(parse_tree.children) == 1:
                 return self.traverse_readable_tree(parse_tree.children[0])
             else:
                 if str(parse_tree.children[1]) == "AND":
@@ -84,10 +99,10 @@ class Parser:
                     parse_tree.children[i]))
             return literal
         elif parse_tree.data == 'constraint':
-            return DNF([[PolynomialConstraint(
+            return PolynomialConstraint(
                 self.traverse_readable_tree(parse_tree.children[0]) - self.traverse_readable_tree(
                     parse_tree.children[2]),
-                str(parse_tree.children[1]))]])
+                str(parse_tree.children[1]))
         elif parse_tree.data == 'polynomial':
             return convert_to_desired_poly(self.traverse_readable_tree(parse_tree.children[0]),
                                            self.model.program_variables)
@@ -151,10 +166,10 @@ class Parser:
 
                 precondition : "Precondition:" dnf
 
-                hornclause : "Horn_clause:" dnf "->" dnf
+                hornclause : "Horn_clause:" dnf "->" cnf
 
                 dnf : constraint | "(" dnf ")" | dnf LOGICAL_SIGN dnf
-
+                cnf : constraint | "(" cnf ")" | cnf LOGICAL_SIGN cnf
 
                 constraint : polynomial COMP_SIGN polynomial 
                 polynomial : expression
@@ -247,6 +262,25 @@ class Parser:
                         result_dnf = result_dnf | self.traverse_smt_tree(
                             parse_tree.children[i])
                     return result_dnf
+        elif parse_tree.data == 'cnf':
+            if len(parse_tree.children) == 1:
+                result = CNF([])
+                for literal in self.traverse_smt_tree(parse_tree.children[0]).literals[0]:
+                    result = result & CNF([[literal]])
+                return result
+            else:
+                if str(parse_tree.children[0]) == "and":
+                    result_cnf = CNF([])
+                    for i in range(1, len(parse_tree.children)):
+                        result_cnf = result_cnf & self.traverse_smt_tree(
+                            parse_tree.children[i])
+                    return result_cnf
+                else:
+                    result_cnf = CNF([])
+                    for i in range(1, len(parse_tree.children)):
+                        result_cnf = result_cnf | self.traverse_smt_tree(
+                            parse_tree.children[i])
+                    return result_cnf
 
         elif parse_tree.data == 'constraint':
             if parse_tree.children[0] == '=':
@@ -352,10 +386,10 @@ class Parser:
                 assertion: "(assert" precondition  ")" | "(assert" hornclause  ")"
                 precondition : dnf | "(=>" dnf dnf ")" 
 
-                hornclause : "(forall" "(" program_variables* ")" "(=>" dnf dnf ")" ")"
+                hornclause : "(forall" "(" program_variables* ")" "(=>" dnf cnf ")" ")"
                 program_variables : "(" VAR VAR_TYPE ")" 
                 dnf : constraint | "(" LOGICAL_SIGN dnf+ ")" 
-
+                cnf : constraint | "(" LOGICAL_SIGN cnf+ ")" 
 
                 constraint : "(" COMP_SIGN polynomial polynomial ")" 
                 polynomial : expression
