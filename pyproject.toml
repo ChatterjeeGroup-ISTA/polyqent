@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "polyqent"
-version = "0.0.11"
+version = "0.0.12"
 authors = [  
   { name="Krishnendu Chatterjee", email="krishnendu.chatterjee@ist.ac.at" },
   { name="Amir Kafshdar Goharshady", email="goharshady@cse.ust.hk" },
