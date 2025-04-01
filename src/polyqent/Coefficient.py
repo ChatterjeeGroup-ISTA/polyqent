@@ -56,7 +56,8 @@ class Element:
         str
             String representation of the Element.
         """
-        return '*'.join([str(self.constant)] + [str(var) for var in self.variables])
+        result = '*'.join([str(self.constant)] + [str(var) for var in self.variables])
+        return result
 
     def __mul__(self, other: Element) -> Element:
         """

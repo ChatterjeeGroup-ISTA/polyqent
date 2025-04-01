@@ -145,7 +145,7 @@ def pysmt_to_smt2(solver: PysmtSolver) -> str:
     return smt2
 
 
-def execute(formula: Union[str, PysmtSolver], config: Union[str, dict]) -> Tuple[str, dict]:
+def execute(formula: Union[str, PysmtSolver], config: Union[str, dict], debug_mode=False) -> Tuple[str, dict]:
     """
     Execute PolyQEnt on the formula with the given configuration
     
@@ -181,7 +181,7 @@ def execute(formula: Union[str, PysmtSolver], config: Union[str, dict]) -> Tuple
         raise ValueError(
             "Formula must be either a path to a smt2 file or a pysmt.Solver object")
 
-    return __execute(config, formula, Parser.parse_smt_file)
+    return __execute(config, formula, Parser.parse_smt_file, debug_mode)
 
 
 def execute_smt2(smt2: str, config_path: str) -> Tuple[str, dict]:
@@ -228,7 +228,7 @@ def execute_readable(readable: str, config_path: str) -> Tuple[str, dict]:
     return __execute(config, readable, Parser.parse_readable_file)
 
 
-def __execute(config: dict, input: str, parser_method: Callable) -> Tuple[str, dict]:
+def __execute(config: dict, input: str, parser_method: Callable, debug_mode=False) -> Tuple[str, dict]:
     """
     Execute PolyQEnt on the input system
 
@@ -267,11 +267,11 @@ def __execute(config: dict, input: str, parser_method: Callable) -> Tuple[str, d
                 random.choices(string.ascii_uppercase + string.digits, k=9))
             with open(config["output_path"], 'x') as file:
                 file.write("")
-        print("Running solver...")
         sat, model = parser.model.run_on_solver(output_path=config["output_path"], solver_name=config["solver_name"],
                                                 core_iteration_heuristic=config['unsat_core_heuristic'],
                                                 constant_heuristic=False,
-                                                real_values=not config['integer_arithmetic'])
+                                                real_values=not config['integer_arithmetic'], 
+                                                debug_mode=debug_mode)
     finally:
         if not output_path_exists:
             os.remove(config["output_path"])

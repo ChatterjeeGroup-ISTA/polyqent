@@ -158,7 +158,7 @@ class PositiveModel:
         return convert_general_string_to_poly(poly_str, self.template_variables + program_variables,
                                               program_variables)
 
-    def get_generated_constraints(self) -> List[DNF]:
+    def get_generated_constraints(self, debug_mode=False) -> List[DNF]:
         """
         This function find the constraint for the list of the class's horn
         clause constraints based on the class configurations.
@@ -222,7 +222,7 @@ class PositiveModel:
 
     def create_smt_file(self, output_path: str = "checking.txt", solver_name: str = 'default', solver_path: str = "default",
                         core_iteration_heuristic: bool = False,
-                        constant_heuristic: bool = False, real_values: bool = True):
+                        constant_heuristic: bool = False, real_values: bool = True, debug_mode=False):
         """
         This function create a smt file based on the given configuration and
         constraints.
@@ -242,7 +242,7 @@ class PositiveModel:
         real_values : bool, optional
             Should the variables be integer or real value, by default True
         """
-        all_constraint = self.get_generated_constraints()
+        all_constraint = self.get_generated_constraints(debug_mode)
         if solver_path == "default":
             solver_path = Constant.default_path[solver_name]
         if constant_heuristic and (self.get_SAT ^ self.get_UNSAT ^ self.get_strict) and (
@@ -276,7 +276,7 @@ class PositiveModel:
         f.close()
 
     def run_on_solver(self, output_path: str = "checking.txt", solver_name: str = 'z3', core_iteration_heuristic: bool = False,
-                      constant_heuristic: bool = False, real_values: bool = True) -> Tuple[bool, dict]:
+                      constant_heuristic: bool = False, real_values: bool = True, debug_mode=False) -> Tuple[bool, dict]:
         """ 
         This function finds the constraints for the clauses and runs a solver
         with a given configuration and finds values for the template variables.
@@ -305,9 +305,18 @@ class PositiveModel:
         if solver_path is None:
             print(f"ERROR: Solver {solver_name} is not installed")
             return 'unknown', {}
+        
+        if debug_mode:
+            print("\nSet of contraints before applying positivity theorems:")
+            for i in range(len(self.paired_constraint)):
+                print(str(i)+')\t', str(self.paired_constraint[i][0][0]))
+                for j in range(1, len(self.paired_constraint[i][0])):
+                    print('\tAND ', str(self.paired_constraint[i][0][j]))
+                print("\t\t=>", str(self.paired_constraint[i][1]), '\n')
 
         self.create_smt_file(output_path, solver_name, solver_path,
-                             core_iteration_heuristic, constant_heuristic, real_values)
+                             core_iteration_heuristic, constant_heuristic, real_values, debug_mode)
+        print("Running solver...")
         output = subprocess.getoutput(
             f'{solver_path} {Constant.command[solver_name]} {output_path}')
         is_sat = output.split('\n')[0]

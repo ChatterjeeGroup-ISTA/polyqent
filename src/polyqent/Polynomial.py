@@ -251,7 +251,8 @@ class Polynomial:
         """
         if len(self.monomials) == 0:
             return '0'
-        return '+'.join([str(monomial) for monomial in self.monomials])
+        result = '+'.join([str(monomial) for monomial in self.monomials])
+        return result
 
     def __add__(self, other: Polynomial) -> Polynomial:
         """
