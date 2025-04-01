@@ -184,6 +184,49 @@ def execute(formula: Union[str, PysmtSolver], config: Union[str, dict], debug_mo
     return __execute(config, formula, Parser.parse_smt_file, debug_mode)
 
 
+
+
+def get_positivity_theorems_constraints(formula: Union[str, PysmtSolver], config: Union[str, dict], debug_mode=False) -> Tuple[str, dict]:
+    """
+    Apply positivity theorems and return a list of constraints.
+    
+    Parameters
+    ----------
+    formula : Union[str, pysmt.solvers.solver.Solver]
+        The formula to execute PolyQEnt on. Either a string to a `.smt2` file
+        or a pysmt.Solver object with the constraints already added
+    config : Union[str, dict]
+        The path to the config file or the parsed config file
+        
+    Returns
+    -------
+    list
+        constraints of applying theroems. A list of DNFs.
+    """
+    if isinstance(config, str):
+        config = load_config(config)
+    elif isinstance(config, dict):
+        config = add_default_config(config)
+
+    if isinstance(formula, str):
+        with open(formula, "r") as file:
+            formula = file.read()
+    elif isinstance(formula, PysmtSolver):
+        formula = pysmt_to_smt2(formula)
+        
+    parser = Parser(
+        PositiveModel([],
+                      config['theorem_name'],
+                      True, not config['SAT_heuristic'], not config['SAT_heuristic'],
+                      config['degree_of_sat'], config['degree_of_nonstrict_unsat'],
+                      config['degree_of_strict_unsat'], config['max_d_of_strict'],
+                      preconditions=[],
+                      ))
+    
+    Parser.parse_smt_file(parser, formula)
+    return parser.model.get_positivity_theorems_constraints(debug_mode=debug_mode)
+
+
 def execute_smt2(smt2: str, config_path: str) -> Tuple[str, dict]:
     """
     Execute PolyQEnt on the smt2 system

@@ -275,6 +275,20 @@ class PositiveModel:
                 )
         f.close()
 
+
+    def get_positivity_theorems_constraints(self, debug_mode=False):
+        """
+        This function applies positivity theorems and returns the new constraints.
+        """
+        if debug_mode:
+            print("\nSet of contraints before applying positivity theorems:")
+            for i in range(len(self.paired_constraint)):
+                print(str(i)+')\t', str(self.paired_constraint[i][0][0]))
+                for j in range(1, len(self.paired_constraint[i][0])):
+                    print('\tAND ', str(self.paired_constraint[i][0][j]))
+                print("\t\t=>", str(self.paired_constraint[i][1]), '\n')
+        return self.get_generated_constraints()
+
     def run_on_solver(self, output_path: str = "checking.txt", solver_name: str = 'z3', core_iteration_heuristic: bool = False,
                       constant_heuristic: bool = False, real_values: bool = True, debug_mode=False) -> Tuple[bool, dict]:
         """ 
