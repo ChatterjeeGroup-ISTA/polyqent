@@ -221,7 +221,7 @@
             <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span><span class="n">formula</span><span class="o">.</span><span class="n">args</span><span class="p">())</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;`Times` expected at least 2 arguments, got </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">formula</span><span class="o">.</span><span class="n">args</span><span class="p">())</span><span class="si">}</span><span class="s1">&#39;</span>
             <span class="k">return</span> <span class="sa">f</span><span class="s1">&#39;(* </span><span class="si">{</span><span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">to_smt2</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">arg</span><span class="w"> </span><span class="ow">in</span><span class="w"> </span><span class="n">formula</span><span class="o">.</span><span class="n">args</span><span class="p">())</span><span class="si">}</span><span class="s1">)&#39;</span>
         <span class="k">elif</span> <span class="n">formula</span><span class="o">.</span><span class="n">is_real_constant</span><span class="p">():</span>
-            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">formula</span><span class="o">.</span><span class="n">constant_value</span><span class="p">())</span>
+            <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">formula</span><span class="o">.</span><span class="n">to_smtlib</span><span class="p">())</span>
         <span class="k">elif</span> <span class="n">formula</span><span class="o">.</span><span class="n">is_int_constant</span><span class="p">():</span>
             <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="n">formula</span><span class="o">.</span><span class="n">constant_value</span><span class="p">())</span>
         <span class="k">elif</span> <span class="n">formula</span><span class="o">.</span><span class="n">is_symbol</span><span class="p">():</span>
@@ -245,7 +245,7 @@
 
 <div class="viewcode-block" id="execute">
 <a class="viewcode-back" href="../../polyqent.main.html#polyqent.main.execute">[docs]</a>
-<span class="k">def</span><span class="w"> </span><span class="nf">execute</span><span class="p">(</span><span class="n">formula</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">PysmtSolver</span><span class="p">],</span> <span class="n">config</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">execute</span><span class="p">(</span><span class="n">formula</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">PysmtSolver</span><span class="p">],</span> <span class="n">config</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">],</span> <span class="n">debug_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Execute PolyQEnt on the formula with the given configuration</span>
 <span class="sd">    </span>
@@ -281,7 +281,53 @@
         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
             <span class="s2">&quot;Formula must be either a path to a smt2 file or a pysmt.Solver object&quot;</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="n">__execute</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">formula</span><span class="p">,</span> <span class="n">Parser</span><span class="o">.</span><span class="n">parse_smt_file</span><span class="p">)</span></div>
+    <span class="k">return</span> <span class="n">__execute</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="n">formula</span><span class="p">,</span> <span class="n">Parser</span><span class="o">.</span><span class="n">parse_smt_file</span><span class="p">,</span> <span class="n">debug_mode</span><span class="p">)</span></div>
+
+
+
+
+
+<div class="viewcode-block" id="get_positivity_theorems_constraints">
+<a class="viewcode-back" href="../../polyqent.main.html#polyqent.main.get_positivity_theorems_constraints">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_positivity_theorems_constraints</span><span class="p">(</span><span class="n">formula</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">PysmtSolver</span><span class="p">],</span> <span class="n">config</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">],</span> <span class="n">debug_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Apply positivity theorems and return a list of constraints.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    formula : Union[str, pysmt.solvers.solver.Solver]</span>
+<span class="sd">        The formula to execute PolyQEnt on. Either a string to a `.smt2` file</span>
+<span class="sd">        or a pysmt.Solver object with the constraints already added</span>
+<span class="sd">    config : Union[str, dict]</span>
+<span class="sd">        The path to the config file or the parsed config file</span>
+<span class="sd">        </span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
+<span class="sd">    list</span>
+<span class="sd">        constraints of applying theroems. A list of DNFs.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">load_config</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">config</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+        <span class="n">config</span> <span class="o">=</span> <span class="n">add_default_config</span><span class="p">(</span><span class="n">config</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+            <span class="n">formula</span> <span class="o">=</span> <span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">formula</span><span class="p">,</span> <span class="n">PysmtSolver</span><span class="p">):</span>
+        <span class="n">formula</span> <span class="o">=</span> <span class="n">pysmt_to_smt2</span><span class="p">(</span><span class="n">formula</span><span class="p">)</span>
+        
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">Parser</span><span class="p">(</span>
+        <span class="n">PositiveModel</span><span class="p">([],</span>
+                      <span class="n">config</span><span class="p">[</span><span class="s1">&#39;theorem_name&#39;</span><span class="p">],</span>
+                      <span class="kc">True</span><span class="p">,</span> <span class="ow">not</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;SAT_heuristic&#39;</span><span class="p">],</span> <span class="ow">not</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;SAT_heuristic&#39;</span><span class="p">],</span>
+                      <span class="n">config</span><span class="p">[</span><span class="s1">&#39;degree_of_sat&#39;</span><span class="p">],</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;degree_of_nonstrict_unsat&#39;</span><span class="p">],</span>
+                      <span class="n">config</span><span class="p">[</span><span class="s1">&#39;degree_of_strict_unsat&#39;</span><span class="p">],</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;max_d_of_strict&#39;</span><span class="p">],</span>
+                      <span class="n">preconditions</span><span class="o">=</span><span class="p">[],</span>
+                      <span class="p">))</span>
+    
+    <span class="n">Parser</span><span class="o">.</span><span class="n">parse_smt_file</span><span class="p">(</span><span class="n">parser</span><span class="p">,</span> <span class="n">formula</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">parser</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">get_positivity_theorems_constraints</span><span class="p">(</span><span class="n">debug_mode</span><span class="o">=</span><span class="n">debug_mode</span><span class="p">)</span></div>
 
 
 
@@ -335,7 +381,7 @@
 
 
 
-<span class="k">def</span><span class="w"> </span><span class="nf">__execute</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">parser_method</span><span class="p">:</span> <span class="n">Callable</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">__execute</span><span class="p">(</span><span class="n">config</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="nb">input</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">parser_method</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">debug_mode</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Execute PolyQEnt on the input system</span>
 
@@ -374,11 +420,11 @@
                 <span class="n">random</span><span class="o">.</span><span class="n">choices</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">ascii_uppercase</span> <span class="o">+</span> <span class="n">string</span><span class="o">.</span><span class="n">digits</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="mi">9</span><span class="p">))</span>
             <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;output_path&quot;</span><span class="p">],</span> <span class="s1">&#39;x&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
                 <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Running solver...&quot;</span><span class="p">)</span>
         <span class="n">sat</span><span class="p">,</span> <span class="n">model</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">run_on_solver</span><span class="p">(</span><span class="n">output_path</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;output_path&quot;</span><span class="p">],</span> <span class="n">solver_name</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;solver_name&quot;</span><span class="p">],</span>
                                                 <span class="n">core_iteration_heuristic</span><span class="o">=</span><span class="n">config</span><span class="p">[</span><span class="s1">&#39;unsat_core_heuristic&#39;</span><span class="p">],</span>
                                                 <span class="n">constant_heuristic</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
-                                                <span class="n">real_values</span><span class="o">=</span><span class="ow">not</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;integer_arithmetic&#39;</span><span class="p">])</span>
+                                                <span class="n">real_values</span><span class="o">=</span><span class="ow">not</span> <span class="n">config</span><span class="p">[</span><span class="s1">&#39;integer_arithmetic&#39;</span><span class="p">],</span> 
+                                                <span class="n">debug_mode</span><span class="o">=</span><span class="n">debug_mode</span><span class="p">)</span>
     <span class="k">finally</span><span class="p">:</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="n">output_path_exists</span><span class="p">:</span>
             <span class="n">os</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">config</span><span class="p">[</span><span class="s2">&quot;output_path&quot;</span><span class="p">])</span>
