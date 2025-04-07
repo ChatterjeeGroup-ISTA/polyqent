@@ -124,7 +124,7 @@ def pysmt_to_smt2(solver: PysmtSolver) -> str:
             assert len(formula.args()) >= 2, f'`Times` expected at least 2 arguments, got {len(formula.args())}'
             return f'(* {" ".join(to_smt2(arg) for arg in formula.args())})'
         elif formula.is_real_constant():
-            return str(formula.constant_value())
+            return str(formula.to_smtlib())
         elif formula.is_int_constant():
             return str(formula.constant_value())
         elif formula.is_symbol():
