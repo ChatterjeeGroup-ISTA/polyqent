@@ -1,0 +1,572 @@
+module pasf;
+% Presburger arithmetic standard form main module. Algorithms on first-order
+% formulas over the language of rings together with congruences. Binary
+% relations (operators) are [equal], [neq], [leq], [geq], [lessp], [greaterp].
+% Ternary relations are [cong] and [ncong].
+
+revision('pasf, "$Id: pasf.red 6072 2021-09-28 13:07:18Z thomas-sturm $");
+
+copyright('pasf, "(c) 2002-2009 A. Dolzmann, A. Seidl, T. Sturm, 2010-2021 T. Sturm");
+
+% Redistribution and use in source and binary forms, with or without
+% modification, are permitted provided that the following conditions
+% are met:
+%
+%    * Redistributions of source code must retain the relevant
+%      copyright notice, this list of conditions and the following
+%      disclaimer.
+%    * Redistributions in binary form must reproduce the above
+%      copyright notice, this list of conditions and the following
+%      disclaimer in the documentation and/or other materials provided
+%      with the distribution.
+%
+% THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+% "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+% LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+% A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+% OWNERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+% SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+% LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+% DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+% THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+% (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+% OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+%
+
+create!-package('(pasf pasfprint pasfbnf pasfmisc pasfnf pasfsiat pasfsibq pasfbqbb pasfqe pasfsusi
+                  pasfresolve), nil);
+
+fluid '(!*rlnzden !*rlposden !*rladdcond !*rlsifac !*rlbrkcxk !*utf8);
+
+load!-package 'redlog;
+loadtime load!-package 'cl;
+
+fluid '(!*rlverbose secondvalue!*);
+flag('(pasf),'rl_package);
+flag('(pasf_chsimpat),'full);
+flag('(pasf_simpat),'full);
+flag('(equal neq leq geq lessp greaterp),'spaced);
+
+% QE-Switches
+
+% Simplifier-recognized implication for pasf answers
+switch rlqeasri;
+on1 'rlqeasri;
+
+% QE call to dnf from the procedure pasf_qeexblock
+switch rlpasfdnfqeexblock;
+off1 'rlpasfdnfqeexblock;
+% QE call to DNF on the input formula's matrix
+switch rlpasfdnffirst;
+off1 'rlpasfdnffirst;
+% Expand bounded quantifiers inside QE, if possible; Not used in the current
+% implementation
+switch rlpasfexpand;
+off1 'rlpasfexpand;
+% Simplify intermediate results
+switch rlpasfsimplify;
+on1 'rlpasfsimplify;
+% Approximate bounds by maximal and minimal values
+switch rlpasfbapprox;
+on1 'rlpasfbapprox;
+% Gauss elimination
+switch rlpasfgauss;
+on1 'rlpasfgauss;
+% Full gauss condensing
+switch rlpasfgc;
+on1 'rlpasfgc;
+% Structural condensing
+switch rlpasfsc;
+on1 'rlpasfsc;
+% Structural elimination sets
+switch rlpasfses;
+on1 'rlpasfses;
+% Conflation of structural elimination sets
+switch rlpasfconf;
+on1 'rlpasfconf;
+% If on constrained virtual substitution uses infinity symbols instead of
+% cauchy bounds
+switch rlqesubi;
+on1 'rlqesubi;
+% Trun on the old probabilistic mode
+switch rlpqeold;
+off1 'rlpqeold;
+
+% Force cl_qe to make the formula prenex
+switch rlqepnf;  % hack for now - TS
+on1 'rlqepnf;
+
+% Variable selection heuristic is by default off in pasf.
+off1 'rlqevarsel;
+
+% Verboseswitches
+
+% General verbose switch
+switch rlpasfvb;
+off1 'rlpasfvb;
+
+% Smart simplification verbose
+switch rlsiverbose;
+off1 'rlsiverbose;
+
+% Parameters
+put('pasf,'rl_params,'(
+   (rl_BQapply2ats1!* . pasf_BQapply2ats1)
+   (rl_BQatnum!* . pasf_BQatnum)
+   (rl_BQqnum!* . pasf_BQqnum)
+   (rl_BQdepth!* . pasf_BQdepth)
+   (rl_BQf2ml!* . pasf_BQf2ml)
+   (rl_BQsubfof1!* . pasf_BQsubfof1)
+   (rl_BQreplace1!* . pasf_BQreplace1)
+   (rl_BQnnf1!* . pasf_BQnnf1)
+   (rl_BQrename!-vars1!* . pasf_BQrename!-vars1)
+   (rl_BQvarl2!* . pasf_BQvarl2)
+   (rl_BQqvarl1!* . pasf_BQqvarl1)
+   (rl_BQordp!* . pasf_BQordp)
+   (rl_subat!* . pasf_subat)
+   (rl_subalchk!* . pasf_subalchk)
+   (rl_eqnrhskernels!* . pasf_eqnrhskernels)
+   (rl_simplat1!* . pasf_simplat1)
+   (rl_simplifyBoundedQuantifier!* . pasf_simplifyBoundedQuantifier)
+   (rl_fctrat!* . pasf_fctrat)
+   (rl_ordatp!* . pasf_ordatp)
+   (rl_op!* . pasf_op)
+   (rl_varsubstat!* . pasf_varsubstat)
+   (rl_negateat!* . pasf_negateat)
+   (rl_bnfsimpl!* . cl_bnfsimpl)
+   (rl_tordp!* . ordp)
+   (rl_termmlat!* . pasf_termmlat)
+   (rl_sacat!* . pasf_sacat)
+   (rl_sacatlp!* . cl_sacatlp)
+   (rl_varlat!* . pasf_varlat)
+   (rl_smupdknowl!* . cl_susiupdknowl)
+   (rl_smrmknowl!* . pasf_susirmknowl)
+   (rl_smcpknowl!* . cl_susicpknowl)
+   (rl_smmkatl!* . cl_susimkatl)
+   (rl_susibin!* . pasf_susibin)
+   (rl_susipost!* . pasf_susipost)
+   (rl_susitf!* . pasf_susitf)
+   (rl_structat!* . pasf_structat)
+   (rl_rxffn!* . pasf_rxffn)
+   (rl_smt2ReadAt!* . pasf_smt2ReadAt)));
+
+% Services
+put('pasf,'rl_services,'(
+   (rl_subfof!* . cl_subfof)
+   (rl_miniscope!* . cl_miniscope)
+   (rl_atml!* . cl_atml)
+   (rl_terml!* . cl_terml)
+   (rl_termml!* . cl_termml)
+   (rl_ifacl!* . cl_ifacl)
+   (rl_ifacml!* . cl_ifacml)
+   (rl_tnf!* . cl_tnf)
+   (rl_varl!* . cl_varl)
+   (rl_fvarl!* . cl_fvarl)
+   (rl_bvarl!* . cl_bvarl)
+   (rl_all!* . cl_all)
+   (rl_ex!* . cl_ex)
+   (rl_simpl!* . cl_simpl)
+   (rl_simplbasic!* . cl_simplbasic)
+   (rl_atnum!* . cl_atnum)
+   (rl_qnum!* . cl_qnum)
+   (rl_matrix!* . cl_matrix)
+   (rl_qe!* . pasf_qe)
+   (rl_wqe!* . pasf_wqe)
+   (rl_expand!* . pasf_expand)
+   (rl_atl!* . cl_atl)
+   (rl_pnf!* . pasf_pnf)
+   (rl_dnf!* . pasf_dnf)
+   (rl_cnf!* . pasf_cnf)
+   (rl_nnf!* . cl_nnf)
+   (rl_qea!* . pasf_qea)
+   (rl_pqea!* . pasf_pqea)
+   (rl_wqea!* . pasf_wqea)
+   (rl_pqe!* . pasf_pqe)
+   (rl_stex!* . pasf_stex)
+   (rl_expanda!* . pasf_expanda)
+   (rl_zsimpl!* . pasf_zsimpl)
+   (rl_resolve!* . pasf_resolve)
+   (rl_depth!* . cl_depth)
+   (rl_smt2Print!* . pasf_smt2Print)
+   (rl_struct!* . cl_struct)));
+
+put('pasf,'rl_simpb,'pasf_simpb);
+
+asserted procedure pasf_simpb(u, x: Kernel): Formula;
+   % Simp bound. Do not confuse with "simp bounded quantifer". redlog/rlami
+   % knows about bounded quantifiers but the bounds are context-specific,
+   % like atomic formulas. u is the unsimped bound. We also receive the
+   % already simped variable x and matrix formula m. x is required for a
+   % syntax check. f has beed added for symmetry, although pasf is currently
+   % the only context supporting bounded quantifiers. Note that the return
+   % value is only the simped u.
+   begin scalar w;
+      w := rl_simp1 u;
+      pasf_bsatp(w, x);  % Test for finite solution set
+      return w
+   end;
+
+put('pasf,'rl_resimpb,'pasf_resimpb);
+
+asserted procedure pasf_resimpb(b: Formula): Formula;
+   % Resimp bound. Do not confuse with "resimp bounded quantifer".
+   % redlog/rlami knows about bounded quantifiers but the bounds are
+   % context-specific, like atomic formulas.
+   rl_resimp b;
+
+put('pasf,'rl_prepb,'pasf_prepb);
+
+asserted procedure pasf_prepb(b: Formula): LispPrefixForm;
+   % Prep bound. Do not confuse with "prep bounded quantifer". redlog/rlami
+   % knows about bounded quantifiers but the bounds are context-specific,
+   % like atomic formulas.
+   rl_prepfof b;
+
+put('pasf,'simpfnname,'pasf_simpfn);
+put('pasf,'rl_prepat,'pasf_prepat);
+put('pasf,'rl_resimpat,'pasf_resimpat);
+put('pasf,'rl_lengthat,'pasf_lengthat);
+
+put('pasf,'rl_prepterm,'prepf);
+put('pasf,'rl_simpterm,'pasf_simpterm);
+
+algebraic infix equal;
+put('equal,'pasf_simpfn,'pasf_chsimpat);
+put('equal,'number!-of!-args,2);
+
+algebraic infix neq;
+put('neq,'pasf_simpfn,'pasf_chsimpat);
+put('neq,'number!-of!-args,2);
+put('neq,'rtypefn,'quotelog);
+newtok '((!< !>) neq);
+
+algebraic infix leq;
+put('leq,'pasf_simpfn,'pasf_chsimpat);
+put('leq,'number!-of!-args,2);
+put('leq,'rtypefn,'quotelog);
+
+algebraic infix geq;
+put('geq,'pasf_simpfn,'pasf_chsimpat);
+put('geq,'number!-of!-args,2);
+put('geq,'rtypefn,'quotelog);
+
+algebraic infix lessp;
+put('lessp,'pasf_simpfn,'pasf_chsimpat);
+put('lessp,'number!-of!-args,2);
+put('lessp,'rtypefn,'quotelog);
+
+algebraic infix greaterp;
+put('greaterp,'pasf_simpfn,'pasf_chsimpat);
+put('greaterp,'number!-of!-args,2);
+put('greaterp,'rtypefn,'quotelog);
+
+algebraic operator cong;
+put('cong,'pasf_simpfn,'pasf_simpat);
+put('cong,'number!-of!-args,3);
+put('cong,'rtypefn,'quotelog);
+
+algebraic operator ncong;
+put('ncong,'pasf_simpfn,'pasf_simpat);
+put('ncong,'number!-of!-args,3);
+put('ncong,'rtypefn,'quotelog);
+
+algebraic operator rnd;
+put('rnd,'simpfn,'pasf_simprnd);
+put('rnd,'number!-of!-args,2);
+
+inline procedure pasf_op(atf);
+   % Presburger arithmetic standard form operator. [atf] is an atomic formula
+   % $r(t_1,t_2)$ or $r(t_1,t_2,m)$. Returns $r$ or in case of a congruence
+   % the pair $(r . m)$.
+   car atf;
+
+inline procedure pasf_opp(op);
+   % Presburger arithmetic standard form operator predicate. [op] is an
+   % expression. Returns t iff the name of [op] is a legal operator or
+   % relation name. Hardly ever used.
+   op memq '(equal neq lessp leq greaterp geq) or
+      (pairp op and car op memq '(cong ncong));
+
+inline procedure pasf_m(atf);
+   % Presburger arithmetic standard form modulus operator. [atf] is an atomic
+   % formula $t_1 \equiv_m t_2$. Returns $m$.
+   cdar atf;
+
+inline procedure pasf_arg2l(atf);
+   % Presburger arithmetic standard form left hand side argument. [atf] is an
+   % atomic formula $r(t_1,t_2)$. Returns $t_1$.
+   cadr atf;
+
+inline procedure pasf_arg2r(atf);
+   % Presburger arithmetic standard form right hand side argument. [atf] is an
+   % atomic formula $r(t_1,t_2)$. Returns $t_2$.
+   caddr atf;
+
+inline procedure pasf_mk2(op,lhs,rhs);
+   % Presburger arithmetic standard form make atomic formula. [op] is an
+   % operator; [lhs] is the left handside term; [rhs] is the right handside
+   % term. Returns the atomic formula $[op]([lhs],[rhs])$.
+   {op,lhs,rhs};
+
+inline procedure pasf_0mk2(op,lhs);
+   % Presburger arithmetic standard form make zero right hand atomic
+   % formula. [op] is an operator; [lhs] is a term. Returns the atomic formula
+   % $[op]([lhs],0)$.
+   {op,lhs,nil};
+
+inline procedure pasf_opn(atf);
+   % Presburger arithmetic standard form operator name. [atf] is an
+   % atomic formula $r(t_1,t_2)$ or $r(t_1,t_2,m)$. Returns $r$. Used
+   % heavily.
+   if rl_tvalp atf then
+      atf
+   else if pairp car atf then
+      caar atf
+   else
+      car atf;
+
+inline procedure pasf_atfp(f);
+   % Presburger arithmetic standard form atomic formula predicate. [f] is a
+   % formula. Returns t iff [f] has a legal relation name.
+   (pasf_opn f) memq '(equal neq leq geq lessp greaterp
+      cong ncong);
+
+inline procedure pasf_congopp(op);
+   op memq '(cong ncong);
+
+inline procedure pasf_equopp(op);
+   op memq '(equal neq);
+
+inline procedure pasf_congp(atf);
+   % Presburger arithmetic standard form congruence atomic formula
+   % predicate. [atf] is an atomic formula. Returns t iff the operator
+   % is 'cong or 'ncong.
+   pairp atf and pairp car atf and pasf_congopp caar atf;
+
+procedure pasf_mkop(op,m);
+   % Presburger arithmetic standard form make operator. [op] is an operator;
+   % [m] is an optional modulus. Returns $op$ if the operator is not 'cong or
+   % 'ncong and $([op] . [m])$ otherwise.
+   if op memq '(cong ncong) then
+      (op . if null m then
+         % User should use equations instead of congruences modulo 0
+         rederr{"Modulo 0 congruence created"}
+      else
+         m)
+   else
+      op;
+
+procedure pasf_mkrng(v,lb,ub);
+   % Presburger arithmetic standard form make interval range formula. [v] is a
+   % variable; [lb] is a lower bound; [ub] is an upper bound. Returns the
+   % formula $[lb] \leq [v] \leq [ub]$.
+   if lb eq ub then
+      pasf_0mk2('equal,addf(v,negf lb))
+   else rl_mkn('and,{
+      pasf_0mk2('geq,addf(v,negf lb)),
+      pasf_0mk2('leq,addf(v,negf ub))});
+
+procedure pasf_simprnd(u);
+   % [u] is Lisp Prefix. Returns an SQ.
+   <<
+      if null u or null cdr u or cddr u then
+         rederr {"rnd called with",length u,"arguments instead of 2"};
+      if not idp cadr u then
+         rederr {"second argument of rnd must be an identifier"};
+      mksq({'rnd,reval car u,cadr u},1)
+   >>;
+
+procedure pasf_mkrndf(u,key);
+   % [u] is an SF; [key] is an interned identifier. Returns an SF.
+   numr simp {'rnd,prepf u,key};
+
+procedure pasf_verbosep();
+   % Presburger arithmetic standard form verbose switch. Returns t iff the
+   % main switch rlverbose is on and the switch rlpasfvb is on.
+   !*rlverbose and !*rlpasfvb;
+
+procedure pasf_simpterm(l);
+   % Presburger arithmetic standard form simp term. [l] is lisp
+   % prefix. Returns [l] as a PASF term.
+   numr simp l;
+
+procedure pasf_prepat(atf);
+   % Presburger arithmetic standard form prep atomic formula. [atf] is a PASF
+   % atomic formula. Returns [atf] in Lisp prefix form.
+   if pasf_congp atf then
+       {pasf_opn atf,prepf pasf_arg2l atf,prepf pasf_arg2r atf,
+          prepf pasf_m atf}
+   else
+      pasf_opn atf . for each arg in rl_argn atf collect prepf arg;
+
+procedure pasf_resimpat(atf);
+   % Presburger arithmetic standard form resimp atomic formula. [atf] is a
+   % PASF atomic formula. Returns the atomic formula [atf] with resimplified
+   % terms.
+   pasf_mk2(if pasf_congp atf then
+      (pasf_opn atf . numr resimp !*f2q pasf_m atf)
+   else
+      pasf_op atf,
+      numr resimp !*f2q pasf_arg2l atf, numr resimp !*f2q pasf_arg2r atf);
+
+procedure pasf_lengthat(atf);
+   % Presburger arithmetic standard form length of an atomic formula. [atf] is
+   % an atomic formula. Returns a number, the length of [atf].
+   length rl_argn atf;
+   % Note: This procedure is added only for code compatibility and is not used
+   % inside PASF yet.
+
+procedure pasf_chsimpat(l);
+   % Presburger arithmetic standard form chain simp. [l] is a lisp prefix.
+   % Returns [l] as a conjunction of atomic formulas.
+   rl_smkn('and,for each x in pasf_chsimpat1 l collect pasf_simpat x);
+
+procedure pasf_chsimpat1(l);
+   % Presburger arithmetic standard form chain simp subprocedure. [l] is a
+   % lisp prefix. Returns [l] without chains.
+   begin scalar leftl,rightl,lhs,rhs;
+      lhs := cadr l;
+      if pairp lhs and pasf_opp car lhs then <<
+         leftl := pasf_chsimpat1 lhs;
+         lhs := caddr lastcar leftl
+      >>;
+      rhs := caddr l;
+      if pairp rhs and pasf_opp car rhs then <<
+         rightl := pasf_chsimpat1 rhs;
+         rhs := cadr car rightl
+      >>;
+      return nconc(leftl,{car l,lhs,rhs} . rightl)
+   end;
+
+procedure pasf_simpat(u);
+   % Simp atomic formula. [u] is Lisp prefix. Returns an atomic
+   % formula.
+   begin scalar op,lhs,rhs,nlhs,f,m;
+      op := car u;
+      if op memq '(cong ncong) then <<
+         if length u neq 4 then
+            rederr("invalid length in congruence");
+         lhs := subtrsq(simp cadr u,simp caddr u);
+         m := simp cadddr u;
+         if denr lhs neq 1 or denr m neq 1 then
+            rederr("denominators in congruence");
+         return pasf_0mk2(op . numr m,numr lhs)
+      >>;
+      lhs := simp cadr u;
+      if not (!*rlnzden or !*rlposden or (domainp denr lhs)) then
+         typerr(u,"atomic formula");
+      rhs := simp caddr u;
+      if not (!*rlnzden or !*rlposden or (domainp denr rhs)) then
+         typerr(u,"atomic formula");
+      lhs := subtrsq(lhs,rhs);
+      nlhs := numr lhs;
+      if !*rlposden and not domainp denr lhs then <<
+         f := pasf_0mk2(op,nlhs);
+         if !*rladdcond then
+            f := if op memq '(lessp leq greaterp geq) then
+               rl_mkn('and,{pasf_0mk2('greaterp,denr lhs),f})
+            else
+               rl_mkn('and,{pasf_0mk2('neq,denr lhs),f});
+         return f
+      >>;
+      if !*rlnzden and not domainp denr lhs then <<
+         if op memq '(lessp leq greaterp geq) then
+            nlhs := multf(nlhs,denr lhs);
+         f := pasf_0mk2(op,nlhs);
+         if !*rladdcond then
+            f := rl_mkn('and,{pasf_0mk2('neq,denr lhs),f});
+         return f
+      >>;
+      return pasf_0mk2(op,nlhs)
+   end;
+
+procedure pasf_termp(exps,exclst);
+   % Presburger arithmetic standard form test for a correct presburger
+   % term. [exps] is an expression supposed to be a PASF term; [exclst] is an
+   % exception list of variables, that are not allowed to be
+   % non-linear. Returns t iff the term is a correct UPrA term.
+   begin scalar p,errc,oldord;
+      oldord:= setkorder({});
+      for each var in kernels exps do <<
+         setkorder({var});
+         p := reorder(exps);
+         if var memq exclst then <<
+            % Testing for degree of the variable
+            %if ldeg p > 1 then
+            %   rederr{"Illegal UPrA formula :",
+            %             "Quantified variable",var,"with degreee",ldeg p};
+            % Testing for other quantified variables in exception list
+            for each v in exclst do
+               if v neq var and v memq kernels lc p then
+                  rederr{"Illegal UPrA formula :",
+                  "Quantified variables",var,"and",v,"multiplied"}
+         >>;
+         % Testing for parametric coefficients
+         if not domainp lc p then
+            errc := t
+      >>;
+      % Term is correct
+      setkorder(oldord);
+      return errc
+   end;
+
+procedure pasf_uprap(f);
+   % Presburger arithmetic standard form test for uniform presburger
+   % arithmetic formula. [f] is a formula. Returns t only if the formula is
+   % in UPrA and not in PrA and raises an error if the formula is neither in
+   % PrA nor in UPrA.
+   pasf_uprap1(f,nil);
+
+procedure pasf_uprap1(f,bvarl);
+   % Presburger arithmetic standard form test for uniform presburger
+   % arithmetic formula subprocedure. [f] is a formula; [bvarl] is a list of
+   % bounded variables. Returns t only if the formula is in UPrA and not in
+   % PrA and raises an error if the formula is neither in PrA nor in UPrA.
+   begin scalar s;
+      if rl_tvalp f then
+         return nil;
+      if rl_boolp rl_op f then <<
+         % If one of the arguments is in UPrA then the whole formula too
+         for each arg in rl_argn f do
+            s := s or pasf_uprap1(arg,bvarl);
+         return s
+      >>;
+      if rl_quap rl_op f then
+         return pasf_uprap1(rl_mat f,rl_var f . bvarl);
+      if rl_bquap rl_op f then
+         return (pasf_uprap1(rl_mat f,rl_var f . bvarl) or
+            pasf_uprap1(rl_b f,bvarl));
+      % Atomic formulas
+      return if pasf_congp f then
+         pasf_termp(pasf_arg2l f,bvarl) or not domainp pasf_m f
+      else
+         pasf_termp(pasf_arg2l f,bvarl)
+   end;
+
+procedure pasf_univnlfp(f,x);
+   % Presburger arithmetic standard form univariate nonlinear formula
+   % predicate. [f] is a formula; [x] is a variable. Returns t iff [f] is a
+   % univariate formula and contains a term, that is not linear in [x].
+   begin scalar res;
+      for each atf in rl_atl f do
+         res := res or pasf_univnlp(atf,x);
+      return res;
+   end;
+
+procedure pasf_univnlp(atf,x);
+   % Presburger arithmetic standard form univariate nonlinear atomic formula
+   % predicate. [atf] is an atomic formula; [x] is a variable. Returns t iff
+   % [atf] is a univariate formula and contains a term, that is not linear in
+   % [x].
+   begin scalar oldord,res;
+      oldord := setkorder({x});
+      % quick fix to avoid car on nil (TS)
+      if not domainp pasf_arg2l atf and ldeg reorder pasf_arg2l atf > 1 then
+         res := t;
+      setkorder oldord;
+      return res;
+   end;
+
+endmodule; % [pasf]
+
+end; % of file

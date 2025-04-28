@@ -1,0 +1,199 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Polynomial Pseudo-Division</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch9.html#manualse68.html" >Up</a></td><td class="clinks"><a 
+href="manualse69.html" >Next</a></td><td class="clinks"><a 
+href="manualse67.html" >Prev</a></td><td class="clinks"><a 
+href="manualse67.html#tailmanualse67.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse68.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">9.7    </span> <a 
+ id="x87-1610009.7"></a>Polynomial Pseudo-Division</h3>
+<a 
+ id="dx87-161001"></a>
+<a 
+ id="dx87-161002"></a>
+<!--l. 415--><p class="noindent" >The polynomial division discussed above is normally most useful for a univariate
+polynomial over a ﬁeld, otherwise the division is likely to fail giving trivially a zero
+quotient and a remainder equal to the dividend. (A ring of univariate polynomials is a
+Euclidean domain only if the coeﬃcient ring is a ﬁeld.) For example, over the
+integers:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-316">
+     divide(x^2 + y^2, 2(x - y));
+ <br />
+ <br />         2    2
+ <br />     {0,x  + y }
+</div>
+<!--l. 426--><p class="nopar" >
+</p><!--l. 428--><p class="noindent" ><a 
+ id="operator:PSEUDO_DIVIDE"></a> <a 
+ id="operator:PSEUDO_QUOTIENT"></a><a 
+ id="operator:PSEUDO_REMAINDER"></a><a 
+ id="dx87-161003"></a><a 
+ id="dx87-161004"></a><a 
+ id="dx87-161005"></a>
+</p><!--l. 435--><p class="noindent" >The division of a polynomial <span 
+class="cmmi-10x-x-109">u</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) </span>of degree <span 
+class="cmmi-10x-x-109">m </span>by a polynomial <span 
+class="cmmi-10x-x-109">v</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) </span>of degree <span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmsy-10x-x-109">≤ </span><span 
+class="cmmi-10x-x-109">m</span>
+can be performed over any commutative ring with identity (such as the integers, or any
+polynomial ring) if the polynomial <span 
+class="cmmi-10x-x-109">u</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) </span>is ﬁrst multiplied by <span 
+class="cmr-10x-x-109">lc</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">v,x</span><span 
+class="cmr-10x-x-109">)</span><sup><span 
+class="cmmi-8">m</span><span 
+class="cmsy-8">−</span><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">+1</span></sup>
+(where lc denotes the leading coeﬃcient). This is called <span 
+class="ptmri8t-x-x-109">pseudo-division</span>. The
+polynomial pseudo-division operators <span 
+class="pcrr8t-x-x-109">pseudo_divide</span>, <span 
+class="pcrr8t-x-x-109">pseudo_quotient </span>and
+<span 
+class="pcrr8t-x-x-109">pseudo_remainder </span>are implemented as preﬁx operators (only). When multivariate
+polynomials are pseudo-divided it is important which variable is taken as the main
+variable, because the leading coeﬃcient of the divisor is computed with respect to this
+variable. Therefore, if this is allowed to default and there is any ambiguity, i.e. the
+polynomials are multivariate or contain more than one kernel, the pseudo-division
+operators output a warning message to indicate which kernel has been selected as the
+main variable – it is the ﬁrst kernel found in the internal forms of the dividend and
+divisor. (As usual, the warning can be turned oﬀ by setting the switch <span 
+class="pcrr8t-x-x-109">msg </span>to oﬀ.) For
+example
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-317">
+     pseudo_divide(x^2 + y^2, x - y);
+ <br />
+ <br />     *** Main division variable selected is x
+ <br />
+ <br />               2
+ <br />     {x + y,2*y }
+ <br />
+ <br />     pseudo_divide(x^2 + y^2, x - y, x);
+ <br />
+ <br />               2
+ <br />     {x + y,2*y }
+ <br />
+ <br />     pseudo_divide(x^2 + y^2, x - y, y);
+ <br />
+ <br />                    2
+ <br />     { - (x + y),2*x }
+</div>
+<!--l. 470--><p class="nopar" >
+</p><!--l. 472--><p class="noindent" >If the leading coeﬃcient of the divisor is a unit (invertible element) of the coeﬃcient ring
+then division and pseudo-division should be identical, otherwise they are not,
+e.g.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-318">
+     divide(x^2 + y^2, 2(x - y));
+ <br />
+ <br />         2    2
+ <br />     {0,x  + y }
+ <br />
+ <br />     pseudo_divide(x^2 + y^2, 2(x - y));
+ <br />
+ <br />     *** Main division variable selected is x
+ <br />
+ <br />                   2
+ <br />     {2*(x + y),8*y }
+</div>
+<!--l. 487--><p class="nopar" >
+</p><!--l. 489--><p class="noindent" >The pseudo-division gives essentially the same result as would division over the ﬁeld of
+fractions of the coeﬃcient ring (apart from the overall factors [contents] of the quotient
+and remainder), e.g.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-319">
+     on rational;
+ <br />
+ <br />     divide(x^2 + y^2, 2(x - y));
+ <br />
+ <br />       1             2
+ <br />     {---*(x + y),2*y }
+ <br />       2
+ <br />
+ <br />     pseudo_divide(x^2 + y^2, 2(x - y));
+ <br />
+ <br />     *** Main division variable selected is x
+ <br />
+ <br />                   2
+ <br />     {2*(x + y),8*y }
+</div>
+<!--l. 508--><p class="nopar" >
+</p><!--l. 510--><p class="noindent" >Polynomial division and pseudo-division can only be applied to what REDUCE regards
+as polynomials, i.e. rational expressions with denominator 1, e.g.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-320">
+     off rational;
+ <br />
+ <br />     pseudo_divide((x^2 + y^2)/2, x - y);
+ <br />
+ <br />             2    2
+ <br />            x  + y
+ <br />     ***** --------- invalid as polynomial
+ <br />               2
+</div>
+<!--l. 522--><p class="nopar" > All pseudo-division operators accept a (possibly nested) list as ﬁrst argument/operand
+and map over that list.
+</p><!--l. 526--><p class="noindent" >Pseudo-division is implemented using an algorithm (<span class="cite">[<a 
+href="manualap2.html#XKnuth:TAoCP2">Knu81</a>]</span>, Algorithm R, page 407)
+that does not perform any actual division at all (which proves that it applies over a ring).
+It is more eﬃcient than the naive algorithm, and it also has the advantage that it works
+over coeﬃcient domains in which REDUCE may not be able to perform in practice
+divisions that are possible mathematically. An example of this is coeﬃcient domains
+involving algebraic numbers, such as the integers extended by <img 
+src="manual49x.png" alt="√ --
+  2"  class="sqrt"  />, as illustrated in the
+ﬁle <span 
+class="pcrr8t-x-x-109">polydiv.tst</span>.
+</p><!--l. 535--><p class="noindent" >The implementation attempts to be reasonably eﬃcient, except that it always computes
+the quotient internally even when only the remainder is required (as does the standard
+remainder operator).
+                                                                     
+
+                                                                     
+</p><!--l. 539--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch9.html#manualse68.html" >Up</a></td><td class="clinks"><a 
+href="manualse69.html" >Next</a></td><td class="clinks"><a 
+href="manualse67.html" >Prev</a></td><td class="clinks"><a 
+href="manualse67.html#tailmanualse67.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse68.html" >Front</a></td></tr></table><a 
+ id="tailmanualse68.html"></a> </p> 
+</body> 
+</html>

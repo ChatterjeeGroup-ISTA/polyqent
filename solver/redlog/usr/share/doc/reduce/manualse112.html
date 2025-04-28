@@ -1,0 +1,135 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Ordinary Diﬀerential Equations</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch17.html#manualse112.html" >Up</a></td><td class="clinks"><a 
+href="manualse113.html" >Next</a></td><td class="clinks"><a 
+href="manualse111.html" >Prev</a></td><td class="clinks"><a 
+href="manualse111.html#tailmanualse111.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse112.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">17.5    </span> <a 
+ id="x146-27200017.5"></a>Ordinary Diﬀerential Equations</h3>
+<a 
+ id="dx146-272001"></a>
+<!--l. 274--><p class="noindent" ><a 
+ id="operator:NUM_ODESOLVE"></a>
+</p><!--l. 276--><p class="noindent" >A Runge-Kutta method of order 3 ﬁnds an approximate graph for the solution of a
+ordinary diﬀerential equation real initial value problem.
+</p><!--l. 280--><p class="noindent" >Syntax:
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">num_odesolve</span> </dt><dd 
+class="description">(<span 
+class="cmmi-10x-x-109">exp</span>,<span 
+class="cmmi-10x-x-109">depvar </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">dv</span>,<span 
+class="cmmi-10x-x-109">indepvar</span>=<span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">from..to</span><span 
+class="cmr-10x-x-109">)</span>
+     <!--l. 284--><p class="noindent" ><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">,accuracy </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">a</span><span 
+class="cmr-10x-x-109">][</span><span 
+class="cmmi-10x-x-109">,iterations </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">i</span><span 
+class="cmr-10x-x-109">])</span>
+     </p><!--l. 286--><p class="noindent" >where
+     </p><!--l. 288--><p class="noindent" ><span 
+class="cmmi-10x-x-109">exp </span>is the diﬀerential expression/equation,
+     </p><!--l. 290--><p class="noindent" ><span 
+class="cmmi-10x-x-109">depvar </span>is an identiﬁer representing the dependent variable (function to be
+     found),
+     </p><!--l. 293--><p class="noindent" ><span 
+class="cmmi-10x-x-109">indepvar </span>is an identiﬁer representing the independent variable,
+     </p><!--l. 295--><p class="noindent" ><span 
+class="cmmi-10x-x-109">exp </span>is an equation (or an expression implicitly set to zero) which contains
+     the ﬁrst derivative of <span 
+class="cmmi-10x-x-109">depvar </span>wrt <span 
+class="cmmi-10x-x-109">indepvar</span>,
+     </p><!--l. 298--><p class="noindent" ><span 
+class="cmmi-10x-x-109">from </span>is the starting point of integration,
+     </p><!--l. 300--><p class="noindent" ><span 
+class="cmmi-10x-x-109">to </span>is the endpoint of integration (allowed to be below <span 
+class="cmmi-10x-x-109">from</span>),
+     </p><!--l. 302--><p class="noindent" ><span 
+class="cmmi-10x-x-109">dv </span>is the initial value of <span 
+class="cmmi-10x-x-109">depvar </span>in the point <span 
+class="cmmi-10x-x-109">indepvar </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">from</span>.
+     </p><!--l. 304--><p class="noindent" >The ODE <span 
+class="cmmi-10x-x-109">exp </span>is converted into an explicit form, which then is used for a
+     Runge Kutta iteration over the given range. The number of steps is controlled
+     by the value of <span 
+class="cmmi-10x-x-109">i </span>(default: 20). If the steps are too coarse to reach the desired
+     accuracy in the neighborhood of the starting point, the number is increased
+     automatically.
+     </p><!--l. 312--><p class="noindent" >Result is a list of pairs, each representing a point of the approximate solution
+     of the ODE problem.
+     </p><!--l. 315--><p class="noindent" >Remarks:
+          </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+        – </dt><dd 
+class="enumerate-enumitem">Note that the dependent variable must be explicitly declared using a
+          <span 
+class="pcrr8t-x-x-109">depend </span>statement, e.g., <span 
+class="pcrr8t-x-x-109">depend y,x</span>.
+                                                                     
+
+                                                                     
+          </dd><dt class="enumerate-enumitem">
+        – </dt><dd 
+class="enumerate-enumitem">The REDUCE package <span 
+class="ptmrc8t-x-x-109">SOLVE </span>is used to convert the form into an
+          explicit ODE. If that process fails or has no unique result, the evaluation
+          is stopped with an error message.
+          </dd></dl>
+     </dd></dl>
+<!--l. 329--><p class="noindent" >Example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-524">
+ <br />depend y,x;
+ <br />
+ <br />num_odesolve(df(y,x)=y,y=1,x=(0 .. 1), iterations=5);
+ <br />
+ <br />{{x,y},
+ <br />
+ <br /> {0.0,1.0},
+ <br />
+ <br /> {0.2,1.22140275816},
+ <br />
+ <br /> {0.4,1.49182469764},
+ <br />
+ <br /> {0.6,1.82211880039},
+ <br />
+ <br /> {0.8,2.22554092849},
+ <br />
+ <br /> {1.0,2.71828182846}}
+ <br />
+</div>
+<!--l. 350--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p><!--l. 353--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch17.html#manualse112.html" >Up</a></td><td class="clinks"><a 
+href="manualse113.html" >Next</a></td><td class="clinks"><a 
+href="manualse111.html" >Prev</a></td><td class="clinks"><a 
+href="manualse111.html#tailmanualse111.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse112.html" >Front</a></td></tr></table><a 
+ id="tailmanualse112.html"></a> </p> 
+</body> 
+</html>

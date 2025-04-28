@@ -1,0 +1,686 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>LET Rules</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch11.html#manualse80.html" >Up</a></td><td class="clinks"><a 
+href="manualse81.html" >Next</a></td><td class="clinks"><a 
+href="manualse79.html" >Prev</a></td><td class="clinks"><a 
+href="manualse79.html#tailmanualse79.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse80.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">11.2    </span> <a 
+ id="x103-20000011.2"></a>LET Rules</h3>
+<a 
+ id="dx103-200001"></a>
+<!--l. 68--><p class="noindent" ><a 
+ id="command:LET"></a> <a 
+ id="reserved:impliesop"></a> Unlike substitutions introduced via <span 
+class="pcrr8t-x-x-109">sub</span>, <span 
+class="pcrr8t-x-x-109">let </span>rules are global in scope and stay in
+eﬀect until replaced or <span 
+class="pcrr8t-x-x-109">clear</span>ed.
+</p><!--l. 73--><p class="noindent" >The simplest use of the <span 
+class="pcrr8t-x-x-109">let </span>statement is in the form
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">let </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">substitution list</span><span 
+class="cmsy-10x-x-109">⟩</span></div>
+<!--l. 77--><p class="noindent" >where <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">substitution list</span><span 
+class="cmsy-10x-x-109">⟩ </span>is a list of rules separated by commas, each of the
+form:
+  </p><div class="syntax">
+   <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">variable</span><span 
+class="cmsy-10x-x-109">⟩ </span><span 
+class="pcrr8t-x-x-109">= </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">expression</span><span 
+class="cmsy-10x-x-109">⟩</span></div>
+<!--l. 82--><p class="noindent" >or
+  </p><div class="syntax">
+   <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">preﬁx operator</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">argument</span><span 
+class="cmsy-10x-x-109">⟩</span>, …, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">argument</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">) = </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">expression</span><span 
+class="cmsy-10x-x-109">⟩</span></div>
+<!--l. 87--><p class="noindent" >or
+  </p><div class="syntax">
+   <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">argument</span><span 
+class="cmsy-10x-x-109">⟩⟨</span><span 
+class="ptmri8t-x-x-109">inﬁx operator</span><span 
+class="cmsy-10x-x-109">⟩</span>, …, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">argument</span><span 
+class="cmsy-10x-x-109">⟩ </span><span 
+class="pcrr8t-x-x-109">= </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">expression</span><span 
+class="cmsy-10x-x-109">⟩</span></div>
+<!--l. 92--><p class="noindent" >For example,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-370">
+        let {x =&#x003E; y^2,
+ <br />             h(u,v) =&#x003E; u - v,
+ <br />             cos(pi/3) =&#x003E; 1/2,
+ <br />             a*b =&#x003E; c,
+ <br />             l+m =&#x003E; n,
+ <br />             w^3 =&#x003E; 2*z - 3,
+ <br />             z^10 =&#x003E; 0}
+</div>
+<!--l. 101--><p class="nopar" > The list brackets can be left out if preferred. The above rules could also have been
+entered as seven separate <span 
+class="pcrr8t-x-x-109">let </span>statements.
+</p><!--l. 105--><p class="noindent" >After such <span 
+class="pcrr8t-x-x-109">let </span>rules have been input, <span 
+class="pcrr8t-x-x-109">x </span>will always be evaluated as the square of <span 
+class="pcrr8t-x-x-109">Y</span>, and
+so on. This is so even if at the time the <span 
+class="pcrr8t-x-x-109">let </span>rule was input, the variable <span 
+class="pcrr8t-x-x-109">y </span>had a value
+other than <span 
+class="pcrr8t-x-x-109">y</span>. (In contrast, the assignment <span 
+class="pcrr8t-x-x-109">x:=y^2 </span>will set <span 
+class="pcrr8t-x-x-109">x </span>equal to the square of the
+current value of <span 
+class="pcrr8t-x-x-109">y</span>, which could be quite diﬀerent.)
+</p><!--l. 113--><p class="noindent" >The rule <span 
+class="pcrr8t-x-x-109">let a*b=c </span>means that whenever <span 
+class="pcrr8t-x-x-109">a </span>and <span 
+class="pcrr8t-x-x-109">b </span>are both factors in an expression
+their product will be replaced by <span 
+class="pcrr8t-x-x-109">c</span>. For example, <span 
+class="pcrr8t-x-x-109">a^5*b^7*w </span>would be replaced by
+<span 
+class="pcrr8t-x-x-109">c^5*b^2*w</span>.
+</p><!--l. 118--><p class="noindent" >The rule for <span 
+class="pcrr8t-x-x-109">l+m </span>will not only replace all occurrences of <span 
+class="pcrr8t-x-x-109">l+m </span>by <span 
+class="pcrr8t-x-x-109">n</span>, but will also
+normally replace <span 
+class="pcrr8t-x-x-109">l </span>by <span 
+class="pcrr8t-x-x-109">n-m</span>, but not <span 
+class="pcrr8t-x-x-109">m </span>by <span 
+class="pcrr8t-x-x-109">n-l</span>. A more complete description of this case
+is given in Section <a 
+href="#x103-20500011.2.5">11.2.5<!--tex4ht:ref: sec-gensubs --></a>.
+</p><!--l. 123--><p class="noindent" >The rule pertaining to <span 
+class="pcrr8t-x-x-109">w^3 </span>will apply to any power of <span 
+class="pcrr8t-x-x-109">w </span>greater than or equal to the
+third.
+</p><!--l. 126--><p class="noindent" >Note especially the last example, <span 
+class="pcrr8t-x-x-109">let z^10=0</span>. This declaration means, in eﬀect:
+ignore the tenth or any higher power of <span 
+class="pcrr8t-x-x-109">z</span>. Such declarations, when appropriate, often
+speed up a computation to a considerable degree. (See<a 
+ id="dx103-200002"></a> Section <a 
+href="manualse82.html#x105-21000011.4">11.4<!--tex4ht:ref: sec-asymp --></a> for more
+details.)
+</p><!--l. 132--><p class="noindent" >Any new operators occurring in such <span 
+class="pcrr8t-x-x-109">let </span>rules will be automatically declared
+<span 
+class="pcrr8t-x-x-109">operator </span>by the system, if the rules are being read from a ﬁle. If they are being
+entered interactively, the system will ask <span 
+class="pcrr8t-x-x-109">Declare</span>… <span 
+class="pcrr8t-x-x-109">operator? (Y or N) </span>.
+Answer <span 
+class="pcrr8t-x-x-109">Y </span>or <span 
+class="pcrr8t-x-x-109">N </span>and hit <span class="fbox"><span 
+class="phvr8t-x-x-109">Return</span></span>.
+</p><!--l. 138--><p class="noindent" >In each of these examples, substitutions are only made for the explicit expressions given;
+i.e., none of the variables may be considered arbitrary in any sense. For example, the
+command
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-371">
+        let h(u,v) = u - v;
+</div>
+<!--l. 143--><p class="nopar" > will cause <span 
+class="pcrr8t-x-x-109">h(u,v) </span>to evaluate to <span 
+class="pcrr8t-x-x-109">u - v</span>, but will not aﬀect <span 
+class="pcrr8t-x-x-109">h(u,z) </span>or <span 
+class="pcrr8t-x-x-109">h </span>with any
+arguments other than precisely the symbols <span 
+class="pcrr8t-x-x-109">u,v</span>.
+</p><!--l. 148--><p class="noindent" >These simple <span 
+class="pcrr8t-x-x-109">let </span>rules are on the same logical level as assignments made with the :=
+operator. An assignment <span 
+class="pcrr8t-x-x-109">x := p+q </span>cancels a rule <span 
+class="pcrr8t-x-x-109">let x = y^2 </span>made earlier, and
+vice versa.
+</p><!--l. 152--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">CAUTION: </span>A recursive rule such as
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-372">
+        let x = x + 1;
+</div>
+<!--l. 155--><p class="nopar" > is erroneous, since any subsequent evaluation of <span 
+class="pcrr8t-x-x-109">x </span>would lead to a non-terminating chain
+of substitutions:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-373">
+      x -&#x003E; x + 1
+ <br />        -&#x003E; (x + 1) + 1
+ <br />        -&#x003E; ((x + 1) + 1) + 1
+ <br />        -&#x003E; ...
+</div>
+<!--l. 163--><p class="nopar" > Similarly, coupled substitutions such as
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-374">
+        let l = m + n, n = l + r;
+</div>
+<!--l. 167--><p class="nopar" > would lead to the same error. As a result, if you try to evaluate an <span 
+class="pcrr8t-x-x-109">x</span>, <span 
+class="pcrr8t-x-x-109">l </span>or <span 
+class="pcrr8t-x-x-109">n </span>deﬁned as
+above, you will get an error such as
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-375">
+        x improperly defined in terms of itself
+</div>
+<!--l. 172--><p class="nopar" >
+</p><!--l. 174--><p class="noindent" >Array and matrix elements can appear on the left-hand side of a <span 
+class="pcrr8t-x-x-109">let </span>statement.
+However, because of their <span 
+class="ptmri8t-x-x-109">instant evaluation</span><a 
+ id="dx103-200003"></a> property, it is the value of the element that
+is substituted for, rather than the element itself. E.g.,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-376">
+        array a(5);
+ <br />        a(2) := b;
+ <br />        let a(2) = c;
+</div>
+<!--l. 182--><p class="nopar" > results in <span 
+class="pcrr8t-x-x-109">b </span>being substituted by <span 
+class="pcrr8t-x-x-109">c</span>; the assignment for <span 
+class="pcrr8t-x-x-109">a(2) </span>does not change.
+</p><!--l. 186--><p class="noindent" >Finally, if an error occurs in any equation in a <span 
+class="pcrr8t-x-x-109">let </span>statement (including generalized
+statements involving <span 
+class="pcrr8t-x-x-109">for all </span>and <span 
+class="pcrr8t-x-x-109">such that</span>), the remaining rules are not
+evaluated.
+</p><!--l. 190--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">11.2.1    </span> <a 
+ id="x103-20100011.2.1"></a>FOR ALL … LET</h4>
+<a 
+ id="dx103-201001"></a>
+<!--l. 191--><p class="noindent" ><a 
+ id="command:FORALL"></a> If a substitution for all possible values of a given argument of an operator is
+required, the declaration <span 
+class="pcrr8t-x-x-109">for all </span>may be used. The syntax of such a command
+is
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">for all </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">variable</span><span 
+class="cmsy-10x-x-109">⟩</span>, …, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">variable</span><span 
+class="cmsy-10x-x-109">⟩</span> <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">let statement</span><span 
+class="cmsy-10x-x-109">⟩⟨</span><span 
+class="ptmri8t-x-x-109">terminator</span><span 
+class="cmsy-10x-x-109">⟩</span></div>
+<!--l. 199--><p class="noindent" >e.g.,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-377">
+        for all x,y let h(x,y) = x-y;
+ <br />        for all x let k(x,y) = x^y;
+</div>
+<!--l. 203--><p class="nopar" > The ﬁrst of these declarations would cause <span 
+class="pcrr8t-x-x-109">h(a,b) </span>to be evaluated as <span 
+class="pcrr8t-x-x-109">a-b</span>,
+<span 
+class="pcrr8t-x-x-109">h(u+v,u+w) </span>to be <span 
+class="pcrr8t-x-x-109">v-w</span>, etc. If the operator symbol <span 
+class="pcrr8t-x-x-109">h </span>is used with more or fewer
+argument places, not two, the <span 
+class="pcrr8t-x-x-109">let </span>would have no eﬀect, and no error would
+result.
+</p><!--l. 209--><p class="noindent" >The second declaration would cause <span 
+class="pcrr8t-x-x-109">k(a,y) </span>to be evaluated as <span 
+class="pcrr8t-x-x-109">a^y</span>, but would have no
+eﬀect on <span 
+class="pcrr8t-x-x-109">k(a,z) </span>since the rule didn’t say <span 
+class="pcrr8t-x-x-109">for all y</span>….
+</p><!--l. 213--><p class="noindent" >Where we used <span 
+class="pcrr8t-x-x-109">x </span>and <span 
+class="pcrr8t-x-x-109">y </span>in the examples, any variables could have been used. This use
+of a variable doesn’t aﬀect the value it may have outside the <span 
+class="pcrr8t-x-x-109">let </span>statement.
+However, you should remember what variables you actually used. If you want to
+delete the rule subsequently, you must use the same variables in the <span 
+class="pcrr8t-x-x-109">clear</span>
+command.
+</p><!--l. 219--><p class="noindent" >It is possible to use more complicated expressions as a template for a <span 
+class="pcrr8t-x-x-109">let </span>statement, as
+explained in the section on substitutions for general expressions. In nearly all cases, the
+rule will be accepted, and a consistent application made by the system. However, if there
+is a sole constant or a sole free variable on the left-hand side of a rule (e.g., <span 
+class="pcrr8t-x-x-109">let 2=3 </span>or
+<span 
+class="pcrr8t-x-x-109">for all x let x=2</span>), then the system is unable to handle the rule, and the error
+message
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-378">
+        Substitution for ... not allowed
+</div>
+<!--l. 228--><p class="nopar" > will be issued. Any variable listed in the <span 
+class="pcrr8t-x-x-109">for all </span>part will have its symbol preceded
+by an equal sign: <span 
+class="pcrr8t-x-x-109">x </span>in the above example will appear as <span 
+class="pcrr8t-x-x-109">=x</span>. An error will also occur if a
+variable in the <span 
+class="pcrr8t-x-x-109">for all </span>part is not properly matched on both sides of the <span 
+class="pcrr8t-x-x-109">let</span>
+equation.
+</p><!--l. 235--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">11.2.2    </span> <a 
+ id="x103-20200011.2.2"></a>FOR ALL … SUCH THAT … LET</h4>
+<!--l. 236--><p class="noindent" ><a 
+ id="command:SUCHTHAT"></a> <a 
+ id="dx103-202001"></a><a 
+ id="dx103-202002"></a>
+</p><!--l. 239--><p class="noindent" >If a substitution is desired for more than a single value of a variable in an operator or
+other expression, but not all values, a conditional form of the <span 
+class="pcrr8t-x-x-109">for all </span><span 
+class="pcrr8t-x-x-109">… let</span>
+declaration can be used.
+</p><!--l. 243--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Example:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-379">
+    for all x such that numberp x and x&#x003C;0 let h(x)=0;
+</div>
+<!--l. 246--><p class="nopar" > will cause <span 
+class="pcrr8t-x-x-109">h(-5) </span>to be evaluated as 0, but <span 
+class="pcrr8t-x-x-109">h </span>of a positive integer, or of an argument that
+is not an integer at all, would not be aﬀected. Any boolean expression can follow the
+<span 
+class="pcrr8t-x-x-109">such that </span>keywords.
+</p><!--l. 251--><p class="noindent" ><a 
+ id="reserved:CLEAR"></a>
+</p>
+<h4 class="subsectionHead"><span class="titlemark">11.2.3    </span> <a 
+ id="x103-20300011.2.3"></a>Removing Assignments and Substitution Rules</h4>
+<a 
+ id="dx103-203001"></a>
+<!--l. 253--><p class="noindent" >The user may remove all assignments and substitution rules from any expression by the
+command <span 
+class="pcrr8t-x-x-109">clear</span>, in the form
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">clear </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">expression</span><span 
+class="cmsy-10x-x-109">⟩</span>, …, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">expression</span><span 
+class="cmsy-10x-x-109">⟩⟨</span><span 
+class="ptmri8t-x-x-109">terminator</span><span 
+class="cmsy-10x-x-109">⟩</span></div>
+<!--l. 258--><p class="noindent" >e.g.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-380">
+        clear x, h(x,y);
+</div>
+<!--l. 261--><p class="nopar" > Because of their <span 
+class="ptmri8t-x-x-109">instant evaluation </span>property, array and matrix elements cannot be
+cleared with <span 
+class="pcrr8t-x-x-109">clear</span>. For example, if <span 
+class="pcrr8t-x-x-109">a </span>is an array, you must say
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-381">
+        a(3) := 0;
+</div>
+<!--l. 267--><p class="nopar" > rather than
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-382">
+        clear a(3);
+</div>
+<!--l. 271--><p class="nopar" > to “clear” element <span 
+class="pcrr8t-x-x-109">a(3)</span>.
+</p><!--l. 274--><p class="noindent" >On the other hand, a whole array (or matrix) <span 
+class="pcrr8t-x-x-109">a </span>can be cleared by the command <span 
+class="pcrr8t-x-x-109">clear</span>
+<span 
+class="pcrr8t-x-x-109">a</span>; This means much more than resetting to 0 all the elements of <span 
+class="pcrr8t-x-x-109">a</span>. The fact that <span 
+class="pcrr8t-x-x-109">a </span>is an
+array, and what its dimensions are, are forgotten, so <span 
+class="pcrr8t-x-x-109">a </span>can be redeﬁned as another type of
+object, for example an operator.
+</p><!--l. 280--><p class="noindent" >If you need to clear a variable whose name must be computed, see the <a 
+href="manualse14.html#command:UNSET"><span 
+class="pcrr8t-x-x-109">unset</span>
+statement</a>.
+</p><!--l. 283--><p class="noindent" >The more general types of <span 
+class="pcrr8t-x-x-109">let </span>declarations can also be deleted by using <span 
+class="pcrr8t-x-x-109">clear</span>.
+Simply repeat the <span 
+class="pcrr8t-x-x-109">let </span>rule to be deleted, using <span 
+class="pcrr8t-x-x-109">clear </span>in place of <span 
+class="pcrr8t-x-x-109">let</span>, and
+omitting the equal sign and right-hand part. The same dummy variables must be
+used in the <span 
+class="pcrr8t-x-x-109">for all </span>part, and the boolean expression in the <span 
+class="pcrr8t-x-x-109">such that</span>
+part must be written the same way. (The placing of blanks doesn’t have to be
+identical.)
+</p><!--l. 291--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Example: </span>The <span 
+class="pcrr8t-x-x-109">let </span>rule
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-383">
+    for all x such that numberp x and x&#x003C;0 let h(x)=0;
+</div>
+<!--l. 294--><p class="nopar" > can be erased by the command
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-384">
+    for all x such that numberp x and x&#x003C;0 clear h(x);
+</div>
+<!--l. 298--><p class="nopar" >
+</p><!--l. 300--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">11.2.4    </span> <a 
+ id="x103-20400011.2.4"></a>Overlapping LET Rules</h4>
+<!--l. 301--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">clear </span>is not the only way to delete a <span 
+class="pcrr8t-x-x-109">let </span>rule. A new <span 
+class="pcrr8t-x-x-109">let </span>rule identical to the ﬁrst, but
+with a diﬀerent expression after the equal sign, replaces the ﬁrst. Replacements are also
+made in other cases where the existing rule would be in conﬂict with the new rule. For
+example, a rule for <span 
+class="pcrr8t-x-x-109">x^4 </span>would replace a rule for <span 
+class="pcrr8t-x-x-109">x^5</span>. The user should however be
+cautioned against having several <span 
+class="pcrr8t-x-x-109">let </span>rules in eﬀect that relate to the same expression.
+No guarantee can be given as to which rules will be applied by REDUCE or in
+what order. It is best to <span 
+class="pcrr8t-x-x-109">clear </span>an old rule before entering a new related <span 
+class="pcrr8t-x-x-109">let</span>
+rule.
+</p><!--l. 313--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">11.2.5    </span> <a 
+ id="x103-20500011.2.5"></a>Substitutions for General Expressions</h4>
+<!--l. 315--><p class="noindent" >The examples of substitutions discussed in other sections have involved very simple
+rules. However, the substitution mechanism used in REDUCE is very general, and can
+handle arbitrarily complicated rules without diﬃculty.
+                                                                     
+
+                                                                     
+</p><!--l. 320--><p class="noindent" >The general substitution mechanism used in REDUCE is discussed in <span class="cite">[<a 
+href="manualap2.html#XHearn:68">Hea68</a>]</span>,
+and <span class="cite">[<a 
+href="manualap2.html#XHearn:69a">Hea69</a>]</span>. For the reasons given in these references, REDUCE does not
+attempt to implement a general pattern matching algorithm. However, the present
+system uses far more sophisticated techniques than those discussed in the above
+papers. It is now possible for the rules appearing in arguments of <span 
+class="pcrr8t-x-x-109">let </span>to have the
+form
+  </p><div class="syntax">
+   <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">substitution expression</span><span 
+class="cmsy-10x-x-109">⟩ </span><span 
+class="pcrr8t-x-x-109">= </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">expression</span><span 
+class="cmsy-10x-x-109">⟩</span></div>
+<!--l. 329--><p class="noindent" >where any rule to which a sensible meaning can be assigned is permitted. However, this
+meaning can vary according to the form of <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">substitution expression</span><span 
+class="cmsy-10x-x-109">⟩</span>. The semantic rules
+associated with the application of the substitution are completely consistent, but
+somewhat complicated by the pragmatic need to perform such substitutions as
+eﬃciently as possible. The following rules explain how the majority of the cases are
+handled.
+</p><!--l. 336--><p class="noindent" >To begin with, the <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">substitution expression</span><span 
+class="cmsy-10x-x-109">⟩ </span>is ﬁrst partly simpliﬁed by collecting like
+terms and putting identiﬁers (and kernels) in the system order. However, no substitutions
+are performed on any part of the expression with the exception of expressions with the
+<span 
+class="ptmri8t-x-x-109">instant evaluation </span>property, such as array and matrix elements, whose actual values are
+used. It should also be noted that the system order used is not changeable by
+the user, even with the <span 
+class="pcrr8t-x-x-109">korder </span>command. Speciﬁc cases are then handled as
+follows:
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   1. </dt><dd 
+class="enumerate-enumitem">If the resulting simpliﬁed rule has a left-hand side that is an identiﬁer, an
+     expression with a top-level algebraic operator or a power, then the rule is
+     added without further change to the appropriate table.
+     </dd><dt class="enumerate-enumitem">
+   2. </dt><dd 
+class="enumerate-enumitem">If the operator <span 
+class="pcrr8t-x-x-109">* </span>appears at the top level of the simpliﬁed left-hand side, then any
+     constant arguments in that expression are moved to the right-hand side of the rule.
+     The remaining left-hand side is then added to the appropriate table. For
+     example,
+                                                                     
+
+                                                                     
+     <div class="verbatim" id="verbatim-385">
+             let 2*x*y=3
+</div>
+     <!--l. 355--><p class="nopar" > becomes
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-386">
+             let x*y=3/2
+</div>
+     <!--l. 359--><p class="nopar" > so that <span 
+class="pcrr8t-x-x-109">x*y </span>is added to the product substitution table, and when this rule is
+     applied, the expression <span 
+class="pcrr8t-x-x-109">x*y </span>becomes 3/2, but <span 
+class="pcrr8t-x-x-109">X </span>or <span 
+class="pcrr8t-x-x-109">Y </span>by themselves are not
+     replaced.
+     </p></dd><dt class="enumerate-enumitem">
+   3. </dt><dd 
+class="enumerate-enumitem">If the operators <span 
+class="pcrr8t-x-x-109">+</span>, <span 
+class="pcrr8t-x-x-109">- </span>or <span 
+class="pcrr8t-x-x-109">/ </span>appear at the top level of the simpliﬁed left-hand side, all
+     but the ﬁrst term is moved to the right-hand side of the rule. Thus the
+     rules
+                                                                     
+
+                                                                     
+     <div class="verbatim" id="verbatim-387">
+             let l+m=n, x/2=y, a-b=c
+</div>
+     <!--l. 369--><p class="nopar" > become
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-388">
+             let l=n-m, x=2*y, a=c+b.
+</div>
+     <!--l. 373--><p class="nopar" ></p></dd></dl>
+<!--l. 375--><p class="noindent" >One problem that can occur in this case is that if a quantiﬁed expression is
+moved to the right-hand side, a given free variable might no longer appear on the
+left-hand side, resulting in an error because of the unmatched free variable.
+E.g.,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-389">
+        for all x,y let f(x)+f(y)=x*y
+</div>
+<!--l. 381--><p class="nopar" > would become
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-390">
+        for all x,y let f(x)=x*y-f(y)
+</div>
+<!--l. 385--><p class="nopar" > which no longer has <span 
+class="pcrr8t-x-x-109">y </span>on both sides.
+</p><!--l. 388--><p class="noindent" >The fact that array and matrix elements are evaluated in the left-hand side of rules can
+lead to confusion at times. Consider for example the statements
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-391">
+        array a(5); let x+a(2)=3; let a(3)=4;
+</div>
+<!--l. 393--><p class="nopar" > The left-hand side of the ﬁrst rule will become <span 
+class="pcrr8t-x-x-109">x</span>, and the second 0. Thus the ﬁrst
+rule will be instantiated as a substitution for <span 
+class="pcrr8t-x-x-109">x</span>, and the second will result in an
+error.
+</p><!--l. 398--><p class="noindent" >The order in which a list of rules is applied is not easily understandable without a
+detailed knowledge of the system simpliﬁcation protocol. It is also possible for this order
+to change from release to release, as improved substitution techniques are implemented.
+Users should therefore assume that the order of application of rules is arbitrary, and
+program accordingly.
+</p><!--l. 405--><p class="noindent" >After a substitution has been made, the expression being evaluated is reexamined in case
+a new allowed substitution has been generated. This process is continued until no more
+substitutions can be made.
+</p><!--l. 409--><p class="noindent" ><a 
+ id="command:MATCH"></a> As mentioned elsewhere, when a substitution expression appears in a product, the
+substitution is made if that expression divides the product. For example, the
+rule
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-392">
+        let a^2*c = 3*z;
+</div>
+<!--l. 415--><p class="nopar" > would cause <span 
+class="pcrr8t-x-x-109">a^2*c*x </span>to be replaced by <span 
+class="pcrr8t-x-x-109">3*z*x </span>and <span 
+class="pcrr8t-x-x-109">a^2*c^2 </span>by <span 
+class="pcrr8t-x-x-109">3*z*c</span>. If the
+substitution is desired only when the substitution expression appears in a product with
+the explicit powers supplied in the rule, the command <span 
+class="pcrr8t-x-x-109">match </span>should be used
+instead.<a 
+ id="dx103-205004"></a>.
+</p><!--l. 422--><p class="noindent" >For example,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-393">
+        match a^2*c = 3*z;
+</div>
+<!--l. 425--><p class="nopar" > would cause <span 
+class="pcrr8t-x-x-109">a^2*c*x </span>to be replaced by <span 
+class="pcrr8t-x-x-109">3*z*x</span>, but <span 
+class="pcrr8t-x-x-109">a^2*c^2 </span>would not be
+replaced. <span 
+class="pcrr8t-x-x-109">match </span>can also be used with the <span 
+class="pcrr8t-x-x-109">for all </span>constructions described
+above.
+</p><!--l. 430--><p class="noindent" >To remove substitution rules of the type discussed in this section, the <span 
+class="pcrr8t-x-x-109">clear</span><a 
+ id="dx103-205005"></a> command
+can be used, combined, if necessary, with the same <span 
+class="pcrr8t-x-x-109">for all </span>clause with which the rule
+was deﬁned, for example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-394">
+    for all x clear log(e^x),e^log(x),cos(w*t+theta(x));
+</div>
+<!--l. 436--><p class="nopar" > Note, however, that the arbitrary variable names in this case <span 
+class="ptmri8t-x-x-109">must </span>be the same as those
+used in deﬁning the substitution.
+                                                                     
+
+                                                                     
+</p><!--l. 440--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch11.html#manualse80.html" >Up</a></td><td class="clinks"><a 
+href="manualse81.html" >Next</a></td><td class="clinks"><a 
+href="manualse79.html" >Prev</a></td><td class="clinks"><a 
+href="manualse79.html#tailmanualse79.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse80.html" >Front</a></td></tr></table><a 
+ id="tailmanualse80.html"></a>  </p> 
+</body> 
+</html>

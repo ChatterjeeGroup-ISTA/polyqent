@@ -1,0 +1,70 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Declaring Complex Conjugates</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch10.html#manualse77.html" >Up</a></td><td class="clinks"><a 
+href="manualse78.html" >Next</a></td><td class="clinks"><a 
+href="manualse76.html" >Prev</a></td><td class="clinks"><a 
+href="manualse76.html#tailmanualse76.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse77.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">10.3    </span> <a 
+ id="x99-19600010.3"></a>Declaring Complex Conjugates</h3>
+<!--l. 92--><p class="noindent" ><a 
+ id="command:COMPLEX_CONJUGATES"></a> The argument <span 
+class="pcrr8t-x-x-109">u </span>of a declaration <span 
+class="pcrr8t-x-x-109">complex_conjugates</span><a 
+ id="dx99-196001"></a><a 
+ id="dx99-196002"></a> should consist of one or
+more (comma-separated) lists of two identiﬁers. This declaration associates the two
+identiﬁers as mutual complex-conjugates. If the ﬁrst is an operator, the second is also
+declared as an operator, if it is not one already. A fancy print symbol is automatically
+constructed and installed for the second identiﬁer from that of the ﬁrst by adding
+over-lining. For example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-364">
+      operator f;
+ <br />      complex_conjugates {f, fbar}, {z, zb};
+ <br />      conj zb     -&#x003E; z
+ <br />      conj(f(z))  -&#x003E; fbar(zb)
+</div>
+<!--l. 106--><p class="nopar" > This will associate <span 
+class="pcrr8t-x-x-109">f </span>&#x0026; <span 
+class="pcrr8t-x-x-109">fbar </span>and <span 
+class="pcrr8t-x-x-109">z </span>&#x0026; <span 
+class="pcrr8t-x-x-109">zb </span>as mutual complex conjugates and declare
+<span 
+class="pcrr8t-x-x-109">fbar </span>as an operator. On graphical interfaces <span 
+class="pcrr8t-x-x-109">zb </span>and <span 
+class="pcrr8t-x-x-109">fbar </span>will be rendered as <span class="overline"><span 
+class="cmmi-10x-x-109">z</span></span> and <span class="overline"><span 
+class="cmmi-10x-x-109">f</span></span>
+respectively. If the ﬁrst identiﬁer already has a <span 
+class="ptmri8t-x-x-109">fancy special symbol </span>deﬁned, this will be
+over-lined to produce the fancy print symbol for the second identiﬁer. Should the
+user not wish to have a fancy print symbol automatically generated, they may
+instead use explicit <span 
+class="pcrr8t-x-x-109">let </span>statements as described in the subsection on the operator
+<a 
+href="manualse28.html#operator:CONJ"><span 
+class="pcrr8t-x-x-109">conj</span></a>.
+                                                                     
+
+                                                                     
+</p><!--l. 117--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch10.html#manualse77.html" >Up</a></td><td class="clinks"><a 
+href="manualse78.html" >Next</a></td><td class="clinks"><a 
+href="manualse76.html" >Prev</a></td><td class="clinks"><a 
+href="manualse76.html#tailmanualse76.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse77.html" >Front</a></td></tr></table><a 
+ id="tailmanualse77.html"></a> </p> 
+</body> 
+</html>

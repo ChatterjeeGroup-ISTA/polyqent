@@ -1,0 +1,307 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>SPECFN2: Package for Special Special Functions</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse180.html" >Up</a></td><td class="clinks"><a 
+href="manualse181.html" >Next</a></td><td class="clinks"><a 
+href="manualse179.html" >Prev</a></td><td class="clinks"><a 
+href="manualse179.html#tailmanualse179.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse180.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.55    </span> <a 
+ id="x270-125500020.55"></a>SPECFN2: Package for Special Special Functions</h3>
+<a 
+ id="dx270-1255001"></a>
+<a 
+ id="dx270-1255002"></a>
+<a 
+ id="dx270-1255003"></a>
+<a 
+ id="dx270-1255004"></a>
+<!--l. 1158--><p class="noindent" >This package provides algebraic manipulations of generalized hypergeometric functions
+and Meijer’s G function. Generalized hypergeometric functions are simpliﬁed towards
+special functions and Meijer’s G function is simpliﬁed towards special functions or
+generalized hypergeometric functions.
+</p><!--l. 1164--><p class="noindent" >Author: Victor Adamchik, with major updates by Winfried Neun.
+<a 
+ id="dx270-1255005"></a>
+<a 
+ id="dx270-1255006"></a>
+<a 
+ id="dx270-1255007"></a>
+<a 
+ id="dx270-1255008"></a>
+</p><!--l. 5--><p class="noindent" ><a 
+ id="SPECFNS2"></a>
+</p><!--l. 7--><p class="noindent" >The package SPECFN2 is designed to provide algebraic and numeric manipulations for
+some less commonly used special functions: <a 
+ id="dx270-1255009"></a></p>
+     <ul class="itemize1">
+     <li class="itemize"><a 
+href="#operator:HYPERGEOMETRIC">Hypergeometric function</a>;
+     </li>
+     <li class="itemize"><a 
+href="#operator:MEIJERG">Meijer’s G function</a>.</li></ul>
+<!--l. 15--><p class="noindent" >These functions are from the non-core package SPECFN2, which needs to be loaded
+before use with the command:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1404">
+        load_package specfn2;
+</div>
+<!--l. 19--><p class="nopar" >
+</p><!--l. 21--><p class="noindent" >More information on the functions provided may be found on the website <a 
+href="https://dlmf.nist.gov/" >DLMF:NIST</a>
+although currently not all functions may conform to these standards.
+<a 
+ id="dx270-1255010"></a>
+</p><!--l. 26--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.55.1    </span> <a 
+ id="x270-125600020.55.1"></a>Hypergeometric Functions: Introduction</h4>
+<!--l. 27--><p class="noindent" >The (generalised) hypergeometric functions
+</p>
+<table 
+class="equation-star"><tr><td>
+                         <sub><span 
+class="cmmi-8">p</span></sub><span 
+class="cmmi-10x-x-109">F</span><sub><span 
+class="cmmi-8">q</span></sub><img 
+src="manual734x.png" alt="(          || )
+  a1,...,ap||z
+  b1,...,bq|"  class="left" align="middle" />
+</td></tr></table>
+<!--l. 30--><p class="nopar" >
+are deﬁned in textbooks on special functions as
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+            <sub><span 
+class="cmmi-8">p</span></sub><span 
+class="cmmi-10x-x-109">F</span><sub><span 
+class="cmmi-8">q</span></sub><img 
+src="manual735x.png" alt="           |
+( a ,...,a | )
+   1      p||z
+  b1,...,bq |"  class="left" align="middle" /> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∑</span>
+  <sub><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">=0</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><img 
+src="manual736x.png" alt="(a ) ...(a )
+--1-n-----p-n
+ (b1)n ...(bq)n"  class="frac" align="middle" /><img 
+src="manual737x.png" alt="zn
+---
+ n!"  class="frac" align="middle" />
+</td></tr></table>
+<!--l. 35--><p class="nopar" >
+where <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a</span><span 
+class="cmr-10x-x-109">)</span><sub><span 
+class="cmmi-8">n</span></sub> is the Pochhammer symbol
+</p>
+<table 
+class="equation-star"><tr><td>
+                       <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a</span><span 
+class="cmr-10x-x-109">)</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∏</span>
+  <sub><span 
+class="cmmi-8">k</span><span 
+class="cmr-8">=0</span></sub><sup><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">k</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 39--><p class="nopar" >
+</p><!--l. 41--><p class="noindent" >The function
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                          <span 
+class="cmmi-10x-x-109">G</span><sub><span 
+class="cmmi-8">pq</span></sub><sup><span 
+class="cmmi-8">mn</span></sup><img 
+src="manual738x.png" alt="   |
+(  |(a ))
+ z ||  p
+   |(bq)"  class="left" align="middle" />
+</td></tr></table>
+<!--l. 44--><p class="nopar" >
+has been studied by C. S. Meijer beginning in 1936 and has been called Meijer’s G
+function later on. The complete deﬁnition of Meijer’s G function can be found in
+<span class="cite">[<a 
+href="manualap2.html#XPrudnikov:90c">PBM89</a>]</span>. Many well-known functions can be written as G functions, e.g. exponentials,
+logarithms, trigonometric functions, Bessel functions and hypergeometric functions.
+</p><!--l. 52--><p class="noindent" >Several hundreds of particular values can be found in <span class="cite">[<a 
+href="manualap2.html#XPrudnikov:90c">PBM89</a>]</span>.
+</p><!--l. 54--><p class="noindent" ><a 
+ id="operator:HYPERGEOMETRIC"></a> <a 
+ id="dx270-1256001"></a>
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.55.2    </span> <a 
+ id="x270-125700020.55.2"></a>The Hypergeometric Operator</h4>
+<!--l. 58--><p class="noindent" >The operator <span 
+class="pcrr8t-x-x-109">hypergeometric </span>expects 3 arguments, namely the list of upper
+parameters (which may be empty), the list of lower parameters (which may be empty
+too), and the argument, e.g. the input:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1405">
+hypergeometric ({},{},z);
+</div>
+<!--l. 63--><p class="nopar" > yields the output
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1406">
+ z
+ <br />e
+</div>
+<!--l. 68--><p class="nopar" > and the input
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1407">
+hypergeometric ({1/2,1},{3/2},-x^2);
+</div>
+<!--l. 72--><p class="nopar" > gives
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1408">
+ atan(abs(x))
+ <br />--------------
+ <br />    abs(x)
+</div>
+<!--l. 78--><p class="nopar" >
+</p><!--l. 81--><p class="noindent" >Since hundreds of particular cases for the generalised hypergeometric functions can
+be found in the literature, one cannot expect that all cases are known to the
+<span 
+class="pcrr8t-x-x-109">hypergeometric </span>operator. Nevertheless the set of special cases can be augmented by
+adding rules to the REDUCE system, e.g.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1409">
+let {hypergeometric({1/2,1/2},{3/2},-(~x)^2)
+ <br />        =&#x003E; asinh(x)/x};
+</div>
+<!--l. 89--><p class="nopar" >
+<a 
+ id="dx270-1257001"></a>
+</p><!--l. 92--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.55.3    </span> <a 
+ id="x270-125800020.55.3"></a>Meijer’s G Function</h4>
+<!--l. 93--><p class="noindent" ><a 
+ id="operator:MEIJERG"></a>
+</p><!--l. 95--><p class="noindent" >The operator <span 
+class="pcrr8t-x-x-109">MeijerG </span>expects 3 arguments, namely the list of upper parameters (which
+may be empty), the list of lower parameters (which may be empty too), and the
+argument.
+</p><!--l. 99--><p class="noindent" >The ﬁrst element of the lists has to be the list of the ﬁrst <span 
+class="cmmi-10x-x-109">n </span>or <span 
+class="cmmi-10x-x-109">m </span>respective parameters,
+e.g. to describe
+</p>
+<table 
+class="equation-star"><tr><td>
+                            <span 
+class="cmmi-10x-x-109">G</span><sub><span 
+class="cmr-8">11</span></sub><sup><span 
+class="cmr-8">10</span></sup><img 
+src="manual739x.png" alt="(   || )
+  x ||1
+    |0"  class="left" align="middle" />
+</td></tr></table>
+<!--l. 103--><p class="nopar" >
+one has to write
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1410">
+MeijerG({{},1},{{0}},x); % and the result is:
+ <br />
+ <br /> sign( - x + 1) + sign(x + 1)
+ <br />------------------------------
+ <br />              2
+</div>
+<!--l. 111--><p class="nopar" > and for
+</p>
+<table 
+class="equation-star"><tr><td>
+                      <span 
+class="cmmi-10x-x-109">G</span><sub><span 
+class="cmr-8">02</span></sub><sup><span 
+class="cmr-8">10</span></sup><img 
+src="manual740x.png" alt="(    |           )
+  x2 ||
+  4--|| 1 + 1,1− 1
+          4     4"  class="left" align="middle" />
+</td></tr></table>
+<!--l. 116--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1411">
+MeijerG({{}},{{1+1/4},1-1/4},(x^2)/4) * sqrt pi;
+ <br />
+ <br />
+ <br />                    2                    2
+ <br /> sqrt(pi)*sqrt(-----------)*sin(abs(x))*x
+ <br />                abs(x)*pi
+ <br />-------------------------------------------
+ <br />                     4
+</div>
+<!--l. 126--><p class="nopar" >
+</p><!--l. 1168--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 1170--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse180.html" >Up</a></td><td class="clinks"><a 
+href="manualse181.html" >Next</a></td><td class="clinks"><a 
+href="manualse179.html" >Prev</a></td><td class="clinks"><a 
+href="manualse179.html#tailmanualse179.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse180.html" >Front</a></td></tr></table><a 
+ id="tailmanualse180.html"></a>  </p> 
+</body> 
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Minima</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch17.html#manualse109.html" >Up</a></td><td class="clinks"><a 
+href="manualse110.html" >Next</a></td><td class="clinks"><a 
+href="manualse108.html" >Prev</a></td><td class="clinks"><a 
+href="manualse108.html#tailmanualse108.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse109.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">17.2    </span> <a 
+ id="x143-26900017.2"></a>Minima</h3>
+<a 
+ id="dx143-269001"></a>
+<!--l. 105--><p class="noindent" ><a 
+ id="operator:NUM_MIN"></a>
+</p><!--l. 107--><p class="noindent" >The Fletcher Reeves version of the <span 
+class="ptmri8t-x-x-109">steepest descent </span>algorithms is used to ﬁnd the
+minimum of a function of one or more variables. The function must have continuous
+partial derivatives with respect to all variables. The starting point of the search can be
+speciﬁed; if not, random values are taken instead. The steepest descent algorithms in
+general ﬁnd only local minima.
+</p><!--l. 116--><p class="noindent" >Syntax:
+  </p><div class="syntax">
+  <!--tex4ht:inline--><div class="tabular"> <table id="TBL-29" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-29-1g"><col 
+id="TBL-29-1" /><col 
+id="TBL-29-2" /><col 
+id="TBL-29-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-29-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-29-1-1"  
+class="td01"><span 
+class="pcrr8t-x-x-109">num_min </span>(<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exp</span><span 
+class="cmsy-10x-x-109">⟩</span>, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="cmmi-10x-x-109">var</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmsy-10x-x-109">⟩</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmr-10x-x-109">[</span>=<span 
+class="cmmi-10x-x-109">val</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmr-10x-x-109">]</span><span style="margin-left:0.3em" class="thinspace"></span> [,<span 
+class="cmmi-10x-x-109">var</span><sub><span 
+class="cmr-8">2</span></sub>[=<span 
+class="cmmi-10x-x-109">val</span><sub><span 
+class="cmr-8">2</span></sub>] …]      </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-29-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-29-2-1"  
+class="td01">        [,accuracy=<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">a</span><span 
+class="cmsy-10x-x-109">⟩</span>][,iterations=<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">i</span><span 
+class="cmsy-10x-x-109">⟩</span>])               </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-29-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-29-3-1"  
+class="td01"><div class="multicolumn"  style="white-space:nowrap; text-align:left;">or</div>
+</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-29-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-29-4-1"  
+class="td01"><span 
+class="pcrr8t-x-x-109">num_min </span>(<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exp</span><span 
+class="cmsy-10x-x-109">⟩</span>, <span 
+class="pcrr8t-x-x-109">{</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="cmmi-10x-x-109">var</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmsy-10x-x-109">⟩</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmr-10x-x-109">[</span>=<span 
+class="cmmi-10x-x-109">val</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmr-10x-x-109">]</span><span style="margin-left:0.3em" class="thinspace"></span> [,<span 
+class="cmmi-10x-x-109">var</span><sub><span 
+class="cmr-8">2</span></sub>[=<span 
+class="cmmi-10x-x-109">val</span><sub><span 
+class="cmr-8">2</span></sub>] …]<span 
+class="pcrr8t-x-x-109">} </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-29-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-29-5-1"  
+class="td01">        [,accuracy=<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">a</span><span 
+class="cmsy-10x-x-109">⟩</span>][,iterations=<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">i</span><span 
+class="cmsy-10x-x-109">⟩</span>])               </td></tr></table>
+  </div></div>
+<!--l. 126--><p class="noindent" >where <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exp</span><span 
+class="cmsy-10x-x-109">⟩ </span>is a function expression, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="cmmi-10x-x-109">var</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmsy-10x-x-109">⟩</span>, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="cmmi-10x-x-109">var</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmsy-10x-x-109">⟩</span>, … are the variables in <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exp</span><span 
+class="cmsy-10x-x-109">⟩ </span>and
+<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="cmmi-10x-x-109">val</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmsy-10x-x-109">⟩</span>, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="cmmi-10x-x-109">val</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmsy-10x-x-109">⟩</span>, … are the (optional) start values.
+</p><!--l. 130--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">num_min </span>tries to ﬁnd the next local minimum along the descending path starting at the
+given point. The result is a list with the minimum function value as ﬁrst element followed
+by a list of equations, where the variables are equated to the coordinates of the result
+point.
+</p><!--l. 136--><p class="noindent" >Examples:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-521">
+num_min(sin(x)+x/5, x);
+ <br />
+ <br />{-0.0775896851944,{x=4.51103102502}}
+ <br />
+ <br />num_min(sin(x)+x/5, x=0);
+ <br />
+ <br />{-1.33422674662,{x=-1.77215826714}}
+ <br />
+ <br />% Rosenbrock function (well known as hard to minimize).
+ <br />fktn := 100*(x1**2-x2)**2 + (1-x1)**2;
+ <br />num_min(fktn, x1=-1.2, x2=1, iterations=200);
+ <br />
+ <br />{0.000000218702254529,{x1=0.999532844959,x2
+ <br />
+ <br />    =0.99906807243}}
+</div>
+<!--l. 153--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p><!--l. 155--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch17.html#manualse109.html" >Up</a></td><td class="clinks"><a 
+href="manualse110.html" >Next</a></td><td class="clinks"><a 
+href="manualse108.html" >Prev</a></td><td class="clinks"><a 
+href="manualse108.html#tailmanualse108.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse109.html" >Front</a></td></tr></table><a 
+ id="tailmanualse109.html"></a> </p> 
+</body> 
+</html>

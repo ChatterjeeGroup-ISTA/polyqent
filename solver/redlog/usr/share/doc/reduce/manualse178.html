@@ -1,0 +1,951 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>SPDE: Finding Symmetry Groups of PDEs</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse178.html" >Up</a></td><td class="clinks"><a 
+href="manualse179.html" >Next</a></td><td class="clinks"><a 
+href="manualse177.html" >Prev</a></td><td class="clinks"><a 
+href="manualse177.html#tailmanualse177.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse178.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.53    </span> <a 
+ id="x268-121100020.53"></a>SPDE: Finding Symmetry Groups of PDEs</h3>
+<a 
+ id="dx268-1211001"></a>
+<a 
+ id="dx268-1211002"></a>
+<!--l. 1125--><p class="noindent" >The package SPDE provides a set of functions which may be used to determine the
+symmetry group of Lie- or point-symmetries of a given system of partial diﬀerential
+equations. In many cases the determining system is solved completely automatically. In
+other cases the user has to provide additional input information for the solution algorithm
+to terminate.
+</p><!--l. 1131--><p class="noindent" >Author: Fritz Schwarz.
+<a 
+ id="dx268-1211003"></a>
+<a 
+ id="dx268-1211004"></a>
+</p><!--l. 4--><p class="noindent" >The package <span 
+class="ptmrc8t-x-x-109">S<span 
+class="small-caps">P</span><span 
+class="small-caps">D</span><span 
+class="small-caps">E</span> </span>provides a set of functions which may be applied to determine
+the symmetry group of Lie- or point-symmetries of a given system of partial
+diﬀerential equations. Preferably it is used interactively on a computer terminal. In
+many cases the determining system is solved completely automatically. In some
+other cases the user has to provide some additional input information for the
+solution algorithm to terminate. The package should only be used in compiled
+form.
+</p><!--l. 13--><p class="noindent" >For all theoretical questions, a description of the algorithm and numerous examples the
+following articles should be consulted: <span class="cite">[<a 
+href="manualap2.html#XSchwarz:85">Sch85b</a>, <a 
+href="manualap2.html#XSchwarz:88">Sch88</a>, <a 
+href="manualap2.html#XSchwarz:GMD1987">Sch87</a>]</span>.
+</p><!--l. 24--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.53.1    </span> <a 
+ id="x268-121200020.53.1"></a>Description of the System Functions and Variables</h4>
+<!--l. 26--><p class="noindent" >The symmetry analysis of partial diﬀerential equations logically falls into three
+parts. Accordingly the most important functions provided by the package are:
+</p><div class="table">
+                                                                     
+
+                                                                     
+<!--l. 29--><p class="noindent" ><a 
+ id="x268-121200415"></a></p><figure class="float" 
+>
+                                                                     
+
+                                                                     
+<div class="center" 
+>
+<!--l. 30--><p class="noindent" >
+</p>
+<div class="tabular"> <table id="TBL-210" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-210-1g"><col 
+id="TBL-210-1" /></colgroup><colgroup id="TBL-210-2g"><col 
+id="TBL-210-2" /></colgroup><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-210-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-210-1-1"  
+class="td11">     Function name           </td><td  style="white-space:nowrap; text-align:center;" id="TBL-210-1-2"  
+class="td11">        Operation                   </td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-210-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-210-2-1"  
+class="td11"> <a 
+ id="dx268-1212001"></a><span 
+class="pcrr8t-x-x-109">cresys</span>(<span 
+class="cmmi-10x-x-109">&#x003C; </span><span 
+class="ptmri8t-x-x-109">arguments </span><span 
+class="cmmi-10x-x-109">&#x003E;</span>)  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-210-2-2"  
+class="td11"> Constructs determining system  </td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-210-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-210-3-1"  
+class="td11">     <a 
+ id="dx268-1212002"></a><span 
+class="pcrr8t-x-x-109">simpsys</span>()             </td><td  style="white-space:nowrap; text-align:center;" id="TBL-210-3-2"  
+class="td11">  Solves determining system     </td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-210-4-"><td  style="white-space:nowrap; text-align:center;" id="TBL-210-4-1"  
+class="td11">      <a 
+ id="dx268-1212003"></a><span 
+class="pcrr8t-x-x-109">result</span>()              </td><td  style="white-space:nowrap; text-align:center;" id="TBL-210-4-2"  
+class="td11"> Prints inﬁnitesimal generators   </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-210-5-"><td  style="white-space:nowrap; text-align:center;" id="TBL-210-5-1"  
+class="td11">                   </td><td  style="white-space:nowrap; text-align:center;" id="TBL-210-5-2"  
+class="td11">    and commutator table          </td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-210-6-"><td  style="white-space:nowrap; text-align:center;" id="TBL-210-6-1"  
+class="td11">                   </td></tr></table></div><br />
+<figcaption class="caption" ><span class="id">Table 20.15:</span><span  
+class="content"><span 
+class="ptmrc8t-x-x-109">S<span 
+class="small-caps">P</span><span 
+class="small-caps">D</span><span 
+class="small-caps">E</span> </span>Functions</span></figcaption><!--tex4ht:label?: x268-121200415 -->
+</div>
+                                                                     
+
+                                                                     
+</figure>
+</div>
+<!--l. 45--><p class="noindent" >Some other useful functions for obtaining various kinds of output are:</p><div class="table">
+                                                                     
+
+                                                                     
+<!--l. 47--><p class="noindent" ><a 
+ id="x268-121200816"></a></p><figure class="float" 
+>
+                                                                     
+
+                                                                     
+<div class="center" 
+>
+<!--l. 48--><p class="noindent" >
+</p><!--l. 49--><p class="noindent" ><a 
+ id="operator:PRGEN"></a> <!--tex4ht:inline--></p><div class="tabular"> <table id="TBL-211" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-211-1g"><col 
+id="TBL-211-1" /></colgroup><colgroup id="TBL-211-2g"><col 
+id="TBL-211-2" /></colgroup><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-211-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-211-1-1"  
+class="td11"> Function name  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-211-1-2"  
+class="td11">           Operation                           </td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-211-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-211-2-1"  
+class="td11">   <a 
+ id="dx268-1212005"></a><span 
+class="pcrr8t-x-x-109">prsys</span>()       </td><td  style="white-space:nowrap; text-align:center;" id="TBL-211-2-2"  
+class="td11">      Prints determining system              </td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-211-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-211-3-1"  
+class="td11">   <a 
+ id="dx268-1212006"></a><span 
+class="pcrr8t-x-x-109">prgen</span>()       </td><td  style="white-space:nowrap; text-align:center;" id="TBL-211-3-2"  
+class="td11">     Prints inﬁnitesimal generators           </td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-211-4-"><td  style="white-space:nowrap; text-align:center;" id="TBL-211-4-1"  
+class="td11">  <a 
+ id="dx268-1212007"></a><span 
+class="pcrr8t-x-x-109">comm</span>(U,V)     </td><td  style="white-space:nowrap; text-align:center;" id="TBL-211-4-2"  
+class="td11"> Prints commutator of generators U and V  </td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-211-5-"><td  style="white-space:nowrap; text-align:center;" id="TBL-211-5-1"  
+class="td11">            </td></tr></table></div><br />
+<figcaption class="caption" ><span class="id">Table 20.16:</span><span  
+class="content"><span 
+class="ptmrc8t-x-x-109">S<span 
+class="small-caps">P</span><span 
+class="small-caps">D</span><span 
+class="small-caps">E</span> </span>Useful Output Functions</span></figcaption><!--tex4ht:label?: x268-121200816 -->
+</div>
+                                                                     
+
+                                                                     
+</figure>
+</div>
+<!--l. 63--><p class="noindent" >There are several global variables deﬁned by the system which should not be used for
+any other purpose than that given in Table <a 
+href="#x268-121201217">20.17<!--tex4ht:ref: spde:intt --></a> and <a 
+href="#x268-121202418">20.18<!--tex4ht:ref: spde:op --></a>. The three globals of the
+type integer are: </p><div class="table">
+                                                                     
+
+                                                                     
+<!--l. 67--><p class="noindent" ><a 
+ id="x268-121201217"></a></p><figure class="float" 
+>
+                                                                     
+
+                                                                     
+<a 
+ id="reserved:MM"></a> <a 
+ id="reserved:NN"></a> <a 
+ id="reserved:PCLASS"></a>
+<div class="center" 
+>
+<!--l. 71--><p class="noindent" >
+</p>
+<div class="tabular"> <table id="TBL-212" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-212-1g"><col 
+id="TBL-212-1" /></colgroup><colgroup id="TBL-212-2g"><col 
+id="TBL-212-2" /></colgroup><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-212-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-212-1-1"  
+class="td11">  Variable name      </td><td  style="white-space:nowrap; text-align:center;" id="TBL-212-1-2"  
+class="td11">         Meaning                      </td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-212-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-212-2-1"  
+class="td11">      <a 
+ id="dx268-1212009"></a><span 
+class="pcrr8t-x-x-109">nn      </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-212-2-2"  
+class="td11"> Number of independent variables  </td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-212-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-212-3-1"  
+class="td11">      <a 
+ id="dx268-1212010"></a><span 
+class="pcrr8t-x-x-109">mm      </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-212-3-2"  
+class="td11">  Number of dependent variables    </td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-212-4-"><td  style="white-space:nowrap; text-align:center;" id="TBL-212-4-1"  
+class="td11"> <a 
+ id="dx268-1212011"></a><span 
+class="pcrr8t-x-x-109">pclass</span>=0, 1 or 2  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-212-4-2"  
+class="td11">   Controls amount of output        </td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-212-5-"><td  style="white-space:nowrap; text-align:center;" id="TBL-212-5-1"  
+class="td11">               </td></tr></table></div><br />
+<figcaption class="caption" ><span class="id">Table 20.17:</span><span  
+class="content"><span 
+class="ptmrc8t-x-x-109">S<span 
+class="small-caps">P</span><span 
+class="small-caps">D</span><span 
+class="small-caps">E</span> </span>Integer valued globals</span></figcaption><!--tex4ht:label?: x268-121201217 -->
+</div>
+                                                                     
+
+                                                                     
+</figure>
+</div>
+<!--l. 85--><p class="noindent" >In addition there are the following global variables of type operator: </p><div class="table">
+                                                                     
+
+                                                                     
+<!--l. 87--><p class="noindent" ><a 
+ id="x268-121202418"></a></p><figure class="float" 
+>
+                                                                     
+
+                                                                     
+<div class="center" 
+>
+<!--l. 88--><p class="noindent" >
+</p>
+<div class="tabular"> <table id="TBL-213" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-213-1g"><col 
+id="TBL-213-1" /></colgroup><colgroup id="TBL-213-2g"><col 
+id="TBL-213-2" /></colgroup><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-213-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-213-1-1"  
+class="td11">   Variable name       </td><td  style="white-space:nowrap; text-align:center;" id="TBL-213-1-2"  
+class="td11">            Meaning                             </td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-213-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-213-2-1"  
+class="td11">      <a 
+ id="dx268-1212013"></a> X(I)               </td><td  style="white-space:nowrap; text-align:center;" id="TBL-213-2-2"  
+class="td11">       Independent variable <span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmmi-8">i</span></sub>              </td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-213-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-213-3-1"  
+class="td11">    <a 
+ id="dx268-1212014"></a> U(ALFA)           </td><td  style="white-space:nowrap; text-align:center;" id="TBL-213-3-2"  
+class="td11">       Dependent variable <span 
+class="cmmi-10x-x-109">u</span><sup><span 
+class="cmmi-8">alfa</span></sup>             </td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-213-4-"><td  style="white-space:nowrap; text-align:center;" id="TBL-213-4-1"  
+class="td11">    <a 
+ id="dx268-1212015"></a> U(ALFA,I)         </td><td  style="white-space:nowrap; text-align:center;" id="TBL-213-4-2"  
+class="td11">      Derivative of <span 
+class="cmmi-10x-x-109">u</span><sup><span 
+class="cmmi-8">alfa</span></sup> w.r.t. <span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmmi-8">i</span></sub>            </td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-213-5-"><td  style="white-space:nowrap; text-align:center;" id="TBL-213-5-1"  
+class="td11">     <a 
+ id="dx268-1212016"></a> DEQ(I)            </td><td  style="white-space:nowrap; text-align:center;" id="TBL-213-5-2"  
+class="td11">       i-th diﬀerential equation                </td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-213-6-"><td  style="white-space:nowrap; text-align:center;" id="TBL-213-6-1"  
+class="td11">     <a 
+ id="dx268-1212017"></a> SDER(I)           </td><td  style="white-space:nowrap; text-align:center;" id="TBL-213-6-2"  
+class="td11"> Derivative w.r.t. which DEQ(I) is resolved  </td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-213-7-"><td  style="white-space:nowrap; text-align:center;" id="TBL-213-7-1"  
+class="td11">      <a 
+ id="dx268-1212018"></a> GL(I)              </td><td  style="white-space:nowrap; text-align:center;" id="TBL-213-7-2"  
+class="td11">   i-th equation of determining system       </td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-213-8-"><td  style="white-space:nowrap; text-align:center;" id="TBL-213-8-1"  
+class="td11">     <a 
+ id="dx268-1212019"></a> GEN(I)            </td><td  style="white-space:nowrap; text-align:center;" id="TBL-213-8-2"  
+class="td11">      i-th inﬁnitesimal generator               </td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-213-9-"><td  style="white-space:nowrap; text-align:center;" id="TBL-213-9-1"  
+class="td11"> <a 
+ id="dx268-1212020"></a><a 
+ id="dx268-1212021"></a><a 
+ id="dx268-1212022"></a> XI(I), ETA(ALFA)  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-213-9-2"  
+class="td11">      See deﬁnition given in the               </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-213-10-"><td  style="white-space:nowrap; text-align:center;" id="TBL-213-10-1"  
+class="td11">   ZETA(ALFA,I)      </td><td  style="white-space:nowrap; text-align:center;" id="TBL-213-10-2"  
+class="td11">   references quoted in the introduction.      </td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-213-11-"><td  style="white-space:nowrap; text-align:center;" id="TBL-213-11-1"  
+class="td11">      <a 
+ id="dx268-1212023"></a> C(I)               </td><td  style="white-space:nowrap; text-align:center;" id="TBL-213-11-2"  
+class="td11">    i-th function used for substitution         </td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-213-12-"><td  style="white-space:nowrap; text-align:center;" id="TBL-213-12-1"  
+class="td11">                </td></tr></table></div><br />
+<figcaption class="caption" ><span class="id">Table 20.18:</span><span  
+class="content"><span 
+class="ptmrc8t-x-x-109">S<span 
+class="small-caps">P</span><span 
+class="small-caps">D</span><span 
+class="small-caps">E</span> </span>Operator type global variables</span></figcaption><!--tex4ht:label?: x268-121202418 -->
+</div>
+                                                                     
+
+                                                                     
+</figure>
+</div>
+<!--l. 117--><p class="noindent" >The diﬀerential equations of the system at issue have to be assigned as values to the
+operator deq i applying the notation which is deﬁned in Table <a 
+href="#x268-121202418">20.18<!--tex4ht:ref: spde:op --></a>. The entries
+in the third and the last line of that Table have obvious extensions to higher
+derivatives.
+</p><!--l. 122--><p class="noindent" >The derivative w.r.t. which the i-th diﬀerential equation deq i is resolved has to
+be assigned to sder i. Exception: If there is a single diﬀerential equation and
+no assignment has been made by the user, the highest derivative is taken by
+default.
+</p><!--l. 127--><p class="noindent" >When the appropriate assignments are made to the variable deq, the values of <span 
+class="pcrr8t-x-x-109">nn </span>and <span 
+class="pcrr8t-x-x-109">mm</span>
+(Table <a 
+href="#x268-121200816">20.16<!--tex4ht:ref: spde:useful --></a>) are determined automatically, i.e. they have not to be assigned by the
+user.
+</p><!--l. 131--><p class="noindent" ><a 
+ id="operator:CRESYS"></a> <a 
+ id="dx268-1212025"></a> The function CRESYS may be called with any number of arguments, i.e.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1368">
+  cresys(); or cresys(deq 1,deq 2,... );
+</div>
+<!--l. 137--><p class="nopar" >
+</p><!--l. 139--><p class="noindent" >are legal calls. If it is called without any argument, all current assignments to deq are
+taken into account. Example: If deq 1, deq 2 and deq 3 have been assigned a diﬀerential
+equation and the symmetry group of the full system comprising all three equations is
+desired, equivalent calls are
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1369">
+  cresys();   or   cresys(deq 1,deq 2,deq 3);
+</div>
+<!--l. 147--><p class="nopar" >
+</p><!--l. 149--><p class="noindent" >The ﬁrst alternative saves some typing. If later in the session the symmetry group of deq
+1 alone has to be determined, the correct call is
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1370">
+  cresys deq 1;
+</div>
+<!--l. 155--><p class="nopar" >
+</p><!--l. 157--><p class="noindent" ><a 
+ id="operator:SIMPSYS"></a> <a 
+ id="dx268-1212026"></a> after the determining system has bee created, <span 
+class="pcrr8t-x-x-109">simpsys </span>which has no arguments may
+be called for solving it. The amount of intermediate output produced by <span 
+class="pcrr8t-x-x-109">simpsys </span>is
+controlled by the global variable <span 
+class="pcrr8t-x-x-109">pclass </span>with the default value 0. <a 
+ id="dx268-1212027"></a>With <span 
+class="pcrr8t-x-x-109">pclass </span>equal
+to 0, no intermediate steps are shown. With <span 
+class="pcrr8t-x-x-109">pclass </span>equal to 1, all intermediate steps are
+displayed so that the solution algorithm may be followed <a 
+ id="dx268-1212028"></a>through in detail.
+Each time the algorithm passes through the top of the main solution loop the
+message
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1371">
+  Entering main loop
+</div>
+<!--l. 170--><p class="nopar" >
+</p><!--l. 172--><p class="noindent" >is written. <span 
+class="pcrr8t-x-x-109">pclass </span>equal 2 produces a lot of LISP output and is of no interest for the
+normal user.
+</p><!--l. 175--><p class="noindent" >If with <span 
+class="pcrr8t-x-x-109">pclass</span>=0 the procedure <span 
+class="pcrr8t-x-x-109">simpsys </span>terminates without any response, the
+determining system is completely solved. In some cases <span 
+class="pcrr8t-x-x-109">simpsys </span>does not solve the
+determining system completely in a single run. In general this is true if there are only
+genuine diﬀerential equations left which the algorithm cannot handle at present. If a case
+like this occurs, <span 
+class="pcrr8t-x-x-109">simpsys </span>returns the remaining equations of the determining system.
+To proceed with the solution algorithm, appropriate assignments have to be
+transmitted by the user, e.g. the explicit solution for one of the returned diﬀerential
+equations. Any new functions which are introduced thereby must be operators of the
+form c(k) with the correct dependencies generated by a depend statement (see
+section <a 
+href="manualse54.html#x70-1170007.27">7.27<!--tex4ht:ref: sec:dependency --></a>). Its enumeration has to be chosen in agreement with the current number of
+functions which have alreday been introduced. This value is returned by <span 
+class="pcrr8t-x-x-109">simpsys</span>
+too.
+</p><!--l. 190--><p class="noindent" ><a 
+ id="operator:RESULT"></a> After the determining system has been solved, the procedure <span 
+class="pcrr8t-x-x-109">result</span>, which has no
+arguments, may be called. It displays the inﬁnitesimal generators and its non-vanishing
+commutators.
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.53.2    </span> <a 
+ id="x268-121300020.53.2"></a>How to Use the Package</h4>
+<!--l. 198--><p class="noindent" >In this Section it is explained by way of several examples how the package <span 
+class="ptmrc8t-x-x-109">S<span 
+class="small-caps">P</span><span 
+class="small-caps">D</span><span 
+class="small-caps">E</span> </span>is used
+interactively to determine the symmetry group of partial diﬀerential equations. Consider
+ﬁrst the diﬀusion equation which in the notation given above may be written
+as
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1372">
+  deq 1:=u(1,1)+u(1,2,2);
+</div>
+<!--l. 205--><p class="nopar" >
+</p><!--l. 207--><p class="noindent" >It has been assigned as the value of deq 1 by this statement. There is no need
+to assign a value to sder 1 here because the system comprises only a single
+equation.
+</p><!--l. 211--><p class="noindent" >The determining system is constructed by calling
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1373">
+  cresys(); or cresys deq 1;
+</div>
+<!--l. 215--><p class="nopar" >
+</p><!--l. 217--><p class="noindent" >The latter call is compulsory if there are other assignments to the operator deq i than for
+i=1.
+</p><!--l. 220--><p class="noindent" >The error message
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1374">
+  ***** Differential equations not defined
+</div>
+<!--l. 224--><p class="nopar" >
+</p><!--l. 226--><p class="noindent" >appears if there are no diﬀerential equations assigned to any deq.
+</p><!--l. 228--><p class="noindent" >If the user wants the determining system displayed for inspection before starting the
+solution algorithm he may call
+</p><!--l. 231--><p class="noindent" ><a 
+ id="operator:PRSYS"></a> <a 
+ id="dx268-1213001"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1375">
+  prsys();
+</div>
+<!--l. 235--><p class="nopar" >
+</p><!--l. 237--><p class="noindent" >and gets the answer
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1376">
+GL(1):=2*df(eta(1),u(1),x(2)) - df(xi(2),x(2),2)
+ <br />
+ <br />        - df(xi(2),x(1))
+ <br />
+ <br />GL(2):=df(eta(1),u(1),2) - 2*df(xi(2),u(1),x(2))
+ <br />
+ <br />GL(3):=df(eta(1),x(2),2) + df(eta(1),x(1))
+ <br />
+ <br />GL(4):=df(xi(2),u(1),2)
+ <br />
+ <br />GL(5):=df(xi(2),u(1)) - df(xi(1),u(1),x(2))
+ <br />
+ <br />GL(6):=2*df(xi(2),x(2)) - df(xi(1),x(2),2)
+ <br />
+ <br />        - df(xi(1),x(1))
+ <br />
+ <br />GL(7):=df(xi(1),u(1),2)
+ <br />
+ <br />GL(8):=df(xi(1),u(1))
+ <br />
+ <br />GL(9):=df(xi(1),x(2))
+ <br />
+ <br />
+ <br />The remaining dependencies
+ <br />
+ <br />xi(2) depends on u(1),x(2),x(1)
+ <br />
+ <br />xi(1) depends on u(1),x(2),x(1)
+ <br />
+ <br />eta(1) depends on u(1),x(2),x(1)
+</div>
+<!--l. 270--><p class="nopar" >
+</p><!--l. 272--><p class="noindent" >The last message means that all three functions xi(1), xi(2) and eta(1) depend on x(1),
+x(2) and u(1). Without this information the nine equations gl(1) to gl(9) forming the
+determining system are meaningless. Now the solution algorithm may be activated by
+calling
+<a 
+ id="dx268-1213002"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1377">
+   simpsys();
+</div>
+<!--l. 280--><p class="nopar" >
+<a 
+ id="dx268-1213003"></a>
+</p><!--l. 283--><p class="noindent" >If the print ﬂag <span 
+class="pcrr8t-x-x-109">pclass </span>has its default value which is 0 no intermediate output is
+produced and the answer is
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1378">
+  Determining system is not completely solved
+ <br />
+ <br />  The remaining equations are
+ <br />
+ <br />  gl(1):=df(c(1),x(2),2) + df(c(1),x(1))
+ <br />
+ <br />  Number of functions is 16
+ <br />
+ <br />  The remaining dependencies
+ <br />
+ <br />  c(1) depends on x(2),x(1)
+</div>
+<!--l. 298--><p class="nopar" >
+</p><!--l. 300--><p class="noindent" >With <span 
+class="pcrr8t-x-x-109">pclass </span>equal to 1 about 6 pages of intermediate output are obtained. It allows the
+user to follow through each step of the solution algorithm.
+</p><!--l. 304--><p class="noindent" >In this example the algorithm did not solve the determining system completely as it is
+shown by the last message. This was to be expected because the diﬀusion equation is
+linear and therefore the symmetry group contains a generator depending on a
+function which solves the original diﬀerential equation. In cases like this the user
+has to provide some additional information to the system so that the solution
+algorithm may continue. In the example under consideration the appropriate input
+is
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1379">
+   df(c(1),x(1)) := - df(c(1),x(2),2);
+</div>
+<!--l. 315--><p class="nopar" >
+</p><!--l. 317--><p class="noindent" >If now the solution algorithm is activated again by
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1380">
+  simpsys();
+</div>
+<!--l. 321--><p class="nopar" >
+</p><!--l. 323--><p class="noindent" >the solution algorithm terminates without any further message, i.e. there are no equations
+of the determining system left unsolved. To obtain the symmetry generators one has to
+say ﬁnally
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1381">
+  result();
+</div>
+<!--l. 329--><p class="nopar" >
+</p><!--l. 331--><p class="noindent" >and obtains the answer
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1382">
+  The differential equation
+ <br />
+ <br />  DEQ(1):=u(1,2,2) + u(1,1)
+ <br />
+ <br />
+ <br />  The symmetry generators are
+ <br />
+ <br />  GEN(1):= dx(1)
+ <br />
+ <br />  GEN(2):= dx(2)
+ <br />
+ <br />  GEN(3):= 2*dx(2)*x(1) + du(1)*u(1)*x(2)
+ <br />
+ <br />  GEN(4):= du(1)*u(1)
+ <br />
+ <br />  GEN(5):= 2*dx(1)*x(1) + dx(2)*x(2)
+ <br />
+ <br />                       2
+ <br />  GEN(6):= 4*dx(1)*x(1)
+ <br />
+ <br />         + 4*dx(2)*x(2)*x(1)
+ <br />
+ <br />                           2
+ <br />           + du(1)*u(1)*(x(2)  - 2*x(1))
+ <br />
+ <br />  GEN(7):= du(1)*c(1)
+ <br />
+ <br />  The remaining dependencies
+ <br />
+ <br />  c(1) depends on x(2),x(1)
+ <br />
+ <br />
+ <br />  Constraint
+ <br />
+ <br />  df(c(1),x(1)):= - df(c(1),x(2),2)
+ <br />
+ <br />
+ <br />  The non-vanishing commutators of the finite subgroup
+                                                                     
+
+                                                                     
+ <br />
+ <br />  COMM(1,3):= 2*dx(2)
+ <br />
+ <br />  COMM(1,5):= 2*dx(1)
+ <br />
+ <br />  COMM(1,6):= 8*dx(1)*x(1) + 4*dx(2)*x(2) - 2*du(1)*u(1)
+ <br />
+ <br />  COMM(2,3):= du(1)*u(1)
+ <br />
+ <br />  COMM(2,5):= dx(2)
+ <br />
+ <br />  COMM(2,6):= 4*dx(2)*x(1) + 2*du(1)*u(1)*x(2)
+ <br />
+ <br />  COMM(3,5):=  - (2*dx(2)*x(1) + du(1)*u(1)*x(2))
+ <br />
+ <br />                          2
+ <br />  COMM(5,6):= 8*dx(1)*x(1)
+ <br />
+ <br />            + 8*dx(2)*x(2)*x(1)
+ <br />
+ <br />                                2
+ <br />            + 2*du(1)*u(1)*(x(2)  - 2*x(1))
+</div>
+<!--l. 394--><p class="nopar" >
+</p><!--l. 396--><p class="noindent" >The message “Constraint” which appears after the symmetry generators are displayed
+means that the function c(1) depends on x(1) and x(2) and satisﬁes the diﬀusion
+equation.
+</p><!--l. 400--><p class="noindent" >More examples which may used for test runs are given in the ﬁnal section.
+<a 
+ id="dx268-1213004"></a>
+</p><!--l. 404--><p class="noindent" >If the user wants to test a certain ansatz of a symmetry generator for given diﬀerential
+equations, the correct proceeding is as follows. Create the determining system as
+described above. Make the appropriate assignments for the generator and call PRSYS()
+after that. The determining system with this ansatz substituted is returned. Example:
+Assume again that the determining system for the diﬀusion equation has been created. To
+check the correctness for example of generator GEN 3 which has been obtained above,
+the assignments
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1383">
+  xi(1):=0;  xi(2):=2*x(1);  eta(1):=x(2)*u(1);
+</div>
+<!--l. 415--><p class="nopar" >
+</p><!--l. 417--><p class="noindent" >have to be made. If now <span 
+class="pcrr8t-x-x-109">prsys() </span>is called all gl(k) are zero proving the correctness of
+this generator.
+</p><!--l. 420--><p class="noindent" >Sometimes a user only wants to know some of the functions <span 
+class="pcrr8t-x-x-109">zeta </span>for for various values
+of its possible arguments and given values of <span 
+class="pcrr8t-x-x-109">mm </span>and <span 
+class="pcrr8t-x-x-109">nn</span>. In these cases the user has
+to assign the desired values of <span 
+class="pcrr8t-x-x-109">mm </span>and <span 
+class="pcrr8t-x-x-109">nn </span>and may call the ZETAs after that.
+Example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1384">
+  mm:=1;  nn:=2;
+ <br />
+ <br />  factor u(1,2),u(1,1),u(1,1,2),u(1,1,1);
+ <br />
+ <br />  on list;
+ <br />
+ <br />  zeta(1,1);
+ <br />
+ <br />  -u(1,2)*u(1,1)*df(xi(2),u(1))
+ <br />
+ <br />  -u(1,2)*df(xi(2),x(1))
+ <br />
+ <br />         2
+ <br />  -u(1,1) *df(xi(1),u(1))
+ <br />
+ <br />  +u(1,1)*(df(eta(1),u(1)) -df(xi(1),x(1)))
+ <br />
+ <br />  +df(eta(1),x(1))
+ <br />
+ <br />
+ <br />  zeta(1,1,1);
+ <br />
+ <br />  -2*u(1,1,2)*u(1,1)*df(xi(2),u(1))
+ <br />
+ <br />  -2*u(1,1,2)*df(xi(2),x(1))
+ <br />
+ <br />  -u(1,1,1)*u(1,2)*df(xi(2),u(1))
+ <br />
+ <br />  -3*u(1,1,1)*u(1,1)*df(xi(1),u(1))
+ <br />
+ <br />  +u(1,1,1)*(df(eta(1),u(1)) -2*df(xi(1),x(1)))
+ <br />
+ <br />                2
+ <br />  -u(1,2)*u(1,1) *df(xi(2),u(1),2)
+ <br />
+ <br />  -2*u(1,2)*u(1,1)*df(xi(2),u(1),x(1))
+ <br />
+ <br />  -u(1,2)*df(xi(2),x(1),2)
+                                                                     
+
+                                                                     
+ <br />
+ <br />         3
+ <br />  -u(1,1) *df(xi(1),u(1),2)
+ <br />
+ <br />         2
+ <br />  +u(1,1) *(df(eta(1),u(1),2) -2*df(xi(1),u(1),x(1)))
+ <br />
+ <br />  +u(1,1)*(2*df(eta(1),u(1),x(1)) -df(xi(1),x(1),2))
+ <br />
+ <br />  +df(eta(1),x(1),2)
+</div>
+<!--l. 474--><p class="nopar" >
+</p><!--l. 476--><p class="noindent" >If by error no values to <span 
+class="pcrr8t-x-x-109">mm </span>or <span 
+class="pcrr8t-x-x-109">nn </span>and have been assigned the message
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1385">
+  ***** Number of variables not defined
+</div>
+<!--l. 480--><p class="nopar" >
+</p><!--l. 482--><p class="noindent" >is returned. Often the functions zeta are desired for special values of its arguments
+eta(alfa) and xi(k). To this end they have to be assigned ﬁrst to some other variable. After
+that they may be evaluated for the special arguments. In the previous example this may
+be achieved by
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1386">
+  z11:=zeta(1,1)$   z111:=zeta(1,1,1)$
+</div>
+<!--l. 490--><p class="nopar" >
+</p><!--l. 492--><p class="noindent" >Now assign the following values to xi 1, xi 2 and eta 1:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1387">
+  xi 1:=4*x(1)**2; xi 2:=4*x(2)*x(1);
+ <br />
+ <br />  eta 1:=u(1)*(x(2)**2  - 2*x(1));
+</div>
+<!--l. 498--><p class="nopar" >
+</p><!--l. 500--><p class="noindent" >They correspond to the generator gen 6 of the diﬀusion equation which has been
+obtained above. Now the desired expressions are obtained by calling
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1388">
+  z11;
+ <br />
+ <br />                               2
+ <br /> - (4*u(1,2)*x(2) - u(1,1)*x(2)  + 10*u(1,1)*x(1)
+ <br />
+ <br /> + 2*u(1))
+ <br />
+ <br />  z111;
+ <br />
+ <br />                                   2
+ <br /> - (8*u(1,1,2)*x(2) - u(1,1,1)*x(2)  + 18*u(1,1,1)*x(1)
+ <br />
+ <br /> +  12*u(1,1))
+</div>
+<!--l. 518--><p class="nopar" >
+</p><!--l. 521--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.53.3    </span> <a 
+ id="x268-121400020.53.3"></a>Test File</h4>
+<!--l. 523--><p class="noindent" >This appendix is a test ﬁle. The symmetry groups for various equations or systems of
+equations are determined. The variable <span 
+class="pcrr8t-x-x-109">pclass </span>has the default value 0 and may be
+changed by the user before running it. The output may be compared with the results
+which are given in the references.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1389">
+%The Burgers equations
+ <br />
+ <br />deq 1:=u(1,1)+u 1*u(1,2)+u(1,2,2)$
+ <br />
+ <br />cresys deq 1$ simpsys()$ result()$
+ <br />
+ <br />%The Kadomtsev-Petviashvili equation
+ <br />
+ <br />deq 1:=3*u(1,3,3)+u(1,2,2,2,2)+6*u(1,2,2)*u 1
+ <br />
+ <br />       +6*u(1,2)**2+4*u(1,1,2)$
+ <br />
+ <br />cresys deq 1$ simpsys()$ result()$
+ <br />
+ <br />%The modified Kadomtsev-Petviashvili equation
+ <br />
+ <br />deq 1:=u(1,1,2)-u(1,2,2,2,2)-3*u(1,3,3)
+ <br />
+ <br />       +6*u(1,2)**2*u(1,2,2)+6*u(1,3)*u(1,2,2)$
+ <br />
+ <br />cresys deq 1$ simpsys()$ result()$
+ <br />
+ <br />%The real- and the imaginary part of the nonlinear
+ <br />%Schroedinger equation
+ <br />
+ <br />deq 1:= u(1,1)+u(2,2,2)+2*u 1**2*u 2+2*u 2**3$
+ <br />
+ <br />deq 2:=-u(2,1)+u(1,2,2)+2*u 1*u 2**2+2*u 1**3$
+ <br />
+ <br />%Because this is not a single equation
+ <br />% the two assignments
+ <br />
+ <br />sder 1:=u(2,2,2)$  sder 2:=u(1,2,2)$
+ <br />
+ <br />%are necessary.
+ <br />
+ <br />cresys()$ simpsys()$ result()$
+ <br />
+                                                                     
+
+                                                                     
+ <br />%The symmetries of the system comprising
+ <br />% the four equations
+ <br />
+ <br />deq 1:=u(1,1)+u 1*u(1,2)+u(1,2,2)$
+ <br />
+ <br />deq 2:=u(2,1)+u(2,2,2)$
+ <br />
+ <br />deq 3:=u 1*u 2-2*u(2,2)$
+ <br />
+ <br />deq 4:=4*u(2,1)+u 2*(u 1**2+2*u(1,2))$
+ <br />
+ <br />sder 1:=u(1,2,2)$ sder 2:=u(2,2,2)$ sder 3:=u(2,2)$
+ <br />sder 4:=u(2,1)$
+ <br />
+ <br />%is obtained by calling
+ <br />
+ <br />cresys()$ simpsys()$
+ <br />
+ <br />df(c 5,x 1):=-df(c 5,x 2,2)$
+ <br />
+ <br />df(c 5,x 2,x 1):=-df(c 5,x 2,3)$
+ <br />
+ <br />simpsys()$  result()$
+ <br />
+ <br />% The symmetries of the subsystem comprising equation 1
+ <br />%  and 3 are obtained by
+ <br />
+ <br />cresys(deq 1,deq 3)$ simpsys()$ result()$
+ <br />
+ <br />% The result for all possible subsystems is discussed in
+ <br />% detail in ‘‘Symmetries and Involution Systems: Some
+ <br />% Experiments in Computer Algebra’’, contribution to the
+ <br />% Proceedings of the Oberwolfach Meeting on Nonlinear
+ <br />% Evolution Equations, Summer 1986, to appear.
+</div>
+<!--l. 602--><p class="nopar" >
+</p><!--l. 1135--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 1137--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse178.html" >Up</a></td><td class="clinks"><a 
+href="manualse179.html" >Next</a></td><td class="clinks"><a 
+href="manualse177.html" >Prev</a></td><td class="clinks"><a 
+href="manualse177.html#tailmanualse177.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse178.html" >Front</a></td></tr></table><a 
+ id="tailmanualse178.html"></a>  </p> 
+</body> 
+</html>

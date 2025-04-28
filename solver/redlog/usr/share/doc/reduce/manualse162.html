@@ -1,0 +1,1499 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>NORMFORM: Computation of
+Matrix Normal Forms</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse162.html" >Up</a></td><td class="clinks"><a 
+href="manualse163.html" >Next</a></td><td class="clinks"><a 
+href="manualse161.html" >Prev</a></td><td class="clinks"><a 
+href="manualse161.html#tailmanualse161.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse162.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.37    </span> <a 
+ id="x240-102300020.37"></a>NORMFORM: Computation of <br 
+class="newline" />Matrix Normal Forms</h3>
+<a 
+ id="dx240-1023001"></a>
+<a 
+ id="dx240-1023002"></a>
+<!--l. 717--><p class="noindent" >This package contains routines for computing the following normal forms of matrices:
+</p>
+     <ul class="itemize1">
+     <li class="itemize">smithex_int
+     </li>
+     <li class="itemize">smithex
+     </li>
+     <li class="itemize">frobenius
+     </li>
+     <li class="itemize">ratjordan
+     </li>
+     <li class="itemize">jordansymbolic
+     </li>
+     <li class="itemize">jordan.</li></ul>
+<!--l. 728--><p class="noindent" >Author: Matt Rebbeck.
+<a 
+ id="dx240-1023003"></a>
+<a 
+ id="dx240-1023004"></a>
+</p><!--l. 4--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.37.1    </span> <a 
+ id="x240-102400020.37.1"></a>Introduction</h4>
+<!--l. 14--><p class="noindent" >When are two given matrices similar? Similar matrices have the same trace, determinant,
+characteristic polynomial, and eigenvalues, but the matrices
+</p>
+                                                                     
+
+                                                                     
+<table 
+class="equation-star"><tr><td>
+                  <span 
+class="cmsy-10x-x-109">𝒰 </span><span 
+class="cmr-10x-x-109">= </span><img 
+src="manual447x.png" alt="(     )
+  0  1
+  0  0"  class="left" align="middle" />  and     <span 
+class="cmsy-10x-x-109">𝒱 </span><span 
+class="cmr-10x-x-109">= </span><img 
+src="manual448x.png" alt="(     )
+  0  0
+  0  0"  class="left" align="middle" />
+</td></tr></table>
+<!--l. 21--><p class="nopar" >
+are the same in all four of the above but are not similar. Otherwise there could exist a
+nonsingular <span 
+class="cmsy-10x-x-109">𝒩</span><span 
+class="cmsy-10x-x-109">∈</span><span 
+class="cmmi-10x-x-109">M</span><sub><span 
+class="cmr-8">2</span></sub> (the set of all <span 
+class="cmr-10x-x-109">2 </span><span 
+class="cmsy-10x-x-109">× </span><span 
+class="cmr-10x-x-109">2 </span>matrices) such that <span 
+class="cmsy-10x-x-109">𝒰 </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">𝒩𝒱𝒩</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">𝒩</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmti-10x-x-109">0</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmsy-10x-x-109">𝒩</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmti-10x-x-109">0 </span>,
+which is a contradiction since <span 
+class="cmsy-10x-x-109">𝒰</span><span 
+class="cmmi-10x-x-109">≠</span><span 
+class="cmti-10x-x-109">0 </span>.
+</p><!--l. 28--><p class="noindent" >Two matrices can look very diﬀerent but still be similar. One approach to determining
+whether two given matrices are similar is to compute the normal form of them. If both
+matrices reduce to the same normal form they must be similar.
+</p><!--l. 33--><p class="noindent" ><span 
+class="ptmr8t-">NORMFORM </span>is a package for computing the following normal forms of matrices:
+</p>
+     <ul class="itemize1">
+     <li class="itemize">smithex
+     </li>
+     <li class="itemize">smithex_int
+     </li>
+     <li class="itemize">frobenius
+     </li>
+     <li class="itemize">ratjordan
+     </li>
+     <li class="itemize">jordansymbolic
+     </li>
+     <li class="itemize">jordan</li></ul>
+                                                                     
+
+                                                                     
+<!--l. 47--><p class="noindent" >By default all calculations are carried out in <span 
+class="cmbx-10x-x-109">Q </span>(the rational numbers). For <span 
+class="pcrr8t-x-x-109">smithex</span>,
+<span 
+class="pcrr8t-x-x-109">frobenius</span>, <span 
+class="pcrr8t-x-x-109">ratjordan</span>, <span 
+class="pcrr8t-x-x-109">jordansymbolic</span>, and <span 
+class="pcrr8t-x-x-109">jordan</span>, this ﬁeld can be
+extended. Details are given in the respective sections.
+</p><!--l. 52--><p class="noindent" >The <span 
+class="pcrr8t-x-x-109">frobenius</span>, <span 
+class="pcrr8t-x-x-109">ratjordan</span>, and <span 
+class="pcrr8t-x-x-109">jordansymbolic </span>normal forms can
+also be computed in a modular base. Again, details are given in the respective
+sections.
+</p><!--l. 56--><p class="noindent" >The algorithms for each routine are contained in the source code.
+</p><!--l. 58--><p class="noindent" ><span 
+class="ptmrc8t-x-x-109">N<span 
+class="small-caps">O</span><span 
+class="small-caps">R</span><span 
+class="small-caps">M</span><span 
+class="small-caps">F</span><span 
+class="small-caps">O</span><span 
+class="small-caps">R</span><span 
+class="small-caps">M</span> </span>has been converted from the normform and Normform packages written by
+T. M. L. Mulders and A. H. M. Levelt. These have been implemented in Maple
+<span class="cite">[<a 
+href="manualap2.html#XMapleManual">CGG<sup><span 
+class="cmr-8">+</span></sup>91</a>]</span>.
+</p><!--l. 63--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.37.2    </span> <a 
+ id="x240-102500020.37.2"></a>Smith normal form</h4>
+<a 
+ id="dx240-1025001"></a>
+<!--l. 66--><p class="noindent" ><a 
+ id="operator:SMITHEX"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Function</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">smithex</span>(<span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="cmmi-10x-x-109">,</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">x</span>) computes the Smith normal form <span 
+class="cmsy-10x-x-109">𝒮 </span>of the matrix <span 
+class="cmsy-10x-x-109">𝒜</span>.
+     <!--l. 72--><p class="noindent" >It returns {<span 
+class="cmsy-10x-x-109">𝒮</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">𝒫</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">𝒫</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup>} where <span 
+class="cmsy-10x-x-109">𝒮</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">𝒫</span>, and <span 
+class="cmsy-10x-x-109">𝒫</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup> are such that <span 
+class="cmsy-10x-x-109">𝒫𝒮𝒫</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">𝒜</span>.
+     </p><!--l. 76--><p class="noindent" ><span 
+class="cmsy-10x-x-109">𝒜 </span>is a rectangular matrix of univariate polynomials in <span 
+class="cmmi-10x-x-109">x</span>.
+     </p><!--l. 78--><p class="noindent" ><span 
+class="cmmi-10x-x-109">x </span>is the variable name.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Field extensions</span> </dt><dd 
+class="description"><br 
+class="newline" />Calculations are performed in <span 
+class="cmbx-10x-x-109">Q</span>. To extend this ﬁeld the <span 
+class="ptmrc8t-x-x-109">A<span 
+class="small-caps">R</span><span 
+class="small-caps">N</span><span 
+class="small-caps">U</span><span 
+class="small-caps">M</span> </span>package
+     can be used. For details see subsection <a 
+href="#x240-103100020.37.8">20.37.8<!--tex4ht:ref: sec:normform-arnum --></a>.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description">     
+          <ul class="itemize1">
+          <li class="itemize">The  Smith  normal  form  <span 
+class="cmsy-10x-x-109">𝒮 </span>of  an  n  by  m  matrix  <span 
+class="cmsy-10x-x-109">𝒜 </span>with  univariate
+          polynomial  entries  in  <span 
+class="cmmi-10x-x-109">x </span>over  a  ﬁeld  <span 
+class="cmbx-10x-x-109">F </span>is  computed.  That  is,  the
+          polynomials are then regarded as elements of the <span 
+class="ptmri8t-x-x-109">Euclidean </span>domain
+          <span 
+class="cmbx-10x-x-109">F</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span>.
+          </li>
+          <li class="itemize">The Smith normal form is a diagonal matrix <span 
+class="cmsy-10x-x-109">𝒮 </span>where:
+                                                                     
+
+                                                                     
+              <ul class="itemize2">
+              <li class="itemize"><span 
+class="cmr-10x-x-109">rank</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="cmr-10x-x-109">) </span>= number of nonzero rows (columns) of <span 
+class="cmsy-10x-x-109">𝒮</span>.
+              </li>
+              <li class="itemize"><span 
+class="cmsy-10x-x-109">𝒮</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">i,i</span><span 
+class="cmr-10x-x-109">) </span>is a monic polynomial for <span 
+class="cmr-10x-x-109">0 </span><span 
+class="cmmi-10x-x-109">&#x003C; i </span><span 
+class="cmsy-10x-x-109">≤</span> <span 
+class="cmr-10x-x-109">rank</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="cmr-10x-x-109">)</span>.
+              </li>
+              <li class="itemize"><span 
+class="cmsy-10x-x-109">𝒮</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">i,i</span><span 
+class="cmr-10x-x-109">) </span>divides <span 
+class="cmsy-10x-x-109">𝒮</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">i </span><span 
+class="cmr-10x-x-109">+ 1</span><span 
+class="cmmi-10x-x-109">,i </span><span 
+class="cmr-10x-x-109">+ 1) </span>for <span 
+class="cmr-10x-x-109">0 </span><span 
+class="cmmi-10x-x-109">&#x003C; i &#x003C;</span> <span 
+class="cmr-10x-x-109">rank</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="cmr-10x-x-109">)</span>.
+              </li>
+              <li class="itemize"><span 
+class="cmsy-10x-x-109">𝒮</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">i,i</span><span 
+class="cmr-10x-x-109">) </span>is the greatest common divisor of all <span 
+class="cmmi-10x-x-109">i </span>by <span 
+class="cmmi-10x-x-109">i </span>minors of <span 
+class="cmsy-10x-x-109">𝒜</span>.</li></ul>
+          <!--l. 102--><p class="noindent" >Hence, if we have the case that <span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">m</span>, as well as <span 
+class="cmr-10x-x-109">rank</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="cmr-10x-x-109">) = </span><span 
+class="cmmi-10x-x-109">n</span>,
+          then
+</p>
+          <table 
+class="equation-star"><tr><td>
+                        <span 
+class="cmex-10x-x-109">∏</span>
+                          <sub><span 
+class="cmmi-8">i</span><span 
+class="cmr-8">=1</span></sub><sup><span 
+class="cmmi-8">n</span></sup><span 
+class="cmsy-10x-x-109">𝒮</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">i,i</span><span 
+class="cmr-10x-x-109">) =</span> <img 
+src="manual449x.png" alt="     det(𝒜 )
+---------------
+lcoeﬀ(det(𝒜),x)"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">.</span>
+          </td></tr></table>
+          <!--l. 107--><p class="nopar" >
+          </p></li>
+          <li class="itemize">The Smith normal form is obtained by doing elementary row and column
+          operations. This includes interchanging rows (columns), multiplying through
+          a row (column) by <span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1</span>, and adding integral multiples of one row (column) to
+          another.
+          </li>
+          <li class="itemize">Although the rank and determinant can be easily obtained from <span 
+class="cmsy-10x-x-109">𝒮</span>, this is not
+          an eﬃcient method for computing these quantities except that this may
+          yield a partial factorization of <span 
+class="cmr-10x-x-109">det</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="cmr-10x-x-109">) </span>without doing any explicit
+          factorizations.
+          </li></ul>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Example:</span> </dt><dd 
+class="description">     
+     <table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                             <span 
+class="cmsy-10x-x-109">𝒜 </span><span 
+class="cmr-10x-x-109">= </span><img 
+src="manual450x.png" alt="(x   x+ 1)
+ 0  3 ∗x2"  class="left" align="middle" />
+     </td></tr></table>
+     <!--l. 125--><p class="nopar" >
+</p>
+     <table 
+class="equation-star"><tr><td>
+          <span 
+class="cmtt-10x-x-109">smithex</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="cmmi-10x-x-109">,x</span><span 
+class="cmr-10x-x-109">) = </span><img 
+src="manual451x.png" alt="{(1   0 )  (  1    0)  ( x   x + 1)}
+   0  x3  , 3 ∗x2  1  , − 3   − 3"  class="left" align="middle" />
+     </td></tr></table>
+     <!--l. 133--><p class="nopar" >
+     </p></dd></dl>
+<!--l. 136--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.37.3    </span> <a 
+ id="x240-102600020.37.3"></a>smithex_int</h4>
+<a 
+ id="dx240-1026001"></a>
+<!--l. 138--><p class="noindent" ><a 
+ id="operator:SMITHEX_INT"></a>
+                                                                     
+
+                                                                     
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Function</span> </dt><dd 
+class="description"><br 
+class="newline" />Given an <span 
+class="cmmi-10x-x-109">n </span>by <span 
+class="cmmi-10x-x-109">m </span>rectangular matrix <span 
+class="cmsy-10x-x-109">𝒜 </span>that contains <span 
+class="ptmri8t-x-x-109">only </span>integer entries,
+     <span 
+class="pcrr8t-x-x-109">smithex_int</span>(<span 
+class="cmsy-10x-x-109">𝒜</span>) computes the Smith normal form <span 
+class="cmsy-10x-x-109">𝒮 </span>of <span 
+class="cmsy-10x-x-109">𝒜</span>.
+     <!--l. 146--><p class="noindent" >It returns <span 
+class="cmsy-10x-x-109">{𝒮</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">𝒫</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">𝒫</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup><span 
+class="cmsy-10x-x-109">} </span>where <span 
+class="cmsy-10x-x-109">𝒮</span>, <span 
+class="cmsy-10x-x-109">𝒫</span>, and <span 
+class="cmsy-10x-x-109">𝒫</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup> are such that <span 
+class="cmsy-10x-x-109">𝒫𝒮𝒫</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">𝒜</span>.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis</span> </dt><dd 
+class="description">     
+          <ul class="itemize1">
+          <li class="itemize">The Smith normal form <span 
+class="cmsy-10x-x-109">𝒮 </span>of an <span 
+class="cmmi-10x-x-109">n </span>by <span 
+class="cmmi-10x-x-109">m </span>matrix <span 
+class="cmsy-10x-x-109">𝒜 </span>with integer entries
+          is computed.
+          </li>
+          <li class="itemize">The Smith normal form is a diagonal matrix <span 
+class="cmsy-10x-x-109">𝒮 </span>where:
+              <ul class="itemize2">
+              <li class="itemize"><span 
+class="cmr-10x-x-109">rank</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="cmr-10x-x-109">) </span>= number of nonzero rows (columns) of <span 
+class="cmsy-10x-x-109">𝒮</span>.
+              </li>
+              <li class="itemize"><span 
+class="cmr-10x-x-109">sign</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">𝒮</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">i,i</span><span 
+class="cmr-10x-x-109">)) = 1 </span>for <span 
+class="cmr-10x-x-109">0 </span><span 
+class="cmmi-10x-x-109">&#x003C; i </span><span 
+class="cmsy-10x-x-109">≤</span> <span 
+class="cmr-10x-x-109">rank</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="cmr-10x-x-109">)</span>.
+              </li>
+              <li class="itemize"><span 
+class="cmsy-10x-x-109">𝒮</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">i,i</span><span 
+class="cmr-10x-x-109">) </span>divides <span 
+class="cmsy-10x-x-109">𝒮</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">i </span><span 
+class="cmr-10x-x-109">+ 1</span><span 
+class="cmmi-10x-x-109">,i </span><span 
+class="cmr-10x-x-109">+ 1) </span>for <span 
+class="cmr-10x-x-109">0 </span><span 
+class="cmmi-10x-x-109">&#x003C; i &#x003C;</span> <span 
+class="cmr-10x-x-109">rank</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="cmr-10x-x-109">)</span>.
+              </li>
+              <li class="itemize"><span 
+class="cmsy-10x-x-109">𝒮</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">i,i</span><span 
+class="cmr-10x-x-109">) </span>is the greatest common divisor of all <span 
+class="cmmi-10x-x-109">i </span>by <span 
+class="cmmi-10x-x-109">i </span>minors of <span 
+class="cmsy-10x-x-109">𝒜</span>.</li></ul>
+          <!--l. 167--><p class="noindent" >Hence, if we have the case that <span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">m</span>, as well as rank(<span 
+class="cmsy-10x-x-109">𝒜</span>) <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">n</span>,
+          then
+</p>
+          <table 
+class="equation-star"><tr><td>
+                            <img 
+src="manual452x.png" alt="|det(𝒜 )|"  class="left" align="middle" /> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∏</span>
+  <sub><span 
+class="cmmi-8">i</span><span 
+class="cmr-8">=1</span></sub><sup><span 
+class="cmmi-8">n</span></sup><span 
+class="cmsy-10x-x-109">𝒮</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">i,i</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">.</span>
+          </td></tr></table>
+          <!--l. 171--><p class="nopar" >
+                                                                     
+
+                                                                     
+          </p></li>
+          <li class="itemize">The Smith normal form is obtained by doing elementary row and column
+          operations. This includes interchanging rows (columns), multiplying through
+          a row (column) by <span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1</span>, and adding integral multiples of one row (column) to
+          another.</li></ul>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Example</span> </dt><dd 
+class="description">     
+     <table 
+class="equation-star"><tr><td>
+                        <span 
+class="cmsy-10x-x-109">𝒜 </span><span 
+class="cmr-10x-x-109">= </span><img 
+src="manual453x.png" alt="(                  )
+   9    − 36   30
+( − 36  192   − 180)
+   30  − 180   180"  class="left" align="middle" />
+     </td></tr></table>
+     <!--l. 184--><p class="nopar" >
+     </p><table 
+class="multline-star"><tr><td><img 
+src="manual454x.png" alt="smithex_int   (𝒜 ) =
+          ({( 3   0   0)  ( − 17  − 5   − 4)  (  1   − 24  30 ) )}
+           ( 0  12   0) ,(  64    19   15 ) ,( − 1  25   − 30)
+          (                                                    )
+             0   0  60     − 50  − 15 − 12      0   − 1    1
+     "  /></td></tr></table></dd></dl>
+<!--l. 193--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.37.4    </span> <a 
+ id="x240-102700020.37.4"></a>frobenius</h4>
+<a 
+ id="dx240-1027001"></a>
+<!--l. 195--><p class="noindent" ><a 
+ id="operator:FROBENIUS"></a>
+                                                                     
+
+                                                                     
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Function</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="cmtt-10x-x-109">frobenius</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="cmr-10x-x-109">) </span>computes the Frobenius normal form <span 
+class="cmsy-10x-x-109">ℱ </span>of the matrix <span 
+class="cmsy-10x-x-109">𝒜</span>.
+     <!--l. 202--><p class="noindent" >It returns <span 
+class="cmsy-10x-x-109">{ℱ</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">𝒫</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">𝒫</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup><span 
+class="cmsy-10x-x-109">} </span>where <span 
+class="cmsy-10x-x-109">ℱ</span>, <span 
+class="cmsy-10x-x-109">𝒫</span>, and <span 
+class="cmsy-10x-x-109">𝒫</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup> are such that <span 
+class="cmsy-10x-x-109">𝒫ℱ𝒫</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">𝒜</span>.
+     </p><!--l. 206--><p class="noindent" ><span 
+class="cmsy-10x-x-109">𝒜 </span>is a square matrix.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Field extensions</span> </dt><dd 
+class="description"><br 
+class="newline" />Calculations are performed in <span 
+class="cmbx-10x-x-109">Q</span>. To extend this ﬁeld the <span 
+class="ptmr8t-">ARNUM </span>package
+     can be used. For details see subsection <a 
+href="#x240-103100020.37.8">20.37.8<!--tex4ht:ref: sec:normform-arnum --></a>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Modular arithmetic</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">frobenius </span>can be calculated in a modular base. For details see subsection
+     <a 
+href="#x240-103300020.37.9">20.37.9<!--tex4ht:ref: sec:normform-modular --></a>.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis</span> </dt><dd 
+class="description">     
+          <ul class="itemize1">
+          <li class="itemize"><span 
+class="cmsy-10x-x-109">ℱ </span>has the following structure:
+          <table 
+class="equation-star"><tr><td>
+                          <span 
+class="cmsy-10x-x-109">ℱ </span><span 
+class="cmr-10x-x-109">= </span><img 
+src="manual455x.png" alt="(                  )
+  𝒞p1
+||      𝒞p2         ||
+|           ..     |
+(             .    )
+                𝒞pk"  class="left" align="middle" />
+          </td></tr></table>
+          <!--l. 225--><p class="nopar" >
+          where the <span 
+class="cmsy-10x-x-109">𝒞</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmr-10x-x-109">)</span>’s are companion matrices associated with polynomials
+          <span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,p</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,p</span><sub><span 
+class="cmmi-8">k</span></sub>, with the property that <span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmmi-8">i</span></sub> divides <span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmmi-8">i</span><span 
+class="cmr-8">+1</span></sub> for <span 
+class="cmmi-10x-x-109">i </span><span 
+class="cmr-10x-x-109">= 1</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">k</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1</span>. All
+          unmarked entries are zero.
+          </p></li>
+          <li class="itemize">The  Frobenius  normal  form  deﬁned  in  this  way  is  unique  (ie:  if  we
+          require that <span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmmi-8">i</span></sub> divides <span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmmi-8">i</span><span 
+class="cmr-8">+1</span></sub> as above).</li></ul>
+                                                                     
+
+                                                                     
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Example</span> </dt><dd 
+class="description">     
+     <table 
+class="equation-star"><tr><td>
+                     <span 
+class="cmsy-10x-x-109">𝒜 </span><span 
+class="cmr-10x-x-109">= </span><img 
+src="manual456x.png" alt="(  −x2+y2+y    −x2+x+y2−y)
+       y           y
+  −x2−x+y2+y-  −x2+x+y2−y-
+       y           y"  class="left" align="middle" />
+     </td></tr></table>
+     <!--l. 242--><p class="nopar" >
+     <img 
+src="manual457x.png" alt="frobenius   (𝒜) = "  class="math"  />
+</p>
+     <table 
+class="equation-star"><tr><td>
+        <img 
+src="manual458x.png" alt="{ (               )  (               )  (            ) }
+   0  x∗(x2−-x−y2+y-)    1   −-x2+y2+y      1  -−x2+y2+y
+       −2∗x2+yx+2∗y2  ,     −x2−xy+y2+y   ,    x2+x−−yy2−y
+   1   -----y------    0  -----y-----    0  x2+x−y2−y"  class="left" align="middle" />
+     </td></tr></table>
+     <!--l. 256--><p class="nopar" >
+     </p></dd></dl>
+                                                                     
+
+                                                                     
+<!--l. 259--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.37.5    </span> <a 
+ id="x240-102800020.37.5"></a>ratjordan</h4>
+<a 
+ id="dx240-1028001"></a>
+<!--l. 261--><p class="noindent" ><a 
+ id="operator:RATJORDAN"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Function</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">ratjordan</span>(<span 
+class="cmsy-10x-x-109">𝒜</span>) computes the rational Jordan normal form <span 
+class="cmsy-10x-x-109">ℛ </span>of the matrix
+     <span 
+class="cmsy-10x-x-109">𝒜</span>.
+     <!--l. 268--><p class="noindent" >It returns <span 
+class="cmsy-10x-x-109">{ℛ</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">𝒫</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">𝒫</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup><span 
+class="cmsy-10x-x-109">} </span>where <span 
+class="cmsy-10x-x-109">ℛ</span>, <span 
+class="cmsy-10x-x-109">𝒫</span>, and <span 
+class="cmsy-10x-x-109">𝒫</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup> are such that <span 
+class="cmsy-10x-x-109">𝒫ℛ𝒫</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">𝒜</span>.
+     </p><!--l. 272--><p class="noindent" ><span 
+class="cmsy-10x-x-109">𝒜 </span>is a square matrix.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Field extensions</span> </dt><dd 
+class="description"><br 
+class="newline" />Calculations are performed in <span 
+class="cmbx-10x-x-109">Q</span>. To extend this ﬁeld the <span 
+class="ptmrc8t-x-x-109">A<span 
+class="small-caps">R</span><span 
+class="small-caps">N</span><span 
+class="small-caps">U</span><span 
+class="small-caps">M</span> </span>package
+     can be used. For details see subsection <a 
+href="#x240-103100020.37.8">20.37.8<!--tex4ht:ref: sec:normform-arnum --></a>.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Modular arithmetic</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">ratjordan </span>can be calculated in a modular base. For details see subsection
+     <a 
+href="#x240-103300020.37.9">20.37.9<!--tex4ht:ref: sec:normform-modular --></a>.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis</span> </dt><dd 
+class="description">     
+          <ul class="itemize1">
+          <li class="itemize"><span 
+class="cmsy-10x-x-109">ℛ </span>has the following structure:
+          <table 
+class="equation-star"><tr><td>
+                      <span 
+class="cmsy-10x-x-109">ℛ </span><span 
+class="cmr-10x-x-109">= </span><img 
+src="manual459x.png" alt="(                         )
+ r11
+||     r12                 ||
+||          ...             ||
+||                         ||
+||              r21         ||
+(                  r22    )
+                        ..."  class="left" align="middle" />
+                                                                     
+
+                                                                     
+          </td></tr></table>
+          <!--l. 289--><p class="nopar" >
+          </p><!--l. 291--><p class="noindent" >The <span 
+class="cmmi-10x-x-109">r</span><sub><span 
+class="cmmi-8">ij</span></sub>’s have the following shape:
+</p>
+          <table 
+class="equation-star"><tr><td>
+                      <span 
+class="cmmi-10x-x-109">r</span><sub><span 
+class="cmmi-8">ij</span></sub> <span 
+class="cmr-10x-x-109">= </span><img 
+src="manual460x.png" alt="(                           )
+  𝒞 (p)   ℐ
+|       𝒞(p)  ℐ             |
+||             ..   ..       ||
+||               .   .       ||
+(                 𝒞(p)   ℐ  )
+                        𝒞(p)"  class="left" align="middle" />
+          </td></tr></table>
+          <!--l. 297--><p class="nopar" >
+          </p><!--l. 299--><p class="noindent" >where there are e<span 
+class="cmmi-10x-x-109">ij</span> times <span 
+class="cmsy-10x-x-109">𝒞</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">p</span><span 
+class="cmr-10x-x-109">) </span>blocks along the diagonal and <span 
+class="cmsy-10x-x-109">𝒞</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">p</span><span 
+class="cmr-10x-x-109">) </span>is
+          the companion matrix associated with the irreducible polynomial <span 
+class="cmmi-10x-x-109">p</span>. All
+          unmarked entries are zero.</p></li></ul>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Example</span> </dt><dd 
+class="description">     
+     <table 
+class="equation-star"><tr><td>
+                            <span 
+class="cmsy-10x-x-109">𝒜 </span><span 
+class="cmr-10x-x-109">= </span><img 
+src="manual461x.png" alt="(          )
+  x + y  5
+    y    x2"  class="left" align="middle" />
+     </td></tr></table>
+                                                                     
+
+                                                                     
+     <!--l. 309--><p class="nopar" >
+     <img 
+src="manual462x.png" alt="ratjordan   (𝒜) = "  class="math"  />
+</p>
+     <table 
+class="equation-star"><tr><td>
+          <img 
+src="manual463x.png" alt="{(       3   2          )  (        )  (    −(x+y))}
+   0  − x − x  ∗y + 5∗ y  , 1  x + y  ,  1  --y---
+   1      x2 + x+ y         0    y       0    1y"  class="left" align="middle" />
+     </td></tr></table>
+     <!--l. 319--><p class="nopar" >
+     </p></dd></dl>
+<!--l. 322--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.37.6    </span> <a 
+ id="x240-102900020.37.6"></a>jordansymbolic</h4>
+<a 
+ id="dx240-1029001"></a>
+<!--l. 324--><p class="noindent" ><a 
+ id="operator:JORDANSYMBOLIC"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Function</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">jordansymbolic</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="cmr-10x-x-109">) </span>computes the Jordan normal form <span 
+class="cmsy-10x-x-109">𝒥 </span>of the matrix
+     <span 
+class="cmsy-10x-x-109">𝒜</span>.
+     <!--l. 331--><p class="noindent" >It returns <span 
+class="cmsy-10x-x-109">{𝒥</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">ℒ</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">𝒫</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">𝒫</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup><span 
+class="cmsy-10x-x-109">}</span>, where <span 
+class="cmsy-10x-x-109">𝒥 </span>, <span 
+class="cmsy-10x-x-109">𝒫</span>, and <span 
+class="cmsy-10x-x-109">𝒫</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup> are such that <span 
+class="cmsy-10x-x-109">𝒫𝒥𝒫</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup> <span 
+class="cmr-10x-x-109">=</span>
+     <span 
+class="cmsy-10x-x-109">𝒜</span>. <span 
+class="cmsy-10x-x-109">ℒ </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">ll,ξ</span><span 
+class="cmsy-10x-x-109">}</span>, where <span 
+class="cmmi-10x-x-109">ξ </span>is a name and <span 
+class="cmmi-10x-x-109">ll </span>is a list of irreducible factors of
+     <span 
+class="cmmi-10x-x-109">p</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">ξ</span><span 
+class="cmr-10x-x-109">)</span>.
+     </p><!--l. 336--><p class="noindent" ><span 
+class="cmsy-10x-x-109">𝒜 </span>is a square matrix.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Field extensions</span> </dt><dd 
+class="description"><br 
+class="newline" />Calculations are performed in <span 
+class="cmbx-10x-x-109">Q</span>. To extend this ﬁeld the <span 
+class="ptmrc8t-x-x-109">A<span 
+class="small-caps">R</span><span 
+class="small-caps">N</span><span 
+class="small-caps">U</span><span 
+class="small-caps">M</span> </span>package
+     can be used. For details see subsection <a 
+href="#x240-103100020.37.8">20.37.8<!--tex4ht:ref: sec:normform-arnum --></a>.
+                                                                     
+
+                                                                     
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Modular arithmetic</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">jordansymbolic </span>can be calculated in a modular base.  For details see
+     subsection <a 
+href="#x240-103300020.37.9">20.37.9<!--tex4ht:ref: sec:normform-modular --></a>.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis</span> </dt><dd 
+class="description">     
+          <ul class="itemize1">
+          <li class="itemize">A <span 
+class="ptmri8t-x-x-109">Jordan block </span><span 
+class="cmmi-10x-x-109">ȷ</span><sub><span 
+class="cmmi-8">k</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">λ</span><span 
+class="cmr-10x-x-109">) </span>is a <span 
+class="cmmi-10x-x-109">k </span>by <span 
+class="cmmi-10x-x-109">k </span>upper triangular matrix of the
+          form:
+          <table 
+class="equation-star"><tr><td>
+                         <span 
+class="cmmi-10x-x-109">ȷ</span><sub><span 
+class="cmmi-8">k</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">λ</span><span 
+class="cmr-10x-x-109">) = </span><img 
+src="manual464x.png" alt="(                 )
+  λ  1
+||    λ   1        ||
+||        ...  ...   ||
+|(                 |)
+             λ   1
+                 λ"  class="left" align="middle" />
+          </td></tr></table>
+          <!--l. 367--><p class="nopar" >
+          There are <span 
+class="cmmi-10x-x-109">k </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1 </span>terms “<span 
+class="cmr-10x-x-109">+1</span>” in the superdiagonal; the scalar <span 
+class="cmmi-10x-x-109">λ </span>appears
+          <span 
+class="cmmi-10x-x-109">k </span>times on the main diagonal. All other matrix entries are zero, and
+          <span 
+class="cmmi-10x-x-109">ȷ</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">λ</span><span 
+class="cmr-10x-x-109">) = (</span><span 
+class="cmmi-10x-x-109">λ</span><span 
+class="cmr-10x-x-109">)</span>.
+          </p></li>
+          <li class="itemize">A Jordan matrix <span 
+class="cmsy-10x-x-109">𝒥 ∈ </span><span 
+class="cmmi-10x-x-109">M</span><sub><span 
+class="cmmi-8">n</span></sub> (the set of all <span 
+class="cmmi-10x-x-109">n </span>by <span 
+class="cmmi-10x-x-109">n </span>matrices) is a direct sum of
+          <span 
+class="ptmri8t-x-x-109">jordan blocks</span>
+          <table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+          <span 
+class="cmsy-10x-x-109">𝒥 </span><span 
+class="cmr-10x-x-109">= </span><img 
+src="manual465x.png" alt="( ȷn (λ1)                    )
+|   1     ȷ  (λ )            |
+||          n2  2   .         ||
+(                   ..        )
+                       ȷnk(λk )"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">,n</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">n</span><sub><span 
+class="cmr-8">2</span></sub> <span 
+class="cmr-10x-x-109">+</span> <img 
+src="manual466x.png" alt="⋅⋅⋅"  class="@cdots"  /> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">n</span><sub><span 
+class="cmmi-8">k</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">n</span>
+          </td></tr></table>
+          <!--l. 381--><p class="nopar" >
+          in which the orders <span 
+class="cmmi-10x-x-109">n</span><sub><span 
+class="cmmi-8">i</span></sub> may not be distinct and the values <span 
+class="cmmi-10x-x-109">λ</span><sub><span 
+class="cmmi-8">i</span></sub> need not
+          be distinct.
+          </p></li>
+          <li class="itemize">Here  <span 
+class="cmmi-10x-x-109">λ </span>is  a  zero  of  the  characteristic  polynomial  <span 
+class="cmmi-10x-x-109">p </span>of  <span 
+class="cmsy-10x-x-109">𝒜</span>.  If  <span 
+class="cmmi-10x-x-109">p </span>does
+          not split completely, symbolic names are chosen for the missing zeroes
+          of  <span 
+class="cmmi-10x-x-109">p</span>.  If,  by  some  means,  one  knows  such  missing  zeroes,  they  can
+          be substituted for the symbolic names. For this, <span 
+class="pcrr8t-x-x-109">jordansymbolic</span>
+          actually returns <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmsy-10x-x-109">𝒥</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">ℒ</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">𝒫</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">𝒫</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup><span 
+class="cmsy-10x-x-109">}</span>. <span 
+class="cmsy-10x-x-109">𝒥 </span>is the Jordan normal form of <span 
+class="cmsy-10x-x-109">𝒜</span>
+          (using symbolic names if necessary). <span 
+class="cmsy-10x-x-109">ℒ </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmti-10x-x-109">ll</span><span 
+class="cmmi-10x-x-109">,ξ</span><span 
+class="cmsy-10x-x-109">}</span>, where <span 
+class="cmmi-10x-x-109">ξ </span>is a name
+          and <span 
+class="cmti-10x-x-109">ll</span> is a list of irreducible factors of <span 
+class="cmmi-10x-x-109">p</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">ξ</span><span 
+class="cmr-10x-x-109">)</span>. If symbolic names are used
+          then <span 
+class="cmmi-10x-x-109">ξ</span><sub><span 
+class="cmmi-8">ij</span></sub> is a zero of <span 
+class="cmmi-10x-x-109">ll</span><sub><span 
+class="cmmi-8">i</span></sub>. <span 
+class="cmsy-10x-x-109">𝒫 </span>and <span 
+class="cmsy-10x-x-109">𝒫</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup> are as above.</li></ul>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Example</span> </dt><dd 
+class="description">     
+     <table 
+class="equation-star"><tr><td>
+                              <span 
+class="cmsy-10x-x-109">𝒜 </span><span 
+class="cmr-10x-x-109">= </span><img 
+src="manual467x.png" alt="(      )
+  1   y
+  y2  3"  class="left" align="middle" />
+     </td></tr></table>
+     <!--l. 406--><p class="nopar" >
+     <img 
+src="manual468x.png" alt="jordansymbolic    (𝒜) = "  class="math"  />
+</p>
+     <table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                 <img 
+src="manual469x.png" alt="{ (ξ11   0 ) { {   3   2          }   }
+    0   ξ   ,   − y + ξ − 4 ∗ξ + 3  ,ξ ,
+         12"  class="left" align="middle" />
+     </td></tr></table>
+     <!--l. 414--><p class="nopar" >
+</p>
+     <table 
+class="equation-star"><tr><td>
+                <img 
+src="manual470x.png" alt="(               )  ( -ξ11−2--  -ξ11+y3−1-) }
+  ξ11 − 3  ξ12 − 3  ,  2∗(y3−1)  2∗y2∗(y33+1)
+    y2      y2       2ξ∗(12y−32−1)  2ξ1∗y22+∗y(y3−+11)-"  class="left" align="middle" />
+     </td></tr></table>
+     <!--l. 424--><p class="nopar" >
+     <span 
+class="pcrr8t-x-x-109">solve(-y</span><span 
+class="pcrr8t-x-x-109">^3+xi</span><span 
+class="pcrr8t-x-x-109">^2-4*xi+3,xi);</span>
+</p>
+     <table 
+class="equation-star"><tr><td>
+                    <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">ξ </span><span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual471x.png" alt="∘ ------
+  y3 + 1"  class="sqrt"  /> <span 
+class="cmr-10x-x-109">+ 2</span><span 
+class="cmmi-10x-x-109">,</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">ξ </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">−</span><img 
+src="manual472x.png" alt="∘ ------
+  y3 + 1"  class="sqrt"  /> <span 
+class="cmr-10x-x-109">+ 2</span><span 
+class="cmsy-10x-x-109">}</span>
+     </td></tr></table>
+                                                                     
+
+                                                                     
+     <!--l. 428--><p class="nopar" >
+     <span 
+class="pcrr8t-x-x-109">J = sub({xi(1,1)=sqrt(y</span><span 
+class="pcrr8t-x-x-109">^3+1)+2,</span><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> xi(1,2)=-sqrt(y</span><span 
+class="pcrr8t-x-x-109">^3+1)+2},</span><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> first jordansymbolic (A))</span>
+</p>
+     <table 
+class="equation-star"><tr><td>
+                    <span 
+class="cmsy-10x-x-109">𝒥 </span><span 
+class="cmr-10x-x-109">= </span><img 
+src="manual473x.png" alt="(∘ ------                  )
+   y3 + 1 + 2        0
+       0       − ∘y3-+-1+ 2"  class="left" align="middle" />
+     </td></tr></table>
+     <!--l. 436--><p class="nopar" >
+     </p></dd></dl>
+<!--l. 441--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.37.7    </span> <a 
+ id="x240-103000020.37.7"></a>jordan</h4>
+<a 
+ id="dx240-1030001"></a>
+<!--l. 443--><p class="noindent" ><a 
+ id="operator:JORDAN"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Function</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">jordan</span>(<span 
+class="cmsy-10x-x-109">𝒜</span>) computes the Jordan normal form <span 
+class="cmsy-10x-x-109">𝒥 </span>of the matrix <span 
+class="cmsy-10x-x-109">𝒜</span>.
+     <!--l. 451--><p class="noindent" >It returns <span 
+class="cmsy-10x-x-109">{𝒥</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">𝒫</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">𝒫</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup><span 
+class="cmsy-10x-x-109">}</span>, where <span 
+class="cmsy-10x-x-109">𝒥 </span>, <span 
+class="cmsy-10x-x-109">𝒫</span>, and <span 
+class="cmsy-10x-x-109">𝒫</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup> are such that <span 
+class="cmsy-10x-x-109">𝒫𝒥𝒫</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">𝒜</span>.
+     </p><!--l. 455--><p class="noindent" ><span 
+class="cmsy-10x-x-109">𝒜 </span>is a square matrix.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Field extensions</span> </dt><dd 
+class="description"><br 
+class="newline" />Calculations are performed in <span 
+class="cmbx-10x-x-109">Q</span>. To extend this ﬁeld the <span 
+class="ptmr8t-">ARNUM </span>package
+     can be used. For details see subsection <a 
+href="#x240-103100020.37.8">20.37.8<!--tex4ht:ref: sec:normform-arnum --></a>.
+                                                                     
+
+                                                                     
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Note</span> </dt><dd 
+class="description"><br 
+class="newline" /><a 
+ id="dx240-1030002"></a> In certain polynomial cases the switch <span 
+class="pcrr8t-x-x-109">fullroots </span>is turned on to compute
+     the zeroes. This can lead to the calculation taking a long time, as well as the
+     output being very large. In this case a message <br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">*****</span><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">WARNING: fullroots turned on. May take a while.</span><br 
+class="newline" />will  be  printed.  It  may  be  better  to  kill  the  calculation  and  compute
+     <span 
+class="pcrr8t-x-x-109">jordansymbolic </span>instead.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis</span> </dt><dd 
+class="description">     
+          <ul class="itemize1">
+          <li class="itemize">The Jordan normal form <span 
+class="cmsy-10x-x-109">𝒥 </span>with entries in an algebraic extension of <span 
+class="cmbx-10x-x-109">Q</span>
+          is computed.
+          </li>
+          <li class="itemize">A <span 
+class="ptmri8t-x-x-109">Jordan block </span><span 
+class="cmmi-10x-x-109">ȷ</span><sub><span 
+class="cmmi-8">k</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">λ</span><span 
+class="cmr-10x-x-109">) </span>is a <span 
+class="cmmi-10x-x-109">k </span>by <span 
+class="cmmi-10x-x-109">k </span>upper triangular matrix of the
+          form:
+          <table 
+class="equation-star"><tr><td>
+                         <span 
+class="cmmi-10x-x-109">ȷ</span><sub><span 
+class="cmmi-8">k</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">λ</span><span 
+class="cmr-10x-x-109">) = </span><img 
+src="manual474x.png" alt="(                 )
+  λ  1
+|    λ   1        |
+||        .   .    ||
+||        ..   ..   ||
+(            λ   1)
+                 λ"  class="left" align="middle" />
+          </td></tr></table>
+          <!--l. 484--><p class="nopar" >
+          There are <span 
+class="cmmi-10x-x-109">k </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1 </span>terms “<span 
+class="cmr-10x-x-109">+1</span>” in the superdiagonal; the scalar <span 
+class="cmmi-10x-x-109">λ </span>appears
+          <span 
+class="cmmi-10x-x-109">k </span>times on the main diagonal. All other matrix entries are zero, and
+          <span 
+class="cmmi-10x-x-109">ȷ</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">λ</span><span 
+class="cmr-10x-x-109">) = (</span><span 
+class="cmmi-10x-x-109">λ</span><span 
+class="cmr-10x-x-109">)</span>.
+          </p></li>
+          <li class="itemize">A Jordan matrix <span 
+class="cmsy-10x-x-109">𝒥 ∈ </span><span 
+class="cmmi-10x-x-109">M</span><sub><span 
+class="cmmi-8">n</span></sub> (the set of all <span 
+class="cmmi-10x-x-109">n </span>by <span 
+class="cmmi-10x-x-109">n </span>matrices) is a direct sum of
+          <span 
+class="ptmri8t-x-x-109">jordan blocks</span>.
+          <table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+          <span 
+class="cmsy-10x-x-109">𝒥 </span><span 
+class="cmr-10x-x-109">= </span><img 
+src="manual475x.png" alt="( ȷn (λ1)                    )
+|   1     ȷ  (λ )            |
+||          n2  2   .         ||
+(                   ..        )
+                       ȷnk(λk )"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">,n</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">n</span><sub><span 
+class="cmr-8">2</span></sub> <span 
+class="cmr-10x-x-109">+</span> <img 
+src="manual476x.png" alt="⋅⋅⋅"  class="@cdots"  /> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">n</span><sub><span 
+class="cmmi-8">k</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">n</span>
+          </td></tr></table>
+          <!--l. 498--><p class="nopar" >
+          in which the orders <span 
+class="cmmi-10x-x-109">n</span><sub><span 
+class="cmmi-8">i</span></sub> may not be distinct and the values <span 
+class="cmmi-10x-x-109">λ</span><sub><span 
+class="cmmi-8">i</span></sub> need not
+          be distinct.
+          </p></li>
+          <li class="itemize">Here <span 
+class="cmmi-10x-x-109">λ </span>is a zero of the characteristic polynomial <span 
+class="cmmi-10x-x-109">p </span>of <span 
+class="cmsy-10x-x-109">𝒜</span>. The zeroes
+          of  the  characteristic  polynomial  are  computed  exactly,  if  possible.
+          Otherwise they are approximated by ﬂoating point numbers.</li></ul>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Example</span> </dt><dd 
+class="description">     
+     <table 
+class="equation-star"><tr><td>
+                     <span 
+class="cmsy-10x-x-109">𝒜 </span><span 
+class="cmr-10x-x-109">= </span><img 
+src="manual477x.png" alt="( − 9  − 21  − 15 4  2  0)
+|− 10   21   − 14 4  2  0|
+||                        ||
+|| − 8   16   − 11 4  2  0||
+| − 6   12   − 9  3  3  0|
+( − 4   8    − 6  0  5  0)
+  − 2   4    − 3  0  1  3"  class="left" align="middle" />
+     </td></tr></table>
+     <!--l. 517--><p class="nopar" >
+     <span 
+class="pcrr8t-x-x-109">J = first jordan(A);</span>
+</p>
+     <table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                    <span 
+class="cmsy-10x-x-109">𝒥 </span><span 
+class="cmr-10x-x-109">= </span><img 
+src="manual478x.png" alt="(3  0  0  0    0      0  )
+|0  3  0  0    0      0  |
+||                        ||
+||0  0  1  1    0      0  ||
+|0  0  0  1    0      0  |
+(0  0  0  0  i+  2    0  )
+ 0  0  0  0    0   − i+ 2"  class="left" align="middle" />
+     </td></tr></table>
+     <!--l. 524--><p class="nopar" >
+     </p></dd></dl>
+<!--l. 528--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.37.8    </span> <a 
+ id="x240-103100020.37.8"></a>Algebraic extensions: Using the <span 
+class="ptmrc8t-x-x-109"><span 
+class="small-caps">A</span><span 
+class="small-caps">R</span><span 
+class="small-caps">N</span><span 
+class="small-caps">U</span><span 
+class="small-caps">M</span> </span>package</h4>
+<!--l. 531--><p class="noindent" >The algebraic ﬁeld <span 
+class="cmbx-10x-x-109">Q </span>can now be extended. E.g., <span 
+class="pcrr8t-x-x-109">defpoly sqrt2**2-2; </span>will
+extend it to include <img 
+src="manual479x.png" alt="√2-"  class="sqrt"  /> (deﬁned here by <span 
+class="pcrr8t-x-x-109">sqrt2</span>). The <span 
+class="ptmrc8t-x-x-109">A<span 
+class="small-caps">R</span><span 
+class="small-caps">N</span><span 
+class="small-caps">U</span><span 
+class="small-caps">M</span> </span>package was written by
+Eberhard Schrüfer and is described in section <a 
+href="manualse73.html#x92-1800009.12.5">9.12.5<!--tex4ht:ref: sec:package-arnum --></a>.
+</p><!--l. 537--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.37.8.1    </span> <a 
+ id="x240-103200020.37.8.1"></a>Example</h5>
+<!--l. 541--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">defpoly sqrt2**2-2;</span><br 
+class="newline" />(sqrt2 now changed to <img 
+src="manual480x.png" alt="√ --
+  2"  class="sqrt"  /> for looks!)
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+            <span 
+class="cmsy-10x-x-109">𝒜 </span><span 
+class="cmr-10x-x-109">= </span><img 
+src="manual481x.png" alt="( 4 ∗√2-− 6  − 4 ∗√2-+ 7  − 3∗ √2-+ 6)
+( 3 ∗√2-− 6  − 3 ∗√2-+ 7  − 3∗ √2-+ 6)
+       √ --          √ --        √ --
+    3∗   2    1 − 3∗   2    − 2∗   2"  class="left" align="middle" />
+</td></tr></table>
+<!--l. 547--><p class="nopar" >
+<img 
+src="manual482x.png" alt="                  (( √ --                 )
+                  {    2   0--      0
+ratjordan   (𝒜 ) =  (  0   √ 2       0     ) ,
+                  (   0    0   − 3 ∗√2-+ 1 "  class="math"  />
+</p>
+<table 
+class="equation-star"><tr><td>
+                 <img 
+src="manual483x.png" alt="(   √ --       √ -         √-   )
+ 7 ∗  2 − 6   2∗--2−-49-  −21∗-2+18
+||   √ --     21∗3√12−18  −21∗3√12+18||
+(3 ∗  2 − 6  ---3√1---  ---√31---) ,
+ 3 ∗√2--+ 1  −3∗-2+24   3∗-2−24
+                31         31"  class="left" align="middle" />
+</td></tr></table>
+<!--l. 560--><p class="nopar" >
+</p>
+<table 
+class="equation-star"><tr><td>
+                    <img 
+src="manual484x.png" alt="(  0     √2-+ 1       1  ) )}
+( − 1  4 ∗√2--+ 9   4∗ √2)
+        1  √ --            )
+  − 1 − 6 ∗  2 + 1    1"  class="left" align="middle" />
+</td></tr></table>
+                                                                     
+
+                                                                     
+<!--l. 565--><p class="nopar" >
+</p><!--l. 570--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.37.9    </span> <a 
+ id="x240-103300020.37.9"></a>Modular arithmetic</h4>
+<a 
+ id="dx240-1033001"></a>
+<a 
+ id="dx240-1033002"></a>
+<a 
+ id="dx240-1033003"></a>
+<a 
+ id="dx240-1033004"></a>
+<a 
+ id="dx240-1033005"></a>
+<a 
+ id="dx240-1033006"></a>
+<!--l. 575--><p class="noindent" >Calculations can be performed in a modular base by setting the switch <span 
+class="pcrr8t-x-x-109">modular </span>to on.
+The base can then be set by <span 
+class="pcrr8t-x-x-109">setmod p; </span>(p a prime). The normal form will then have
+entries in <span 
+class="cmbx-10x-x-109">Z</span><span 
+class="cmmi-10x-x-109">∕</span>p<span 
+class="cmbx-10x-x-109">Z</span>.
+</p><!--l. 579--><p class="noindent" >By also switching on <span 
+class="pcrr8t-x-x-109">balanced_mod </span>the output will be shown using a symmetric
+modular representation.
+</p><!--l. 582--><p class="noindent" >Information on this modular manipulation can be found in section <a 
+href="manualse73.html#x92-1780009.12.3">9.12.3<!--tex4ht:ref: sec:polyrat-modular --></a>.
+</p><!--l. 584--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.37.9.1    </span> <a 
+ id="x240-103400020.37.9.1"></a>Example</h5>
+<!--l. 587--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">on modular;</span><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">setmod 23;</span>
+</p>
+<table 
+class="equation-star"><tr><td>
+                           <span 
+class="cmsy-10x-x-109">𝒜 </span><span 
+class="cmr-10x-x-109">= </span><img 
+src="manual485x.png" alt="(10   18)
+
+  17  20"  class="left" align="middle" />
+                                                                     
+
+                                                                     
+</td></tr></table>
+<!--l. 591--><p class="nopar" >
+<img 
+src="manual486x.png" alt="jordansymbolic    (𝒜) = "  class="math"  />
+</p>
+<table 
+class="equation-star"><tr><td>
+         <img 
+src="manual487x.png" alt="{ (18   0 )                     (15  9 ) (1   14)}
+           ,{{ λ+ 5,λ + 11},λ },        ,
+    0   12                       22  1     1  15"  class="left" align="middle" />
+</td></tr></table>
+<!--l. 601--><p class="nopar" >
+<span 
+class="pcrr8t-x-x-109">on balanced_mod;</span>
+</p><!--l. 604--><p class="noindent" ><img 
+src="manual488x.png" alt="jordansymbolic    (𝒜) = "  class="math"  />
+</p>
+<table 
+class="equation-star"><tr><td>
+       <img 
+src="manual489x.png" alt="{( − 5   0 )                     ( − 8  9) (1   − 9)}
+    0  − 11  ,{{λ + 5,λ+  11},λ} , − 1  1 ,  1  − 8"  class="left" align="middle" />
+</td></tr></table>
+<!--l. 613--><p class="nopar" >
+</p><!--l. 774--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 776--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse162.html" >Up</a></td><td class="clinks"><a 
+href="manualse163.html" >Next</a></td><td class="clinks"><a 
+href="manualse161.html" >Prev</a></td><td class="clinks"><a 
+href="manualse161.html#tailmanualse161.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse162.html" >Front</a></td></tr></table><a 
+ id="tailmanualse162.html"></a>   </p> 
+</body> 
+</html>

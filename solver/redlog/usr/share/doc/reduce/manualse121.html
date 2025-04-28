@@ -1,0 +1,148 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Procedure Tracing: RTR, UNRTR</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch19.html#manualse121.html" >Up</a></td><td class="clinks"><a 
+href="manualse122.html" >Next</a></td><td class="clinks"><a 
+href="manualse120.html" >Prev</a></td><td class="clinks"><a 
+href="manualse120.html#tailmanualse120.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse121.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">19.3    </span> <a 
+ id="x162-37300019.3"></a>Procedure Tracing: RTR, UNRTR</h3>
+<!--l. 72--><p class="noindent" ><a 
+ id="command:RTR"></a> <a 
+ id="command:UNRTR"></a> <a 
+ id="dx162-373001"></a> <a 
+ id="dx162-373002"></a> Tracing of one or more procedures is initiated by the command <span 
+class="pcrr8t-x-x-109">rtr</span>:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-622">
+rtr &#x003C;proc1&#x003E;, &#x003C;proc2&#x003E;, ..., &#x003C;procn&#x003E;;
+</div>
+<!--l. 80--><p class="nopar" > and cancelled by the command <span 
+class="pcrr8t-x-x-109">unrtr</span>:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-623">
+unrtr &#x003C;proc1&#x003E;, &#x003C;proc2&#x003E;, ..., &#x003C;procn&#x003E;;
+</div>
+<!--l. 84--><p class="nopar" >
+</p><!--l. 86--><p class="noindent" >Every time a traced procedure is executed, a message is printed when the procedure is
+entered or exited. The entry message displays the actual procedure arguments equated to
+the dummy parameter names, and the exit message displays the value returned by the
+procedure. Recursive calls are marked by a level number. Here is a (simplistic)
+example, using ﬁrst the default algebraic display and second conventional Lisp
+display:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-624">
+algebraic procedure power(x, n);
+ <br />   if n = 0 then 1 else x*power(x, n-1)$
+ <br />
+ <br />rtr power;
+ <br />
+ <br />(power)
+ <br />
+ <br />power(x+1, 2);
+ <br />
+ <br />Enter (1) power
+ <br />   x:  x + 1$
+ <br />   n:  2$
+ <br />Enter (2) power
+ <br />   x:  x + 1$
+ <br />   n:  1$
+ <br />Enter (3) power
+ <br />   x:  x + 1$
+ <br />   n:  0$
+ <br />Leave (3) power = 1$
+ <br />Leave (2) power = x + 1$
+ <br />Leave (1) power = x**2 + 2*x + 1$
+ <br />
+ <br /> 2
+ <br />x  + 2*x + 1
+ <br />
+ <br />off rtrace;
+ <br />
+ <br />power(x+1, 2);
+ <br />
+ <br />Enter (1) power
+ <br />   x:  (plus x 1)
+ <br />   n:  2
+ <br />Enter (2) power
+ <br />   x:  (plus x 1)
+ <br />   n:  1
+ <br />Enter (3) power
+ <br />   x:  (plus x 1)
+ <br />   n:  0
+                                                                     
+
+                                                                     
+ <br />Leave (3) power = 1
+ <br />Leave (2) power = (!*sq ((((x . 1) . 1) . 1) . 1)
+ <br />t)
+ <br />Leave (1) power = (!*sq ((((x . 2) . 1) ((x . 1) .
+ <br />2) . 1) . 1) t)
+ <br />
+ <br /> 2
+ <br />x  + 2*x + 1
+ <br />
+ <br />on rtrace;
+ <br />
+ <br />unrtr power;
+ <br />
+ <br />(power)
+</div>
+<!--l. 147--><p class="nopar" >
+</p><!--l. 149--><p class="noindent" >Many algebraic-mode operators are implemented as internal procedures with diﬀerent
+names. If an internal procedure with the speciﬁed name does not exist then <span 
+class="pcrr8t-x-x-109">rtrace</span>
+tracing automatically applies to the appropriate internal procedure and returns a list of
+the names of the internal procedures, e.g.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-625">
+rtr int;
+ <br />
+ <br />(simpint)
+</div>
+<!--l. 158--><p class="nopar" > This facility is an extension of the <span 
+class="pcrr8t-x-x-109">rdebug </span>package.
+</p><!--l. 161--><p class="noindent" >Tracing of <span 
+class="ptmri8t-x-x-109">compiled </span>procedures by the <span 
+class="pcrr8t-x-x-109">rtrace </span>package is not completely reliable, in
+that recursive calls may not be traced. This is essentially because tracing works only
+when the procedure is called by name and not when it is called directly via
+an internal compiled pointer. It may not be possible to avoid this restriction
+in a portable way. Also, arguments of compiled procedures are not displayed
+using the names given to them in the source code, because these names are no
+longer available. Instead, they are displayed using the names <span 
+class="pcrr8t-x-x-109">Arg1</span>, <span 
+class="pcrr8t-x-x-109">Arg2</span>,
+etc.
+                                                                     
+
+                                                                     
+</p><!--l. 171--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch19.html#manualse121.html" >Up</a></td><td class="clinks"><a 
+href="manualse122.html" >Next</a></td><td class="clinks"><a 
+href="manualse120.html" >Prev</a></td><td class="clinks"><a 
+href="manualse120.html#tailmanualse120.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse121.html" >Front</a></td></tr></table><a 
+ id="tailmanualse121.html"></a> </p> 
+</body> 
+</html>

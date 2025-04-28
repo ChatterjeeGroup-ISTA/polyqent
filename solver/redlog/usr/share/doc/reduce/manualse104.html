@@ -1,0 +1,82 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>REMEMBER Statement</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch15.html#manualse104.html" >Up</a></td><td class="clinks"><a 
+href="manualse103.html" >Prev</a></td><td class="clinks"><a 
+href="manualse103.html#tailmanualse103.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse104.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">15.6    </span> <a 
+ id="x132-24300015.6"></a>REMEMBER Statement</h3>
+<a 
+ id="dx132-243001"></a>
+<!--l. 333--><p class="noindent" ><a 
+ id="command:REMEMBER"></a>
+</p><!--l. 335--><p class="noindent" >Setting the remember option for an algebraic procedure by
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">remember (</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">procname:procedure</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">);</span></div>
+<!--l. 339--><p class="noindent" >saves all intermediate results of such procedure evaluations, including recursive calls.
+Subsequent calls to the procedure can then be determined from the saved results, and
+thus the number of evaluations (or the complexity) can be reduced. This mode of
+evalation costs extra memory, of course. In addition, the procedure must be free of
+side–eﬀects.
+</p><!--l. 345--><p class="noindent" >The following examples show the eﬀect of the remember statement on two well–known
+examples.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-460">
+procedure H(n);      % Hofstadter’s function
+ <br /> if numberp n then
+ <br /> &#x003C;&#x003C; cnn := cnn +1;   % counts the calls
+ <br /> if n &#x003C; 3 then 1 else H(n-H(n-1))+H(n-H(n-2))&#x003E;&#x003E;;
+ <br />
+ <br />remember h;
+ <br />
+ <br />&#x003C;&#x003C; cnn := 0; H(100); cnn&#x003E;&#x003E;;
+ <br />
+ <br />100
+ <br />
+ <br />% H has been called 100 times only.
+ <br />
+ <br />procedure A(m,n);    % Ackermann function
+ <br />
+ <br /> if m=0 then n+1 else
+ <br />  if n=0 then A(m-1,1) else
+ <br />  A(m-1,A(m,n-1));
+ <br />
+ <br />remember a;
+ <br />
+ <br />A(3,3);
+ <br />
+</div>
+<!--l. 373--><p class="nopar" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 1--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch15.html#manualse104.html" >Up</a></td><td class="clinks"><a 
+href="manualse103.html" >Prev</a></td><td class="clinks"><a 
+href="manualse103.html#tailmanualse103.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse104.html" >Front</a></td></tr></table><a 
+ id="tailmanualse104.html"></a> </p> 
+</body> 
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>DECOMPOSE Operator</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch9.html#manualse70.html" >Up</a></td><td class="clinks"><a 
+href="manualse71.html" >Next</a></td><td class="clinks"><a 
+href="manualse69.html" >Prev</a></td><td class="clinks"><a 
+href="manualse69.html#tailmanualse69.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse70.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">9.9    </span> <a 
+ id="x89-1630009.9"></a>DECOMPOSE Operator</h3>
+<a 
+ id="dx89-163001"></a>
+<!--l. 602--><p class="noindent" ><a 
+ id="operator:DECOMPOSE"></a>
+</p><!--l. 604--><p class="noindent" >The <span 
+class="pcrr8t-x-x-109">decompose </span>operator takes a multivariate polynomial as argument, and returns an
+expression and a list of equations from which the original polynomial can be found by
+composition. Its syntax is:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-324">
+     decompose(exprn:polynomial):list.
+</div>
+<!--l. 609--><p class="nopar" > For example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-325">
+     decompose(x^8-88*x^7+2924*x^6-43912*x^5+263431*x^4-
+ <br />                    218900*x^3+65690*x^2-7700*x+234)
+ <br />                   2                  2            2
+ <br />          -&#x003E; {u  + 35*u + 234, u=v  + 10*v, v=x  - 22*x}
+ <br />                                     2
+ <br />     decompose(u^2+v^2+2u*v+1)  -&#x003E; {w  + 1, w=u + v}
+</div>
+<!--l. 618--><p class="nopar" > Users should note however that, unlike factorization, this decomposition is not
+unique.
+                                                                     
+
+                                                                     
+</p><!--l. 622--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch9.html#manualse70.html" >Up</a></td><td class="clinks"><a 
+href="manualse71.html" >Next</a></td><td class="clinks"><a 
+href="manualse69.html" >Prev</a></td><td class="clinks"><a 
+href="manualse69.html#tailmanualse69.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse70.html" >Front</a></td></tr></table><a 
+ id="tailmanualse70.html"></a> </p> 
+</body> 
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>REPEAT … UNTIL</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch5.html#manualse19.html" >Up</a></td><td class="clinks"><a 
+href="manualse20.html" >Next</a></td><td class="clinks"><a 
+href="manualse18.html" >Prev</a></td><td class="clinks"><a 
+href="manualse18.html#tailmanualse18.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse19.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">5.6    </span> <a 
+ id="x27-400005.6"></a>REPEAT … UNTIL</h3>
+<!--l. 382--><p class="noindent" ><a 
+ id="command:REPEAT"></a> <a 
+ id="reserved:UNTIL"></a>
+<a 
+ id="dx27-40001"></a>
+<a 
+ id="dx27-40002"></a>
+<a 
+ id="dx27-40003"></a>
+</p><!--l. 386--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">repeat</span>… <span 
+class="pcrr8t-x-x-109">until </span>is very similar in purpose to <span 
+class="pcrr8t-x-x-109">while</span>… <span 
+class="pcrr8t-x-x-109">do</span>. Its syntax is:
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">repeat </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">statement</span><span 
+class="cmsy-10x-x-109">⟩ </span><span 
+class="pcrr8t-x-x-109">until </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">boolean expression</span><span 
+class="cmsy-10x-x-109">⟩</span></div>
+<!--l. 391--><p class="noindent" >(PASCAL users note: Only a single statement – usually a group statement – is allowed
+between the <span 
+class="pcrr8t-x-x-109">repeat </span>and the <span 
+class="pcrr8t-x-x-109">until</span>.)
+</p><!--l. 394--><p class="noindent" >There are two essential diﬀerences:
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   1. </dt><dd 
+class="enumerate-enumitem">The test is performed <span 
+class="ptmri8t-x-x-109">after </span>the controlled statement (or group of statements)
+     is executed, so the controlled statement is always executed at least once.
+     </dd><dt class="enumerate-enumitem">
+   2. </dt><dd 
+class="enumerate-enumitem">The  test  is  a  test  for  when  to  stop  rather  than  when  to  continue,  so  its
+     “polarity” is the opposite of that in <span 
+class="pcrr8t-x-x-109">while</span>… <span 
+class="pcrr8t-x-x-109">do.</span></dd></dl>
+<!--l. 404--><p class="noindent" >As an example, we rewrite the example from the <span 
+class="pcrr8t-x-x-109">while </span><span 
+class="pcrr8t-x-x-109">…do </span>section:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-63">
+    ex:=0; term:=1;
+ <br />    repeat &#x003C;&#x003C;ex := ex+term; term := (term + term^2)/3&#x003E;&#x003E;
+ <br />       until num(term - 1/1000) &#x003C; 0;
+ <br />    ex;
+</div>
+<!--l. 411--><p class="nopar" >
+In this case, the answer will be the same as before, because in neither case is a term
+added to <span 
+class="pcrr8t-x-x-109">ex </span>which is less than 1/1000.
+                                                                     
+
+                                                                     
+</p><!--l. 416--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch5.html#manualse19.html" >Up</a></td><td class="clinks"><a 
+href="manualse20.html" >Next</a></td><td class="clinks"><a 
+href="manualse18.html" >Prev</a></td><td class="clinks"><a 
+href="manualse18.html#tailmanualse18.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse19.html" >Front</a></td></tr></table><a 
+ id="tailmanualse19.html"></a> </p> 
+</body> 
+</html>

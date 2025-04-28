@@ -1,0 +1,212 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>WU: Wu Algorithm for Polynomial Systems</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse187.html" >Up</a></td><td class="clinks"><a 
+href="manualse188.html" >Next</a></td><td class="clinks"><a 
+href="manualse186.html" >Prev</a></td><td class="clinks"><a 
+href="manualse186.html#tailmanualse186.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse187.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.62    </span> <a 
+ id="x279-128200020.62"></a>WU: Wu Algorithm for Polynomial Systems</h3>
+<a 
+ id="dx279-1282001"></a>
+<a 
+ id="dx279-1282002"></a>
+<!--l. 1365--><p class="noindent" >This is a simple implementation of the Wu algorithm implemented in REDUCE working
+directly from <span class="cite">[<a 
+href="manualap2.html#XWu:1987a">Wt87</a>]</span>.
+</p><!--l. 1368--><p class="noindent" >Author: Russell Bradford.
+<a 
+ id="dx279-1282003"></a>
+<a 
+ id="dx279-1282004"></a>
+</p><!--l. 9--><p class="noindent" >Its purpose was to aid my understanding of the algorithm, so the code is simple, and has
+a lot of tracing included. This is a working implementation, but there is magniﬁcent
+scope for improvement and optimisation. Things like using intelligent sorts on
+polynomial lists, and avoiding the re-computation of various data spring easily to mind.
+Also, an attempt at factorization of the input polynomials at each pass might have
+beneﬁcial results. Of course, exploitation of the natural parallel structure is a
+must!
+</p><!--l. 17--><p class="noindent" >All bug ﬁxes and improvements are welcomed.
+</p><!--l. 19--><p class="noindent" ><a 
+ id="operator:WU"></a> The interface:<a 
+ id="dx279-1282005"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1428">
+ wu({x^2+y^2+z^2-r^2, x*y+z^2-1, x*y*z-x^2-y^2-z+1},
+ <br />    {x,y,z});
+</div>
+<!--l. 24--><p class="nopar" > calls <span 
+class="pcrr8t-x-x-109">wu </span>with the named polynomials, and with the variable ordering <span 
+class="cmmi-10x-x-109">x &#x003E; y &#x003E; z</span>. In this
+example, <span 
+class="pcrr8t-x-x-109">r </span>is a parameter.
+</p><!--l. 28--><p class="noindent" >The result is
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1429">
+ <br />    2    3    2
+ <br />{{{r  + z  - z  - 1,
+ <br />
+ <br />    2  2    2      2    4    2  2    2
+ <br />   r *y  + r *z + r  - y  - y *z  + z  - z - 2,
+ <br />
+ <br />          2
+ <br />   x*y + z  - 1},
+ <br />
+ <br />  y},
+ <br />
+ <br />    2  4      2  2    2    7    6      5    4    3
+ <br /> {{r *z  - 2*r *z  + r  + z  - z  - 2*z  + z  + z
+ <br />
+ <br />       2
+ <br />    + z  - 1,
+ <br />
+ <br />    2   2    3    2
+ <br />   y *(r  + z  - z  - 1),
+ <br />
+ <br />          2
+ <br />   x*y + z  - 1},
+ <br />
+ <br />      2    3    2
+ <br />  y*(r  + z  - z  - 1)}}
+</div>
+<!--l. 56--><p class="nopar" > namely, a list of pairs of characteristic sets and initials for the characteristic
+sets.
+</p><!--l. 60--><p class="noindent" >Thus, the ﬁrst pair above has the characteristic set
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+   <span 
+class="cmmi-10x-x-109">r</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">z</span><sup><span 
+class="cmr-8">3</span></sup> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">z</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,r</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">r</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-10x-x-109">z </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">r</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmr-8">4</span></sup> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-10x-x-109">z</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">z</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">z </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">,xy </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">z</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1</span>
+</td></tr></table>
+<!--l. 63--><p class="nopar" >
+and initial <span 
+class="cmmi-10x-x-109">y</span>.
+</p><!--l. 66--><p class="noindent" >According to Wu’s theorem, the set of roots of the original polynomials is the union of
+the sets of roots of the characteristic sets, with the additional constraints that the
+corresponding initial is non-zero. Thus, for the ﬁrst pair above, we ﬁnd the roots of
+<span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">r</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">z</span><sup><span 
+class="cmr-8">3</span></sup> <span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmmi-10x-x-109">z</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmsy-10x-x-109">} </span>under the constraint that <span 
+class="cmmi-10x-x-109">y</span><span 
+class="cmmi-10x-x-109">≠</span><span 
+class="cmr-10x-x-109">0</span>. These roots, together with the roots
+of the other characteristic set (under the constraint of <span 
+class="cmmi-10x-x-109">y</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">r</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">z</span><sup><span 
+class="cmr-8">3</span></sup> <span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmmi-10x-x-109">z</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1)</span><span 
+class="cmmi-10x-x-109">≠</span><span 
+class="cmr-10x-x-109">0</span>), comprise
+all the roots of the original set.
+</p><!--l. 75--><p class="noindent" ><a 
+ id="switch:TRWU"></a> Additional information about the working of the algorithm can be gained by
+<a 
+ id="dx279-1282006"></a><a 
+ id="dx279-1282007"></a><a 
+ id="dx279-1282008"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1430">
+on trwu;
+</div>
+<!--l. 80--><p class="nopar" > This prints out details of the choice of basic sets, and the computation of characteristic
+sets.
+</p><!--l. 84--><p class="noindent" >The second argument (the list of variables) may be omitted, when all the variables in the
+input polynomials are implied with some random ordering.
+</p><!--l. 1372--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 1374--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse187.html" >Up</a></td><td class="clinks"><a 
+href="manualse188.html" >Next</a></td><td class="clinks"><a 
+href="manualse186.html" >Prev</a></td><td class="clinks"><a 
+href="manualse186.html#tailmanualse186.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse187.html" >Front</a></td></tr></table><a 
+ id="tailmanualse187.html"></a> </p> 
+</body> 
+</html>

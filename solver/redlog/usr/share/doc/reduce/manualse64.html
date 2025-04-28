@@ -1,0 +1,128 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Cancellation of Common Factors</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch9.html#manualse64.html" >Up</a></td><td class="clinks"><a 
+href="manualse65.html" >Next</a></td><td class="clinks"><a 
+href="manualse63.html" >Prev</a></td><td class="clinks"><a 
+href="manualse63.html#tailmanualse63.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse64.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">9.3    </span> <a 
+ id="x83-1560009.3"></a>Cancellation of Common Factors</h3>
+<!--l. 193--><p class="noindent" ><a 
+ id="switch:GCD"></a> Facilities are available in REDUCE for cancelling common factors in the numerators
+and denominators of expressions, at the option of the user. The system will perform this
+greatest common divisor computation if the switch <span 
+class="pcrr8t-x-x-109">gcd</span><a 
+ id="dx83-156001"></a><a 
+ id="dx83-156002"></a><a 
+ id="dx83-156003"></a> is on. (<span 
+class="pcrr8t-x-x-109">gcd </span>is normally
+oﬀ.)
+</p><!--l. 199--><p class="noindent" >A check is automatically made, however, for common variable and numerical products in
+the numerators and denominators of expressions, and the appropriate cancellations
+made.
+</p><!--l. 203--><p class="noindent" >When <span 
+class="pcrr8t-x-x-109">gcd </span>is on, and <span 
+class="pcrr8t-x-x-109">exp </span>is oﬀ, a check is made for square free factors in an
+expression. This includes separating out and independently checking the content of a
+given polynomial where appropriate. (For an explanation of these terms, see
+<span class="cite">[<a 
+href="manualap2.html#XHearn:79">Hea79</a>]</span>.)
+</p><!--l. 208--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Example: </span>With <span 
+class="pcrr8t-x-x-109">exp</span><a 
+ id="dx83-156004"></a><a 
+ id="dx83-156005"></a><a 
+ id="dx83-156006"></a> oﬀ and <span 
+class="pcrr8t-x-x-109">gcd</span><a 
+ id="dx83-156007"></a><a 
+ id="dx83-156008"></a><a 
+ id="dx83-156009"></a> on, the polynomial <span 
+class="pcrr8t-x-x-109">a*c+a*d+b*c+b*d </span>would be
+returned as <span 
+class="pcrr8t-x-x-109">(a+b)*(c+d)</span>.
+</p><!--l. 212--><p class="noindent" ><a 
+ id="switch:EZGCD"></a> Under normal circumstances, GCDs are computed using an algorithm described in the
+above paper. It is also possible in REDUCE to compute GCDs using an alternative
+algorithm, called the EZGCD Algorithm, which uses modular arithmetic. The switch
+<span 
+class="pcrr8t-x-x-109">ezgcd</span><a 
+ id="dx83-156010"></a><a 
+ id="dx83-156011"></a><a 
+ id="dx83-156012"></a>, if on in addition to <span 
+class="pcrr8t-x-x-109">gcd</span>, makes this happen.
+</p><!--l. 219--><p class="noindent" >In non-trivial cases, the EZGCD algorithm is almost always better than the basic
+algorithm, often by orders of magnitude. We therefore <span 
+class="ptmri8t-x-x-109">strongly </span>advise users to use
+the <span 
+class="pcrr8t-x-x-109">ezgcd </span>switch where they have the resources available for supporting the
+package.
+</p><!--l. 224--><p class="noindent" >For a description of the EZGCD algorithm, <span class="cite">[<a 
+href="manualap2.html#XMoses1973TheEG">MY73</a>]</span>.
+</p><!--l. 226--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">NOTE: </span>This package shares code with the factorizer, so a certain amount of trace
+information can be produced using the factorizer trace switches.
+</p><!--l. 230--><p class="noindent" ><a 
+ id="switch:HEUGCD"></a> An implementation of the heuristic GCD algorithm, ﬁrst introduced by B.W. Char,
+K.O. Geddes and G.H. Gonnet, as described in <span class="cite">[<a 
+href="manualap2.html#XDavenport:85">DP85</a>]</span>, is also available on an
+experimental basis. To use this algorithm, the switch <span 
+class="pcrr8t-x-x-109">heugcd</span><a 
+ id="dx83-156013"></a><a 
+ id="dx83-156014"></a><a 
+ id="dx83-156015"></a> should be on in
+addition to <span 
+class="pcrr8t-x-x-109">gcd</span>. Note that if both <span 
+class="pcrr8t-x-x-109">ezgcd </span>and <span 
+class="pcrr8t-x-x-109">heugcd </span>are on, the former takes
+precedence.
+</p><!--l. 238--><p class="noindent" >
+                                                                     
+
+                                                                     
+</p>
+<h4 class="subsectionHead"><span class="titlemark">9.3.1    </span> <a 
+ id="x83-1570009.3.1"></a>Determining the GCD of Two Polynomials</h4>
+<!--l. 239--><p class="noindent" ><a 
+ id="operator:GCD"></a> This operator, used with the syntax
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-301">
+    gcd(exprn1:polynomial,exprn2:polynomial):polynomial,
+</div>
+<!--l. 243--><p class="nopar" > returns the greatest common divisor of the two polynomials <span 
+class="pcrr8t-x-x-109">exprn1 </span>and <span 
+class="pcrr8t-x-x-109">exprn2</span>.
+</p><!--l. 247--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Examples:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-302">
+        gcd(x^2+2*x+1,x^2+3*x+2) -&#x003E;  x+1
+ <br />        gcd(2*x^2-2*y^2,4*x+4*y) -&#x003E;  2*x+2*y
+ <br />        gcd(x^2+y^2,x-y)         -&#x003E;  1.
+</div>
+<!--l. 252--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p><!--l. 254--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch9.html#manualse64.html" >Up</a></td><td class="clinks"><a 
+href="manualse65.html" >Next</a></td><td class="clinks"><a 
+href="manualse63.html" >Prev</a></td><td class="clinks"><a 
+href="manualse63.html#tailmanualse63.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse64.html" >Front</a></td></tr></table><a 
+ id="tailmanualse64.html"></a>  </p> 
+</body> 
+</html>

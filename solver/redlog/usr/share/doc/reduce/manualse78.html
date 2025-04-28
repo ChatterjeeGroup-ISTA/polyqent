@@ -1,0 +1,122 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Declaring Expressions Positive or Negative</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch10.html#manualse78.html" >Up</a></td><td class="clinks"><a 
+href="manualse77.html" >Prev</a></td><td class="clinks"><a 
+href="manualse77.html#tailmanualse77.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse78.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">10.4    </span> <a 
+ id="x100-19700010.4"></a>Declaring Expressions Positive or Negative</h3>
+<!--l. 119--><p class="noindent" >Detailed knowlege about the sign of expressions allows REDUCE to simplify
+expressions involving exponentials or <span 
+class="pcrr8t-x-x-109">abs</span><a 
+ id="dx100-197001"></a>. You can express assumptions about the
+<span 
+class="ptmri8t-x-x-109">positivity</span><a 
+ id="dx100-197002"></a> or <span 
+class="ptmri8t-x-x-109">negativity</span><a 
+ id="dx100-197003"></a> of expressions by rules for the operator <span 
+class="pcrr8t-x-x-109">sign</span><a 
+ id="dx100-197004"></a>. Examples:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-365">
+         abs(a*b*c);
+ <br />
+ <br />            abs(a*b*c);
+ <br />
+ <br />         let sign(a)=&#x003E;1,sign(b)=&#x003E;1; abs(a*b*c);
+ <br />
+ <br />            abs(c)*a*b
+ <br />
+ <br />         on precise; sqrt(x^2-2x+1);
+ <br />
+ <br />            abs(x - 1)
+ <br />
+ <br />         ws where sign(x-1)=&#x003E;1;
+ <br />
+ <br />            x - 1
+</div>
+<!--l. 141--><p class="nopar" > Here factors with known sign are factored out of an <span 
+class="pcrr8t-x-x-109">abs </span>expression.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-366">
+         on precise; on factor;
+ <br />
+ <br />         (q*x-2q)^w;
+ <br />
+ <br />                      w
+ <br />           ((x - 2)*q)
+ <br />
+ <br />         ws where sign(x-2)=&#x003E;1;
+ <br />
+ <br />            w        w
+ <br />           q *(x - 2)
+ <br />
+</div>
+<!--l. 156--><p class="nopar" >
+</p><!--l. 158--><p class="noindent" >In this case the factor <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">2)</span><sup><span 
+class="cmmi-8">w</span></sup> may be extracted from the base of the exponential
+because it is known to be positive.
+</p><!--l. 161--><p class="noindent" >Note that REDUCE knows a lot about sign propagation. For example, with <span 
+class="cmmi-10x-x-109">x </span>and <span 
+class="cmmi-10x-x-109">y </span>also
+<span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">y</span>, <span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">y </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">π </span>and <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">e</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">∕y</span><sup><span 
+class="cmr-8">2</span></sup> are known as positive. Nevertheless, it is often
+necessary to declare additionally the sign of a combined expression. E.g. at present a
+positivity declaration of <span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">2 </span>does not automatically lead to sign evaluation for <span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1 </span>or
+for <span 
+class="cmmi-10x-x-109">x</span>.
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 1--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch10.html#manualse78.html" >Up</a></td><td class="clinks"><a 
+href="manualse77.html" >Prev</a></td><td class="clinks"><a 
+href="manualse77.html#tailmanualse77.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse78.html" >Front</a></td></tr></table><a 
+ id="tailmanualse78.html"></a> </p> 
+</body> 
+</html>

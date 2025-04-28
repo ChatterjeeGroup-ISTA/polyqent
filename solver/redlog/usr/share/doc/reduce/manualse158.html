@@ -1,0 +1,185 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>LISTVECOPS: Vector Operations on Lists</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse158.html" >Up</a></td><td class="clinks"><a 
+href="manualse159.html" >Next</a></td><td class="clinks"><a 
+href="manualse157.html" >Prev</a></td><td class="clinks"><a 
+href="manualse157.html#tailmanualse157.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse158.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.33    </span> <a 
+ id="x235-97700020.33"></a>LISTVECOPS: Vector Operations on Lists</h3>
+<a 
+ id="dx235-977001"></a>
+<a 
+ id="dx235-977002"></a>
+<!--l. 671--><p class="noindent" >Author: Eberhard Schrüfer
+<a 
+ id="dx235-977003"></a>
+<a 
+ id="dx235-977004"></a>
+</p><!--l. 4--><p class="noindent" >This package implements vector operations on lists<a 
+ id="dx235-977005"></a>. Addition, multiplication, division,
+and exponentiation work elementwise. For example, after <a 
+ id="dx235-977006"></a> <a 
+ id="dx235-977007"></a> <a 
+ id="dx235-977008"></a> <a 
+ id="dx235-977009"></a> <a 
+ id="dx235-977010"></a> <a 
+ id="dx235-977011"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1239">
+  A := {a1,a2,a3,a4};
+ <br />  B := {b1,b2,b3,b4};
+</div>
+<!--l. 16--><p class="nopar" > <span 
+class="pcrr8t-x-x-109">c*A </span>will simplify to <span 
+class="pcrr8t-x-x-109">{c*a1,..,c*a4}</span>, <span 
+class="pcrr8t-x-x-109">A + B </span>to <span 
+class="pcrr8t-x-x-109">{a1+b1,...,a4+b4}</span>, and
+<span 
+class="pcrr8t-x-x-109">A*B </span>to <span 
+class="pcrr8t-x-x-109">{a1*b1,...,a4*b4}</span>. Linear operations work as expected:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1240">
+c1*A + c2*B;
+ <br />
+ <br />{a1*c1 + b1*c2,
+ <br />
+ <br />  a2*c1 + b2*c2,
+ <br />
+ <br />  a3*c1 + b3*c2,
+ <br />
+ <br />  a4*c1 + b4*c2}
+</div>
+<!--l. 31--><p class="nopar" > A division and an exponentation example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1241">
+{a,b,c}/{3,g,5};
+ <br />
+ <br />  a   b   c
+ <br />{---,---,---}
+ <br />  3   g   5
+ <br />
+ <br />ws^3;
+ <br />
+ <br />   3    3    3
+ <br />  a    b    c
+ <br />{----,----,-----}
+ <br />  27    3   125
+ <br />       g
+</div>
+<!--l. 47--><p class="nopar" > The new operator <span 
+class="pcrr8t-x-x-109">*. </span>(<span 
+class="pcrr8t-x-x-109">ldot</span>)<a 
+ id="dx235-977012"></a> <a 
+ id="dx235-977013"></a> implements the dot product:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1242">
+{a,b,c,d} *. {5,7,9,11/d};
+ <br />
+ <br />5*a + 7*b + 9*c + 11
+</div>
+<!--l. 55--><p class="nopar" > For accessing list elements, the new operator <span 
+class="pcrr8t-x-x-109">_ </span>(<span 
+class="pcrr8t-x-x-109">lnth</span>) <a 
+ id="dx235-977014"></a><a 
+ id="dx235-977015"></a> can be used instead of the <span 
+class="pcrr8t-x-x-109">PART</span>
+operator:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1243">
+l := {1,{2,3},4}$
+ <br />
+ <br />lnth(l,3);
+ <br />
+ <br />4
+ <br />
+ <br />l _2*3;
+ <br />
+ <br />{6,9}
+ <br />
+ <br />l _2 _2;
+ <br />
+ <br />3
+</div>
+<!--l. 73--><p class="nopar" > It can also be used to modify a list (unlike <span 
+class="pcrr8t-x-x-109">PART</span>, which returns a modiﬁed
+list):
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1244">
+part(l,2,2):=three;
+ <br />
+ <br />{1,{2,three},4}
+ <br />
+ <br />l;
+ <br />
+ <br />{1,{2,3},4}
+ <br />
+ <br />l _ 2 _2 :=three;
+ <br />
+ <br />three
+ <br />
+ <br />l;
+ <br />
+ <br />{1,{2,three},4}
+</div>
+<!--l. 91--><p class="nopar" > Operators are distributed over lists:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1245">
+a *. log b;
+ <br />
+ <br />log(b1)*a1 + log(b2)*a2 + log(b3)*a3 + log(b4)*a4
+ <br />
+ <br />df({sin x*y,x^3*cos y},x,2,y);
+ <br />
+ <br />{ - sin(x), - 6*sin(y)*x}
+ <br />
+ <br />int({sin x,cos x},x);
+ <br />
+ <br />{ - cos(x),sin(x)}
+</div>
+<!--l. 105--><p class="nopar" >
+</p><!--l. 675--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 677--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse158.html" >Up</a></td><td class="clinks"><a 
+href="manualse159.html" >Next</a></td><td class="clinks"><a 
+href="manualse157.html" >Prev</a></td><td class="clinks"><a 
+href="manualse157.html#tailmanualse157.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse158.html" >Front</a></td></tr></table><a 
+ id="tailmanualse158.html"></a> </p> 
+</body> 
+</html>

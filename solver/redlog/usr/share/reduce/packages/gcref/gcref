@@ -1,0 +1,25 @@
+#!/bin/sh
+if [ -z "$REDUCE" ] ; then
+    REDUCE=redcsl
+fi
+if [ "$1" == "--exported" ]; then
+    offgcrefall="off1 'gcrefall;"
+    shift
+else
+    offgcrefall=""
+fi
+for a in $*; do
+    echo "creating $(basename $a .red).tgf ... "
+    $REDUCE <<EOF | grep '[*+][*+][*+]'
+load_package gcref$
+$offgcrefall
+off raise;
+off lower;
+on gcref$
+in "$(basename $a .red).red"$
+out "$(basename $a .red).tgf"$
+off gcref$
+shut "$(basename $a .red).tgf"$
+bye$
+EOF
+done

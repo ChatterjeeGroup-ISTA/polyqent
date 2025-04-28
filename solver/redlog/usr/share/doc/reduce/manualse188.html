@@ -1,0 +1,117 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>XCOLOR: Color Factor in some Field Theories</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse188.html" >Up</a></td><td class="clinks"><a 
+href="manualse189.html" >Next</a></td><td class="clinks"><a 
+href="manualse187.html" >Prev</a></td><td class="clinks"><a 
+href="manualse187.html#tailmanualse187.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse188.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.63    </span> <a 
+ id="x280-128300020.63"></a>XCOLOR: Color Factor in some Field Theories</h3>
+<a 
+ id="dx280-1283001"></a>
+<a 
+ id="dx280-1283002"></a>
+<!--l. 1378--><p class="noindent" >This package calculates the color factor in non-abelian gauge ﬁeld theories using an
+algorithm due to Cvitanovich.
+</p><!--l. 1381--><p class="noindent" >Documentation for this package is in plain text.
+</p><!--l. 1383--><p class="noindent" >Author: A. Kryukov.
+</p><!--l. 3--><p class="noindent" >Program &#x0022;xCOLOR&#x0022; is intended for calculation the colour factor in non-abelian gauge
+ﬁeld theories. It is realized Cvitanovich algorithm <span class="cite">[<a 
+href="manualap2.html#XCvitanovic:76">Cvi76</a>]</span>. In comparison to the program
+&#x0022;COLOR&#x0022; <span class="cite">[<a 
+href="manualap2.html#XKryukov:88a">KR88</a>]</span> many improvements were made. The package was written
+in symbolic mode. This version is more than <span 
+class="cmr-10x-x-109">10 </span>times faster than the one in
+<span class="cite">[<a 
+href="manualap2.html#XKryukov:88a">KR88</a>]</span>.
+</p><!--l. 12--><p class="noindent" >After load the program by the following command     <span 
+class="pcrr8t-x-x-109">load xcolor</span>; <br 
+class="newline" />user can be able to use the next additional commands and operators.
+</p><!--l. 15--><p class="noindent" >
+</p>
+<h4 class="likesubsectionHead"><a 
+ id="x280-128400020.63"></a>Command SUdim.</h4>
+<!--l. 17--><p class="noindent" >Format: <span 
+class="pcrr8t-x-x-109">SUdim &#x003C;any expression&#x003E;</span>; <br 
+class="newline" />Set the order of SU group. <br 
+class="newline" />The default value is 3, i.e. SU(3).
+</p><!--l. 23--><p class="noindent" >
+</p>
+<h4 class="likesubsectionHead"><a 
+ id="x280-128500020.63"></a>Command SpTT.</h4>
+<!--l. 25--><p class="noindent" >Format: <span 
+class="pcrr8t-x-x-109">SpTT &#x003C;any expression&#x003E;</span>; <br 
+class="newline" />Set the normalization coeﬃcient A: Sp(TiTj) = A*Delta(i,j). Default value is
+1/2.
+                                                                     
+
+                                                                     
+</p><!--l. 30--><p class="noindent" >
+</p>
+<h4 class="likesubsectionHead"><a 
+ id="x280-128600020.63"></a>Operator QG.</h4>
+<!--l. 32--><p class="noindent" >Format: <span 
+class="pcrr8t-x-x-109">QG(inQuark,outQuark,Gluon)</span><br 
+class="newline" />Describe the quark-gluon vertex. Parameters may be any identiﬁers. First and second of
+then must be in- and out- quarks correspondently. Third one is a gluon.
+</p><!--l. 38--><p class="noindent" >
+</p>
+<h4 class="likesubsectionHead"><a 
+ id="x280-128700020.63"></a>Operator G3.</h4>
+<!--l. 40--><p class="noindent" >Format: <span 
+class="pcrr8t-x-x-109">G3(Gluon1,Gluon2,Gluon3)</span><br 
+class="newline" />Describe the three-gluon vertex. Parameters may be any identiﬁers. The order of gluons
+must be clock. <br 
+class="newline" />In terms of QG and G3 operators you input diagram in &#x0022;color&#x0022; space as a product of
+these operators. For example.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1431">
+ <br />
+ <br /> Diagram:                       REDUCE expression:
+ <br />
+ <br />            e1
+ <br />
+ <br />         ----&#x003E;---
+ <br />        /        \
+ <br />       |    e2    |
+ <br />     v1*..........*v2  &#x003C;===&#x003E;  QG(e3,e1,e2)*QG(e1,e3,e2)
+ <br />       |          |
+ <br />        \   e3   /
+ <br />         ----&#x003C;---
+ <br />
+ <br />
+ <br />Here: ---&#x003E;--- quark
+ <br />
+ <br />      ....... gluon
+ <br />
+</div>
+<!--l. 68--><p class="nopar" >
+</p><!--l. 70--><p class="noindent" >For more detail see <span class="cite">[<a 
+href="manualap2.html#XKryukov:88a">KR88</a>]</span>.
+</p><!--l. 1387--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 1389--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse188.html" >Up</a></td><td class="clinks"><a 
+href="manualse189.html" >Next</a></td><td class="clinks"><a 
+href="manualse187.html" >Prev</a></td><td class="clinks"><a 
+href="manualse187.html#tailmanualse187.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse188.html" >Front</a></td></tr></table><a 
+ id="tailmanualse188.html"></a>  </p> 
+</body> 
+</html>

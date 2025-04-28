@@ -1,0 +1,1539 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>CAMAL: Calculations in Celestial Mechanics</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse133.html" >Up</a></td><td class="clinks"><a 
+href="manualse134.html" >Next</a></td><td class="clinks"><a 
+href="manualse132.html" >Prev</a></td><td class="clinks"><a 
+href="manualse132.html#tailmanualse132.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse133.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.8    </span> <a 
+ id="x191-47200020.8"></a>CAMAL: Calculations in Celestial Mechanics</h3>
+<a 
+ id="dx191-472001"></a>
+<a 
+ id="dx191-472002"></a>
+<!--l. 201--><p class="noindent" >This packages implements in REDUCE the Fourier transform procedures of the CAMAL
+package for celestial mechanics.
+</p><!--l. 204--><p class="noindent" >Author: John P. Fitch.
+<a 
+ id="dx191-472003"></a>
+<a 
+ id="dx191-472004"></a>
+</p><!--l. 14--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">It is generally accepted that special purpose algebraic systems are more eﬃcient than</span>
+<span 
+class="ptmri8t-x-x-109">general purpose ones, but as machines get faster this does not matter. An experiment has</span>
+<span 
+class="ptmri8t-x-x-109">been performed to see if using the ideas of the special purpose algebra system</span>
+<span 
+class="ptmri8t-x-x-109">CAMAL(F) it is possible to make the general purpose system REDUCE perform</span>
+<span 
+class="ptmri8t-x-x-109">calculations in celestial mechanics as eﬃciently as CAMAL did twenty years</span>
+<span 
+class="ptmri8t-x-x-109">ago. To this end a prototype Fourier module is created for REDUCE, and it</span>
+<span 
+class="ptmri8t-x-x-109">is tested on some small and medium-sized problems taken from the CAMAL</span>
+<span 
+class="ptmri8t-x-x-109">test suite. The largest calculation is the determination of the Lunar Disturbing</span>
+<span 
+class="ptmri8t-x-x-109">Function to the sixth order. An assessment is made as to the progress, or lack of it,</span>
+<span 
+class="ptmri8t-x-x-109">which computer algebra has made, and how eﬃciently we are using modern</span>
+<span 
+class="ptmri8t-x-x-109">hardware.</span>
+</p><!--l. 17--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.8.1    </span> <a 
+ id="x191-47300020.8.1"></a>Introduction</h4>
+<!--l. 19--><p class="noindent" >A number of years ago there emerged the divide between general-purpose algebra
+systems and special purpose one. Here we investigate how far the improvements in
+software and more predominantly hardware have enabled the general systems to perform
+as well as the earlier special ones. It is similar in some respects to the Possion
+program for MACSYMA <span class="cite">[<a 
+href="manualap2.html#XFateman:74a">Fat74</a>]</span> which was written in response to a similar
+challenge.
+</p><!--l. 27--><p class="noindent" >The particular subject for investigation is the Fourier series manipulator which had its
+origins in the Cambridge University Institute for Theoretical Astronomy, and later
+became the F subsystem of CAMAL <span class="cite">[<a 
+href="manualap2.html#XBarton67b">Bar67a</a>, <a 
+href="manualap2.html#XCAMALF:83">Fit83</a>]</span>. In the late 1960s this system was
+used for both the Delaunay Lunar Theory <span class="cite">[<a 
+href="manualap2.html#XDelaunay:1860">Del86</a>, <a 
+href="manualap2.html#XBarton67a">Bar67b</a>]</span> and the Hill Lunar Theory
+                                                                     
+
+                                                                     
+<span class="cite">[<a 
+href="manualap2.html#XBourne:72">Bou72</a>]</span>, as well as other related calculations. Its particular area of application had a
+number of peculiar operations on which the general speed depended. These are outlined
+below in the section describing how CAMAL worked. There have been a number of
+subsequent special systems for celestial mechanics, but these tend to be restricted to the
+group of the originator.
+</p><!--l. 39--><p class="noindent" >The main body of the paper describes an experiment to create within the REDUCE
+system a sub-system for the eﬃcient manipulation of Fourier series. This prototype
+program is then assessed against both the normal (general) REDUCE and the extant
+CAMAL results. The tests are run on a number of small problems typical of those for
+which CAMAL was used, and one medium-sized problem, the calculation of the Lunar
+Disturbing Function. The mathematical background to this problem is also presented for
+completeness. It is important as a problem as it is the ﬁrst stage in the development of a
+Delaunay Lunar Theory.
+</p><!--l. 49--><p class="noindent" >The paper ends with an assessment of how close the performance of a modern REDUCE
+on modern equipment is to the (almost) defunct CAMAL of eighteen years
+ago.
+</p><!--l. 53--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.8.2    </span> <a 
+ id="x191-47400020.8.2"></a>How CAMAL Worked</h4>
+<!--l. 55--><p class="noindent" >The Cambridge Algebra System was initially written in assembler for the Titan
+computer, but later was rewritten a number of times, and matured in BCPL, a version
+which was ported to IBM mainframes and a number of microcomputers. In
+this section a brief review of the main data structures and special algorithms is
+presented.
+</p><!--l. 61--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x191-47500020.8.2"></a>CAMAL Data Structures</h5>
+<!--l. 63--><p class="noindent" >CAMAL is a hierarchical system, with the representation of polynomials being
+completely independent of the representations of the angular parts.
+</p><!--l. 67--><p class="noindent" >The angular part had to represent a polynomial coeﬃcient, either a sine or cosine
+function and a linear sum of angles. In the problems for which CAMAL was designed
+there are 6 angles only, and so the design restricted the number, initially to six on the 24
+bit-halfword TITAN, and later to eight angles on the 32-bit IBM 370, each
+with ﬁxed names (usually u through z). All that is needed is to remember the
+                                                                     
+
+                                                                     
+coeﬃcients of the linear sum. As typical problems are perturbations, it was reasonable
+to restrict the coeﬃcients to small integers, as could be represented in a byte
+with a guard bit. This allowed the representation to pack everything into four
+words.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-761">
+    [ NextTerm, Coefficient, Angles0-3, Angles4-7 ]
+</div>
+<!--l. 79--><p class="nopar" > The function was coded by a single bit in the <span 
+class="pcrr8t-x-x-109">Coefficient </span>ﬁeld. This gives a
+particularly compact representation. For example the Fourier term <span 
+class="cmr-10x-x-109">sin</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">u</span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">v </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">w </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">3</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span>
+would be represented as
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-762">
+    [ NULL, &#x0022;1&#x0022;|0x1, 0x017e017d, 0x00000000 ]
+ <br />or
+ <br />    [ NULL, &#x0022;1&#x0022;|0x1, 1:-2:1:-3, 0:0:0:0 ]
+</div>
+<!--l. 87--><p class="nopar" > where <span 
+class="pcrr8t-x-x-109">&#x0022;1&#x0022; </span>is a pointer to the representation of the polynomial 1. In all this representation
+of the term took 48 bytes. As the complexity of a term increased the store requirements
+to no grow much; the expression <span 
+class="cmr-10x-x-109">(7</span><span 
+class="cmmi-10x-x-109">∕</span><span 
+class="cmr-10x-x-109">4)</span><span 
+class="cmmi-10x-x-109">ae</span><sup><span 
+class="cmr-8">3</span></sup><span 
+class="cmmi-10x-x-109">f</span><sup><span 
+class="cmr-8">5</span></sup> <span 
+class="cmr-10x-x-109">cos</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">u </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">v </span><span 
+class="cmr-10x-x-109">+ 3</span><span 
+class="cmmi-10x-x-109">w </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">4</span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">+ 5</span><span 
+class="cmmi-10x-x-109">y </span><span 
+class="cmr-10x-x-109">+ 6</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) </span>also
+takes 48 bytes. There is a canonicalisation operation to ensure that the leading angle is
+positive, and <span 
+class="cmr-10x-x-109">sin</span><span 
+class="cmr-10x-x-109">(0) </span>gets removed. It should be noted that <span 
+class="cmr-10x-x-109">cos</span><span 
+class="cmr-10x-x-109">(0) </span>is a valid and necessary
+representation.
+</p><!--l. 96--><p class="noindent" >The polynomial part was similarly represented, as a chain of terms with packed
+exponents for a ﬁxed number of variables. There is no particular signiﬁcance in this
+except that the terms were held in <span 
+class="ptmri8t-x-x-109">increasing </span>total order, rather than the decreasing order
+which is normal in general purpose systems. This had a number of important eﬀects on
+the eﬃciency of polynomial multiplication in the presence of a truncation to a certain
+order. We will return to this point later. Full details of the representation can be found in
+<span class="cite">[<a 
+href="manualap2.html#XFitch:LN75">Fit75</a>]</span>.
+</p><!--l. 106--><p class="noindent" >The space administration system was based on explicit return rather than garbage
+collection. This meant that the system was sometimes harder to write, but it did mean
+that much attention was focussed on eﬃcient reuse of space. It was possible for the user
+to assist in this by marking when an expression was needed no longer, and the compiler
+then arranged to recycle the space as part of the actual operation. This degree of
+control was another assistance in running of large problems on relatively small
+machines.
+</p><!--l. 115--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x191-47600020.8.2"></a>Automatic Linearisation</h5>
+<!--l. 117--><p class="noindent" >In order to maintain Fourier series in a canonical form it is necessary to apply the
+transformations for linearising products of sine and cosines. These will be familiar to
+readers of the REDUCE test program as
+                                                                     
+
+                                                                     
+</p><table 
+class="align">
+                <tr><td 
+class="align-odd"> <span 
+class="cmr-10x-x-109">cos</span><span 
+class="cmmi-10x-x-109">𝜃</span> <span 
+class="cmr-10x-x-109">cos</span><span 
+class="cmmi-10x-x-109">ϕ</span></td>                <td 
+class="align-even"> <span 
+class="cmsy-10x-x-109">⇒ </span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmr-10x-x-109">cos</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">𝜃 </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">ϕ</span><span 
+class="cmr-10x-x-109">) +</span> <span 
+class="cmr-10x-x-109">cos</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">𝜃 </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">ϕ</span><span 
+class="cmr-10x-x-109">))</span><span 
+class="cmmi-10x-x-109">∕</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">,</span></td>                                <td 
+class="align-label"><a 
+ id="x191-476001r34"></a>(20.34)
+                </td></tr><tr><td 
+class="align-odd"> <span 
+class="cmr-10x-x-109">cos</span><span 
+class="cmmi-10x-x-109">𝜃</span> <span 
+class="cmr-10x-x-109">sin</span><span 
+class="cmmi-10x-x-109">ϕ</span></td>                <td 
+class="align-even"> <span 
+class="cmsy-10x-x-109">⇒ </span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmr-10x-x-109">sin</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">𝜃 </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">ϕ</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmsy-10x-x-109">−</span> <span 
+class="cmr-10x-x-109">sin</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">𝜃 </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">ϕ</span><span 
+class="cmr-10x-x-109">))</span><span 
+class="cmmi-10x-x-109">∕</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">,</span></td>                                <td 
+class="align-label"><a 
+ id="x191-476002r35"></a>(20.35)
+                </td></tr><tr><td 
+class="align-odd"> <span 
+class="cmr-10x-x-109">sin</span><span 
+class="cmmi-10x-x-109">𝜃</span> <span 
+class="cmr-10x-x-109">sin</span><span 
+class="cmmi-10x-x-109">ϕ</span></td>                <td 
+class="align-even"> <span 
+class="cmsy-10x-x-109">⇒ </span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmr-10x-x-109">cos</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">𝜃 </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">ϕ</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmsy-10x-x-109">−</span> <span 
+class="cmr-10x-x-109">cos</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">𝜃 </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">ϕ</span><span 
+class="cmr-10x-x-109">))</span><span 
+class="cmmi-10x-x-109">∕</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">,</span></td>                                <td 
+class="align-label"><a 
+ id="x191-476003r36"></a>(20.36)
+                </td></tr><tr><td 
+class="align-odd"> <span 
+class="cmr-10x-x-109">cos</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-10x-x-109">𝜃</span></td>                   <td 
+class="align-even"> <span 
+class="cmsy-10x-x-109">⇒ </span><span 
+class="cmr-10x-x-109">(1 +</span> <span 
+class="cmr-10x-x-109">cos</span><span 
+class="cmr-10x-x-109">(2</span><span 
+class="cmmi-10x-x-109">𝜃</span><span 
+class="cmr-10x-x-109">))</span><span 
+class="cmmi-10x-x-109">∕</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">,</span></td>                                          <td 
+class="align-label"><a 
+ id="x191-476004r37"></a>(20.37)
+                </td></tr><tr><td 
+class="align-odd"> <span 
+class="cmr-10x-x-109">sin</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-10x-x-109">𝜃</span></td>                    <td 
+class="align-even"> <span 
+class="cmsy-10x-x-109">⇒ </span><span 
+class="cmr-10x-x-109">(1 </span><span 
+class="cmsy-10x-x-109">−</span> <span 
+class="cmr-10x-x-109">cos</span><span 
+class="cmr-10x-x-109">(2</span><span 
+class="cmmi-10x-x-109">𝜃</span><span 
+class="cmr-10x-x-109">))</span><span 
+class="cmmi-10x-x-109">∕</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">.</span></td>                                          <td 
+class="align-label"><a 
+ id="x191-476005r38"></a>(20.38)                </td></tr></table>
+<!--l. 131--><p class="noindent" >In CAMAL these transformations are coded directly into the multiplication routines, and
+no action is necessary on the part of the user to invoke them. Of course they cannot be
+turned oﬀ either.
+</p><!--l. 135--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x191-47700020.8.2"></a>Diﬀerentiation and Integration</h5>
+<!--l. 137--><p class="noindent" >The diﬀerentiation of a Fourier series with respect to an angle is particularly simple. The
+integration of a Fourier series is a little more interesting. The terms like <span 
+class="cmr-10x-x-109">cos</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">nu </span><span 
+class="cmr-10x-x-109">+</span> <span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmr-10x-x-109">) </span>are
+easily integrated with respect to <span 
+class="cmmi-10x-x-109">u</span>, but the treatment of terms independent of the angle
+would normally introduce a secular term. By convention in Fourier series these
+secular terms are ignored, and the constant of integration is taken as just the terms
+independent of the angle in the integrand. This is equivalent to the substitution
+rules
+                                                                     
+
+                                                                     
+</p><table 
+class="align-star">
+                      <tr><td 
+class="align-odd"> <span 
+class="cmr-10x-x-109">sin</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n𝜃</span><span 
+class="cmr-10x-x-109">)</span></td>                       <td 
+class="align-even"> <span 
+class="cmsy-10x-x-109">⇒−</span><span 
+class="cmr-10x-x-109">(1</span><span 
+class="cmmi-10x-x-109">∕n</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmr-10x-x-109">cos</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n𝜃</span><span 
+class="cmr-10x-x-109">)</span></td>                      <td 
+class="align-label"></td>                      <td 
+class="align-label">
+                      </td></tr><tr><td 
+class="align-odd"><span 
+class="cmr-10x-x-109">cos</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n𝜃</span><span 
+class="cmr-10x-x-109">)</span></td>                      <td 
+class="align-even"> <span 
+class="cmsy-10x-x-109">⇒ </span><span 
+class="cmr-10x-x-109">(1</span><span 
+class="cmmi-10x-x-109">∕n</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmr-10x-x-109">sin</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n𝜃</span><span 
+class="cmr-10x-x-109">)</span></td>                        <td 
+class="align-label"></td>                      <td 
+class="align-label"></td></tr></table>
+<!--l. 150--><p class="noindent" >In CAMAL these operations were coded directly, and independently of the
+diﬀerentiation and integration of the polynomial coeﬃcients.
+</p><!--l. 153--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x191-47800020.8.2"></a>Harmonic Substitution</h5>
+<!--l. 155--><p class="noindent" >An operation which is of great importance in Fourier operations is the <span 
+class="ptmri8t-x-x-109">harmonic</span>
+<span 
+class="ptmri8t-x-x-109">substitution</span>. This is the substitution of the sum of some angles and a general
+expression for an angle. In order to preserve the format, the mechanism uses the
+translations
+</p><table 
+class="align-star">
+               <tr><td 
+class="align-odd"> <span 
+class="cmr-10x-x-109">sin</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">𝜃 </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">A</span><span 
+class="cmr-10x-x-109">)</span></td>               <td 
+class="align-even"> <span 
+class="cmsy-10x-x-109">⇒</span> <span 
+class="cmr-10x-x-109">sin</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">𝜃</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmr-10x-x-109">cos</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">A</span><span 
+class="cmr-10x-x-109">) +</span> <span 
+class="cmr-10x-x-109">cos</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">𝜃</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmr-10x-x-109">sin</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">A</span><span 
+class="cmr-10x-x-109">)</span></td>               <td 
+class="align-label"></td>               <td 
+class="align-label">
+               </td></tr><tr><td 
+class="align-odd"><span 
+class="cmr-10x-x-109">cos</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">𝜃 </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">A</span><span 
+class="cmr-10x-x-109">)</span></td>               <td 
+class="align-even"> <span 
+class="cmsy-10x-x-109">⇒</span> <span 
+class="cmr-10x-x-109">cos</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">𝜃</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmr-10x-x-109">cos</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">A</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmsy-10x-x-109">−</span> <span 
+class="cmr-10x-x-109">sin</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">𝜃</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmr-10x-x-109">sin</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">A</span><span 
+class="cmr-10x-x-109">)</span></td>               <td 
+class="align-label"></td>               <td 
+class="align-label">
+               </td></tr><tr><td 
+class="align-odd"></td>                         <td 
+class="align-even"></td>                                            <td 
+class="align-label">               </td></tr></table>
+                                                                     
+
+                                                                     
+<!--l. 165--><p class="noindent" >and then assuming that the value <span 
+class="cmmi-10x-x-109">A </span>is small it can be replaced by its expansion:
+</p><table 
+class="align-star">
+              <tr><td 
+class="align-odd"> <span 
+class="cmr-10x-x-109">sin</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">𝜃 </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">A</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmsy-10x-x-109">⇒</span></td>              <td 
+class="align-even"><span 
+class="cmr-10x-x-109">sin</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">𝜃</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmr-10x-x-109">1 </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">A</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-10x-x-109">∕</span><span 
+class="cmr-10x-x-109">2! + </span><span 
+class="cmmi-10x-x-109">A</span><sup><span 
+class="cmr-8">4</span></sup><span 
+class="cmmi-10x-x-109">∕</span><span 
+class="cmr-10x-x-109">4!</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmsy-10x-x-109">}</span><span 
+class="cmr-10x-x-109">+</span></td>              <td 
+class="align-label"></td>              <td 
+class="align-label">
+              </td></tr><tr><td 
+class="align-odd"></td>                          <td 
+class="align-even"><span 
+class="cmr-10x-x-109">cos</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">𝜃</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">A </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">A</span><sup><span 
+class="cmr-8">3</span></sup><span 
+class="cmmi-10x-x-109">∕</span><span 
+class="cmr-10x-x-109">3! + </span><span 
+class="cmmi-10x-x-109">A</span><sup><span 
+class="cmr-8">5</span></sup><span 
+class="cmmi-10x-x-109">∕</span><span 
+class="cmr-10x-x-109">5!</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmsy-10x-x-109">}</span></td>               <td 
+class="align-label"></td>              <td 
+class="align-label">
+              </td></tr><tr><td 
+class="align-odd"><span 
+class="cmr-10x-x-109">cos</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">𝜃 </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">A</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmsy-10x-x-109">⇒</span></td>              <td 
+class="align-even"><span 
+class="cmr-10x-x-109">cos</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">𝜃</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmr-10x-x-109">1 </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">A</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-10x-x-109">∕</span><span 
+class="cmr-10x-x-109">2! + </span><span 
+class="cmmi-10x-x-109">A</span><sup><span 
+class="cmr-8">4</span></sup><span 
+class="cmmi-10x-x-109">∕</span><span 
+class="cmr-10x-x-109">4!</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmsy-10x-x-109">}−</span></td>              <td 
+class="align-label"></td>              <td 
+class="align-label">
+              </td></tr><tr><td 
+class="align-odd"></td>                          <td 
+class="align-even"><span 
+class="cmr-10x-x-109">sin</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">𝜃</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">A </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">A</span><sup><span 
+class="cmr-8">3</span></sup><span 
+class="cmmi-10x-x-109">∕</span><span 
+class="cmr-10x-x-109">3! + </span><span 
+class="cmmi-10x-x-109">A</span><sup><span 
+class="cmr-8">5</span></sup><span 
+class="cmmi-10x-x-109">∕</span><span 
+class="cmr-10x-x-109">5!</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmsy-10x-x-109">}</span></td>               <td 
+class="align-label"></td>              <td 
+class="align-label">
+              </td></tr><tr><td 
+class="align-odd"></td>                          <td 
+class="align-even"></td>                                         <td 
+class="align-label">              </td></tr></table>
+<!--l. 173--><p class="noindent" >If a truncation is set for large powers of the polynomial variables then the series will
+terminate. In CAMAL the <span 
+class="pcrr8t-x-x-109">HSUB </span>operation took ﬁve arguments; the original expression,
+the angle for which there is a substitution, the new angular part, the expression part (<span 
+class="cmmi-10x-x-109">A </span>in
+the above), and the number of terms required.
+</p><!--l. 179--><p class="noindent" >The actual coding of the operation was not as expressed above, but by the use of Taylor’s
+theorem. As has been noted above the diﬀerentiation of a harmonic series is particularly
+easy.
+</p><!--l. 183--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x191-47900020.8.2"></a>Truncation of Series</h5>
+<!--l. 185--><p class="noindent" >The main use of Fourier series systems is in generating perturbation expansions, and this
+implies that the calculations are performed to some degree of the small quantities. In the
+original CAMAL all variables were assumed to be equally small (a restriction removed
+in later versions). By maintaining polynomials in increasing maximum order it is
+                                                                     
+
+                                                                     
+possible to truncate the multiplication of two polynomials. Assume that we are
+multiplying the two polynomials
+</p><table 
+class="align-star">
+                        <tr><td 
+class="align-odd"><span 
+class="cmmi-10x-x-109">A</span></td>                        <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmr-8">0</span></sub> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmr-8">2</span></sub> <span 
+class="cmr-10x-x-109">+</span> <span 
+class="cmmi-10x-x-109">…</span></td>                        <td 
+class="align-label"></td>                        <td 
+class="align-label">
+                        </td></tr><tr><td 
+class="align-odd"><span 
+class="cmmi-10x-x-109">B</span></td>                        <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">b</span><sub><span 
+class="cmr-8">0</span></sub> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">b</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">b</span><sub><span 
+class="cmr-8">2</span></sub> <span 
+class="cmr-10x-x-109">+</span> <span 
+class="cmmi-10x-x-109">…</span></td>                         <td 
+class="align-label"></td>                        <td 
+class="align-label"></td></tr></table>
+<!--l. 196--><p class="noindent" >If we are generating the partial answer
+</p>
+<table 
+class="equation-star"><tr><td>
+                         <span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">b</span><sub><span 
+class="cmr-8">0</span></sub> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">b</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">b</span><sub><span 
+class="cmr-8">2</span></sub> <span 
+class="cmr-10x-x-109">+</span> <span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmr-10x-x-109">)</span>
+</td></tr></table>
+<!--l. 199--><p class="nopar" >
+then if for some <span 
+class="cmmi-10x-x-109">j </span>the product <span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmmi-10x-x-109">b</span><sub><span 
+class="cmmi-8">j</span></sub> vanishes, then so will all products <span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmmi-10x-x-109">b</span><sub><span 
+class="cmmi-8">k</span></sub> for
+<span 
+class="cmmi-10x-x-109">k &#x003E; j</span>. This means that the later terms need not be generated. In the product of
+<span 
+class="cmr-10x-x-109">1 + </span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmr-8">3</span></sup> <span 
+class="cmr-10x-x-109">+</span> <span 
+class="cmmi-10x-x-109">…</span> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmr-8">10</span></sup> and <span 
+class="cmr-10x-x-109">1 + </span><span 
+class="cmmi-10x-x-109">y </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmr-8">3</span></sup> <span 
+class="cmr-10x-x-109">+</span> <span 
+class="cmmi-10x-x-109">…</span> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmr-8">10</span></sup> to a total order of 10 instead
+of generating 100 term products only 55 are needed. The ordering can also make the
+merging of the new terms into the answer easier.
+                                                                     
+
+                                                                     
+</p><!--l. 207--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.8.3    </span> <a 
+ id="x191-48000020.8.3"></a>Towards a CAMAL Module</h4>
+<!--l. 209--><p class="noindent" >For the purposes of this work it was necessary to reproduce as many of the ideas of
+CAMAL as feasible within the REDUCE framework and philosophy. It was not intended
+at this stage to produce a complete product, and so for simplicity a number of
+compromises were made with the “no restrictions” principle in REDUCE and the
+space and time eﬃciency of CAMAL. This section describes the basic design
+decisions.
+</p><!--l. 217--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x191-48100020.8.3"></a>Data Structures</h5>
+<!--l. 219--><p class="noindent" >In a fashion similar to CAMAL a two level data representation is used. The coeﬃcients
+are the standard quotients of REDUCE, and their representation need not concern us
+further. The angular part is similar to that of CAMAL, but the ability to pack angle
+multipliers and use a single bit for the function are not readily available in Standard LISP,
+so instead a longer vector is used. Two versions were written. One used a balanced tree
+rather than a linear list for the Fourier terms, this being a feature of CAMAL which
+was considered but never coded. The other uses a simple linear representation
+for sums. The angle multipliers are held in a separate vector in order to allow
+for future ﬂexibility. This leads to a representation as a vector of length 6 or
+4;
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-763">
+Version1:  [ BalanceBits, Coeff, Function, Angles,
+ <br />                 LeftTree, RightTree ]
+ <br />Version2:  [ Coeff, Function, Angles, Next ]
+</div>
+<!--l. 235--><p class="nopar" > where the <span 
+class="pcrr8t-x-x-109">Angles </span>ﬁeld is a vector of length 8, for the multipliers. It was decided to
+forego packing as for portability we do not know how many to pack into a small
+integer. The tree system used is AVL, which needs 2 bits to maintain balance
+information, but these are coded as a complete integer ﬁeld in the vector. We
+can expect the improvements implicit in a binary tree to be advantageous for
+large expressions, but the additional overhead may reduce its utility for smaller
+expressions.
+</p><!--l. 245--><p class="noindent" >A separate vector is kept relating the position of an angle to its print name, and on the
+property list of each angle the allocation of its position is kept. So long as the user
+declares which variables are to be treated as angles this mechanism gives ﬂexibility
+which was lacking in CAMAL.
+</p><!--l. 251--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x191-48200020.8.3"></a>Linearisation</h5>
+<!--l. 253--><p class="noindent" >As in the CAMAL system the linearisation of products of sines and cosines is done not
+by pattern matching but by direct calculation at the heart of the product function, where
+the transformations (1) through (3) are made in the product of terms function. A side
+eﬀect of this is that there are no simple relations which can be used from within the
+Fourier multiplication, and so a full addition of partial products is required.
+There is no need to apply linearisations elsewhere as a special case. Addition,
+diﬀerentiation and integration cannot generate such products, and where they can occur
+in substitution the natural algorithm uses the internal multiplication function
+anyway.
+</p><!--l. 265--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x191-48300020.8.3"></a>Substitution</h5>
+                                                                     
+
+                                                                     
+<!--l. 267--><p class="noindent" >Substitution is the main operation of Fourier series. It is useful to consider three diﬀerent
+cases of substitutions.
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   1. </dt><dd 
+class="enumerate-enumitem">Angle Expression for Angle:
+     </dd><dt class="enumerate-enumitem">
+   2. </dt><dd 
+class="enumerate-enumitem">Angle Expression + Fourier Expression for Angle:
+     </dd><dt class="enumerate-enumitem">
+   3. </dt><dd 
+class="enumerate-enumitem">Fourier Expression for Polynomial Variable.</dd></dl>
+<!--l. 275--><p class="noindent" >The ﬁrst of these is straightforward, and does not require any further comment. The
+second substitution requires a little more care, but is not signiﬁcantly diﬃcult to
+implement. The method follows the algorithm used in CAMAL, using TAYLOR series.
+Indeed this is the main special case for substitution.
+</p><!--l. 281--><p class="noindent" >The problem is the last case. Typically many variables used in a Fourier series program
+have had a WEIGHT assigned to them. This means that substitution must take account of
+any possible WEIGHTs for variables. The standard code in REDUCE does
+this in eﬀect by translating the expression to preﬁx form, and recalculating the
+value. A Fourier series has a large number of coeﬃcients, and so this operations
+are repeated rather too often. At present this is the largest problem area with
+the internal code, as will be seen in the discussion of the Disturbing Function
+calculation.
+</p><!--l. 291--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.8.4    </span> <a 
+ id="x191-48400020.8.4"></a>Integration with REDUCE</h4>
+<!--l. 293--><p class="noindent" >The Fourier module needs to be seen as part of REDUCE rather than as a separate
+language. This can be seen as having internal and external parts.
+</p><!--l. 297--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x191-48500020.8.4"></a>Internal Interface</h5>
+<!--l. 299--><p class="noindent" >The Fourier expressions need to co-exist with the normal REDUCE syntax and
+semantics. The prototype version does this by (ab)using the module method, based in
+part on the TPS code <span class="cite">[<a 
+href="manualap2.html#XPadget90">PB90</a>]</span>. Of course Fourier series are not constant, and so are not
+really domain elements. However by asserting that Fourier series form a ring of constants
+                                                                     
+
+                                                                     
+REDUCE can arrange to direct basic operations to the Fourier code for addition,
+subtraction, multiplication and the like.
+</p><!--l. 307--><p class="noindent" >The main interface which needs to be provided is a simpliﬁcation function for Fourier
+expressions. This needs to provide compilation for linear sums of angles, as well as
+constructing sine and cosine functions, and creating canonical forms.
+</p><!--l. 312--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x191-48600020.8.4"></a>User Interface</h5>
+<!--l. 314--><p class="noindent" >The creation of <span 
+class="pcrr8t-x-x-109">hdiff </span>and <span 
+class="pcrr8t-x-x-109">hint </span>functions for diﬀerentiation disguises this. An
+unsatisfactory aspect of the interface is that the tokens <span 
+class="pcrr8t-x-x-109">sin </span>and <span 
+class="pcrr8t-x-x-109">cos </span>are already in use.
+The prototype uses the operator form
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-764">
+        fourier sin(u)
+</div>
+<!--l. 320--><p class="nopar" > to introduce harmonically represented sine functions. An alternative of using the tokens
+<span 
+class="pcrr8t-x-x-109">f_sin </span>and <span 
+class="pcrr8t-x-x-109">f_cos </span>is also available.
+</p><!--l. 324--><p class="noindent" >It is necessary to declare the names of the angles, which is achieved with the
+declaration
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-765">
+        harmonic theta, phi;
+</div>
+<!--l. 328--><p class="nopar" >
+</p><!--l. 330--><p class="noindent" >At present there is no protection against using a variable as both an angle and a
+polynomial variable. This will nooed to be done in a user-oriented version.
+</p><!--l. 334--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.8.5    </span> <a 
+ id="x191-48700020.8.5"></a>The Simple Experiments</h4>
+<!--l. 336--><p class="noindent" >The REDUCE test ﬁle contains a simple example of a Fourier calculation, determining
+the value of <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">cos</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">wt</span><span 
+class="cmr-10x-x-109">) + </span><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmr-8">3</span></sub> <span 
+class="cmr-10x-x-109">cos</span><span 
+class="cmr-10x-x-109">(3</span><span 
+class="cmmi-10x-x-109">wt</span><span 
+class="cmr-10x-x-109">) + </span><span 
+class="cmmi-10x-x-109">b</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">sin</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">wt</span><span 
+class="cmr-10x-x-109">) + </span><span 
+class="cmmi-10x-x-109">b</span><sub><span 
+class="cmr-8">3</span></sub> <span 
+class="cmr-10x-x-109">sin</span><span 
+class="cmr-10x-x-109">(3</span><span 
+class="cmmi-10x-x-109">wt</span><span 
+class="cmr-10x-x-109">))</span><sup><span 
+class="cmr-8">3</span></sup>. For the
+purposes of this system this is too trivial to do more than conﬁrm the correct
+answers.
+</p><!--l. 342--><p class="noindent" >The simplest non-trivial calculation for a Fourier series manipulator is to solve Kepler’s
+equation for the eccentric anomoly E in terms of the mean anomoly u, and the
+eccentricity of an orbit e, considered as a small quantity
+</p>
+<table 
+class="equation-star"><tr><td>
+                           <span 
+class="cmmi-10x-x-109">E </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">u </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">e</span><span 
+class="cmr-10x-x-109">sin</span><span 
+class="cmmi-10x-x-109">E</span>
+</td></tr></table>
+<!--l. 348--><p class="nopar" >
+The solution procedes by repeated approximation. Clearly the initial approximation is
+<span 
+class="cmmi-10x-x-109">E</span><sub><span 
+class="cmr-8">0</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">u</span>. The <span 
+class="cmmi-10x-x-109">n</span><sup><span 
+class="cmmi-8">th</span></sup> approximation can be written as <span 
+class="cmmi-10x-x-109">u </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">A</span><sub><span 
+class="cmmi-8">n</span></sub>, and so <span 
+class="cmmi-10x-x-109">A</span><sub><span 
+class="cmmi-8">n</span></sub> can be calculated
+                                                                     
+
+                                                                     
+by
+</p>
+<table 
+class="equation-star"><tr><td>
+                         <span 
+class="cmmi-10x-x-109">A</span><sub><span 
+class="cmmi-8">k</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">e</span><span 
+class="cmr-10x-x-109">sin</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">u </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">A</span><sub><span 
+class="cmmi-8">k</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sub><span 
+class="cmr-10x-x-109">)</span>
+</td></tr></table>
+<!--l. 354--><p class="nopar" >
+This is of course precisely the case for which the HSUB operation is designed, and so in
+order to calculate <span 
+class="cmmi-10x-x-109">E</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">u </span>all one requires is the code
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-766">
+bige := fourier 0;
+ <br />for k:=1:n do &#x003C;&#x003C;
+ <br />  wtlevel k;
+ <br />  bige:=fourier e * hsub(fourier(sin u), u, u, bige, k);
+ <br />&#x003E;&#x003E;;
+ <br />write &#x0022;Kepler Eqn solution:&#x0022;, bige$
+</div>
+<!--l. 365--><p class="nopar" > It is possible to create a regular REDUCE program to simulate this (as is done for
+example in Barton and Fitch<span class="cite">[<a 
+href="manualap2.html#XBarton72">BF72</a>]</span>, page 254). Comparing these two programs
+indicates substantial advantages to the Fourier module, as could be expected.
+</p>
+<div class="center" 
+>
+<!--l. 371--><p class="noindent" >
+</p>
+<div class="tabular"> <table id="TBL-51" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-51-1g"><col 
+id="TBL-51-1" /></colgroup><colgroup id="TBL-51-2g"><col 
+id="TBL-51-2" /><col 
+id="TBL-51-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-51-1-"><td colspan="3" style="white-space:nowrap; text-align:center;" id="TBL-51-1-1"  
+class="td11">      <div class="multicolumn"  style="white-space:nowrap; text-align:center;"></div>      Solving Kepler’s Equation
+</td></tr><tr 
+class="hline"><td><hr /></td><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-51-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-51-2-1"  
+class="td11"> Order  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-51-2-2"  
+class="td11"> REDUCE  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-51-2-3"  
+class="td11"> Fourier Module  </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-51-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-51-3-1"  
+class="td11"> 5 </td><td  style="white-space:nowrap; text-align:left;" id="TBL-51-3-2"  
+class="td11"> 9.16 </td><td  style="white-space:nowrap; text-align:left;" id="TBL-51-3-3"  
+class="td11"> 2.48</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-51-4-"><td  style="white-space:nowrap; text-align:center;" id="TBL-51-4-1"  
+class="td11">  6      </td><td  style="white-space:nowrap; text-align:left;" id="TBL-51-4-2"  
+class="td11"> 17.40         </td><td  style="white-space:nowrap; text-align:left;" id="TBL-51-4-3"  
+class="td11"> 4.56                    </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-51-5-"><td  style="white-space:nowrap; text-align:center;" id="TBL-51-5-1"  
+class="td11"> 7 </td><td  style="white-space:nowrap; text-align:left;" id="TBL-51-5-2"  
+class="td11"> 33.48 </td><td  style="white-space:nowrap; text-align:left;" id="TBL-51-5-3"  
+class="td11"> 8.06</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-51-6-"><td  style="white-space:nowrap; text-align:center;" id="TBL-51-6-1"  
+class="td11">  8      </td><td  style="white-space:nowrap; text-align:left;" id="TBL-51-6-2"  
+class="td11"> 62.76         </td><td  style="white-space:nowrap; text-align:left;" id="TBL-51-6-3"  
+class="td11"> 13.54                  </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-51-7-"><td  style="white-space:nowrap; text-align:center;" id="TBL-51-7-1"  
+class="td11"> 9 </td><td  style="white-space:nowrap; text-align:left;" id="TBL-51-7-2"  
+class="td11"> 116.06 </td><td  style="white-space:nowrap; text-align:left;" id="TBL-51-7-3"  
+class="td11"> 21.84</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-51-8-"><td  style="white-space:nowrap; text-align:center;" id="TBL-51-8-1"  
+class="td11">  10     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-51-8-2"  
+class="td11"> 212.12       </td><td  style="white-space:nowrap; text-align:left;" id="TBL-51-8-3"  
+class="td11"> 34.54                  </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-51-9-"><td  style="white-space:nowrap; text-align:center;" id="TBL-51-9-1"  
+class="td11"> 11 </td><td  style="white-space:nowrap; text-align:left;" id="TBL-51-9-2"  
+class="td11"> 381.78 </td><td  style="white-space:nowrap; text-align:left;" id="TBL-51-9-3"  
+class="td11"> 53.94</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-51-10-"><td  style="white-space:nowrap; text-align:center;" id="TBL-51-10-1"  
+class="td11">  12     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-51-10-2"  
+class="td11"> 692.56       </td><td  style="white-space:nowrap; text-align:left;" id="TBL-51-10-3"  
+class="td11"> 82.96                  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-51-11-"><td  style="white-space:nowrap; text-align:center;" id="TBL-51-11-1"  
+class="td11">  13     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-51-11-2"  
+class="td11"> 1247.54     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-51-11-3"  
+class="td11"> 125.86                </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-51-12-"><td  style="white-space:nowrap; text-align:center;" id="TBL-51-12-1"  
+class="td11">  14     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-51-12-2"  
+class="td11"> 2298.08     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-51-12-3"  
+class="td11"> 187.20                </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-51-13-"><td  style="white-space:nowrap; text-align:center;" id="TBL-51-13-1"  
+class="td11">  15     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-51-13-2"  
+class="td11"> 4176.04     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-51-13-3"  
+class="td11"> 275.60                </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-51-14-"><td  style="white-space:nowrap; text-align:center;" id="TBL-51-14-1"  
+class="td11">  16     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-51-14-2"  
+class="td11"> 7504.80     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-51-14-3"  
+class="td11"> 398.62                </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-51-15-"><td  style="white-space:nowrap; text-align:center;" id="TBL-51-15-1"  
+class="td11">  17     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-51-15-2"  
+class="td11"> 13459.80   </td><td  style="white-space:nowrap; text-align:left;" id="TBL-51-15-3"  
+class="td11"> 569.26                </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-51-16-"><td  style="white-space:nowrap; text-align:center;" id="TBL-51-16-1"  
+class="td11">  18     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-51-16-2"  
+class="td11"> ***            </td><td  style="white-space:nowrap; text-align:left;" id="TBL-51-16-3"  
+class="td11"> 800.00                </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-51-17-"><td  style="white-space:nowrap; text-align:center;" id="TBL-51-17-1"  
+class="td11">  19     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-51-17-2"  
+class="td11"> ***            </td><td  style="white-space:nowrap; text-align:left;" id="TBL-51-17-3"  
+class="td11"> 1116.92              </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-51-18-"><td  style="white-space:nowrap; text-align:center;" id="TBL-51-18-1"  
+class="td11">  20     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-51-18-2"  
+class="td11"> ***            </td><td  style="white-space:nowrap; text-align:left;" id="TBL-51-18-3"  
+class="td11"> 1536.40              </td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-51-19-"><td  style="white-space:nowrap; text-align:center;" id="TBL-51-19-1"  
+class="td11">      </td>
+</tr></table></div></div>
+<!--l. 396--><p class="noindent" >These results were with the linear representation of Fourier series. The tree
+representation was slightly slower. The ten-fold speed-up for the 13th order is most
+satisfactory.
+</p><!--l. 400--><p class="noindent" >
+</p>
+                                                                     
+
+                                                                     
+<h4 class="subsectionHead"><span class="titlemark">20.8.6    </span> <a 
+ id="x191-48800020.8.6"></a>A Medium-Sized Problem</h4>
+<!--l. 402--><p class="noindent" >Fourier series manipulators are primarily designed for large-scale calculations, but for
+the demonstration purposes of this project a medium problem is considered. The ﬁrst
+stage in calculating the orbit of the Moon using the Delaunay theory (of perturbed elliptic
+motion for the restricted 3-body problem) is to calculate the energy of the Moon’s motion
+about the Earth — the Hamiltonian of the system. This is the calculation we use for
+comparisons.
+</p><!--l. 410--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x191-48900020.8.6"></a>Mathematical Background</h5>
+<!--l. 412--><p class="noindent" >The full calculation is described in detail in <span class="cite">[<a 
+href="manualap2.html#XBrown:1896">Bro96</a>]</span>, but a brief description is given here
+for completeness, and to grasp the extent of the calculation.
+</p><!--l. 416--><p class="noindent" >Referring to the ﬁgure 1 which gives the cordinate system, the basic equations
+are
+                                                                     
+
+                                                                     
+</p><table 
+class="align">
+       <tr><td 
+class="align-odd"><span 
+class="cmmi-10x-x-109">S</span></td>           <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= (1 </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">γ</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmr-10x-x-109">cos</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">f </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">g </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">h </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmsy-10x-x-109">′− </span><span 
+class="cmmi-10x-x-109">g</span><span 
+class="cmsy-10x-x-109">′− </span><span 
+class="cmmi-10x-x-109">h</span><span 
+class="cmsy-10x-x-109">′</span><span 
+class="cmr-10x-x-109">)</span></td>              <td 
+class="align-label"></td>       <td 
+class="align-label">
+       </td></tr><tr><td 
+class="align-odd"></td>            <td 
+class="align-even">       <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">γ</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">cos</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">f </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">g </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">h </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmsy-10x-x-109">′ </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">g</span><span 
+class="cmsy-10x-x-109">′ </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">h</span><span 
+class="cmsy-10x-x-109">′</span><span 
+class="cmr-10x-x-109">)</span></td>                       <td 
+class="align-label"><a 
+ id="x191-489001r39"></a>(20.39)
+       </td></tr><tr><td 
+class="align-odd"><span 
+class="cmmi-10x-x-109">r</span></td>           <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">a</span><span 
+class="cmr-10x-x-109">(1 </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">e</span><span 
+class="cmr-10x-x-109">cos</span><span 
+class="cmmi-10x-x-109">E</span><span 
+class="cmr-10x-x-109">)</span></td>                                          <td 
+class="align-label"><a 
+ id="x191-489002r40"></a>(20.40)
+       </td></tr><tr><td 
+class="align-odd"><span 
+class="cmmi-10x-x-109">l</span></td>           <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">E </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">e</span><span 
+class="cmr-10x-x-109">sin</span><span 
+class="cmmi-10x-x-109">E</span></td>                                             <td 
+class="align-label"><a 
+ id="x191-489003r41"></a>(20.41)
+       </td></tr><tr><td 
+class="align-odd"><span 
+class="cmmi-10x-x-109">a</span></td>           <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual127x.png" alt="rdE
+----
+ dl"  class="frac" align="middle" /></td>                                                  <td 
+class="align-label"><a 
+ id="x191-489004r42"></a>(20.42)
+       </td></tr><tr><td 
+class="align-odd"><img 
+src="manual128x.png" alt="r2df-
+ dl"  class="frac" align="middle" /></td>       <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">a</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmr-10x-x-109">(1 </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">e</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmr-10x-x-109">)</span><sup><img 
+src="manual129x.png" alt="12"  class="frac" align="middle" />
+   </sup></td>                                             <td 
+class="align-label"><a 
+ id="x191-489005r43"></a>(20.43)
+       </td></tr><tr><td 
+class="align-odd"><span 
+class="cmmi-10x-x-109">R</span></td>           <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">m</span><span 
+class="cmsy-10x-x-109">′</span><img 
+src="manual130x.png" alt="a2
+-′3
+a"  class="frac" align="middle" /><img 
+src="manual131x.png" alt="a′
+-′
+r"  class="frac" align="middle" /><img 
+src="manual132x.png" alt="{
+  (r )2( a′)2
+   --    -′   P2(S)
+   a     r"  class="left" align="middle" /></td>                     <td 
+class="align-label"></td>       <td 
+class="align-label">
+       </td></tr><tr><td 
+class="align-odd"></td>            <td 
+class="align-even">                  <span 
+class="cmr-10x-x-109">+ </span><img 
+src="manual133x.png" alt="(a )( r)3 ( a′)3           }
+ -′   --    -′  P3(S )+ ...
+ a    a     r"  class="left" align="middle" /></td>              <td 
+class="align-label"><a 
+ id="x191-489006r44"></a>(20.44)       </td></tr></table>
+<!--l. 436--><p class="noindent" >There are similar equations to (<a 
+href="#x191-489002r40">20.40<!--tex4ht:ref: eq:radial --></a>) to (<a 
+href="#x191-489005r43">20.43<!--tex4ht:ref: eq:calc-f --></a>) for the quantities <span 
+class="cmmi-10x-x-109">r</span><span 
+class="cmsy-10x-x-109">′</span>, <span 
+class="cmmi-10x-x-109">a</span><span 
+class="cmsy-10x-x-109">′</span>, <span 
+class="cmmi-10x-x-109">e</span><span 
+class="cmsy-10x-x-109">′</span>, <span 
+class="cmmi-10x-x-109">l</span><span 
+class="cmsy-10x-x-109">′</span>, <span 
+class="cmmi-10x-x-109">E</span><span 
+class="cmsy-10x-x-109">′ </span>and <span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmsy-10x-x-109">′</span>
+which refer to the position of the Sun rather than the Moon. The problem is to calculate
+the expression <span 
+class="cmmi-10x-x-109">R </span>as an expansion in terms of the quantities <span 
+class="cmmi-10x-x-109">e</span>, <span 
+class="cmmi-10x-x-109">e</span><span 
+class="cmsy-10x-x-109">′</span>, <span 
+class="cmmi-10x-x-109">γ</span>, <span 
+class="cmmi-10x-x-109">a∕a</span><span 
+class="cmsy-10x-x-109">′</span>, <span 
+class="cmmi-10x-x-109">l</span>, <span 
+class="cmmi-10x-x-109">g</span>, <span 
+class="cmmi-10x-x-109">h</span>, <span 
+class="cmmi-10x-x-109">l</span><span 
+class="cmsy-10x-x-109">′</span>, <span 
+class="cmmi-10x-x-109">g</span><span 
+class="cmsy-10x-x-109">′ </span>and
+<span 
+class="cmmi-10x-x-109">h</span><span 
+class="cmsy-10x-x-109">′</span>. The ﬁrst three quantities are small quantities of the ﬁrst order, and <span 
+class="cmmi-10x-x-109">a∕a</span><span 
+class="cmsy-10x-x-109">′ </span>is of second
+order.
+</p><!--l. 444--><p class="noindent" >The steps required are
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   1. </dt><dd 
+class="enumerate-enumitem">Solve the Kepler equation (<a 
+href="#x191-489003r41">20.41<!--tex4ht:ref: eq:Kepler --></a>)
+     </dd><dt class="enumerate-enumitem">
+   2. </dt><dd 
+class="enumerate-enumitem">Substitute into (<a 
+href="#x191-489002r40">20.40<!--tex4ht:ref: eq:radial --></a>) to give <span 
+class="cmmi-10x-x-109">r∕a </span>in terms of <span 
+class="cmmi-10x-x-109">e </span>and <span 
+class="cmmi-10x-x-109">l</span>.
+     </dd><dt class="enumerate-enumitem">
+   3. </dt><dd 
+class="enumerate-enumitem">Calculate <span 
+class="cmmi-10x-x-109">a∕r </span>from (<a 
+href="#x191-489004r42">20.42<!--tex4ht:ref: eq:calc-a --></a>) and <span 
+class="cmmi-10x-x-109">f </span>from (<a 
+href="#x191-489005r43">20.43<!--tex4ht:ref: eq:calc-f --></a>)
+     </dd><dt class="enumerate-enumitem">
+   4. </dt><dd 
+class="enumerate-enumitem">Substitute for <span 
+class="cmmi-10x-x-109">f </span>and <span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmsy-10x-x-109">′ </span>into <span 
+class="cmmi-10x-x-109">S </span>using (<a 
+href="#x191-489001r39">20.39<!--tex4ht:ref: eq:calc-S --></a>)
+     </dd><dt class="enumerate-enumitem">
+   5. </dt><dd 
+class="enumerate-enumitem">Calculate <span 
+class="cmmi-10x-x-109">R </span>from <span 
+class="cmmi-10x-x-109">S</span>, <span 
+class="cmmi-10x-x-109">a</span><span 
+class="cmsy-10x-x-109">′</span><span 
+class="cmmi-10x-x-109">∕r</span><span 
+class="cmsy-10x-x-109">′ </span>and <span 
+class="cmmi-10x-x-109">r∕a</span></dd></dl>
+                                                                     
+
+                                                                     
+<!--l. 453--><p class="noindent" >The program is given in the Appendix.
+</p><!--l. 455--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x191-49000020.8.6"></a>Results</h5>
+<!--l. 457--><p class="noindent" >The Lunar Disturbing function was calculated by a direct coding of the previous
+sections’ mathematics. The program was taken from Barton and Fitch <span class="cite">[<a 
+href="manualap2.html#XBarton72">BF72</a>]</span> with just
+small changes to generalise it for any order, and to make it acceptable for REDUCE 3.4.
+The Fourier program followed the same pattern, but obviously used the <span 
+class="pcrr8t-x-x-109">HSUB </span>operation
+as appropriate and the harmonic integration. It is very similar to the CAMAL program in
+<span class="cite">[<a 
+href="manualap2.html#XBarton72">BF72</a>]</span>.
+</p><!--l. 465--><p class="noindent" >The disturbing function was calculated to orders 2, 4 and 6 using Cambridge LISP on an
+HLH Orion 1/05 (Intergraph Clipper), with the three programs <span 
+class="cmmi-10x-x-109">α</span>) REDUCE 3.4, <span 
+class="cmmi-10x-x-109">β</span>)
+REDUCE 3.4 + Camal Linear Module and <span 
+class="cmmi-10x-x-109">γ</span>) REDUCE 3.4 + Camal AVL Module. The
+timings for CPU seconds (excluding garbage collection time) are summarised the
+following table: </p>
+<div class="center" 
+>
+<!--l. 472--><p class="noindent" >
+</p>
+<div class="tabular"> <table id="TBL-52" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-52-1g"><col 
+id="TBL-52-1" /></colgroup><colgroup id="TBL-52-2g"><col 
+id="TBL-52-2" /></colgroup><colgroup id="TBL-52-3g"><col 
+id="TBL-52-3" /></colgroup><colgroup id="TBL-52-4g"><col 
+id="TBL-52-4" /></colgroup><tr 
+class="hline"><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-52-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-52-1-1"  
+class="td11"> Order of DDF  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-52-1-2"  
+class="td11"> REDUCE  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-52-1-3"  
+class="td11"> Camal Linear  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-52-1-4"  
+class="td11"> Camal Tree  </td></tr><tr 
+class="hline"><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-52-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-52-2-1"  
+class="td11"> 2 </td><td  style="white-space:nowrap; text-align:left;" id="TBL-52-2-2"  
+class="td11"> 23.68 </td><td  style="white-space:nowrap; text-align:left;" id="TBL-52-2-3"  
+class="td11"> 11.22 </td><td  style="white-space:nowrap; text-align:left;" id="TBL-52-2-4"  
+class="td11"> 12.9</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-52-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-52-3-1"  
+class="td11">     4             </td><td  style="white-space:nowrap; text-align:left;" id="TBL-52-3-2"  
+class="td11"> 429.44       </td><td  style="white-space:nowrap; text-align:left;" id="TBL-52-3-3"  
+class="td11"> 213.56             </td><td  style="white-space:nowrap; text-align:left;" id="TBL-52-3-4"  
+class="td11"> 260.64          </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-52-4-"><td  style="white-space:nowrap; text-align:center;" id="TBL-52-4-1"  
+class="td11">     6             </td><td  style="white-space:nowrap; text-align:left;" id="TBL-52-4-2"  
+class="td11"> <span 
+class="cmmi-10x-x-109">&#x003E;</span>7500       </td><td  style="white-space:nowrap; text-align:left;" id="TBL-52-4-3"  
+class="td11"> 3084.62           </td><td  style="white-space:nowrap; text-align:left;" id="TBL-52-4-4"  
+class="td11"> 3445.54        </td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-52-5-"><td  style="white-space:nowrap; text-align:center;" id="TBL-52-5-1"  
+class="td11">            </td>
+</tr></table></div></div>
+<!--l. 487--><p class="noindent" >If these numbers are normalised so REDUCE calculating the DDF is 100 units for each
+order the table becomes </p>
+<div class="center" 
+>
+<!--l. 490--><p class="noindent" >
+</p>
+<div class="tabular"> <table id="TBL-53" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-53-1g"><col 
+id="TBL-53-1" /></colgroup><colgroup id="TBL-53-2g"><col 
+id="TBL-53-2" /></colgroup><colgroup id="TBL-53-3g"><col 
+id="TBL-53-3" /></colgroup><colgroup id="TBL-53-4g"><col 
+id="TBL-53-4" /></colgroup><tr 
+class="hline"><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-53-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-53-1-1"  
+class="td11"> Order of DDF  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-53-1-2"  
+class="td11"> REDUCE  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-53-1-3"  
+class="td11"> Camal Linear  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-53-1-4"  
+class="td11"> Camal Tree  </td></tr><tr 
+class="hline"><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-53-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-53-2-1"  
+class="td11"> 2 </td><td  style="white-space:nowrap; text-align:left;" id="TBL-53-2-2"  
+class="td11"> 100 </td><td  style="white-space:nowrap; text-align:left;" id="TBL-53-2-3"  
+class="td11"> 47.38 </td><td  style="white-space:nowrap; text-align:left;" id="TBL-53-2-4"  
+class="td11"> 54.48</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-53-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-53-3-1"  
+class="td11">     4             </td><td  style="white-space:nowrap; text-align:left;" id="TBL-53-3-2"  
+class="td11"> 100            </td><td  style="white-space:nowrap; text-align:left;" id="TBL-53-3-3"  
+class="td11"> 49.73               </td><td  style="white-space:nowrap; text-align:left;" id="TBL-53-3-4"  
+class="td11"> 60.69            </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-53-4-"><td  style="white-space:nowrap; text-align:center;" id="TBL-53-4-1"  
+class="td11">     6             </td><td  style="white-space:nowrap; text-align:left;" id="TBL-53-4-2"  
+class="td11"> 100            </td><td  style="white-space:nowrap; text-align:left;" id="TBL-53-4-3"  
+class="td11"> <span 
+class="cmmi-10x-x-109">&#x003C;</span>41.13            </td><td  style="white-space:nowrap; text-align:left;" id="TBL-53-4-4"  
+class="td11"> <span 
+class="cmmi-10x-x-109">&#x003C;</span>45.94         </td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-53-5-"><td  style="white-space:nowrap; text-align:center;" id="TBL-53-5-1"  
+class="td11">            </td>
+</tr></table></div></div>
+<!--l. 502--><p class="noindent" >From this we conclude that a doubling of speed is about correct, and although the
+                                                                     
+
+                                                                     
+balanced tree system is slower as the problem size increases the gap between it and the
+simpler linear system is narrowing.
+</p><!--l. 507--><p class="noindent" >It is disappointing that the ratio is not better, nor the absolute time less. It is worth noting
+in this context that Jeﬀerys claimed that the sixth order DDF took 30s on a CDC6600
+with TRIGMAN in 1970 <span class="cite">[<a 
+href="manualap2.html#XJefferys:70">Jef70</a>]</span>, and Barton and Fitch took about 1s for the second
+order DDF on TITAN with CAMAL <span class="cite">[<a 
+href="manualap2.html#XBarton72">BF72</a>]</span>. A closer look at the relative times for
+individual sections of the program shows that the substitution case of replacing a
+polynomial variable by a Fourier series is only marginally faster than the simple
+REDUCE program. In the DDF program this operation is only used once in a major
+form, substituting into the Legendre polynomials, which have been previously calculated
+by Rodrigues formula. This suggests that we replace this with the recurrence
+relationship.
+</p><!--l. 520--><p class="noindent" >Making this change actually slows down the normal REDUCE by a small amount but
+makes a signiﬁcant change to the Fourier module; it reduces the run time for the 6th
+order DDF from 3084.62s to 2002.02s. This gives some indication of the problems with
+benchmarks. What is clear is that the current implementation of substitution of a Fourier
+series for a polynomial variable is inadequate.
+</p><!--l. 527--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.8.7    </span> <a 
+ id="x191-49100020.8.7"></a>Conclusion</h4>
+<!--l. 529--><p class="noindent" >The Fourier module is far from complete. The operations necessary for the solution of
+Duﬃng’s and Hill’s equations are not yet written, although they should not cause much
+problem. The main deﬃciency is the treatment of series truncation; at present it relies on
+the REDUCE <span 
+class="pcrr8t-x-x-109">wtlevel </span>mechanism, and this seems too coarse for eﬃcient
+truncation. It would be possible to re-write the polynomial manipulator as well,
+while retaining the REDUCE syntax, but that seems rather more than one would
+hope.
+</p><!--l. 538--><p class="noindent" >The real failure so far is the large time lag between the REDUCE-based system on a
+modern workstation against a mainframe of 25 years ago running a special system. The
+CAMAL Disturbing function program could calculate the tenth order with a maximum
+of 32K words (about 192Kbytes) whereas this system failed to calculate the eigth order
+in 4Mbytes (taking 2000s before failing). I have in my archives the output from the
+standard CAMAL test suite, which includes a sixth order DDF on an IBM 370/165
+run on 2 June 1978, taking 22.50s and using a maximum of 15459 words of
+memory for heap — or about 62Kbytes. A rough estimate is that the Orion 1/05 is
+comparable in speed to the 360/165, but with more real memory and virtual
+memory.
+</p><!--l. 550--><p class="noindent" >However, a simple Fourier manipulator has been created for REDUCE which performs
+                                                                     
+
+                                                                     
+between twice and three times the speed of REDUCE using pattern matching. It has been
+shown that this system is capable of performing the calculations of celestial mechanics,
+but it still seriously lags behind the eﬃciency of the specialist systems of twenty years
+before. It is perhaps fortunate that it was not been possible to compare it with a modern
+specialist system.
+</p><!--l. 558--><p class="noindent" >There is still work to do to provide a convenient user interface, but it is intended to
+develop the system in this direction. It would be pleasant to have again a system of the
+eﬃciency of CAMAL(F).
+</p><!--l. 562--><p class="noindent" >I would like to thank Codemist Ltd for the provision of computing resources for this
+project, and David Barton who taught be so much about Fourier series and celstial
+mechanics. Thank are also due to the National Health Service, without whom this work
+and paper could not have been produced.
+</p><!--l. 568--><p class="noindent" >
+</p>
+<h4 class="likesubsectionHead"><a 
+ id="x191-49200020.8.7"></a>Appendix: The DDF Function</h4>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-767">
+array p(n/2+2);
+ <br />harmonic u,v,w,x,y,z;
+ <br />weight e=1, b=1, d=1, a=1;
+ <br />
+ <br />%% Generate Legendre Polynomials to sufficient order
+ <br />for i:=2:n/2+2 do &#x003C;&#x003C;
+ <br />  p(i):=(h*h-1)^i;
+ <br />  for j:=1:i do p(i):=df(p(i),h)/(2j)
+ <br />&#x003E;&#x003E;;
+ <br />
+ <br />%%%%%%%%%%%%%%%% Step1: Solve Kepler equation
+ <br />bige := fourier 0;
+ <br />for k:=1:n do &#x003C;&#x003C;
+ <br />  wtlevel k;
+ <br />  bige:=fourier e * hsub(fourier(sin u), u, u, bige, k);
+ <br />&#x003E;&#x003E;;
+ <br />
+ <br />%% Ensure we do not calculate things of
+ <br />%% too high an order
+ <br />wtlevel n;
+ <br />
+ <br />%%%%%%%%%%%%%%%% Step 2: Calculate r/a
+ <br />%%%%%%%%%%%%%%%%         in terms of e and l
+ <br />dd:=-e*e; hh:=3/2; j:=1; cc := 1;
+ <br />for i:=1:n/2 do &#x003C;&#x003C;
+ <br />  j:=i*j; hh:=hh-1; cc:=cc+hh*(dd^i)/j
+ <br />&#x003E;&#x003E;;
+ <br />bb:=hsub(fourier(1-e*cos u), u, u, bige, n);
+ <br />aa:=fourier 1+hdiff(bige,u);
+ <br />ff:=hint(aa*aa*fourier cc,u);
+ <br />
+ <br />%%%%%%%%%%%%%%%% Step 3: a/r and f
+ <br />uu := hsub(bb,u,v); uu:=hsub(uu,e,b);
+ <br />vv := hsub(aa,u,v); vv:=hsub(vv,e,b);
+ <br />ww := hsub(ff,u,v); ww:=hsub(ww,e,b);
+ <br />
+ <br />%%%%%%%%%%%%%%%% Step 4: Substitute f and f’ into S
+ <br />yy:=ff-ww; zz:=ff+ww;
+ <br />xx:=hsub(fourier((1-d*d)*cos(u)),u,u-v+w-x-y+z,yy,n)+
+                                                                     
+
+                                                                     
+ <br />    hsub(fourier(d*d*cos(v)),v,u+v+w+x+y-z,zz,n);
+ <br />
+ <br />%%%%%%%%%%%%%%%% Step 5: Calculate R
+ <br />zz:=bb*vv; yy:=zz*zz*vv;
+ <br />
+ <br />on fourier;
+ <br />for i := 2:n/2+2 do &#x003C;&#x003C;
+ <br />  wtlevel n+4-2i; p(i) := hsub(p(i), h, xx) &#x003E;&#x003E;;
+ <br />
+ <br />wtlevel n;
+ <br />for i:=n/2+2 step -1 until 3 do
+ <br />    p(n/2+2):=fourier(a*a)*zz*p(n/2+2)+p(i-1);
+ <br />yy*p(n/2+2);
+</div>
+<!--l. 622--><p class="nopar" >
+</p><!--l. 208--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 210--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse133.html" >Up</a></td><td class="clinks"><a 
+href="manualse134.html" >Next</a></td><td class="clinks"><a 
+href="manualse132.html" >Prev</a></td><td class="clinks"><a 
+href="manualse132.html#tailmanualse132.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse133.html" >Front</a></td></tr></table><a 
+ id="tailmanualse133.html"></a>  </p> 
+</body> 
+</html>

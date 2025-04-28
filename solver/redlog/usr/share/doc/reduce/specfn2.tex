@@ -1,0 +1,127 @@
+
+\index{Adamchik, Viktor}\index{People!Adamchik, Viktor}
+\index{Neun, Winfried}\index{People!Neun, Winfried}
+
+\hypertarget{SPECFNS2}{}
+
+The package SPECFN2 is designed to provide algebraic and numeric manipulations
+for some less commonly used special functions:
+\index{Hypergeometric functions}
+\begin{itemize}
+\item \hyperlink{operator:HYPERGEOMETRIC}{Hypergeometric function};
+\item \hyperlink{operator:MEIJERG}{Meijer's G function}.
+\end{itemize}
+
+These functions are from the non-core package SPECFN2, which
+needs to be loaded before use with the command:
+\begin{verbatim}
+        load_package specfn2;
+\end{verbatim}
+
+More information on the functions provided may be found on the website
+\href{https://dlmf.nist.gov/}{DLMF:NIST} although currently not all functions
+may conform to these standards.
+
+\index{Pochhammer symbol}
+\subsection{Hypergeometric Functions: Introduction}
+The (generalised) hypergeometric functions
+\[
+_pF_q \left( \genfrac{}{}{0pt}{}{a_1, \ldots , a_p}{b_1, \ldots ,b_q} \Bigg\vert z \right)
+\]
+are defined in textbooks on special functions as
+\[
+_pF_q \left( \genfrac{}{}{0pt}{}{a_1, \ldots , a_p}{b_1, \ldots ,b_q} \Bigg\vert z \right)
+  = \sum_{n=0}^{\infty}\frac{(a_{1})_{n}\dots(a_{p})_{n}}{(b_{1})_{n}\dots(b_{q})_{n}}\frac{z^{n}}{n!}
+\]
+where $(a)_{n}$ is the Pochhammer symbol
+\[
+ (a)_{n} = \prod_{k=0}^{n-1} (a+k).
+\]
+
+The function 
+\[
+G_{p q}^{m n} \left( z \  \Bigg\vert \  \genfrac{}{}{0pt}{}{(a_p)}{(b_q)} \right)
+\]
+has been studied by C.~S.~Meijer beginning in 1936 and has been
+called Meijer's G function later on. The complete definition of Meijer's
+G function can be found in \cite{Prudnikov:90c}.
+Many well-known functions can be written as G functions,
+e.g.\ exponentials, logarithms, trigonometric functions, Bessel functions
+and hypergeometric functions.
+
+Several hundreds of particular values can be found in \cite{Prudnikov:90c}.
+
+\hypertarget{operator:HYPERGEOMETRIC}{}
+\ttindex{hypergeometric}
+\subsection{The Hypergeometric Operator}
+
+The operator \f{hypergeometric} expects 3 arguments, namely the 
+list of upper parameters (which may be empty), the list of lower
+parameters (which may be empty too), and the argument, e.g.\ the input:
+\begin{verbatim}
+hypergeometric ({},{},z);
+\end{verbatim}
+yields the output
+\begin{verbatim}
+ z
+e
+\end{verbatim}
+and the input
+\begin{verbatim}
+hypergeometric ({1/2,1},{3/2},-x^2);
+\end{verbatim}
+gives
+\begin{verbatim}
+ atan(abs(x))
+--------------
+    abs(x)
+\end{verbatim}
+
+
+Since hundreds of particular cases for the generalised hypergeometric
+functions can be found in the literature, one cannot expect that all
+cases are known to the \f{hypergeometric} operator.
+Nevertheless the set of special cases can be augmented by adding
+rules to the \REDUCE{} system, e.g.
+\begin{verbatim}
+let {hypergeometric({1/2,1/2},{3/2},-(~x)^2)
+        => asinh(x)/x};
+\end{verbatim}
+
+\ttindex{MeijerG}
+\subsection{Meijer's G Function}
+\hypertarget{operator:MEIJERG}{}
+
+The operator \f{MeijerG} expects 3 arguments, namely the 
+list of upper parameters (which may be empty), the list of lower
+parameters (which may be empty too), and the argument.
+
+The first element of the lists has to be the list of the
+first $n$ or $m$ respective parameters, e.g.\ to describe 
+\[
+G_{1 1}^{1 0} \left( x \  \Bigg\vert \  \genfrac{}{}{0pt}{}{1}{0} \right)
+\]
+one has to write 
+\begin{verbatim}
+MeijerG({{},1},{{0}},x); % and the result is:
+
+ sign( - x + 1) + sign(x + 1)
+------------------------------
+              2
+\end{verbatim}
+and for
+\[
+G_{0 2}^{1 0} \left( \frac{x^2}{4} \  \Bigg\vert \ \genfrac{}{}{0pt}{}{}{{1+ \frac{1}{4} },
+{1-\frac{1}{4}}} \right)
+\]
+\begin{verbatim}
+MeijerG({{}},{{1+1/4},1-1/4},(x^2)/4) * sqrt pi;
+
+
+                    2                    2
+ sqrt(pi)*sqrt(-----------)*sin(abs(x))*x
+                abs(x)*pi
+-------------------------------------------
+                     4
+\end{verbatim}
+

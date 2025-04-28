@@ -1,0 +1,80 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>MKID Operator</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse39.html" >Up</a></td><td class="clinks"><a 
+href="manualse40.html" >Next</a></td><td class="clinks"><a 
+href="manualse38.html" >Prev</a></td><td class="clinks"><a 
+href="manualse38.html#tailmanualse38.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse39.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">7.12    </span> <a 
+ id="x50-950007.12"></a>MKID Operator</h3>
+<a 
+ id="dx50-95001"></a>
+<!--l. 1761--><p class="noindent" ><a 
+ id="operator:MKID"></a> In many applications, it is useful to create a set of identiﬁers for naming objects in a
+consistent manner. In most cases, it is suﬃcient to create such names from
+two components. The operator <span 
+class="pcrr8t-x-x-109">mkid </span>is provided for this purpose. Its syntax
+is:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-161">
+mkid(u:id,v:id|non-negative integer):id
+</div>
+<!--l. 1768--><p class="nopar" > for example
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-162">
+        mkid(a,3)      -&#x003E; a3
+ <br />        mkid(apple,s)  -&#x003E; apples
+</div>
+<!--l. 1773--><p class="nopar" > while <span 
+class="pcrr8t-x-x-109">mkid(a+b,2) </span>gives an error.
+</p><!--l. 1776--><p class="noindent" >The <span 
+class="pcrr8t-x-x-109">set</span><a 
+ id="dx50-95002"></a> statement can be used to give a value to the identiﬁers created by <span 
+class="pcrr8t-x-x-109">mkid</span>, for
+example
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-163">
+        set(mkid(a,3),3);
+</div>
+<!--l. 1780--><p class="nopar" > will give <span 
+class="pcrr8t-x-x-109">a3 </span>the value 2. Similarly, the <span 
+class="pcrr8t-x-x-109">unset</span><a 
+ id="dx50-95003"></a> statement can be used to remove the
+value from these identiﬁers, for example
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-164">
+        unset(mkid(a,3));
+</div>
+<!--l. 1786--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p><!--l. 1788--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse39.html" >Up</a></td><td class="clinks"><a 
+href="manualse40.html" >Next</a></td><td class="clinks"><a 
+href="manualse38.html" >Prev</a></td><td class="clinks"><a 
+href="manualse38.html#tailmanualse38.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse39.html" >Front</a></td></tr></table><a 
+ id="tailmanualse39.html"></a> </p> 
+</body> 
+</html>

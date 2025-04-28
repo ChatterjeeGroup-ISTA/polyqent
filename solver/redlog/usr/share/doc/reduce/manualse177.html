@@ -1,0 +1,3273 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>SPARSE: Sparse Matrix Calculations</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse177.html" >Up</a></td><td class="clinks"><a 
+href="manualse178.html" >Next</a></td><td class="clinks"><a 
+href="manualse176.html" >Prev</a></td><td class="clinks"><a 
+href="manualse176.html#tailmanualse176.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse177.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.52    </span> <a 
+ id="x263-114400020.52"></a>SPARSE: Sparse Matrix Calculations</h3>
+<a 
+ id="dx263-1144001"></a>
+<a 
+ id="dx263-1144002"></a>
+<!--l. 1114--><p class="noindent" >Author: Stephen Scowcroft
+<a 
+ id="dx263-1144003"></a>
+</p><!--l. 11--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.52.1    </span> <a 
+ id="x263-114500020.52.1"></a>Introduction</h4>
+<!--l. 12--><p class="noindent" >A very powerful feature of REDUCE is the ease with which matrix calculations
+can be performed. This package extends the available matrix feature to enable
+calculations with sparse matrices. This package also provides a selection of
+functions that are useful in the world of linear algebra with respect to sparse
+matrices.
+</p><!--l. 19--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x263-114600020.52.1"></a>Loading the Package</h5>
+<!--l. 20--><p class="noindent" >The package is loaded by: <span 
+class="pcrr8t-x-x-109">load_package sparse;</span>
+</p><!--l. 22--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.52.2    </span> <a 
+ id="x263-114700020.52.2"></a>Sparse Matrix Calculations</h4>
+<!--l. 23--><p class="noindent" >To extend the the syntax to this class of calculations we need to add an expression type
+<span 
+class="pcrr8t-x-x-109">sparse</span>.
+</p><!--l. 26--><p class="noindent" >
+                                                                     
+
+                                                                     
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.2.1    </span> <a 
+ id="x263-114800020.52.2.1"></a>Sparse Variables</h5>
+<!--l. 27--><p class="noindent" ><a 
+ id="command:SPARSE"></a> <a 
+ id="dx263-1148001"></a> An identiﬁer may be declared a sparse variable by the declaration <span 
+class="pcrr8t-x-x-109">SPARSE</span>. The size of
+the sparse matrix must be declared explicitly in the matrix declaration. For
+example,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1364">
+sparse aa(10,1),bb(200,200);
+</div>
+<!--l. 35--><p class="nopar" > declares <span 
+class="pcrr8t-x-x-109">aa </span>to be a 10 x 1 (column) sparse matrix and <span 
+class="pcrr8t-x-x-109">y </span>to be a 200 x 200 sparse matrix.
+The declaration <span 
+class="pcrr8t-x-x-109">sparse </span>is similar to the declaration <span 
+class="pcrr8t-x-x-109">matrix</span>. Once a symbol is
+declared to name a sparse matrix, it can not also be used to name an array, operator,
+procedure, or used as an ordinary variable. For more information see the Matrix
+Variables section (<a 
+href="manualse94.html#x121-22500014.2">14.2<!--tex4ht:ref: sec:core-matrix-variables --></a>).
+</p><!--l. 44--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.2.2    </span> <a 
+ id="x263-114900020.52.2.2"></a>Assigning Sparse Matrix Elements</h5>
+<!--l. 45--><p class="noindent" >Once a matix has been declared a sparse matrix all elements of the matrix are initialized
+to 0. Thus when a sparse matrix is initially referred to the message
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1365">
+&#x0022;Empty matrix&#x0022;
+</div>
+<!--l. 50--><p class="nopar" > is returned. When printing out a matrix only the non-zero elements are printed. This is
+due to the fact that only the non-zero elements of the matrix are stored. To assign the
+elements of the declared matrix we use the following syntax. Assuming <span 
+class="pcrr8t-x-x-109">aa </span>and <span 
+class="pcrr8t-x-x-109">bb </span>have
+been declared as spasre matrices, we simply write,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1366">
+aa(1,1):=10;
+ <br />bb(100,150):=a;
+</div>
+<!--l. 60--><p class="nopar" > etc. This then sets the element in the ﬁrst row and ﬁrst column to 10, or the element in
+the 100th row and 150th column to <span 
+class="pcrr8t-x-x-109">a</span>.
+</p><!--l. 64--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.2.3    </span> <a 
+ id="x263-115000020.52.2.3"></a>Evaluating Sparse Matrix Elements</h5>
+<!--l. 65--><p class="noindent" >Once an element of a sparse matrix has been assingned, it may be referred to in standard
+array element notation. Thus <span 
+class="pcrr8t-x-x-109">aa(2,1) </span>refers to the element in the second row and ﬁrst
+column of the sparse matrix <span 
+class="pcrr8t-x-x-109">aa</span>.
+</p><!--l. 69--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.52.3    </span> <a 
+ id="x263-115100020.52.3"></a>Sparse Matrix Expressions</h4>
+<!--l. 70--><p class="noindent" >These follow the normal rules of matrix algebra. Sums and products must be of
+compatible size; otherwise an error will result during evaluation. Similarly, only
+square matrices may be raised to a power. A negative power is computed as
+the inverse of the matrix raised to the corresponding positive power. For more
+information and the syntax for matrix algebra see the Matrix Expressions section
+(<a 
+href="manualse95.html#x122-22600014.3">14.3<!--tex4ht:ref: sec:core-matrix-expressions --></a>).
+</p><!--l. 77--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.52.4    </span> <a 
+ id="x263-115200020.52.4"></a>Operators with Sparse Matrix Arguments</h4>
+<!--l. 78--><p class="noindent" >The operators in the Sparse Matrix Package are the same as those in the Matrix Package
+with the exception that the <span 
+class="pcrr8t-x-x-109">nullspace </span>operator is not deﬁned. See section Operators
+with Matrix Arguments (<a 
+href="manualse96.html#x123-22700014.4">14.4<!--tex4ht:ref: sec:core-matrix-operators --></a>) for more details.
+                                                                     
+
+                                                                     
+</p><!--l. 83--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.4.1    </span> <a 
+ id="x263-115300020.52.4.1"></a>Examples</h5>
+<!--l. 84--><p class="noindent" >In the examples the matrix <span 
+class="cmsy-10x-x-109">𝒜𝒜</span> will be
+</p><!--l. 86--><p class="noindent" ><img 
+src="manual577x.png" alt="      (  1  0  0  0 )
+      |  0  3  0  0 |
+𝒜 𝒜 = |(             |)
+         0  0  5  0
+         0  0  0  9 "  class="math"  />
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1367">
+det aa;
+ <br />
+ <br />135
+ <br />
+ <br />trace aa;
+ <br />
+ <br />18
+ <br />
+ <br />rank aa;
+ <br />
+ <br />4
+ <br />
+ <br />spmateigen(aa,eta);
+ <br />
+ <br />{{eta - 1,1,
+ <br />
+ <br />  spm(1,1) := arbcomplex(1)$
+ <br />  },
+ <br />
+ <br /> {eta - 3,1,
+ <br />
+ <br />  spm(2,1) := arbcomplex(2)$
+ <br />  },
+ <br />
+ <br /> {eta - 5,1,
+ <br />
+ <br />  spm(3,1) := arbcomplex(3)$
+ <br />  },
+ <br />
+ <br /> {eta - 9,1,
+ <br />
+ <br />  spm(4,1) := arbcomplex(4)$
+ <br />  }}
+</div>
+<!--l. 126--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p><!--l. 128--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.52.5    </span> <a 
+ id="x263-115400020.52.5"></a>The Linear Algebra Package for Sparse Matrices</h4>
+<!--l. 129--><p class="noindent" >This package is an extension of the Linear Algebra Package for REDUCE described in
+section <a 
+href="manualse157.html#x225-91000020.32">20.32<!--tex4ht:ref: LINALG --></a>. These functions are described alphabetically in section <a 
+href="#x263-116100020.52.6">20.52.6<!--tex4ht:ref: sec:sparse-available-functions --></a>. They can
+be classiﬁed into four sections(n.b: the numbers after the dots signify the function label
+in section 6).
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.5.1    </span> <a 
+ id="x263-115500020.52.5.1"></a>Basic matrix handling</h5>
+<div class="center" 
+>
+<!--l. 136--><p class="noindent" >
+</p>
+<div class="tabular"> <table id="TBL-167" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-167-1g"><col 
+id="TBL-167-1" /><col 
+id="TBL-167-2" /><col 
+id="TBL-167-3" /><col 
+id="TBL-167-4" /><col 
+id="TBL-167-5" /><col 
+id="TBL-167-6" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-167-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-167-1-1"  
+class="td11"> spadd_columns         </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-1-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-1-3"  
+class="td11"> <a 
+href="#x263-116200020.52.6.1">20.52.6.1<!--tex4ht:ref: sparse:spadd_columns --></a>    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-1-4"  
+class="td11"> spadd_rows          </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-1-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-1-6"  
+class="td11"> <a 
+href="#x263-116300020.52.6.2">20.52.6.2<!--tex4ht:ref: sparse:spadd_rows --></a>    </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-167-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-167-2-1"  
+class="td11"> spadd_to_columns     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-2-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-2-3"  
+class="td11"> <a 
+href="#x263-116400020.52.6.3">20.52.6.3<!--tex4ht:ref: sparse:spadd_to_columns --></a>    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-2-4"  
+class="td11"> spadd_to_rows     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-2-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-2-6"  
+class="td11"> <a 
+href="#x263-116500020.52.6.4">20.52.6.4<!--tex4ht:ref: sparse:spadd_to_rows --></a>    </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-167-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-167-3-1"  
+class="td11"> spaugment_columns  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-3-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-3-3"  
+class="td11"> <a 
+href="#x263-116600020.52.6.5">20.52.6.5<!--tex4ht:ref: sparse:spaugment_columns --></a>    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-3-4"  
+class="td11"> spchar_poly         </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-3-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-3-6"  
+class="td11"> <a 
+href="#x263-117000020.52.6.9">20.52.6.9<!--tex4ht:ref: sparse:spchar_poly --></a>    </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-167-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-167-4-1"  
+class="td11"> spcol_dim                  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-4-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-4-3"  
+class="td11"> <a 
+href="#x263-117300020.52.6.12">20.52.6.12<!--tex4ht:ref: sparse:spcol_dim --></a>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-4-4"  
+class="td11"> spcopy_into         </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-4-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-4-6"  
+class="td11"> <a 
+href="#x263-117500020.52.6.14">20.52.6.14<!--tex4ht:ref: sparse:spcopy_into --></a>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-167-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-167-5-1"  
+class="td11"> spdiagonal                  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-5-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-5-3"  
+class="td11"> <a 
+href="#x263-117600020.52.6.15">20.52.6.15<!--tex4ht:ref: sparse:spdiagonal --></a>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-5-4"  
+class="td11"> spextend              </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-5-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-5-6"  
+class="td11"> <a 
+href="#x263-117700020.52.6.16">20.52.6.16<!--tex4ht:ref: sparse:spextend --></a>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-167-6-"><td  style="white-space:nowrap; text-align:left;" id="TBL-167-6-1"  
+class="td11"> spﬁnd_companion      </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-6-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-6-3"  
+class="td11"> <a 
+href="#x263-117800020.52.6.17">20.52.6.17<!--tex4ht:ref: sparse:spfind_companion --></a>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-6-4"  
+class="td11"> spget_columns     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-6-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-6-6"  
+class="td11"> <a 
+href="#x263-117900020.52.6.18">20.52.6.18<!--tex4ht:ref: sparse:spget_columns --></a>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-167-7-"><td  style="white-space:nowrap; text-align:left;" id="TBL-167-7-1"  
+class="td11"> spget_rows                 </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-7-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-7-3"  
+class="td11"> <a 
+href="#x263-118000020.52.6.19">20.52.6.19<!--tex4ht:ref: sparse:spget_rows --></a>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-7-4"  
+class="td11"> sphermitian_tp     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-7-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-7-6"  
+class="td11"> <a 
+href="#x263-118200020.52.6.21">20.52.6.21<!--tex4ht:ref: sparse:sphermitian_tp --></a>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-167-8-"><td  style="white-space:nowrap; text-align:left;" id="TBL-167-8-1"  
+class="td11"> spmatrix_augment     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-8-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-8-3"  
+class="td11"> <a 
+href="#x263-118800020.52.6.27">20.52.6.27<!--tex4ht:ref: sparse:spmatrix_augment --></a>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-8-4"  
+class="td11"> spmatrix_stack    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-8-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-8-6"  
+class="td11"> <a 
+href="#x263-119000020.52.6.29">20.52.6.29<!--tex4ht:ref: sparse:spmatrix_stack --></a>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-167-9-"><td  style="white-space:nowrap; text-align:left;" id="TBL-167-9-1"  
+class="td11"> spminor                      </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-9-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-9-3"  
+class="td11"> <a 
+href="#x263-119100020.52.6.30">20.52.6.30<!--tex4ht:ref: sparse:spminor --></a>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-9-4"  
+class="td11"> spmult_columns  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-9-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-9-6"  
+class="td11"> <a 
+href="#x263-119200020.52.6.31">20.52.6.31<!--tex4ht:ref: sparse:spmult_columns --></a>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-167-10-"><td  style="white-space:nowrap; text-align:left;" id="TBL-167-10-1"  
+class="td11"> spmult_rows               </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-10-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-10-3"  
+class="td11"> <a 
+href="#x263-119300020.52.6.32">20.52.6.32<!--tex4ht:ref: sparse:spmult_rows --></a>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-10-4"  
+class="td11"> sppivot                 </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-10-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-10-6"  
+class="td11"> <a 
+href="#x263-119400020.52.6.33">20.52.6.33<!--tex4ht:ref: sparse:sppivot --></a>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-167-11-"><td  style="white-space:nowrap; text-align:left;" id="TBL-167-11-1"  
+class="td11"> spremove_columns    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-11-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-11-3"  
+class="td11"> <a 
+href="#x263-119600020.52.6.35">20.52.6.35<!--tex4ht:ref: sparse:spremove_columns --></a>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-11-4"  
+class="td11"> spremove_rows    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-11-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-11-6"  
+class="td11"> <a 
+href="#x263-119700020.52.6.36">20.52.6.36<!--tex4ht:ref: sparse:spremove_rows --></a>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-167-12-"><td  style="white-space:nowrap; text-align:left;" id="TBL-167-12-1"  
+class="td11"> sprow_dim                 </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-12-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-12-3"  
+class="td11"> <a 
+href="#x263-119800020.52.6.37">20.52.6.37<!--tex4ht:ref: sparse:sprow_dim --></a>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-12-4"  
+class="td11"> sprows_pivot       </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-12-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-12-6"  
+class="td11"> <a 
+href="#x263-119900020.52.6.38">20.52.6.38<!--tex4ht:ref: sparse:sprows_pivot --></a>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-167-13-"><td  style="white-space:nowrap; text-align:left;" id="TBL-167-13-1"  
+class="td11"> spstack_rows              </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-13-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-13-3"  
+class="td11"> <a 
+href="#x263-120200020.52.6.41">20.52.6.41<!--tex4ht:ref: sparse:spstack_rows --></a>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-13-4"  
+class="td11"> spsub_matrix       </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-13-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-13-6"  
+class="td11"> <a 
+href="#x263-120300020.52.6.42">20.52.6.42<!--tex4ht:ref: sparse:spsub_matrix --></a>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-167-14-"><td  style="white-space:nowrap; text-align:left;" id="TBL-167-14-1"  
+class="td11"> spswap_columns        </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-14-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-14-3"  
+class="td11"> <a 
+href="#x263-120500020.52.6.44">20.52.6.44<!--tex4ht:ref: sparse:spswap_columns --></a>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-14-4"  
+class="td11"> spswap_entries    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-14-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-14-6"  
+class="td11"> <a 
+href="#x263-120600020.52.6.45">20.52.6.45<!--tex4ht:ref: sparse:spadd_entries --></a>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-167-15-"><td  style="white-space:nowrap; text-align:left;" id="TBL-167-15-1"  
+class="td11"> spswap_rows              </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-15-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-15-3"  
+class="td11"> <a 
+href="#x263-120700020.52.6.46">20.52.6.46<!--tex4ht:ref: sparse:spswap_rows --></a>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-167-15-4"  
+class="td11">             </td>
+</tr></table></div></div>
+<!--l. 170--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.5.2    </span> <a 
+ id="x263-115600020.52.5.2"></a>Constructors</h5>
+<!--l. 172--><p class="noindent" >Functions that create sparse matrices.
+</p>
+                                                                     
+
+                                                                     
+<div class="center" 
+>
+<!--l. 174--><p class="noindent" >
+</p>
+<div class="tabular"> <table id="TBL-168" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-168-1g"><col 
+id="TBL-168-1" /><col 
+id="TBL-168-2" /><col 
+id="TBL-168-3" /><col 
+id="TBL-168-4" /><col 
+id="TBL-168-5" /><col 
+id="TBL-168-6" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-168-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-168-1-1"  
+class="td11"> spband_matrix    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-168-1-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-168-1-3"  
+class="td11"> <a 
+href="#x263-116700020.52.6.6">20.52.6.6<!--tex4ht:ref: sparse:spband_matrix --></a>    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-168-1-4"  
+class="td11"> spblock_matrix  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-168-1-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-168-1-6"  
+class="td11"> <a 
+href="#x263-116800020.52.6.7">20.52.6.7<!--tex4ht:ref: sparse:spblock_matrix --></a>    </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-168-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-168-2-1"  
+class="td11"> spchar_matrix      </td><td  style="white-space:nowrap; text-align:left;" id="TBL-168-2-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-168-2-3"  
+class="td11"> <a 
+href="#x263-117200020.52.6.11">20.52.6.11<!--tex4ht:ref: sparse:spcoeff_matrix --></a>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-168-2-4"  
+class="td11"> spcoeﬀ_matrix   </td><td  style="white-space:nowrap; text-align:left;" id="TBL-168-2-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-168-2-6"  
+class="td11"> <a 
+href="#x263-117200020.52.6.11">20.52.6.11<!--tex4ht:ref: sparse:spcoeff_matrix --></a>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-168-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-168-3-1"  
+class="td11"> spcompanion       </td><td  style="white-space:nowrap; text-align:left;" id="TBL-168-3-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-168-3-3"  
+class="td11"> <a 
+href="#x263-117400020.52.6.13">20.52.6.13<!--tex4ht:ref: sparse:spcompanion --></a>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-168-3-4"  
+class="td11"> sphessian            </td><td  style="white-space:nowrap; text-align:left;" id="TBL-168-3-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-168-3-6"  
+class="td11"> <a 
+href="#x263-118300020.52.6.22">20.52.6.22<!--tex4ht:ref: sparse:sphessian --></a>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-168-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-168-4-1"  
+class="td11"> spjacobian           </td><td  style="white-space:nowrap; text-align:left;" id="TBL-168-4-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-168-4-3"  
+class="td11"> <a 
+href="#x263-118400020.52.6.23">20.52.6.23<!--tex4ht:ref: sparse:spjacobian --></a>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-168-4-4"  
+class="td11"> spjordan_block  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-168-4-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-168-4-6"  
+class="td11"> <a 
+href="#x263-118500020.52.6.24">20.52.6.24<!--tex4ht:ref: sparse:spjordan_block --></a>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-168-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-168-5-1"  
+class="td11"> spmake_identity  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-168-5-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-168-5-3"  
+class="td11"> <a 
+href="#x263-118700020.52.6.26">20.52.6.26<!--tex4ht:ref: sparse:spmake_identity --></a>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-168-5-4"  
+class="td11">            </td>
+</tr></table></div></div>
+<!--l. 188--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.5.3    </span> <a 
+ id="x263-115700020.52.5.3"></a>High level algorithms</h5>
+<div class="center" 
+>
+<!--l. 190--><p class="noindent" >
+</p>
+<div class="tabular"> <table id="TBL-169" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-169-1g"><col 
+id="TBL-169-1" /><col 
+id="TBL-169-2" /><col 
+id="TBL-169-3" /><col 
+id="TBL-169-4" /><col 
+id="TBL-169-5" /><col 
+id="TBL-169-6" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-169-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-169-1-1"  
+class="td11"> spchar_poly          </td><td  style="white-space:nowrap; text-align:left;" id="TBL-169-1-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-169-1-3"  
+class="td11"> <a 
+href="#x263-117000020.52.6.9">20.52.6.9<!--tex4ht:ref: sparse:spchar_poly --></a>    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-169-1-4"  
+class="td11"> spcholesky    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-169-1-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-169-1-6"  
+class="td11"> <a 
+href="#x263-117100020.52.6.10">20.52.6.10<!--tex4ht:ref: sparse:spcholesky --></a>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-169-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-169-2-1"  
+class="td11"> spgram_schmidt    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-169-2-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-169-2-3"  
+class="td11"> <a 
+href="#x263-118100020.52.6.20">20.52.6.20<!--tex4ht:ref: sparse:spgram_schmidt --></a>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-169-2-4"  
+class="td11"> splu_decom  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-169-2-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-169-2-6"  
+class="td11"> <a 
+href="#x263-118600020.52.6.25">20.52.6.25<!--tex4ht:ref: sparse:splu_decom --></a>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-169-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-169-3-1"  
+class="td11"> sppseudo_inverse  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-169-3-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-169-3-3"  
+class="td11"> <a 
+href="#x263-119500020.52.6.34">20.52.6.34<!--tex4ht:ref: sparse:sppseudo_inverse --></a>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-169-3-4"  
+class="td11"> spsvd            </td><td  style="white-space:nowrap; text-align:left;" id="TBL-169-3-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-169-3-6"  
+class="td11"> <a 
+href="#x263-120400020.52.6.43">20.52.6.43<!--tex4ht:ref: sparse:spsvd --></a>  </td>
+</tr></table></div></div>
+<!--l. 201--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.5.4    </span> <a 
+ id="x263-115800020.52.5.4"></a>Predicates</h5>
+<div class="center" 
+>
+<!--l. 203--><p class="noindent" >
+</p>
+<div class="tabular"> <table id="TBL-170" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-170-1g"><col 
+id="TBL-170-1" /><col 
+id="TBL-170-2" /><col 
+id="TBL-170-3" /><col 
+id="TBL-170-4" /><col 
+id="TBL-170-5" /><col 
+id="TBL-170-6" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-170-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-170-1-1"  
+class="td11"> matrixp  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-170-1-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-170-1-3"  
+class="td11"> <a 
+href="#x263-118900020.52.6.28">20.52.6.28<!--tex4ht:ref: sparse:matrixp --></a>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-170-1-4"  
+class="td11"> sparsematp   </td><td  style="white-space:nowrap; text-align:left;" id="TBL-170-1-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-170-1-6"  
+class="td11"> <a 
+href="#x263-120000020.52.6.39">20.52.6.39<!--tex4ht:ref: sparse:sparsematp --></a>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-170-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-170-2-1"  
+class="td11"> squarep   </td><td  style="white-space:nowrap; text-align:left;" id="TBL-170-2-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-170-2-3"  
+class="td11"> <a 
+href="#x263-120100020.52.6.40">20.52.6.40<!--tex4ht:ref: sparse:squarep --></a>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-170-2-4"  
+class="td11"> symmetricp  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-170-2-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-170-2-6"  
+class="td11"> <a 
+href="#x263-120800020.52.6.47">20.52.6.47<!--tex4ht:ref: sparse:symmetricp --></a>  </td>
+</tr></table>
+</div></div>
+                                                                     
+
+                                                                     
+<!--l. 212--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x263-115900020.52.5.4"></a>Note on examples:</h5>
+<!--l. 214--><p class="noindent" >In the examples the matrix <span 
+class="cmsy-10x-x-109">𝒜 </span>will be
+</p><!--l. 216--><p class="noindent" ><img 
+src="manual578x.png" alt="     ( 1 0  0)
+𝒜 =  ( 0 5  0)
+
+       0 0  9 "  class="math"  />
+</p><!--l. 220--><p class="noindent" >Unfortunately, due to restrictions of size, it is not practical to use “large” sparse matrices
+in the examples. As a result the examples shown may appear trivial, but they give an idea
+of how the functions work.
+</p><!--l. 225--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x263-116000020.52.5.4"></a>Notation</h5>
+<!--l. 227--><p class="noindent" >Throughout <span 
+class="cmsy-10x-x-109">ℐ </span>is used to indicate the identity matrix and <span 
+class="cmsy-10x-x-109">𝒜</span><sup><span 
+class="cmmi-8">T</span> </sup> to indicate the transpose of
+the matrix <span 
+class="cmsy-10x-x-109">𝒜</span>.
+</p><!--l. 230--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.52.6    </span> <a 
+ id="x263-116100020.52.6"></a>Available Functions</h4>
+<!--l. 233--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.1    </span> <a 
+ id="x263-116200020.52.6.1"></a>spadd_columns, spadd_rows</h5>
+<!--l. 235--><p class="noindent" ><a 
+ id="operator:SPADD_COLUMNS"></a> <a 
+ id="dx263-1162001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spadd_columns(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">,c1,c2,expr);</span>
+                                                                     
+
+                                                                     
+     <div class="tabular"><table id="TBL-171" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-171-1g"><col 
+id="TBL-171-1" /><col 
+id="TBL-171-2" /><col 
+id="TBL-171-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-171-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-171-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-171-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-171-1-3"  
+class="td11"> a sparse matrix.        </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-171-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-171-2-1"  
+class="td11"> <span 
+class="cmmi-10x-x-109">c</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,c</span><span 
+class="cmr-10x-x-109">2  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-171-2-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-171-2-3"  
+class="td11"> positive integers.      </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-171-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-171-3-1"  
+class="td11"> expr    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-171-3-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-171-3-3"  
+class="td11"> a scalar expression.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spadd_columns </span>replaces column <span 
+class="cmmi-10x-x-109">c</span><span 
+class="cmr-10x-x-109">2 </span>of <span 
+class="cmsy-10x-x-109">𝒜 </span>by<br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">expr</span><span 
+class="cmsy-10x-x-109">∗</span><span 
+class="pcrr8t-x-x-109">column(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">,c1)</span> <span 
+class="cmr-10x-x-109">+</span> <span 
+class="pcrr8t-x-x-109">column(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">,c2)</span>.<br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spadd_rows </span>performs the equivalent task on the rows of <span 
+class="cmsy-10x-x-109">𝒜</span>.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spadd_columns</span><img 
+src="manual579x.png" alt="            (        )
+              1  x  0
+(𝒜,1,2,x) = ( 0  5  0)
+              0  0  9 "  class="math"  /><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spadd_rows</span><img 
+src="manual580x.png" alt="           ( 1   0  0)
+(𝒜, 2,3,5) = ( 0  5  0)
+
+             0  25  9 "  class="math"  />
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spadd_to_columns</span>, <span 
+class="pcrr8t-x-x-109">spadd_to_rows</span>, <span 
+class="pcrr8t-x-x-109">spmult_columns</span>,<br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spmult_rows</span>.</dd></dl>
+<!--l. 264--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.2    </span> <a 
+ id="x263-116300020.52.6.2"></a>spadd_rows</h5>
+<!--l. 266--><p class="noindent" ><a 
+ id="operator:SPADD_ROWS"></a> <a 
+ id="dx263-1163001"></a>
+</p><!--l. 269--><p class="noindent" >See: <span 
+class="pcrr8t-x-x-109">spadd_columns</span>.
+</p><!--l. 272--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.3    </span> <a 
+ id="x263-116400020.52.6.3"></a>spadd_to_columns, spadd_to_rows</h5>
+<!--l. 274--><p class="noindent" ><a 
+ id="operator:SPADD_TO_COLUMNS"></a> <a 
+ id="dx263-1164001"></a>
+     </p><dl class="description"><dt class="description">
+                                                                     
+
+                                                                     
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spadd_to_columns(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">,column_list,expr);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-172" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-172-1g"><col 
+id="TBL-172-1" /><col 
+id="TBL-172-2" /><col 
+id="TBL-172-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-172-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-172-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜      </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-172-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-172-1-3"  
+class="td11"> a sparse matrix.                                                  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-172-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-172-2-1"  
+class="td11"> column_list  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-172-2-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-172-2-3"  
+class="td11"> a positive integer or a list of positive integers.  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-172-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-172-3-1"  
+class="td11"> expr              </td><td  style="white-space:nowrap; text-align:left;" id="TBL-172-3-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-172-3-3"  
+class="td11"> a scalar expression.                                            </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spadd_to_columns </span>adds expr to each column speciﬁed in column_list of
+     <span 
+class="cmsy-10x-x-109">𝒜</span>.
+     <!--l. 290--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">spadd_to_rows </span>performs the equivalent task on the rows of <span 
+class="cmsy-10x-x-109">𝒜</span>.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spadd_to_columns</span><img 
+src="manual581x.png" alt="                (11  10  0)
+                (         )
+(𝒜, {1,2},10) =  10  15  0
+                 10  10  9 "  class="math"  /><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spadd_to_rows</span><img 
+src="manual582x.png" alt="            (                 )
+               1     0      0
+(𝒜, 2,− x) = ( − x − x + 5 − x)
+               0     0      9 "  class="math"  />
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spadd_columns</span>, <span 
+class="pcrr8t-x-x-109">spadd_rows</span>, <span 
+class="pcrr8t-x-x-109">spmult_rows</span>, <span 
+class="pcrr8t-x-x-109">spmult_columns</span>.</dd></dl>
+<!--l. 304--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.4    </span> <a 
+ id="x263-116500020.52.6.4"></a>spadd_to_rows</h5>
+<!--l. 306--><p class="noindent" ><a 
+ id="operator:SPADD_TO_ROWS"></a> <a 
+ id="dx263-1165001"></a>
+</p><!--l. 309--><p class="noindent" >See: <span 
+class="pcrr8t-x-x-109">spadd_to_columns</span>.
+</p><!--l. 312--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.5    </span> <a 
+ id="x263-116600020.52.6.5"></a>spaugment_columns, spstack_rows</h5>
+<!--l. 314--><p class="noindent" ><a 
+ id="operator:SPAUGMENT_COLUMNS"></a> <a 
+ id="dx263-1166001"></a>
+                                                                     
+
+                                                                     
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spaugment_columns(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">,column_list);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-173" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-173-1g"><col 
+id="TBL-173-1" /><col 
+id="TBL-173-2" /><col 
+id="TBL-173-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-173-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-173-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜      </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-173-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-173-1-3"  
+class="td11"> a sparse matrix.                                                            </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-173-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-173-2-1"  
+class="td11"> column_list  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-173-2-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-173-2-3"  
+class="td11"> either a positive integer or a list of positive integers.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spaugment_columns </span>gets hold of the columns of <span 
+class="cmsy-10x-x-109">𝒜 </span>speciﬁed in column_list
+     and sticks them together.
+     <!--l. 330--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">spstack_rows </span>performs the same task on rows of <span 
+class="cmsy-10x-x-109">𝒜</span>.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spaugment_columns</span><img 
+src="manual583x.png" alt="            (     )
+              1  0
+(𝒜,{1,2}) = ( 0  5)
+              0  0 "  class="math"  /><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spstack_rows</span><img 
+src="manual584x.png" alt="            (        )
+(𝒜,{1,3} ) =  1  0  0
+              0  0  9 "  class="math"  />
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spget_columns</span>, <span 
+class="pcrr8t-x-x-109">spget_rows</span>, <span 
+class="pcrr8t-x-x-109">spsub_matrix</span>.</dd></dl>
+<!--l. 344--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.6    </span> <a 
+ id="x263-116700020.52.6.6"></a>spband_matrix</h5>
+<!--l. 346--><p class="noindent" ><a 
+ id="operator:SPBAND_MATRIX"></a> <a 
+ id="dx263-1167001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spband_matrix(expr_list,square_size);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-174" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-174-1g"><col 
+id="TBL-174-1" /><col 
+id="TBL-174-2" /><col 
+id="TBL-174-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-174-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-174-1-1"  
+class="td11"> expr_list      </td><td  style="white-space:nowrap; text-align:left;" id="TBL-174-1-2"  
+class="td11"> :-  </td><td  style="white-space:normal; text-align:left;" id="TBL-174-1-3"  
+class="td11"> <!--l. 354--><p class="noindent" >either  a  single  scalar  expression  or  a  list  of  an  odd
+  number of scalar expressions.                                          </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-174-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-174-2-1"  
+class="td11"> square_size  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-174-2-2"  
+class="td11"> :-  </td><td  style="white-space:normal; text-align:left;" id="TBL-174-2-3"  
+class="td11"> <!--l. 356--><p class="noindent" >a positive integer.                                                              </p></td></tr></table>
+     </div>
+     </dd><dt class="description">
+                                                                     
+
+                                                                     
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spband_matrix </span>creates a sparse square matrix of dimension square_size.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><span 
+class="pcrr8t-x-x-109">spband_matrix</span><img 
+src="manual585x.png" alt="              (y   z  0  0  0  0)
+              |x   y  z  0  0  0|
+              || 0  x  y  z  0  0||
+({x,y,z},6) = ||                 ||
+              |( 0  0  x  y  z  0|)
+                0  0  0  x  y  z
+                0  0  0  0  x  y "  class="math"  />
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spdiagonal</span>.</dd></dl>
+<!--l. 374--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.7    </span> <a 
+ id="x263-116800020.52.6.7"></a>spblock_matrix</h5>
+<!--l. 376--><p class="noindent" ><a 
+ id="operator:SPBLOCK_MATRIX"></a> <a 
+ id="dx263-1168001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spblock_matrix(r,c,matrix_list);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-175" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-175-1g"><col 
+id="TBL-175-1" /><col 
+id="TBL-175-2" /><col 
+id="TBL-175-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-175-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-175-1-1"  
+class="td11"> r,c               </td><td  style="white-space:nowrap; text-align:left;" id="TBL-175-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-175-1-3"  
+class="td11"> positive integers.                                                    </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-175-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-175-2-1"  
+class="td11"> matrix_list  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-175-2-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-175-2-3"  
+class="td11"> a list of matrices of either sparse or matrix type.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spblock_matrix </span>creates a sparse matrix that consists of r by c matrices ﬁlled
+     from the matrix_list row wise.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><img 
+src="manual586x.png" alt="     (    )      (  )      (     )
+      1  0         5        22  0
+ℬ =   0  1  ,𝒞 =   0 ,𝒟  =   0  0 "  class="math"  /><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spblock_matrix</span><img 
+src="manual587x.png" alt="                       (  1  0  5  22  0)
+                       |                |
+(2,3,{ℬ, 𝒞,𝒟,𝒟, 𝒞,ℬ }) = |( 0  1  0  0   0|)
+                         22  0  5  1   0
+                          0  0  0  0   1 "  class="math"  /></dd></dl>
+                                                                     
+
+                                                                     
+<!--l. 402--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.8    </span> <a 
+ id="x263-116900020.52.6.8"></a>spchar_matrix</h5>
+<!--l. 404--><p class="noindent" ><a 
+ id="operator:SPCHAR_MATRIX"></a> <a 
+ id="dx263-1169001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spchar_matrix(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="cmmi-10x-x-109">,λ</span><span 
+class="pcrr8t-x-x-109">);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-176" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-176-1g"><col 
+id="TBL-176-1" /><col 
+id="TBL-176-2" /><col 
+id="TBL-176-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-176-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-176-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜 </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-176-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-176-1-3"  
+class="td11"> a square sparse matrix.                   </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-176-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-176-2-1"  
+class="td11"> <span 
+class="cmmi-10x-x-109">λ   </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-176-2-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-176-2-3"  
+class="td11"> a symbol or algebraic expression.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spchar_matrix </span>creates the characteristic matrix <span 
+class="cmsy-10x-x-109">𝒞 </span>of <span 
+class="cmsy-10x-x-109">𝒜</span>.
+     <!--l. 419--><p class="noindent" >This is <span 
+class="cmsy-10x-x-109">𝒞 </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">λ </span><span 
+class="cmsy-10x-x-109">∗ℐ−𝒜</span>.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><span 
+class="pcrr8t-x-x-109">spchar_matrix</span><img 
+src="manual588x.png" alt="        (                   )
+          x − 1    0     0
+(𝒜,x ) = (  0    x− 5    0  )
+            0      0   x − 9 "  class="math"  />
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spchar_poly</span>.</dd></dl>
+<!--l. 429--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.9    </span> <a 
+ id="x263-117000020.52.6.9"></a>spchar_poly</h5>
+<!--l. 431--><p class="noindent" ><a 
+ id="operator:SPCHAR_POLY"></a> <a 
+ id="dx263-1170001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spchar_poly(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="cmmi-10x-x-109">,λ</span><span 
+class="pcrr8t-x-x-109">);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-177" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-177-1g"><col 
+id="TBL-177-1" /><col 
+id="TBL-177-2" /><col 
+id="TBL-177-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-177-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-177-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜 </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-177-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-177-1-3"  
+class="td11"> a sparse square matrix.                   </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-177-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-177-2-1"  
+class="td11"> <span 
+class="cmmi-10x-x-109">λ   </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-177-2-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-177-2-3"  
+class="td11"> a symbol or algebraic expression.  </td></tr></table>
+     </div>
+                                                                     
+
+                                                                     
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spchar_poly </span>ﬁnds the characteristic polynomial of <span 
+class="cmsy-10x-x-109">𝒜</span>.
+     <!--l. 446--><p class="noindent" >This is the determinant of <span 
+class="cmmi-10x-x-109">λ </span><span 
+class="cmsy-10x-x-109">∗ℐ−𝒜</span>.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spchar_poly(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="pcrr8t-x-x-109">) </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmr-8">3</span></sup> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">15 </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">59 </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">45</span>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spchar_matrix</span>.</dd></dl>
+<!--l. 455--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.10    </span> <a 
+ id="x263-117100020.52.6.10"></a>spcholesky</h5>
+<!--l. 457--><p class="noindent" ><a 
+ id="operator:SPCHOLESKY"></a> <a 
+ id="dx263-1171001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spcholesky(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-178" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-178-1g"><col 
+id="TBL-178-1" /><col 
+id="TBL-178-2" /><col 
+id="TBL-178-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-178-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-178-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜 </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-178-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-178-1-3"  
+class="td11"> a positive deﬁnite sparse matrix containing numeric entries.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spcholesky </span>computes the cholesky decomposition of <span 
+class="cmsy-10x-x-109">𝒜</span>.
+     <!--l. 470--><p class="noindent" >It returns {<span 
+class="cmsy-10x-x-109">ℒ</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">𝒰</span>} where <span 
+class="cmsy-10x-x-109">ℒ </span>is a lower matrix, <span 
+class="cmsy-10x-x-109">𝒰 </span>is an upper matrix, <br 
+class="newline" /><span 
+class="cmsy-10x-x-109">𝒜 </span><span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmsy-10x-x-109">ℒ𝒰</span>, and <span 
+class="cmsy-10x-x-109">𝒰 </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">ℒ</span><sup><span 
+class="cmmi-8">T</span> </sup>.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><img 
+src="manual589x.png" alt="     (        )
+     (1   0  0)
+ℱ  =   0  5  0
+       0  0  9 "  class="math"  /><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">cholesky</span><img 
+src="manual590x.png" alt="      ( (         )   (         ) )
+      {   1  √0- 0     1  √0-- 0  }
+(ℱ ) =  ( 0   5  0)  ,(0    5  0)
+      (   0   0  3     0   0   3  ) "  class="math"  />
+                                                                     
+
+                                                                     
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">splu_decom</span>.</dd></dl>
+<!--l. 486--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.11    </span> <a 
+ id="x263-117200020.52.6.11"></a>spcoeﬀ_matrix</h5>
+<!--l. 488--><p class="noindent" ><a 
+ id="operator:SPCOEFF_MATRIX"></a> <a 
+ id="dx263-1172001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spcoeff_matrix({lin_eqn</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="pcrr8t-x-x-109">,lin_eqn</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="pcrr8t-x-x-109">, </span><span 
+class="pcrr8t-x-x-109">…,lin_eqn</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="pcrr8t-x-x-109">});</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-179" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-179-1g"><col 
+id="TBL-179-1" /><col 
+id="TBL-179-2" /><col 
+id="TBL-179-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-179-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-179-1-1"  
+class="td11"> lin_eqn<sub><span 
+class="cmr-8">1</span></sub>,lin_eqn<sub><span 
+class="cmr-8">2</span></sub>, …,lin_eqn<sub><span 
+class="cmmi-8">n</span></sub>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-179-1-2"  
+class="td11"> :-  </td><td  style="white-space:normal; text-align:left;" id="TBL-179-1-3"  
+class="td11"> <!--l. 495--><p class="noindent" >linear  equations.  Can  be  of  the
+  form <span 
+class="ptmri8t-x-x-109">equation </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="ptmri8t-x-x-109">number </span>or just
+  <span 
+class="ptmri8t-x-x-109">equation  </span>which  is  equivalent  to
+  <span 
+class="ptmri8t-x-x-109">equation </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="ptmri8t-x-x-109">0</span>.                                 </p></td>
+</tr></table></div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spcoeff_matrix </span>creates the coeﬃcient matrix <span 
+class="cmsy-10x-x-109">𝒞 </span>of the linear equations.
+     <!--l. 504--><p class="noindent" >It returns {<span 
+class="cmsy-10x-x-109">𝒞</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">𝒳</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">ℬ</span>} such that <span 
+class="cmsy-10x-x-109">𝒞𝒳</span> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">ℬ</span>.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spcoeff_matrix</span><img 
+src="manual591x.png" alt="({y − 20 ∗ w = 10,y − z = 20,y + 4 + 3∗ z,w + x+ 50 }) = "  class="math"  /><br 
+class="newline" /> <img 
+src="manual592x.png" alt="( (               )  (  )  (    ) )
+||{   1  − 20  0   0     y      10  ||}
+  || 1   0   − 1  0|| ,|| w|| ,||  20||
+|| ( 1   0    3   0)  ( z)  ( − 4) ||
+(   0   1    0   1     x      50  ) "  class="math"  /></dd></dl>
+<!--l. 515--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.12    </span> <a 
+ id="x263-117300020.52.6.12"></a>spcol_dim, sprow_dim</h5>
+<!--l. 517--><p class="noindent" ><a 
+ id="operator:SPCOL_DIM"></a> <a 
+ id="dx263-1173001"></a>
+                                                                     
+
+                                                                     
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">column_dim(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-180" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-180-1g"><col 
+id="TBL-180-1" /><col 
+id="TBL-180-2" /><col 
+id="TBL-180-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-180-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-180-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜 </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-180-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-180-1-3"  
+class="td11"> a sparse matrix.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spcol_dim </span>ﬁnds the column dimension of <span 
+class="cmsy-10x-x-109">𝒜</span>. <br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">sprow_dim </span>ﬁnds the row dimension of <span 
+class="cmsy-10x-x-109">𝒜</span>.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spcol_dim</span>(<span 
+class="cmsy-10x-x-109">𝒜</span>) = 3</dd></dl>
+<!--l. 536--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.13    </span> <a 
+ id="x263-117400020.52.6.13"></a>spcompanion</h5>
+<!--l. 538--><p class="noindent" ><a 
+ id="operator:SPCOMPANION"></a> <a 
+ id="dx263-1174001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spcompanion(poly,x);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-181" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-181-1g"><col 
+id="TBL-181-1" /><col 
+id="TBL-181-2" /><col 
+id="TBL-181-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-181-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-181-1-1"  
+class="td11"> poly  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-181-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-181-1-3"  
+class="td11"> a monic univariate polynomial in x.  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-181-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-181-2-1"  
+class="td11"> x        </td><td  style="white-space:nowrap; text-align:left;" id="TBL-181-2-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-181-2-3"  
+class="td11"> the variable.                                       </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spcompanion </span>creates the companion matrix <span 
+class="cmsy-10x-x-109">𝒞 </span>of poly.
+     <!--l. 553--><p class="noindent" >This is the square matrix of dimension <span 
+class="cmmi-10x-x-109">n</span>, where <span 
+class="cmmi-10x-x-109">n </span>is the degree of poly w.r.t. <span 
+class="cmmi-10x-x-109">x</span>.
+     The entries of <span 
+class="cmsy-10x-x-109">𝒞 </span>are: <span 
+class="cmsy-10x-x-109">𝒞</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">i,n</span><span 
+class="cmr-10x-x-109">) = </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="pcrr8t-x-x-109">coeffn</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="pcrr8t-x-x-109">poly</span><span 
+class="cmmi-10x-x-109">,x,i </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1) </span>for <span 
+class="cmmi-10x-x-109">i </span><span 
+class="cmr-10x-x-109">= 1</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">n</span>,
+     <span 
+class="cmsy-10x-x-109">𝒞</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">i,i </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1) = 1 </span>for <span 
+class="cmmi-10x-x-109">i </span><span 
+class="cmr-10x-x-109">= 2</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">n </span>and the rest are <span 
+class="cmr-10x-x-109">0</span>.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spcompanion</span><img 
+src="manual593x.png" alt="                              ( 0  0  0  − 11)
+                              | 1  0  0   0 |
+(x4 + 17∗ x3 − 9 ∗x2 + 11,x) = |(            |)
+                                0  1  0   9
+                                0  0  1  − 17 "  class="math"  />
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spfind_companion</span>.</dd></dl>
+<!--l. 571--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.14    </span> <a 
+ id="x263-117500020.52.6.14"></a>spcopy_into</h5>
+<!--l. 573--><p class="noindent" ><a 
+ id="operator:SPCOPY_INTO"></a> <a 
+ id="dx263-1175001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spcopy_into(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">ℬ</span><span 
+class="pcrr8t-x-x-109">,r,c);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-182" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-182-1g"><col 
+id="TBL-182-1" /><col 
+id="TBL-182-2" /><col 
+id="TBL-182-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-182-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-182-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">ℬ</span> </td><td  style="white-space:nowrap; text-align:left;" id="TBL-182-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-182-1-3"  
+class="td11"> matrices of type sparse or matrix.  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-182-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-182-2-1"  
+class="td11"> r,c       </td><td  style="white-space:nowrap; text-align:left;" id="TBL-182-2-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-182-2-3"  
+class="td11"> positive integers.                             </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spcopy_into </span>copies matrix <span 
+class="cmsy-10x-x-109">𝒜 </span>into <span 
+class="cmsy-10x-x-109">ℬ </span>with <span 
+class="cmsy-10x-x-109">𝒜</span>(1,1) at <span 
+class="cmsy-10x-x-109">ℬ</span>(r,c).
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><img 
+src="manual594x.png" alt="     (          )
+      0  0  0  0
+𝒢 =  ||0  0  0  0||
+     (0  0  0  0)
+      0  0  0  0 "  class="math"  /><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spcopy_into</span><img 
+src="manual595x.png" alt="            ( 0  1  0  0)
+            | 0  0  5  0|
+(𝒜,𝒢,1,2) = |(           |)
+              0  0  0  9
+              0  0  0  0 "  class="math"  />
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spaugment_columns</span>, <span 
+class="pcrr8t-x-x-109">spextend</span>, <span 
+class="pcrr8t-x-x-109">spmatrix_augment</span>,<br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spmatrix_stack</span>, <span 
+class="pcrr8t-x-x-109">spstack_rows</span>, <span 
+class="pcrr8t-x-x-109">spsub_matrix</span>.</dd></dl>
+                                                                     
+
+                                                                     
+<!--l. 603--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.15    </span> <a 
+ id="x263-117600020.52.6.15"></a>spdiagonal</h5>
+<!--l. 605--><p class="noindent" ><a 
+ id="operator:SPDIAGONAL"></a> <a 
+ id="dx263-1176001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spdiagonal({mat</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="pcrr8t-x-x-109">,mat</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="pcrr8t-x-x-109">,</span>
+     <span 
+class="pcrr8t-x-x-109">…,mat</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="pcrr8t-x-x-109">});</span><span class="footnote-mark"><a 
+href="manual264.html#fn45x20"><sup class="textsuperscript">45</sup></a></span><a 
+ id="x263-1176002f45"></a> <br 
+class="newline" /> <!--tex4ht:inline--><div class="tabular"> <table id="TBL-183" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-183-1g"><col 
+id="TBL-183-1" /><col 
+id="TBL-183-2" /><col 
+id="TBL-183-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-183-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-183-1-1"  
+class="td11"> mat<sub><span 
+class="cmr-8">1</span></sub>,mat<sub><span 
+class="cmr-8">2</span></sub>, …,mat<sub><span 
+class="cmmi-8">n</span></sub>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-183-1-2"  
+class="td11"> :-  </td><td  style="white-space:normal; text-align:left;" id="TBL-183-1-3"  
+class="td11"> <!--l. 612--><p class="noindent" >each can be either a scalar expr or a square
+  matrix of sparse or matrix type.                      </p></td>
+</tr></table></div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spdiagonal </span>creates a sparse matrix that contains the input on the diagonal.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><img 
+src="manual596x.png" alt="     (       )
+ℋ  =   66  77
+       88  99 "  class="math"  /><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spdiagonal</span><img 
+src="manual597x.png" alt="            (                   )
+              1  0  0  0   0   0
+            || 0  5  0  0   0   0||
+            || 0  0  9  0   0   0||
+({𝒜, x,ℋ }) = | 0 0  0  x   0   0|
+            |( 0  0  0  0  66  77|)
+
+              0  0  0  0  88  99 "  class="math"  />
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spjordan_block</span>.</dd></dl>
+<!--l. 632--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.16    </span> <a 
+ id="x263-117700020.52.6.16"></a>spextend</h5>
+<!--l. 634--><p class="noindent" ><a 
+ id="operator:SPEXTEND"></a> <a 
+ id="dx263-1177001"></a>
+                                                                     
+
+                                                                     
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spextend(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">,r,c,expr);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-184" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-184-1g"><col 
+id="TBL-184-1" /><col 
+id="TBL-184-2" /><col 
+id="TBL-184-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-184-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-184-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-184-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-184-1-3"  
+class="td11"> a sparse matrix.                            </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-184-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-184-2-1"  
+class="td11"> r,c     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-184-2-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-184-2-3"  
+class="td11"> positive integers.                          </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-184-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-184-3-1"  
+class="td11"> expr  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-184-3-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-184-3-3"  
+class="td11"> algebraic expression or symbol.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spextend </span>returns a copy of <span 
+class="cmsy-10x-x-109">𝒜 </span>that has been extended by r rows and c columns.
+     The new entries are made equal to expr.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><span 
+class="pcrr8t-x-x-109">spextend</span><img 
+src="manual598x.png" alt="            (             )
+             1  0  0  0  0
+            ||0  5  0  0  0||
+(𝒜,1,2,0) = (0  0  9  0  0)
+             0  0  0  0  0 "  class="math"  />
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spcopy_into</span>, <span 
+class="pcrr8t-x-x-109">spmatrix_augment</span>, <span 
+class="pcrr8t-x-x-109">spmatrix_stack</span>,<br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spremove_columns</span>, <span 
+class="pcrr8t-x-x-109">spremove_rows</span>.
+     </dd></dl>
+<!--l. 665--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.17    </span> <a 
+ id="x263-117800020.52.6.17"></a>spﬁnd_companion</h5>
+<!--l. 667--><p class="noindent" ><a 
+ id="operator:SPFIND_COMPANION"></a> <a 
+ id="dx263-1178001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spfind_companion(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">,x);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-185" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-185-1g"><col 
+id="TBL-185-1" /><col 
+id="TBL-185-2" /><col 
+id="TBL-185-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-185-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-185-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜 </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-185-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-185-1-3"  
+class="td11"> a sparse matrix.  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-185-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-185-2-1"  
+class="td11"> x    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-185-2-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-185-2-3"  
+class="td11"> the variable.        </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" />Given a sparse companion matrix, <span 
+class="pcrr8t-x-x-109">spfind_companion </span>ﬁnds the polynomial
+     from which it was made.
+                                                                     
+
+                                                                     
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><img 
+src="manual599x.png" alt="    (              )
+      0  0  0  − 11
+𝒞 = || 1  0  0   0  ||
+    ( 0  1  0   9  )
+      0  0  1  − 17 "  class="math"  /><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spfind_companion</span><img 
+src="manual600x.png" alt="(𝒞,x) = x4 + 17 ∗x3 − 9 ∗x2 + 11 "  class="math"  />
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spcompanion</span>.</dd></dl>
+<!--l. 692--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.18    </span> <a 
+ id="x263-117900020.52.6.18"></a>spget_columns, spget_rows</h5>
+<!--l. 694--><p class="noindent" ><a 
+ id="operator:SPGET_COLUMNS"></a> <a 
+ id="dx263-1179001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spget_columns(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">,column_list);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-186" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-186-1g"><col 
+id="TBL-186-1" /><col 
+id="TBL-186-2" /><col 
+id="TBL-186-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-186-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-186-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜 </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-186-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-186-1-3"  
+class="td11"> a sparse matrix.                                                            </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-186-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-186-2-1"  
+class="td11"> c     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-186-2-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-186-2-3"  
+class="td11"> either a positive integer or a list of positive integers.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spget_columns </span>removes the columns of <span 
+class="cmsy-10x-x-109">𝒜 </span>speciﬁed in column_list and returns
+     them as a list of column matrices.
+     <!--l. 711--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">spget_rows </span>performs the same task on the rows of <span 
+class="cmsy-10x-x-109">𝒜</span>.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spget_columns</span><img 
+src="manual601x.png" alt="            ( (  )  (  ))
+            {   1    0  }
+(𝒜,{1,3}) = ( ( 0) ,(0 ))
+                0    9 "  class="math"  /><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spget_rows</span><img 
+src="manual602x.png" alt="        {(       )}
+(𝒜, 2) =   0  5  0 "  class="math"  />
+                                                                     
+
+                                                                     
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spaugment_columns</span>, <span 
+class="pcrr8t-x-x-109">spstack_rows</span>, <span 
+class="pcrr8t-x-x-109">spsub_matrix</span>.
+     </dd></dl>
+<!--l. 731--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.19    </span> <a 
+ id="x263-118000020.52.6.19"></a>spget_rows</h5>
+<!--l. 733--><p class="noindent" ><a 
+ id="operator:SPGET_ROWS"></a> <a 
+ id="dx263-1180001"></a> See: <span 
+class="pcrr8t-x-x-109">spget_columns</span>.
+</p><!--l. 738--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.20    </span> <a 
+ id="x263-118100020.52.6.20"></a>spgram_schmidt</h5>
+<!--l. 740--><p class="noindent" ><a 
+ id="operator:SPGRAM_SCHMIDT"></a> <a 
+ id="dx263-1181001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spgram_schmidt({vec</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="pcrr8t-x-x-109">,vec</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="pcrr8t-x-x-109">, </span><span 
+class="pcrr8t-x-x-109">…,vec</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="pcrr8t-x-x-109">});</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-187" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-187-1g"><col 
+id="TBL-187-1" /><col 
+id="TBL-187-2" /><col 
+id="TBL-187-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-187-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-187-1-1"  
+class="td11"> vec<sub><span 
+class="cmr-8">1</span></sub>,vec<sub><span 
+class="cmr-8">2</span></sub>, …,vec<sub><span 
+class="cmmi-8">n</span></sub>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-187-1-2"  
+class="td11"> :-  </td><td  style="white-space:normal; text-align:left;" id="TBL-187-1-3"  
+class="td11"> <!--l. 747--><p class="noindent" >linearly independent vectors. Each vector must
+  be   written   as   a   list   of   predeﬁned   sparse
+  (column) matrices, eg: sparse a(4,1);, a(1,1):=1;  </p></td>
+</tr></table></div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spgram_schmidt </span>performs the gram_schmidt orthonormalisation on the input
+     vectors.
+     <!--l. 756--><p class="noindent" >It returns a list of orthogonal normalised vectors.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" />Suppose a,b,c,d correspond to sparse matrices representing the following lists:
+     {{1,0,0,0},{1,1,0,0},{1,1,1,0},{1,1,1,1}}.
+     <!--l. 762--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">spgram_schmidt({{a},{b},{c},{d}}) </span>=<br 
+class="newline" />         {{1,0,0,0},{0,1,0,0},{0,0,1,0},{0,0,0,1}}
+                                                                     
+
+                                                                     
+</p>
+     </dd></dl>
+<!--l. 767--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.21    </span> <a 
+ id="x263-118200020.52.6.21"></a>sphermitian_tp</h5>
+<!--l. 769--><p class="noindent" ><a 
+ id="operator:SPHERMITIAN_TP"></a> <a 
+ id="dx263-1182001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">sphermitian_tp(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-188" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-188-1g"><col 
+id="TBL-188-1" /><col 
+id="TBL-188-2" /><col 
+id="TBL-188-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-188-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-188-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜 </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-188-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-188-1-3"  
+class="td11"> a sparse matrix.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">sphermitian_tp </span>computes the hermitian transpose of <span 
+class="cmsy-10x-x-109">𝒜</span>.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><img 
+src="manual603x.png" alt="     ( i+ 1  i+ 2  i+  3)
+𝒥  = (   0     0     0  )
+
+         0     i     0 "  class="math"  /><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">sphermitian_tp</span><img 
+src="manual604x.png" alt="      (              )
+        − i+ 1 0   0
+(𝒥 ) = ( − i+ 2 0  − i)
+        − i+ 3 0   0 "  class="math"  />
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">tp</span><span class="footnote-mark"><a 
+href="manual265.html#fn46x20"><sup class="textsuperscript">46</sup></a></span><a 
+ id="x263-1182002f46"></a> .</dd></dl>
+<!--l. 793--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.22    </span> <a 
+ id="x263-118300020.52.6.22"></a>sphessian</h5>
+                                                                     
+
+                                                                     
+<!--l. 795--><p class="noindent" ><a 
+ id="operator:SPHESSIAN"></a> <a 
+ id="dx263-1183001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">sphessian(expr,variable_list);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-189" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-189-1g"><col 
+id="TBL-189-1" /><col 
+id="TBL-189-2" /><col 
+id="TBL-189-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-189-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-189-1-1"  
+class="td11"> expr              </td><td  style="white-space:nowrap; text-align:left;" id="TBL-189-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-189-1-3"  
+class="td11"> a scalar expression.                                         </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-189-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-189-2-1"  
+class="td11"> variable_list  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-189-2-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-189-2-3"  
+class="td11"> either a single variable or a list of variables.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">sphessian </span>computes the hessian matrix of expr w.r.t. the variables in
+     variable_list.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description">    <span 
+class="pcrr8t-x-x-109">sphessian</span><img 
+src="manual605x.png" alt="                           (           )
+                             0  0  0  0
+            2              | 0  2  z  y|
+(x∗ y ∗ z + x ,{w,x,y,z}) = |( 0 z  0  x|)
+                             0  y  x  0 "  class="math"  /></dd></dl>
+<!--l. 818--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.23    </span> <a 
+ id="x263-118400020.52.6.23"></a>spjacobian</h5>
+<!--l. 820--><p class="noindent" ><a 
+ id="operator:SPJACOBIAN"></a> <a 
+ id="dx263-1184001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spjacobian(expr_list,variable_list);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-190" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-190-1g"><col 
+id="TBL-190-1" /><col 
+id="TBL-190-2" /><col 
+id="TBL-190-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-190-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-190-1-1"  
+class="td11"> expr_list       </td><td  style="white-space:nowrap; text-align:left;" id="TBL-190-1-2"  
+class="td11"> :-  </td><td  style="white-space:normal; text-align:left;" id="TBL-190-1-3"  
+class="td11"> <!--l. 827--><p class="noindent" >either a single algebraic expression or a list of algebraic
+  expressions.                                                                      </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-190-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-190-2-1"  
+class="td11"> variable_list  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-190-2-2"  
+class="td11"> :-  </td><td  style="white-space:normal; text-align:left;" id="TBL-190-2-3"  
+class="td11"> <!--l. 829--><p class="noindent" >either a single variable or a list of variables.                    </p></td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spjacobian </span>computes the jacobian matrix of expr_list w.r.t. variable_list.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spjacobian</span><img 
+src="manual606x.png" alt="({x4,x ∗y2,x ∗y ∗z3},{w, x,y,z}) = "  class="math"  /><br 
+class="newline" /> <img 
+src="manual607x.png" alt="( 0  4∗ x3     0          0     )
+( 0   y2    2∗ x∗ y       0     )
+         3       3             2
+  0  y ∗ z   x ∗z    3∗ x ∗y ∗z "  class="math"  />
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">sphessian</span>, <span 
+class="pcrr8t-x-x-109">df</span><span class="footnote-mark"><a 
+href="manual266.html#fn47x20"><sup class="textsuperscript">47</sup></a></span><a 
+ id="x263-1184002f47"></a> .</dd></dl>
+<!--l. 847--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.24    </span> <a 
+ id="x263-118500020.52.6.24"></a>spjordan_block</h5>
+<!--l. 849--><p class="noindent" ><a 
+ id="operator:SPJORDAN_BLOCK"></a> <a 
+ id="dx263-1185001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spjordan_block(expr,square_size);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-191" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-191-1g"><col 
+id="TBL-191-1" /><col 
+id="TBL-191-2" /><col 
+id="TBL-191-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-191-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-191-1-1"  
+class="td11"> expr             </td><td  style="white-space:nowrap; text-align:left;" id="TBL-191-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-191-1-3"  
+class="td11"> an algebraic expression or symbol.  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-191-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-191-2-1"  
+class="td11"> square_size  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-191-2-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-191-2-3"  
+class="td11"> a positive integer.                              </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spjordan_block </span>computes the square jordan block matrix <span 
+class="cmsy-10x-x-109">𝒥 </span>of dimension
+     square_size.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><span 
+class="pcrr8t-x-x-109">spjordan_block(x,5)</span><img 
+src="manual608x.png" alt="  (               )
+    x  1  0  0  0
+  || 0  x  1  0  0 ||
+= || 0  0  x  1  0 ||
+  ( 0  0  0  x  1 )
+    0  0  0  0  x "  class="math"  />
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spdiagonal</span>, <span 
+class="pcrr8t-x-x-109">spcompanion</span>.</dd></dl>
+<!--l. 874--><p class="noindent" >
+</p>
+                                                                     
+
+                                                                     
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.25    </span> <a 
+ id="x263-118600020.52.6.25"></a>splu_decom</h5>
+<!--l. 876--><p class="noindent" ><a 
+ id="operator:SPLU_DECOM"></a> <a 
+ id="dx263-1186001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">splu_decom(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-192" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-192-1g"><col 
+id="TBL-192-1" /><col 
+id="TBL-192-2" /><col 
+id="TBL-192-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-192-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-192-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜 </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-192-1-2"  
+class="td11"> :-  </td><td  style="white-space:normal; text-align:left;" id="TBL-192-1-3"  
+class="td11"> <!--l. 883--><p class="noindent" >a sparse matrix containing either numeric entries or imaginary
+  entries with numeric coeﬃcients.                                                    </p></td>
+</tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">splu_decom </span>performs LU decomposition on <span 
+class="cmsy-10x-x-109">𝒜</span>, ie: it returns {<span 
+class="cmsy-10x-x-109">ℒ</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">𝒰</span>}
+     where <span 
+class="cmsy-10x-x-109">ℒ </span>is a lower diagonal matrix, <span 
+class="cmsy-10x-x-109">𝒰 </span>an upper diagonal matrix and
+     <span 
+class="cmsy-10x-x-109">𝒜 </span><span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmsy-10x-x-109">ℒ𝒰</span>.
+     <!--l. 893--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Caution: </span>The algorithm used can swap the rows of <span 
+class="cmsy-10x-x-109">𝒜 </span>during the calculation. This
+     means that <span 
+class="cmsy-10x-x-109">ℒ𝒰</span> does not equal <span 
+class="cmsy-10x-x-109">𝒜 </span>but a row equivalent of it. Due to this,
+     <span 
+class="pcrr8t-x-x-109">splu_decom </span>returns {<span 
+class="cmsy-10x-x-109">ℒ</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">𝒰</span>,vec}. The call <span 
+class="pcrr8t-x-x-109">spconvert(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">,vec) </span>will return
+     the sparse matrix that has been decomposed, ie: <span 
+class="cmsy-10x-x-109">ℒ𝒰</span> <span 
+class="cmr-10x-x-109">= </span><span 
+class="pcrr8t-x-x-109">spconvert(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">,vec)</span>.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><img 
+src="manual609x.png" alt="    (        )
+      1  0  0
+𝒦 = ( 0  5  0)
+      0  0  9 "  class="math"  />
+     <!--l. 907--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">lu</span> <span 
+class="cmr-10x-x-109">:=</span> <span 
+class="pcrr8t-x-x-109">splu_decom</span><img 
+src="manual610x.png" alt="      ( (       )   (       )       )
+      {  1  0  0     1  0  0        }
+(𝒦) =   (0  5  0)  ,(0  1  0) ,[123]
+      (  0  0  9     0  0  1        ) "  class="math"  />
+     </p><!--l. 915--><p class="noindent" ><img 
+src="manual611x.png" alt="                            (        )
+                              1  0  0
+first   lu  * second   lu = ( 0  5  0)
+                              0  0  9 "  class="math"  /><br 
+class="newline" /><img 
+src="manual612x.png" alt="                          (        )
+                            1  0  0
+convert  (𝒦,third   lu ) = ( 0 5  0)
+                            0  0  9 "  class="math"  />
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spcholesky</span>.</dd></dl>
+<!--l. 924--><p class="noindent" >
+                                                                     
+
+                                                                     
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.26    </span> <a 
+ id="x263-118700020.52.6.26"></a>spmake_identity</h5>
+<!--l. 926--><p class="noindent" ><a 
+ id="operator:SPMAKE_IDENTITY"></a> <a 
+ id="dx263-1187001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spmake_identity(square_size);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-193" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-193-1g"><col 
+id="TBL-193-1" /><col 
+id="TBL-193-2" /><col 
+id="TBL-193-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-193-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-193-1-1"  
+class="td11"> square_size  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-193-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-193-1-3"  
+class="td11"> a positive integer.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spmake_identity </span>creates the identity matrix of dimension square_size.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><span 
+class="pcrr8t-x-x-109">spmake_identity</span><img 
+src="manual613x.png" alt="      (           )
+        1  0  0  0
+      | 0  1  0  0|
+(4) = |( 0  0  1  0|)
+        0  0  0  1 "  class="math"  />
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spdiagonal</span>.</dd></dl>
+<!--l. 950--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.27    </span> <a 
+ id="x263-118800020.52.6.27"></a>spmatrix_augment, spmatrix_stack</h5>
+<!--l. 952--><p class="noindent" ><a 
+ id="operator:SPMATRIX_AUGMENT"></a> <a 
+ id="dx263-1188001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spmatrix_augment({mat</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="pcrr8t-x-x-109">,mat</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="pcrr8t-x-x-109">,</span>
+     <span 
+class="pcrr8t-x-x-109">…,mat</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="pcrr8t-x-x-109">});</span><span class="footnote-mark"><a 
+href="manual267.html#fn48x20"><sup class="textsuperscript">48</sup></a></span><a 
+ id="x263-1188002f48"></a> <br 
+class="newline" /> <!--tex4ht:inline--><div class="tabular"> <table id="TBL-194" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-194-1g"><col 
+id="TBL-194-1" /><col 
+id="TBL-194-2" /><col 
+id="TBL-194-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-194-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-194-1-1"  
+class="td11"> mat<sub><span 
+class="cmr-8">1</span></sub>,mat<sub><span 
+class="cmr-8">2</span></sub>, …,mat<sub><span 
+class="cmmi-8">n</span></sub>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-194-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-194-1-3"  
+class="td11"> matrices.  </td></tr></table>
+     </div>
+                                                                     
+
+                                                                     
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spmatrix_augment </span>joins the matrices in matrix_list together horizontally.
+     <!--l. 966--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">spmatrix_stack </span>joins the matrices in matrix_list together vertically.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spmatrix_augment</span><img 
+src="manual614x.png" alt="           (                 )
+             1  0  0  1  0  0
+({𝒜, 𝒜 }) = ( 0 5  0  0  5  0)
+             0  0  9  0  0  9 "  class="math"  /><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spmatrix_stack</span><img 
+src="manual615x.png" alt="          (        )
+            1  0  0
+          || 0  5  0||
+({𝒜, 𝒜 }) = || 0 0  9||
+          || 1  0  0||
+          ( 0  5  0)
+            0  0  9 "  class="math"  />
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spaugment_columns</span>, <span 
+class="pcrr8t-x-x-109">spstack_rows</span>, <span 
+class="pcrr8t-x-x-109">spsub_matrix</span>.</dd></dl>
+<!--l. 984--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.28    </span> <a 
+ id="x263-118900020.52.6.28"></a>matrixp</h5>
+<a 
+ id="dx263-1189001"></a>
+     <dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">matrixp(test_input);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-195" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-195-1g"><col 
+id="TBL-195-1" /><col 
+id="TBL-195-2" /><col 
+id="TBL-195-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-195-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-195-1-1"  
+class="td11"> test_input  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-195-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-195-1-3"  
+class="td11"> anything you like.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">matrixp </span>is a boolean function that returns t if the input is a matrix of type sparse
+     or matrix and nil otherwise.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">matrixp</span>(<span 
+class="cmsy-10x-x-109">𝒜</span>) = t
+                                                                     
+
+                                                                     
+     <!--l. 1002--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">matrixp</span>(doodlesackbanana) = nil
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">squarep</span>, <span 
+class="pcrr8t-x-x-109">symmetricp</span>, <span 
+class="pcrr8t-x-x-109">sparsematp</span>.</dd></dl>
+<!--l. 1008--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.29    </span> <a 
+ id="x263-119000020.52.6.29"></a>spmatrix_stack</h5>
+<!--l. 1010--><p class="noindent" ><a 
+ id="operator:SPMATRIX_STACK"></a> <a 
+ id="dx263-1190001"></a> See: <span 
+class="pcrr8t-x-x-109">spmatrix_augment</span>.
+</p><!--l. 1015--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.30    </span> <a 
+ id="x263-119100020.52.6.30"></a>spminor</h5>
+<!--l. 1017--><p class="noindent" ><a 
+ id="operator:SPMINOR"></a> <a 
+ id="dx263-1191001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spminor(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">,r,c);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-196" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-196-1g"><col 
+id="TBL-196-1" /><col 
+id="TBL-196-2" /><col 
+id="TBL-196-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-196-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-196-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜 </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-196-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-196-1-3"  
+class="td11"> a sparse matrix.    </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-196-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-196-2-1"  
+class="td11"> r,c  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-196-2-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-196-2-3"  
+class="td11"> positive integers.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spminor </span>computes the (r,c)’th minor of <span 
+class="cmsy-10x-x-109">𝒜</span>.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><span 
+class="pcrr8t-x-x-109">spminor</span><img 
+src="manual616x.png" alt="          (     )
+            0  5
+(𝒜, 1,3) =  0  0 "  class="math"  />
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spremove_columns</span>, <span 
+class="pcrr8t-x-x-109">spremove_rows</span>.</dd></dl>
+                                                                     
+
+                                                                     
+<!--l. 1039--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.31    </span> <a 
+ id="x263-119200020.52.6.31"></a>spmult_columns, spmult_rows</h5>
+<!--l. 1041--><p class="noindent" ><a 
+ id="operator:SPMULT_COLUMNS"></a> <a 
+ id="dx263-1192001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spmult_columns(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">,column_list,expr);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-197" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-197-1g"><col 
+id="TBL-197-1" /><col 
+id="TBL-197-2" /><col 
+id="TBL-197-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-197-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-197-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜      </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-197-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-197-1-3"  
+class="td11"> a sparse matrix.                                                  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-197-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-197-2-1"  
+class="td11"> column_list  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-197-2-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-197-2-3"  
+class="td11"> a positive integer or a list of positive integers.  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-197-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-197-3-1"  
+class="td11"> expr              </td><td  style="white-space:nowrap; text-align:left;" id="TBL-197-3-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-197-3-3"  
+class="td11"> an algebraic expression.                                    </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spmult_columns </span>returns a copy of <span 
+class="cmsy-10x-x-109">𝒜 </span>in which the columns speciﬁed in
+     column_list have been multiplied by expr.
+     <!--l. 1058--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">spmult_rows </span>performs the same task on the rows of <span 
+class="cmsy-10x-x-109">𝒜</span>.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spmult_columns</span><img 
+src="manual617x.png" alt="              (           )
+                x  0    0
+(𝒜,{1,3},x ) = ( 0 5    0 )
+                0  0  9 ∗x "  class="math"  /><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spmult_rows</span><img 
+src="manual618x.png" alt="           ( 1  0   0)
+           (         )
+(𝒜,2,10) =   0  50  0
+             0  0   9 "  class="math"  />
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spadd_to_columns</span>, <span 
+class="pcrr8t-x-x-109">spadd_to_rows</span>.</dd></dl>
+<!--l. 1070--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.32    </span> <a 
+ id="x263-119300020.52.6.32"></a>spmult_rows</h5>
+<!--l. 1072--><p class="noindent" ><a 
+ id="operator:SPMULT_ROWS"></a> <a 
+ id="dx263-1193001"></a>
+</p><!--l. 1075--><p class="noindent" >See: <span 
+class="pcrr8t-x-x-109">spmult_columns</span>.
+                                                                     
+
+                                                                     
+</p><!--l. 1078--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.33    </span> <a 
+ id="x263-119400020.52.6.33"></a>sppivot</h5>
+<!--l. 1080--><p class="noindent" ><a 
+ id="operator:SPPIVOT"></a> <a 
+ id="dx263-1194001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">sppivot(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">,r,c);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-198" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-198-1g"><col 
+id="TBL-198-1" /><col 
+id="TBL-198-2" /><col 
+id="TBL-198-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-198-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-198-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜 </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-198-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-198-1-3"  
+class="td11"> a sparse matrix.                                        </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-198-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-198-2-1"  
+class="td11"> r,c  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-198-2-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-198-2-3"  
+class="td11"> positive integers such that <span 
+class="cmsy-10x-x-109">𝒜</span>(r,c) neq 0.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">sppivot </span>pivots <span 
+class="cmsy-10x-x-109">𝒜 </span>about it’s (r,c)’th entry.
+     <!--l. 1094--><p class="noindent" >To do this, multiples of the r’th row are added to every other row in the
+     matrix.
+     </p><!--l. 1097--><p class="noindent" >This means that the c’th column will be 0 except for the (r,c)’th entry.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">sprows_pivot</span>.</dd></dl>
+<!--l. 1105--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.34    </span> <a 
+ id="x263-119500020.52.6.34"></a>sppseudo_inverse</h5>
+<!--l. 1107--><p class="noindent" ><a 
+ id="operator:SPPSEUDO_INVERSE"></a> <a 
+ id="dx263-1195001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">sppseudo_inverse(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-199" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-199-1g"><col 
+id="TBL-199-1" /><col 
+id="TBL-199-2" /><col 
+id="TBL-199-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-199-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-199-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜 </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-199-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-199-1-3"  
+class="td11"> a sparse matrix containing only real numeric entries.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">sppseudo_inverse</span>, also known as the Moore-Penrose inverse, computes the
+     pseudo inverse of <span 
+class="cmsy-10x-x-109">𝒜</span>.
+     <!--l. 1121--><p class="noindent" >Given the singular value decomposition of <span 
+class="cmsy-10x-x-109">𝒜</span>, i.e: <span 
+class="cmsy-10x-x-109">𝒜 </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">𝒰</span><span 
+class="cmr-10x-x-109">Σ</span><span 
+class="cmsy-10x-x-109">𝒱</span><sup><span 
+class="cmmi-8">T</span> </sup>, then the pseudo
+     inverse <span 
+class="cmsy-10x-x-109">𝒜</span><sup><span 
+class="cmsy-8">†</span></sup> is deﬁned by <span 
+class="cmsy-10x-x-109">𝒜</span><sup><span 
+class="cmsy-8">†</span></sup> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">𝒱</span><span 
+class="cmr-10x-x-109">Σ</span><sup><span 
+class="cmsy-8">†</span></sup><span 
+class="cmsy-10x-x-109">𝒰</span><sup><span 
+class="cmmi-8">T</span> </sup>. For the diagonal matrix <span 
+class="cmr-10x-x-109">Σ</span>, the
+     pseudoinverse <span 
+class="cmr-10x-x-109">Σ</span><sup><span 
+class="cmsy-8">†</span></sup> is computed by taking the reciprocal of only the nonzero
+     diagonal elements.
+     </p><!--l. 1129--><p class="noindent" >If <span 
+class="cmsy-10x-x-109">𝒜 </span>is square and non-singular, then <span 
+class="cmsy-10x-x-109">𝒜</span><sup><span 
+class="cmsy-8">†</span></sup> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">𝒜</span>. In general, however, <span 
+class="cmsy-10x-x-109">𝒜𝒜</span><sup><span 
+class="cmsy-8">†</span></sup><span 
+class="cmsy-10x-x-109">𝒜 </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">𝒜</span>,
+     and <span 
+class="cmsy-10x-x-109">𝒜</span><sup><span 
+class="cmsy-8">†</span></sup><span 
+class="cmsy-10x-x-109">𝒜𝒜</span><sup><span 
+class="cmsy-8">†</span></sup> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">𝒜</span><sup><span 
+class="cmsy-8">†</span></sup>.
+     </p><!--l. 1134--><p class="noindent" >Perhaps more importantly, <span 
+class="cmsy-10x-x-109">𝒜</span><sup><span 
+class="cmsy-8">†</span></sup> solves the following least-squares problem: given a
+     rectangular matrix <span 
+class="cmsy-10x-x-109">𝒜 </span>and a vector <span 
+class="cmmi-10x-x-109">b</span>, ﬁnd the <span 
+class="cmmi-10x-x-109">x </span>minimizing <span 
+class="cmsy-10x-x-109">∥𝒜</span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">b</span><span 
+class="cmsy-10x-x-109">∥</span><sub><span 
+class="cmr-8">2</span></sub>, and
+     which, in addition, has minimum <span 
+class="cmmi-10x-x-109">ℓ</span><sub><span 
+class="cmr-8">2</span></sub> (euclidean) Norm, <span 
+class="cmsy-10x-x-109">∥</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmsy-10x-x-109">∥</span><sub><span 
+class="cmr-8">2</span></sub>. This <span 
+class="cmmi-10x-x-109">x </span>is
+     <span 
+class="cmsy-10x-x-109">𝒜</span><sup><span 
+class="cmsy-8">†</span></sup><span 
+class="cmmi-10x-x-109">b</span>.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><img 
+src="manual619x.png" alt="     (          )
+       0 0  3  0
+ℛ  =   9 0  7  0 "  class="math"  /><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">sppseudo_inverse</span><img 
+src="manual620x.png" alt="      ( − 0.26   0.11 )
+      |              |
+(ℛ ) = |(  0      0   |)
+         0.33     0
+         0.25   − 0.05 "  class="math"  />
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spsvd</span>.</dd></dl>
+<!--l. 1149--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.35    </span> <a 
+ id="x263-119600020.52.6.35"></a>spremove_columns, spremove_rows</h5>
+<!--l. 1151--><p class="noindent" ><a 
+ id="operator:SPREMOVE_COLUMNS"></a> <a 
+ id="dx263-1196001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spremove_columns(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">,column_list);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-200" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-200-1g"><col 
+id="TBL-200-1" /><col 
+id="TBL-200-2" /><col 
+id="TBL-200-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-200-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-200-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜      </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-200-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-200-1-3"  
+class="td11"> a sparse matrix.                                                            </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-200-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-200-2-1"  
+class="td11"> column_list  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-200-2-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-200-2-3"  
+class="td11"> either a positive integer or a list of positive integers.  </td></tr></table>
+     </div>
+                                                                     
+
+                                                                     
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spremove_columns </span>removes the columns speciﬁed in column_list from
+     <span 
+class="cmsy-10x-x-109">𝒜</span>.
+     <!--l. 1167--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">spremove_rows </span>performs the same task on the rows of <span 
+class="cmsy-10x-x-109">𝒜</span>.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spremove_columns</span><img 
+src="manual621x.png" alt="         (1  0)
+         (    )
+(𝒜, 2) =  0  0
+          0  9 "  class="math"  /><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spremove_rows</span><img 
+src="manual622x.png" alt="            (       )
+(𝒜, {1,3}) = 0  5  0 "  class="math"  />
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spminor</span>.</dd></dl>
+<!--l. 1181--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.36    </span> <a 
+ id="x263-119700020.52.6.36"></a>spremove_rows</h5>
+<!--l. 1183--><p class="noindent" ><a 
+ id="operator:SPREMOVE_ROWS"></a> <a 
+ id="dx263-1197001"></a>
+</p><!--l. 1186--><p class="noindent" >See: <span 
+class="pcrr8t-x-x-109">spremove_columns</span>.
+</p><!--l. 1189--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.37    </span> <a 
+ id="x263-119800020.52.6.37"></a>sprow_dim</h5>
+<!--l. 1191--><p class="noindent" ><a 
+ id="operator:SPROW_DIM"></a> <a 
+ id="dx263-1198001"></a>
+</p><!--l. 1194--><p class="noindent" >See: <span 
+class="pcrr8t-x-x-109">spcolumn_dim</span>.
+</p><!--l. 1197--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.38    </span> <a 
+ id="x263-119900020.52.6.38"></a>sprows_pivot</h5>
+<!--l. 1199--><p class="noindent" ><a 
+ id="operator:SPROWS_PIVOT"></a> <a 
+ id="dx263-1199001"></a>
+                                                                     
+
+                                                                     
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">sprows_pivot(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">,r,c,{row_list});</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-201" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-201-1g"><col 
+id="TBL-201-1" /><col 
+id="TBL-201-2" /><col 
+id="TBL-201-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-201-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-201-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜    </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-201-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-201-1-3"  
+class="td11"> a sparse matrix.                                               </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-201-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-201-2-1"  
+class="td11"> r,c           </td><td  style="white-space:nowrap; text-align:left;" id="TBL-201-2-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-201-2-3"  
+class="td11"> positive integers such that <span 
+class="cmsy-10x-x-109">𝒜</span>(r,c) neq 0.         </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-201-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-201-3-1"  
+class="td11"> row_list  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-201-3-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-201-3-3"  
+class="td11"> positive integer or a list of positive integers.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">sprows_pivot </span>performs the same task as <span 
+class="pcrr8t-x-x-109">sppivot </span>but applies the pivot only
+     to the rows speciﬁed in row_list.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">sppivot</span>.</dd></dl>
+<!--l. 1219--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.39    </span> <a 
+ id="x263-120000020.52.6.39"></a>sparsematp</h5>
+<!--l. 1221--><p class="noindent" ><a 
+ id="operator:SPARSEMATP"></a> <a 
+ id="dx263-1200001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">sparsematp(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-202" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-202-1g"><col 
+id="TBL-202-1" /><col 
+id="TBL-202-2" /><col 
+id="TBL-202-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-202-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-202-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜 </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-202-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-202-1-3"  
+class="td11"> a matrix.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">sparsematp </span>is a boolean function that returns t if the matrix is declared sparse
+     and nil otherwise.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><img 
+src="manual623x.png" alt="ℒ := mat ((1,2,3  ),(4,5,6  ),(7,8,9  )); "  class="math"  /><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">sparsematp</span><img 
+src="manual624x.png" alt="(𝒜 ) = t "  class="math"  /><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">sparsematp</span><img 
+src="manual625x.png" alt="(ℒ ) = nil "  class="math"  />
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">matrixp</span>, <span 
+class="pcrr8t-x-x-109">symmetricp</span>, <span 
+class="pcrr8t-x-x-109">squarep</span>.</dd></dl>
+<!--l. 1244--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.40    </span> <a 
+ id="x263-120100020.52.6.40"></a>squarep</h5>
+<a 
+ id="dx263-1201001"></a>
+     <dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">squarep(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-203" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-203-1g"><col 
+id="TBL-203-1" /><col 
+id="TBL-203-2" /><col 
+id="TBL-203-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-203-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-203-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜 </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-203-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-203-1-3"  
+class="td11"> a matrix.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">squarep </span>is a boolean function that returns t if the matrix is square and nil
+     otherwise.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><img 
+src="manual626x.png" alt="     (       )
+ℒ =   1  3  5 "  class="math"  /><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">squarep</span><img 
+src="manual627x.png" alt="(𝒜) = t "  class="math"  /><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">squarep</span><img 
+src="manual628x.png" alt="(ℒ) = nil "  class="math"  />
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">matrixp</span>, <span 
+class="pcrr8t-x-x-109">symmetricp</span>, <span 
+class="pcrr8t-x-x-109">sparsematp</span>.</dd></dl>
+<!--l. 1269--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.41    </span> <a 
+ id="x263-120200020.52.6.41"></a>spstack_rows</h5>
+                                                                     
+
+                                                                     
+<!--l. 1271--><p class="noindent" ><a 
+ id="operator:SPSTACK_ROWS"></a> <a 
+ id="dx263-1202001"></a>
+</p><!--l. 1274--><p class="noindent" >See: <span 
+class="pcrr8t-x-x-109">spaugment_columns</span>.
+</p><!--l. 1277--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.42    </span> <a 
+ id="x263-120300020.52.6.42"></a>spsub_matrix</h5>
+<!--l. 1279--><p class="noindent" ><a 
+ id="operator:SPSUB_MATRIX"></a> <a 
+ id="dx263-1203001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spsub_matrix(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">,row_list,column_list);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-204" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-204-1g"><col 
+id="TBL-204-1" /><col 
+id="TBL-204-2" /><col 
+id="TBL-204-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-204-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-204-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜          </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-204-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-204-1-3"  
+class="td11"> a sparse matrix.                                                  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-204-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-204-2-1"  
+class="td11"> row_list, column_list  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-204-2-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-204-2-3"  
+class="td11"> either  a  positive  integer  or  a  list  of  positive
+  integers.                                                              </td>
+</tr></table></div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spsub_matrix </span>produces the matrix consisting of the intersection of the rows
+     speciﬁed in row_list and the columns speciﬁed in column_list.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description">    <span 
+class="pcrr8t-x-x-109">spsub_matrix</span><img 
+src="manual629x.png" alt="                  (    )
+                   5  0
+(𝒜, {1,3},{2,3}) =  0  9 "  class="math"  />
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spaugment_columns</span>, <span 
+class="pcrr8t-x-x-109">spstack_rows</span>.</dd></dl>
+<!--l. 1305--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.43    </span> <a 
+ id="x263-120400020.52.6.43"></a>spsvd (singular value decomposition)</h5>
+<!--l. 1307--><p class="noindent" ><a 
+ id="operator:SPSVD"></a> <a 
+ id="dx263-1204001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spsvd(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-205" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-205-1g"><col 
+id="TBL-205-1" /><col 
+id="TBL-205-2" /><col 
+id="TBL-205-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-205-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-205-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜 </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-205-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-205-1-3"  
+class="td11"> a sparse matrix containing only real numeric entries.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spsvd </span>computes the singular value decomposition of <span 
+class="cmsy-10x-x-109">𝒜</span>.
+     <!--l. 1320--><p class="noindent" >If <span 
+class="cmmi-10x-x-109">A </span>is an <span 
+class="cmmi-10x-x-109">m </span><span 
+class="cmsy-10x-x-109">× </span><span 
+class="cmmi-10x-x-109">n </span>real matrix of (column) rank <span 
+class="cmmi-10x-x-109">r</span>, <span 
+class="pcrr8t-x-x-109">svd </span>returns the 3-element list
+     {<span 
+class="cmsy-10x-x-109">𝒰</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">Σ</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">𝒱</span>} where <span 
+class="cmsy-10x-x-109">𝒜 </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">𝒰</span><span 
+class="cmr-10x-x-109">Σ</span><span 
+class="cmsy-10x-x-109">𝒱</span><sup><span 
+class="cmmi-8">T</span> </sup>.
+     </p><!--l. 1325--><p class="noindent" >Let <span 
+class="cmmi-10x-x-109">k </span><span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmr-10x-x-109">min</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">m,n</span><span 
+class="cmr-10x-x-109">)</span>. Then <span 
+class="cmmi-10x-x-109">U </span>is <span 
+class="cmmi-10x-x-109">m </span><span 
+class="cmsy-10x-x-109">× </span><span 
+class="cmmi-10x-x-109">k</span>, <span 
+class="cmmi-10x-x-109">V </span>is <span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmsy-10x-x-109">× </span><span 
+class="cmmi-10x-x-109">k</span>, and and <span 
+class="cmr-10x-x-109">Σ =</span> diag<span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">σ</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,σ</span><sub><span 
+class="cmmi-8">k</span></sub><span 
+class="cmr-10x-x-109">)</span>,
+     where <span 
+class="cmmi-10x-x-109">σ</span><sub><span 
+class="cmmi-8">i</span></sub> <span 
+class="cmsy-10x-x-109">≥ </span><span 
+class="cmr-10x-x-109">0 </span>are the singular values of <span 
+class="cmsy-10x-x-109">𝒜</span>; only <span 
+class="cmmi-10x-x-109">r </span>of these are non-zero. The
+     singular values are the non-negative square roots of the eigenvalues of
+     <span 
+class="cmsy-10x-x-109">𝒜</span><sup><span 
+class="cmmi-8">T</span> </sup><span 
+class="cmsy-10x-x-109">𝒜</span>.
+     </p><!--l. 1331--><p class="noindent" ><span 
+class="cmsy-10x-x-109">𝒰 </span>and <span 
+class="cmsy-10x-x-109">𝒱 </span>are such that <span 
+class="cmsy-10x-x-109">𝒰𝒰</span><sup><span 
+class="cmmi-8">T</span> </sup> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmsy-10x-x-109">𝒱𝒱</span><sup><span 
+class="cmmi-8">T</span> </sup> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">𝒱</span><sup><span 
+class="cmmi-8">T</span> </sup><span 
+class="cmsy-10x-x-109">𝒱 </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">ℐ</span><sub><span 
+class="cmmi-8">k</span></sub>.
+     </p><!--l. 1334--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Note: </span>there are a number of diﬀerent deﬁnitions of SVD in the literature, in some
+     of which <span 
+class="cmr-10x-x-109">Σ </span>is square and <span 
+class="cmmi-10x-x-109">U </span>and <span 
+class="cmmi-10x-x-109">V </span>rectangular, as here, but in others <span 
+class="cmmi-10x-x-109">U </span>and <span 
+class="cmmi-10x-x-109">V </span>are
+     square, and <span 
+class="cmr-10x-x-109">Σ </span>is rectangular.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><img 
+src="manual630x.png" alt="     (    )
+      1  0
+𝒬  =  0  3 "  class="math"  /><br 
+class="newline" /><img 
+src="manual631x.png" alt="         { (− 1  0)  (1.0   0 ) ( − 1  0 ) }
+svd(𝒬 ) =           ,           ,
+             0   0     0   5.0     0   − 1 "  class="math"  /></dd></dl>
+<!--l. 1348--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.44    </span> <a 
+ id="x263-120500020.52.6.44"></a>spswap_columns, spswap_rows</h5>
+<!--l. 1350--><p class="noindent" ><a 
+ id="operator:SPSWAP_COLUMNS"></a> <a 
+ id="dx263-1205001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spswap_columns(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">,c1,c2);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-206" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-206-1g"><col 
+id="TBL-206-1" /><col 
+id="TBL-206-2" /><col 
+id="TBL-206-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-206-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-206-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-206-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-206-1-3"  
+class="td11"> a sparse matrix.    </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-206-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-206-2-1"  
+class="td11"> c1,c1  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-206-2-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-206-2-3"  
+class="td11"> positive integers.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spswap_columns </span>swaps column c1 of <span 
+class="cmsy-10x-x-109">𝒜 </span>with column c2.
+                                                                     
+
+                                                                     
+     <!--l. 1364--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">spswap_rows </span>performs the same task on 2 rows of <span 
+class="cmsy-10x-x-109">𝒜</span>.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><span 
+class="pcrr8t-x-x-109">spswap_columns</span><img 
+src="manual632x.png" alt="          (        )
+            1  0  0
+(𝒜, 2,3) = ( 0 0  5)
+            0  9  0 "  class="math"  />
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spswap_entries</span>.</dd></dl>
+<!--l. 1375--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.45    </span> <a 
+ id="x263-120600020.52.6.45"></a>swap_entries</h5>
+<!--l. 1377--><p class="noindent" ><a 
+ id="operator:SPSWAP_ENTRIES"></a> <a 
+ id="dx263-1206001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spswap_entries(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">,{r1,c1},{r2,c2});</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-207" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-207-1g"><col 
+id="TBL-207-1" /><col 
+id="TBL-207-2" /><col 
+id="TBL-207-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-207-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-207-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜     </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-207-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-207-1-3"  
+class="td11"> a sparse matrix.    </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-207-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-207-2-1"  
+class="td11"> r1,c1,r2,c2  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-207-2-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-207-2-3"  
+class="td11"> positive integers.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spswap_entries </span>swaps <span 
+class="cmsy-10x-x-109">𝒜</span>(r1,c1) with <span 
+class="cmsy-10x-x-109">𝒜</span>(r2,c2).
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><span 
+class="pcrr8t-x-x-109">spswap_entries</span><img 
+src="manual633x.png" alt="                  (        )
+                    9  0  0
+(𝒜, {1,1},{3,3}) = ( 0 5  0)
+                    0  0  1 "  class="math"  />
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">spswap_columns</span>, <span 
+class="pcrr8t-x-x-109">spswap_rows</span>.
+     <!--l. 1400--><p class="noindent" >
+</p>
+     <h5 class="subsubsectionHead"><span class="titlemark">20.52.6.46    </span> <a 
+ id="x263-120700020.52.6.46"></a>spswap_rows</h5>
+     <!--l. 1402--><p class="noindent" ><a 
+ id="operator:SPSWAP_ROWS"></a> <a 
+ id="dx263-1207001"></a> See: <span 
+class="pcrr8t-x-x-109">spswap_columns</span>.</p></dd></dl>
+                                                                     
+
+                                                                     
+<!--l. 1407--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.52.6.47    </span> <a 
+ id="x263-120800020.52.6.47"></a>symmetricp</h5>
+<a 
+ id="dx263-1208001"></a>
+     <dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">symmetricp(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-208" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-208-1g"><col 
+id="TBL-208-1" /><col 
+id="TBL-208-2" /><col 
+id="TBL-208-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-208-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-208-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜 </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-208-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-208-1-3"  
+class="td11"> a matrix.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">symmetricp </span>is a boolean function that returns t if the matrix is symmetric and
+     nil otherwise.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><img 
+src="manual634x.png" alt="      (    )
+ℳ   =  1  2
+       2  1 "  class="math"  /><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">symmetricp</span><img 
+src="manual635x.png" alt="(𝒜 ) = nil "  class="math"  /><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">symmetricp</span><img 
+src="manual636x.png" alt="(ℳ  ) = t "  class="math"  />
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">matrixp</span>, <span 
+class="pcrr8t-x-x-109">squarep</span>, <span 
+class="pcrr8t-x-x-109">sparsematp</span>.</dd></dl>
+<!--l. 1432--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.52.7    </span> <a 
+ id="x263-120900020.52.7"></a>Fast Linear Algebra</h4>
+<a 
+ id="dx263-1209001"></a>
+<a 
+ id="dx263-1209002"></a>
+<a 
+ id="dx263-1209003"></a>
+<!--l. 1435--><p class="noindent" >By turning the <span 
+class="pcrr8t-x-x-109">fast_la </span>switch on, the speed of the following functions will be
+increased:
+                                                                     
+
+                                                                     
+</p>
+<div class="tabular"> <table id="TBL-209" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-209-1g"><col 
+id="TBL-209-1" /><col 
+id="TBL-209-2" /><col 
+id="TBL-209-3" /><col 
+id="TBL-209-4" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-209-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-209-1-1"  
+class="td11"> spadd_columns       </td><td  style="white-space:nowrap; text-align:left;" id="TBL-209-1-2"  
+class="td11"> spadd_rows          </td><td  style="white-space:nowrap; text-align:left;" id="TBL-209-1-3"  
+class="td11"> spaugment_columns  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-209-1-4"  
+class="td11"> spcol_dim          </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-209-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-209-2-1"  
+class="td11"> spcopy_into              </td><td  style="white-space:nowrap; text-align:left;" id="TBL-209-2-2"  
+class="td11"> spmake_identity  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-209-2-3"  
+class="td11"> spmatrix_augment     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-209-2-4"  
+class="td11"> spmatrix_stack  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-209-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-209-3-1"  
+class="td11"> spminor                    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-209-3-2"  
+class="td11"> spmult_column    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-209-3-3"  
+class="td11"> spmult_row                </td><td  style="white-space:nowrap; text-align:left;" id="TBL-209-3-4"  
+class="td11"> sppivot               </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-209-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-209-4-1"  
+class="td11"> spremove_columns  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-209-4-2"  
+class="td11"> spremove_rows   </td><td  style="white-space:nowrap; text-align:left;" id="TBL-209-4-3"  
+class="td11"> sprows_pivot              </td><td  style="white-space:nowrap; text-align:left;" id="TBL-209-4-4"  
+class="td11"> squarep              </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-209-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-209-5-1"  
+class="td11"> spstack_rows            </td><td  style="white-space:nowrap; text-align:left;" id="TBL-209-5-2"  
+class="td11"> spsub_matrix       </td><td  style="white-space:nowrap; text-align:left;" id="TBL-209-5-3"  
+class="td11"> spswap_columns        </td><td  style="white-space:nowrap; text-align:left;" id="TBL-209-5-4"  
+class="td11"> spswap_entries  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-209-6-"><td  style="white-space:nowrap; text-align:left;" id="TBL-209-6-1"  
+class="td11"> spswap_rows            </td><td  style="white-space:nowrap; text-align:left;" id="TBL-209-6-2"  
+class="td11"> symmetricp          </td>
+</tr></table></div>
+<!--l. 1447--><p class="noindent" >The increase in speed will be insigniﬁcant unless you are making a signiﬁcant
+number(i.e: thousands) of calls. When using this switch, error checking is minimised.
+This means that illegal input may give strange error messages. Beware.
+</p><!--l. 1452--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.52.8    </span> <a 
+ id="x263-121000020.52.8"></a>Acknowledgments</h4>
+<!--l. 1453--><p class="noindent" >This package is an extention of the code from the Linear Algebra Package for REDUCE
+by Matt Rebbeck (cf. section <a 
+href="manualse157.html#x225-91000020.32">20.32<!--tex4ht:ref: LINALG --></a>).
+</p><!--l. 1456--><p class="noindent" >The algorithms for <span 
+class="pcrr8t-x-x-109">spcholesky</span>, <span 
+class="pcrr8t-x-x-109">splu_decom</span>, and <span 
+class="pcrr8t-x-x-109">spsvd </span>are taken from the book
+Linear Algebra – J.H. Wilkinson &#x0026; C. Reinsch[3].
+</p><!--l. 1459--><p class="noindent" >The <span 
+class="pcrr8t-x-x-109">spgram_schmidt </span>code comes from Karin Gatermann’s Symmetry package[4] for
+REDUCE.
+</p><!--l. 1118--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 1120--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse177.html" >Up</a></td><td class="clinks"><a 
+href="manualse178.html" >Next</a></td><td class="clinks"><a 
+href="manualse176.html" >Prev</a></td><td class="clinks"><a 
+href="manualse176.html#tailmanualse176.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse177.html" >Front</a></td></tr></table><a 
+ id="tailmanualse177.html"></a>  </p> 
+</body> 
+</html>

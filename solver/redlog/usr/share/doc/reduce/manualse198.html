@@ -1,0 +1,83 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Symbolic Procedures</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch21.html#manualse198.html" >Up</a></td><td class="clinks"><a 
+href="manualse199.html" >Next</a></td><td class="clinks"><a 
+href="manualse197.html" >Prev</a></td><td class="clinks"><a 
+href="manualse197.html#tailmanualse197.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse198.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">21.7    </span> <a 
+ id="x293-133400021.7"></a>Symbolic Procedures</h3>
+<a 
+ id="dx293-1334001"></a>
+<!--l. 218--><p class="noindent" >All the functions described in the Standard Lisp Report are available to users in symbolic
+mode. Additional functions may also be deﬁned as symbolic procedures. For example, to
+deﬁne the Lisp function <span 
+class="pcrr8t-x-x-109">assoc</span>, the following could be used:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1490">
+        symbolic procedure assoc(u,v);
+ <br />           if null v then nil
+ <br />            else if u = caar v then car v
+ <br />            else assoc(u, cdr v);
+</div>
+<!--l. 227--><p class="nopar" > <a 
+ id="reserved:MACRO"></a><a 
+ id="reserved:EXPR"></a> If the default mode were symbolic, then <span 
+class="pcrr8t-x-x-109">symbolic </span>could be omitted in the above
+deﬁnition. <span 
+class="pcrr8t-x-x-109">macro</span>s<a 
+ id="dx293-1334002"></a> may be deﬁned by preﬁxing the keyword <span 
+class="pcrr8t-x-x-109">procedure </span>by the word
+<span 
+class="pcrr8t-x-x-109">macro</span>. (In fact, ordinary functions may be deﬁned with the keyword <span 
+class="pcrr8t-x-x-109">expr</span><a 
+ id="dx293-1334003"></a> preﬁxing
+<span 
+class="pcrr8t-x-x-109">procedure </span>as was used in the Standard Lisp Report.) For example, we could deﬁne a
+<span 
+class="pcrr8t-x-x-109">macro conscons </span>by
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1491">
+        symbolic macro procedure conscons l;
+ <br />           expand(cdr l,’cons);
+</div>
+<!--l. 239--><p class="nopar" >
+</p><!--l. 241--><p class="noindent" ><a 
+ id="reserved:SMACRO"></a> <a 
+ id="reserved:INLINE"></a><a 
+ id="reserved:FEXPR"></a> Another form of macro, the <span 
+class="pcrr8t-x-x-109">smacro</span><a 
+ id="dx293-1334004"></a> is also available. These are described in the
+Standard Lisp Report. The Report also deﬁnes a function type <span 
+class="pcrr8t-x-x-109">fexpr</span>.<a 
+ id="dx293-1334005"></a> However, its use
+is discouraged since it is hard to implement eﬃciently, and most uses can be replaced
+by macros. At the present time, there are no <span 
+class="pcrr8t-x-x-109">fexpr</span>s in the core REDUCE
+system.
+                                                                     
+
+                                                                     
+</p><!--l. 251--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch21.html#manualse198.html" >Up</a></td><td class="clinks"><a 
+href="manualse199.html" >Next</a></td><td class="clinks"><a 
+href="manualse197.html" >Prev</a></td><td class="clinks"><a 
+href="manualse197.html#tailmanualse197.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse198.html" >Front</a></td></tr></table><a 
+ id="tailmanualse198.html"></a> </p> 
+</body> 
+</html>

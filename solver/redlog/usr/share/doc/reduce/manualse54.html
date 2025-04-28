@@ -1,0 +1,152 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Creating / Removing Variable Dependency</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse54.html" >Up</a></td><td class="clinks"><a 
+href="manualse53.html" >Prev</a></td><td class="clinks"><a 
+href="manualse53.html#tailmanualse53.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse54.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">7.27    </span> <a 
+ id="x70-1170007.27"></a>Creating / Removing Variable Dependency</h3>
+<!--l. 248--><p class="noindent" ><a 
+ id="command:DEPEND"></a> <a 
+ id="command:NODEPEND"></a>
+</p><!--l. 251--><p class="noindent" >There are several facilities in REDUCE, such as the diﬀerentiation <a 
+ id="dx70-117001"></a>operator and the
+linear operator<a 
+ id="dx70-117002"></a> facility, that can utilize knowledge of the dependency between various
+variables, or kernels. Such dependency may be expressed by the command <span 
+class="pcrr8t-x-x-109">depend</span><a 
+ id="dx70-117003"></a>.
+This takes an arbitrary number of arguments and sets up a dependency of the ﬁrst
+argument on the remaining arguments. For example,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-204">
+        depend x,y,z;
+</div>
+<!--l. 262--><p class="nopar" > says that <span 
+class="pcrr8t-x-x-109">x </span>is dependent on both <span 
+class="pcrr8t-x-x-109">y </span>and <span 
+class="pcrr8t-x-x-109">z</span>.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-205">
+        depend z,cos(x),y;
+</div>
+<!--l. 266--><p class="nopar" > says that <span 
+class="pcrr8t-x-x-109">z </span>is dependent on <span 
+class="pcrr8t-x-x-109">cos(x) </span>and <span 
+class="pcrr8t-x-x-109">y</span>.
+</p><!--l. 269--><p class="noindent" >Dependencies introduced by <span 
+class="pcrr8t-x-x-109">depend </span>can be removed by <span 
+class="pcrr8t-x-x-109">nodepend</span>. <a 
+ id="dx70-117004"></a> The
+arguments of this are the same as for <span 
+class="pcrr8t-x-x-109">depend</span>. For example, given the above
+dependencies,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-206">
+        nodepend z,cos(x);
+</div>
+<!--l. 274--><p class="nopar" > says that <span 
+class="pcrr8t-x-x-109">z </span>is no longer dependent on <span 
+class="pcrr8t-x-x-109">cos(x)</span>, although it remains dependent on
+<span 
+class="pcrr8t-x-x-109">y</span>.
+</p><!--l. 278--><p class="noindent" >As a convenience, one or more dependent variables can be speciﬁed together in a list for
+both the <span 
+class="pcrr8t-x-x-109">depend </span>and <span 
+class="pcrr8t-x-x-109">nodepend </span>commands, i.e.
+</p><!--l. 282--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">(no)depend {</span><span 
+class="cmmi-10x-x-109">y</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="pcrr8t-x-x-109">, </span><span 
+class="cmmi-10x-x-109">y</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="pcrr8t-x-x-109">,</span> <span 
+class="cmmi-10x-x-109">…</span><span 
+class="pcrr8t-x-x-109">}, </span><span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="pcrr8t-x-x-109">, </span><span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="pcrr8t-x-x-109">,</span> <span 
+class="cmmi-10x-x-109">…</span>
+</p><!--l. 284--><p class="noindent" >is equivalent to
+</p><!--l. 286--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">(no)depend </span><span 
+class="cmmi-10x-x-109">y</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="pcrr8t-x-x-109">, </span><span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="pcrr8t-x-x-109">, </span><span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="pcrr8t-x-x-109">,</span> <span 
+class="cmmi-10x-x-109">…</span><span 
+class="pcrr8t-x-x-109">; (no)depend </span><span 
+class="cmmi-10x-x-109">y</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="pcrr8t-x-x-109">, </span><span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="pcrr8t-x-x-109">, </span><span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="pcrr8t-x-x-109">,</span> <span 
+class="cmmi-10x-x-109">…</span><span 
+class="pcrr8t-x-x-109">;</span> <span 
+class="cmmi-10x-x-109">…</span>
+</p><!--l. 288--><p class="noindent" >Both commands also accept a sequence of “dependence sequences”, where the beginning
+of each new dependence sequence is indicated by a list of one or more dependent
+variables. For example,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-207">
+        depend {x,y,z},u,v,{theta},time;
+</div>
+<!--l. 293--><p class="nopar" > is equivalent to
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-208">
+        depend x,u,v;
+ <br />        depend y,u,v;
+ <br />        depend z,u,v;
+ <br />        depend theta,time;
+</div>
+<!--l. 300--><p class="nopar" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 1--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse54.html" >Up</a></td><td class="clinks"><a 
+href="manualse53.html" >Prev</a></td><td class="clinks"><a 
+href="manualse53.html#tailmanualse53.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse54.html" >Front</a></td></tr></table><a 
+ id="tailmanualse54.html"></a> </p> 
+</body> 
+</html>

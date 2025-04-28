@@ -1,0 +1,70 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Working with Least Common Multiples</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch9.html#manualse65.html" >Up</a></td><td class="clinks"><a 
+href="manualse66.html" >Next</a></td><td class="clinks"><a 
+href="manualse64.html" >Prev</a></td><td class="clinks"><a 
+href="manualse64.html#tailmanualse64.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse65.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">9.4    </span> <a 
+ id="x84-1580009.4"></a>Working with Least Common Multiples</h3>
+<!--l. 255--><p class="noindent" ><a 
+ id="switch:LCM"></a>
+</p><!--l. 257--><p class="noindent" >Greatest common divisor calculations can often become expensive if extensive work with
+large rational expressions is required. However, in many cases, the only signiﬁcant
+cancellations arise from the fact that there are often common factors in the various
+denominators which are combined when two rationals are added. Since these
+denominators tend to be smaller and more regular in structure than the numerators,
+considerable savings in both time and space can occur if a full GCD check is made when
+the denominators are combined and only a partial check when numerators are
+constructed. In other words, the true least common multiple of the denominators is
+computed at each step. The switch <span 
+class="pcrr8t-x-x-109">lcm</span><a 
+ id="dx84-158001"></a><a 
+ id="dx84-158002"></a><a 
+ id="dx84-158003"></a> is available for this purpose, and is normally
+on.
+</p><!--l. 269--><p class="noindent" ><a 
+ id="operator:LCM"></a> In addition, the operator <span 
+class="pcrr8t-x-x-109">lcm</span>,<a 
+ id="dx84-158004"></a> used with the syntax
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-303">
+    lcm(exprn1:polynomial,exprn2:polynomial):polynomial,
+</div>
+<!--l. 273--><p class="nopar" > returns the least common multiple of the two polynomials <span 
+class="pcrr8t-x-x-109">exprn1 </span>and <span 
+class="pcrr8t-x-x-109">exprn2</span>.
+</p><!--l. 277--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Examples:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-304">
+    lcm(x^2+2*x+1,x^2+3*x+2) -&#x003E;  x**3 + 4*x**2 + 5*x + 2
+ <br />    lcm(2*x^2-2*y^2,4*x+4*y) -&#x003E;  4*(x**2 - y**2)
+</div>
+<!--l. 281--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p><!--l. 283--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch9.html#manualse65.html" >Up</a></td><td class="clinks"><a 
+href="manualse66.html" >Next</a></td><td class="clinks"><a 
+href="manualse64.html" >Prev</a></td><td class="clinks"><a 
+href="manualse64.html#tailmanualse64.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse65.html" >Front</a></td></tr></table><a 
+ id="tailmanualse65.html"></a> </p> 
+</body> 
+</html>

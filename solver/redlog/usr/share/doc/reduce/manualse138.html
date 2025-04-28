@@ -1,0 +1,193 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>COEFF2: A Variant of the coeﬀ Operator</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse138.html" >Up</a></td><td class="clinks"><a 
+href="manualse139.html" >Next</a></td><td class="clinks"><a 
+href="manualse137.html" >Prev</a></td><td class="clinks"><a 
+href="manualse137.html#tailmanualse137.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse138.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.13    </span> <a 
+ id="x205-56900020.13"></a>COEFF2: A Variant of the <span 
+class="pcrr8t-x-x-109">coeff </span>Operator</h3>
+<a 
+ id="dx205-569001"></a>
+<a 
+ id="dx205-569002"></a>
+<!--l. 257--><p class="noindent" >Authors: Fujio Kako and Masaaki Ito
+<a 
+ id="dx205-569003"></a>
+<a 
+ id="dx205-569004"></a>
+<a 
+ id="dx205-569005"></a>
+<a 
+ id="dx205-569006"></a>
+<a 
+ id="dx205-569007"></a>
+<a 
+ id="dx205-569008"></a>
+<a 
+ id="dx205-569009"></a>
+</p><!--l. 32--><p class="noindent" >In REDUCE, we can use the <span 
+class="pcrr8t-x-x-109">coeff </span>operator which returns a list of coeﬃcients of a
+polynomial with respect to speciﬁed variables. On the other hand, the <a 
+ id="operator:COEFF2"></a><span 
+class="pcrr8t-x-x-109">coeff2 </span>operator
+gives a polynomial in which each coeﬃcient is replaced by special variables <span class="obeylines-h"><span class="verb"><span 
+class="pcrr8t-x-x-109">#1,#2</span></span></span>,<img 
+src="manual193x.png" alt="⋅⋅⋅"  class="@cdots"  /><span style="margin-left:0.3em" class="thinspace"></span>.
+It is used with the same syntax as the <span 
+class="pcrr8t-x-x-109">coeff </span>operator:
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">coeff2(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exprn:polynomial</span><span 
+class="cmsy-10x-x-109">⟩</span>, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">var:kernel</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">) </span>: <span 
+class="ptmri8t-x-x-109">algebraic</span></div>
+<!--l. 39--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Example:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1045">
+off allfac;
+ <br />f := (a+b)^2*x^2*y+(c+d)^2*x*y;
+ <br />f2 := coeff2(f,x,y);
+ <br />g := (2*c+d)*x^2+(3+a)*x*y^3;
+ <br />g2 := coeff2(g,x,y);
+</div>
+<!--l. 46--><p class="nopar" > would result in the output
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1046">
+      2  2            2      2  2      2
+ <br />f := a *x *y + 2*a*b*x *y + b *x *y + c *x*y
+ <br />
+ <br />                     2
+ <br />      + 2*c*d*x*y + d *x*y
+ <br />
+ <br />         2
+ <br />f2 := #1*x *y + #2*x*y
+ <br />
+ <br />          3        2      2        3
+ <br />g := a*x*y  + 2*c*x  + d*x  + 3*x*y
+ <br />
+ <br />          2         3
+ <br />g2 := #3*x  + #4*x*y
+</div>
+<!--l. 63--><p class="nopar" > If you want to retrieve the values of special variables <span class="obeylines-h"><span class="verb"><span 
+class="pcrr8t-x-x-109">#1,#2</span></span></span>,<img 
+src="manual194x.png" alt="⋅⋅⋅"  class="@cdots"  /><span style="margin-left:0.3em" class="thinspace"></span>, we can use the
+operator <a 
+ id="operator:NM"></a><span 
+class="pcrr8t-x-x-109">nm</span>. The syntax for this is:
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">nm(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">n:integer</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">) </span>: <span 
+class="ptmri8t-x-x-109">algebraic</span></div>
+<!--l. 69--><p class="noindent" >It returns the value of the variable <span class="obeylines-h"><span class="verb"><span 
+class="pcrr8t-x-x-109">#n</span></span></span>. For example, to get the value of <span class="obeylines-h"><span class="verb"><span 
+class="pcrr8t-x-x-109">#1</span></span></span> in the above,
+one could say:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1047">
+nm(1);
+</div>
+<!--l. 73--><p class="nopar" > yields the result
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1048">
+ 2            2
+ <br />a  + 2*a*b + b
+</div>
+<!--l. 78--><p class="nopar" > It is also possible to evaluate an expression including special variables <span class="obeylines-h"><span class="verb"><span 
+class="pcrr8t-x-x-109">#1,#2,</span></span></span><img 
+src="manual195x.png" alt="⋅⋅⋅"  class="@cdots"  /><span style="margin-left:0.3em" class="thinspace"></span> by
+using the <a 
+ id="operator:EVAL2"></a><span 
+class="pcrr8t-x-x-109">eval2 </span>operator. The syntax for this is:
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">eval2(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exprn:rational</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">) </span>: <span 
+class="ptmri8t-x-x-109">algebraic</span></div>
+<!--l. 85--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Example:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1049">
+coeff2(f2*g2,x,y);
+ <br />
+ <br />    4         3  4       3         2  4
+ <br />#5*x *y + #6*x *y  + #7*x *y + #8*x *y
+ <br />
+ <br />nm(8);
+ <br />
+ <br />#2*#4
+ <br />
+ <br />eval2(ws);
+ <br />
+ <br />   2                2      2              2
+ <br />a*c  + 2*a*c*d + a*d  + 3*c  + 6*c*d + 3*d
+ <br />
+</div>
+<!--l. 101--><p class="nopar" > <a 
+ id="dx205-569010"></a> The user may remove all values of special variables <span class="obeylines-h"><span class="verb"><span 
+class="pcrr8t-x-x-109">#1,#2</span></span></span>,<img 
+src="manual196x.png" alt="⋅⋅⋅"  class="@cdots"  /><span style="margin-left:0.3em" class="thinspace"></span> by the operator <a 
+ id="operator:RESET"></a><span 
+class="pcrr8t-x-x-109">reset</span>,
+in the form
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1050">
+       reset( );
+</div>
+<!--l. 107--><p class="nopar" >
+</p><!--l. 261--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 287--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse138.html" >Up</a></td><td class="clinks"><a 
+href="manualse139.html" >Next</a></td><td class="clinks"><a 
+href="manualse137.html" >Prev</a></td><td class="clinks"><a 
+href="manualse137.html#tailmanualse137.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse138.html" >Front</a></td></tr></table><a 
+ id="tailmanualse138.html"></a> </p> 
+</body> 
+</html>

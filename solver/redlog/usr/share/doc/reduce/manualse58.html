@@ -1,0 +1,65 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Changing the Internal Order of Variables</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch8.html#manualse58.html" >Up</a></td><td class="clinks"><a 
+href="manualse59.html" >Next</a></td><td class="clinks"><a 
+href="manualse57.html" >Prev</a></td><td class="clinks"><a 
+href="manualse57.html#tailmanualse57.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse58.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">8.4    </span> <a 
+ id="x75-1410008.4"></a>Changing the Internal Order of Variables</h3>
+<!--l. 773--><p class="noindent" ><a 
+ id="command:KORDER"></a>
+</p><!--l. 775--><p class="noindent" >The internal ordering of variables (more speciﬁcally kernels) can have a signiﬁcant eﬀect
+on the space and time associated with a calculation. In its default state, REDUCE uses a
+speciﬁc order for this which may vary between sessions. However, it is possible for the
+user to change this internal order by means of the declaration <span 
+class="pcrr8t-x-x-109">korder</span><a 
+ id="dx75-141001"></a><a 
+ id="dx75-141002"></a>. The syntax for
+this is:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-251">
+        korder v1,...,vn;
+</div>
+<!--l. 784--><p class="nopar" > where the <span 
+class="pcrr8t-x-x-109">vi </span>are kernels<a 
+ id="dx75-141003"></a>. With this declaration, the <span 
+class="pcrr8t-x-x-109">vi </span>are ordered internally ahead of
+any other kernels in the system. <span 
+class="pcrr8t-x-x-109">v1 </span>has the highest order, <span 
+class="pcrr8t-x-x-109">v2 </span>the next highest, and so on.
+A further call of <span 
+class="pcrr8t-x-x-109">korder </span>replaces a previous one. <span 
+class="pcrr8t-x-x-109">korder nil; </span>resets the internal
+order to the system default.
+</p><!--l. 791--><p class="noindent" >Unlike the <span 
+class="pcrr8t-x-x-109">order</span><a 
+ id="dx75-141004"></a><a 
+ id="dx75-141005"></a> declaration, that has a purely cosmetic eﬀect on the way results are
+printed, the use of <span 
+class="pcrr8t-x-x-109">korder </span>can have a signiﬁcant eﬀect on computation time. In critical
+cases then, the user can experiment with the ordering of the variables used to determine
+the optimum set for a given problem.
+                                                                     
+
+                                                                     
+</p><!--l. 798--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch8.html#manualse58.html" >Up</a></td><td class="clinks"><a 
+href="manualse59.html" >Next</a></td><td class="clinks"><a 
+href="manualse57.html" >Prev</a></td><td class="clinks"><a 
+href="manualse57.html#tailmanualse57.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse58.html" >Front</a></td></tr></table><a 
+ id="tailmanualse58.html"></a> </p> 
+</body> 
+</html>

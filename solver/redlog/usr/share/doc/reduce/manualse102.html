@@ -1,0 +1,59 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Using LET Inside Procedures</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch15.html#manualse102.html" >Up</a></td><td class="clinks"><a 
+href="manualse103.html" >Next</a></td><td class="clinks"><a 
+href="manualse101.html" >Prev</a></td><td class="clinks"><a 
+href="manualse101.html#tailmanualse101.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse102.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">15.4    </span> <a 
+ id="x130-24100015.4"></a>Using LET Inside Procedures</h3>
+<!--l. 232--><p class="noindent" >By using <span 
+class="pcrr8t-x-x-109">let</span><a 
+ id="dx130-241001"></a> instead of an assignment in the procedure body<a 
+ id="dx130-241002"></a> it is possible to bypass the
+call-by-value <a 
+ id="dx130-241003"></a>protection. If <span 
+class="pcrr8t-x-x-109">X </span>is a formal parameter or local variable of the procedure (i.e.
+is in the heading or in a local declaration), and <span 
+class="pcrr8t-x-x-109">let </span>is used instead of <span 
+class="pcrr8t-x-x-109">:= </span>to make an
+assignment to <span 
+class="pcrr8t-x-x-109">x</span>, e.g.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-451">
+        let x = 123;
+</div>
+<!--l. 241--><p class="nopar" > then it is the variable that is the value of <span 
+class="pcrr8t-x-x-109">x </span>that is changed. This eﬀect also occurs with
+local variables deﬁned in a block. If the value of <span 
+class="pcrr8t-x-x-109">x </span>is not a variable, but a more general
+expression, then it is that expression that is used on the left-hand side of the <span 
+class="pcrr8t-x-x-109">let</span>
+statement. For example, if <span 
+class="pcrr8t-x-x-109">x </span>had the value <span 
+class="pcrr8t-x-x-109">p*q</span>, it is as if <span 
+class="pcrr8t-x-x-109">let p*q = 123 </span>had been
+executed.
+                                                                     
+
+                                                                     
+</p><!--l. 249--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch15.html#manualse102.html" >Up</a></td><td class="clinks"><a 
+href="manualse103.html" >Next</a></td><td class="clinks"><a 
+href="manualse101.html" >Prev</a></td><td class="clinks"><a 
+href="manualse101.html#tailmanualse101.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse102.html" >Front</a></td></tr></table><a 
+ id="tailmanualse102.html"></a> </p> 
+</body> 
+</html>

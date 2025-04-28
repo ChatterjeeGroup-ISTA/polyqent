@@ -1,0 +1,114 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Numbers</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch2.html#manualse2.html" >Up</a></td><td class="clinks"><a 
+href="manualse3.html" >Next</a></td><td class="clinks"><a 
+href="manualse1.html" >Prev</a></td><td class="clinks"><a 
+href="manualse1.html#tailmanualse1.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse2.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">2.2    </span> <a 
+ id="x7-60002.2"></a>Numbers</h3>
+<a 
+ id="dx7-6001"></a>
+<!--l. 33--><p class="noindent" >There are several diﬀerent types of numbers available in REDUCE. Integers consist of a
+signed or unsigned sequence of decimal digits written without a decimal point, for
+example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-18">
+        -2, 5396, +32
+</div>
+<!--l. 38--><p class="nopar" > In principle, there is no practical limit on the number of digits permitted as exact
+arithmetic is used in most implementations. (You should however check the speciﬁc
+instructions for your particular system implementation to make sure that this is true.) For
+example, if you ask for the value of <span 
+class="cmr-10x-x-109">2</span><sup><span 
+class="cmr-8">2000</span></sup> you get it displayed as a number of 603
+decimal digits, taking up several lines of output on an interactive display. It should be
+borne in mind of course that computations with such long numbers can be quite
+slow.
+</p><!--l. 48--><p class="noindent" >Numbers that aren’t integers are usually represented as the quotient of two integers, in
+lowest terms: that is, as rational numbers.
+</p><!--l. 51--><p class="noindent" >In essentially all versions of REDUCE it is also possible (but not always desirable!) to
+ask REDUCE to work with ﬂoating point approximations to numbers again, to any
+precision. Such numbers are called <span 
+class="ptmri8t-x-x-109">real</span>. <a 
+ id="dx7-6002"></a>They can be input in two ways:
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   1. </dt><dd 
+class="enumerate-enumitem">as a signed or unsigned sequence of any number of decimal digits with an
+     embedded or trailing decimal point.
+     </dd><dt class="enumerate-enumitem">
+   2. </dt><dd 
+class="enumerate-enumitem">as  in  1.  followed  by  a  decimal  exponent  which  is  written  as  the  letter  <span 
+class="pcrr8t-x-x-109">e</span>
+     followed by a signed or unsigned integer.</dd></dl>
+<!--l. 61--><p class="noindent" >e.g. <span 
+class="pcrr8t-x-x-109">32. +32.0 0.32e2 </span>and <span 
+class="pcrr8t-x-x-109">320.e-1 </span>are all representations of 32.
+</p><!--l. 64--><p class="noindent" >The declaration <span 
+class="pcrr8t-x-x-109">scientific_notation</span><a 
+ id="dx7-6005"></a> controls the output format of ﬂoating point
+numbers. At the default settings, any number with ﬁve or less digits before the decimal
+point is printed in a ﬁxed-point notation, e.g., <span 
+class="pcrr8t-x-x-109">12345.6</span>. Numbers with more than ﬁve
+digits are printed in scientiﬁc notation, e.g., <span 
+class="pcrr8t-x-x-109">1.234567e+5</span>. Similarly, by default, any
+number with eleven or more zeros after the decimal point is printed in scientiﬁc notation.
+To change these defaults, <span 
+class="pcrr8t-x-x-109">scientific_notation </span>can be used in one of two
+ways.
+</p><!--l. 74--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">SCIENTIFIC_NOTATION</span> <span 
+class="ptmri8t-x-x-109">m</span>;
+</p><!--l. 76--><p class="noindent" >where <span 
+class="ptmri8t-x-x-109">m </span>is a positive integer, sets the printing format so that a number with more than <span 
+class="ptmri8t-x-x-109">m</span>
+digits before the decimal point, or <span 
+class="ptmri8t-x-x-109">m </span>or more zeros after the decimal point, is printed in
+scientiﬁc notation.
+</p><!--l. 81--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">SCIENTIFIC_NOTATION</span>{<span 
+class="ptmri8t-x-x-109">m,n</span>},
+                                                                     
+
+                                                                     
+</p><!--l. 83--><p class="noindent" >with <span 
+class="ptmri8t-x-x-109">m </span>and <span 
+class="ptmri8t-x-x-109">n </span>both positive integers, sets the format so that a number with more than <span 
+class="ptmri8t-x-x-109">m</span>
+digits before the decimal point, or <span 
+class="ptmri8t-x-x-109">n </span>or more zeros after the decimal point is printed in
+scientiﬁc notation.
+</p><!--l. 88--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">CAUTION: </span>The unsigned part of any number<a 
+ id="dx7-6006"></a> may <span 
+class="ptmri8t-x-x-109">not </span>begin with a decimal point, as this
+causes confusion with the <span 
+class="pcrr8t-x-x-109">CONS </span>(.) operator, i.e., <span 
+class="ptmri8t-x-x-109">NOT ALLOWED ARE</span>: <span 
+class="pcrr8t-x-x-109">.5 -.23</span>
+<span 
+class="pcrr8t-x-x-109">+.12</span>; use <span 
+class="pcrr8t-x-x-109">0.5 -0.23 +0.12 </span>instead.
+                                                                     
+
+                                                                     
+</p><!--l. 93--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch2.html#manualse2.html" >Up</a></td><td class="clinks"><a 
+href="manualse3.html" >Next</a></td><td class="clinks"><a 
+href="manualse1.html" >Prev</a></td><td class="clinks"><a 
+href="manualse1.html#tailmanualse1.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse2.html" >Front</a></td></tr></table><a 
+ id="tailmanualse2.html"></a> </p> 
+</body> 
+</html>

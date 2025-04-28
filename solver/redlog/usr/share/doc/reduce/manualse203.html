@@ -1,0 +1,264 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>High Energy Physics Operators</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch22.html#manualse203.html" >Up</a></td><td class="clinks"><a 
+href="manualse204.html" >Next</a></td><td class="clinks"><a 
+href="#tailmanualse203.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">22.1    </span> <a 
+ id="x299-134400022.1"></a>High Energy Physics Operators</h3>
+<!--l. 10--><p class="noindent" ><a 
+ id="command:INDEX"></a>
+</p><!--l. 12--><p class="noindent" >We begin by introducing three new operators required in these calculations.
+</p><!--l. 14--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">22.1.1    </span> <a 
+ id="x299-134500022.1.1"></a>. (Cons) Operator</h4>
+<a 
+ id="dx299-1345001"></a>
+<!--l. 15--><p class="noindent" >Syntax:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1502">
+        (exprn1:vector_expression)
+ <br />                 . (exprn2:vector_expression):algebraic.
+</div>
+<!--l. 19--><p class="nopar" > The binary <span 
+class="pcrr8t-x-x-109">. </span>operator, which is normally used to denote the addition of an element to
+the front of a list, can also be used in algebraic mode to denote the scalar product of two
+Lorentz four-vectors. For this to happen, the second argument must be recognizable as a
+vector expression <a 
+ id="dx299-1345002"></a>at the time of evaluation. With this meaning, this operator is often
+referred to as the <span 
+class="ptmri8t-x-x-109">dot </span>operator. In the present system, the index handling routines all
+assume that Lorentz four-vectors are used, but these routines could be rewritten to handle
+other cases.
+</p><!--l. 30--><p class="noindent" >Components of vectors can be represented by including representations of unit vectors in
+the system. Thus if <span 
+class="pcrr8t-x-x-109">eo </span>represents the unit vector <span 
+class="pcrr8t-x-x-109">(1,0,0,0)</span>, <span 
+class="pcrr8t-x-x-109">(p.eo) </span>represents the
+zeroth component of the four-vector P. Our metric and notation follows Bjorken and
+Drell <span class="cite">[<a 
+href="manualap2.html#XBjorkenDrell:1965">JDB65</a>]</span>. Similarly, an arbitrary component <span 
+class="pcrr8t-x-x-109">p </span>may be represented by <span 
+class="pcrr8t-x-x-109">(p.u)</span>. If
+contraction over components of vectors is required, then the declaration <span 
+class="pcrr8t-x-x-109">index</span><a 
+ id="dx299-1345003"></a> must be
+used. Thus
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1503">
+        index u;
+</div>
+<!--l. 39--><p class="nopar" > declares <span 
+class="pcrr8t-x-x-109">u </span>as an index, and the simpliﬁcation of
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1504">
+        p.u * q.u
+</div>
+<!--l. 43--><p class="nopar" > would result in
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1505">
+        P.Q
+</div>
+<!--l. 47--><p class="nopar" > The metric tensor <span 
+class="cmmi-10x-x-109">g</span><sup><span 
+class="cmmi-8">μν</span></sup> may be represented by <span 
+class="pcrr8t-x-x-109">(u.v)</span>. If contraction over <span 
+class="pcrr8t-x-x-109">u </span>and <span 
+class="pcrr8t-x-x-109">v </span>is
+required, then they should be declared as indices.
+</p><!--l. 52--><p class="noindent" >Errors occur if indices are not properly matched in expressions.
+</p><!--l. 54--><p class="noindent" ><a 
+ id="command:REMIND"></a> If a user later wishes to remove the index property from speciﬁc vectors, he can do it
+with the declaration <span 
+class="pcrr8t-x-x-109">remind</span>.<a 
+ id="dx299-1345004"></a> Thus <span 
+class="pcrr8t-x-x-109">remind v1,</span><span 
+class="pcrr8t-x-x-109">…,vn; </span>removes the index ﬂags from
+the variables <span 
+class="pcrr8t-x-x-109">V1 </span>through <span 
+class="pcrr8t-x-x-109">Vn</span>. However, these variables remain vectors in the
+system.
+</p><!--l. 61--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">22.1.2    </span> <a 
+ id="x299-134600022.1.2"></a>G Operator for Gamma Matrices</h4>
+<a 
+ id="dx299-1346001"></a>
+<a 
+ id="dx299-1346002"></a>
+<!--l. 63--><p class="noindent" ><a 
+ id="operator:G"></a>
+</p><!--l. 65--><p class="noindent" >Syntax:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1506">
+        g(id:identifier[,exprn:vector_expression])
+ <br />                :gamma_matrix_expression.
+</div>
+<!--l. 69--><p class="nopar" > <span 
+class="pcrr8t-x-x-109">g </span>is an n-ary operator used to denote a product of <span 
+class="cmmi-10x-x-109">γ </span>matrices contracted with Lorentz
+four-vectors. Gamma matrices are associated with fermion lines in a Feynman diagram.
+If more than one such line occurs, then a diﬀerent set of <span 
+class="cmmi-10x-x-109">γ </span>matrices (operating in
+independent spin spaces) is required to represent each line. To facilitate this, the ﬁrst
+argument of <span 
+class="pcrr8t-x-x-109">g </span>is a line identiﬁcation identiﬁer (not a number) used to distinguish
+diﬀerent lines.
+</p><!--l. 78--><p class="noindent" >Thus
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1507">
+        g(l1,p) * g(l2,q)
+</div>
+<!--l. 81--><p class="nopar" > denotes the product of <span 
+class="cmmi-10x-x-109">γ</span><span 
+class="pcrr8t-x-x-109">.p </span>associated with a fermion line identiﬁed as <span 
+class="pcrr8t-x-x-109">l1</span>, and <span 
+class="cmmi-10x-x-109">γ</span><span 
+class="pcrr8t-x-x-109">.q</span>
+associated with another line identiﬁed as <span 
+class="pcrr8t-x-x-109">l2 </span>and where <span 
+class="pcrr8t-x-x-109">p </span>and <span 
+class="pcrr8t-x-x-109">q </span>are Lorentz four-vectors.
+A product of <span 
+class="cmmi-10x-x-109">γ </span>matrices associated with the same line may be written in a contracted
+form.
+</p><!--l. 88--><p class="noindent" >Thus
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1508">
+   g(l1,p1,p2,...,p3) = g(l1,p1)*g(l1,p2)*...*g(l1,p3) .
+</div>
+<!--l. 91--><p class="nopar" > The vector <span 
+class="pcrr8t-x-x-109">a </span>is reserved in arguments of G to denote the special <span 
+class="cmmi-10x-x-109">γ </span>matrix <span 
+class="cmmi-10x-x-109">γ</span><sup><span 
+class="cmr-8">5</span></sup>.
+Thus
+     </p><div class="quote">
+     <div class="tabular"> <table id="TBL-233" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-233-1g"><col 
+id="TBL-233-1" /><col 
+id="TBL-233-2" /><col 
+id="TBL-233-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-233-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-233-1-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">g(l,a)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-233-1-2"  
+class="td11"> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">γ</span><sup><span 
+class="cmr-8">5</span></sup>              </td><td  style="white-space:nowrap; text-align:left;" id="TBL-233-1-3"  
+class="td11"> associated with the line <span 
+class="pcrr8t-x-x-109">l </span></td>
+</tr><tr 
+class="vspace" style="font-size:7.22743pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-233-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-233-2-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">g(l,p,a) </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-233-2-2"  
+class="td11"> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">γ </span><span 
+class="cmsy-10x-x-109">⋅ </span><span 
+class="cmmi-10x-x-109">p </span><span 
+class="cmsy-10x-x-109">× </span><span 
+class="cmmi-10x-x-109">γ</span><sup><span 
+class="cmr-8">5</span></sup>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-233-2-3"  
+class="td11"> associated with the line <span 
+class="pcrr8t-x-x-109">l</span>.  </td></tr></table>
+     </div></div>
+<!--l. 101--><p class="noindent" ><span 
+class="cmmi-10x-x-109">γ</span><sup><span 
+class="cmmi-8">μ</span></sup> (associated with the line <span 
+class="pcrr8t-x-x-109">l</span>) may be written as <span 
+class="pcrr8t-x-x-109">g(l,u)</span>, with <span 
+class="pcrr8t-x-x-109">u </span>ﬂagged as an index if
+contraction over <span 
+class="pcrr8t-x-x-109">u </span>is required.
+</p><!--l. 105--><p class="noindent" >The notation of Bjorken and Drell is assumed in all operations involving <span 
+class="cmmi-10x-x-109">γ</span>
+matrices.
+</p><!--l. 108--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">22.1.3    </span> <a 
+ id="x299-134700022.1.3"></a>EPS Operator</h4>
+<a 
+ id="dx299-1347001"></a>
+<!--l. 109--><p class="noindent" ><a 
+ id="operator:EPS"></a> Syntax:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1509">
+     eps(exprn1:vector_expression,...,exprn4:vector_exp)
+ <br />        :vector_exp.
+</div>
+<!--l. 114--><p class="nopar" > The operator <span 
+class="pcrr8t-x-x-109">eps </span>has four arguments, and is used only to denote the completely
+antisymmetric tensor of order 4 and its contraction with Lorentz four-vectors.
+Thus
+</p>
+<table 
+class="equation-star"><tr><td>
+         <span 
+class="cmmi-10x-x-109">𝜖</span><sub><span 
+class="cmmi-8">ijkl</span></sub> <span 
+class="cmr-10x-x-109">= </span><img 
+src="manual850x.png" alt="(
+{  +1  if i,j,k,l is an even permutation of 0,1,2,3
+   − 1 if i,j,k,l is an odd permutation of 0,1,2,3
+(  0   otherwise"  class="left" align="middle" />
+</td></tr></table>
+<!--l. 125--><p class="nopar" >
+</p><!--l. 127--><p class="noindent" >A contraction of the form <span 
+class="cmmi-10x-x-109">𝜖</span><sub><span 
+class="cmmi-8">ijμν</span></sub><span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmmi-8">μ</span></sub><span 
+class="cmmi-10x-x-109">q</span><sub><span 
+class="cmmi-8">ν</span></sub> may be written as <span 
+class="pcrr8t-x-x-109">eps(i,j,p,q)</span>, with <span 
+class="pcrr8t-x-x-109">i </span>and <span 
+class="pcrr8t-x-x-109">j</span>
+ﬂagged as indices, and so on.
+                                                                     
+
+                                                                     
+</p><!--l. 131--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch22.html#manualse203.html" >Up</a></td><td class="clinks"><a 
+href="manualse204.html" >Next</a></td><td class="clinks"><a 
+href="manualse203.html" >Front</a></td></tr></table><a 
+ id="tailmanualse203.html"></a>  </p> 
+</body> 
+</html>

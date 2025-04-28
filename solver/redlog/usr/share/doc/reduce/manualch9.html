@@ -1,0 +1,125 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>9 Polynomials and Rationals</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manual.html#manualch9.html" >Up</a></td><td class="clinks"><a 
+href="manualch10.html" >Next</a></td><td class="clinks"><a 
+href="manualch8.html" >Prev</a></td><td class="clinks"><a 
+href="manualch8.html#tailmanualch8.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualch9.html">Tail</a></td></tr></table><h2 class="ChapterHead"> 9 <a 
+ id="x80-1530009"></a>Polynomials and Rationals</h2>
+<!--l. 4--><p class="noindent" >Many operations in computer algebra are concerned with polynomials <a 
+ id="dx80-153001"></a>and rational
+functions<a 
+ id="dx80-153002"></a>. In this section, we review some of the switches and operators available for this
+purpose. These are in addition to those that work on general expressions (such as <span 
+class="pcrr8t-x-x-109">df </span>and
+<span 
+class="pcrr8t-x-x-109">int</span>) described elsewhere. In the case of operators, the arguments are ﬁrst simpliﬁed
+before the operations are applied. In addition, they operate only on arguments of
+prescribed types, and produce a type mismatch error if given arguments which cannot be
+interpreted in the required mode with the current switch settings. For example, if an
+argument is required to be a kernel and <span 
+class="pcrr8t-x-x-109">a/2 </span>is used (with no other rules for <span 
+class="pcrr8t-x-x-109">a</span>), an
+error
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-289">
+        a/2 invalid as kernel
+</div>
+<!--l. 17--><p class="nopar" > will result.
+</p><!--l. 20--><p class="noindent" >With the exception of those that select various parts of a polynomial or rational
+function, these operations have potentially signiﬁcant eﬀects on the space and time
+associated with a given calculation. The user should therefore experiment with their
+use in a given calculation in order to determine the optimum set for a given
+problem.
+</p><!--l. 26--><p class="noindent" >One such operation provided by the system is an operator <span 
+class="pcrr8t-x-x-109">length</span><a 
+ id="dx80-153003"></a> which
+returns the number of top level terms in the numerator of its argument. For
+example,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-290">
+        length ((a+b+c)^3/(c+d));
+</div>
+<!--l. 31--><p class="nopar" > has the value 10. To get the number of terms in the denominator, one would
+ﬁrst select the denominator by the operator <span 
+class="pcrr8t-x-x-109">den</span><a 
+ id="dx80-153004"></a> and then call <span 
+class="pcrr8t-x-x-109">length</span>, as
+in
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-291">
+        length den ((a+b+c)^3/(c+d));
+</div>
+<!--l. 37--><p class="nopar" > Other operations currently supported, the relevant switches and operators, and the
+required argument and value modes of the latter, follow.
+</p>
+<div class="sectionTOCS">
+ <span class="sectionToc" >9.1 <a 
+href="manualse62.html#x81-1540009.1">Controlling the Expansion of Expressions</a></span>
+<br /> <span class="sectionToc" >9.2 <a 
+href="manualse63.html#x82-1550009.2">Factorization of Polynomials</a></span>
+<br /> <span class="sectionToc" >9.3 <a 
+href="manualse64.html#x83-1560009.3">Cancellation of Common Factors</a></span>
+<br /> <span class="sectionToc" >9.4 <a 
+href="manualse65.html#x84-1580009.4">Working with Least Common Multiples</a></span>
+<br /> <span class="sectionToc" >9.5 <a 
+href="manualse66.html#x85-1590009.5">Controlling Use of Common Denominators</a></span>
+<br /> <span class="sectionToc" >9.6 <a 
+href="manualse67.html#x86-1600009.6">Euclidean Division</a></span>
+<br /> <span class="sectionToc" >9.7 <a 
+href="manualse68.html#x87-1610009.7">Polynomial Pseudo-Division</a></span>
+<br /> <span class="sectionToc" >9.8 <a 
+href="manualse69.html#x88-1620009.8">RESULTANT Operator</a></span>
+<br /> <span class="sectionToc" >9.9 <a 
+href="manualse70.html#x89-1630009.9">DECOMPOSE Operator</a></span>
+<br /> <span class="sectionToc" >9.10 <a 
+href="manualse71.html#x90-1640009.10">INTERPOL Operator</a></span>
+<br /> <span class="sectionToc" >9.11 <a 
+href="manualse72.html#x91-1650009.11">Obtaining Parts of Polynomials and Rationals</a></span>
+<br /> <span class="sectionToc" >9.12 <a 
+href="manualse73.html#x92-1750009.12">Polynomial Coeﬃcient Arithmetic</a></span>
+<br /> <span class="sectionToc" >9.13 <a 
+href="manualse74.html#x94-1810009.13">Finding Roots</a></span>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+                                                                     
+
+                                                                     
+<table cellspacing="5"><tr><td class="clinks"><a 
+href="manual.html#manualch9.html" >Up</a></td><td class="clinks"><a 
+href="manualch10.html" >Next</a></td><td class="clinks"><a 
+href="manualch8.html" >Prev</a></td><td class="clinks"><a 
+href="manualch8.html#tailmanualch8.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualch9.html" >Front</a></td></tr></table><a 
+ id="tailmanualch9.html"></a>  
+</body> 
+</html>

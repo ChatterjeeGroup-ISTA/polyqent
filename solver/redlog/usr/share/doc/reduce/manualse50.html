@@ -1,0 +1,87 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Non-Commuting Operators</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse50.html" >Up</a></td><td class="clinks"><a 
+href="manualse51.html" >Next</a></td><td class="clinks"><a 
+href="manualse49.html" >Prev</a></td><td class="clinks"><a 
+href="manualse49.html#tailmanualse49.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse50.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">7.23    </span> <a 
+ id="x66-1130007.23"></a>Non-Commuting Operators</h3>
+<a 
+ id="dx66-113001"></a>
+<a 
+ id="dx66-113002"></a>
+<!--l. 88--><p class="noindent" ><a 
+ id="command:NONCOM"></a> An operator can be declared to be non-commutative under multiplication by the
+declaration <span 
+class="pcrr8t-x-x-109">noncom</span><a 
+ id="dx66-113003"></a><a 
+ id="dx66-113004"></a>.
+</p><!--l. 92--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Example:</span>
+</p><!--l. 94--><p class="noindent" >After the declaration
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-197">
+  noncom u,v;
+</div>
+<!--l. 97--><p class="nopar" > the expressions <span 
+class="pcrr8t-x-x-109">u(x)*u(y)-u(y)*u(x) </span>and <span 
+class="pcrr8t-x-x-109">u(x)*v(y)-v(y)*u(x)</span>
+will remain unchanged on simpliﬁcation, and in particular will not simplify to
+zero.
+</p><!--l. 102--><p class="noindent" >Note that it is the operators (<span 
+class="pcrr8t-x-x-109">u </span>and <span 
+class="pcrr8t-x-x-109">v </span>in the above example) and not the variable that have
+the non-commutative property.
+</p><!--l. 105--><p class="noindent" >The <span 
+class="pcrr8t-x-x-109">let</span><a 
+ id="dx66-113005"></a> statement may be used to introduce rules of evaluation for such operators. In
+particular, the boolean operator <span 
+class="pcrr8t-x-x-109">ordp</span><a 
+ id="dx66-113006"></a> is useful for introducing an ordering on such
+expressions.
+</p><!--l. 110--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Example:</span>
+</p><!--l. 112--><p class="noindent" >The rule
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-198">
+        for all x,y such that x neq y and ordp(x,y)
+ <br />           let u(x)*u(y)= u(y)*u(x)+comm(x,y);
+</div>
+<!--l. 116--><p class="nopar" > would introduce the commutator of <span 
+class="pcrr8t-x-x-109">u(x) </span>and <span 
+class="pcrr8t-x-x-109">u(y) </span>for all <span 
+class="pcrr8t-x-x-109">x </span>and <span 
+class="pcrr8t-x-x-109">y</span>. Note that since
+<span 
+class="pcrr8t-x-x-109">ordp(x,x) </span>is <span 
+class="ptmri8t-x-x-109">true</span>, the equality check is necessary in the degenerate case to avoid a
+circular loop in the rule.
+</p><!--l. 122--><p class="noindent" ><a 
+ id="reserved:SYMMETRIC"></a>
+                                                                     
+
+                                                                     
+<table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse50.html" >Up</a></td><td class="clinks"><a 
+href="manualse51.html" >Next</a></td><td class="clinks"><a 
+href="manualse49.html" >Prev</a></td><td class="clinks"><a 
+href="manualse49.html#tailmanualse49.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse50.html" >Front</a></td></tr></table><a 
+ id="tailmanualse50.html"></a> </p> 
+</body> 
+</html>

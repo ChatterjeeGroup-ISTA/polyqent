@@ -1,0 +1,119 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>SELECT Operator</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse43.html" >Up</a></td><td class="clinks"><a 
+href="manualse44.html" >Next</a></td><td class="clinks"><a 
+href="manualse42.html" >Prev</a></td><td class="clinks"><a 
+href="manualse42.html#tailmanualse42.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse43.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">7.16    </span> <a 
+ id="x55-990007.16"></a>SELECT Operator</h3>
+<a 
+ id="dx55-99001"></a>
+<!--l. 2035--><p class="noindent" ><a 
+ id="operator:SELECT"></a> <a 
+ id="dx55-99002"></a><a 
+ id="dx55-99003"></a>
+</p><!--l. 2038--><p class="noindent" >The <span 
+class="pcrr8t-x-x-109">select </span>operator extracts from a list, or from the arguments of an n–ary
+operator, elements corresponding to a boolean predicate. It is used with the
+syntax:
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">select(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">fnc:function</span><span 
+class="cmsy-10x-x-109">⟩</span>, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">lst:list</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">)</span></div>
+<!--l. 2045--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">fnc </span>can be one of the following forms:
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   1. </dt><dd 
+class="enumerate-enumitem">the name of an operator with a single argument: the operator is evaluated
+     once on each element of <span 
+class="pcrr8t-x-x-109">lst</span>;
+     </dd><dt class="enumerate-enumitem">
+   2. </dt><dd 
+class="enumerate-enumitem">an  algebraic  expression  with  exactly  one  free  variable,  i.e.  a  variable
+     preceded by the tilde symbol. The expression is evaluated for each element
+     of <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">lst</span><span 
+class="cmsy-10x-x-109">⟩</span>, with the element substituted for the free variable;
+     </dd><dt class="enumerate-enumitem">
+   3. </dt><dd 
+class="enumerate-enumitem">a replacement rule of the form <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">var</span><span 
+class="cmsy-10x-x-109">⟩ </span><span 
+class="pcrr8t-x-x-109">=&#x003E; </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">rep</span><span 
+class="cmsy-10x-x-109">⟩ </span>where <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">var</span><span 
+class="cmsy-10x-x-109">⟩ </span>is a variable (a
+     kernel without subscript) and <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">rep</span><span 
+class="cmsy-10x-x-109">⟩ </span>is an expression that contains <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">var</span><span 
+class="cmsy-10x-x-109">⟩</span>. <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">rep</span><span 
+class="cmsy-10x-x-109">⟩</span>
+     is evaluated for each element of <span 
+class="pcrr8t-x-x-109">LST </span>with the element substituted for <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">var</span><span 
+class="cmsy-10x-x-109">⟩</span>.
+     <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">var</span><span 
+class="cmsy-10x-x-109">⟩ </span>may be optionally preceded by a tilde.</dd></dl>
+<!--l. 2060--><p class="noindent" >The rule form for <span 
+class="pcrr8t-x-x-109">fnc </span>is needed when more than one free variable occurs.
+</p><!--l. 2063--><p class="noindent" >The result of evaluating <span 
+class="pcrr8t-x-x-109">fnc </span>is interpreted as a boolean value corresponding to the
+conventions of REDUCE. These values are composed with the leading operator of the
+input expression.
+</p><!--l. 2068--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Examples:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-169">
+    select( ~w&#x003E;0 , {1,-1,2,-3,3}) -&#x003E; {1,2,3}
+ <br />    select(evenp deg(~w,y),part((x+y)^5,0):=list)
+ <br />           -&#x003E; {X^5 ,10*X^3*Y^2 ,5*X*Y^4}
+ <br />    select(evenp deg(~w,x),2x^2+3x^3+4x^4)
+ <br />           -&#x003E; 4X^4 + 2X^2
+</div>
+<!--l. 2075--><p class="nopar" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 1--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse43.html" >Up</a></td><td class="clinks"><a 
+href="manualse44.html" >Next</a></td><td class="clinks"><a 
+href="manualse42.html" >Prev</a></td><td class="clinks"><a 
+href="manualse42.html#tailmanualse42.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse43.html" >Front</a></td></tr></table><a 
+ id="tailmanualse43.html"></a> </p> 
+</body> 
+</html>

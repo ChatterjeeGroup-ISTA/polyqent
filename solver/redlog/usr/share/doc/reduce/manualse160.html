@@ -1,0 +1,557 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>MRVLIMIT: A New Exp-Log Limits Package</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse160.html" >Up</a></td><td class="clinks"><a 
+href="manualse161.html" >Next</a></td><td class="clinks"><a 
+href="manualse159.html" >Prev</a></td><td class="clinks"><a 
+href="manualse159.html#tailmanualse159.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse160.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.35    </span> <a 
+ id="x237-100500020.35"></a>MRVLIMIT: A New Exp-Log Limits Package</h3>
+<a 
+ id="dx237-1005001"></a>
+<a 
+ id="dx237-1005002"></a>
+<!--l. 690--><p class="noindent" >Author: Neil Langmead
+</p><!--l. 692--><p class="noindent" >This package was written when the author was a placement student at ZIB Berlin.
+</p><!--l. 3--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.35.1    </span> <a 
+ id="x237-100600020.35.1"></a>The Exp-Log Limits package</h4>
+<!--l. 5--><p class="noindent" >This package arises from the PhD thesis of Dominik Gruntz<span class="cite">[<a 
+href="manualap2.html#XGruntz:96">Gru96</a>]</span>, of the ETH
+Zürich. He developed a new algorithm to compute limits of &#x0022;exp-log&#x0022; functions. Many
+of the examples he gave were unable to be computed by the present <span 
+class="ptmrc8t-x-x-109">L<span 
+class="small-caps">I</span><span 
+class="small-caps">M</span><span 
+class="small-caps">I</span><span 
+class="small-caps">T</span><span 
+class="small-caps">S</span> </span>package in
+REDUCE, the simplest example being the following, whose limit is obviously
+<span 
+class="cmr-10x-x-109">0</span>:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1262">
+load limits;
+ <br />
+ <br />limit(x^7/e^x,x,infinity);
+ <br />
+ <br />        7
+ <br />       x
+ <br />limit(----,x,infinity)
+ <br />        x
+ <br />       e
+</div>
+<!--l. 21--><p class="nopar" > This particular problem arises, because L’Hôpital’s rule for the computation of
+indeﬁnite forms (such as <span 
+class="cmr-10x-x-109">0</span><span 
+class="cmmi-10x-x-109">∕</span><span 
+class="cmr-10x-x-109">0</span>, or <img 
+src="manual441x.png" alt="∞-
+∞"  class="frac" align="middle" />) can only be applied in a CAS a ﬁnite number of
+times, and in REDUCE, this number is 3. Appling L’Hôpital’s rule 7 times to the above
+problem would have yielded the correct answer 0.
+</p><!--l. 28--><p class="noindent" >The new algorithm solves this particular problem, and enables the computation of
+many more limit calculations in REDUCE. We ﬁrst deﬁne the domain in which
+we work, and then give a statement of the main algorithm that is used in this
+package.
+</p><!--l. 33--><p class="noindent" >Deﬁnition: <br 
+class="newline" />Let <span 
+class="cmsy-10x-x-109">ℜ</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">] </span>be the ring of polynomials in <span 
+class="cmmi-10x-x-109">x </span>with real coeﬃcients, and let <span 
+class="cmmi-10x-x-109">f </span>be an element in
+this ring. The ﬁeld which is obtained from <span 
+class="cmsy-10x-x-109">ℜ</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">] </span>by closing it under the operations
+<span 
+class="cmmi-10x-x-109">f </span><span 
+class="cmsy-10x-x-109">→</span> <span 
+class="cmr-10x-x-109">exp</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">) </span>and <span 
+class="cmmi-10x-x-109">f </span><span 
+class="cmsy-10x-x-109">→</span> <span 
+class="cmr-10x-x-109">log</span> <span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmsy-10x-x-109">| </span>is called the <span 
+class="cmsy-10x-x-109">ℒ</span>-ﬁeld (or logarithmico-exponential ﬁeld, or
+ﬁeld of exp-log functions for short).<br 
+class="newline" /> Hardy proved <span class="cite">[<a 
+href="manualap2.html#XHardy:1912">Har12</a>]</span> that every <span 
+class="cmsy-10x-x-109">ℒ </span>function is ultimately continuous, of constant sign,
+monotonic, and tends to <span 
+class="cmsy-10x-x-109">±∞ </span>or to a ﬁnite real constant as <span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmsy-10x-x-109">→ </span><span 
+class="cmr-10x-x-109">+</span><span 
+class="cmsy-10x-x-109">∞</span><span 
+class="cmmi-10x-x-109">.</span>
+</p><!--l. 45--><p class="noindent" >Here are some examples of exp-log functions, which the package is able to deal
+with:
+                                                                     
+
+                                                                     
+</p><table 
+class="align-star">
+                       <tr><td 
+class="align-odd"><span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span></td>                       <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">e</span><sup><span 
+class="cmmi-8">x</span></sup> <span 
+class="cmsy-10x-x-109">∗</span> <span 
+class="cmr-10x-x-109">log</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmr-10x-x-109">log</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">))</span></td>                         <td 
+class="align-label"></td>                       <td 
+class="align-label">
+                       </td></tr><tr><td 
+class="align-odd"><span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span></td>                       <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual442x.png" alt="            −x
+log(log(x-+-e--))
+ex2 + log(log(x))"  class="frac" align="middle" /></td>                       <td 
+class="align-label"></td>                       <td 
+class="align-label">
+                       </td></tr><tr><td 
+class="align-odd"><span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span></td>                       <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmr-10x-x-109">log</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span><sup><span 
+class="cmr-8">log</span><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">x</span><span 
+class="cmr-8">)</span></sup></td>                             <td 
+class="align-label"></td>                       <td 
+class="align-label">
+                       </td></tr><tr><td 
+class="align-odd"><span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span></td>                       <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">e</span><sup><span 
+class="cmmi-8">x</span><span 
+class="cmsy-8">∗</span><span 
+class="cmr-8">log</span><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">x</span><span 
+class="cmr-8">)</span></sup></td>                                <td 
+class="align-label"></td>                       <td 
+class="align-label"></td></tr></table>
+<!--l. 53--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.35.2    </span> <a 
+ id="x237-100700020.35.2"></a>The Algorithm</h4>
+<!--l. 54--><p class="noindent" >A complete statement of the algorithm now follows: Let <span 
+class="cmmi-10x-x-109">f </span>be a log-exp function in <span 
+class="cmmi-10x-x-109">x</span>,
+whose limit we wish to compute as <span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmsy-10x-x-109">→ </span><span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmr-8">0</span></sub><span 
+class="cmmi-10x-x-109">. </span>The main steps of the algorithm to do this
+are as follows: </p>
+     <ul class="itemize1">
+     <li class="itemize">Determine  the  set  <span 
+class="cmr-10x-x-109">Ω </span>of  the  most  rapidly  varying  subexpressions  of  <span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span>.
+     Limits may have to be computed recursively at this stage.
+     </li>
+     <li class="itemize">Choose an expression <span 
+class="cmmi-10x-x-109">ω </span>such that <span 
+class="cmmi-10x-x-109">ω &#x003E; </span><span 
+class="cmr-10x-x-109">0</span>, <span 
+class="cmr-10x-x-109">lim</span><sub><span 
+class="cmmi-8">x</span><span 
+class="cmsy-8">→∞</span></sub><span 
+class="cmmi-10x-x-109">ω </span><span 
+class="cmr-10x-x-109">= 0 </span>and <span 
+class="cmmi-10x-x-109">ω </span>is in the same
+     comparability class as any element of <span 
+class="cmr-10x-x-109">Ω</span>. Rewrite the other expressions in <span 
+class="cmr-10x-x-109">Ω</span>
+     as <span 
+class="cmmi-10x-x-109">A</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">ω</span><sup><span 
+class="cmmi-8">c</span></sup>, where <span 
+class="cmmi-10x-x-109">A</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) </span>only contains subexpressions in lower comparability
+     classes than <span 
+class="cmr-10x-x-109">Ω</span>.
+     </li>
+     <li class="itemize">Let <span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">ω</span><span 
+class="cmr-10x-x-109">) </span>be the function obtained from <span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) </span>by replacing all elements of <span 
+class="cmr-10x-x-109">Ω</span>
+     by their representation in terms of <span 
+class="cmmi-10x-x-109">ω</span>. Consider all expressions independent
+     of <span 
+class="cmmi-10x-x-109">ω </span>as constants and compute the leading term of the power series of f(<span 
+class="cmmi-10x-x-109">ω</span>)
+     around <span 
+class="cmmi-10x-x-109">ω </span><span 
+class="cmr-10x-x-109">= 0</span><sup><span 
+class="cmr-8">+</span></sup> as <span 
+class="cmmi-10x-x-109">c</span><sub><span 
+class="cmr-8">0</span></sub><span 
+class="cmmi-10x-x-109">ω</span><sup><span 
+class="cmmi-8">e</span><sub><span 
+class="cmr-6">0</span></sub></sup>.
+     </li>
+     <li class="itemize">If the leading exponent <span 
+class="cmmi-10x-x-109">e</span><sub><span 
+class="cmr-8">0</span></sub> <span 
+class="cmmi-10x-x-109">&#x003E; </span><span 
+class="cmr-10x-x-109">0</span>, then the limit is 0, and we stop. If the leading
+                                                                     
+
+                                                                     
+     exponent <span 
+class="cmmi-10x-x-109">e</span><sub><span 
+class="cmr-8">0</span></sub> <span 
+class="cmmi-10x-x-109">&#x003C; </span><span 
+class="cmr-10x-x-109">0 </span>then the limit is <span 
+class="cmsy-10x-x-109">±∞</span>. The sign is deﬁned by the sign of the
+     leading coeﬃcient <span 
+class="cmmi-10x-x-109">c</span><sub><span 
+class="cmr-8">0</span></sub>. If the leading exponent <span 
+class="cmmi-10x-x-109">e</span><sub><span 
+class="cmr-8">0</span></sub>  <span 
+class="cmr-10x-x-109">= 0 </span>then the limit is the
+     limit of the leading coeﬁcient <span 
+class="cmmi-10x-x-109">c</span><sub><span 
+class="cmr-8">0</span></sub>. If <span 
+class="cmmi-10x-x-109">c</span><sub><span 
+class="cmr-8">0</span></sub><span 
+class="cmr-10x-x-109">∉</span><span 
+class="cmmi-10x-x-109">C</span>, where <span 
+class="cmmi-10x-x-109">C </span><span 
+class="cmr-10x-x-109">=</span> Const<span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">L</span><span 
+class="cmr-10x-x-109">)</span>, the set of
+     exp-log constants, we apply the same algorithm recursively on <span 
+class="cmmi-10x-x-109">c</span><sub><span 
+class="cmr-8">0</span></sub>.</li></ul>
+<!--l. 83--><p class="noindent" >The algorithm to compute the most rapidly varying subset (the mrv set) of a function f is
+given below:
+</p>
+<div class="flushleft" 
+>
+<!--l. 85--><p class="noindent" >
+ procedure mrv(f)<br />
+% f an exp log function in <span 
+class="cmmi-10x-x-109">x</span><br />
+if (not (depend(f,<span 
+class="cmmi-10x-x-109">x</span>))) <span 
+class="cmsy-10x-x-109">→ </span>return ({})<br />
+                            else if <span 
+class="cmmi-10x-x-109">f </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmsy-10x-x-109">→ </span>return({<span 
+class="cmmi-10x-x-109">x</span>})<br />
+                            else if <span 
+class="cmmi-10x-x-109">f </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">gh </span><span 
+class="cmsy-10x-x-109">→ </span>return(max(mrv(g),mrv(h)))<br />
+else if <span 
+class="cmmi-10x-x-109">f </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">g </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">h </span><span 
+class="cmsy-10x-x-109">→ </span>return(max(mrv(g),mrv(h)))<br />
+else if <span 
+class="cmmi-10x-x-109">f </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">g</span><sup><span 
+class="cmmi-8">c</span></sup> and c <span 
+class="cmsy-10x-x-109">∈ </span><span 
+class="cmmi-10x-x-109">C </span><span 
+class="cmsy-10x-x-109">→ </span>return(mrv(g))<br />
+else if <span 
+class="cmmi-10x-x-109">f </span><span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmr-10x-x-109">log</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">g</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmsy-10x-x-109">→ </span>return(mrv(g))<br />
+else if <span 
+class="cmmi-10x-x-109">f </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">e</span><sup><span 
+class="cmmi-8">g</span></sup> <span 
+class="cmsy-10x-x-109">→</span><br />
+           if <span 
+class="cmr-10x-x-109">lim</span><sub><span 
+class="cmmi-8">x</span><span 
+class="cmsy-8">→∞</span></sub><span 
+class="cmmi-10x-x-109">g </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">±∞→</span><br />
+           return(max({<span 
+class="cmmi-10x-x-109">e</span><sup><span 
+class="cmmi-8">g</span></sup>}, mrv(g)))<br />
+           else <span 
+class="cmsy-10x-x-109">→ </span>return mrv(g)<br />
+<span 
+class="ptmb8t-x-x-109">end</span></p></div>
+<!--l. 101--><p class="noindent" >The function max() computes the maximum of the two sets of expressions. Max()
+compares two elements of its argument sets and returns the set which is in the
+higher comparability class or the union of both if they have the same order of
+variation.
+</p><!--l. 106--><p class="noindent" >For example, we have
+                                                                     
+
+                                                                     
+</p><table 
+class="align-star">
+               <tr><td 
+class="align-odd"></td>               <td 
+class="align-even">mrv<span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">e</span><sup><span 
+class="cmmi-8">x</span></sup><span 
+class="cmr-10x-x-109">) = </span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">e</span><sup><span 
+class="cmmi-8">x</span></sup><span 
+class="cmsy-10x-x-109">}</span></td>                                       <td 
+class="align-label"></td>               <td 
+class="align-label">
+               </td></tr><tr><td 
+class="align-odd"></td>               <td 
+class="align-even">mrv<span 
+class="cmr-10x-x-109">(</span><span 
+class="cmr-10x-x-109">log</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmr-10x-x-109">log</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmr-10x-x-109">log</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmr-8">3</span></sup><span 
+class="cmr-10x-x-109">)))) = </span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmsy-10x-x-109">}</span></td>                   <td 
+class="align-label"></td>               <td 
+class="align-label">
+               </td></tr><tr><td 
+class="align-odd"></td>               <td 
+class="align-even">mrv<span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) = </span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmsy-10x-x-109">}</span></td>                                         <td 
+class="align-label"></td>               <td 
+class="align-label">
+               </td></tr><tr><td 
+class="align-odd"></td>               <td 
+class="align-even">mrv<span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">e</span><sup><span 
+class="cmmi-8">x</span></sup> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">e</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmmi-8">x</span></sup> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">log</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)) = </span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">e</span><sup><span 
+class="cmmi-8">x</span></sup><span 
+class="cmmi-10x-x-109">,e</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmmi-8">x</span></sup><span 
+class="cmsy-10x-x-109">}</span></td>               <td 
+class="align-label"></td>               <td 
+class="align-label">
+               </td></tr><tr><td 
+class="align-odd"></td>               <td 
+class="align-even">mrv<span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">e</span><sup><span 
+class="cmmi-8">e</span><sup><span 
+class="cmsy-6">−</span><span 
+class="cmmi-6">x</span></sup>
+     </sup><span 
+class="cmr-10x-x-109">) = </span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">e</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmmi-8">x</span></sup><span 
+class="cmsy-10x-x-109">}</span></td>                                    <td 
+class="align-label"></td>               <td 
+class="align-label"></td></tr></table>
+<!--l. 114--><p class="noindent" >For further details, proofs and explanations of the algorithm, please consult Gruntz’
+thesis<span class="cite">[<a 
+href="manualap2.html#XGruntz:96">Gru96</a>]</span>.
+</p><!--l. 117--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.35.2.1    </span> <a 
+ id="x237-100800020.35.2.1"></a>Mrv_limit Examples</h5>
+<a 
+ id="dx237-1008001"></a>
+<!--l. 119--><p class="noindent" >Consider the following in REDUCE:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1263">
+mrv_limit(e^x,x,infinity);
+ <br />
+ <br />infinity
+ <br />
+ <br />mrv_limit(1/log(x),x,infinity);
+ <br />
+ <br />0
+ <br />
+ <br />b:=e^x*(e^(1/x-e^-x)-e^(1/x));
+ <br />
+ <br />
+ <br />           -1        - x
+ <br />      x + x      - e
+ <br />b := e       *(e         - 1)
+ <br />
+ <br />
+ <br />mrv_limit(b,x,infinity);
+ <br />
+ <br />
+ <br />-1
+ <br />
+ <br />
+ <br />ex := (log(-log(x)+log(log(x)))-log(log(x)))
+ <br />        /(log(log(x)+log(log(log(x)))))*log(x);
+ <br />
+ <br />       log(x)*( - log(log(x)) + log(log(log(x)) - log(x)))
+ <br />ex := -----------------------------------------------------
+ <br />                 log(log(log(log(x))) + log(x))
+ <br />
+ <br />mrv_limit(ex,x,infinity);
+ <br />
+ <br />1
+ <br />
+ <br />
+ <br />(log(x+e^-x)+log(1/x))/(log(x)*e^x);
+ <br />
+ <br />  - x       -1       -1          - x
+ <br />e    *log(x)  *(log(x  ) + log(e     + x));
+ <br />
+ <br />mrv_limit(ws,x,infinity);
+ <br />
+ <br />0
+ <br />
+                                                                     
+
+                                                                     
+ <br />mrv_limit((log(x)*e^-x)/e^(log(x)+e^(x^2)),x,infinity);
+ <br />
+ <br />0
+</div>
+<!--l. 168--><p class="nopar" >
+More examples can be found in the <span 
+class="pcrr8t-x-x-109">mrvlimit.tst </span>ﬁle.
+</p><!--l. 172--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.35.3    </span> <a 
+ id="x237-100900020.35.3"></a>Tracing the algorihm</h4>
+<!--l. 173--><p class="noindent" >The package provides a means of tracing the <span 
+class="pcrr8t-x-x-109">mrv_limit </span>function at its main steps, and
+is intended to help the user if he encounters problems. Messages are displayed informing
+the user which Taylor expansion is being computed, all recursive calls are listed, and the
+value returned by the <span 
+class="pcrr8t-x-x-109">mrv </span>function is given. This information is displayed when a switch
+<span 
+class="pcrr8t-x-x-109">trlimit </span>is on.
+</p><!--l. 261--><p class="noindent" >Note that, due to the recursiveness of the algorithm there is a lot of output when the
+<span 
+class="pcrr8t-x-x-109">trlimit </span>switch is on.
+</p><!--l. 696--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 698--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse160.html" >Up</a></td><td class="clinks"><a 
+href="manualse161.html" >Next</a></td><td class="clinks"><a 
+href="manualse159.html" >Prev</a></td><td class="clinks"><a 
+href="manualse159.html#tailmanualse159.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse160.html" >Front</a></td></tr></table><a 
+ id="tailmanualse160.html"></a>  </p> 
+</body> 
+</html>

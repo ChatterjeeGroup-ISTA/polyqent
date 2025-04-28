@@ -1,0 +1,80 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>The Standard Lisp Compiler</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch23.html#manualse211.html" >Up</a></td><td class="clinks"><a 
+href="manualse212.html" >Next</a></td><td class="clinks"><a 
+href="#tailmanualse211.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">23.1    </span> <a 
+ id="x308-135800023.1"></a>The Standard Lisp Compiler</h3>
+<a 
+ id="dx308-1358001"></a>
+<!--l. 9--><p class="noindent" ><a 
+ id="switch:COMP"></a>
+</p><!--l. 11--><p class="noindent" >Many versions of REDUCE include a Standard Lisp compiler that is automatically
+loaded on demand. You should check your system speciﬁc user guide to make sure you
+have such a compiler. To make the compiler active, the switch <span 
+class="pcrr8t-x-x-109">comp</span><a 
+ id="dx308-1358002"></a><a 
+ id="dx308-1358003"></a><a 
+ id="dx308-1358004"></a> should be turned on.
+Any further deﬁnitions input after this will be compiled automatically. If the compiler
+used is a derivative version of the original Griss-Hearn compiler (<span class="cite">[<a 
+href="manualap2.html#XGriss:79">GH79</a>]</span>),
+there are other switches that might also be used in this regard. However, these
+additional switches are not supported in all compilers. They are as follows:
+<a 
+ id="dx308-1358005"></a><a 
+ id="dx308-1358006"></a><a 
+ id="dx308-1358007"></a><a 
+ id="dx308-1358008"></a><a 
+ id="dx308-1358009"></a><a 
+ id="dx308-1358010"></a><a 
+ id="dx308-1358011"></a><a 
+ id="dx308-1358012"></a><a 
+ id="dx308-1358013"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="pcrr8t-x-x-109">plap</span> </dt><dd 
+class="description">If on, causes the printing of the portable macros produced by the compiler;
+     </dd><dt class="description">
+<span 
+class="pcrr8t-x-x-109">pgwd</span> </dt><dd 
+class="description">If  on,  causes  the  printing  of  the  actual  assembly  language  instructions
+     generated from the macros;
+     </dd><dt class="description">
+<span 
+class="pcrr8t-x-x-109">pwrds</span> </dt><dd 
+class="description">If on, causes a statistic message of the form <br 
+class="newline" /><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="pcrro8t-x-x-109">function</span><span 
+class="cmsy-10x-x-109">⟩ </span><span 
+class="pcrr8t-x-x-109">COMPILED, </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="pcrro8t-x-x-109">words</span><span 
+class="cmsy-10x-x-109">⟩ </span><span 
+class="pcrr8t-x-x-109">WORDS, </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="pcrro8t-x-x-109">words</span><span 
+class="cmsy-10x-x-109">⟩ </span><span 
+class="pcrr8t-x-x-109">LEFT</span><br 
+class="newline" />to be printed. The ﬁrst number is the number of words of binary program
+     space  the  compiled  function  took,  and  the  second  number  the  number  of
+     words left unused in binary program space.</dd></dl>
+                                                                     
+
+                                                                     
+<!--l. 37--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch23.html#manualse211.html" >Up</a></td><td class="clinks"><a 
+href="manualse212.html" >Next</a></td><td class="clinks"><a 
+href="manualse211.html" >Front</a></td></tr></table><a 
+ id="tailmanualse211.html"></a> </p> 
+</body> 
+</html>

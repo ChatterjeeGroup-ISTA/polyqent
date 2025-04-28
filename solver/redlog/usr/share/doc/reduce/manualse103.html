@@ -1,0 +1,169 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>LET Rules as Procedures</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch15.html#manualse103.html" >Up</a></td><td class="clinks"><a 
+href="manualse104.html" >Next</a></td><td class="clinks"><a 
+href="manualse102.html" >Prev</a></td><td class="clinks"><a 
+href="manualse102.html#tailmanualse102.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse103.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">15.5    </span> <a 
+ id="x131-24200015.5"></a>LET Rules as Procedures</h3>
+<!--l. 251--><p class="noindent" >The <span 
+class="pcrr8t-x-x-109">let</span><a 
+ id="dx131-242001"></a> statement oﬀers an alternative syntax and semantics for procedure
+deﬁnition.
+</p><!--l. 254--><p class="noindent" >In place of
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-452">
+        procedure abc(x,y,z); &#x003C;procedure body&#x003E;;
+</div>
+<!--l. 257--><p class="nopar" > one can write
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-453">
+        for all x,y,z let abc(x,y,z) = &#x003C;procedure body&#x003E;;
+</div>
+<!--l. 261--><p class="nopar" > There are several diﬀerences to note.
+</p><!--l. 264--><p class="noindent" >If the procedure body contains an assignment to one of the formal parameters,
+e.g.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-454">
+        x := 123;
+</div>
+<!--l. 268--><p class="nopar" > in the <span 
+class="pcrr8t-x-x-109">procedure </span>case it is a variable holding a copy of the ﬁrst actual argument that is
+changed. The actual argument is not changed.
+</p><!--l. 272--><p class="noindent" >In the <span 
+class="pcrr8t-x-x-109">let </span>case, the actual argument is changed. Thus, if <span 
+class="pcrr8t-x-x-109">abc </span>is deﬁned using <span 
+class="pcrr8t-x-x-109">let</span>, and
+<span 
+class="pcrr8t-x-x-109">abc(u,v,w) </span>is evaluated, the value of <span 
+class="pcrr8t-x-x-109">u </span>changes to 123. That is, the <span 
+class="pcrr8t-x-x-109">let </span>form of
+deﬁnition allows the user to bypass the protections that are enforced by the call by value
+conventions of standard <span 
+class="pcrr8t-x-x-109">procedure </span>deﬁnitions.
+</p><!--l. 278--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Example: </span>We take our earlier <span 
+class="pcrr8t-x-x-109">factorial</span><a 
+ id="dx131-242002"></a> procedure and write it as a <span 
+class="pcrr8t-x-x-109">let</span>
+statement.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-455">
+        for all n let factorial n =
+ <br />                    begin scalar m,s;
+ <br />                    m:=1; s:=n;
+ <br />                l1: if s=0 then return m;
+ <br />                    m:=m*s;
+ <br />                    s:=s-1;
+ <br />                    go to l1
+ <br />                end;
+</div>
+<!--l. 289--><p class="nopar" > The reader will notice that we introduced a new local variable, <span 
+class="pcrr8t-x-x-109">s</span>, and set it equal to <span 
+class="pcrr8t-x-x-109">n</span>.
+The original form of the procedure contained the statement <span 
+class="pcrr8t-x-x-109">n:=n-1;</span>. If the user asked
+for the value of <span 
+class="pcrr8t-x-x-109">factorial(5) </span>then <span 
+class="pcrr8t-x-x-109">n </span>would correspond to, not just have the
+value of, 5, and REDUCE would object to trying to execute the statement 5 :=
+<span 
+class="cmr-10x-x-109">5 </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1</span>.
+</p><!--l. 297--><p class="noindent" >If <span 
+class="pcrr8t-x-x-109">pqr </span>is a procedure with no parameters,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-456">
+        procedure pqr;
+ <br />           &#x003C;procedure body&#x003E;;
+</div>
+<!--l. 301--><p class="nopar" > it can be written as a <span 
+class="pcrr8t-x-x-109">let </span>statement quite simply:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-457">
+        let pqr = &#x003C;procedure body&#x003E;;
+</div>
+<!--l. 305--><p class="nopar" > To call <span 
+class="ptmri8t-x-x-109">procedure </span><span 
+class="pcrr8t-x-x-109">pqr</span>, if deﬁned in the latter form, the empty parentheses would not be
+used: use <span 
+class="pcrr8t-x-x-109">pqr </span>not <span 
+class="pcrr8t-x-x-109">pqr() </span>where a call on the procedure is needed.
+</p><!--l. 310--><p class="noindent" >The two notations for a procedure with no arguments can be combined. <span 
+class="pcrr8t-x-x-109">pqr </span>can be
+deﬁned in the standard <span 
+class="pcrr8t-x-x-109">procedure </span>form. Then a <span 
+class="pcrr8t-x-x-109">let </span>statement
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-458">
+        let pqr = pqr();
+</div>
+<!--l. 315--><p class="nopar" > would allow a user to use <span 
+class="pcrr8t-x-x-109">pqr </span>instead of <span 
+class="pcrr8t-x-x-109">pqr() </span>in calling the procedure.
+</p><!--l. 319--><p class="noindent" >A feature available with <span 
+class="pcrr8t-x-x-109">let</span>-deﬁned procedures and not with procedures deﬁned in the
+standard way is the possibility of deﬁning partial functions.<a 
+ id="dx131-242003"></a><a 
+ id="dx131-242004"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-459">
+    for all x such that numberp x
+ <br />       let uvw(x)=&#x003C;procedure body&#x003E;;
+</div>
+<!--l. 325--><p class="nopar" > Now <span 
+class="pcrr8t-x-x-109">uvw </span>of an integer would be calculated as prescribed by the procedure body,
+while <span 
+class="pcrr8t-x-x-109">uvw </span>of a general argument, such as <span 
+class="pcrr8t-x-x-109">z </span>or <span 
+class="pcrr8t-x-x-109">p+q </span>(assuming these evaluate
+to themselves) would simply stay <span 
+class="pcrr8t-x-x-109">uvw(z) </span>or <span 
+class="pcrr8t-x-x-109">uvw(p+q) </span>as the case may
+be.
+                                                                     
+
+                                                                     
+</p><!--l. 332--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch15.html#manualse103.html" >Up</a></td><td class="clinks"><a 
+href="manualse104.html" >Next</a></td><td class="clinks"><a 
+href="manualse102.html" >Prev</a></td><td class="clinks"><a 
+href="manualse102.html#tailmanualse102.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse103.html" >Front</a></td></tr></table><a 
+ id="tailmanualse103.html"></a> </p> 
+</body> 
+</html>

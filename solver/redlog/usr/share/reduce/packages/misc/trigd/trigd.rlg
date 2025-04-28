@@ -1,0 +1,753 @@
+% Simplification tests
+
+{sind(0), cosd(0), tand(0), secd(0)};
+
+
+{0,1,0,1}
+
+{sind(180), cosd(180), tand(180),secd(180)};
+
+
+{0,-1,0,-1}
+
+{sind(360), cosd(360), tand(360),secd(360)};
+
+
+{0,1,0,1}
+
+{sind(90), cosd(90), cotd(90), cscd(90)};
+
+
+{1,0,0,1}
+
+{sind(270), cosd(270), cotd(270), cscd(270)};
+
+
+{-1,0,0,-1}
+
+{sind(450), cosd(450), cotd(450), cscd(450)};
+
+
+{1,0,0,1}
+
+
+l:=for j:=1:5 collect sind(15j);
+
+
+       sqrt(2)*(sqrt(3) - 1)
+l := {-----------------------,
+                 4
+
+       1
+      ---,
+       2
+
+       sqrt(2)
+      ---------,
+          2
+
+       sqrt(3)
+      ---------,
+          2
+
+       sqrt(2)*(sqrt(3) + 1)
+      -----------------------}
+                 4
+
+asind l;
+
+
+{15,30,45,60,75}
+
+l:=for j:=1:5 collect cosd(15j);
+
+
+       sqrt(2)*(sqrt(3) + 1)
+l := {-----------------------,
+                 4
+
+       sqrt(3)
+      ---------,
+          2
+
+       sqrt(2)
+      ---------,
+          2
+
+       1
+      ---,
+       2
+
+       sqrt(2)*(sqrt(3) - 1)
+      -----------------------}
+                 4
+
+acosd l;
+
+
+{15,30,45,60,75}
+
+l:=for j:=1:5 collect tand(15j);
+
+
+       sqrt(3) - 1
+l := {-------------,
+       sqrt(3) + 1
+
+          1
+      ---------,
+       sqrt(3)
+
+      1,
+
+      sqrt(3),
+
+       sqrt(3) + 1
+      -------------}
+       sqrt(3) - 1
+
+atand l;
+
+
+{15,30,45,60,75}
+
+l:=for j:=1:5 collect cotd(15j);
+
+
+       sqrt(3) + 1
+l := {-------------,
+       sqrt(3) - 1
+
+      sqrt(3),
+
+      1,
+
+          1
+      ---------,
+       sqrt(3)
+
+       sqrt(3) - 1
+      -------------}
+       sqrt(3) + 1
+
+acotd l;
+
+
+{15,30,45,60,75}
+
+l:=for j:=1:5 collect secd(15j);
+
+
+                 4
+l := {-----------------------,
+       sqrt(2)*(sqrt(3) + 1)
+
+          2
+      ---------,
+       sqrt(3)
+
+          2
+      ---------,
+       sqrt(2)
+
+      2,
+
+                 4
+      -----------------------}
+       sqrt(2)*(sqrt(3) - 1)
+
+asecd l;
+
+
+{15,30,45,60,75}
+
+l:=for j:=1:5 collect cscd(15j);
+
+
+                 4
+l := {-----------------------,
+       sqrt(2)*(sqrt(3) - 1)
+
+      2,
+
+          2
+      ---------,
+       sqrt(2)
+
+          2
+      ---------,
+       sqrt(3)
+
+                 4
+      -----------------------}
+       sqrt(2)*(sqrt(3) + 1)
+
+acscd l;
+
+
+{15,30,45,60,75}
+
+
+{sind(-a), cosd(-a), tand(-a), cotd(-a), cscd(-a), secd(-a)};
+
+
+{ - sind(a),
+
+ cosd(a),
+
+  - tand(a),
+
+  - cotd(a),
+
+  - cscd(a),
+
+ secd(a)}
+
+
+{sind(a+190), cosd(a+190), tand(a+190), cotd(a+190), cscd(a+190), secd(a+190)};
+
+
+{ - sind(a + 10),
+
+  - cosd(a + 10),
+
+ tand(a + 10),
+
+ cotd(a + 10),
+
+  - cscd(a + 10),
+
+  - secd(a + 10)}
+
+{sind(a+290), cosd(a+290), tand(a+290), cotd(a+290), cscd(a+290), secd(a+290)};
+
+
+{sind(a - 70),
+
+ cosd(a - 70),
+
+ tand(a - 70),
+
+ cotd(a - 70),
+
+ cscd(a - 70),
+
+ secd(a - 70)}
+
+{sind(a-370), cosd(a-370), tand(a-370), cotd(a-370), cscd(a-370), secd(a-370)};
+
+
+{sind(a - 10),
+
+ cosd(a - 10),
+
+ tand(a - 10),
+
+ cotd(a - 10),
+
+ cscd(a - 10),
+
+ secd(a - 10)}
+
+{sind(a-470), cosd(a-470), tand(a-470), cotd(a-470), cscd(a-470), secd(a-470)};
+
+
+{ - sind(a + 70),
+
+  - cosd(a + 70),
+
+ tand(a + 70),
+
+ cotd(a + 70),
+
+  - cscd(a + 70),
+
+  - secd(a + 70)}
+
+
+{sind(a+1500/7), cosd(a+1500/7), tand(a+1500/7), cotd(a+1500/7), cscd(a+1500/7), secd(a+1500/7)};
+
+
+          7*a + 240
+{ - sind(-----------),
+              7
+
+          7*a + 240
+  - cosd(-----------),
+              7
+
+       7*a + 240
+ tand(-----------),
+           7
+
+       7*a + 240
+ cotd(-----------),
+           7
+
+          7*a + 240
+  - cscd(-----------),
+              7
+
+          7*a + 240
+  - secd(-----------)}
+              7
+
+{sind(a+1900/7), cosd(a+1900/7), tand(a+1900/7), cotd(a+1900/7), cscd(a+1900/7), secd(a+1900/7)};
+
+
+       7*a - 620
+{sind(-----------),
+           7
+
+       7*a - 620
+ cosd(-----------),
+           7
+
+       7*a - 620
+ tand(-----------),
+           7
+
+       7*a - 620
+ cotd(-----------),
+           7
+
+       7*a - 620
+ cscd(-----------),
+           7
+
+       7*a - 620
+ secd(-----------)}
+           7
+
+
+{sind(a+270), cosd(a+270), tand(a+270), cotd(a+270), cscd(a+270), secd(a+270)};
+
+
+{ - cosd(a),
+
+ sind(a),
+
+  - cotd(a),
+
+  - tand(a),
+
+  - secd(a),
+
+ cscd(a)}
+
+{sind(a+450), cosd(a+450), tand(a+450), cotd(a+450), cscd(a+450), secd(a+450)};
+
+
+{cosd(a),
+
+  - sind(a),
+
+  - cotd(a),
+
+  - tand(a),
+
+ secd(a),
+
+  - cscd(a)}
+
+
+{asind(-a), acosd(-a), atand(-a), acotd(-a), acscd(-a), asecd(-a)};
+
+
+{ - asind(a),
+
+  - acosd(a) + 180,
+
+  - atand(a),
+
+  - acotd(a) + 180,
+
+  - acscd(a),
+
+  - asecd(a) + 180}
+
+
+{sind asind(-a), cosd acosd(-a), tand atand(-a), 
+cotd acotd(-a), cscd acscd(-a), secd asecd(-a)};
+
+
+{ - a,
+
+  - a,
+
+  - a,
+
+  - a,
+
+  - a,
+
+  - a}
+
+
+{atan2d(1,0), atan2d(-1,0), atan2d(0, 1), atan2d(0, -1)};
+
+
+{90,-90,0,180}
+
+{atan2d(1,1), atan2d(1,-1), atan2d(-1, 1), atan2d(-1, -1)};
+
+
+{45,135,-45,-135}
+
+atan2d(y^2, -x^2);
+
+
+           2
+          y
+ - atand(----) + 180
+           2
+          x
+
+
+% Numerical tests
+on rounded;
+
+
+reslist := {sind(40), cosd(40), tand(40), cotd(40), secd(40), cscd(40)};
+
+
+reslist := {0.642787609687,0.766044443119,0.839099631177,1.19175359259,
+
+            1.30540728933,1.55572382686}
+
+
+% Checks
+t:= third reslist$
+
+
+(first reslist)^2 + (second reslist)^2;
+
+
+1
+
+first reslist -t/sqrt(1+t^2);
+
+
+0
+
+sind(80)-2t/(1+t^2);
+
+
+0
+
+atand(t);
+
+
+40.0
+    
+
+{atand(1), atand(sqrt 3), atand(sqrt 2-1), acotd(-2), asecd(-2/sqrt(3))};
+
+
+{45.0,60.0,22.5,153.434948823,150.0}
+
+{atand(1), atand(sqrt 3), atand(sqrt 2-1), acotd 2, acotd(-2),  
+acotd(2)+acotd(-2), asecd(-2/sqrt(3))};
+
+
+{45.0,
+
+ 60.0,
+
+ 22.5,
+
+ 26.5650511771,
+
+ 153.434948823,
+
+ 180.0,
+
+ 150.0}
+
+
+reslist := {atan2d(sqrt 3-1, sqrt 3+1), atan2d( -(1+sqrt 3), 1-sqrt 3)};
+
+
+reslist := {15.0,-105.0}
+
+sind(second reslist)+ sqrt(2)/4*(sqrt 3+1);
+
+
+0
+
+
+{argd(2.1), argd(-1)};
+
+
+{0,180.0}
+
+
+{sind(40+i), atand(1+i), asind(2), asecd(1/2)};
+
+
+{sind(i + 40),
+
+ atand(i + 1),
+
+ asind(2),
+
+ asecd(0.5)}
+  % not evaluated
+{argd(1+i), argd(-1-i), argd(1-sqrt(3)*i)};
+
+
+{argd(i + 1),
+
+ argd( - i - 1),
+
+ argd( - 1.73205080757*i + 1)}
+ % not evaluated
+atan2d(1+i, 1-i);
+
+
+atan2d(i + 1, - i + 1)
+   % not evaluated
+
+on complex;
+
+
+*** Domain mode rounded changed to complex-rounded 
+
+
+{sind(40+i), atand(1+i), asind(2), asecd(1/2)};
+
+
+{0.642885514323 - 0.011640856063*i,58.2825255885 + 23.0534999427*i,90.0
+
+  - 75.4561292902*i,75.4561292902*i}
+ 
+{argd(1+i), argd(-1-i), argd(1-sqrt(3)*i)};
+
+
+{45.0,-135.0,-60.0}
+ 
+
+reslist := {acotd(3i), acotd(-3i), atand(3i)};
+
+
+reslist := { - 19.8572040137*i,180.0 + 19.8572040137*i,90.0 + 19.8572040137*i}
+
+first reslist + second reslist-180;
+
+
+0
+
+90-third reslist-first reslist;
+
+
+0
+
+
+reslist := {acotd(0.3i), acotd(-0.3i), atand(0.3i)};
+
+
+reslist := {90.0 - 17.7341669974*i,90.0 + 17.7341669974*i,17.7341669974*i}
+
+first reslist + second reslist-180;
+
+
+0
+
+90-third reslist-first reslist;
+
+
+0
+
+
+off complex;
+
+
+*** Domain mode complex-rounded changed to rounded 
+
+precision 50;
+
+
+12
+
+
+reslist := {sind(40), cosd(40), tand(40), cotd(40), secd(40), cscd(40)};
+
+
+reslist := {0.64278760968653932632264340990726343290755988420568,
+
+            0.7660444431189780352023926505554166739358324570804,
+
+            0.83909963117728001176312729812318136468743428301235,
+
+            1.1917535925942099587053080718604193369307004077085,
+
+            1.3054072893322786045931334929227408159984972912637,
+
+            1.5557238268604123200563559546372533808211721914623}
+
+
+% Checks
+t:= third reslist$
+
+
+(first reslist)^2 + (second reslist)^2;
+
+
+1
+
+first reslist -t/sqrt(1+t^2);
+
+
+0
+
+sind(80)-2t/(1+t^2);
+
+
+0
+
+atand(t);
+
+
+40.0
+ 
+
+{atand(1), atand(sqrt 3), atand(sqrt 2-1), acotd 2, acotd(-2), 
+ acotd(2)+acotd(-2), asecd(-2/sqrt(3))};
+
+
+{45.0,
+
+ 60.0,
+
+ 22.5,
+
+ 26.565051177077989351572193720453294671204214299645,
+
+ 153.43494882292201064842780627954670532879578570035,
+
+ 180.0,
+
+ 150.0}
+
+
+{argd(2.1), argd(-1)};
+
+
+{0,180.0}
+
+
+{sind(40+i), atand(1+i), asind(2), asecd(1/2)};
+
+
+{sind(i + 40),
+
+ atand(i + 1),
+
+ asind(2),
+
+ asecd(0.5)}
+  % not evaluated
+{argd(1+i), argd(-1-i), argd(1-sqrt(3)*i)};
+
+
+{argd(i + 1),
+
+ argd( - i - 1),
+
+ argd( - 1.7320508075688772935274463415058723669428052538104*i + 1)}
+ % not evaluated
+atan2d(1+i, 1-i);
+
+
+atan2d(i + 1, - i + 1)
+   % not evaluated
+
+on complex;
+
+
+*** Domain mode rounded changed to complex-rounded 
+
+
+{sind(40+i), atand(1+i), asind(2), asecd(1/2)};
+
+
+{0.64288551432335641781608341666793432509025069321368
+
+  - 0.011640856062954495412717394300170594108025115690364*i,
+
+ 58.282525588538994675786096860226647335602107149823
+
+  + 23.053499942704926636434894802956564350596149550014*i,90.0
+
+  - 75.456129290216892004100125807761194799622944046311*i,
+
+ 75.456129290216892004100125807761194799622944046311*i}
+ 
+{argd(1+i), argd(-1-i), argd(1-sqrt(3)*i)};
+
+
+{45.0,-135.0,-60.0}
+ 
+
+reslist := {acotd(3i), acotd(-3i), atand(3i)};
+
+
+reslist := { - 19.857204013738643405681078890619792188442077385669*i,180.0
+
+             + 19.857204013738643405681078890619792188442077385669*i,90.0
+
+             + 19.857204013738643405681078890619792188442077385669*i}
+
+first reslist + second reslist-180;
+
+
+0
+
+90-third reslist-first reslist;
+
+
+0
+
+
+reslist := {acotd(0.3i), acotd(-0.3i), atand(0.3i)};
+
+
+reslist := {90.0 - 17.734166997397996843513571101613770576404209837151*i,90.0
+
+             + 17.734166997397996843513571101613770576404209837151*i,
+
+            17.734166997397996843513571101613770576404209837151*i}
+
+first reslist + second reslist-180;
+
+
+0
+
+90-third reslist-first reslist;
+
+
+0
+
+
+% atan2d(1+i, 1-i);   % should cause an error obviously!
+precision 12;
+
+
+50
+
+% atan2d(1+i, 1-i);   % would cause error
+
+off complex, rounded;
+
+
+*** Domain mode complex-rounded changed to rounded 
+
+end;
+
+Tested on x86_64-pc-windows CSL
+1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 
+Time: trigd  47  0
+1: Leaving REDUCE ... 
+
+
+End of Lisp run after 0.09+0.00 seconds

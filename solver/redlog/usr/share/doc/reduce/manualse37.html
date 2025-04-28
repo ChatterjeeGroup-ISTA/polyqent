@@ -1,0 +1,157 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>LIMIT Operator</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse37.html" >Up</a></td><td class="clinks"><a 
+href="manualse38.html" >Next</a></td><td class="clinks"><a 
+href="manualse36.html" >Prev</a></td><td class="clinks"><a 
+href="manualse36.html#tailmanualse36.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse37.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">7.10    </span> <a 
+ id="x48-930007.10"></a>LIMIT Operator</h3>
+<a 
+ id="dx48-93001"></a>
+<a 
+ id="dx48-93002"></a>
+<a 
+ id="dx48-93003"></a>
+<a 
+ id="dx48-93004"></a>
+<a 
+ id="dx48-93005"></a>
+<a 
+ id="dx48-93006"></a>
+<a 
+ id="dx48-93007"></a>
+<!--l. 7--><p class="noindent" >LIMITS is a fast limit package for REDUCE for functions which are continuous except
+for computable poles and singularities, written by Stanley L. Kameny, based on some
+earlier work by Ian Cohen and John P. Fitch. The Truncated Power Series package is
+used for non-critical points, at which the value of the function is the constant term in the
+expansion around that point. <a 
+ id="dx48-93008"></a>l’Hôpital’s rule is used in critical cases, with
+preprocessing of <span 
+class="cmsy-10x-x-109">∞−∞ </span>forms and reformatting of product forms in order to apply
+l’Hôpital’s rule. A limited amount of bounded arithmetic is also employed where
+applicable.
+</p><!--l. 18--><p class="noindent" >The standard way of calling limit, applying all of the methods, is <a 
+ id="dx48-93009"></a><a 
+ id="operator:LIMIT"></a>
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">limit(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exprn:algebraic</span><span 
+class="cmsy-10x-x-109">⟩</span>, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">var:kernel</span><span 
+class="cmsy-10x-x-109">⟩</span>, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">limpoint:algebraic</span><span 
+class="cmsy-10x-x-109">⟩</span>) : <span 
+class="ptmri8t-x-x-109">algebraic</span></div>
+<!--l. 24--><p class="noindent" >The result is the limit of exprn as var approaches limpoint. To compute the of <img 
+src="manual40x.png" alt="sin(x )∕x "  class="math"  />
+at the point <span 
+class="cmr-10x-x-109">0</span>, enter
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-157">
+limit(sin(x)/x,x,0);
+ <br />
+ <br />1
+</div>
+<!--l. 30--><p class="nopar" > If the limit depends upon the direction of approach to the <span 
+class="pcrr8t-x-x-109">limpoint</span>, the onesided limit
+functions <span 
+class="pcrr8t-x-x-109">limit!+ </span>and <span 
+class="pcrr8t-x-x-109">limit!- </span>may be used: <a 
+ id="dx48-93010"></a><a 
+ id="dx48-93011"></a> <a 
+ id="operator:LIMIT+"></a> <a 
+ id="operator:LIMIT-"></a>
+  </p><div class="syntax">
+  <!--tex4ht:inline--><div class="tabular"> <table id="TBL-20" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-20-1g"><col 
+id="TBL-20-1" /><col 
+id="TBL-20-2" /><col 
+id="TBL-20-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-20-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-20-1-1"  
+class="td01"><span 
+class="pcrr8t-x-x-109">limit!+(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exprn:algebraic</span><span 
+class="cmsy-10x-x-109">⟩</span>, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">var:kernel</span><span 
+class="cmsy-10x-x-109">⟩</span>, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">limpoint:algebraic</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">) </span>: <span 
+class="ptmri8t-x-x-109">algebraic  </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-20-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-20-2-1"  
+class="td01"><span 
+class="pcrr8t-x-x-109">limit!-(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exprn:algebraic</span><span 
+class="cmsy-10x-x-109">⟩</span>, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">var:kernel</span><span 
+class="cmsy-10x-x-109">⟩</span>, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">limpoint:algebraic</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">) </span>: <span 
+class="ptmri8t-x-x-109">algebraic   </span></td></tr></table>
+  </div></div>
+<!--l. 41--><p class="noindent" >they are deﬁned by:
+     </p><div class="quote">
+     <div class="tabular"> <table id="TBL-21" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-21-1g"><col 
+id="TBL-21-1" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-21-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-21-1-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">limit!+ (limit!-) </span>(exp,var,limpoint) <span 
+class="cmsy-10x-x-109">→</span><span 
+class="pcrr8t-x-x-109">limit</span>(exp*,<span 
+class="cmmi-10x-x-109">𝜖</span>,0),  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-21-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-21-2-1"  
+class="td11">    exp*=sub(var=var+(-)<span 
+class="cmmi-10x-x-109">𝜖</span><sup><span 
+class="cmr-8">2</span></sup>,exp)                                                     </td></tr></table>
+     </div></div>
+<!--l. 48--><p class="noindent" >for example,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-158">
+limit!+(sqrt x/sin x,x,0);
+ <br />
+ <br />infinity;
+</div>
+<!--l. 53--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p><!--l. 1706--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse37.html" >Up</a></td><td class="clinks"><a 
+href="manualse38.html" >Next</a></td><td class="clinks"><a 
+href="manualse36.html" >Prev</a></td><td class="clinks"><a 
+href="manualse36.html#tailmanualse36.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse37.html" >Front</a></td></tr></table><a 
+ id="tailmanualse37.html"></a> </p> 
+</body> 
+</html>

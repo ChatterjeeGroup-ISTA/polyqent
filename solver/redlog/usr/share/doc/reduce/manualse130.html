@@ -1,0 +1,660 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>BIBASIS: A Package for Calculating Boolean Involutive Bases</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse130.html" >Up</a></td><td class="clinks"><a 
+href="manualse131.html" >Next</a></td><td class="clinks"><a 
+href="manualse129.html" >Prev</a></td><td class="clinks"><a 
+href="manualse129.html#tailmanualse129.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse130.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.5    </span> <a 
+ id="x172-42300020.5"></a>BIBASIS: A Package for Calculating Boolean Involutive
+Bases</h3>
+<a 
+ id="dx172-423001"></a>
+<a 
+ id="dx172-423002"></a>
+<!--l. 159--><p class="noindent" >Authors: Yuri A. Blinkov and Mikhail V. Zinin
+</p><!--l. 3--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.5.1    </span> <a 
+ id="x172-42400020.5.1"></a>Introduction</h4>
+<!--l. 5--><p class="noindent" >Involutive polynomial bases are redundant Gröbner bases of special structure with some
+additional useful features in comparison with reduced Gröbner bases <span class="cite">[<a 
+href="manualap2.html#XGerdt:98">GB98</a>]</span>.
+Apart from numerous applications of involutive bases <span class="cite">[<a 
+href="manualap2.html#XSeiler:2010">Sei10</a>]</span> the involutive
+algorithms <span class="cite">[<a 
+href="manualap2.html#XGerdt:2005">Ger05</a>]</span> provide an eﬃcient method for computing reduced Gröbner bases.
+A reduced Gröbner basis is a well-determined subset of an involutive basis and
+can be easily extracted from the latter without any extra reductions. All this
+takes place not only in rings of commutative polynomials but also in Boolean
+rings.
+</p><!--l. 11--><p class="noindent" >Boolean Gröbner basis already have already revealed their value and usability in
+practice. The ﬁrst impressive demonstration of practicability of Boolean Gröbner bases
+was breaking the ﬁrst HFE (Hidden Fields Equations) challenge in the public key
+cryptography done in <span class="cite">[<a 
+href="manualap2.html#XFaugere:2003">FJ03</a>]</span> by computing a Boolean Gröbner basis for the
+system of quadratic polynomials in 80 variables. Since that time the Boolean
+Gröbner bases application area has widen drastically and nowadays there is also a
+number of quite successful examples of using Gröbner bases for solving SAT
+problems.
+</p><!--l. 17--><p class="noindent" >During our research we had developed <span class="cite">[<a 
+href="manualap2.html#XGerdt:2008">GZ08b</a>, <a 
+href="manualap2.html#XGerdt:2008a">GZ08a</a>, <a 
+href="manualap2.html#XGerdt:2010">GZB10</a>]</span> Boolean involutive
+algorithms based on Janet and Pommaret divisions and applied them to computation of
+Boolean Gröbner bases. Our implementation of both divisions has experimentally
+demonstrated computational superiority of the Pommaret division implementation. This
+package <span 
+class="ptmrc8t-x-x-109">B<span 
+class="small-caps">I</span><span 
+class="small-caps">B</span><span 
+class="small-caps">A</span><span 
+class="small-caps">S</span><span 
+class="small-caps">I</span><span 
+class="small-caps">S</span> </span>is the result of our thorough research in the ﬁeld of Boolean Gröbner
+bases. <span 
+class="ptmrc8t-x-x-109">B<span 
+class="small-caps">I</span><span 
+class="small-caps">B</span><span 
+class="small-caps">A</span><span 
+class="small-caps">S</span><span 
+class="small-caps">I</span><span 
+class="small-caps">S</span> </span>implements the involutive algorithm based on Pommaret division in a
+multivariate Boolean ring.
+</p><!--l. 23--><p class="noindent" >In section 2 the Boolean ring and its peculiarities are shortly introduced. In section 3 we
+                                                                     
+
+                                                                     
+brieﬂy argue why the involutive algorithm and Pommaret division are good for
+Boolean ring while the Buhberger’s algorithm is not. And ﬁnally in section 4 we
+give the full description of <span 
+class="ptmrc8t-x-x-109">B<span 
+class="small-caps">I</span><span 
+class="small-caps">B</span><span 
+class="small-caps">A</span><span 
+class="small-caps">S</span><span 
+class="small-caps">I</span><span 
+class="small-caps">S</span> </span>package capabilities and illustrate it by
+examples.
+</p><!--l. 27--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.5.2    </span> <a 
+ id="x172-42500020.5.2"></a>Boolean Ring</h4>
+<!--l. 29--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Boolean ring </span>perfectly goes with its name, it is a ring of <span 
+class="ptmri8t-x-x-109">Boolean functions </span>of <span 
+class="cmmi-10x-x-109">n</span>
+variables, i.e mappings from <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmr-10x-x-109">0</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmsy-10x-x-109">}</span><sup><span 
+class="cmmi-8">n</span></sup> to <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmr-10x-x-109">0</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmsy-10x-x-109">}</span><sup><span 
+class="cmmi-8">n</span></sup>. Considering these variables are
+<span 
+class="cmbx-10x-x-109">X </span><span 
+class="cmr-10x-x-109">:= </span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,x</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmsy-10x-x-109">} </span>and <span 
+class="msbm-10x-x-109">𝔽</span><sub><span 
+class="cmr-8">2</span></sub> is the ﬁnite ﬁeld of two elements <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmr-10x-x-109">0</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmsy-10x-x-109">}</span>, Boolean ring can be
+regarded as the quotient ring
+</p>
+<table 
+class="equation-star"><tr><td>
+               <span 
+class="msbm-10x-x-109">𝔹</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmbx-10x-x-109">X</span><span 
+class="cmr-10x-x-109">] := </span><span 
+class="msbm-10x-x-109">𝔽</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmbx-10x-x-109">X</span><span 
+class="cmr-10x-x-109">]</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">∕ &#x003C; x</span><sub><span 
+class="cmr-8">1</span></sub><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">x</span><sub>
+<span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,x</span><sub><span 
+class="cmmi-8">n</span></sub><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">x</span><sub>
+<span 
+class="cmmi-8">n</span></sub> <span 
+class="cmmi-10x-x-109">&#x003E; .</span>
+</td></tr></table>
+<!--l. 34--><p class="nopar" >
+Multiplication in <span 
+class="msbm-10x-x-109">𝔹</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmbx-10x-x-109">X</span><span 
+class="cmr-10x-x-109">] </span>is <span 
+class="ptmri8t-x-x-109">idempotent </span>and addition is <span 
+class="ptmri8t-x-x-109">nilpotent</span>
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                    <span 
+class="cmsy-10x-x-109">∀</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">b </span><span 
+class="cmsy-10x-x-109">∈</span> <span 
+class="msbm-10x-x-109">𝔹</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmbx-10x-x-109">X</span><span 
+class="cmr-10x-x-109">]</span><span 
+class="cmmi-10x-x-109">  </span><span 
+class="cmr-10x-x-109">:</span> <span 
+class="cmmi-10x-x-109"> </span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">b</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">b</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109"> b </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">b </span><span 
+class="cmr-10x-x-109">= 0</span><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 38--><p class="nopar" >
+Elements in <span 
+class="msbm-10x-x-109">𝔹</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmbx-10x-x-109">X</span><span 
+class="cmr-10x-x-109">] </span>are <span 
+class="ptmri8t-x-x-109">Boolean polynomials </span>and can be represented as ﬁnite
+sums
+</p>
+<table 
+class="equation-star"><tr><td>
+                           <span 
+class="cmex-10x-x-109">∑</span>
+                              <sub><span 
+class="cmmi-8">j</span></sub> <span 
+class="cmex-10x-x-109">∏</span>
+                                  <sub><span 
+class="cmmi-8">x</span><span 
+class="cmsy-8">∈</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmr-8">Ω</span><sub><span 
+class="cmmi-6">j</span></sub><span 
+class="cmsy-8">⊆</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmbx-8">X</span></sub><span 
+class="cmmi-10x-x-109">x</span>
+</td></tr></table>
+<!--l. 42--><p class="nopar" >
+of <span 
+class="ptmri8t-x-x-109">Boolean monomials</span>. Each monomial is a conjunction. If set <span 
+class="cmr-10x-x-109">Ω </span>is empty,
+then the corresponding monomial is the unity Boolean function 1. The sum of
+zero monomials corresponds to zero polynomial, i.e. is zero Boolean function
+0.
+</p><!--l. 47--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.5.3    </span> <a 
+ id="x172-42600020.5.3"></a>Pommaret Involutive Algorithm</h4>
+<!--l. 49--><p class="noindent" >Detailed description of involutive algorithm can found in <span class="cite">[<a 
+href="manualap2.html#XGerdt:2005">Ger05</a>]</span>. Here we note that
+result of both involutive and Buhberger’s algorithms depend on chosen monomial
+ordering. At that the ordering must be admissible, i.e.
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+       <span 
+class="cmmi-10x-x-109"> m</span><span 
+class="cmmi-10x-x-109">≠</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">⇔</span><span 
+class="cmmi-10x-x-109">m </span><span 
+class="cmsy-10x-x-109">≻ </span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,   </span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmmi-10x-x-109"> m</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmsy-10x-x-109">≻ </span><span 
+class="cmmi-10x-x-109">m</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">⇔</span><span 
+class="cmmi-10x-x-109">m</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">m </span><span 
+class="cmsy-10x-x-109">≻ </span><span 
+class="cmmi-10x-x-109">m</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">m   </span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmsy-10x-x-109">∀</span><span 
+class="cmmi-10x-x-109"> m,m</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,m</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 55--><p class="nopar" >
+But as one can easily check the second condition of admissibility does not hold for any
+monomial ordering in Boolean ring:
+</p>
+<table 
+class="equation-star"><tr><td>
+          <span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmsy-10x-x-109">≻ </span><span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmr-8">2</span></sub>    <img 
+src="manual124x.png" alt="  ∗x1
+−−−−→"  class=""  /> <span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmsy-10x-x-109">≻ </span><span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmr-8">2</span></sub> <span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmr-8">2</span></sub>    <img 
+src="manual125x.png" alt="−−→"  class=""  /> <span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmsy-10x-x-109">≺ </span><span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmr-8">2</span></sub>
+</td></tr></table>
+<!--l. 60--><p class="nopar" >
+Though <span 
+class="msbm-10x-x-109">𝔹</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmbx-10x-x-109">X</span><span 
+class="cmr-10x-x-109">] </span>is a principal ideal ring, boolean singleton <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">p</span><span 
+class="cmsy-10x-x-109">} </span>is not necessarily a
+Gröbner basis of ideal <span 
+class="cmmi-10x-x-109">&#x003C; p &#x003E;</span>, for example:
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                <span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,x</span><sub><span 
+class="cmr-8">2</span></sub> <span 
+class="cmsy-10x-x-109">∈</span><span style="margin-left:0.3em" class="thinspace"></span> <span 
+class="cmmi-10x-x-109">&#x003C; x</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmr-8">2</span></sub> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmr-8">2</span></sub> <span 
+class="cmmi-10x-x-109">&#x003E;</span><span 
+class="cmsy-10x-x-109">⊂</span> <span 
+class="msbm-10x-x-109">𝔹</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,x</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmr-10x-x-109">]</span><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 65--><p class="nopar" >
+That the reason why one cannot apply the Buhberger’s algorithm directly in a Boolean
+ring, using instead a ring <span 
+class="msbm-10x-x-109">𝔽</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmbx-10x-x-109">X</span><span 
+class="cmr-10x-x-109">] </span>and <span 
+class="ptmri8t-x-x-109">the ﬁeld binomials </span><span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmr-8">1</span></sub><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,x</span><sub><span 
+class="cmmi-8">n</span></sub><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmmi-8">n</span></sub>.
+</p><!--l. 69--><p class="noindent" >The involutive algorithm based on Janet division has the same disadvantage unlike the
+Pommaret division algorithm as shown in <span class="cite">[<a 
+href="manualap2.html#XGerdt:2008">GZ08b</a>]</span>. The Pommaret division algorithm
+can be applied directly in a Boolean ring and admits eﬀective data structures for
+monomial representation.
+</p><!--l. 73--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.5.4    </span> <a 
+ id="x172-42700020.5.4"></a><span 
+class="ptmrc8t-x-x-109">BIBASIS </span>Package</h4>
+<!--l. 75--><p class="noindent" >The package <span 
+class="ptmrc8t-x-x-109">B<span 
+class="small-caps">I</span><span 
+class="small-caps">B</span><span 
+class="small-caps">A</span><span 
+class="small-caps">S</span><span 
+class="small-caps">I</span><span 
+class="small-caps">S</span> </span>implements the Pommaret division algorithm in a Boolean ring.
+The ﬁrst step to using the package is to load it:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-739">
+    1: load_package bibasis;
+</div>
+<!--l. 79--><p class="nopar" > The current version of the <span 
+class="ptmrc8t-x-x-109">B<span 
+class="small-caps">I</span><span 
+class="small-caps">B</span><span 
+class="small-caps">A</span><span 
+class="small-caps">S</span><span 
+class="small-caps">I</span><span 
+class="small-caps">S</span> </span>user interface consists only of 2 functions:
+<span 
+class="pcrr8t-x-x-109">bibasis </span>and <span 
+class="pcrr8t-x-x-109">bibasis_print_statistics</span>.
+</p><!--l. 84--><p class="noindent" ><a 
+ id="operator:BIBASIS"></a> <a 
+ id="dx172-427001"></a> The <span 
+class="pcrr8t-x-x-109">bibasis </span>is the function that performs all the computation and has the following
+syntax:
+  </p><div class="syntax">
+  <!--tex4ht:inline--><div class="tabular"> <table id="TBL-39" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-39-1g"><col 
+id="TBL-39-1" /><col 
+id="TBL-39-2" /><col 
+id="TBL-39-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-39-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-39-1-1"  
+class="td01"><span 
+class="pcrr8t-x-x-109">bibasis</span>(  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-39-1-2"  
+class="td11">  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-39-1-3"  
+class="td11"> <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">initial_polynomial_list</span><span 
+class="cmsy-10x-x-109">⟩</span>,<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">variables_list</span><span 
+class="cmsy-10x-x-109">⟩</span>,          </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-39-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-39-2-1"  
+class="td01">         </td><td  style="white-space:nowrap; text-align:center;" id="TBL-39-2-2"  
+class="td11">  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-39-2-3"  
+class="td11"> <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">monomial_ordering</span><span 
+class="cmsy-10x-x-109">⟩</span>,<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">reduce_to_groebner</span><span 
+class="cmsy-10x-x-109">⟩</span>);  </td></tr></table>
+  </div></div>
+<!--l. 91--><p class="noindent" >Input: </p>
+     <ul class="itemize1">
+     <li class="itemize"><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">initial_polynomial_list</span><span 
+class="cmsy-10x-x-109">⟩ </span>is  the  list  of  polynomials  containing  the  known
+     basis of initial Boolean ideal. All given polynomials are treated modulo 2.
+     See Example 1.
+     </li>
+     <li class="itemize"><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">variables_list</span><span 
+class="cmsy-10x-x-109">⟩ </span>is the list of independent variables in decreasing order.
+     </li>
+     <li class="itemize"><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">monomial_ordering</span><span 
+class="cmsy-10x-x-109">⟩ </span>is a chosen monomial ordering and the supported ones
+     are:
+          <ul class="itemize2">
+          <li class="itemize"><span 
+class="pcrr8t-x-x-109">lex </span>– pure lexicographical ordering;
+          </li>
+          <li class="itemize"><span 
+class="pcrr8t-x-x-109">deglex </span>– degree lexicographic ordering;
+          </li>
+          <li class="itemize"><span 
+class="pcrr8t-x-x-109">degrevlex </span>– degree reverse lexicographic.</li></ul>
+     <!--l. 104--><p class="noindent" >See Examples 2–4 to check that Gröbner (as well as involutive) basis depends on
+     monomial ordering.
+     </p></li>
+     <li class="itemize"><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">reduce_to_groebner</span><span 
+class="cmsy-10x-x-109">⟩ </span>is a Boolean value, if it is <span 
+class="pcrr8t-x-x-109">t </span>the output is the reduced
+     Boolean Gröbner basis, if <span 
+class="pcrr8t-x-x-109">nil</span>, then the reduced Boolean Pommaret basis.
+     Examples 5,6 show distinctions between these two outputs.</li></ul>
+                                                                     
+
+                                                                     
+<!--l. 109--><p class="noindent" >Output: </p>
+     <ul class="itemize1">
+     <li class="itemize">The list of polynomials which constitute the reduced Boolean Gröbner or
+     Pommaret basis.</li></ul>
+<!--l. 114--><p class="noindent" ><a 
+ id="operator:BIBASIS_PRINT_STATISTICS"></a> The syntax of <span 
+class="pcrr8t-x-x-109">bibasis_print_statistics</span><a 
+ id="dx172-427002"></a> is simple: </p>
+<div class="center" 
+>
+<!--l. 116--><p class="noindent" >
+</p><!--l. 117--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">bibasis_print_statistics();</span></p></div>
+<!--l. 119--><p class="noindent" >This function prints out a brief statistics for the last invocation of <span 
+class="pcrr8t-x-x-109">bibasis </span>function.
+See Example 7.
+</p><!--l. 121--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.5.5    </span> <a 
+ id="x172-42800020.5.5"></a>Examples</h4>
+<!--l. 124--><p class="noindent" >Example 1:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-740">
+    1: load_package bibasis;
+ <br />    2: bibasis({x+2*y}, {x,y}, lex, t);
+ <br />    {x}
+</div>
+<!--l. 129--><p class="nopar" >
+</p><!--l. 131--><p class="noindent" >Example 2:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-741">
+1: load_package bibasis;
+ <br />2: variables :={x0,x1,x2,x3,x4}$
+ <br />3: polynomials := {x0*x3+x1*x2,x2*x4+x0}$
+ <br />4: bibasis(polynomials, variables, lex, t);
+ <br />{x0 + x2*x4,x2*(x1 + x3*x4)}
+</div>
+<!--l. 138--><p class="nopar" >
+</p><!--l. 140--><p class="noindent" >Example 3:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-742">
+1: load_package bibasis;
+ <br />2: variables :={x0,x1,x2,x3,x4}$
+ <br />3: polynomials := {x0*x3+x1*x2,x2*x4+x0}$
+ <br />4: bibasis(polynomials, variables, deglex, t);
+ <br />{x1*x2*(x3 + 1),
+ <br /> x1*(x0 + x2),
+ <br /> x0*(x2 + 1),
+ <br /> x0*x3 + x1*x2,
+ <br /> x0*(x4 + 1),
+ <br /> x2*x4 + x0}
+</div>
+<!--l. 152--><p class="nopar" >
+</p><!--l. 154--><p class="noindent" >Example 4:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-743">
+1: load_package bibasis;
+ <br />2: variables :={x0,x1,x2,x3,x4}$
+ <br />3: polynomials := {x0*x3+x1*x2,x2*x4+x0}$
+ <br />4: bibasis(polynomials, variables, degrevlex, t);
+ <br />{x0*(x1 + x3),
+ <br /> x0*(x2 + 1),
+ <br /> x1*x2 + x0*x3,
+ <br /> x0*(x4 + 1),
+ <br /> x2*x4 + x0}
+</div>
+<!--l. 165--><p class="nopar" >
+</p><!--l. 167--><p class="noindent" >Example 5:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-744">
+1: load_package bibasis;
+ <br />2: variables :={x,y,z}$
+ <br />3: polinomials := {x, z}$
+ <br />4: bibasis(polinomials, variables, degrevlex, t);
+ <br />{x,z}
+</div>
+<!--l. 174--><p class="nopar" >
+</p><!--l. 176--><p class="noindent" >Example 6:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-745">
+1: load_package bibasis;
+ <br />2: variables :={x,y,z}$
+ <br />3: polinomials := {x, z}$
+ <br />4: bibasis(polinomials, variables, degrevlex, nil);
+ <br />{x,z,y*z}
+</div>
+<!--l. 183--><p class="nopar" >
+</p><!--l. 185--><p class="noindent" >Example 7:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-746">
+1: load_package bibasis;
+ <br />2: variables :={u0,u1,u2,u3,u4,u5,u6,u7,u8,u9}$
+ <br />3: polinomials := {u0*u1+u1*u2+u1+u2*u3+u3*u4+u4*u5
+ <br />3:                  +u5*u6+u6*u7+u7*u8+u8*u9,
+ <br />3:                 u0*u2+u1+u1*u3+u2*u4+u2+u3*u5
+ <br />3:                  +u4*u6+u5*u7+u6*u8+u7*u9,
+ <br />3:                 u0*u3+u1*u2+u1*u4+u2*u5+u3*u6
+ <br />3:                  +u3+u4*u7+u5*u8+u6*u9,
+ <br />3:                 u0*u4+u1*u3+u1*u5+u2+u2*u6+u3*u7
+ <br />3:                  +u4*u8+u4+u5*u9,
+ <br />3:                 u0*u5+u1*u4+u1*u6+u2*u3+u2*u7
+ <br />3:                  +u3*u8+u4*u9+u5,
+ <br />3:                 u0*u6+u1*u5+u1*u7+u2*u4+u2*u8
+ <br />3:                  +u3+u3*u9+u6,
+ <br />3:                 u0*u7+u1*u6+u1*u8+u2*u5+u2*u9
+ <br />3:                  +u3*u4+u7,
+ <br />3:                 u0*u8+u1*u7+u1*u9+u2*u6+u3*u5+u4+u8,
+ <br />3:                 u0+u1+u2+u3+u4+u5+u6+u7+u8+u9+1}$
+ <br />4: bibasis(polinomials, variables, degrevlex, t);
+ <br />{u3*u6,
+ <br /> u3*u7,
+ <br /> u7*(u6 + 1),
+ <br /> u3*u8,
+ <br /> u6*u8 + u6 + u7,
+ <br /> u7*u8,
+ <br /> u3*(u9 + 1),
+ <br /> u6*u9 + u7,
+ <br /> u7*(u9 + 1),
+ <br /> u8*u9 + u6 + u7 + u8,
+ <br /> u0 + u3 + u6 + u9 + 1,
+ <br /> u1 + u7,
+ <br /> u2 + u7 + u8,
+ <br /> u4 + u6 + u8,
+ <br /> u5 + u6 + u7 + u8}
+ <br />5: bibasis_print_statistics();
+ <br />        Variables order = u0 &#x003E; u1 &#x003E; u2 &#x003E; u3 &#x003E; u4
+ <br /> &#x003E; u5 &#x003E; u6 &#x003E; u7 &#x003E; u8 &#x003E; u9
+ <br />Normal forms calculated = 216
+                                                                     
+
+                                                                     
+ <br />  Non-zero normal forms = 85
+ <br />        Reductions made = 4488
+ <br />Time: 270 ms
+ <br />GC time: 0 ms
+</div>
+<!--l. 229--><p class="nopar" >
+</p><!--l. 163--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 165--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse130.html" >Up</a></td><td class="clinks"><a 
+href="manualse131.html" >Next</a></td><td class="clinks"><a 
+href="manualse129.html" >Prev</a></td><td class="clinks"><a 
+href="manualse129.html#tailmanualse129.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse130.html" >Front</a></td></tr></table><a 
+ id="tailmanualse130.html"></a>  </p> 
+</body> 
+</html>

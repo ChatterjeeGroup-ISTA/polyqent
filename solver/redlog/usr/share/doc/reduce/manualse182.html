@@ -1,0 +1,193 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>SUM: A Package for Series Summation</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse182.html" >Up</a></td><td class="clinks"><a 
+href="manualse183.html" >Next</a></td><td class="clinks"><a 
+href="manualse181.html" >Prev</a></td><td class="clinks"><a 
+href="manualse181.html#tailmanualse181.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse182.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.57    </span> <a 
+ id="x272-126100020.57"></a>SUM: A Package for Series Summation</h3>
+<a 
+ id="dx272-1261001"></a>
+<a 
+ id="dx272-1261002"></a>
+<!--l. 1222--><p class="noindent" >This package implements the Gosper algorithm for the summation of series. It deﬁnes
+operators <span 
+class="pcrr8t-x-x-109">SUM </span>and <span 
+class="pcrr8t-x-x-109">PROD</span>. The operator <span 
+class="pcrr8t-x-x-109">SUM </span>returns the indeﬁnite or deﬁnite
+summation of a given expression, and <span 
+class="pcrr8t-x-x-109">PROD </span>returns the product of the given
+expression.
+</p><!--l. 1227--><p class="noindent" >This package loads automatically.
+</p><!--l. 1229--><p class="noindent" >Author: Fujio Kako.
+<a 
+ id="dx272-1261003"></a>
+<a 
+ id="dx272-1261004"></a>
+<a 
+ id="dx272-1261005"></a>
+</p><!--l. 3--><p class="noindent" >This package implements the Gosper algorithm for the summation of series. It deﬁnes
+operators <span 
+class="pcrr8t-x-x-109">sum </span>and <span 
+class="pcrr8t-x-x-109">prod</span>. The operator <span 
+class="pcrr8t-x-x-109">sum </span>returns the indeﬁnite or deﬁnite summation
+of a given expression, and the operator <span 
+class="pcrr8t-x-x-109">prod </span>returns the product of the given expression.
+These are used with the syntax:
+</p><!--l. 8--><p class="noindent" ><a 
+ id="operator:SUM"></a> <a 
+ id="operator:PROD"></a>
+  </p><div class="syntax">
+  <!--tex4ht:inline--><div class="tabular"> <table id="TBL-219" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-219-1g"><col 
+id="TBL-219-1" /><col 
+id="TBL-219-2" /><col 
+id="TBL-219-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-219-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-219-1-1"  
+class="td01"><span 
+class="pcrr8t-x-x-109">sum</span>(<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">expr:expression</span><span 
+class="cmsy-10x-x-109">⟩</span>,<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">k:kernel</span><span 
+class="cmsy-10x-x-109">⟩</span>[,<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">lolim:expression</span><span 
+class="cmsy-10x-x-109">⟩</span>[,<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">uplim:expression</span><span 
+class="cmsy-10x-x-109">⟩</span>]])          </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-219-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-219-2-1"  
+class="td01"></td></tr><tr><td colspan="3"></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-0219-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-0219-2-1"  
+class="td01">                                                      </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-0219-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-0219-3-1"  
+class="td01"></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-0219-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-0219-4-1"  
+class="td01"><span 
+class="pcrr8t-x-x-109">prod</span>(<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">expr:expression</span><span 
+class="cmsy-10x-x-109">⟩</span>,<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">k:kernel</span><span 
+class="cmsy-10x-x-109">⟩</span>[,<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">lolim:expression</span><span 
+class="cmsy-10x-x-109">⟩</span>[,<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">uplim:expression</span><span 
+class="cmsy-10x-x-109">⟩</span>]])         </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-0219-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-0219-5-1"  
+class="td01">                                                        </td></tr></table>
+  </div></div>
+<!--l. 14--><p class="noindent" >If there is no closed form solution, these operators return the input unchanged. <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">lolim</span><span 
+class="cmsy-10x-x-109">⟩</span>
+and <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">uplim</span><span 
+class="cmsy-10x-x-109">⟩ </span>are optional parameters specifying the lower limit and upper limit of the
+summation (or product), respectively. If <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">uplim</span><span 
+class="cmsy-10x-x-109">⟩ </span>is not supplied, the upper limit is taken
+as <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">k</span><span 
+class="cmsy-10x-x-109">⟩ </span>(the summation variable itself).
+</p><!--l. 20--><p class="noindent" >For example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1413">
+     sum(n**3,n);
+ <br />
+ <br />     sum(a+k*r,k,0,n-1);
+ <br />
+ <br />     sum(1/((p+(k-1)*q)*(p+k*q)),k,1,n+1);
+ <br />
+ <br />     prod(k/(k-2),k);
+</div>
+<!--l. 30--><p class="nopar" >
+</p><!--l. 32--><p class="noindent" >Gosper’s algorithm succeeds whenever the ratio
+</p>
+<table 
+class="equation-star"><tr><td>
+                             <img 
+src="manual741x.png" alt="∑n
+--k=n0-f(k)
+∑n − 1 f(k)
+  k=n0"  class="frac" align="middle" />
+</td></tr></table>
+<!--l. 33--><p class="nopar" >
+is a rational function of <span 
+class="cmmi-10x-x-109">n</span>. The function <span 
+class="pcrr8t-x-x-109">sum!-sq </span>handles basic functions such as
+polynomials, rational functions and exponentials. <a 
+ id="dx272-1261006"></a>
+</p><!--l. 38--><p class="noindent" >The trigonometric functions sin, cos, etc. are converted to exponentials and then
+Gosper’s algorithm is applied. The result is converted back into sin, cos, sinh and
+cosh.
+</p><!--l. 42--><p class="noindent" >Summations of logarithms or products of exponentials are treated by the formula:
+</p><div 
+class="gather-star"><img 
+src="manual742x.png" alt="  n                n
+ ∑                ∏
+     log f(k) = log    f(k)
+k=n0             k=n0
+∏n                ∑n
+    exp f(k) = exp    f(k)
+k=n0              k=n0
+"  /></div>Other functions, as shown in the test ﬁle for the case of binomials and formal products,
+can be summed by providing LET rules which must relate the functions evaluated at <span 
+class="cmmi-10x-x-109">k</span>
+and <span 
+class="cmmi-10x-x-109">k </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1 </span>(<span 
+class="cmmi-10x-x-109">k </span>being the summation variable).
+<a 
+ id="dx272-1261007"></a>
+<a 
+ id="dx272-1261008"></a>
+<a 
+ id="dx272-1261009"></a>
+<a 
+ id="dx272-1261010"></a>
+<!--l. 53--><p class="noindent" ><a 
+ id="switch:TRSUM"></a> There is a switch <span 
+class="pcrr8t-x-x-109">trsum </span>(default oﬀ). If this switch is on, trace messages are printed out
+during the course of Gosper’s algorithm.
+</p><!--l. 1233--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 1235--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse182.html" >Up</a></td><td class="clinks"><a 
+href="manualse183.html" >Next</a></td><td class="clinks"><a 
+href="manualse181.html" >Prev</a></td><td class="clinks"><a 
+href="manualse181.html#tailmanualse181.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse182.html" >Front</a></td></tr></table><a 
+ id="tailmanualse182.html"></a> </p> 
+</body> 
+</html>

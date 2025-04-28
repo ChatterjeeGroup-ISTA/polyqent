@@ -1,0 +1,56 @@
+
+\index{Gosper's Algorithm} \ttindextype[SUM]{sum}{operator} \ttindextype[SUM]{prod}{operator}
+This package implements the Gosper algorithm for the summation of series.
+It defines operators \texttt{sum} and \texttt{prod}.  The operator \texttt{sum} returns the indefinite
+or definite summation of a given expression, and the operator \texttt{prod} returns
+the product of the given expression.  These are used with the syntax:
+
+\hypertarget{operator:SUM}{}
+\hypertarget{operator:PROD}{}
+\begin{syntaxtable}
+  \f{sum}(\meta{expr:expression},\meta{k:kernel}[,\meta{lolim:expression}[,\meta{uplim:expression}]]) \\[\baselineskip]
+  \f{prod}(\meta{expr:expression},\meta{k:kernel}[,\meta{lolim:expression}[,\meta{uplim:expression}]]) \\
+\end{syntaxtable}
+If there is no closed form solution, these operators return the input
+unchanged.  \meta{lolim} and \meta{uplim} are optional parameters specifying the lower
+limit and upper limit of the summation (or product), respectively.  If \meta{uplim}
+is not supplied, the upper limit is taken as \meta{k} (the summation variable
+itself).
+
+For example:
+
+\begin{verbatim}
+     sum(n**3,n);
+
+     sum(a+k*r,k,0,n-1);
+
+     sum(1/((p+(k-1)*q)*(p+k*q)),k,1,n+1);
+
+     prod(k/(k-2),k);
+\end{verbatim}
+
+Gosper's algorithm succeeds whenever the ratio
+\[ \frac{\sum_{k=n_0}^n f(k)}{\sum_{k=n_0}^{n-1} f(k)} \]
+is a rational function of $n$.  The function \f{sum!-sq}
+handles basic functions such as polynomials, rational functions and
+exponentials. \ttindextype[SUM]{sum"!-sq}{operator}
+
+The trigonometric functions sin, cos, etc. are converted to exponentials
+and then Gosper's algorithm is applied.  The result is converted back into
+sin, cos, sinh and cosh.
+
+Summations of logarithms or products of exponentials are treated by the
+formula:
+\begin{gather*}
+  \sum_{k=n_0}^{n} \log f(k) = \log \prod_{k=n_0}^n f(k) \\
+  \prod_{k=n_0}^n \exp f(k) = \exp \sum_{k=n_0}^n f(k)
+\end{gather*}
+Other functions, as shown in the test file for the case of binomials and
+formal products, can be summed by providing LET rules which must relate the
+functions evaluated at $k$ and $k - 1$ ($k$ being the summation variable).
+
+\index{Tracing!SUM package} \ttindexswitch[SUM]{trsum}
+\hypertarget{switch:TRSUM}{}
+There is a switch \sw{trsum} (default off).  If this switch is on, trace
+messages are printed out during the course of Gosper's algorithm.
+

@@ -1,0 +1,393 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>INVBASE: A Package for Computing Involutive Bases</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse153.html" >Up</a></td><td class="clinks"><a 
+href="manualse154.html" >Next</a></td><td class="clinks"><a 
+href="manualse152.html" >Prev</a></td><td class="clinks"><a 
+href="manualse152.html#tailmanualse152.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse153.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.28    </span> <a 
+ id="x220-89700020.28"></a>INVBASE: A Package for Computing Involutive
+Bases</h3>
+<a 
+ id="dx220-897001"></a>
+<a 
+ id="dx220-897002"></a>
+<!--l. 590--><p class="noindent" >Involutive bases are a new tool for solving problems in connection with multivariate
+polynomials, such as solving systems of polynomial equations and analyzing polynomial
+ideals. An involutive basis of polynomial ideal is nothing but a special form of a
+redundant Gröbner basis. The construction of involutive bases reduces the problem of
+solving polynomial systems to simple linear algebra.
+</p><!--l. 597--><p class="noindent" >Authors: A.Yu. Zharkov and Yu.A. Blinkov.
+<a 
+ id="dx220-897003"></a>
+<a 
+ id="dx220-897004"></a>
+<a 
+ id="dx220-897005"></a>
+<a 
+ id="dx220-897006"></a>
+</p><!--l. 5--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.28.1    </span> <a 
+ id="x220-89800020.28.1"></a>Introduction</h4>
+<!--l. 6--><p class="noindent" >Involutive bases are a new tool for solving problems in connection with multivariate
+polynomials, such as solving systems of polynomial equations and analyzing polynomial
+ideals, see <span class="cite">[<a 
+href="manualap2.html#XZharkovBlinkov:93">ZB96</a>]</span>. An involutive basis of polynomial ideal is nothing but a special form
+of a redundant Gröbner basis. The construction of involutive bases reduces the problem
+of solving polynomial systems to simple linear algebra.<br 
+class="newline" />The <span 
+class="ptmrc8t-x-x-109">I<span 
+class="small-caps">N</span><span 
+class="small-caps">V</span><span 
+class="small-caps">B</span><span 
+class="small-caps">A</span><span 
+class="small-caps">S</span><span 
+class="small-caps">E</span> </span>package <span class="footnote-mark"><a 
+href="manual221.html#fn26x20"><sup class="textsuperscript">26</sup></a></span><a 
+ id="x220-898001f26"></a> 
+calculates involutive bases of polynomial ideals using an algorithm described in <span class="cite">[<a 
+href="manualap2.html#XZharkovBlinkov:93">ZB96</a>]</span>
+which may be considered as an alternative to the well-known Buchberger algorithm
+<span class="cite">[<a 
+href="manualap2.html#XBuchberger:85">Buc85</a>]</span>. The package can be used over a variety of diﬀerent coeﬃcient domains, and for
+diﬀerent variable and term orderings.<br 
+class="newline" />The algorithm implemented in the <span 
+class="ptmrc8t-x-x-109">I<span 
+class="small-caps">N</span><span 
+class="small-caps">V</span><span 
+class="small-caps">B</span><span 
+class="small-caps">A</span><span 
+class="small-caps">S</span><span 
+class="small-caps">E</span> </span>package is proved to be valid for any
+zero-dimensional ideal (ﬁnite number of solutions) as well as for positive-dimensional
+                                                                     
+
+                                                                     
+ideals in generic form. However, the algorithm does not terminate for “sparse”
+positive-dimensional systems. In order to stop the process we use the maximum degree
+bound for the Gröbner bases of generic ideals in the total-degree term ordering
+established in <span class="cite">[<a 
+href="manualap2.html#XLazard:83">Laz83</a>]</span>. In this case, it is reasonable to call the <span 
+class="ptmrc8t-x-x-109">G<span 
+class="small-caps">R</span><span 
+class="small-caps">O</span><span 
+class="small-caps">E</span><span 
+class="small-caps">B</span><span 
+class="small-caps">N</span><span 
+class="small-caps">E</span><span 
+class="small-caps">R</span> </span>package with
+the answer of <span 
+class="ptmrc8t-x-x-109">I<span 
+class="small-caps">N</span><span 
+class="small-caps">V</span><span 
+class="small-caps">B</span><span 
+class="small-caps">A</span><span 
+class="small-caps">S</span><span 
+class="small-caps">E</span> </span>as input information in order to compute the reduced Gröbner
+basis under the same variable and term ordering.<br 
+class="newline" />Though the <span 
+class="ptmrc8t-x-x-109">I<span 
+class="small-caps">N</span><span 
+class="small-caps">V</span><span 
+class="small-caps">B</span><span 
+class="small-caps">A</span><span 
+class="small-caps">S</span><span 
+class="small-caps">E</span> </span>package supports computing involutive bases in any admissible
+term ordering, it is reasonable to compute them only for the total-degree term
+orderings. The package includes a special algorithm for conversion of total-degree
+involutive bases into the triangular bases in the lexicographical term ordering
+that is desirable for ﬁnding solutions. Normally the sum of timings for these
+two computations is much less than the timing for direct computation of the
+lexicographical involutive bases. As a rule, the result of the conversion algorithm
+is a reduced Gröbner basis in the lexicographical term ordering. However,
+because of some gaps in the current version of the algorithm, there may be rare
+situations when the resulting triangular set does not possess the formal property
+of Gröbner bases. Anyway, we recommend using the <span 
+class="ptmrc8t-x-x-109">G<span 
+class="small-caps">R</span><span 
+class="small-caps">O</span><span 
+class="small-caps">E</span><span 
+class="small-caps">B</span><span 
+class="small-caps">N</span><span 
+class="small-caps">E</span><span 
+class="small-caps">R</span> </span>package
+with the result of the conversion algorithm as input in order either to check the
+Gröbner bases property or to transform the result into a lexicographical Gröbner
+basis.
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.28.2    </span> <a 
+ id="x220-89900020.28.2"></a>The Basic Operators</h4>
+<!--l. 52--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x220-90000020.28.2"></a>Term Ordering</h5>
+<!--l. 53--><p class="noindent" ><a 
+ id="operator:INVTORDER"></a> The following term order modes are available:
+     </p><div class="quote">
+     <!--l. 56--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">revgradlex</span>; <span 
+class="pcrr8t-x-x-109">gradlex</span>; <span 
+class="pcrr8t-x-x-109">lex </span>.</p></div>
+                                                                     
+
+                                                                     
+<!--l. 58--><p class="noindent" >These modes have the same meaning as for the <span 
+class="ptmrc8t-x-x-109">G<span 
+class="small-caps">R</span><span 
+class="small-caps">O</span><span 
+class="small-caps">E</span><span 
+class="small-caps">B</span><span 
+class="small-caps">N</span><span 
+class="small-caps">E</span><span 
+class="small-caps">R</span> </span>package.<br 
+class="newline" />All orderings are based on an ordering among the variables. For each pair of variables an
+order relation <span 
+class="cmmi-10x-x-109">&#x003E; </span>must be deﬁned, e.g. <span 
+class="cmmi-10x-x-109">x &#x003E; y</span>. The term ordering mode as well as the
+order of variables are set by the operator<a 
+ id="dx220-900001"></a>
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">invtorder</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">mode</span><span 
+class="cmsy-10x-x-109">⟩</span>,<span 
+class="pcrr8t-x-x-109">{</span><span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmr-8">1</span></sub>,…,<span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="pcrr8t-x-x-109">}</span></div>
+<!--l. 66--><p class="noindent" >where <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">mode</span><span 
+class="cmsy-10x-x-109">⟩ </span>is one of the term order modes listed above. The notion of {<span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmr-8">1</span></sub>,…,<span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmmi-8">n</span></sub>} as a
+list of variables at the same time means <span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmmi-10x-x-109">&#x003E; ... &#x003E; x</span><sub><span 
+class="cmmi-8">n</span></sub>.<br 
+class="newline" /> <span 
+class="ptmb8t-x-x-109">Example 1.</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1225">
+   invtorder revgradlex,{x,y,z}
+</div>
+<!--l. 72--><p class="nopar" > sets the reverse graduated term ordering based on the variable order <span 
+class="cmmi-10x-x-109">x &#x003E; y &#x003E; z</span>.<br 
+class="newline" />The operator <span 
+class="pcrr8t-x-x-109">invtorder </span>may be omitted. The default term order mode is
+<span 
+class="pcrr8t-x-x-109">revgradlex </span>and the default decreasing variable order is alphabetical (or, more
+generally, the default REDUCE kernel order). Furthermore, the list of variables
+in the <span 
+class="pcrr8t-x-x-109">invtorder </span>may be omitted. In this case the default variable order is
+used.
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x220-90100020.28.2"></a>Computing Involutive Bases</h5>
+<!--l. 81--><p class="noindent" ><a 
+ id="operator:INVBASE"></a> To compute the involutive basis of ideal generated by the set of polynomials <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,...,p</span><sub><span 
+class="cmmi-8">m</span></sub><span 
+class="cmsy-10x-x-109">}</span>
+one should type the command<a 
+ id="dx220-901001"></a>
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">invbase{</span><span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmr-8">1</span></sub>,…,<span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="pcrr8t-x-x-109">}</span></div>
+<!--l. 87--><p class="noindent" >where <span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmmi-8">i</span></sub> are polynomials in variables listed in the <span 
+class="pcrr8t-x-x-109">invtorder </span>operator. If some kernels
+in <span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmmi-8">i</span></sub> were not listed previously in the <span 
+class="pcrr8t-x-x-109">invtorder </span>operator they are considered as
+parameters, i.e. they are considered part of the coeﬃcients of polynomials. If
+<span 
+class="pcrr8t-x-x-109">invtorder </span>was omitted, all the kernels in <span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmmi-8">i</span></sub> are considered as variables with the
+default REDUCE kernel order.<br 
+class="newline" />The coeﬃcients of polynomials <span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmmi-8">i</span></sub> may be integers as well as rational numbers (or,
+accordingly, polynomials and rational functions in the parametric case). The
+computations modulo prime numbers are also available. For this purpose one should type
+the REDUCE commands
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1226">
+    on modular; setmod p;
+</div>
+<!--l. 100--><p class="nopar" > where <span 
+class="cmmi-10x-x-109">p </span>is a prime number.<br 
+class="newline" />The value of the <span 
+class="pcrr8t-x-x-109">invbase </span>function is a list of integer polynomials <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,...,g</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmsy-10x-x-109">}</span>
+representing an involutive basis of a given ideal.<br 
+class="newline" /><span 
+class="ptmb8t-x-x-109">Example 2.</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1227">
+    invtorder revgradlex,{x,y,z};
+ <br />    g:= invbase {4*x**2 + x*y**2 - z + 1/4,
+ <br />                 2*x + y**2*z + 1/2,
+ <br />                 x**2*z - 1/2*x - y**2 };
+</div>
+<!--l. 110--><p class="nopar" > The resulting involutive basis in the reverse graduate ordering is
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1228">
+             3          2      3        2
+ <br />g := {8*x*y*z  - 2*x*y*z  + 4*y  - 4*y*z  + 16*x*y
+ <br />
+ <br />       + 17*y*z - 4*y,
+ <br />
+ <br />         4        2        2               2
+ <br />      8*y  - 8*x*z  - 256*y  + 2*x*z + 64*z
+ <br />
+ <br />       - 96*x + 20*z - 9,
+ <br />
+ <br />         3
+ <br />      2*y *z + 4*x*y + y,
+ <br />
+ <br />           3        2      2      2
+ <br />      8*x*z  - 2*x*z  + 4*y  - 4*z  + 16*x + 17*z
+ <br />
+ <br />       - 4,
+ <br />
+ <br />              3      3                2
+ <br />       - 4*y*z  - 8*y  + 6*x*y*z + y*z  - 36*x*y
+ <br />
+ <br />       - 8*y,
+ <br />
+ <br />           2       2      2
+ <br />      4*x*y  + 32*y  - 8*z  + 12*x - 2*z + 1,
+ <br />
+ <br />         2
+ <br />      2*y *z + 4*x + 1,
+ <br />
+ <br />            3      2            2
+ <br />       - 4*z  - 8*y  + 6*x*z + z  - 36*x - 8,
+ <br />
+ <br />         2       2      2
+ <br />      8*x  - 16*y  + 4*z  - 6*x - z}
+</div>
+<!--l. 147--><p class="nopar" > <a 
+ id="operator:INVLEX"></a> To convert it into a lexicographical Gröbner basis one should type<a 
+ id="dx220-901002"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1229">
+   h:=invlex g;
+</div>
+<!--l. 152--><p class="nopar" > The result is
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1230">
+                      6        5         4
+ <br />h := {3976*x + 37104*z  - 600*z  + 2111*z
+ <br />
+ <br />                 3           2
+ <br />       + 122062*z  + 232833*z  - 680336*z + 288814
+ <br />
+ <br />      ,
+ <br />
+ <br />            2          6         5         4
+ <br />      1988*y  - 76752*z  + 1272*z  - 4197*z
+ <br />
+ <br />                 3           2
+ <br />       - 251555*z  - 481837*z  + 1407741*z
+ <br />
+ <br />       - 595666,
+ <br />
+ <br />          7      6    5       4       3        2
+ <br />      16*z  - 8*z  + z  + 52*z  + 75*z  - 342*z
+ <br />
+ <br />       + 266*z - 60}
+ <br />
+</div>
+<!--l. 176--><p class="nopar" > In the case of “sparse” positive-dimensioned system when the involutive basis in the
+sense of <span class="cite">[<a 
+href="manualap2.html#XZharkovBlinkov:93">ZB96</a>]</span> does not exist, you get the error message
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1231">
+  ***** Maximum degree bound exceeded.
+</div>
+<!--l. 182--><p class="nopar" > <a 
+ id="variable:INVTEMPBASIS"></a> The resulting list of polynomials which is not an involutive basis is stored in the share
+variable <span 
+class="pcrr8t-x-x-109">invtempbasis</span><a 
+ id="dx220-901003"></a>. In this case it is reasonable to call the <span 
+class="ptmrc8t-x-x-109">G<span 
+class="small-caps">R</span><span 
+class="small-caps">O</span><span 
+class="small-caps">E</span><span 
+class="small-caps">B</span><span 
+class="small-caps">N</span><span 
+class="small-caps">E</span><span 
+class="small-caps">R</span> </span>package
+with the value of <span 
+class="pcrr8t-x-x-109">invtempbasis </span>as input under the same variable and term
+ordering.
+</p><!--l. 601--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 603--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse153.html" >Up</a></td><td class="clinks"><a 
+href="manualse154.html" >Next</a></td><td class="clinks"><a 
+href="manualse152.html" >Prev</a></td><td class="clinks"><a 
+href="manualse152.html#tailmanualse152.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse153.html" >Front</a></td></tr></table><a 
+ id="tailmanualse153.html"></a>   </p> 
+</body> 
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Declaring New Inﬁx Operators</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse53.html" >Up</a></td><td class="clinks"><a 
+href="manualse54.html" >Next</a></td><td class="clinks"><a 
+href="manualse52.html" >Prev</a></td><td class="clinks"><a 
+href="manualse52.html#tailmanualse52.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse53.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">7.26    </span> <a 
+ id="x69-1160007.26"></a>Declaring New Inﬁx Operators</h3>
+<!--l. 203--><p class="noindent" ><a 
+ id="command:INFIX"></a> <a 
+ id="command:PRECEDENCE"></a>
+</p><!--l. 206--><p class="noindent" >Users can add new inﬁx operators by using the <span 
+class="pcrr8t-x-x-109">infix</span><a 
+ id="dx69-116001"></a><a 
+ id="dx69-116002"></a> and <span 
+class="pcrr8t-x-x-109">precedence</span><a 
+ id="dx69-116003"></a><a 
+ id="dx69-116004"></a> declarations.
+For example,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-203">
+        infix mm;
+ <br />        precedence mm,-;
+</div>
+<!--l. 213--><p class="nopar" > The declaration <span 
+class="pcrr8t-x-x-109">infix mm; </span>would allow one to use the symbol <span 
+class="pcrr8t-x-x-109">mm </span>as an inﬁx
+operator:
+     </p><div class="quote">
+     <!--l. 217--><p class="noindent" >       <span 
+class="pcrr8t-x-x-109">a mm b</span>          instead of           <span 
+class="pcrr8t-x-x-109">mm(a,b)</span>.</p></div>
+<!--l. 221--><p class="noindent" >The declaration <span 
+class="pcrr8t-x-x-109">precedence mm,-; </span>says that <span 
+class="pcrr8t-x-x-109">mm </span>should be inserted into the inﬁx
+operator precedence list just <span 
+class="ptmri8t-x-x-109">after </span>the <span 
+class="cmsy-10x-x-109">− </span>operator. This gives it higher precedence than <span 
+class="cmsy-10x-x-109">−</span>
+and lower precedence than * . Thus
+</p><!--l. 226--><p class="noindent" >
+     </p><div class="quote">
+     <!--l. 227--><p class="noindent" >      <span 
+class="pcrr8t-x-x-109">a - b mm c - d</span>           means             <span 
+class="pcrr8t-x-x-109">a - (b mm c) -</span>
+     <span 
+class="pcrr8t-x-x-109">d</span>,</p></div>
+<!--l. 230--><p class="noindent" >while
+     </p><div class="quote">
+     <!--l. 232--><p class="noindent" >         <span 
+class="pcrr8t-x-x-109">a * b mm c * d</span>           means             <span 
+class="pcrr8t-x-x-109">(a * b) mm (c</span>
+     <span 
+class="pcrr8t-x-x-109">* d)</span>.</p></div>
+<!--l. 236--><p class="noindent" >Both inﬁx and preﬁx<a 
+ id="dx69-116005"></a> operators have no transformation properties unless <span 
+class="pcrr8t-x-x-109">let</span><a 
+ id="dx69-116006"></a> statements
+or procedure declarations are used to assign a meaning.
+</p><!--l. 240--><p class="noindent" >We should note here that inﬁx operators so deﬁned are always binary:
+     </p><div class="quote">
+     <!--l. 242--><p class="noindent" >      <span 
+class="pcrr8t-x-x-109">a mm b mm c</span>          means           <span 
+class="pcrr8t-x-x-109">(a mm b) mm c</span>.</p></div>
+                                                                     
+
+                                                                     
+<!--l. 246--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse53.html" >Up</a></td><td class="clinks"><a 
+href="manualse54.html" >Next</a></td><td class="clinks"><a 
+href="manualse52.html" >Prev</a></td><td class="clinks"><a 
+href="manualse52.html#tailmanualse52.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse53.html" >Front</a></td></tr></table><a 
+ id="tailmanualse53.html"></a> </p> 
+</body> 
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Using Variables as Filenames</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch12.html#manualse87.html" >Up</a></td><td class="clinks"><a 
+href="manualse88.html" >Next</a></td><td class="clinks"><a 
+href="manualse86.html" >Prev</a></td><td class="clinks"><a 
+href="manualse86.html#tailmanualse86.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse87.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">12.5    </span> <a 
+ id="x111-21600012.5"></a>Using Variables as Filenames</h3>
+<!--l. 118--><p class="noindent" >The commands <span 
+class="pcrr8t-x-x-109">in</span>, <span 
+class="pcrr8t-x-x-109">out </span>and <span 
+class="pcrr8t-x-x-109">shut </span>treat their arguments as constants, but you can use
+variables if you make them into <a 
+href="manualse15.html#command:GROUP">group</a><a 
+ id="dx111-216001"></a> <a 
+ id="dx111-216002"></a>expressions by enclosing them between <span 
+class="pcrr8t-x-x-109">&#x003C;&#x003C; </span>and
+<span 
+class="pcrr8t-x-x-109">&#x003E;&#x003E; </span>symbols, e.g.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-418">
+     filename := &#x0022;something/long/and/complicated.red&#x0022;;
+ <br />     out &#x003C;&#x003C;filename&#x003E;&#x003E;;
+ <br />     % perform some computation...
+ <br />     shut &#x003C;&#x003C;filename&#x003E;&#x003E;;
+</div>
+<!--l. 128--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p><!--l. 130--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch12.html#manualse87.html" >Up</a></td><td class="clinks"><a 
+href="manualse88.html" >Next</a></td><td class="clinks"><a 
+href="manualse86.html" >Prev</a></td><td class="clinks"><a 
+href="manualse86.html#tailmanualse86.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse87.html" >Front</a></td></tr></table><a 
+ id="tailmanualse87.html"></a> </p> 
+</body> 
+</html>

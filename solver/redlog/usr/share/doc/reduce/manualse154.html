@@ -1,0 +1,269 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>LALR: A Parser Generator</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse154.html" >Up</a></td><td class="clinks"><a 
+href="manualse155.html" >Next</a></td><td class="clinks"><a 
+href="manualse153.html" >Prev</a></td><td class="clinks"><a 
+href="manualse153.html#tailmanualse153.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse154.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.29    </span> <a 
+ id="x222-90200020.29"></a>LALR: A Parser Generator</h3>
+<a 
+ id="dx222-902001"></a>
+<a 
+ id="dx222-902002"></a>
+<!--l. 606--><p class="noindent" >Author: Arthur Norman
+</p><!--l. 2--><p class="noindent" >This package provides a parser-generator, somewhat styled after <span 
+class="pcrr8t-x-x-109">yacc </span>or the many
+programs available for use with other languages. You present it with a phrase structure
+grammar and it generates a set of tables that can then be used by the function <span 
+class="pcrr8t-x-x-109">yyparse</span>
+to read in material in the syntax that you speciﬁed. Internally it uses a very well
+established technique known “LALR” which takes the grammar are derives the
+description of a stack automaton that can accept it. Details of the procedure can be found
+in standard books on compiler construction, such as the one by Aho, Ullman, Lam and
+Sethi <span class="cite">[<a 
+href="manualap2.html#XdragoonBook">ALSU06</a>]</span>.
+</p><!--l. 12--><p class="noindent" >At the time of writing this explanation the code is not in its ﬁnal form, so this will
+describe the current state and include a few notes on what might chaneg in the
+future.
+</p><!--l. 16--><p class="noindent" >Building a parser is done in Reduce symbolic mode, so say &#x0022;<span 
+class="pcrr8t-x-x-109">symbolic;</span>&#x0022; or &#x0022;<span 
+class="pcrr8t-x-x-109">lisp;</span>&#x0022;
+before starting your work.
+</p><!--l. 19--><p class="noindent" ><a 
+ id="function:LALR_CREATE_PARSER"></a> To use the code here you use a function <span 
+class="pcrr8t-x-x-109">lalr_create_parser</span><a 
+ id="dx222-902003"></a>, giving it two
+arguments. The ﬁrst indicates precedence information and will be described later: for
+now just pass the value <span 
+class="pcrr8t-x-x-109">nil</span>. The second argument is a list of productions, and the ﬁrst
+one of these is taken to be the top-level target for the whole grammar.
+</p><!--l. 26--><p class="noindent" >Each production is in the form
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1232">
+    (LHS   ((rhs1.1 rhs1.2 ...) a1.1 a1.2 ...)
+ <br />           ((rhs2.1 rhs2.1 ...) a2.1 a2.2 ...)
+ <br />           ...)
+</div>
+<!--l. 31--><p class="nopar" > which in regular publication style for grammars might be interpreted as meaning
+</p><table 
+class="align-star">
+            <tr><td 
+class="align-odd">LHS</td>            <td 
+class="align-even"> <span 
+class="cmsy-10x-x-109">⇒</span></td>            <td 
+class="align-odd">rhs<sub><span 
+class="cmr-8">1</span><span 
+class="cmmi-8">,</span><span 
+class="cmr-8">1</span></sub>  rhs<sub><span 
+class="cmr-8">1</span><span 
+class="cmmi-8">,</span><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">…</span></td>            <td 
+class="align-even"><img 
+src="manual357x.png" alt="{a1,1 a1,2 ...}"  class="left" align="middle" /></td>            <td 
+class="align-label"></td>            <td 
+class="align-label"></td>            <td 
+class="align-label"></td>            <td 
+class="align-label">
+            </td></tr><tr><td 
+class="align-odd"></td>                <td 
+class="align-even"> <span 
+class="cmsy-10x-x-109">|</span></td>             <td 
+class="align-odd">rhs<sub><span 
+class="cmr-8">2</span><span 
+class="cmmi-8">,</span><span 
+class="cmr-8">1</span></sub>  rhs<sub><span 
+class="cmr-8">2</span><span 
+class="cmmi-8">,</span><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">…</span></td>            <td 
+class="align-even"><img 
+src="manual358x.png" alt="{a2,1 a2,2 ...}"  class="left" align="middle" /></td>            <td 
+class="align-label"></td>            <td 
+class="align-label"></td>            <td 
+class="align-label"></td>            <td 
+class="align-label">
+            </td></tr><tr><td 
+class="align-odd"></td>                <td 
+class="align-even"><span 
+class="cmmi-10x-x-109">…</span></td>              <td 
+class="align-odd"></td>                        <td 
+class="align-even"></td>                        <td 
+class="align-label"></td>            <td 
+class="align-label">
+            </td></tr><tr><td 
+class="align-odd"></td>                <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">;</span></td>             <td 
+class="align-odd"></td>                        <td 
+class="align-even"></td>                        <td 
+class="align-label"></td>            <td 
+class="align-label">                        </td></tr></table>
+<!--l. 40--><p class="noindent" >The various lines specify diﬀerent options for what the left hand side (non-terminal
+symbol) might correspond to, while the items within the braces are sematic actions that
+get obeyed or evaluated when the production ruls is used.
+</p><!--l. 45--><p class="noindent" >Each LHS is treated as a non-terminal symbol and is speciﬁed as a simple name. Note
+that by default the Reduce parser will be folding characters within names to lower case
+and so it will be best to choose names for non-terminals that are unambiguous even when
+case-folded, but I would like to establish a convention that in source code they are written
+in capitals.
+</p><!--l. 51--><p class="noindent" >The RHS items may be either non-terminals (identiﬁed because they are present in the
+left hand side of some production) or terminals. Terminal symbols can be speciﬁed in
+                                                                     
+
+                                                                     
+two diﬀerent ways.
+</p><!--l. 55--><p class="noindent" >The lexer has built-in recipes that decode certain sequences of characters and return the
+special markers for !:symbol, !:number, !:string, !:list for commonly used cases. In these
+cases the variable yylval gets left set to associated data, so for instance in the case of
+!:symbol it gets set to the particular symbol concerned. The token type :list is used for
+Lisp or rlisp-like notation where the input contains ’expression or ‘expression so for
+instance the input ‘(a b c) leads to the lexer returning !:list and yylvel being
+set to (backquote (a b c)). This treatment is specialised for handling rlisp-like
+syntax.
+</p><!--l. 68--><p class="noindent" >Other terminals are indicated by writing a string. That may either consist of characters
+that would otherwise form a symbol (ie a letter followed by letters, digits and
+underscores) or a sequence of non-alphanumeric characters. In the latter case if a
+sequence of three or more punctuation marks make up a terminal then all the shorter
+preﬁxes of it will also be grouped to form single entities. So if &#x0022;&#x003C;–&#x003E;&#x0022; is a terminal then
+’&#x003C;’, ’&#x003C;-’ and ’&#x003C;–’ will each by parsed as single tokens, and any of them that are not used
+as terminals will be classiﬁed as !:symbol.
+</p><!--l. 77--><p class="noindent" >As well as terminals and non-terminals (which are writtent as symbols or strings) it is
+possible to write one of
+</p>
+<div class="tabular"> <table id="TBL-90" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-90-1g"><col 
+id="TBL-90-1" /><col 
+id="TBL-90-2" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-90-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-90-1-1"  
+class="td11"> (<span 
+class="pcrr8t-x-x-109">OPT </span><span 
+class="ptmri8t-x-x-109">s1 s2 </span>…)               </td><td  style="white-space:nowrap; text-align:left;" id="TBL-90-1-2"  
+class="td11"> 0 or 1 instances of the sequence <span 
+class="ptmri8t-x-x-109">s1</span>, …             </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-90-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-90-2-1"  
+class="td11"> (<span 
+class="pcrr8t-x-x-109">STAR </span><span 
+class="ptmri8t-x-x-109">s1 s2 </span>…)              </td><td  style="white-space:nowrap; text-align:left;" id="TBL-90-2-2"  
+class="td11"> 0, 1, 2, …instances.                                           </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-90-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-90-3-1"  
+class="td11"> (<span 
+class="pcrr8t-x-x-109">PLUS </span><span 
+class="ptmri8t-x-x-109">s1 s2 </span>…)              </td><td  style="white-space:nowrap; text-align:left;" id="TBL-90-3-2"  
+class="td11"> 1, 2, 3, …instances.                                           </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-90-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-90-4-1"  
+class="td11"> (<span 
+class="pcrr8t-x-x-109">LIST </span><span 
+class="ptmri8t-x-x-109">sep s1 s2 </span>…)       </td><td  style="white-space:nowrap; text-align:left;" id="TBL-90-4-2"  
+class="td11"> like (<span 
+class="pcrr8t-x-x-109">STAR </span><span 
+class="ptmri8t-x-x-109">s1 s2 </span>…) but with the single item  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-90-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-90-5-1"  
+class="td11">                 </td><td  style="white-space:nowrap; text-align:left;" id="TBL-90-5-2"  
+class="td11"> <span 
+class="ptmri8t-x-x-109">sep </span>between each instance.                             </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-90-6-"><td  style="white-space:nowrap; text-align:left;" id="TBL-90-6-1"  
+class="td11"> (<span 
+class="pcrr8t-x-x-109">LISTPLUS </span><span 
+class="ptmri8t-x-x-109">sep s1 </span>…)  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-90-6-2"  
+class="td11"> like (<span 
+class="pcrr8t-x-x-109">PLUS </span><span 
+class="ptmri8t-x-x-109">s2 </span>…) but with <span 
+class="ptmri8t-x-x-109">sep </span>interleaved.     </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-90-7-"><td  style="white-space:nowrap; text-align:left;" id="TBL-90-7-1"  
+class="td11"> (<span 
+class="pcrr8t-x-x-109">OR </span><span 
+class="ptmri8t-x-x-109">s1 s2 </span>…)                  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-90-7-2"  
+class="td11"> one or other of the tokens shown.                   </td>
+</tr></table></div>
+<!--l. 90--><p class="noindent" >When the lexer processes input it will return a numeric code that identiﬁes the type of the
+item seen, so in a production one might write (!:symbol &#x0022;:=&#x0022; EXPRESSION) and as it
+recognises the ﬁrst two tokens the lexer will return a numeric code for !:symbol (and set
+yylval to the actual symbol as seen) and then a numeric code that it allocates
+for &#x0022;:=&#x0022;. In the latter case it will also set yylval to the symbol !:!= in case that
+is useful. Precedence can be set using <span 
+class="pcrr8t-x-x-109">lalr_precedence</span>. See examples
+below.
+</p><!--l. 102--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.29.1    </span> <a 
+ id="x222-90300020.29.1"></a>Limitations</h4>
+<!--l. 104--><p class="noindent" >
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+                                                                     
+
+                                                                     
+   1. </dt><dd 
+class="enumerate-enumitem">Grammar rules and semantic actions are speciﬁed in fairly raw Lisp.
+     </dd><dt class="enumerate-enumitem">
+   2. </dt><dd 
+class="enumerate-enumitem">The lexer is hand-written and can not readily be reconﬁgured for use with
+     languages other than rlisp. For instance it has use of &#x0022;!&#x0022; as a character escape
+     built into it.</dd></dl>
+<!--l. 111--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.29.2    </span> <a 
+ id="x222-90400020.29.2"></a>An example</h4>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-1233">
+% Here I set up a sample grammar
+ <br />%    S’ -&#x003E; S
+ <br />%    S  -&#x003E; C C        { }
+ <br />%    C  -&#x003E; &#x0022;c&#x0022; C      { }
+ <br />%        | &#x0022;d&#x0022;        { }
+ <br />% This is example 4.42 from Aho, Sethi and Ullman’s
+ <br />% Red Dragon book.
+ <br />% It is example 4.54 in the more recent Purple book.
+ <br />%
+ <br />%
+ <br />grammar := ’(
+ <br /> (s  ((cc cc)  )   % Use default semantic action here
+ <br /> )
+ <br /> (cc ((&#x0022;c&#x0022; cc) (list ’c !$2))  % First production for C
+ <br />     ((&#x0022;d&#x0022;)    ’d           )  % Second production for C
+ <br /> ))$
+ <br />
+ <br />parsertables := lalr_create_parser(nil, grammar)$
+ <br />
+ <br />&#x003C;&#x003C; lex_init();
+ <br />   yyparse() &#x003E;&#x003E;;
+ <br />c c c d c d ;
+</div>
+<!--l. 135--><p class="nopar" >
+</p><!--l. 610--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 612--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse154.html" >Up</a></td><td class="clinks"><a 
+href="manualse155.html" >Next</a></td><td class="clinks"><a 
+href="manualse153.html" >Prev</a></td><td class="clinks"><a 
+href="manualse153.html#tailmanualse153.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse154.html" >Front</a></td></tr></table><a 
+ id="tailmanualse154.html"></a>  </p> 
+</body> 
+</html>

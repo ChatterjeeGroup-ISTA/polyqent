@@ -1,0 +1,1565 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>LPDO: Linear Partial Diﬀerential Operators</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse159.html" >Up</a></td><td class="clinks"><a 
+href="manualse160.html" >Next</a></td><td class="clinks"><a 
+href="manualse158.html" >Prev</a></td><td class="clinks"><a 
+href="manualse158.html#tailmanualse158.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse159.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.34    </span> <a 
+ id="x236-97800020.34"></a>LPDO: Linear Partial Diﬀerential Operators</h3>
+<a 
+ id="dx236-978001"></a>
+<a 
+ id="dx236-978002"></a>
+<!--l. 681--><p class="noindent" >Author: Thomas Sturm
+<a 
+ id="dx236-978003"></a>
+<a 
+ id="dx236-978004"></a>
+</p><!--l. 27--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.34.1    </span> <a 
+ id="x236-97900020.34.1"></a>Introduction</h4>
+<!--l. 36--><p class="noindent" >Consider the ﬁeld <span 
+class="cmmi-10x-x-109">F </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="msbm-10x-x-109">ℚ</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,x</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmr-10x-x-109">) </span>of rational functions and a set <span 
+class="cmr-10x-x-109">Δ = </span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmr-6">1</span></sub></sub>,…, <span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmmi-6">n</span></sub></sub><span 
+class="cmsy-10x-x-109">} </span>of
+<span 
+class="ptmri8t-x-x-109">commuting derivations </span>acting on <span 
+class="cmmi-10x-x-109">F </span>. That is, for all <span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmmi-6">i</span></sub></sub>, <span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmmi-6">j</span></sub></sub> <span 
+class="cmsy-10x-x-109">∈ </span><span 
+class="cmr-10x-x-109">Δ </span>and all <span 
+class="cmmi-10x-x-109">f</span>, <span 
+class="cmmi-10x-x-109">g </span><span 
+class="cmsy-10x-x-109">∈ </span><span 
+class="cmmi-10x-x-109">F </span>the
+following properties are satisﬁed:
+</p><table 
+class="align">
+                  <tr><td 
+class="align-odd"><span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmmi-6">i</span></sub></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">f </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">g</span><span 
+class="cmr-10x-x-109">)</span></td>                   <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmmi-6">i</span></sub></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">) + </span><span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmmi-6">i</span></sub></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">g</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,</span></td>                       <td 
+class="align-label"></td>                  <td 
+class="align-label">
+                  </td></tr><tr><td 
+class="align-odd"><span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmmi-6">i</span></sub></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">f </span><span 
+class="cmsy-10x-x-109">⋅ </span><span 
+class="cmmi-10x-x-109">g</span><span 
+class="cmr-10x-x-109">)</span></td>                    <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">f </span><span 
+class="cmsy-10x-x-109">⋅ </span><span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmmi-6">i</span></sub></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">g</span><span 
+class="cmr-10x-x-109">) + </span><span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmmi-6">i</span></sub></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmsy-10x-x-109">⋅ </span><span 
+class="cmmi-10x-x-109">g,</span></td>                                    <td 
+class="align-label"><a 
+ id="x236-979001r83"></a>(20.83)
+                  </td></tr><tr><td 
+class="align-odd"><span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmmi-6">i</span></sub></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmmi-6">j</span></sub></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">))</span></td>                  <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmmi-6">j</span></sub></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmmi-6">i</span></sub></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">))</span><span 
+class="cmmi-10x-x-109">.</span></td>                                             <td 
+class="align-label"><a 
+ id="x236-979002r84"></a>(20.84)                  </td></tr></table>
+                                                                     
+
+                                                                     
+<!--l. 49--><p class="noindent" >Consider now the set <span 
+class="cmmi-10x-x-109">F</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmr-6">1</span></sub></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmmi-6">n</span></sub></sub><span 
+class="cmr-10x-x-109">]</span>, where the derivations are used as variables. This set
+forms a non-commutative <span 
+class="ptmri8t-x-x-109">linear partial diﬀerential operator ring </span>with pointwise
+addition, and multiplication deﬁned as follows: For <span 
+class="cmmi-10x-x-109">f </span><span 
+class="cmsy-10x-x-109">∈ </span><span 
+class="cmmi-10x-x-109">F </span>and <span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmmi-6">i</span></sub></sub>, <span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmmi-6">j</span></sub></sub> <span 
+class="cmsy-10x-x-109">∈ </span><span 
+class="cmr-10x-x-109">Δ </span>we have for
+any <span 
+class="cmmi-10x-x-109">g </span><span 
+class="cmsy-10x-x-109">∈ </span><span 
+class="cmmi-10x-x-109">F </span>that
+</p><table 
+class="align">
+                       <tr><td 
+class="align-odd"><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">f∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmmi-6">i</span></sub></sub><span 
+class="cmr-10x-x-109">)(</span><span 
+class="cmmi-10x-x-109">g</span><span 
+class="cmr-10x-x-109">)</span></td>                        <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">f </span><span 
+class="cmsy-10x-x-109">⋅ </span><span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmmi-6">i</span></sub></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">g</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,</span></td>                         <td 
+class="align-label"></td>                       <td 
+class="align-label">
+                       </td></tr><tr><td 
+class="align-odd"><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmmi-6">i</span></sub></sub><span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">)(</span><span 
+class="cmmi-10x-x-109">g</span><span 
+class="cmr-10x-x-109">)</span></td>                        <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmmi-6">i</span></sub></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">f </span><span 
+class="cmsy-10x-x-109">⋅ </span><span 
+class="cmmi-10x-x-109">g</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,</span></td>                                                <td 
+class="align-label"><a 
+ id="x236-979003r85"></a>(20.85)
+                       </td></tr><tr><td 
+class="align-odd"><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmmi-6">i</span></sub></sub><span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmmi-6">j</span></sub></sub><span 
+class="cmr-10x-x-109">)(</span><span 
+class="cmmi-10x-x-109">g</span><span 
+class="cmr-10x-x-109">)</span></td>                       <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmmi-6">i</span></sub></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmmi-6">j</span></sub></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">g</span><span 
+class="cmr-10x-x-109">))</span><span 
+class="cmmi-10x-x-109">.</span></td>                                              <td 
+class="align-label"><a 
+ id="x236-979004r86"></a>(20.86)                       </td></tr></table>
+<!--l. 60--><p class="noindent" >Here “ <span 
+class="cmsy-10x-x-109">⋅ </span>” denotes the multiplication in <span 
+class="cmmi-10x-x-109">F </span>. From (<a 
+href="#x236-979004r86">20.86<!--tex4ht:ref: EQ:mult3 --></a>) and (<a 
+href="#x236-979002r84">20.84<!--tex4ht:ref: EQ:comm --></a>) it follows that
+<span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmmi-6">i</span></sub></sub><span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmmi-6">j</span></sub></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmmi-6">j</span></sub></sub><span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmmi-6">i</span></sub></sub>, and using (<a 
+href="#x236-979003r85">20.85<!--tex4ht:ref: EQ:mult2 --></a>) and (<a 
+href="#x236-979001r83">20.83<!--tex4ht:ref: EQ:leibnitz --></a>) the following <span 
+class="ptmri8t-x-x-109">commutator </span>can be
+proved:
+</p>
+<table 
+class="equation-star"><tr><td>
+                        <span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmmi-6">i</span></sub></sub><span 
+class="cmmi-10x-x-109">f </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">f∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmmi-6">i</span></sub></sub> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmmi-6">i</span></sub></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+                                                                     
+
+                                                                     
+<!--l. 67--><p class="nopar" >
+</p><!--l. 69--><p class="noindent" >A <span 
+class="ptmri8t-x-x-109">linear partial diﬀerential operator </span>(LPDO) of order <span 
+class="cmmi-10x-x-109">k </span>is an element
+</p>
+<table 
+class="equation-star"><tr><td>
+                   <span 
+class="cmmi-10x-x-109">D </span><span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∑</span>
+   <sub><span 
+class="cmsy-8">|</span><span 
+class="cmmi-8">j</span><span 
+class="cmsy-8">|≤</span><span 
+class="cmmi-8">k</span></sub><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">j</span></sub><span 
+class="cmmi-10x-x-109">∂</span><sup><span 
+class="cmmi-8">j</span></sup> <span 
+class="cmsy-10x-x-109">∈ </span><span 
+class="cmmi-10x-x-109">F</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">∂</span><sub>
+<span 
+class="cmmi-8">x</span><sub><span 
+class="cmr-6">1</span></sub></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmmi-6">n</span></sub></sub><span 
+class="cmr-10x-x-109">]</span>
+</td></tr></table>
+<!--l. 74--><p class="nopar" >
+in canonical form. Here the expression <span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmmi-10x-x-109">j</span><span 
+class="cmsy-10x-x-109">|≤ </span><span 
+class="cmmi-10x-x-109">k </span>speciﬁes the set of all tuples of the form
+<span 
+class="cmmi-10x-x-109">j </span><span 
+class="cmr-10x-x-109">= (</span><span 
+class="cmmi-10x-x-109">j</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,j</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmsy-10x-x-109">∈ </span><span 
+class="msbm-10x-x-109">ℕ</span><sup><span 
+class="cmmi-8">n</span></sup> with <span 
+class="cmex-10x-x-109">∑</span>
+  <sub><span 
+class="cmmi-8">i</span><span 
+class="cmr-8">=1</span></sub><sup><span 
+class="cmmi-8">n</span></sup><span 
+class="cmmi-10x-x-109">j</span><sub><span 
+class="cmmi-8">i</span></sub> <span 
+class="cmsy-10x-x-109">≤ </span><span 
+class="cmmi-10x-x-109">k</span>, and we deﬁne <span 
+class="cmmi-10x-x-109">∂</span><sup><span 
+class="cmmi-8">j</span></sup> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmr-6">1</span></sub></sub><sup><span 
+class="cmmi-8">j</span><sub><span 
+class="cmr-6">1</span></sub></sup><img 
+src="manual437x.png" alt="⋅⋅⋅"  class="@cdots"  /><span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">x</span><sub>
+<span 
+class="cmmi-6">n</span></sub></sub><sup><span 
+class="cmmi-8">j</span><sub><span 
+class="cmmi-6">n</span></sub></sup>.
+</p><!--l. 80--><p class="noindent" >A <span 
+class="ptmri8t-x-x-109">factorization </span>of <span 
+class="cmmi-10x-x-109">D </span>is a non-trivial decomposition
+</p>
+<table 
+class="equation-star"><tr><td>
+                     <span 
+class="cmmi-10x-x-109">D </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">D</span><sub><span 
+class="cmr-8">1</span></sub><img 
+src="manual438x.png" alt="⋅⋅⋅"  class="@cdots"  /><span 
+class="cmmi-10x-x-109">D</span><sub><span 
+class="cmmi-8">r</span></sub> <span 
+class="cmsy-10x-x-109">∈ </span><span 
+class="cmmi-10x-x-109">F</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmr-6">1</span></sub></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmmi-6">n</span></sub></sub><span 
+class="cmr-10x-x-109">]</span>
+</td></tr></table>
+<!--l. 83--><p class="nopar" >
+into multiplicative factors, each of which is an LPDO <span 
+class="cmmi-10x-x-109">D</span><sub><span 
+class="cmmi-8">i</span></sub> of order greater than <span 
+class="cmr-10x-x-109">0 </span>and less
+than <span 
+class="cmmi-10x-x-109">k</span>. If such a factorization exists, then <span 
+class="cmmi-10x-x-109">D </span>is called <span 
+class="ptmri8t-x-x-109">reducible </span>or <span 
+class="ptmri8t-x-x-109">factorable</span>, else
+<span 
+class="ptmri8t-x-x-109">irreducible</span>.
+                                                                     
+
+                                                                     
+</p><!--l. 89--><p class="noindent" >For the purpose of factorization it is helpful to temporarily consider as regular
+commutative polynomials certain summands of the LPDO under consideration. Consider
+a commutative polynomial ring over <span 
+class="cmmi-10x-x-109">F </span>in new indeterminates <span 
+class="cmmi-10x-x-109">y</span><sub><span 
+class="cmr-8">1</span></sub>, …, <span 
+class="cmmi-10x-x-109">y</span><sub><span 
+class="cmmi-8">n</span></sub>. Adopting the
+notational conventions above, for <span 
+class="cmmi-10x-x-109">m </span><span 
+class="cmsy-10x-x-109">≤ </span><span 
+class="cmmi-10x-x-109">k </span>the <span 
+class="ptmri8t-x-x-109">symbol of </span><span 
+class="cmmi-10x-x-109">D </span><span 
+class="ptmri8t-x-x-109">of order </span><span 
+class="cmmi-10x-x-109">m </span>is deﬁned
+as
+</p>
+<table 
+class="equation-star"><tr><td>
+                <span 
+class="cmr-10x-x-109">Sym</span><sub><span 
+class="cmmi-8">m</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">D</span><span 
+class="cmr-10x-x-109">) =</span> <span 
+class="cmex-10x-x-109">∑</span>
+   <sub><span 
+class="cmsy-8">|</span><span 
+class="cmmi-8">j</span><span 
+class="cmsy-8">|</span><span 
+class="cmr-8">=</span><span 
+class="cmmi-8">m</span></sub><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">j</span></sub><span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmmi-8">j</span></sup> <span 
+class="cmsy-10x-x-109">∈ </span><span 
+class="cmmi-10x-x-109">F</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">y</span><sub>
+<span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,y</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmr-10x-x-109">]</span><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 97--><p class="nopar" >
+For <span 
+class="cmmi-10x-x-109">m </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">k </span>we obtain as a special case the <span 
+class="ptmri8t-x-x-109">symbol</span> <span 
+class="cmr-10x-x-109">Sym</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">D</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="ptmri8t-x-x-109">of </span><span 
+class="cmmi-10x-x-109">D</span>.
+</p><!--l. 101--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.34.2    </span> <a 
+ id="x236-98000020.34.2"></a>Operators</h4>
+<!--l. 103--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.34.2.1    </span> <a 
+ id="x236-98100020.34.2.1"></a><span 
+class="pcrr8t-x-x-109">partial</span></h5>
+<a 
+ id="dx236-981001"></a>
+<!--l. 105--><p class="noindent" ><a 
+ id="operator:PARTIAL"></a> There is a unary operator <span 
+class="pcrr8t-x-x-109">partial(</span><span 
+class="cmsy-10x-x-109">⋅</span><span 
+class="pcrr8t-x-x-109">) </span>denoting <span 
+class="cmmi-10x-x-109">∂</span>.
+</p>
+<div class="center" 
+>
+<!--l. 109--><p class="noindent" >
+                                                                     
+
+                                                                     
+</p>
+<div class="tabular"> <table id="TBL-141" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-141-1g"><col 
+id="TBL-141-1" /><col 
+id="TBL-141-2" /><col 
+id="TBL-141-3" /><col 
+id="TBL-141-4" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-141-1-"><td  style="white-space:nowrap; text-align:right;" id="TBL-141-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">partial-term</span><span 
+class="cmsy-10x-x-109">⟩</span>    </td><td  style="white-space:nowrap; text-align:center;" id="TBL-141-1-2"  
+class="td11"> <span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmmi-10x-x-109">  </span><span 
+class="cmsy-10x-x-109">→</span> <span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmmi-10x-x-109">  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-141-1-3"  
+class="td11"> <span 
+class="pcrb8t-x-x-109">partial</span>  <span 
+class="pcrb8t-x-x-109">(</span>  <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">id</span><span 
+class="cmsy-10x-x-109">⟩</span>  <span 
+class="pcrb8t-x-x-109">)</span>    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-141-1-4"  
+class="td11">  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-141-2-"><td  style="white-space:nowrap; text-align:right;" id="TBL-141-2-1"  
+class="td11">             </td>
+</tr></table>
+</div>
+</div>
+<!--l. 115--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.34.2.2    </span> <a 
+ id="x236-98200020.34.2.2"></a><span 
+class="pcrr8t-x-x-109">***</span></h5>
+<a 
+ id="dx236-982001"></a>
+<!--l. 117--><p class="noindent" ><a 
+ id="operator:lpdotimes"></a> There is a binary operator <span 
+class="pcrr8t-x-x-109">*** </span>for the non-commutative multiplication involving
+partials <span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">x</span></sub>. All expressions involving <span 
+class="pcrr8t-x-x-109">*** </span>are implicitly transformed into LPDOs, i.e.,
+into the following normal form: </p>
+<div class="center" 
+>
+<!--l. 122--><p class="noindent" >
+</p>
+<div class="tabular"> <table id="TBL-142" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-142-1g"><col 
+id="TBL-142-1" /><col 
+id="TBL-142-2" /><col 
+id="TBL-142-3" /><col 
+id="TBL-142-4" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-142-1-"><td  style="white-space:nowrap; text-align:right;" id="TBL-142-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">normalized-lpdo</span><span 
+class="cmsy-10x-x-109">⟩</span>    </td><td  style="white-space:nowrap; text-align:center;" id="TBL-142-1-2"  
+class="td11"> <span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmmi-10x-x-109">  </span><span 
+class="cmsy-10x-x-109">→</span> <span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmmi-10x-x-109">  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-142-1-3"  
+class="td11"> <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">normalized-mon</span><span 
+class="cmsy-10x-x-109">⟩</span>  <span 
+class="cmr-10x-x-109">[</span><span 
+class="pcrb8t-x-x-109">+</span>  <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">normalized-lpdo</span><span 
+class="cmsy-10x-x-109">⟩</span>  <span 
+class="cmr-10x-x-109">]</span>    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-142-1-4"  
+class="td11">  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-142-2-"><td  style="white-space:nowrap; text-align:right;" id="TBL-142-2-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">normalized-mon</span><span 
+class="cmsy-10x-x-109">⟩</span>    </td><td  style="white-space:nowrap; text-align:center;" id="TBL-142-2-2"  
+class="td11"> <span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmmi-10x-x-109">  </span><span 
+class="cmsy-10x-x-109">→</span> <span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmmi-10x-x-109">  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-142-2-3"  
+class="td11"> <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">F-element</span><span 
+class="cmsy-10x-x-109">⟩</span>  <span 
+class="cmr-10x-x-109">[</span><span 
+class="pcrb8t-x-x-109">***</span>  <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">partial-termprod</span><span 
+class="cmsy-10x-x-109">⟩</span>  <span 
+class="cmr-10x-x-109">]</span>         </td><td  style="white-space:nowrap; text-align:left;" id="TBL-142-2-4"  
+class="td11">  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-142-3-"><td  style="white-space:nowrap; text-align:right;" id="TBL-142-3-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">partial-termprod</span><span 
+class="cmsy-10x-x-109">⟩</span>    </td><td  style="white-space:nowrap; text-align:center;" id="TBL-142-3-2"  
+class="td11"> <span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmmi-10x-x-109">  </span><span 
+class="cmsy-10x-x-109">→</span> <span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmmi-10x-x-109">  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-142-3-3"  
+class="td11"> <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">partial-term</span><span 
+class="cmsy-10x-x-109">⟩</span>  <span 
+class="cmr-10x-x-109">[</span><span 
+class="pcrb8t-x-x-109">***</span>  <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">partial-termprod</span><span 
+class="cmsy-10x-x-109">⟩</span>  <span 
+class="cmr-10x-x-109">]</span>     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-142-3-4"  
+class="td11">  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-142-4-"><td  style="white-space:nowrap; text-align:right;" id="TBL-142-4-1"  
+class="td11">                </td>
+</tr></table></div>
+</div>
+<!--l. 130--><p class="noindent" >The summands of the <span 
+class="ptmri8t-x-x-109">normalized-lpdo </span>are ordered in some canonical way. As an
+example consider
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1246">
+input: a()***partial(y)***b()***partial(x);
+ <br />
+ <br />(a()*b()) *** partial(x) *** partial(y)
+ <br /> + (a()*diff(b(),y,1)) *** partial(x)
+</div>
+<!--l. 139--><p class="nopar" >
+Here the <span 
+class="ptmri8t-x-x-109">F-elements </span>are polynomials, where the unknowns are of the type <span 
+class="ptmri8t-x-x-109">constant-operator</span>
+denoting functions from <span 
+class="cmmi-10x-x-109">F </span>:
+</p>
+<div class="center" 
+>
+<!--l. 144--><p class="noindent" >
+</p>
+<div class="tabular"> <table id="TBL-143" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-143-1g"><col 
+id="TBL-143-1" /><col 
+id="TBL-143-2" /><col 
+id="TBL-143-3" /><col 
+id="TBL-143-4" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-143-1-"><td  style="white-space:nowrap; text-align:right;" id="TBL-143-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">constant-operator</span><span 
+class="cmsy-10x-x-109">⟩</span>    </td><td  style="white-space:nowrap; text-align:center;" id="TBL-143-1-2"  
+class="td11"> <span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmmi-10x-x-109">  </span><span 
+class="cmsy-10x-x-109">→</span> <span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmmi-10x-x-109">  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-143-1-3"  
+class="td11"> <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">id</span><span 
+class="cmsy-10x-x-109">⟩</span>  <span 
+class="pcrb8t-x-x-109">(</span>  <span 
+class="pcrb8t-x-x-109">)</span>    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-143-1-4"  
+class="td11">  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-143-2-"><td  style="white-space:nowrap; text-align:right;" id="TBL-143-2-1"  
+class="td11">                 </td>
+</tr></table>
+</div>
+</div>
+<!--l. 149--><p class="noindent" >We do not admit division of such constant operators since we cannot exclude that such a
+constant operator denotes <span 
+class="cmr-10x-x-109">0</span>.
+</p><!--l. 152--><p class="noindent" >The operator notation on the one hand emphasizes the fact that the denoted elements are
+functions. On the other hand it distinguishes <span 
+class="pcrr8t-x-x-109">a() </span>from the variable <span 
+class="pcrr8t-x-x-109">a </span>of a rational
+function, which speciﬁcally denotes the corresponding projection. Consider
+e.g.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1247">
+input: (x+y)***partial(y)***(x-y)***partial(x);
+ <br />
+ <br />  2    2
+ <br />(x  - y ) *** partial(x) *** partial(y) + ( - x - y) *** partial(x)
+</div>
+<!--l. 163--><p class="nopar" >
+Here we use as <span 
+class="ptmri8t-x-x-109">F-elements </span>speciﬁc elements from <span 
+class="cmmi-10x-x-109">F </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="msbm-10x-x-109">ℚ</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x,y</span><span 
+class="cmr-10x-x-109">)</span>.
+</p><!--l. 167--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.34.2.3    </span> <a 
+ id="x236-98300020.34.2.3"></a><span 
+class="pcrr8t-x-x-109">diff</span></h5>
+<a 
+ id="dx236-983001"></a>
+<!--l. 169--><p class="noindent" ><a 
+ id="operator:DIFF"></a> In our example with constant operators, the transformation into normal form introduces
+a formal derivative operation <span 
+class="pcrr8t-x-x-109">diff(</span><span 
+class="cmsy-10x-x-109">⋅</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⋅</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⋅</span><span 
+class="pcrr8t-x-x-109">)</span>, which cannot be evaluated. Notice that we
+do not use the Reduce operator <span 
+class="pcrr8t-x-x-109">df(</span><span 
+class="cmsy-10x-x-109">⋅</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⋅</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⋅</span><span 
+class="pcrr8t-x-x-109">) </span>here, which for technical reasons cannot
+smoothly handle our constant operators.
+</p><!--l. 177--><p class="noindent" >In our second example with rational functions as <span 
+class="ptmri8t-x-x-109">F-elements</span>, derivative occurring with
+commutation can be computed such that <span 
+class="pcrr8t-x-x-109">diff </span>does not occur in the output.
+</p><!--l. 181--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.34.3    </span> <a 
+ id="x236-98400020.34.3"></a>Shapes of F-elements</h4>
+<!--l. 182--><p class="noindent" >Besides the generic computations with constant operators, we provide a mechanism to
+globally ﬁx a certain <span 
+class="ptmri8t-x-x-109">shape </span>for <span 
+class="ptmri8t-x-x-109">F-elements </span>and to expand constant operators according to
+that shape.
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.34.3.1    </span> <a 
+ id="x236-98500020.34.3.1"></a><span 
+class="pcrr8t-x-x-109">lpdoset</span></h5>
+<a 
+ id="dx236-985001"></a>
+<!--l. 188--><p class="noindent" ><a 
+ id="operator:LPDOSET"></a>We give an example for a shape that ﬁxes all constant operators to denote generic
+                                                                     
+
+                                                                     
+bivariate aﬃne linear functions:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1248">
+input: d := (a()+b())***partial(x1)***partial(x2)**2;
+ <br />
+ <br />                                                2
+ <br />d := (a() + b()) *** partial(x1) *** partial(x2)
+ <br />
+ <br />input: lpdoset {!#10*x1+!#01*x2+!#00,x1,x2};
+ <br />
+ <br />{-1}
+ <br />
+ <br />input: d;
+ <br />
+ <br />(a00 + a01*x2 + a10*x1 + b00 + b01*x2 + b10*x1)
+ <br />
+ <br />                                2
+ <br /> *** partial(x1) *** partial(x2)
+</div>
+<!--l. 209--><p class="nopar" >
+Notice that the placeholder <span 
+class="pcrr8t-x-x-109"># </span>must be escaped with <span 
+class="pcrr8t-x-x-109">!</span>, which is a general convention for
+Rlisp/Reduce. Notice that <span 
+class="pcrr8t-x-x-109">lpdoset </span>returns the old shape and that <span 
+class="pcrr8t-x-x-109">{-1} </span>denotes the
+default state that there is no shape selected.
+</p><!--l. 216--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.34.3.2    </span> <a 
+ id="x236-98600020.34.3.2"></a><span 
+class="pcrr8t-x-x-109">lpdoweyl</span></h5>
+<a 
+ id="dx236-986001"></a>
+<!--l. 218--><p class="noindent" ><a 
+ id="operator:LPDOWEYL"></a>The command <span 
+class="pcrr8t-x-x-109">lpdoweyl {n,x1,x2,...} </span>creates a shape for generic polynomials
+of total degree <span 
+class="pcrr8t-x-x-109">n </span>in variables <span 
+class="pcrr8t-x-x-109">x1</span>, <span 
+class="pcrr8t-x-x-109">x2</span>, ….
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1249">
+input: lpdoweyl(2,x1,x2);
+ <br />
+ <br />                            2
+ <br />{#_00_ + #_01_*x2 + #_02_*x2  + #_10_*x1
+ <br />
+ <br />                          2
+ <br />  + #_11_*x1*x2 + #_20_*x1 ,x1,x2}
+ <br />
+ <br />input: lpdoset ws;
+ <br />
+ <br />{#10*x1 + #01*x2 + #00,x1,x2}
+ <br />
+ <br />input: d;
+ <br />
+ <br />                            2
+ <br />(a_00_ + a_01_*x2 + a_02_*x2  + a_10_*x1
+ <br />
+ <br />                          2
+ <br />  + a_11_*x1*x2 + a_20_*x1  + b_00_ + b_01_*x2
+ <br />
+ <br />            2                                    2
+ <br />  + b_02_*x2  + b_10_*x1 + b_11_*x1*x2 + b_20_*x1
+ <br />
+ <br />                                  2
+ <br /> ) *** partial(x1) *** partial(x2)
+</div>
+<!--l. 250--><p class="nopar" >
+</p><!--l. 253--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.34.4    </span> <a 
+ id="x236-98700020.34.4"></a>Commands</h4>
+<!--l. 255--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.34.4.1    </span> <a 
+ id="x236-98800020.34.4.1"></a>General</h5>
+                                                                     
+
+                                                                     
+<!--l. 256--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x236-98900020.34.4.1"></a><span 
+class="pcrr8t-x-x-109">lpdoord</span></h5>
+<a 
+ id="dx236-989001"></a>
+<!--l. 258--><p class="noindent" ><a 
+ id="operator:LPDOORD"></a>The <span 
+class="ptmri8t-x-x-109">order </span>of an lpdo:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1250">
+input: lpdoord((a()+b())***partial(x1)
+ <br />          ***partial(x2)**2+3***partial(x1));
+ <br />
+ <br />3
+</div>
+<!--l. 266--><p class="nopar" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x236-99000020.34.4.1"></a><span 
+class="pcrr8t-x-x-109">lpdoptl</span></h5>
+<a 
+ id="dx236-990001"></a>
+<!--l. 271--><p class="noindent" ><a 
+ id="operator:LPDOPTL"></a>Returns the list of derivations (partials) occurring in its argument LPDO <span 
+class="cmmi-10x-x-109">d</span>.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1251">
+input: lpdoptl(a()***partial(x1)***partial(x2)
+ <br />                +partial(x4)+diff(a(),x3,1));
+ <br />
+ <br />{partial(x1),partial(x2),partial(x4)}
+</div>
+<!--l. 281--><p class="nopar" >
+That is the smallest set <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmmi-6">i</span></sub></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmsy-10x-x-109">} </span>such that <span 
+class="cmmi-10x-x-109">d </span>is deﬁned in <span 
+class="cmmi-10x-x-109">F</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmmi-6">i</span></sub></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmr-10x-x-109">]</span>. Notice that
+formal derivatives are not derivations in that sense.
+</p><!--l. 287--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x236-99100020.34.4.1"></a><span 
+class="pcrr8t-x-x-109">lpdogp</span></h5>
+<a 
+ id="dx236-991001"></a>
+<!--l. 289--><p class="noindent" ><a 
+ id="operator:LPDOGP"></a>Given a starting symbol <span 
+class="cmmi-10x-x-109">a</span>, a list of variables <span 
+class="cmmi-10x-x-109">l</span>, and a degree <span 
+class="cmmi-10x-x-109">n</span>, <span 
+class="pcrr8t-x-x-109">lpdogp(</span><span 
+class="cmmi-10x-x-109">a</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmmi-10x-x-109">l</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmmi-10x-x-109">n</span><span 
+class="pcrr8t-x-x-109">)</span>
+generates a generic (commutative) polynomial of degree <span 
+class="cmmi-10x-x-109">n </span>in variables <span 
+class="cmmi-10x-x-109">l </span>with coeﬃcients
+generated from the starting symbol <span 
+class="cmmi-10x-x-109">a</span>:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1252">
+input: lpdogp(a,{x1,x2},2);
+ <br />
+ <br />                           2                                    2
+ <br />a_00_ + a_01_*x2 + a_02_*x2  + a_10_*x1 + a_11_*x1*x2 + a_20_*x1
+</div>
+<!--l. 301--><p class="nopar" >
+</p><!--l. 304--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x236-99200020.34.4.1"></a><span 
+class="pcrr8t-x-x-109">lpdogdp</span></h5>
+<a 
+ id="dx236-992001"></a>
+<!--l. 306--><p class="noindent" ><a 
+ id="operator:LPDOGDP"></a>Given a starting symbol <span 
+class="cmmi-10x-x-109">a</span>, a list of variables <span 
+class="cmmi-10x-x-109">l</span>, and a degree <span 
+class="cmmi-10x-x-109">n</span>, <span 
+class="pcrr8t-x-x-109">lpdogp(</span><span 
+class="cmmi-10x-x-109">a</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmmi-10x-x-109">l</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmmi-10x-x-109">n</span><span 
+class="pcrr8t-x-x-109">)</span>
+generates a generic diﬀerential polynomial of degree <span 
+class="cmmi-10x-x-109">n </span>in variables <span 
+class="cmmi-10x-x-109">l </span>with coeﬃcients
+generated from the starting symbol <span 
+class="cmmi-10x-x-109">a</span>:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1253">
+input: lpdogdp(a,{x1,x2},2);
+ <br />
+ <br />                     2                        2
+ <br />a_20_ *** partial(x1)  + a_02_ *** partial(x2)
+ <br />
+ <br /> + a_11_ *** partial(x1) *** partial(x2) + a_10_ *** partial(x1)
+ <br />
+ <br /> + a_01_ *** partial(x2) + a_00_
+</div>
+<!--l. 322--><p class="nopar" >
+</p><!--l. 325--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.34.4.2    </span> <a 
+ id="x236-99300020.34.4.2"></a>Symbols</h5>
+<!--l. 326--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x236-99400020.34.4.2"></a><span 
+class="pcrr8t-x-x-109">lpdosym</span></h5>
+<a 
+ id="dx236-994001"></a>
+<!--l. 328--><p class="noindent" ><a 
+ id="operator:LPDOSYM"></a>The <span 
+class="ptmri8t-x-x-109">symbol </span>of an lpdo. That is the diﬀerential monomial of highest order with the
+partials replaced by corresponding commutative variables:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1254">
+input: lpdosym((a()+b())***partial(x1)***partial(x2)**2
+ <br />                +3***partial(x1));
+ <br />
+ <br />           2
+ <br />y_x1_*y_x2_ *(a() + b())
+</div>
+<!--l. 340--><p class="nopar" >
+More generally, one can use a second optional arguments to specify a the order of a
+diﬀerent diﬀerential monomial to form the symbol of:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1255">
+input: lpdosym((a()+b())***partial(x1)***partial(x2)**2
+ <br />                +3***partial(x1),1);
+ <br />
+ <br />3*y_x1_
+</div>
+<!--l. 351--><p class="nopar" >
+Finally, a third optional argument can be used to specify an alternative starting symbol
+for the commutative variable, which is <span 
+class="pcrr8t-x-x-109">y </span>by default. Altogether, the optional arguments
+default like <span 
+class="pcrr8t-x-x-109">lpdosym(</span><span 
+class="cmsy-10x-x-109">⋅</span><span 
+class="pcrr8t-x-x-109">)</span>=<span 
+class="pcrr8t-x-x-109">lpdosym(</span><span 
+class="cmsy-10x-x-109">⋅</span><span 
+class="pcrr8t-x-x-109">,lpdoord(</span><span 
+class="cmsy-10x-x-109">⋅</span><span 
+class="pcrr8t-x-x-109">),y)</span>.
+</p><!--l. 358--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x236-99500020.34.4.2"></a><span 
+class="pcrr8t-x-x-109">lpdosym2dp</span></h5>
+<a 
+ id="dx236-995001"></a>
+<!--l. 360--><p class="noindent" ><a 
+ id="operator:LPDOSYM2DP"></a>This converts a symbol obtained via <span 
+class="pcrr8t-x-x-109">lpdosym </span>back into an LPDO resulting in the
+corresponding diﬀerential monomial of the original LPDO.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1256">
+input: d := a()***partial(x1)***partial(x2)+partial(x3)$
+ <br />
+ <br />input: s := lpdosym d;
+ <br />
+ <br />s := a()*y_x1_*y_x2_
+ <br />
+ <br />input: lpdosym2dp s;
+ <br />
+ <br />a() *** partial(x1) *** partial(x2)
+</div>
+<!--l. 376--><p class="nopar" >
+In analogy to <span 
+class="pcrr8t-x-x-109">lpdosym </span>there is an optional argument for specifying an alternative
+starting symbol for the commutative variable, which is <span 
+class="pcrr8t-x-x-109">y </span>by default.
+</p><!--l. 382--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x236-99600020.34.4.2"></a><span 
+class="pcrr8t-x-x-109">lpdos</span></h5>
+<a 
+ id="dx236-996001"></a>
+<!--l. 384--><p class="noindent" ><a 
+ id="operator:LPDOS"></a>Given LPDOs <span 
+class="cmmi-10x-x-109">p</span>, <span 
+class="cmmi-10x-x-109">q </span>and <span 
+class="cmmi-10x-x-109">m </span><span 
+class="cmsy-10x-x-109">∈ </span><span 
+class="msbm-10x-x-109">ℕ </span>the function <span 
+class="pcrr8t-x-x-109">lpdos(</span><span 
+class="cmmi-10x-x-109">p</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmmi-10x-x-109">q</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmmi-10x-x-109">m</span><span 
+class="pcrr8t-x-x-109">) </span>computes the commutative
+polynomial
+</p>
+<table 
+class="equation-star"><tr><td>
+                <span 
+class="cmmi-10x-x-109">S</span><sub><span 
+class="cmmi-8">m</span></sub> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∑</span>
+   <sub><img 
+src="manual439x.png" alt="|j|=m
+ |j|&#x003C;k"  /></sub><img 
+src="manual440x.png" alt="( ∑n              )
+     pi∂i(qj)+  p0qj
+  i=1"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmmi-8">j</span></sup><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 388--><p class="nopar" >
+This is useful for the factorization of LPDOs.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1257">
+input: p := a()***partial(x1)+b()$
+ <br />
+ <br />input: q := c()***partial(x1)+d()***partial(x2)$
+ <br />
+ <br />input: lpdos(p,q,1);
+ <br />
+ <br />a()*diff(c(),x1,1)*y_x1_ + a()*diff(d(),x1,1)*y_x2_ + b()*c()*y_x1_
+ <br />
+ <br /> + b()*d()*y_x2_
+</div>
+<!--l. 401--><p class="nopar" >
+</p><!--l. 405--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.34.4.3    </span> <a 
+ id="x236-99700020.34.4.3"></a>Factorization</h5>
+<!--l. 407--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x236-99800020.34.4.3"></a><span 
+class="pcrr8t-x-x-109">lpdofactorize</span></h5>
+<a 
+ id="dx236-998001"></a>
+<!--l. 409--><p class="noindent" ><a 
+ id="operator:LPDOFACTORIZE"></a>Factorize the argument LPDO <span 
+class="cmmi-10x-x-109">d</span>. The ground ﬁeld <span 
+class="cmmi-10x-x-109">F </span>must be ﬁxed via <span 
+class="pcrr8t-x-x-109">lpdoset</span>. The
+result is a list of lists <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">A</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmmi-10x-x-109">,L</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmsy-10x-x-109">}</span>. <span 
+class="cmmi-10x-x-109">A</span><sub><span 
+class="cmmi-8">i</span></sub> is is genrally the identiﬁers <span 
+class="pcrr8t-x-x-109">true</span>, which
+indicates reducibility. The respective <span 
+class="cmmi-10x-x-109">L</span><sub><span 
+class="cmmi-8">i</span></sub> is a list of two diﬀerential polynomial factors,
+the ﬁrst of which has order 1.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1258">
+input: bk := (partial(x)+partial(y)+(a10-a01)/2) ***
+ <br />       (partial(x)-partial(y)+(a10+a01)/2);
+ <br />
+ <br />                2             2
+ <br />bk := partial(x)  - partial(y)  + a10*partial(x)
+ <br />
+ <br />                           2      2
+ <br />                      - a01  + a10
+ <br /> + a01*partial(y) + ----------------
+ <br />                           4
+ <br />
+ <br />input: lpdoset lpdoweyl(1,x,y);
+ <br />
+ <br />{#_00_ + #_01_*y + #_10_*x,x,y}
+ <br />
+ <br />input: lpdofactorize bk;
+ <br />
+ <br />{{true,
+ <br />
+ <br />                                 a01 - a10
+ <br />  { - partial(x) - partial(y) + -----------,
+ <br />                                     2
+ <br />
+ <br />                                  - a01 - a10
+ <br />    - partial(x) + partial(y) + --------------}}}
+ <br />                                      2
+</div>
+<!--l. 445--><p class="nopar" >
+If the result is the empty list, then this guarantees that there is no approximate
+factorization possible. In general it is possible to obtain several sample factorizations.
+Note, however, that the result does not provide a complete list of possible factorizations
+with a left factor of order 1 but only at least one such sample factorization in case of
+reducibility.
+</p><!--l. 454--><p class="noindent" >Furthermore, the procedure might fail due to polynomial degrees exceeding certain
+bounds for the extended quantiﬁer elimination by virtual substitution used internally. In
+this case there is the identiﬁer <span 
+class="pcrr8t-x-x-109">failed </span>returned. This must not be confused with the
+empty list indicating irreducibility as described above.
+</p><!--l. 460--><p class="noindent" >Besides
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   1. </dt><dd 
+class="enumerate-enumitem">the LPDO <span 
+class="cmmi-10x-x-109">d</span>,</dd></dl>
+<!--l. 464--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">lpdofactorize </span>accepts several optional arguments:
+                                                                     
+
+                                                                     
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   2. </dt><dd 
+class="enumerate-enumitem">An LPDO of order 1, which serves as a template for the left (linear) factor.
+     The  default  is  a  generic  linear  LPDO  with  generic  coeﬃcient  functions
+     according from the ground ﬁeld speciﬁed via <span 
+class="pcrr8t-x-x-109">lpdoset</span>. The principle idea
+     is to support the factorization by guessing that certain diﬀerential monomials
+     are not present.
+     </dd><dt class="enumerate-enumitem">
+   3. </dt><dd 
+class="enumerate-enumitem">An LPDO of order <span 
+class="cmr-10x-x-109">ord</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">d</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1</span>, which serves as a template for the right factor.
+     Similarly to the previous argument the default is fully generic.</dd></dl>
+<!--l. 477--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x236-99900020.34.4.3"></a><span 
+class="pcrr8t-x-x-109">lpdofac</span></h5>
+<a 
+ id="dx236-999001"></a>
+<!--l. 479--><p class="noindent" ><a 
+ id="operator:LPDOFAC"></a>This is a low-level entry point to the factorization <span 
+class="pcrr8t-x-x-109">lpdofactorize</span>. It accepts the
+same arguments as <span 
+class="pcrr8t-x-x-109">lpdofactorize</span>. It generates factorization conditions as a quite
+large ﬁrst-order formula over the reals. This can be passed to extended quantiﬁer
+elimination. For example, consider <span 
+class="pcrr8t-x-x-109">bk </span>as in the example for <span 
+class="pcrr8t-x-x-109">lpdofactorize</span>
+above:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1259">
+input: faccond := lpdofac bk$
+ <br />
+ <br />input: rlqea faccond;
+ <br />
+ <br />{{true,
+ <br />
+ <br />               a01 - a10
+ <br />  {p_00_00_ = -----------,
+ <br />                   2
+ <br />
+ <br />   p_00_01_ = 0,
+ <br />
+ <br />   p_00_10_ = 0,
+ <br />
+ <br />   p_01_00_ = -1,
+ <br />
+ <br />   p_01_01_ = 0,
+ <br />
+ <br />   p_01_10_ = 0,
+ <br />
+ <br />   p_10_00_ = -1,
+ <br />
+ <br />   p_10_01_ = 0,
+ <br />
+ <br />   p_10_10_ = 0,
+ <br />
+ <br />                - a01 - a10
+ <br />   q_00_00_ = --------------,
+ <br />                    2
+ <br />
+ <br />   q_00_01_ = 0,
+ <br />
+ <br />   q_00_10_ = 0,
+ <br />
+ <br />   q_01_00_ = 1,
+ <br />
+ <br />   q_01_01_ = 0,
+ <br />
+ <br />   q_01_10_ = 0,
+ <br />
+ <br />   q_10_00_ = -1,
+ <br />
+ <br />   q_10_01_ = 0,
+ <br />
+ <br />   q_10_10_ = 0}}}
+</div>
+<!--l. 535--><p class="nopar" >
+                                                                     
+
+                                                                     
+The result of the extended quantiﬁer elimination provides coeﬃcient values for generic
+factor polynomials <span 
+class="cmmi-10x-x-109">p </span>and <span 
+class="cmmi-10x-x-109">q</span>. These are automatically interpreted and converted into
+diﬀerential polynomials by <span 
+class="pcrr8t-x-x-109">lpdofactorize</span>.
+</p><!--l. 543--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.34.4.4    </span> <a 
+ id="x236-100000020.34.4.4"></a>Approximate Factorization</h5>
+<!--l. 545--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x236-100100020.34.4.4"></a><span 
+class="pcrr8t-x-x-109">lpdofactorizex</span></h5>
+<a 
+ id="dx236-1001001"></a>
+<!--l. 547--><p class="noindent" ><a 
+ id="operator:LPDOFACTORIZEX"></a>Approximately factorize the argument LPDO <span 
+class="cmmi-10x-x-109">d</span>. The ground ﬁeld <span 
+class="cmmi-10x-x-109">F </span>must be ﬁxed via
+<span 
+class="pcrr8t-x-x-109">lpdoset</span>. The result is a list of lists <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">A</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmmi-10x-x-109">,L</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmsy-10x-x-109">}</span>. Each <span 
+class="cmmi-10x-x-109">A</span><sub><span 
+class="cmmi-8">i</span></sub> is quantiﬁer-free
+formula possibly containing a variable <span 
+class="pcrr8t-x-x-109">epsilon</span>, which describes the precision of
+corresponding factorization <span 
+class="cmmi-10x-x-109">L</span><sub><span 
+class="cmmi-8">i</span></sub>. <span 
+class="cmmi-10x-x-109">L</span><sub><span 
+class="cmmi-8">i</span></sub> is a list containing two factors, the ﬁrst of which is
+linear.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1260">
+input: off lpdocoeffnorm$
+ <br />
+ <br />input: lpdoset lpdoweyl(0,x1,x2)$
+ <br />
+ <br />input: f2 := partial(x1)***partial(x2) + 1$
+ <br />
+ <br />input: lpdofactorizex f2;
+ <br />
+ <br />{{epsilon - 1 &#x003E;= 0,{partial(x1),partial(x2)}},
+ <br />
+ <br /> {epsilon - 1 &#x003E;= 0,{partial(x2),partial(x1)}}}
+</div>
+<!--l. 568--><p class="nopar" >
+If the result is the empty list, then this guarantees that there is no approximate
+factorization possible. In our example we happen to obtain two possible factorizations.
+Note, however, that the result in general does not provide a complete list of
+factorizations with a left factor of order 1 but only at least one such sample
+factorization.
+</p><!--l. 576--><p class="noindent" >Furthermore, the procedure might fail due to polynomial degrees exceeding certain
+bounds for the extended quantiﬁer elimination by virtual substitution used internally. If
+this happens, the corresponding <span 
+class="cmmi-10x-x-109">A</span><sub><span 
+class="cmmi-8">i</span></sub> will contain existential quantiﬁers <span 
+class="pcrr8t-x-x-109">ex</span>, and <span 
+class="cmmi-10x-x-109">L</span><sub><span 
+class="cmmi-8">i</span></sub> will be
+meaningless.<br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="pcrr8t-x-x-109">Da</span><span 
+class="pcrr8t-x-x-109"> sollte</span><span 
+class="pcrr8t-x-x-109"> besser</span><span 
+class="pcrr8t-x-x-109"> ein</span><span 
+class="pcrr8t-x-x-109"> failed</span><span 
+class="pcrr8t-x-x-109"> kommen</span><span 
+class="pcrr8t-x-x-109"> ...</span></span></span>
+</p><!--l. 583--><p class="noindent" >The ﬁrst of the two subresults above has the semantics that <span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmr-6">1</span></sub></sub><span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmr-6">2</span></sub></sub> is an approximate
+factorization of <span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmr-8">2</span></sub> for all <span 
+class="cmmi-10x-x-109">𝜀 </span><span 
+class="cmsy-10x-x-109">≥ </span><span 
+class="cmr-10x-x-109">1</span>. Formally, <span 
+class="cmsy-10x-x-109">||</span><span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmr-8">2</span></sub> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmr-6">1</span></sub></sub><span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmr-6">2</span></sub></sub><span 
+class="cmsy-10x-x-109">||≤ </span><span 
+class="cmmi-10x-x-109">𝜀 </span>for all <span 
+class="cmmi-10x-x-109">𝜀 </span><span 
+class="cmsy-10x-x-109">≥ </span><span 
+class="cmr-10x-x-109">1</span>,
+which is equivalent to <span 
+class="cmsy-10x-x-109">||</span><span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmr-8">2</span></sub> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmr-6">1</span></sub></sub><span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">x</span><sub><span 
+class="cmr-6">2</span></sub></sub><span 
+class="cmsy-10x-x-109">||≤ </span><span 
+class="cmr-10x-x-109">1</span>. That is, <span 
+class="cmr-10x-x-109">1 </span>is an upper bound for the
+approximation error over <span 
+class="msbm-10x-x-109">ℝ</span><sup><span 
+class="cmr-8">2</span></sup>. Where there are two possible choices for the seminorm
+<span 
+class="cmsy-10x-x-109">||⋅||</span>:
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   1. </dt><dd 
+class="enumerate-enumitem">...
+     </dd><dt class="enumerate-enumitem">
+   2. </dt><dd 
+class="enumerate-enumitem">...</dd></dl>
+<!--l. 595--><p class="noindent" ><span class="obeylines-h"><span class="verb"><span 
+class="pcrr8t-x-x-109">explain</span><span 
+class="pcrr8t-x-x-109"> switch</span><span 
+class="pcrr8t-x-x-109"> lpdocoeffnorm</span><span 
+class="pcrr8t-x-x-109"> ...</span></span></span>
+</p><!--l. 597--><p class="noindent" >Besides
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   1. </dt><dd 
+class="enumerate-enumitem">the LPDO <span 
+class="cmmi-10x-x-109">d</span>,</dd></dl>
+                                                                     
+
+                                                                     
+<!--l. 601--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">lpdofactorizex </span>accepts several optional arguments:
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   2. </dt><dd 
+class="enumerate-enumitem">A  Boolean  combination  <span 
+class="cmmi-10x-x-109">ψ </span>of  equations,  negated  equations,  and  (possibly
+     strict) ordering constraints. This <span 
+class="cmmi-10x-x-109">ψ </span>describes a (semialgebraic) region over
+     which to factorize approximately. The default is <span 
+class="pcrr8t-x-x-109">true </span>specifying the entire
+     <span 
+class="msbm-10x-x-109">ℝ</span><sup><span 
+class="cmmi-8">n</span></sup>. It is possible to choose <span 
+class="cmmi-10x-x-109">ψ </span>parametrically. Then the parameters will in
+     general occur in the conditions <span 
+class="cmmi-10x-x-109">A</span><sub><span 
+class="cmmi-8">i</span></sub> in the result.
+     </dd><dt class="enumerate-enumitem">
+3., 4. </dt><dd 
+class="enumerate-enumitem">An LPDO of order 1, which serves as a template for the left (linear) factor,
+     and an LPDO of order <span 
+class="cmr-10x-x-109">ord</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">d</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1</span>, which serves as a template for the right
+     factor. See the documentation of <span 
+class="pcrr8t-x-x-109">lpdofactorize </span>for defaults and details.
+     </dd><dt class="enumerate-enumitem">
+   5. </dt><dd 
+class="enumerate-enumitem">A bound <span 
+class="cmmi-10x-x-109">𝜀 </span>for describing the desired precision for approximate factorization.
+     The  default  is  the  symbol  <span 
+class="pcrr8t-x-x-109">epsilon</span>,  i.e.,  a  symbolic  choice  such  that
+     the  optimal  choice  (with  respect  to  parameters  in  <span 
+class="cmmi-10x-x-109">ψ</span>)  is  obtained  during
+     factorization. It is possible to ﬁx <span 
+class="cmmi-10x-x-109">𝜀 </span><span 
+class="cmsy-10x-x-109">∈ </span><span 
+class="msbm-10x-x-109">ℚ</span>. This does, however, not considerably
+     simplify the factorization process in most cases.</dd></dl>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-1261">
+input: f3 := partial(x1) *** partial(x2) + x1$
+ <br />
+ <br />input: psi1 := 0&#x003C;=x1&#x003C;=1 and 0&#x003C;=x2&#x003C;=1$
+ <br />
+ <br />input: lpdofactorizex(f3,psi1,a()***partial(x1),b()***partial(x2));
+ <br />
+ <br />{{epsilon - 1 &#x003E;= 0,{partial(x1),partial(x2)}}}
+</div>
+<!--l. 631--><p class="nopar" >
+</p><!--l. 634--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x236-100200020.34.4.4"></a><span 
+class="pcrr8t-x-x-109">lpdofacx</span></h5>
+<a 
+ id="dx236-1002001"></a>
+<!--l. 636--><p class="noindent" ><a 
+ id="operator:LPDOFACX"></a>This is a low-level entry point to the factorization <span 
+class="pcrr8t-x-x-109">lpdofactorizex</span>. It is
+analogous to <span 
+class="pcrr8t-x-x-109">lpdofac </span>for <span 
+class="pcrr8t-x-x-109">lpdofactorize</span>; see the documentation there for
+details.
+</p><!--l. 641--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x236-100300020.34.4.4"></a><span 
+class="pcrr8t-x-x-109">lpdohrect</span></h5>
+<!--l. 643--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x236-100400020.34.4.4"></a><span 
+class="pcrr8t-x-x-109">lpdohcirc</span></h5>
+<!--l. 685--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 687--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse159.html" >Up</a></td><td class="clinks"><a 
+href="manualse160.html" >Next</a></td><td class="clinks"><a 
+href="manualse158.html" >Prev</a></td><td class="clinks"><a 
+href="manualse158.html#tailmanualse158.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse159.html" >Front</a></td></tr></table><a 
+ id="tailmanualse159.html"></a>   </p> 
+</body> 
+</html>

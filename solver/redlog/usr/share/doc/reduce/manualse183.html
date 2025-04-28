@@ -1,0 +1,415 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>SYMMETRY: Operations on Symmetric Matrices</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse183.html" >Up</a></td><td class="clinks"><a 
+href="manualse184.html" >Next</a></td><td class="clinks"><a 
+href="manualse182.html" >Prev</a></td><td class="clinks"><a 
+href="manualse182.html#tailmanualse182.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse183.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.58    </span> <a 
+ id="x273-126200020.58"></a>SYMMETRY: Operations on Symmetric Matrices</h3>
+<a 
+ id="dx273-1262001"></a>
+<a 
+ id="dx273-1262002"></a>
+<!--l. 1238--><p class="noindent" >This package computes symmetry-adapted bases and block diagonal forms of matrices
+which have the symmetry of a group. The package is the implementation of
+the theory of linear representations for small ﬁnite groups such as the dihedral
+groups.
+</p><!--l. 1243--><p class="noindent" >Author: Karin Gatermann.
+<a 
+ id="dx273-1262003"></a>
+<a 
+ id="dx273-1262004"></a>
+</p><!--l. 13--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.58.1    </span> <a 
+ id="x273-126300020.58.1"></a>Introduction</h4>
+<!--l. 15--><p class="noindent" >The exploitation of symmetry is a very important principle in mathematics, physics and
+engineering sciences. The aim of the <span 
+class="ptmrc8t-x-x-109">S<span 
+class="small-caps">Y</span><span 
+class="small-caps">M</span><span 
+class="small-caps">M</span><span 
+class="small-caps">E</span><span 
+class="small-caps">T</span><span 
+class="small-caps">R</span><span 
+class="small-caps">Y</span> </span>package is to give an easy access to the
+underlying theory of linear representations for small groups. For example the dihedral
+groups <span 
+class="cmmi-10x-x-109">D</span><sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmmi-10x-x-109">,D</span><sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmmi-10x-x-109">,D</span><sub><span 
+class="cmr-8">5</span></sub><span 
+class="cmmi-10x-x-109">,D</span><sub><span 
+class="cmr-8">6</span></sub> are included. For an introduction to the theory see <span 
+class="ptmrc8t-x-x-109">S<span 
+class="small-caps">E</span><span 
+class="small-caps">R</span><span 
+class="small-caps">R</span><span 
+class="small-caps">E</span></span>
+<span class="cite">[<a 
+href="manualap2.html#XSerre:77">Ser77</a>]</span> or <span 
+class="ptmrc8t-x-x-109">S<span 
+class="small-caps">T</span><span 
+class="small-caps">I</span><span 
+class="small-caps">E</span><span 
+class="small-caps">F</span><span 
+class="small-caps">E</span><span 
+class="small-caps">L</span> </span>and <span 
+class="ptmrc8t-x-x-109">F</span><span 
+class="ptmrc8t-x-x-109">ä</span><span 
+class="ptmrc8t-x-x-109"><span 
+class="small-caps">S</span><span 
+class="small-caps">S</span><span 
+class="small-caps">L</span><span 
+class="small-caps">E</span><span 
+class="small-caps">R</span> </span><span class="cite">[<a 
+href="manualap2.html#XStiefelFaessler:79">SF79</a>]</span>. For a given orthogonal (or unitarian) linear
+representation
+</p>
+<table 
+class="equation-star"><tr><td>
+                    <span 
+class="cmmi-10x-x-109">𝜗 </span><span 
+class="cmr-10x-x-109">: </span><span 
+class="cmmi-10x-x-109">G</span><span 
+class="cmmi-10x-x-109">→</span><span 
+class="cmmi-10x-x-109">GL</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">K</span><sup><span 
+class="cmmi-8">n</span></sup><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,      K </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">R,C.</span>
+</td></tr></table>
+                                                                     
+
+                                                                     
+<!--l. 26--><p class="nopar" >
+the character <span 
+class="cmmi-10x-x-109">ψ </span><span 
+class="cmsy-10x-x-109">→ </span><span 
+class="cmmi-10x-x-109">K</span>, the canonical decomposition or the bases of the isotypic
+components are computed. A matrix <span 
+class="cmmi-10x-x-109">A </span>having the symmetry of a linear
+representation,e.g.
+</p>
+<table 
+class="equation-star"><tr><td>
+                         <span 
+class="cmmi-10x-x-109">𝜗</span><sub><span 
+class="cmmi-8">t</span></sub><span 
+class="cmmi-10x-x-109">A </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">A𝜗</span><sub><span 
+class="cmmi-8">t</span></sub>   <span 
+class="cmsy-10x-x-109">∀</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">t </span><span 
+class="cmsy-10x-x-109">∈ </span><span 
+class="cmmi-10x-x-109">G,</span>
+</td></tr></table>
+<!--l. 33--><p class="nopar" >
+is transformed to block diagonal form by a coordinate transformation. The dependence of
+the algorithm on the ﬁeld of real or complex numbers is controled by the switch
+<span 
+class="pcrr8t-x-x-109">complex</span>. An example for this is given in the testﬁle <span 
+class="ptmri8t-x-x-109">symmetry.tst</span>.
+</p><!--l. 40--><p class="noindent" >As the algorithm needs information concerning the irreducible representations this
+information is stored for some groups (see the operators in Section 3). It is assumed that
+only orthogonal (unitar) representations are given.
+</p><!--l. 44--><p class="noindent" >The package is loaded by
+</p><!--l. 46--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">load symmetry;</span>
+</p><!--l. 48--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.58.2    </span> <a 
+ id="x273-126400020.58.2"></a>Operators for linear representations</h4>
+<!--l. 49--><p class="noindent" ><a 
+ id="operator:CANONICALDECOMPOSITION"></a> <a 
+ id="operator:CHARACTER"></a> <a 
+ id="operator:SYMMETRYBASIS"></a> <a 
+ id="operator:SYMMETRYBASISPART"></a> <a 
+ id="operator:ALLSYMMETRYBASES"></a> <a 
+ id="operator:DIAGONALIZE"></a>
+</p><!--l. 56--><p class="noindent" >First the data structure for a linear representation has to be explained. <span 
+class="ptmri8t-x-x-109">representation </span>is a
+list consisting of the group identiﬁer and equations which assign matrices to the
+generators of the group.
+</p><!--l. 60--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Example:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1414">
+   rr:=mat((0,1,0,0),
+ <br />           (0,0,1,0),
+ <br />           (0,0,0,1),
+ <br />           (1,0,0,0));
+ <br />
+ <br />   sp:=mat((0,1,0,0),
+ <br />           (1,0,0,0),
+ <br />           (0,0,0,1),
+ <br />           (0,0,1,0));
+ <br />
+ <br />   representation:={D4,rD4=rr,sD4=sp};
+</div>
+<!--l. 73--><p class="nopar" >
+</p><!--l. 75--><p class="noindent" >For orthogonal (unitarian) representations the following operators are available.
+</p><!--l. 78--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">canonicaldecomposition(representation);</span><a 
+ id="dx273-1264001"></a>
+</p><!--l. 80--><p class="noindent" >returns an equation giving the canonical decomposition of the linear representation.
+</p><!--l. 83--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">character(representation);</span><a 
+ id="dx273-1264002"></a>
+</p><!--l. 85--><p class="noindent" >computes the character of the linear representation. The result is a list of the group
+identiﬁer and of lists consisting of a list of group elements in one equivalence class and a
+real or complex number.
+</p><!--l. 89--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">symmetrybasis(representation,nr);</span><a 
+ id="dx273-1264003"></a>
+</p><!--l. 91--><p class="noindent" >computes the basis of the isotypic component corresponding to the irreducible
+representation of type nr. If the nr-th irreducible representation is multidimensional, the
+basis is symmetry adapted. The output is a matrix.
+</p><!--l. 95--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">symmetrybasispart(representation,nr);</span><a 
+ id="dx273-1264004"></a>
+</p><!--l. 97--><p class="noindent" >is similar as <span 
+class="pcrr8t-x-x-109">symmetrybasis</span>, but for multidimensional irreducible representations
+only the ﬁrst part of the symmetry adapted basis is computed.
+</p><!--l. 101--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">allsymmetrybases(representation);</span><a 
+ id="dx273-1264005"></a>
+</p><!--l. 103--><p class="noindent" >is similar as <span 
+class="pcrr8t-x-x-109">symmetrybasis </span>and <span 
+class="pcrr8t-x-x-109">symmetrybasispart</span>, but the bases of all
+isotypic components are computed and thus a complete coordinate transformation is
+returned.
+</p><!--l. 108--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">diagonalize(matrix,representation);</span><a 
+ id="dx273-1264006"></a>
+                                                                     
+
+                                                                     
+</p><!--l. 110--><p class="noindent" >returns the block diagonal form of matrix which has the symmetry of the given linear
+representation. Otherwise an error message occurs.
+</p><!--l. 113--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">on complex;</span>
+</p><!--l. 115--><p class="noindent" >Of course the property of irreducibility depends on the ﬁeld <span 
+class="cmmi-10x-x-109">K </span>of real or complex
+numbers. This is why the algorithm depends on <span 
+class="cmmi-10x-x-109">K</span>. The type of computation is set by the
+switch <span 
+class="pcrr8t-x-x-109">complex</span>.
+</p><!--l. 119--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.58.3    </span> <a 
+ id="x273-126500020.58.3"></a>Display Operators</h4>
+<!--l. 120--><p class="noindent" ><a 
+ id="operator:AVAILABLEGROUPS"></a> <a 
+ id="operator:PRINTGROUP"></a> <a 
+ id="operator:GENERATORS"></a> <a 
+ id="operator:CHARACTERTABLE"></a> <a 
+ id="operator:CHARACTERN"></a> <a 
+ id="operator:IRREDUCIBLEREPTABLE"></a> <a 
+ id="operator:IRREDUCIBLEREPNR"></a>
+</p><!--l. 128--><p class="noindent" >In this section the operators are described which give access to the stored information for
+a group. First the operators for the abstract groups are given. Then it is described how to
+get the irreducible representations for a group.
+</p><!--l. 134--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">availablegroups();</span><a 
+ id="dx273-1265001"></a>
+</p><!--l. 136--><p class="noindent" >returns the list of all groups for which the information such as irreducible representations
+is stored. In the following <span 
+class="pcrr8t-x-x-109">group </span>is always one of these group identiﬁers.
+</p><!--l. 140--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">printgroup(group);</span><a 
+ id="dx273-1265002"></a>
+</p><!--l. 142--><p class="noindent" >returns the list of all group elements;
+</p><!--l. 144--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">generators(group);</span><a 
+ id="dx273-1265003"></a>
+</p><!--l. 146--><p class="noindent" >returns a list of group elements which generates the group. For the deﬁnition of a linear
+representation matrices for these generators have to be deﬁned.
+</p><!--l. 150--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">charactertable(group);</span><a 
+ id="dx273-1265004"></a>
+</p><!--l. 152--><p class="noindent" >returns a list of the characters corresponding to the irreducible representations of this
+group.
+</p><!--l. 155--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">charactern(group,nr);</span><a 
+ id="dx273-1265005"></a>
+</p><!--l. 157--><p class="noindent" >returns the character corresponding to the nr-th irreducible representation of this group as
+a list (see also <span 
+class="pcrr8t-x-x-109">character</span>).
+</p><!--l. 160--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">irreduciblereptable(group);</span><a 
+ id="dx273-1265006"></a>
+</p><!--l. 162--><p class="noindent" >returns the list of irreducible representations of the group.
+</p><!--l. 164--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">irreduciblerepnr(group,nr);</span><a 
+ id="dx273-1265007"></a>
+</p><!--l. 166--><p class="noindent" >returns an irreducible representation of the group. The output is a list of the
+group identiﬁer and equations assigning the representation matrices to group
+                                                                     
+
+                                                                     
+elements.
+</p><!--l. 170--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.58.4    </span> <a 
+ id="x273-126600020.58.4"></a>Storing a new group</h4>
+<!--l. 171--><p class="noindent" ><a 
+ id="operator:SETGENERATORS"></a> <a 
+ id="operator:SETELEMENTS"></a> <a 
+ id="operator:SETGROUPTABLE"></a> <a 
+ id="operator:RSETREPRESENTATION"></a> <a 
+ id="operator:CSETREPRESENTATION"></a> <a 
+ id="operator:SETAVAILABLE"></a> <a 
+ id="operator:STOREGROUP"></a> <a 
+ id="operator:LOADGROUPS"></a>
+</p><!--l. 180--><p class="noindent" >If the user wants to do computations for a group for which information is not predeﬁned,
+the package <span 
+class="ptmrc8t-x-x-109">S<span 
+class="small-caps">Y</span><span 
+class="small-caps">M</span><span 
+class="small-caps">M</span><span 
+class="small-caps">E</span><span 
+class="small-caps">T</span><span 
+class="small-caps">R</span><span 
+class="small-caps">Y</span> </span>oﬀers the possibility to supply information for this
+group.
+</p><!--l. 185--><p class="noindent" >For this the following data structures are used.
+</p><!--l. 187--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">elemlist </span>= list of identiﬁers.
+</p><!--l. 189--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">relationlist </span>= list of equations with identiﬁers and operators <span 
+class="cmr-10x-x-109">@ </span>and <span 
+class="cmsy-10x-x-109">∗∗</span>.
+</p><!--l. 192--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">grouptable </span>= matrix with the (1,1)-entry grouptable.
+</p><!--l. 194--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">ﬁlename </span>= &#x0022;myﬁlename.new&#x0022;.
+</p><!--l. 197--><p class="noindent" >The following operators have to be used in this order.
+</p><!--l. 199--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">setgenerators(group,elemlist,relationlist);</span><a 
+ id="dx273-1266001"></a>
+</p><!--l. 201--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Example:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1415">
+   setgenerators(K4,{s1K4,s2K4},
+ <br />     {s1K4^2=id,s2K4^2=id,s1K4@s2K4=s2K4@s1K4});
+</div>
+<!--l. 205--><p class="nopar" >
+</p><!--l. 207--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">setelements(group,relationlist);</span><a 
+ id="dx273-1266002"></a>
+</p><!--l. 209--><p class="noindent" >The group elements except the neutral element are given as product of the deﬁned
+generators. The neutral element is always called <span 
+class="pcrr8t-x-x-109">id</span>.
+</p><!--l. 213--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Example:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1416">
+   setelements(K4,
+ <br />        {s1K4=s1K4,s2K4=s2K4,rK4=s1K4@s2K4});
+</div>
+<!--l. 217--><p class="nopar" >
+</p><!--l. 219--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">setgrouptable(group,grouptable);</span><a 
+ id="dx273-1266003"></a>
+</p><!--l. 221--><p class="noindent" >installs the group table.
+</p><!--l. 223--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Example:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1417">
+   tab:=
+ <br />    mat((grouptable,     id,    s1K4, s2K4, rK4),
+ <br />        (id        ,     id,    s1K4, s2K4, rK4),
+ <br />        (s1K4      ,    s1K4,     id,  rK4,s2K4),
+ <br />        (s2K4      ,    s2K4,    rK4,   id,s1K4),
+ <br />        (rK4       ,     rK4,   s2K4, s1K4,  id));
+ <br />
+ <br />   setgrouptable(K4,tab);
+</div>
+<!--l. 233--><p class="nopar" >
+</p><!--l. 235--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Rsetrepresentation(representation,type);</span><a 
+ id="dx273-1266004"></a>
+</p><!--l. 237--><p class="noindent" >is used to deﬁne the real irreducible representations of the group. The variable <span 
+class="pcrr8t-x-x-109">type </span>is
+either <span 
+class="ptmri8t-x-x-109">realtype </span>or <span 
+class="ptmri8t-x-x-109">complextype </span>which indicates the type of the real irreducible
+representation.
+</p><!--l. 241--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Example:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1418">
+   eins:=mat((1));
+ <br />   mineins:=mat((-1));
+ <br />   rep3:={K4,s1K4=eins,s2K4=mineins};
+ <br />   Rsetrepresentation(rep3,realtype);
+</div>
+<!--l. 247--><p class="nopar" >
+</p><!--l. 249--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Csetrepresentation(representation);</span><a 
+ id="dx273-1266005"></a>
+</p><!--l. 251--><p class="noindent" >This deﬁnes the complex irreducible representations.
+</p><!--l. 253--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">setavailable(group);</span><a 
+ id="dx273-1266006"></a>
+</p><!--l. 255--><p class="noindent" >terminates the installation of the group203. It checks some properties of the irreducible
+representations and makes the group available for the operators in Sections 2 and
+3.
+</p><!--l. 259--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">storegroup(group,ﬁlename);</span><a 
+ id="dx273-1266007"></a>
+</p><!--l. 261--><p class="noindent" >writes the information concerning the group to the ﬁle with name <span 
+class="ptmri8t-x-x-109">ﬁlename</span>.
+</p><!--l. 264--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">loadgroups(ﬁlename);</span><a 
+ id="dx273-1266008"></a>
+</p><!--l. 266--><p class="noindent" >loads a user deﬁned group from the ﬁle <span 
+class="ptmri8t-x-x-109">ﬁlename </span>into the system.
+</p><!--l. 1247--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 1291--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse183.html" >Up</a></td><td class="clinks"><a 
+href="manualse184.html" >Next</a></td><td class="clinks"><a 
+href="manualse182.html" >Prev</a></td><td class="clinks"><a 
+href="manualse182.html#tailmanualse182.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse183.html" >Front</a></td></tr></table><a 
+ id="tailmanualse183.html"></a>  </p> 
+</body> 
+</html>

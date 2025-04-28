@@ -1,0 +1,3458 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>APPLYSYM: Inﬁnitesimal Symmetries of Diﬀerential Equations</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse126.html" >Up</a></td><td class="clinks"><a 
+href="manualse127.html" >Next</a></td><td class="clinks"><a 
+href="#tailmanualse126.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.1    </span> <a 
+ id="x168-37900020.1"></a>APPLYSYM: Inﬁnitesimal Symmetries of Diﬀerential Equations</h3>
+<a 
+ id="dx168-379001"></a>
+<a 
+ id="dx168-379002"></a>
+<!--l. 58--><p class="noindent" >This package provides programs APPLYSYM, QUASILINPDE and DETRAFO for
+applying inﬁnitesimal symmetries of diﬀerential equations, the generalization of special
+solutions and the calculation of symmetry and similarity variables.
+</p><!--l. 63--><p class="noindent" >Author: Thomas Wolf.
+<a 
+ id="dx168-379003"></a>
+<a 
+ id="dx168-379004"></a>
+</p><!--l. 4--><p class="noindent" >In this paper the programs <span 
+class="pcrr8t-x-x-109">APPLYSYM</span>, <span 
+class="pcrr8t-x-x-109">QUASILINPDE </span>and <span 
+class="pcrr8t-x-x-109">DETRAFO </span>are described
+which aim at the utilization of inﬁnitesimal symmetries of diﬀerential equations. The
+purpose of <span 
+class="pcrr8t-x-x-109">QUASILINPDE </span>is the general solution of quasilinear PDEs. This
+procedure is used by <span 
+class="pcrr8t-x-x-109">APPLYSYM </span>for the application of point symmetries for either
+</p>
+     <ul class="itemize1">
+     <li class="itemize">calculating  similarity  variables  to  perform  a  point  transformation  which
+     lowers the order of an ODE or eﬀectively reduces the number of explicitly
+     occuring independent variables in a PDE(-system) or for
+     </li>
+     <li class="itemize">generalizing  given  special  solutions  of  ODEs  /  PDEs  with  new  constant
+                                                                     
+
+                                                                     
+     parameters.</li></ul>
+<!--l. 18--><p class="noindent" >The program <span 
+class="pcrr8t-x-x-109">DETRAFO </span>performs arbitrary point- and contact transformations of ODEs /
+PDEs and is applied if similarity and symmetry variables have been found.
+The program <span 
+class="pcrr8t-x-x-109">APPLYSYM </span>is used in connection with the program <span 
+class="pcrr8t-x-x-109">LIEPDE</span>
+for formulating and solving the conditions for point- and contact symmetries
+which is described in <span class="cite">[<a 
+href="manualap2.html#XWolf:93">Wol93</a>]</span>. The actual problem solving is done in all these
+programs through a call to the package <span 
+class="pcrr8t-x-x-109">CRACK </span>for solving overdetermined
+PDE-systems.
+</p><!--l. 28--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.1.1    </span> <a 
+ id="x168-38000020.1.1"></a>Introduction and overview of the symmetry method</h4>
+<!--l. 29--><p class="noindent" >The investigation of inﬁnitesimal symmetries of diﬀerential equations (DEs) with
+computer algebra programs attrackted considerable attention over the last years.
+Corresponding programs are available in all major computer algebra systems. In a review
+article by W. Hereman <span class="cite">[<a 
+href="manualap2.html#XHereman:95">Her95</a>]</span> about 200 references are given, many of them describing
+related software.
+</p><!--l. 36--><p class="noindent" >One reason for the popularity of the symmetry method is the fact that Sophus
+Lie’s method <span class="cite">[<a 
+href="manualap2.html#XLie:1880">Lie75</a>, <a 
+href="manualap2.html#XLie:1967">Lie67</a>]</span> is the most widely used method for computing
+exact solutions of non-linear DEs. Another reason is that the ﬁrst step in this
+method, the formulation of the determining equation for the generators of the
+symmetries, can already be very cumbersome, especially in the case of PDEs
+of higher order and/or in case of many dependent and independent variables.
+Also, the formulation of the conditions is a straight forward task involving only
+diﬀerentiations and basic algebra - an ideal task for computer algebra systems. Less
+straight forward is the automatic solution of the symmetry conditions which is the
+strength of the program <span 
+class="pcrr8t-x-x-109">LIEPDE </span>(for a comparison with another program see
+<span class="cite">[<a 
+href="manualap2.html#XWolf:93">Wol93</a>]</span>).
+</p><!--l. 50--><p class="noindent" >The novelty described in this paper are programs aiming at the ﬁnal third step: Applying
+symmetries for </p>
+     <ul class="itemize1">
+     <li class="itemize">calculating  similarity  variables  to  perform  a  point  transformation  which
+     lowers the order of an ODE or eﬀectively reduces the number of explicitly
+     occuring independent variables of a PDE(-system) or for
+     </li>
+     <li class="itemize">generalizing  given  special  solutions  of  ODEs/PDEs  with  new  constant
+     parameters.</li></ul>
+                                                                     
+
+                                                                     
+<!--l. 59--><p class="noindent" >Programs which run on their own but also allow interactive user control are indispensible
+for these calculations. On one hand the calculations can become quite lengthy, like
+variable transformations of PDEs (of higher order, with many variables). On the other
+hand the freedom of choosing the right linear combination of symmetries and choosing
+the optimal new symmetry- and similarity variables makes it necessary to ‘play’ with the
+problem interactively.
+</p><!--l. 67--><p class="noindent" >The focus in this paper is directed on questions of implementation and eﬃciency, no
+principally new mathematics is presented.
+</p><!--l. 70--><p class="noindent" >In the following subsections a review of the ﬁrst two steps of the symmetry method is
+given as well as the third, i.e. the application step is outlined. Each of the remaining
+sections is devoted to one procedure.
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x168-38100020.1.1"></a>The ﬁrst step: Formulating the symmetry conditions</h5>
+<!--l. 76--><p class="noindent" >To obey classical Lie-symmetries, diﬀerential equations
+</p>
+<table 
+class="equation"><tr><td><a 
+ id="x168-381001r1"></a>
+<center class="math-display" >
+<img 
+src="manual79x.png" alt="HA = 0
+" class="math-display"  /></center></td><td class="equation-label">(20.1)</td></tr></table>
+<!--l. 79--><p class="nopar" >
+for unknown functions <span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">1 </span><span 
+class="cmsy-10x-x-109">≤ </span><span 
+class="cmmi-10x-x-109">α </span><span 
+class="cmsy-10x-x-109">≤ </span><span 
+class="cmmi-10x-x-109">p </span>of independent variables <span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">i</span></sup><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">1 </span><span 
+class="cmsy-10x-x-109">≤ </span><span 
+class="cmmi-10x-x-109">i </span><span 
+class="cmsy-10x-x-109">≤ </span><span 
+class="cmmi-10x-x-109">q </span>must be
+forminvariant against inﬁnitesimal transformations
+</p>
+<table 
+class="equation"><tr><td><a 
+ id="x168-381002r2"></a>
+                                                                     
+
+                                                                     
+<center class="math-display" >
+<img 
+src="manual80x.png" alt=" i    i    i  α    α     α
+˜x  = x + 𝜀ξ ,˜y  = y  + 𝜀η
+" class="math-display"  /></center></td><td class="equation-label">(20.2)</td></tr></table>
+<!--l. 86--><p class="nopar" >
+in ﬁrst order of <span 
+class="cmmi-10x-x-109">𝜀. </span>To transform the equations (<a 
+href="#x168-381001r1">20.1<!--tex4ht:ref: PDEs --></a>) by (<a 
+href="#x168-381002r2">20.2<!--tex4ht:ref: tran --></a>), derivatives of <span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmmi-8">α</span></sup> must be
+transformed, i.e. the part linear in <span 
+class="cmmi-10x-x-109">𝜀 </span>must be determined. The corresponding formulas are
+(see e.g. <span class="cite">[<a 
+href="manualap2.html#XOlver:89">Olv86</a>, <a 
+href="manualap2.html#XStephani:89">Ste89</a>]</span>)
+</p><table 
+class="align">
+                <tr><td 
+class="align-odd"><span 
+class="cmmi-10x-x-109">ỹ</span><sub><span 
+class="cmmi-8">j</span><sub><span 
+class="cmr-6">1</span></sub><span 
+class="cmmi-8">…</span><span 
+class="cmmi-8">j</span><sub><span 
+class="cmmi-6">k</span></sub></sub><sup><span 
+class="cmmi-8">α</span></sup></td>                   <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">y</span><sub>
+<span 
+class="cmmi-8">j</span><sub><span 
+class="cmr-6">1</span></sub><span 
+class="cmmi-8">…</span><span 
+class="cmmi-8">j</span><sub><span 
+class="cmmi-6">k</span></sub></sub><sup><span 
+class="cmmi-8">α</span></sup> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">𝜀η</span><sub>
+<span 
+class="cmmi-8">j</span><sub><span 
+class="cmr-6">1</span></sub><span 
+class="cmmi-8">…</span><span 
+class="cmmi-8">j</span><sub><span 
+class="cmmi-6">k</span></sub></sub><sup><span 
+class="cmmi-8">α</span></sup> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">O</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">𝜀</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmr-10x-x-109">)</span></td>                  <td 
+class="align-label"></td>                <td 
+class="align-label">
+                </td></tr><tr><td 
+class="align-odd"><span 
+class="cmmi-10x-x-109">η</span><sub><span 
+class="cmmi-8">j</span><sub><span 
+class="cmr-6">1</span></sub><span 
+class="cmmi-8">…</span><span 
+class="cmmi-8">j</span><sub><span 
+class="cmmi-6">k</span><span 
+class="cmsy-6">−</span><span 
+class="cmr-6">1</span></sub><span 
+class="cmmi-8">j</span><sub><span 
+class="cmmi-6">k</span></sub></sub><sup><span 
+class="cmmi-8">α</span></sup></td>                <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual81x.png" alt="D ηα
+---j1...jkk−1-
+  Dx"  class="frac" align="middle" /> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">y</span><sub><span 
+class="cmmi-8">ij</span><sub><span 
+class="cmr-6">1</span></sub><span 
+class="cmmi-8">…</span><span 
+class="cmmi-8">j</span><sub><span 
+class="cmmi-6">k</span><span 
+class="cmsy-6">−</span><span 
+class="cmr-6">1</span></sub></sub><sup><span 
+class="cmmi-8">α</span></sup><img 
+src="manual82x.png" alt="D ξi
+---k
+Dx"  class="frac" align="middle" /></td>                                <td 
+class="align-label"><a 
+ id="x168-381003r3"></a>(20.3)                </td></tr></table>
+<!--l. 99--><p class="noindent" >where <span 
+class="cmmi-10x-x-109">D∕Dx</span><sup><span 
+class="cmmi-8">k</span></sup> means total diﬀerentiation w.r.t. <span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">k</span></sup> and from now on lower latin indices
+of functions <span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmmi-10x-x-109">, </span>(and later <span 
+class="cmmi-10x-x-109">u</span><sup><span 
+class="cmmi-8">α</span></sup>) denote partial diﬀerentiation w.r.t. the independent
+variables <span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">i</span></sup><span 
+class="cmmi-10x-x-109">, </span>(and later <span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmmi-8">i</span></sup>). The complete symmetry condition then takes the
+form
+                                                                     
+
+                                                                     
+</p><table 
+class="align">
+   <tr><td 
+class="align-odd"><span 
+class="cmmi-10x-x-109">XH</span><sub><span 
+class="cmmi-8">A</span></sub></td>   <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= 0</span> <span 
+class="cmr-10x-x-109">mod</span> <span 
+class="cmmi-10x-x-109">H</span><sub><span 
+class="cmmi-8">A</span></sub> <span 
+class="cmr-10x-x-109">= 0</span><span 
+class="cmmi-10x-x-109"> </span></td>                                                 <td 
+class="align-label"><a 
+ id="x168-381004r4"></a>(20.4)
+   </td></tr><tr><td 
+class="align-odd"><span 
+class="cmmi-10x-x-109">X</span></td>      <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">ξ</span><sup><span 
+class="cmmi-8">i</span></sup><img 
+src="manual83x.png" alt=" ∂
+---i
+∂x"  class="frac" align="middle" /> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">η</span><sup><span 
+class="cmmi-8">α</span></sup><img 
+src="manual84x.png" alt="  ∂
+---α
+∂y"  class="frac" align="middle" /> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">η</span><sub><span 
+class="cmmi-8">m</span></sub><sup><span 
+class="cmmi-8">α</span></sup><img 
+src="manual85x.png" alt=" ∂
+--α-
+∂ym"  class="frac" align="middle" /> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">η</span><sub><span 
+class="cmmi-8">mn</span></sub><sup><span 
+class="cmmi-8">α</span></sup><img 
+src="manual86x.png" alt="  ∂
+---α-
+∂ymn"  class="frac" align="middle" /> <span 
+class="cmr-10x-x-109">+</span> <span 
+class="cmmi-10x-x-109">…</span> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">η</span><sub><span 
+class="cmmi-8">mn</span><span 
+class="cmmi-8">…</span><span 
+class="cmmi-8">p</span></sub><sup><span 
+class="cmmi-8">α</span></sup><img 
+src="manual87x.png" alt="   ∂
+---α---
+∂ymn...p"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">.</span></td>      <td 
+class="align-label">
+<a 
+ id="x168-381005r5"></a>(20.5)   </td></tr></table>
+<!--l. 114--><p class="noindent" >where mod <span 
+class="cmmi-10x-x-109">H</span><sub><span 
+class="cmmi-8">A</span></sub> <span 
+class="cmr-10x-x-109">= 0 </span>means that the original PDE-system is used to replace some partial
+derivatives of <span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmmi-8">α</span></sup> to reduce the number of independent variables, because the symmetry
+condition (<a 
+href="#x168-381004r4">20.4<!--tex4ht:ref: sbed1 --></a>) must be fulﬁlled identically in <span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">i</span></sup><span 
+class="cmmi-10x-x-109">,y</span><sup><span 
+class="cmmi-8">α</span></sup> and all partial derivatives of
+<span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmmi-10x-x-109">.</span>
+</p><!--l. 120--><p class="noindent" >For point symmetries, <span 
+class="cmmi-10x-x-109">ξ</span><sup><span 
+class="cmmi-8">i</span></sup><span 
+class="cmmi-10x-x-109">,η</span><sup><span 
+class="cmmi-8">α</span></sup> are functions of <span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">j</span></sup><span 
+class="cmmi-10x-x-109">,y</span><sup><span 
+class="cmmi-8">β</span></sup> and for contact symmetries they
+depend on <span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">j</span></sup><span 
+class="cmmi-10x-x-109">,y</span><sup><span 
+class="cmmi-8">β</span></sup> and <span 
+class="cmmi-10x-x-109">y</span><sub><span 
+class="cmmi-8">k</span></sub><sup><span 
+class="cmmi-8">β</span></sup><span 
+class="cmmi-10x-x-109">. </span>We restrict ourself to point symmetries as those are the only
+ones that can be applied by the current version of the program <span 
+class="pcrr8t-x-x-109">APPLYSYM </span>(see below).
+For literature about generalized symmetries see <span class="cite">[<a 
+href="manualap2.html#XHereman:95">Her95</a>]</span>.
+</p><!--l. 126--><p class="noindent" >Though the formulation of the symmetry conditions (<a 
+href="#x168-381004r4">20.4<!--tex4ht:ref: sbed1 --></a>), (<a 
+href="#x168-381005r5">20.5<!--tex4ht:ref: sbed2 --></a>), (<a 
+href="#x168-381003r3">20.3<!--tex4ht:ref: recur --></a>) is
+straightforward and handled in principle by all related programs <span class="cite">[<a 
+href="manualap2.html#XHereman:95">Her95</a>]</span>, the
+computational eﬀort to formulate the conditions (<a 
+href="#x168-381004r4">20.4<!--tex4ht:ref: sbed1 --></a>) may cause problems if the
+number of <span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">i</span></sup> and <span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmmi-8">α</span></sup> is high. This can partially be avoided if at ﬁrst only a few conditions
+are formulated and solved such that the remaining ones are much shorter and quicker to
+formulate.
+</p><!--l. 136--><p class="noindent" >A ﬁrst step in this direction is to investigate one PDE <span 
+class="cmmi-10x-x-109">H</span><sub><span 
+class="cmmi-8">A</span></sub> <span 
+class="cmr-10x-x-109">= 0 </span>after another, as done in
+<span class="cite">[<a 
+href="manualap2.html#XChampagne:91">CHW91</a>]</span>. Two methods to partition the conditions for a single PDE are described by
+Bocharov/Bronstein <span class="cite">[<a 
+href="manualap2.html#XBocharov:89">BB89</a>]</span> and Stephani <span class="cite">[<a 
+href="manualap2.html#XStephani:89">Ste89</a>]</span>.
+</p><!--l. 141--><p class="noindent" >In the ﬁrst method only those terms of the symmetry condition <span 
+class="cmmi-10x-x-109">XH</span><sub><span 
+class="cmmi-8">A</span></sub> <span 
+class="cmr-10x-x-109">= 0 </span>are calculated
+which contain at least a derivative of <span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmmi-8">α</span></sup> of a minimal order <span 
+class="cmmi-10x-x-109">m. </span>Setting coeﬃcients of
+these <span 
+class="cmmi-10x-x-109">u</span>-derivatives to zero provides symmetry conditions. Lowering the minimal order <span 
+class="cmmi-10x-x-109">m</span>
+successively then gradually provides all symmetry conditions.
+</p><!--l. 148--><p class="noindent" >The second method is even more selective. If <span 
+class="cmmi-10x-x-109">H</span><sub><span 
+class="cmmi-8">A</span></sub> is of order <span 
+class="cmmi-10x-x-109">n </span>then only terms of the
+symmetry condition <span 
+class="cmmi-10x-x-109">XH</span><sub><span 
+class="cmmi-8">A</span></sub> <span 
+class="cmr-10x-x-109">= 0 </span>are generated which contain <span 
+class="cmmi-10x-x-109">n</span><span 
+class="cmsy-10x-x-109">′</span>th order derivatives
+of <span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmmi-10x-x-109">. </span>Furthermore these derivatives must not occur in <span 
+class="cmmi-10x-x-109">H</span><sub><span 
+class="cmmi-8">A</span></sub> itself. They can
+therefore occur in the symmetry condition (<a 
+href="#x168-381004r4">20.4<!--tex4ht:ref: sbed1 --></a>) only in <span 
+class="cmmi-10x-x-109">η</span><sub><span 
+class="cmmi-8">j</span><sub><span 
+class="cmr-6">1</span></sub><span 
+class="cmmi-8">…</span><span 
+class="cmmi-8">j</span><sub><span 
+class="cmmi-6">n</span></sub></sub><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmmi-10x-x-109">, </span>i.e. in the
+terms
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                           <span 
+class="cmmi-10x-x-109">η</span><sub><span 
+class="cmmi-8">j</span><sub><span 
+class="cmr-6">1</span></sub><span 
+class="cmmi-8">…</span><span 
+class="cmmi-8">j</span><sub><span 
+class="cmmi-6">n</span></sub></sub><sup><span 
+class="cmmi-8">α</span></sup><img 
+src="manual88x.png" alt="-∂HA---
+∂yα
+  j1...jn"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 156--><p class="nopar" >
+If only coeﬃcients of <span 
+class="cmmi-10x-x-109">n</span><span 
+class="cmsy-10x-x-109">′</span>th order derivatives of <span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmmi-8">α</span></sup> need to be accurate to formulate
+preliminary conditions then from the total derivatives to be taken in (<a 
+href="#x168-381003r3">20.3<!--tex4ht:ref: recur --></a>) only that part
+is performed which diﬀerentiates w.r.t. the highest <span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmmi-8">α</span></sup>-derivatives. This means,
+for example, to form only <span 
+class="cmmi-10x-x-109">y</span><sub><span 
+class="cmmi-8">mnk</span></sub><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmmi-10x-x-109">∂∕∂y</span><sub><span 
+class="cmmi-8">mn</span></sub><sup><span 
+class="cmmi-8">α</span></sup> if the expression, which is to be
+diﬀerentiated totally w.r.t. <span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">k</span></sup>, contains at most second order derivatives of
+<span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmmi-10x-x-109">.</span>
+</p><!--l. 167--><p class="noindent" >The second method is applied in <span 
+class="pcrr8t-x-x-109">LIEPDE</span>. Already the formulation of the remaining
+conditions is speeded up considerably through this iteration process. These methods can
+be applied if systems of DEs or single PDEs of at least second order are investigated
+concerning symmetries.
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x168-38200020.1.1"></a>The second step: Solving the symmetry conditions</h5>
+<!--l. 174--><p class="noindent" >The second step in applying the whole method consists in solving the determining
+conditions (<a 
+href="#x168-381004r4">20.4<!--tex4ht:ref: sbed1 --></a>), (<a 
+href="#x168-381005r5">20.5<!--tex4ht:ref: sbed2 --></a>), (<a 
+href="#x168-381003r3">20.3<!--tex4ht:ref: recur --></a>) which are linear homogeneous PDEs for <span 
+class="cmmi-10x-x-109">ξ</span><sup><span 
+class="cmmi-8">i</span></sup><span 
+class="cmmi-10x-x-109">,η</span><sup><span 
+class="cmmi-8">α</span></sup>. The
+complete solution of this system is not algorithmic any more because the solution of a
+general linear PDE-system is as diﬃcult as the solution of its non-linear characteristic
+ODE-system which is not covered by algorithms so far.
+</p><!--l. 182--><p class="noindent" >Still algorithms are used successfully to simplify the PDE-system by calculating its
+standard normal form and by integrating exact PDEs if they turn up in this simpliﬁcation
+process <span class="cite">[<a 
+href="manualap2.html#XWolf:93">Wol93</a>]</span>. One problem in this respect, for example, concerns the optimization of
+the symbiosis of both algorithms. By that we mean the ranking of priorities between
+integrating, adding integrability conditions and doing simpliﬁcations by substitutions -
+all depending on the length of expressions and the overall structure of the PDE-system.
+Also the extension of the class of PDEs which can be integrated exactly is a problem to
+be pursuit further.
+</p><!--l. 194--><p class="noindent" >The program <span 
+class="pcrr8t-x-x-109">LIEPDE</span><a 
+ id="dx168-382001"></a> which formulates the symmetry conditions calls the
+program <span 
+class="pcrr8t-x-x-109">CRACK </span>to solve them. This is done in a number of successive calls
+                                                                     
+
+                                                                     
+in order to formulate and solve some ﬁrst order PDEs of the overdetermined
+system ﬁrst and use their solution to formulate and solve the next subset of
+conditions as described in the previous subsection. Also, <span 
+class="pcrr8t-x-x-109">LIEPDE </span>can work on
+DEs that contain parametric constants and parametric functions. An ansatz for
+the symmetry generators can be formulated. For more details see <span class="cite">[<a 
+href="manualap2.html#XWolf:93">Wol93</a>]</span> or
+<span class="cite">[<a 
+href="manualap2.html#XBrand:92">BW92</a>]</span>.
+</p><!--l. 204--><p class="noindent" >The procedure <span 
+class="pcrr8t-x-x-109">LIEPDE </span>is called through <br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">LIEPDE(</span><span 
+class="pcrro8t-x-x-109">problem,symtype,flist,inequ</span><span 
+class="pcrr8t-x-x-109">); </span><br 
+class="newline" />All parameters are lists.<br 
+class="newline" /> The ﬁrst parameter speciﬁes the DEs to be investigated: <br 
+class="newline" /><span 
+class="ptmri8t-x-x-109">problem </span>has the form {<span 
+class="ptmri8t-x-x-109">equations, ulist, xlist</span>} where
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmbi8t-x-x-109">equations</span> </dt><dd 
+class="description">is a list of equations, each has the form <span 
+class="pcrr8t-x-x-109">df(ui,..)=... </span>where the LHS
+     (left hand side) <span 
+class="pcrr8t-x-x-109">df(ui,..) </span>is selected such that
+          <ul class="itemize1">
+          <li class="itemize">The RHS (right h.s.) of an equations must not include the derivative on
+          the LHS nor a derivative of it.
+          </li>
+          <li class="itemize">Neither the LHS nor any derivative of it of any equation may occur in
+          any other equation.
+          </li>
+          <li class="itemize">Each  of  the  unknown  functions  occurs  on  the  LHS  of  exactly  one
+          equation.</li></ul>
+     </dd><dt class="description">
+<span 
+class="ptmbi8t-x-x-109">ulist</span> </dt><dd 
+class="description">is a list of function names, which can be chosen freely.
+     </dd><dt class="description">
+<span 
+class="ptmbi8t-x-x-109">xlist</span> </dt><dd 
+class="description">is a list of variable names, which can be chosen freely.</dd></dl>
+<!--l. 224--><p class="noindent" >Equations can be given as a list of single diﬀerential expressions and then the program
+will try to bring them into the ‘solved form’ <span 
+class="pcrr8t-x-x-109">df(ui,..)=... </span>automatically. If
+equations are given in the solved form then the above conditions are checked and
+execution is stopped it they are not satisﬁed. An easy way to get the equations in the
+desired form is to use <br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> FIRST</span><span 
+class="pcrr8t-x-x-109"> SOLVE({</span></span></span><span 
+class="ptmri8t-x-x-109">eq1,eq2,</span>...<span class="obeylines-h"><span class="verb"><span 
+class="pcrr8t-x-x-109">},{</span></span></span><span 
+class="ptmri8t-x-x-109">one highest derivative for each function u</span><span class="obeylines-h"><span class="verb"><span 
+class="pcrr8t-x-x-109">})</span></span></span>
+<br 
+class="newline" />(see the example of the Karpman equations in <span 
+class="pcrr8t-x-x-109">LIEPDE.TST</span>). The example of the
+Burgers equation in <span 
+class="pcrr8t-x-x-109">LIEPDE.TST </span>demonstrates that the number of symmetries for a
+given maximal order of the inﬁnitesimal generators depends on the derivative chosen for
+the LHS.
+                                                                     
+
+                                                                     
+</p><!--l. 236--><p class="noindent" >The second parameter <span 
+class="ptmri8t-x-x-109">symtype </span>of <span 
+class="pcrr8t-x-x-109">LIEPDE </span>is a list <span 
+class="cmsy-10x-x-109">{} </span>that speciﬁes the symmetry to be
+calculated. <span 
+class="ptmri8t-x-x-109">symtype </span>can have the following values and meanings:
+     </p><dl class="description"><dt class="description">
+<span 
+class="pcrb8t-x-x-109">{"point"}</span> </dt><dd 
+class="description">Point  symmetries  with  <span 
+class="cmmi-10x-x-109">ξ</span><sup><span 
+class="cmmi-8">i</span></sup>  <span 
+class="cmr-10x-x-109">=  </span><span 
+class="cmmi-10x-x-109">ξ</span><sup><span 
+class="cmmi-8">i</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">j</span></sup><span 
+class="cmmi-10x-x-109">,u</span><sup><span 
+class="cmmi-8">β</span></sup><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,η</span><sup><span 
+class="cmmi-8">α</span></sup>  <span 
+class="cmr-10x-x-109">=  </span><span 
+class="cmmi-10x-x-109">η</span><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">j</span></sup><span 
+class="cmmi-10x-x-109">,u</span><sup><span 
+class="cmmi-8">β</span></sup><span 
+class="cmr-10x-x-109">) </span>are
+     determined.
+     </dd><dt class="description">
+<span 
+class="pcrb8t-x-x-109">{"contact"}</span> </dt><dd 
+class="description">Contact   symmetries   with   <span 
+class="cmmi-10x-x-109">ξ</span><sup><span 
+class="cmmi-8">i</span></sup>   <span 
+class="cmr-10x-x-109">=   0</span><span 
+class="cmmi-10x-x-109">,η   </span><span 
+class="cmr-10x-x-109">=   </span><span 
+class="cmmi-10x-x-109">η</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">j</span></sup><span 
+class="cmmi-10x-x-109">,u,u</span><sub><span 
+class="cmmi-8">k</span></sub><span 
+class="cmr-10x-x-109">)  </span>are
+     determined <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmmi-8">k</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">∂u∕∂x</span><sup><span 
+class="cmmi-8">k</span></sup><span 
+class="cmr-10x-x-109">)</span>, which is only applicable if a single equation
+     (<a 
+href="#x168-381001r1">20.1<!--tex4ht:ref: PDEs --></a>) with an order <span 
+class="cmmi-10x-x-109">&#x003E; </span><span 
+class="cmr-10x-x-109">1 </span>for a single function <span 
+class="cmmi-10x-x-109">u </span>is to be investigated. (The
+     <span 
+class="ptmri8t-x-x-109">symtype </span><span class="obeylines-h"><span class="verb"><span 
+class="pcrr8t-x-x-109">{&#x0022;contact&#x0022;}</span></span></span> is equivalent to <span class="obeylines-h"><span class="verb"><span 
+class="pcrr8t-x-x-109">{&#x0022;general&#x0022;,</span><span 
+class="pcrr8t-x-x-109"> 1}</span></span></span> (see below)
+     apart from the additional checks done for <span class="obeylines-h"><span class="verb"><span 
+class="pcrr8t-x-x-109">{&#x0022;contact&#x0022;}</span></span></span>.)
+     </dd><dt class="description">
+<span 
+class="pcrb8t-x-x-109">{"general"</span><span 
+class="ptmb8t-x-x-109">, </span><span 
+class="ptmbi8t-x-x-109">order</span><span 
+class="pcrb8t-x-x-109">}</span> </dt><dd 
+class="description">where <span 
+class="ptmri8t-x-x-109">order </span>is an integer <span 
+class="cmmi-10x-x-109">&#x003E; </span><span 
+class="cmr-10x-x-109">0</span>. Generalized symmetries <span 
+class="cmmi-10x-x-109">ξ</span><sup><span 
+class="cmmi-8">i</span></sup> <span 
+class="cmr-10x-x-109">= 0</span><span 
+class="cmmi-10x-x-109">,</span>
+     <span 
+class="cmmi-10x-x-109">η</span><sup><span 
+class="cmmi-8">α</span></sup> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">η</span><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">j</span></sup><span 
+class="cmmi-10x-x-109">,u</span><sup><span 
+class="cmmi-8">β</span></sup><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,u</span><sub><span 
+class="cmmi-8">K</span></sub><sup><span 
+class="cmmi-8">β</span></sup><span 
+class="cmr-10x-x-109">) </span>of a speciﬁed order are determined (where <sub><span 
+class="cmmi-8">K</span></sub> is a
+     multiple index representing <span 
+class="ptmri8t-x-x-109">order </span>many indices.) <br 
+class="newline" />NOTE: Characteristic functions of generalized symmetries (<span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">η</span><sup><span 
+class="cmmi-8">α</span></sup> if <span 
+class="cmmi-10x-x-109">ξ</span><sup><span 
+class="cmmi-8">i</span></sup> <span 
+class="cmr-10x-x-109">= 0</span>)
+     are equivalent if they are equal on the solution manifold. Therefore, all
+     dependences of characteristic functions on the substituted derivatives and
+     their derivatives are dropped. For example, if the heat equation is given
+     as <span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmmi-8">t</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmmi-8">xx</span></sub> (i.e. <span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmmi-8">t</span></sub> is substituted by <span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmmi-8">xx</span></sub>) then <span class="obeylines-h"><span class="verb"><span 
+class="pcrr8t-x-x-109">{&#x0022;general&#x0022;,</span><span 
+class="pcrr8t-x-x-109"> 2}</span></span></span>
+     would not include characteristic functions depending on <span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmmi-8">tx</span></sub> or <span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmmi-8">xxx</span></sub>.
+     <br 
+class="newline" />THEREFORE: <br 
+class="newline" />If you want to ﬁnd <span 
+class="ptmri8t-x-x-109">all </span>symmetries up to a given order then either
+          <ul class="itemize1">
+          <li class="itemize">avoid  using  <span 
+class="cmmi-10x-x-109">H</span><sub><span 
+class="cmmi-8">A</span></sub>   <span 
+class="cmr-10x-x-109">=   0  </span>to  substitute  lower  order  derivatives  by
+          expressions involving higher derivatives, or
+          </li>
+          <li class="itemize">increase the order speciﬁed in <span 
+class="ptmri8t-x-x-109">symtype</span>.</li></ul>
+     <!--l. 271--><p class="noindent" >For an illustration of this eﬀect see the two symmetry determinations of the
+     Burgers equation in the ﬁle <span 
+class="pcrr8t-x-x-109">LIEPDE.TST</span>.
+     </p></dd><dt class="description">
+<span 
+class="pcrb8t-x-x-109">{xi!_</span><span 
+class="ptmbi8t-x-x-109">x1  </span><span 
+class="pcrb8t-x-x-109">=...,..., eta!_</span><span 
+class="ptmbi8t-x-x-109">u1  </span><span 
+class="pcrb8t-x-x-109">=...,...}</span> </dt><dd 
+class="description">It is possible to specify an ansatz for
+     the symmetry. Such an ansatz must specify all <span 
+class="cmmi-10x-x-109">ξ</span><sup><span 
+class="cmmi-8">i</span></sup> for all independent variables and
+     all <span 
+class="cmmi-10x-x-109">η</span><sup><span 
+class="cmmi-8">α</span></sup> for all dependent variables in terms of diﬀerential expressions which may
+     involve unknown functions/constants. The dependences of the unknown functions
+     have to be declared in advance by using the <span 
+class="pcrr8t-x-x-109">DEPEND </span>command. For example,
+     <br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> DEPEND</span><span 
+class="pcrr8t-x-x-109"> f,</span><span 
+class="pcrr8t-x-x-109"> t,</span><span 
+class="pcrr8t-x-x-109"> x,</span><span 
+class="pcrr8t-x-x-109"> u$</span></span></span><br 
+class="newline" />speciﬁes <span 
+class="cmmi-10x-x-109">f </span>to be a function of <span 
+class="cmmi-10x-x-109">t,x,u</span>. If one wants to have <span 
+class="cmmi-10x-x-109">f </span>as a function of
+     derivatives of <span 
+class="cmmi-10x-x-109">u</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">t,x</span><span 
+class="cmr-10x-x-109">)</span>, say <span 
+class="cmmi-10x-x-109">f </span>depending on <span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmmi-8">txx</span></sub>, then one <span class="underline"><span 
+class="ptmri8t-x-x-109">cannot</span></span> write
+     <br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> DEPEND</span><span 
+class="pcrr8t-x-x-109"> f,</span><span 
+class="pcrr8t-x-x-109"> df(u,t,x,2)$</span></span></span><br 
+class="newline" />but instead must write <br 
+class="newline" /><span class="obeylines-h"><span class="verb"><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> DEPEND</span><span 
+class="pcrr8t-x-x-109"> f,</span><span 
+class="pcrr8t-x-x-109"> u!‘1!‘2!‘2$</span></span></span><br 
+class="newline" />assuming <span 
+class="ptmri8t-x-x-109">xlist </span>has been speciﬁed as <span class="obeylines-h"><span class="verb"><span 
+class="pcrr8t-x-x-109"> {t,x}</span></span></span>. Because <span 
+class="cmmi-10x-x-109">t </span>is the ﬁrst variable and <span 
+class="cmmi-10x-x-109">x</span>
+     is the second variable in <span 
+class="ptmri8t-x-x-109">xlist </span>and <span 
+class="cmmi-10x-x-109">u </span>is diﬀerentiated oncs wrt. <span 
+class="cmmi-10x-x-109">t </span>and twice wrt. <span 
+class="cmmi-10x-x-109">x</span>
+     we therefore use <span class="obeylines-h"><span class="verb"><span 
+class="pcrr8t-x-x-109"> u!‘1!‘2!‘2</span></span></span>. The character <span 
+class="pcrr8t-x-x-109">! </span>is the escape character to allow
+     special characters like ‘ to occur in an identiﬁer.
+     <!--l. 295--><p class="noindent" >For generalized symmetries one usually sets all <span 
+class="cmmi-10x-x-109">ξ</span><sup><span 
+class="cmmi-8">i</span></sup> <span 
+class="cmr-10x-x-109">= 0</span>. Then the <span 
+class="cmmi-10x-x-109">η</span><sup><span 
+class="cmmi-8">α</span></sup> are equal to
+     the characteristic functions.</p></dd></dl>
+<!--l. 298--><p class="noindent" >The third parameter <span 
+class="ptmri8t-x-x-109">ﬂist </span>of <span 
+class="pcrr8t-x-x-109">LIEPDE </span>is a list <span 
+class="cmsy-10x-x-109">{} </span>that includes </p>
+     <ul class="itemize1">
+     <li class="itemize">all parameters and functions in the equations which are to be determined
+     such that symmetries exist (if any such parameters/functions are speciﬁed in
+     <span 
+class="ptmri8t-x-x-109">ﬂist </span>then the symmetry conditions formulated in <span 
+class="pcrr8t-x-x-109">LIEPDE </span>become non-linear
+     conditions which may be much harder for <span 
+class="pcrr8t-x-x-109">CRACK </span>to solve with many cases
+     and subcases to be considered.)
+     </li>
+     <li class="itemize">all unknown functions and constants in the ansatz <span class="obeylines-h"><span class="verb"><span 
+class="pcrr8t-x-x-109">xi!_..</span></span></span> and <span class="obeylines-h"><span class="verb"><span 
+class="pcrr8t-x-x-109">eta!_..</span></span></span>
+     if that has been speciﬁed in <span 
+class="ptmri8t-x-x-109">symtype</span>.</li></ul>
+<!--l. 312--><p class="noindent" >The fourth parameter <span 
+class="ptmri8t-x-x-109">inequ </span>of <span 
+class="pcrr8t-x-x-109">LIEPDE </span>is a list <span 
+class="cmsy-10x-x-109">{} </span>that includes all non-vanishing
+expressions which represent inequalities for the functions in ﬂist.
+</p><!--l. 316--><p class="noindent" >The result of <span 
+class="pcrr8t-x-x-109">LIEPDE </span>is a list with 3 elements, each of which is a list:
+</p>
+<table 
+class="equation-star"><tr><td>
+           <span 
+class="cmsy-10x-x-109">{{</span><span 
+class="ptmri8t-x-x-109">con</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span> <span 
+class="ptmri8t-x-x-109">con</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmsy-10x-x-109">}</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="pcrr8t-x-x-109">xi</span>_<sub><span 
+class="cmmi-8">…</span></sub> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="pcrr8t-x-x-109">eta</span>_<sub><span 
+class="cmmi-8">…</span></sub> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmsy-10x-x-109">}</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="ptmri8t-x-x-109">ﬂist</span><span 
+class="cmsy-10x-x-109">}}</span><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+                                                                     
+
+                                                                     
+<!--l. 321--><p class="nopar" >
+The ﬁrst list contains remaining unsolved symmetry conditions <span 
+class="ptmri8t-x-x-109">con</span><sub><span 
+class="cmmi-8">i</span></sub>. It is the empty list
+{} if all conditions have been solved. The second list gives the symmetry generators,
+i.e. expressions for <span 
+class="cmmi-10x-x-109">ξ</span><sub><span 
+class="cmmi-8">i</span></sub> and <span 
+class="cmmi-10x-x-109">η</span><sub><span 
+class="cmmi-8">j</span></sub>. The last list contains all free constants and functions
+occuring in the ﬁrst and second list.
+</p><!--l. 348--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x168-38300020.1.1"></a>The third step: Application of inﬁnitesimal symmetries</h5>
+<!--l. 349--><p class="noindent" >If inﬁnitesimal symmetries have been found then the program <span 
+class="pcrr8t-x-x-109">APPLYSYM </span>can use them
+for the following purposes:
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   1. </dt><dd 
+class="enumerate-enumitem">Calculation of one symmetry variable and further similarity variables. After
+     transforming the DE(-system) to these variables, the symmetry variable will
+     not occur explicitly any more. For ODEs this has the consequence that their
+     order has eﬀectively been reduced.
+     </dd><dt class="enumerate-enumitem">
+   2. </dt><dd 
+class="enumerate-enumitem">Generalization of a special solution by one or more constants of integration.</dd></dl>
+<!--l. 360--><p class="noindent" >Both methods are described in the following section.
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.1.2    </span> <a 
+ id="x168-38400020.1.2"></a>Applying symmetries with <span 
+class="pcrr8t-x-x-109">APPLYSYM</span></h4>
+<!--l. 364--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x168-38500020.1.2"></a>The ﬁrst mode: Calculation of similarity and symmetry variables</h5>
+<!--l. 365--><p class="noindent" >In the following we assume that a symmetry generator <span 
+class="cmmi-10x-x-109">X</span>, given in (<a 
+href="#x168-381005r5">20.5<!--tex4ht:ref: sbed2 --></a>), is known such
+that ODE(s)/PDE(s) <span 
+class="cmmi-10x-x-109">H</span><sub><span 
+class="cmmi-8">A</span></sub> <span 
+class="cmr-10x-x-109">= 0 </span>satisfy the symmetry condition (<a 
+href="#x168-381004r4">20.4<!--tex4ht:ref: sbed1 --></a>). The aim is to
+ﬁnd new dependent functions <span 
+class="cmmi-10x-x-109">u</span><sup><span 
+class="cmmi-8">α</span></sup> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">u</span><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">j</span></sup><span 
+class="cmmi-10x-x-109">,y</span><sup><span 
+class="cmmi-8">β</span></sup><span 
+class="cmr-10x-x-109">) </span>and new independent variables
+<span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmmi-8">i</span></sup> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmmi-8">i</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">j</span></sup><span 
+class="cmmi-10x-x-109">,y</span><sup><span 
+class="cmmi-8">β</span></sup><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">1 </span><span 
+class="cmsy-10x-x-109">≤ </span><span 
+class="cmmi-10x-x-109">α,β </span><span 
+class="cmsy-10x-x-109">≤ </span><span 
+class="cmmi-10x-x-109">p,</span><span 
+class="cmr-10x-x-109">1 </span><span 
+class="cmsy-10x-x-109">≤ </span><span 
+class="cmmi-10x-x-109">i,j </span><span 
+class="cmsy-10x-x-109">≤ </span><span 
+class="cmmi-10x-x-109">q </span>such that the symmetry generator
+<span 
+class="cmmi-10x-x-109">X </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">ξ</span><sup><span 
+class="cmmi-8">i</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">j</span></sup><span 
+class="cmmi-10x-x-109">,y</span><sup><span 
+class="cmmi-8">β</span></sup><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">x</span><sup><span 
+class="cmmi-6">i</span></sup></sub> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">η</span><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">j</span></sup><span 
+class="cmmi-10x-x-109">,y</span><sup><span 
+class="cmmi-8">β</span></sup><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">y</span><sup><span 
+class="cmmi-6">α</span></sup></sub> transforms to
+</p>
+<table 
+class="equation"><tr><td><a 
+ id="x168-385001r6"></a>
+                                                                     
+
+                                                                     
+<center class="math-display" >
+<img 
+src="manual89x.png" alt="X =  ∂v1.
+" class="math-display"  /></center></td><td class="equation-label">(20.6)</td></tr></table>
+<!--l. 377--><p class="nopar" >
+</p><!--l. 379--><p class="noindent" >Inverting the above transformation to <span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">i</span></sup> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">i</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmmi-8">j</span></sup><span 
+class="cmmi-10x-x-109">,u</span><sup><span 
+class="cmmi-8">β</span></sup><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,y</span><sup><span 
+class="cmmi-8">α</span></sup> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmmi-8">j</span></sup><span 
+class="cmmi-10x-x-109">,u</span><sup><span 
+class="cmmi-8">β</span></sup><span 
+class="cmr-10x-x-109">) </span>and setting
+<br 
+class="newline" /><span 
+class="cmmi-10x-x-109">H</span><sub><span 
+class="cmmi-8">A</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">i</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmmi-8">j</span></sup><span 
+class="cmmi-10x-x-109">,u</span><sup><span 
+class="cmmi-8">β</span></sup><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,y</span><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmmi-8">j</span></sup><span 
+class="cmmi-10x-x-109">,u</span><sup><span 
+class="cmmi-8">β</span></sup><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmr-10x-x-109">) = </span><span 
+class="cmmi-10x-x-109">h</span><sub><span 
+class="cmmi-8">A</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmmi-8">j</span></sup><span 
+class="cmmi-10x-x-109">,u</span><sup><span 
+class="cmmi-8">β</span></sup><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmr-10x-x-109">) </span>this means that
+</p><table 
+class="align-star">
+                 <tr><td 
+class="align-odd"><span 
+class="cmr-10x-x-109">0</span></td>                 <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">XH</span><sub><span 
+class="cmmi-8">A</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">i</span></sup><span 
+class="cmmi-10x-x-109">,y</span><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmmi-10x-x-109">,y</span><sub>
+<span 
+class="cmmi-8">j</span></sub><sup><span 
+class="cmmi-8">β</span></sup><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmr-10x-x-109">)</span> <span 
+class="cmr-10x-x-109">mod</span> <span 
+class="cmmi-10x-x-109">H</span><sub>
+<span 
+class="cmmi-8">A</span></sub> <span 
+class="cmr-10x-x-109">= 0</span></td>                 <td 
+class="align-label"></td>                 <td 
+class="align-label">
+                 </td></tr><tr><td 
+class="align-odd"></td>                  <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">Xh</span><sub><span 
+class="cmmi-8">A</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmmi-8">i</span></sup><span 
+class="cmmi-10x-x-109">,u</span><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmmi-10x-x-109">,u</span><sub>
+<span 
+class="cmmi-8">j</span></sub><sup><span 
+class="cmmi-8">β</span></sup><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmr-10x-x-109">)</span> <span 
+class="cmr-10x-x-109">mod</span> <span 
+class="cmmi-10x-x-109">h</span><sub>
+<span 
+class="cmmi-8">A</span></sub> <span 
+class="cmr-10x-x-109">= 0</span></td>                   <td 
+class="align-label"></td>                 <td 
+class="align-label">
+                 </td></tr><tr><td 
+class="align-odd"></td>                  <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">v</span><sup><span 
+class="cmr-6">1</span></sup></sub><span 
+class="cmmi-10x-x-109">h</span><sub><span 
+class="cmmi-8">A</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmmi-8">i</span></sup><span 
+class="cmmi-10x-x-109">,u</span><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmmi-10x-x-109">,u</span><sub>
+<span 
+class="cmmi-8">j</span></sub><sup><span 
+class="cmmi-8">β</span></sup><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmr-10x-x-109">)</span> <span 
+class="cmr-10x-x-109">mod</span> <span 
+class="cmmi-10x-x-109">h</span><sub>
+<span 
+class="cmmi-8">A</span></sub> <span 
+class="cmr-10x-x-109">= 0</span><span 
+class="cmmi-10x-x-109">.</span></td>                 <td 
+class="align-label"></td>                 <td 
+class="align-label"></td></tr></table>
+<!--l. 390--><p class="noindent" >Consequently, the variable <span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmr-8">1</span></sup> does not occur explicitly in <span 
+class="cmmi-10x-x-109">h</span><sub><span 
+class="cmmi-8">A</span></sub>. In the case of an
+ODE(-system) <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmr-8">1</span></sup> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">v</span><span 
+class="cmr-10x-x-109">) </span>the new equations <span 
+class="cmr-10x-x-109">0 = </span><span 
+class="cmmi-10x-x-109">h</span><sub><span 
+class="cmmi-8">A</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">v,u</span><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmmi-10x-x-109">,du</span><sup><span 
+class="cmmi-8">β</span></sup><span 
+class="cmmi-10x-x-109">∕dv,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmr-10x-x-109">) </span>are then of lower
+total order after the transformation <span 
+class="cmmi-10x-x-109">z </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">u</span><sup><span 
+class="cmr-8">1</span></sup><span 
+class="cmr-10x-x-109">) = </span><span 
+class="cmmi-10x-x-109">du</span><sup><span 
+class="cmr-8">1</span></sup><span 
+class="cmmi-10x-x-109">∕dv </span>with now <span 
+class="cmmi-10x-x-109">z,u</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">u</span><sup><span 
+class="cmmi-8">p</span></sup> as
+unknown functions and <span 
+class="cmmi-10x-x-109">u</span><sup><span 
+class="cmr-8">1</span></sup> as independent variable.
+</p><!--l. 397--><p class="noindent" >The new form (<a 
+href="#x168-385001r6">20.6<!--tex4ht:ref: sbed3 --></a>) of <span 
+class="cmmi-10x-x-109">X </span>leads directly to conditions for the symmetry variable <span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmr-8">1</span></sup> and
+the similarity variables <span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmmi-8">i</span></sup><span 
+class="cmsy-10x-x-109">|</span><sub><span 
+class="cmmi-8">i</span><span 
+class="cmmi-8">≠</span><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,u</span><sup><span 
+class="cmmi-8">α</span></sup> (all functions of <span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">k</span></sup><span 
+class="cmmi-10x-x-109">,y</span><sup><span 
+class="cmmi-8">γ</span></sup>):
+                                                                     
+
+                                                                     
+</p><table 
+class="align">
+      <tr><td 
+class="align-odd"><span 
+class="cmmi-10x-x-109">Xv</span><sup><span 
+class="cmr-8">1</span></sup> <span 
+class="cmr-10x-x-109">= 1</span></td>                <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">ξ</span><sup><span 
+class="cmmi-8">i</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">k</span></sup><span 
+class="cmmi-10x-x-109">,y</span><sup><span 
+class="cmmi-8">γ</span></sup><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">∂</span><sub>
+<span 
+class="cmmi-8">x</span><sup><span 
+class="cmmi-6">i</span></sup></sub><span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmr-8">1</span></sup> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">η</span><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">k</span></sup><span 
+class="cmmi-10x-x-109">,y</span><sup><span 
+class="cmmi-8">γ</span></sup><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">∂</span><sub>
+<span 
+class="cmmi-8">y</span><sup><span 
+class="cmmi-6">α</span></sup></sub><span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmr-8">1</span></sup></td>             <td 
+class="align-label"><a 
+ id="x168-385002r7"></a>(20.7)
+      </td></tr><tr><td 
+class="align-odd"><span 
+class="cmmi-10x-x-109">Xv</span><sup><span 
+class="cmmi-8">j</span></sup><span 
+class="cmsy-10x-x-109">|</span><sub>
+<span 
+class="cmmi-8">j</span><span 
+class="cmmi-8">≠</span><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">Xu</span><sup><span 
+class="cmmi-8">β</span></sup> <span 
+class="cmr-10x-x-109">= 0</span></td>      <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">ξ</span><sup><span 
+class="cmmi-8">i</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">k</span></sup><span 
+class="cmmi-10x-x-109">,y</span><sup><span 
+class="cmmi-8">γ</span></sup><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">∂</span><sub>
+<span 
+class="cmmi-8">x</span><sup><span 
+class="cmmi-6">i</span></sup></sub><span 
+class="cmmi-10x-x-109">u</span><sup><span 
+class="cmmi-8">β</span></sup> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">η</span><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">k</span></sup><span 
+class="cmmi-10x-x-109">,y</span><sup><span 
+class="cmmi-8">γ</span></sup><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">∂</span><sub>
+<span 
+class="cmmi-8">y</span><sup><span 
+class="cmmi-6">α</span></sup></sub><span 
+class="cmmi-10x-x-109">u</span><sup><span 
+class="cmmi-8">β</span></sup></td>            <td 
+class="align-label"><a 
+ id="x168-385003r8"></a>(20.8)      </td></tr></table>
+<!--l. 407--><p class="noindent" >The general solutions of (<a 
+href="#x168-385002r7">20.7<!--tex4ht:ref: ql1 --></a>), (<a 
+href="#x168-385003r8">20.8<!--tex4ht:ref: ql2 --></a>) involve free functions of <span 
+class="cmmi-10x-x-109">p </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">q </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1 </span>arguments.
+From the general solution of equation (<a 
+href="#x168-385003r8">20.8<!--tex4ht:ref: ql2 --></a>), <span 
+class="cmmi-10x-x-109">p </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">q </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1 </span>functionally independent special
+solutions have to be selected (<span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,v</span><sup><span 
+class="cmmi-8">p</span></sup> and <span 
+class="cmmi-10x-x-109">u</span><sup><span 
+class="cmr-8">1</span></sup><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,u</span><sup><span 
+class="cmmi-8">q</span></sup>), whereas from (<a 
+href="#x168-385002r7">20.7<!--tex4ht:ref: ql1 --></a>) only one
+solution <span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmr-8">1</span></sup> is needed. Together, the expressions for the symmetry and similarity variables
+must deﬁne a non-singular transformation <span 
+class="cmmi-10x-x-109">x,y </span><span 
+class="cmsy-10x-x-109">→ </span><span 
+class="cmmi-10x-x-109">u,v</span>.
+</p><!--l. 415--><p class="noindent" >Diﬀerent special solutions selected at this stage will result in diﬀerent resulting DEs
+which are equivalent under point transformations but may look quite diﬀerently. A
+transformation that is more diﬃcult than another one will in general only complicate the
+new DE(s) compared with the simpler transformation. We therefore seek the simplest
+possible special solutions of (<a 
+href="#x168-385002r7">20.7<!--tex4ht:ref: ql1 --></a>), (<a 
+href="#x168-385003r8">20.8<!--tex4ht:ref: ql2 --></a>). They also have to be simple because the
+transformation has to be inverted to solve for the old variables in order to do the
+transformations.
+</p><!--l. 426--><p class="noindent" >The following steps are performed in the corresponding mode of the program
+<span 
+class="pcrr8t-x-x-109">APPLYSYM</span>: </p>
+     <ul class="itemize1">
+     <li class="itemize">The user is asked to specify a symmetry by selecting one symmetry from all
+     the known symmetries or by specifying a linear combination of them.
+     </li>
+     <li class="itemize">Through  a  call  of  the  procedure  <span 
+class="pcrr8t-x-x-109">QUASILINPDE </span>(described  in  a  later
+     section) the two linear ﬁrst order PDEs (<a 
+href="#x168-385002r7">20.7<!--tex4ht:ref: ql1 --></a>), (<a 
+href="#x168-385003r8">20.8<!--tex4ht:ref: ql2 --></a>) are investigated and, if
+     possible, solved.
+     </li>
+     <li class="itemize">From the general solution of (<a 
+href="#x168-385002r7">20.7<!--tex4ht:ref: ql1 --></a>) 1 special solution is selected and from
+                                                                     
+
+                                                                     
+     (<a 
+href="#x168-385003r8">20.8<!--tex4ht:ref: ql2 --></a>) <span 
+class="cmmi-10x-x-109">p </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">q </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1 </span>special solutions are selected which should be as simple as
+     possible.
+     </li>
+     <li class="itemize">The  user  is  asked  whether  the  symmetry  variable  should  be  one  of  the
+     independent  variables  (as  it  has  been  assumed  so  far)  or  one  of  the  new
+     functions (then only derivatives of this function and not the function itself
+     turn up in the new DE(s)).
+     </li>
+     <li class="itemize">Through  a  call  of  the  procedure  <span 
+class="pcrr8t-x-x-109">DETRAFO </span>the  transformation  <span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">i</span></sup><span 
+class="cmmi-10x-x-109">,y</span><sup><span 
+class="cmmi-8">α</span></sup>  <span 
+class="cmsy-10x-x-109">→</span>
+     <span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmmi-8">j</span></sup><span 
+class="cmmi-10x-x-109">,u</span><sup><span 
+class="cmmi-8">β</span></sup> of the DE(s) <span 
+class="cmmi-10x-x-109">H</span><sub><span 
+class="cmmi-8">A</span></sub> <span 
+class="cmr-10x-x-109">= 0 </span>is ﬁnally done.
+     </li>
+     <li class="itemize">The program returns to the starting menu.</li></ul>
+<!--l. 446--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x168-38600020.1.2"></a>The second mode: Generalization of special solutions</h5>
+<!--l. 447--><p class="noindent" >A second application of inﬁnitesimal symmetries is the generalization of a known special
+solution given in implicit form through <span 
+class="cmr-10x-x-109">0 = </span><span 
+class="cmmi-10x-x-109">F</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">i</span></sup><span 
+class="cmmi-10x-x-109">,y</span><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmr-10x-x-109">)</span>. If one knows a symmetry variable
+<span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmr-8">1</span></sup> and similarity variables <span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmmi-8">r</span></sup><span 
+class="cmmi-10x-x-109">,u</span><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">2 </span><span 
+class="cmsy-10x-x-109">≤ </span><span 
+class="cmmi-10x-x-109">r </span><span 
+class="cmsy-10x-x-109">≤ </span><span 
+class="cmmi-10x-x-109">p </span>then <span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmr-8">1</span></sup> can be shifted by a constant <span 
+class="cmmi-10x-x-109">c</span>
+because of <span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">v</span><sup><span 
+class="cmr-6">1</span></sup></sub><span 
+class="cmmi-10x-x-109">H</span><sub><span 
+class="cmmi-8">A</span></sub> <span 
+class="cmr-10x-x-109">= 0 </span>and therefore the DEs <span 
+class="cmr-10x-x-109">0 = </span><span 
+class="cmmi-10x-x-109">H</span><sub><span 
+class="cmmi-8">A</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmmi-8">r</span></sup><span 
+class="cmmi-10x-x-109">,u</span><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmmi-10x-x-109">,u</span><sub><span 
+class="cmmi-8">j</span></sub><sup><span 
+class="cmmi-8">β</span></sup><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmr-10x-x-109">) </span>are unaﬀected by
+the shift. Hence from
+</p>
+<table 
+class="equation-star"><tr><td>
+          <span 
+class="cmr-10x-x-109">0 = </span><span 
+class="cmmi-10x-x-109">F</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">i</span></sup><span 
+class="cmmi-10x-x-109">,y</span><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmr-10x-x-109">) = </span><span 
+class="cmmi-10x-x-109">F</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">i</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmmi-8">j</span></sup><span 
+class="cmmi-10x-x-109">,u</span><sup><span 
+class="cmmi-8">β</span></sup><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,y</span><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmmi-8">j</span></sup><span 
+class="cmmi-10x-x-109">,u</span><sup><span 
+class="cmmi-8">β</span></sup><span 
+class="cmr-10x-x-109">)) =</span> <span class='accentbar'><span 
+class="cmmi-10x-x-109">F</span></span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmmi-8">j</span></sup><span 
+class="cmmi-10x-x-109">,u</span><sup><span 
+class="cmmi-8">β</span></sup><span 
+class="cmr-10x-x-109">)</span>
+</td></tr></table>
+<!--l. 456--><p class="nopar" >
+follows that
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+      <span 
+class="cmr-10x-x-109">0 =</span> <span class='accentbar'><span 
+class="cmmi-10x-x-109">F</span></span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmr-8">1</span></sup> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">c,v</span><sup><span 
+class="cmmi-8">r</span></sup><span 
+class="cmmi-10x-x-109">,u</span><sup><span 
+class="cmmi-8">β</span></sup><span 
+class="cmr-10x-x-109">) =</span> <span class='accentbar'><span 
+class="cmmi-10x-x-109">F</span></span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmr-8">1</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">i</span></sup><span 
+class="cmmi-10x-x-109">,y</span><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmr-10x-x-109">) + </span><span 
+class="cmmi-10x-x-109">c,v</span><sup><span 
+class="cmmi-8">r</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">i</span></sup><span 
+class="cmmi-10x-x-109">,y</span><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,u</span><sup><span 
+class="cmmi-8">β</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">i</span></sup><span 
+class="cmmi-10x-x-109">,y</span><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmr-10x-x-109">))</span>
+</td></tr></table>
+<!--l. 458--><p class="nopar" >
+deﬁnes implicitly a generalized solution <span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmmi-8">α</span></sup> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">i</span></sup><span 
+class="cmmi-10x-x-109">,c</span><span 
+class="cmr-10x-x-109">)</span>.
+</p><!--l. 461--><p class="noindent" >This generalization works only if <span 
+class="cmmi-10x-x-109">∂</span><sub><span 
+class="cmmi-8">v</span><sup><span 
+class="cmr-6">1</span></sup></sub><span class='accentbar'><span 
+class="cmmi-10x-x-109">F</span></span><span 
+class="cmmi-10x-x-109">≠</span><span 
+class="cmr-10x-x-109">0 </span>and if <span class='accentbar'><span 
+class="cmmi-10x-x-109">F</span></span> does not already have a constant
+additive to <span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmr-8">1</span></sup>.
+</p><!--l. 465--><p class="noindent" >The method above needs to know <span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">i</span></sup> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">i</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">u</span><sup><span 
+class="cmmi-8">β</span></sup><span 
+class="cmmi-10x-x-109">,v</span><sup><span 
+class="cmmi-8">j</span></sup><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,y</span><sup><span 
+class="cmmi-8">α</span></sup> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">u</span><sup><span 
+class="cmmi-8">β</span></sup><span 
+class="cmmi-10x-x-109">,v</span><sup><span 
+class="cmmi-8">j</span></sup><span 
+class="cmr-10x-x-109">) </span><span class="underline">and</span>
+<span 
+class="cmmi-10x-x-109">u</span><sup><span 
+class="cmmi-8">α</span></sup> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">u</span><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">j</span></sup><span 
+class="cmmi-10x-x-109">,y</span><sup><span 
+class="cmmi-8">β</span></sup><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,v</span><sup><span 
+class="cmmi-8">α</span></sup> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">j</span></sup><span 
+class="cmmi-10x-x-109">,y</span><sup><span 
+class="cmmi-8">β</span></sup><span 
+class="cmr-10x-x-109">) </span>which may be practically impossible. Better is, to
+integrate <span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">i</span></sup><span 
+class="cmmi-10x-x-109">,y</span><sup><span 
+class="cmmi-8">α</span></sup> along <span 
+class="cmmi-10x-x-109">X</span>:
+</p>
+<table 
+class="equation"><tr><td><a 
+ id="x168-386001r9"></a>
+<center class="math-display" >
+<img 
+src="manual90x.png" alt="d¯xi                 d¯yα
+---= ξi(¯xj(𝜀),¯yβ(𝜀)),----=  ηα(¯xj(𝜀),¯yβ(𝜀))
+d𝜀                   d𝜀
+" class="math-display"  /></center></td><td class="equation-label">(20.9)</td></tr></table>
+<!--l. 476--><p class="nopar" >
+with initial values <span class='accentbar'><span 
+class="cmmi-10x-x-109">x</span></span><sup><span 
+class="cmmi-8">i</span></sup> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">i</span></sup><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">ȳ</span><sup><span 
+class="cmmi-8">α</span></sup> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmmi-8">α</span></sup> for <span 
+class="cmmi-10x-x-109">𝜀 </span><span 
+class="cmr-10x-x-109">= 0</span><span 
+class="cmmi-10x-x-109">. </span>(This ODE-system is the characteristic
+system of (<a 
+href="#x168-385003r8">20.8<!--tex4ht:ref: ql2 --></a>).)
+</p><!--l. 481--><p class="noindent" >Knowing only the ﬁnite transformations
+</p>
+<table 
+class="equation"><tr><td><a 
+ id="x168-386002r10"></a>
+                                                                     
+
+                                                                     
+<center class="math-display" >
+<img 
+src="manual91x.png" alt="¯xi = ¯xi(xj,yβ,𝜀),¯yα = ¯yα(xj,yβ,𝜀)
+" class="math-display"  /></center></td><td class="equation-label">(20.10)</td></tr></table>
+<!--l. 485--><p class="nopar" >
+gives immediately the inverse transformation <span class='accentbar'><span 
+class="cmmi-10x-x-109">x</span></span><sup><span 
+class="cmmi-8">i</span></sup> <span 
+class="cmr-10x-x-109">=</span> <span class='accentbar'><span 
+class="cmmi-10x-x-109">x</span></span><sup><span 
+class="cmmi-8">i</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">j</span></sup><span 
+class="cmmi-10x-x-109">,y</span><sup><span 
+class="cmmi-8">β</span></sup><span 
+class="cmmi-10x-x-109">,𝜀</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">ȳ</span><sup><span 
+class="cmmi-8">α</span></sup> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmmi-10x-x-109">ȳ</span><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">j</span></sup><span 
+class="cmmi-10x-x-109">,y</span><sup><span 
+class="cmmi-8">β</span></sup><span 
+class="cmmi-10x-x-109">,𝜀</span><span 
+class="cmr-10x-x-109">)</span>
+just by <span 
+class="cmmi-10x-x-109">𝜀 </span><span 
+class="cmsy-10x-x-109">→−</span><span 
+class="cmmi-10x-x-109">𝜀 </span>and renaming <span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">i</span></sup><span 
+class="cmmi-10x-x-109">,y</span><sup><span 
+class="cmmi-8">α</span></sup> <span 
+class="cmsy-10x-x-109">↔</span><span class='accentbar'><span 
+class="cmmi-10x-x-109">x</span></span><sup><span 
+class="cmmi-8">i</span></sup><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">ȳ</span><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmmi-10x-x-109">.</span>
+</p><!--l. 492--><p class="noindent" >The special solution <span 
+class="cmr-10x-x-109">0 = </span><span 
+class="cmmi-10x-x-109">F</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">i</span></sup><span 
+class="cmmi-10x-x-109">,y</span><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmr-10x-x-109">) </span>is generalized by the new constant <span 
+class="cmmi-10x-x-109">𝜀 </span>through
+</p>
+<table 
+class="equation-star"><tr><td>
+             <span 
+class="cmr-10x-x-109">0 = </span><span 
+class="cmmi-10x-x-109">F</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">i</span></sup><span 
+class="cmmi-10x-x-109">,y</span><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmr-10x-x-109">) = </span><span 
+class="cmmi-10x-x-109">F</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">i</span></sup><span 
+class="cmr-10x-x-109">(</span><span class='accentbar'><span 
+class="cmmi-10x-x-109">x</span></span><sup><span 
+class="cmmi-8">j</span></sup><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">ȳ</span><sup><span 
+class="cmmi-8">β</span></sup><span 
+class="cmmi-10x-x-109">,𝜀</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,y</span><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmr-10x-x-109">(</span><span class='accentbar'><span 
+class="cmmi-10x-x-109">x</span></span><sup><span 
+class="cmmi-8">j</span></sup><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">ȳ</span><sup><span 
+class="cmmi-8">β</span></sup><span 
+class="cmmi-10x-x-109">,𝜀</span><span 
+class="cmr-10x-x-109">))</span>
+</td></tr></table>
+<!--l. 496--><p class="nopar" >
+after dropping the <span class='accentbar'><span 
+class="cmmi-10x-x-109"> </span></span>.
+</p><!--l. 499--><p class="noindent" >The steps performed in the corresponding mode of the program <span 
+class="pcrr8t-x-x-109">APPLYSYM </span>show
+features of both techniques: </p>
+     <ul class="itemize1">
+     <li class="itemize">The user is asked to specify a symmetry by selecting one symmetry from all
+     the known symmetries or by specifying a linear combination of them.
+     </li>
+     <li class="itemize">The special solution to be generalized and the name of the new constant have
+     to be put in.
+                                                                     
+
+                                                                     
+     </li>
+     <li class="itemize">Through a call of the procedure <span 
+class="pcrr8t-x-x-109">QUASILINPDE</span>, the PDE (<a 
+href="#x168-385002r7">20.7<!--tex4ht:ref: ql1 --></a>) is solved
+     which amounts to a solution of its characteristic ODE system (<a 
+href="#x168-386001r9">20.9<!--tex4ht:ref: ODEsys --></a>) where
+     <span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmr-8">1</span></sup> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">𝜀</span>.
+     </li>
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">QUASILINPDE </span>returns a list of constant expressions
+     <table 
+class="equation"><tr><td><a 
+ id="x168-386003r11"></a>
+     <center class="math-display" >
+     <img 
+src="manual92x.png" alt="c = c(xk,yβ,𝜀),1 ≤ i ≤ p + q
+i    i
+     " class="math-display"  /></center></td><td class="equation-label">(20.11)</td></tr></table>
+     <!--l. 512--><p class="nopar" >
+     which are solved for <span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">j</span></sup> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">j</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">c</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmmi-10x-x-109">,𝜀</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,y</span><sup><span 
+class="cmmi-8">α</span></sup> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">c</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmmi-10x-x-109">,𝜀</span><span 
+class="cmr-10x-x-109">) </span>to obtain the generalized
+     solution through
+</p>
+     <table 
+class="equation-star"><tr><td>
+           <span 
+class="cmr-10x-x-109">0 = </span><span 
+class="cmmi-10x-x-109">F</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">j</span></sup><span 
+class="cmmi-10x-x-109">,y</span><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmr-10x-x-109">) = </span><span 
+class="cmmi-10x-x-109">F</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">j</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">c</span><sub>
+<span 
+class="cmmi-8">i</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">k</span></sup><span 
+class="cmmi-10x-x-109">,y</span><sup><span 
+class="cmmi-8">β</span></sup><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">0)</span><span 
+class="cmmi-10x-x-109">,𝜀</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,y</span><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">c</span><sub>
+<span 
+class="cmmi-8">i</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">k</span></sup><span 
+class="cmmi-10x-x-109">,y</span><sup><span 
+class="cmmi-8">β</span></sup><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">0)</span><span 
+class="cmmi-10x-x-109">,𝜀</span><span 
+class="cmr-10x-x-109">))</span><span 
+class="cmmi-10x-x-109">.</span>
+     </td></tr></table>
+     <!--l. 518--><p class="nopar" >
+     </p></li>
+     <li class="itemize">The new solution is availabe for further generalizations w.r.t. other symmetries.</li></ul>
+                                                                     
+
+                                                                     
+<!--l. 522--><p class="noindent" >If one would like to generalize a given special solution with <span 
+class="cmmi-10x-x-109">m </span>new constants because <span 
+class="cmmi-10x-x-109">m</span>
+symmetries are known, then one could run the whole program <span 
+class="cmmi-10x-x-109">m </span>times, each time with a
+diﬀerent symmetry or one could run the program once with a linear combination of <span 
+class="cmmi-10x-x-109">m</span>
+symmetry generators which again is a symmetry generator. Running the program once
+adds one constant but we have in addition <span 
+class="cmmi-10x-x-109">m </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1 </span>arbitrary constants in the linear
+combination of the symmetries, so <span 
+class="cmmi-10x-x-109">m </span>new constants are added. Usually one
+will generalize the solution gradually to make solving (<a 
+href="#x168-386001r9">20.9<!--tex4ht:ref: ODEsys --></a>) gradually more
+diﬃcult.
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x168-38700020.1.2"></a>Syntax</h5>
+<!--l. 533--><p class="noindent" >The call of <span 
+class="pcrr8t-x-x-109">APPLYSYM</span><a 
+ id="dx168-387001"></a> is <span 
+class="pcrr8t-x-x-109">APPLYSYM</span>({<span 
+class="ptmri8t-x-x-109">de</span>, <span 
+class="ptmri8t-x-x-109">fun</span>, <span 
+class="ptmri8t-x-x-109">var</span>}, {<span 
+class="ptmri8t-x-x-109">sym</span>, <span 
+class="ptmri8t-x-x-109">cons</span>}); </p>
+     <ul class="itemize1">
+     <li class="itemize"><span 
+class="ptmri8t-x-x-109">de </span>is a single DE or a list of DEs in the form of a vanishing expression or in
+     the form <span 
+class="cmmi-10x-x-109">…</span> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmmi-10x-x-109">…</span>.
+     </li>
+     <li class="itemize"><span 
+class="ptmri8t-x-x-109">fun </span>is the single function or the list of functions occuring in <span 
+class="ptmri8t-x-x-109">de</span>.
+     </li>
+     <li class="itemize"><span 
+class="ptmri8t-x-x-109">var </span>is the single variable or the list of variables in <span 
+class="ptmri8t-x-x-109">de</span>.
+     </li>
+     <li class="itemize"><span 
+class="ptmri8t-x-x-109">sym </span>is a linear combination of all symmetries, each with a diﬀerent constant
+     coeﬃcient, in form of a list of the <span 
+class="cmmi-10x-x-109">ξ</span><sup><span 
+class="cmmi-8">i</span></sup> and <span 
+class="cmmi-10x-x-109">η</span><sup><span 
+class="cmmi-8">α</span></sup>: {xi_…=…,…,eta_…=…,…}, where
+     the indices after ‘xi_’ are the variable names and after ‘eta_’ the function
+     names.
+     </li>
+     <li class="itemize"><span 
+class="ptmri8t-x-x-109">cons </span>is the list of constants in <span 
+class="ptmri8t-x-x-109">sym</span>, one constant for each symmetry.</li></ul>
+<!--l. 549--><p class="noindent" >The list that is the ﬁrst argument of <span 
+class="pcrr8t-x-x-109">APPLYSYM </span>is the same as the ﬁrst argument of
+<span 
+class="pcrr8t-x-x-109">LIEPDE </span>and the second argument is the list that <span 
+class="pcrr8t-x-x-109">LIEPDE </span>returns without its ﬁrst
+element (the unsolved conditions). An example is given below.
+</p><!--l. 554--><p class="noindent" >What <span 
+class="pcrr8t-x-x-109">APPLYSYM </span>returns depends on the last performed modus. After modus 1 the
+return is <br 
+class="newline" />{{<span 
+class="ptmri8t-x-x-109">newde</span>, <span 
+class="ptmri8t-x-x-109">newfun</span>, <span 
+class="ptmri8t-x-x-109">newvar</span>}, <span 
+class="ptmri8t-x-x-109">trafo</span>} <br 
+class="newline" />where </p>
+     <ul class="itemize1">
+     <li class="itemize"><span 
+class="ptmri8t-x-x-109">newde </span>lists the transformed equation(s)
+                                                                     
+
+                                                                     
+     </li>
+     <li class="itemize"><span 
+class="ptmri8t-x-x-109">newfun </span>lists the new function name(s)
+     </li>
+     <li class="itemize"><span 
+class="ptmri8t-x-x-109">newvar </span>lists the new variable name(s)
+     </li>
+     <li class="itemize"><span 
+class="ptmri8t-x-x-109">trafo </span>lists the transformations <span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">i</span></sup> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">i</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmmi-8">j</span></sup><span 
+class="cmmi-10x-x-109">,u</span><sup><span 
+class="cmmi-8">β</span></sup><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,y</span><sup><span 
+class="cmmi-8">α</span></sup> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmmi-8">j</span></sup><span 
+class="cmmi-10x-x-109">,u</span><sup><span 
+class="cmmi-8">β</span></sup><span 
+class="cmr-10x-x-109">)</span></li></ul>
+<!--l. 565--><p class="noindent" >After modus 2, <span 
+class="pcrr8t-x-x-109">APPLYSYM </span>returns the generalized special solution.
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x168-38800020.1.2"></a>Example: A second order ODE</h5>
+<a 
+ id="dx168-388001"></a>
+<!--l. 569--><p class="noindent" >Weyl’s class of solutions of Einsteins ﬁeld equations consists of axialsymmetric time
+independent metrics of the form
+</p>
+<table 
+class="equation"><tr><td><a 
+ id="x168-388002r12"></a>
+<center class="math-display" >
+<img 
+src="manual93x.png" alt="  2    −2U [ 2k(  2     2)   2   2]   2U  2
+ds  = e     e   dρ  + dz  + ρ dφ   − e  dt ,
+" class="math-display"  /></center></td><td class="equation-label">(20.12)</td></tr></table>
+<!--l. 574--><p class="nopar" >
+where <span 
+class="cmmi-10x-x-109">U </span>and <span 
+class="cmmi-10x-x-109">k </span>are functions of <span 
+class="cmmi-10x-x-109">ρ </span>and <span 
+class="cmmi-10x-x-109">z</span>. If one is interested in generalizing these
+solutions to have a time dependence then the resulting DEs can be transformed such that
+one longer third order ODE for <span 
+class="cmmi-10x-x-109">U </span>results which contains only <span 
+class="cmmi-10x-x-109">ρ </span>derivatives <span class="cite">[<a 
+href="manualap2.html#XMarkus">Kub</a>]</span>.
+Because <span 
+class="cmmi-10x-x-109">U </span>appears not alone but only as derivative, a substitution
+</p>
+<table 
+class="equation"><tr><td><a 
+ id="x168-388003r13"></a>
+                                                                     
+
+                                                                     
+<center class="math-display" >
+<img 
+src="manual94x.png" alt="g = dU ∕dρ
+" class="math-display"  /></center></td><td class="equation-label">(20.13)</td></tr></table>
+<!--l. 582--><p class="nopar" >
+lowers the order and the introduction of a function
+</p>
+<table 
+class="equation"><tr><td><a 
+ id="x168-388004r14"></a>
+<center class="math-display" >
+<img 
+src="manual95x.png" alt="h = ρg − 1
+" class="math-display"  /></center></td><td class="equation-label">(20.14)</td></tr></table>
+<!--l. 586--><p class="nopar" >
+simpliﬁes the ODE to
+</p>
+<table 
+class="equation"><tr><td><a 
+ id="x168-388005r15"></a>
+<center class="math-display" >
+<img 
+src="manual96x.png" alt="0 = 3ρ2hh ′′ − 5ρ2h′2 + 5ρhh ′ − 20ρh3h′ − 20h4 + 16h6 + 4h2.
+" class="math-display"  /></center></td><td class="equation-label">(20.15)</td></tr></table>
+                                                                     
+
+                                                                     
+<!--l. 591--><p class="nopar" >
+where <span 
+class="cmsy-10x-x-109">′ </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">d∕dρ</span>. Calling <span 
+class="pcrr8t-x-x-109">LIEPDE </span>through
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-637">
+depend h,r;
+ <br />prob:={{-20*h**4+16*h**6+3*r**2*h*df(h,r,2)+5*r*h*df(h,r)
+ <br />        -20*h**3*r*df(h,r)+4*h**2-5*r**2*df(h,r)**2},
+ <br />       {h}, {r}};
+ <br />sym:=liepde(prob, {&#x0022;point&#x0022;},{},{});
+ <br />end; 
+</div>
+<!--l. 600--><p class="nopar" > gives
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-638">
+sym := {{},
+ <br />
+ <br />                      3                       2
+ <br />        {xi_r= - c10*r  - c11*r, eta_h=c10*h*r },
+ <br />
+ <br />        {c10,c11}}.
+</div>
+<!--l. 608--><p class="nopar" > All conditions have been solved because the ﬁrst element of <span 
+class="pcrr8t-x-x-109">sym </span>is <span 
+class="cmsy-10x-x-109">{}</span>. The two existing
+symmetries are therefore
+</p>
+<table 
+class="equation"><tr><td><a 
+ id="x168-388006r16"></a>
+<center class="math-display" >
+<img 
+src="manual97x.png" alt="   3      2
+− ρ ∂ρ + hρ ∂handρ ∂ρ.
+" class="math-display"  /></center></td><td class="equation-label">(20.16)</td></tr></table>
+<!--l. 614--><p class="nopar" >
+Corresponding ﬁnite transformations can be calculated with <span 
+class="pcrr8t-x-x-109">APPLYSYM </span>through
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-639">
+newde:=applysym(prob,rest sym);
+</div>
+<!--l. 619--><p class="nopar" > The interactive session is given below with the user input following the prompt ‘<span 
+class="pcrr8t-x-x-109">:</span>’ or
+following ‘?’. (Empty lines have been deleted.)
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-640">
+Do you want to find similarity and symmetry variables (1)
+ <br />or generalize a special solution with new parameters  (2)
+ <br />or exit the program                                   (3)
+ <br />Input:3: 1;
+</div>
+<!--l. 627--><p class="nopar" > We enter ‘1’ because we want to reduce dependencies by ﬁnding similarity variables and
+one symmetry variable and then doing the transformation such that the symmetry
+variable does not explicitly occur in the DE.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-641">
+----------------------   The 1.  symmetry is:
+ <br />         3
+ <br />xi_r= - r
+ <br />         2
+ <br />eta_h=h*r
+ <br />----------------------   The 2.  symmetry is:
+ <br />xi_r= - r
+ <br />----------------------
+ <br />Which single symmetry or linear combination of symmetries
+ <br />do you want to apply?
+ <br />Enter an expression with ‘sy_(i)’ for the i’th
+ <br />symmetry. Terminate input with ‘$’ or ‘;’.
+ <br />sy_(1);
+</div>
+<!--l. 645--><p class="nopar" > We could have entered ‘sy_(2);’ or a combination of both as well with the calculation
+running then diﬀerently.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-642">
+The symmetry to be applied in the following is
+ <br />            3            2
+ <br />{xi_r =  - r ,eta_h = h*r }
+ <br />Terminate the following input with $ or ;  .
+ <br />Enter the name of the new dependent variable
+ <br />(which will get an index attached): u;
+ <br />Enter the name of the new independent variables:
+ <br />(which will get an index attached): v;
+</div>
+<!--l. 658--><p class="nopar" > This was the input part, now the real calculation starts.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-643">
+The ODE/PDE (-system) under investigation is :
+ <br />                   2            2  2               3
+ <br />0 = 3*df(h,r,2)*h*r  - 5*df(h,r) *r  - 20*df(h,r)*h *r
+ <br />                           6       4      2
+ <br />     + 5*df(h,r)*h*r + 16*h  - 20*h  + 4*h
+ <br />for the function(s) : h.
+ <br />It will be looked for a new dependent variable u
+ <br />and an independent variable v such that the transformed
+ <br />de(-system) does not depend on u or v.
+ <br />1. Determination of the similarity variable
+ <br />                           2
+ <br />The quasilinear PDE:  0 = r *(df(u_,h)*h - df(u_,r)*r).
+ <br />The equivalent characteristic system:
+ <br />               3
+ <br />0= - df(u_,r)*r
+ <br />      2
+ <br />0= - r *(df(h,r)*r + h)
+ <br />for the functions: h(r)  u_(r).
+</div>
+<!--l. 679--><p class="nopar" > The PDE is equation (<a 
+href="#x168-385003r8">20.8<!--tex4ht:ref: ql2 --></a>).
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-644">
+The general solution of the PDE is given through
+ <br />0 = ff(u_,h*r)
+ <br />with arbitrary function ff(..).
+ <br />A suggestion for this function ff provides:
+ <br />0 =  - h*r + u_
+ <br />Do you like this choice? (Y or N) y
+</div>
+<!--l. 689--><p class="nopar" >
+For the following calculation only a single special solution of the PDE is necessary and
+this has to be speciﬁed from the general solution by choosing a special function <span 
+class="pcrr8t-x-x-109">ff</span>.
+(This function is called <span 
+class="pcrr8t-x-x-109">ff </span>to prevent a clash with names of user variables/functions.) In
+principle any choice of <span 
+class="pcrr8t-x-x-109">ff </span>would work, if it deﬁnes a non-singular coordinate
+transformation, i.e. here <span 
+class="cmmi-10x-x-109">r </span>must be a function of <span 
+class="cmmi-10x-x-109">u</span>_. If we have <span 
+class="cmmi-10x-x-109">q </span>independent variables
+and <span 
+class="cmmi-10x-x-109">p </span>functions of them then <span 
+class="pcrr8t-x-x-109">ff </span>has <span 
+class="cmmi-10x-x-109">p </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">q </span>arguments. Because of the condition
+<span 
+class="cmr-10x-x-109">0 =</span><span 
+class="pcrr8t-x-x-109">ff </span>one has essentially the freedom of choosing a function of <span 
+class="cmmi-10x-x-109">p </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">q </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1</span>
+arguments freely. This freedom is also necessary to select <span 
+class="cmmi-10x-x-109">p </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">q </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1 </span>diﬀerent
+functions <span 
+class="pcrr8t-x-x-109">ff </span>and to ﬁnd as many functionally independent solutions <span 
+class="cmmi-10x-x-109">u</span>_ which all
+become the new similarity variables. <span 
+class="cmmi-10x-x-109">q </span>of them become the new functions <span 
+class="cmmi-10x-x-109">u</span><sup><span 
+class="cmmi-8">α</span></sup> and
+<span 
+class="cmmi-10x-x-109">p </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1 </span>of them the new variables <span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,v</span><sup><span 
+class="cmmi-8">p</span></sup>. Here we have <span 
+class="cmmi-10x-x-109">p </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">q </span><span 
+class="cmr-10x-x-109">= 1 </span>(one single
+ODE).
+</p><!--l. 706--><p class="noindent" >Though the program could have done that alone, once the general solution <span 
+class="pcrr8t-x-x-109">ff(..) </span>is
+known, the user can interfere here to enter a simpler solution, if possible.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-645">
+2. Determination of the symmetry variable
+ <br />                                      2             3
+ <br />The quasilinear PDE:  0 = df(u_,h)*h*r  - df(u_,r)*r  - 1.
+ <br />The equivalent characteristic system:
+ <br />              3
+ <br />0=df(r,u_) + r
+ <br />                2
+ <br />0=df(h,u_) - h*r
+ <br />for the functions: r(u_)  h(u_)  .
+ <br />New attempt with a different independent variable
+ <br />The equivalent characteristic system:
+ <br />              2
+ <br />0=df(u_,h)*h*r  - 1
+ <br />   2
+ <br />0=r *(df(r,h)*h + r)
+ <br />for the functions: r(h)  u_(h)  .
+ <br />The general solution of the PDE is given through
+ <br />                  2  2       2
+ <br />             - 2*h *r *u_ + h
+ <br />0 = ff(h*r,--------------------)
+ <br />                    2
+ <br />with arbitrary function ff(..).
+ <br />A suggestion for this function ff(..) yields:
+ <br />      2        2
+ <br />     h *( - 2*r *u_ + 1)
+ <br />0 = ---------------------
+ <br />              2
+ <br />Do you like this choice? (Y or N) y
+</div>
+<!--l. 738--><p class="nopar" > Similar to above.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-646">
+The suggested solution of the algebraic system which will
+ <br />do the transformation is:
+ <br />                        sqrt(v)*sqrt(2)
+ <br />{h=sqrt(v)*sqrt(2)*u,r=-----------------}
+ <br />                              2*v
+ <br />Is the solution ok? (Y or N) y
+ <br />In the intended transformation shown above the dependent
+ <br />variable is u and the independent variable is v.
+ <br />The symmetry variable is v, i.e. the transformed expression
+ <br />will be free of v.
+ <br />Is this selection of dependent and independent variables ok? (Y or N) n
+</div>
+<!--l. 752--><p class="nopar" > We so far assumed that the symmetry variable is one of the new variables, but, of
+course we also could choose it to be one of the new functions. If it is one of
+the functions then only derivatives of this function occur in the new DE, not
+the function itself. If it is one of the variables then this variable will not occur
+explicitly.
+</p><!--l. 759--><p class="noindent" >In our case we prefer (without strong reason) to have the function as symmetry variable.
+We therefore answered with ‘no’. As a consequence, <span 
+class="cmmi-10x-x-109">u </span>and <span 
+class="cmmi-10x-x-109">v </span>will exchange names such
+that still all new functions have the name <span 
+class="cmmi-10x-x-109">u </span>and the new variables have name
+<span 
+class="cmmi-10x-x-109">v</span>:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-647">
+Please enter a list of substitutions. For example, to
+ <br />make the variable, which is so far call u1, to an
+ <br />independent variable v2 and the variable, which is
+ <br />so far called v2, to an dependent variable u1,
+ <br />enter: ‘{u1=v2, v2=u1};’{u=v,v=u};
+ <br />
+ <br />The transformed equation which should be free of u:
+ <br />                 3  6        2  3
+ <br />0=3*u  *v - 16*u  *v  - 20*u  *v  + 5*u
+ <br />     2v         v           v          v
+ <br />Do you want to find similarity and symmetry variables (1)
+ <br />or generalize a special solution with new parameters  (2)
+ <br />or exit the program                                   (3) :
+</div>
+<!--l. 777--><p class="nopar" > We stop here. The following is returned from our <span 
+class="pcrr8t-x-x-109">APPLYSYM </span>call:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-648">
+                             3  6
+ <br />{{{3*df(u,v,2)*v - 16*df(u,v) *v
+ <br />
+ <br />                2  3
+ <br />    - 20*df(u,v) *v  + 5*df(u,v)},
+ <br />
+ <br />  {u},
+ <br />
+ <br />  {v}},
+ <br />
+ <br />            1                 2*u*v
+ <br /> {r=-----------------,h=-----------------
+ <br />     sqrt(u)*sqrt(2)     sqrt(u)*sqrt(2)
+ <br />
+ <br />           }}
+</div>
+<!--l. 796--><p class="nopar" >
+The use of <span 
+class="pcrr8t-x-x-109">APPLYSYM </span>eﬀectively provided us the ﬁnite transformation
+</p>
+<table 
+class="equation"><tr><td><a 
+ id="x168-388007r17"></a>
+<center class="math-display" >
+<img 
+src="manual98x.png" alt="        −1∕2         1∕2
+ρ = (2u )   ,h = (2u)   v.
+" class="math-display"  /></center></td><td class="equation-label">(20.17)</td></tr></table>
+<!--l. 802--><p class="nopar" >
+and the new ODE
+</p>
+<table 
+class="equation"><tr><td><a 
+ id="x168-388008r18"></a>
+                                                                     
+
+                                                                     
+<center class="math-display" >
+<img 
+src="manual99x.png" alt="      ′′      ′3 6     ′2 3    ′
+0 = 3u v − 16u v  − 20u  v + 5u
+" class="math-display"  /></center></td><td class="equation-label">(20.18)</td></tr></table>
+<!--l. 806--><p class="nopar" >
+where <span 
+class="cmmi-10x-x-109">u </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">u</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">v</span><span 
+class="cmr-10x-x-109">) </span>and <span 
+class="cmsy-10x-x-109">′ </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">d∕dv. </span>Using one symmetry we reduced the 2. order ODE
+(<a 
+href="#x168-388005r15">20.15<!--tex4ht:ref: hdgl --></a>) to a ﬁrst order ODE (<a 
+href="#x168-388008r18">20.18<!--tex4ht:ref: udgl --></a>) for <span 
+class="cmmi-10x-x-109">u</span><span 
+class="cmsy-10x-x-109">′ </span>plus one integration. The second symmetry
+can be used to reduce the remaining ODE to an integration too by introducing a variable
+<span 
+class="cmmi-10x-x-109">w </span>through <span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmr-8">3</span></sup><span 
+class="cmmi-10x-x-109">d∕dv </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">d∕dw</span>, i.e. <span 
+class="cmmi-10x-x-109">w </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">∕</span><span 
+class="cmr-10x-x-109">(2</span><span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmr-10x-x-109">)</span>. With
+</p>
+<table 
+class="equation"><tr><td><a 
+ id="x168-388009r19"></a>
+<center class="math-display" >
+<img 
+src="manual100x.png" alt="p = du∕dw
+" class="math-display"  /></center></td><td class="equation-label">(20.19)</td></tr></table>
+<!--l. 815--><p class="nopar" >
+the remaining ODE is
+</p>
+<table 
+class="equation-star"><tr><td>
+                    <span 
+class="cmr-10x-x-109">0 = 3</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">w</span><span style="margin-left:0.3em" class="thinspace"></span><img 
+src="manual101x.png" alt=" dp
+---
+dw"  class="frac" align="middle" /> <span 
+class="cmr-10x-x-109">+ 2</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">p</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">p </span><span 
+class="cmr-10x-x-109">+ 1)(4</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">p </span><span 
+class="cmr-10x-x-109">+ 1)</span>
+</td></tr></table>
+                                                                     
+
+                                                                     
+<!--l. 817--><p class="nopar" >
+with solution
+</p>
+<table 
+class="equation-star"><tr><td>
+                 <span class='accenttilde'><span 
+class="cmmi-10x-x-109">c</span></span><span 
+class="cmmi-10x-x-109">w</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-10x-x-109">∕</span><span 
+class="cmr-10x-x-109">4 =</span> <span class='accenttilde'><span 
+class="cmmi-10x-x-109">c</span></span><span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmr-8">4</span></sup> <span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual102x.png" alt=" 3
+p-(p+-1)-
+(4p+ 1)4"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">,</span><span class='accenttilde'><span 
+class="cmmi-10x-x-109">c</span></span> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">const.</span>
+</td></tr></table>
+<!--l. 820--><p class="nopar" >
+Writing (<a 
+href="#x168-388009r19">20.19<!--tex4ht:ref: udot --></a>) as <span 
+class="cmmi-10x-x-109">p </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmr-8">3</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">du∕dp</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">∕</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">dv∕dp</span><span 
+class="cmr-10x-x-109">) </span>we get <span 
+class="cmmi-10x-x-109">u </span>by integration and with (<a 
+href="#x168-388007r17">20.17<!--tex4ht:ref: trafo1 --></a>)
+further a parametric solution for <span 
+class="cmmi-10x-x-109">ρ,h</span>:
+</p><table 
+class="align">
+               <tr><td 
+class="align-odd"><span 
+class="cmmi-10x-x-109">ρ</span></td>               <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= </span><img 
+src="manual103x.png" alt="(  3c2(2p− 1)      )
+  -1∕21------1∕2-+ c2
+  p  (p + 1)"  class="left" align="middle" /><sup><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span><span 
+class="cmmi-8">∕</span><span 
+class="cmr-8">2</span></sup></td>                                        <td 
+class="align-label"><a 
+ id="x168-388010r20"></a>(20.20)
+               </td></tr><tr><td 
+class="align-odd"><span 
+class="cmmi-10x-x-109">h</span></td>               <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual104x.png" alt="(c2p1∕2(p+-1-)1∕2 +-6c21p-−-3c21)1∕2p1∕2
+            c1(4p+ 1)"  class="frac" align="middle" /></td>                              <td 
+class="align-label"><a 
+ id="x168-388011r21"></a>(20.21)               </td></tr></table>
+<!--l. 827--><p class="noindent" >where <span 
+class="cmmi-10x-x-109">c</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,c</span><sub><span 
+class="cmr-8">2</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">const. </span>and <span 
+class="cmmi-10x-x-109">c</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">=</span> <span class='accenttilde'><span 
+class="cmmi-10x-x-109">c</span></span><sup><span 
+class="cmr-8">1</span><span 
+class="cmmi-8">∕</span><span 
+class="cmr-8">4</span></sup><span 
+class="cmmi-10x-x-109">. </span>Finally, the metric function <span 
+class="cmmi-10x-x-109">U</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">p</span><span 
+class="cmr-10x-x-109">) </span>is obtained as an
+integral from (<a 
+href="#x168-388003r13">20.13<!--tex4ht:ref: g1dgl --></a>),(<a 
+href="#x168-388004r14">20.14<!--tex4ht:ref: g2dgl --></a>).
+                                                                     
+
+                                                                     
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x168-38900020.1.2"></a>Limitations of <span 
+class="pcrr8t-x-x-109">APPLYSYM</span></h5>
+<!--l. 831--><p class="noindent" >Restrictions of the applicability of the program <span 
+class="pcrr8t-x-x-109">APPLYSYM </span>result from limitations of the
+program <span 
+class="pcrr8t-x-x-109">QUASILINPDE </span>described in a section below. Essentially this means that
+symmetry generators may only be polynomially non-linear in <span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">i</span></sup><span 
+class="cmmi-10x-x-109">,y</span><sup><span 
+class="cmmi-8">α</span></sup>. Though even then
+the solvability can not be guaranteed, the generators of Lie-symmetries are mostly very
+simple such that the resulting PDE (<a 
+href="#x168-391002r22">20.22<!--tex4ht:ref: PDE --></a>) and the corresponding characteristic
+ODE-system have good chances to be solvable.
+</p><!--l. 840--><p class="noindent" >Apart from these limitations implied through the solution of diﬀerential equations with
+<span 
+class="pcrr8t-x-x-109">CRACK </span>and algebraic equations with <span 
+class="pcrr8t-x-x-109">SOLVE </span>the program <span 
+class="pcrr8t-x-x-109">APPLYSYM </span>itself is free of
+restrictions, i.e. if once new versions of <span 
+class="pcrr8t-x-x-109">CRACK, SOLVE </span>would be available then
+<span 
+class="pcrr8t-x-x-109">APPLYSYM </span>would not have to be changed.
+</p><!--l. 846--><p class="noindent" >Currently, whenever a computational step could not be performed the user is informed
+and has the possibility of entering interactively the solution of the unsolved algebraic
+system or the unsolved linear PDE.
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.1.3    </span> <a 
+ id="x168-39000020.1.3"></a>Solving quasilinear PDEs</h4>
+<!--l. 852--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x168-39100020.1.3"></a>The content of <span 
+class="pcrr8t-x-x-109">QUASILINPDE</span></h5>
+<a 
+ id="dx168-391001"></a>
+<!--l. 854--><p class="noindent" >The generalization of special solutions of DEs as well as the computation of similarity
+and symmetry variables involve the general solution of single ﬁrst order linear PDEs.
+The procedure <span 
+class="pcrr8t-x-x-109">QUASILINPDE </span>is a general procedure aiming at the general solution of
+PDEs
+</p>
+<table 
+class="equation"><tr><td><a 
+ id="x168-391002r22"></a>
+<center class="math-display" >
+                                                                     
+
+                                                                     
+<img 
+src="manual105x.png" alt="a1(wi,ϕ)ϕw1 + a2(wi,ϕ)ϕw2 + ...+ an(wi,ϕ)ϕwn = b(wi,ϕ)
+" class="math-display"  /></center></td><td class="equation-label">(20.22)</td></tr></table>
+<!--l. 863--><p class="nopar" >
+in <span 
+class="cmmi-10x-x-109">n </span>independent variables <span 
+class="cmmi-10x-x-109">w</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmmi-10x-x-109">,i </span><span 
+class="cmr-10x-x-109">= 1</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">n </span>for one unknown function <span 
+class="cmmi-10x-x-109">ϕ </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">ϕ</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">w</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmr-10x-x-109">)</span>.
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   1. </dt><dd 
+class="enumerate-enumitem">The ﬁrst step in solving a quasilinear PDE (<a 
+href="#x168-391002r22">20.22<!--tex4ht:ref: PDE --></a>) is the formulation of the
+     corresponding characteristic ODE-system
+     <table 
+class="align">
+                                               <tr><td 
+class="align-odd"><img 
+src="manual106x.png" alt="dwi
+-d𝜀-"  class="frac" align="middle" /></td>                              <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">w</span><sub><span 
+class="cmmi-8">j</span></sub><span 
+class="cmmi-10x-x-109">,ϕ</span><span 
+class="cmr-10x-x-109">)</span></td>                                                                      <td 
+class="align-label"><a 
+ id="x168-391004r23"></a>(20.23)
+                                               </td></tr><tr><td 
+class="align-odd"><img 
+src="manual107x.png" alt="dϕ
+---
+d𝜀"  class="frac" align="middle" /></td>                               <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">b</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">w</span><sub><span 
+class="cmmi-8">j</span></sub><span 
+class="cmmi-10x-x-109">,ϕ</span><span 
+class="cmr-10x-x-109">)</span></td>                                                                       <td 
+class="align-label"><a 
+ id="x168-391005r24"></a>(20.24)                                               </td></tr></table>
+     <!--l. 874--><p class="noindent" >for <span 
+class="cmmi-10x-x-109">ϕ,w</span><sub><span 
+class="cmmi-8">i</span></sub> regarded now as functions of one variable <span 
+class="cmmi-10x-x-109">𝜀</span>.
+     </p><!--l. 876--><p class="noindent" >Because the <span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">i</span></sub> and <span 
+class="cmmi-10x-x-109">b </span>do not depend explicitly on <span 
+class="cmmi-10x-x-109">𝜀</span>, one of the equations
+     (<a 
+href="#x168-391004r23">20.23<!--tex4ht:ref: char1 --></a>),(<a 
+href="#x168-391005r24">20.24<!--tex4ht:ref: char2 --></a>) with non-vanishing right hand side can be used to divide all others
+     through it and by that having a system with one less ODE to solve. If the
+     equation to divide through is one of (<a 
+href="#x168-391004r23">20.23<!--tex4ht:ref: char1 --></a>) then the remaining system would
+     be
+                                                                     
+
+                                                                     
+     </p><table 
+class="align">
+              <tr><td 
+class="align-odd"><img 
+src="manual108x.png" alt="-dwi
+dwk"  class="frac" align="middle" /></td>              <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual109x.png" alt="ai-
+ak"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">,i </span><span 
+class="cmr-10x-x-109">= 1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">k </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,k </span><span 
+class="cmr-10x-x-109">+ 1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">n</span></td>                            <td 
+class="align-label"><a 
+ id="x168-391006r25"></a>(20.25)
+              </td></tr><tr><td 
+class="align-odd"><img 
+src="manual110x.png" alt="-dϕ-
+dwk"  class="frac" align="middle" /></td>              <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual111x.png" alt="-b-
+ak"  class="frac" align="middle" /></td>                                                   <td 
+class="align-label"><a 
+ id="x168-391007r26"></a>(20.26)              </td></tr></table>
+     <!--l. 887--><p class="noindent" >with the independent variable <span 
+class="cmmi-10x-x-109">w</span><sub><span 
+class="cmmi-8">k</span></sub> instead of <span 
+class="cmmi-10x-x-109">𝜀</span>. If instead we divide through
+     equation (<a 
+href="#x168-391005r24">20.24<!--tex4ht:ref: char2 --></a>) then the remaining system would be
+</p>
+     <table 
+class="equation-star"><tr><td>
+                           <img 
+src="manual112x.png" alt="dwi
+dϕ--"  class="frac" align="middle" /> <span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual113x.png" alt="ai
+-b"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">,i </span><span 
+class="cmr-10x-x-109">= 1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">n</span><a 
+ id="x168-3910031"></a>
+     </td></tr></table>
+     <!--l. 893--><p class="nopar" >
+     with the independent variable <span 
+class="cmmi-10x-x-109">ϕ </span>instead of <span 
+class="cmmi-10x-x-109">𝜀</span>.
+     </p><!--l. 896--><p class="noindent" >The equation to divide through is chosen by a subroutine with a heuristic to
+     ﬁnd the “simplest” non-zero right hand side (<span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span></sub> or <span 
+class="cmmi-10x-x-109">b</span>), i.e. one which
+     </p>
+          <ul class="itemize1">
+          <li class="itemize">is constant or
+          </li>
+          <li class="itemize">depends only on one variable or
+          </li>
+          <li class="itemize">is a product of factors, each of which depends only on one variable.</li></ul>
+                                                                     
+
+                                                                     
+     <!--l. 906--><p class="noindent" >One purpose of this division is to reduce the number of ODEs by one. Secondly,
+     the general solution of (<a 
+href="#x168-391004r23">20.23<!--tex4ht:ref: char1 --></a>), (<a 
+href="#x168-391005r24">20.24<!--tex4ht:ref: char2 --></a>) involves an additive constant to
+     <span 
+class="cmmi-10x-x-109">𝜀 </span>which is not relevant and would have to be set to zero. By dividing
+     through one ODE we eliminate <span 
+class="cmmi-10x-x-109">𝜀 </span>and lose the problem of identifying
+     this constant in the general solution before we would have to set it to
+     zero.
+     </p></dd><dt class="enumerate-enumitem">
+   2. </dt><dd 
+class="enumerate-enumitem">To solve the system (<a 
+href="#x168-391006r25">20.25<!--tex4ht:ref: char3 --></a>), (<a 
+href="#x168-391007r26">20.26<!--tex4ht:ref: char4 --></a>) or (<a 
+href="#x168-3910031">1<!--tex4ht:ref: char3a --></a>), the procedure <span 
+class="pcrr8t-x-x-109">CRACK </span>is called.
+     Although being designed primarily for the solution of overdetermined
+     PDE-systems, <span 
+class="pcrr8t-x-x-109">CRACK </span>can also be used to solve simple not overdetermined
+     ODE-systems. This solution process is not completely algorithmic. Improved
+     versions of <span 
+class="pcrr8t-x-x-109">CRACK </span>could be used, without making any changes of <span 
+class="pcrr8t-x-x-109">QUASILINPDE</span>
+     necessary.
+     <!--l. 923--><p class="noindent" >If the characteristic ODE-system can not be solved in the form (<a 
+href="#x168-391006r25">20.25<!--tex4ht:ref: char3 --></a>), (<a 
+href="#x168-391007r26">20.26<!--tex4ht:ref: char4 --></a>) or
+     (<a 
+href="#x168-3910031">1<!--tex4ht:ref: char3a --></a>) then successively all other ODEs of (<a 
+href="#x168-391004r23">20.23<!--tex4ht:ref: char1 --></a>), (<a 
+href="#x168-391005r24">20.24<!--tex4ht:ref: char2 --></a>) with non-vanishing right
+     hand side are used for division until one is found such that the resulting
+     ODE-system can be solved completely. Otherwise the PDE can not be solved by
+     <span 
+class="pcrr8t-x-x-109">QUASILINPDE</span>.
+     </p></dd><dt class="enumerate-enumitem">
+   3. </dt><dd 
+class="enumerate-enumitem">If the characteristic ODE-system (<a 
+href="#x168-391004r23">20.23<!--tex4ht:ref: char1 --></a>), (<a 
+href="#x168-391005r24">20.24<!--tex4ht:ref: char2 --></a>) has been integrated completely
+     and in full generality to the implicit solution
+     <table 
+class="equation"><tr><td><a 
+ id="x168-391010r27"></a>
+     <center class="math-display" >
+     <img 
+src="manual114x.png" alt="0 = G  (ϕ, w ,c ,𝜀),i,k = 1,...,n+ 1,j = 1,...,n
+      i    j  k
+     " class="math-display"  /></center></td><td class="equation-label">(20.27)</td></tr></table>
+     <!--l. 937--><p class="nopar" >
+     then according to the general theory for solving ﬁrst order PDEs, <span 
+class="cmmi-10x-x-109">𝜀 </span>has to be
+     eliminated from one of the equations and to be substituted in the others to have left
+     <span 
+class="cmmi-10x-x-109">n </span>equations. Also the constant that turns up additively to <span 
+class="cmmi-10x-x-109">𝜀 </span>is to be set to zero. Both
+     tasks are automatically fulﬁlled, if, as described above, <span 
+class="cmmi-10x-x-109">𝜀 </span>is already eliminated
+     from the beginning by dividing all equations of (<a 
+href="#x168-391004r23">20.23<!--tex4ht:ref: char1 --></a>), (<a 
+href="#x168-391005r24">20.24<!--tex4ht:ref: char2 --></a>) through one of
+     them.
+     </p><!--l. 949--><p class="noindent" >On either way one ends up with <span 
+class="cmmi-10x-x-109">n </span>equations
+                                                                     
+
+                                                                     
+</p>
+     <table 
+class="equation"><tr><td><a 
+ id="x168-391011r28"></a>
+     <center class="math-display" >
+     <img 
+src="manual115x.png" alt="0 = gi(ϕ, wj,ck),i,j,k = 1...n
+     " class="math-display"  /></center></td><td class="equation-label">(20.28)</td></tr></table>
+     <!--l. 952--><p class="nopar" >
+     involving <span 
+class="cmmi-10x-x-109">n </span>constants <span 
+class="cmmi-10x-x-109">c</span><sub><span 
+class="cmmi-8">k</span></sub>.
+     </p><!--l. 955--><p class="noindent" >The ﬁnal step is to solve (<a 
+href="#x168-391011r28">20.28<!--tex4ht:ref: charsol2 --></a>) for the <span 
+class="cmmi-10x-x-109">c</span><sub><span 
+class="cmmi-8">i</span></sub> to obtain
+</p>
+     <table 
+class="equation"><tr><td><a 
+ id="x168-391012r29"></a>
+     <center class="math-display" >
+     <img 
+src="manual116x.png" alt="ci = ci(ϕ,w1, ...,wn )i = 1,...n.
+     " class="math-display"  /></center></td><td class="equation-label">(20.29)</td></tr></table>
+     <!--l. 958--><p class="nopar" >
+     The ﬁnal solution <span 
+class="cmmi-10x-x-109">ϕ </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">ϕ</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">w</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmr-10x-x-109">) </span>of the PDE (<a 
+href="#x168-391002r22">20.22<!--tex4ht:ref: PDE --></a>) is then given implicitly
+     through
+</p>
+     <table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                    <span 
+class="cmr-10x-x-109">0 = </span><span 
+class="cmmi-10x-x-109">F</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">c</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">ϕ,w</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,c</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">ϕ,w</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,c</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">ϕ,w</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmr-10x-x-109">))</span>
+     </td></tr></table>
+     <!--l. 961--><p class="nopar" >
+     where <span 
+class="cmmi-10x-x-109">F </span>is an arbitrary function with <span 
+class="cmmi-10x-x-109">n </span>arguments.</p></dd></dl>
+<!--l. 965--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x168-39200020.1.3"></a>Syntax</h5>
+<!--l. 966--><p class="noindent" >The call of <span 
+class="pcrr8t-x-x-109">QUASILINPDE </span>is <br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">QUASILINPDE</span>(<span 
+class="ptmri8t-x-x-109">de</span>, <span 
+class="ptmri8t-x-x-109">fun</span>, <span 
+class="ptmri8t-x-x-109">varlist</span>); </p>
+     <ul class="itemize1">
+     <li class="itemize"><span 
+class="ptmri8t-x-x-109">de </span>is the diﬀerential expression which vanishes due to the PDE <span 
+class="ptmri8t-x-x-109">de</span><span 
+class="cmr-10x-x-109">= 0 </span>or, <span 
+class="ptmri8t-x-x-109">de</span>
+     may be the diﬀerential equation itself in the form <span 
+class="cmmi-10x-x-109">…</span> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmmi-10x-x-109">…</span>.
+     </li>
+     <li class="itemize"><span 
+class="ptmri8t-x-x-109">fun </span>is the unknown function.
+     </li>
+     <li class="itemize"><span 
+class="ptmri8t-x-x-109">varlist </span>is the list of variables of <span 
+class="ptmri8t-x-x-109">fun</span>.</li></ul>
+<!--l. 978--><p class="noindent" >The result of <span 
+class="pcrr8t-x-x-109">QUASILINPDE </span>is a list of general solutions
+</p>
+<table 
+class="equation-star"><tr><td>
+                            <span 
+class="cmsy-10x-x-109">{</span><span 
+class="ptmri8t-x-x-109">sol</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span> <span 
+class="ptmri8t-x-x-109">sol</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmsy-10x-x-109">}</span><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 979--><p class="nopar" >
+If <span 
+class="pcrr8t-x-x-109">QUASILINPDE </span>can not solve the PDE then it returns <span 
+class="cmsy-10x-x-109">{}</span>. Each solution <span 
+class="ptmri8t-x-x-109">sol</span><sub><span 
+class="cmmi-8">i</span></sub> is a list of
+expressions
+                                                                     
+
+                                                                     
+</p>
+<table 
+class="equation-star"><tr><td>
+                             <span 
+class="cmsy-10x-x-109">{</span><span 
+class="ptmri8t-x-x-109">ex</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span> <span 
+class="ptmri8t-x-x-109">ex</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmsy-10x-x-109">}</span>
+</td></tr></table>
+<!--l. 982--><p class="nopar" >
+such that the dependent function (<span 
+class="cmmi-10x-x-109">ϕ </span>in (<a 
+href="#x168-391002r22">20.22<!--tex4ht:ref: PDE --></a>)) is determined implicitly through an
+arbitrary function <span 
+class="cmmi-10x-x-109">F </span>and the algebraic equation
+</p>
+<table 
+class="equation-star"><tr><td>
+                          <span 
+class="cmr-10x-x-109">0 = </span><span 
+class="cmmi-10x-x-109">F</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="ptmri8t-x-x-109">ex</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span> <span 
+class="ptmri8t-x-x-109">ex</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 985--><p class="nopar" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x168-39300020.1.3"></a>Examples</h5>
+<!--l. 988--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Example 1:</span><br 
+class="newline" />To solve the quasilinear ﬁrst order PDE
+</p>
+                                                                     
+
+                                                                     
+<table 
+class="equation-star"><tr><td>
+                       <span 
+class="cmr-10x-x-109">1 = </span><span 
+class="cmmi-10x-x-109">xu,</span><sub><span 
+class="cmmi-8">x</span></sub> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">uu,</span><sub><span 
+class="cmmi-8">y</span></sub> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">zu,</span><sub><span 
+class="cmmi-8">z</span></sub>
+</td></tr></table>
+<!--l. 989--><p class="nopar" >
+for the function <span 
+class="cmmi-10x-x-109">u </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">u</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x,y,z</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">, </span>the input would be
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-649">
+depend u,x,y,z;
+ <br />de:=x*df(u,x)+u*df(u,y)-z*df(u,z) - 1;
+ <br />varlist:={x,y,z};
+ <br />QUASILINPDE(de,u,varlist);
+</div>
+<!--l. 997--><p class="nopar" >
+In this example the procedure returns
+</p>
+<table 
+class="equation-star"><tr><td>
+                        <span 
+class="cmsy-10x-x-109">{{</span><span 
+class="cmmi-10x-x-109">x∕e</span><sup><span 
+class="cmmi-8">u</span></sup><span 
+class="cmmi-10x-x-109">,ze</span><sup><span 
+class="cmmi-8">u</span></sup><span 
+class="cmmi-10x-x-109">,u</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">y</span><span 
+class="cmsy-10x-x-109">}}</span><span 
+class="cmmi-10x-x-109">,</span>
+</td></tr></table>
+<!--l. 1000--><p class="nopar" >
+i.e. there is one general solution (because the outer list has only one element which itself
+is a list) and <span 
+class="cmmi-10x-x-109">u </span>is given implicitly through the algebraic equation
+</p>
+<table 
+class="equation-star"><tr><td>
+                       <span 
+class="cmr-10x-x-109">0 = </span><span 
+class="cmmi-10x-x-109">F</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x∕e</span><sup><span 
+class="cmmi-8">u</span></sup><span 
+class="cmmi-10x-x-109">,ze</span><sup><span 
+class="cmmi-8">u</span></sup><span 
+class="cmmi-10x-x-109">,u</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">y</span><span 
+class="cmr-10x-x-109">)</span>
+</td></tr></table>
+                                                                     
+
+                                                                     
+<!--l. 1004--><p class="nopar" >
+with arbitrary function <span 
+class="cmmi-10x-x-109">F. </span><br 
+class="newline" /><span 
+class="ptmri8t-x-x-109">Example 2:</span><br 
+class="newline" />For the linear inhomogeneous PDE
+</p>
+<table 
+class="equation-star"><tr><td>
+                   <span 
+class="cmr-10x-x-109">0 = </span><span 
+class="cmmi-10x-x-109">yz,</span><sub><span 
+class="cmmi-8">x</span></sub> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">xz,</span><sub><span 
+class="cmmi-8">y</span></sub> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,</span> for<span 
+class="cmmi-10x-x-109">z </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x,y</span><span 
+class="cmr-10x-x-109">)</span>
+</td></tr></table>
+<!--l. 1008--><p class="nopar" >
+<span 
+class="pcrr8t-x-x-109">QUASILINPDE </span>returns the result that for an arbitrary function <span 
+class="cmmi-10x-x-109">F, </span>the equation
+</p>
+<table 
+class="equation-star"><tr><td>
+                       <span 
+class="cmr-10x-x-109">0 = </span><span 
+class="cmmi-10x-x-109">F</span><img 
+src="manual117x.png" alt="(               )
+ x-+-y  z
+   ez ,e (x − y)"  class="left" align="middle" />
+</td></tr></table>
+<!--l. 1011--><p class="nopar" >
+deﬁnes the general solution for <span 
+class="cmmi-10x-x-109">z</span>. <br 
+class="newline" /><span 
+class="ptmri8t-x-x-109">Example 3:</span><br 
+class="newline" />For the linear inhomogeneous PDE (3.8) from <span class="cite">[<a 
+href="manualap2.html#XKamke:Vol2">Kam59</a>]</span>
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+            <span 
+class="cmr-10x-x-109">0 = </span><span 
+class="cmmi-10x-x-109">xw,</span><sub><span 
+class="cmmi-8">x</span></sub> <span 
+class="cmr-10x-x-109">+ (</span><span 
+class="cmmi-10x-x-109">y </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)(</span><span 
+class="cmmi-10x-x-109">w,</span><sub><span 
+class="cmmi-8">y</span></sub> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">w,</span><sub><span 
+class="cmmi-8">z</span></sub><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,</span> for<span 
+class="cmmi-10x-x-109">w </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">w</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x,y,z</span><span 
+class="cmr-10x-x-109">)</span>
+</td></tr></table>
+<!--l. 1015--><p class="nopar" >
+<span 
+class="pcrr8t-x-x-109">QUASILINPDE </span>returns the result that for an arbitrary function <span 
+class="cmmi-10x-x-109">F, </span>the equation
+</p>
+<table 
+class="equation-star"><tr><td>
+                   <span 
+class="cmr-10x-x-109">0 = </span><span 
+class="cmmi-10x-x-109">F</span><img 
+src="manual118x.png" alt="(w,y + z, ln(x)(y + z) − y)"  class="left" align="middle" />
+</td></tr></table>
+<!--l. 1018--><p class="nopar" >
+deﬁnes the general solution for <span 
+class="cmmi-10x-x-109">w</span>, i.e. for any function <span 
+class="cmmi-10x-x-109">f</span>
+</p>
+<table 
+class="equation-star"><tr><td>
+                    <span 
+class="cmmi-10x-x-109">w </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">f</span><img 
+src="manual119x.png" alt="(y + z, ln(x)(y + z) − y)"  class="left" align="middle" />
+</td></tr></table>
+                                                                     
+
+                                                                     
+<!--l. 1020--><p class="nopar" >
+solves the PDE.
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x168-39400020.1.3"></a>Limitations of <span 
+class="pcrr8t-x-x-109">QUASILINPDE</span></h5>
+<!--l. 1024--><p class="noindent" >One restriction on the applicability of <span 
+class="pcrr8t-x-x-109">QUASILINPDE </span>results from the program <span 
+class="pcrr8t-x-x-109">CRACK</span>
+which tries to solve the characteristic ODE-system of the PDE. So far <span 
+class="pcrr8t-x-x-109">CRACK </span>can be
+applied only to polynomially non-linear DE’s, i.e. the characteristic ODE-system
+(<a 
+href="#x168-391006r25">20.25<!--tex4ht:ref: char3 --></a>),(<a 
+href="#x168-391007r26">20.26<!--tex4ht:ref: char4 --></a>) or (<a 
+href="#x168-3910031">1<!--tex4ht:ref: char3a --></a>) may only be polynomially non-linear, i.e. in the PDE (<a 
+href="#x168-391002r22">20.22<!--tex4ht:ref: PDE --></a>) the
+expressions <span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">i</span></sub> and <span 
+class="cmmi-10x-x-109">b </span>may only be rational in <span 
+class="cmmi-10x-x-109">w</span><sub><span 
+class="cmmi-8">j</span></sub><span 
+class="cmmi-10x-x-109">,ϕ</span>.
+</p><!--l. 1032--><p class="noindent" >The task of <span 
+class="pcrr8t-x-x-109">CRACK </span>is simpliﬁed as (<a 
+href="#x168-391010r27">20.27<!--tex4ht:ref: charsol1 --></a>) does not have to be solved for <span 
+class="cmmi-10x-x-109">w</span><sub><span 
+class="cmmi-8">j</span></sub><span 
+class="cmmi-10x-x-109">,ϕ</span>. On the
+other hand (<a 
+href="#x168-391010r27">20.27<!--tex4ht:ref: charsol1 --></a>) has to be solved for the <span 
+class="cmmi-10x-x-109">c</span><sub><span 
+class="cmmi-8">i</span></sub>. This gives a second restriction
+coming from the REDUCE function <span 
+class="pcrr8t-x-x-109">SOLVE</span>. Though <span 
+class="pcrr8t-x-x-109">SOLVE </span>can be applied to
+polynomial and transzendential equations, again no guarantee for solvability can be
+given.
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.1.4    </span> <a 
+ id="x168-39500020.1.4"></a>Transformation of DEs</h4>
+<!--l. 1042--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x168-39600020.1.4"></a>The content of <span 
+class="pcrr8t-x-x-109">DETRAFO</span></h5>
+<a 
+ id="dx168-396001"></a>
+<!--l. 1044--><p class="noindent" >Finally, after having found the ﬁnite transformations, the program <span 
+class="pcrr8t-x-x-109">APPLYSYM</span>
+calls the procedure <span 
+class="pcrr8t-x-x-109">DETRAFO </span>to perform the transformations. <span 
+class="pcrr8t-x-x-109">DETRAFO </span>can
+also be used alone to do point- or higher order transformations which involve a
+considerable computational eﬀort if the diﬀerential order of the expression to
+be transformed is high and if many dependent and independent variables are
+involved. This might be especially useful if one wants to experiment and try out
+diﬀerent coordinate transformations interactively, using <span 
+class="pcrr8t-x-x-109">DETRAFO </span>as standalone
+procedure.
+</p><!--l. 1055--><p class="noindent" >To run <span 
+class="pcrr8t-x-x-109">DETRAFO</span>, the old functions <span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmmi-8">α</span></sup> and old variables <span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">i</span></sup> must be known explicitly in
+terms of algebraic or diﬀerential expressions of the new functions <span 
+class="cmmi-10x-x-109">u</span><sup><span 
+class="cmmi-8">β</span></sup> and new variables
+<span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmmi-8">j</span></sup>. Then for point transformations the identity
+                                                                     
+
+                                                                     
+</p><table 
+class="align">
+                  <tr><td 
+class="align-odd"><span 
+class="cmmi-10x-x-109">dy</span><sup><span 
+class="cmmi-8">α</span></sup></td>                  <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= </span><img 
+src="manual120x.png" alt="(                )
+ yα, i +yα, β uβ,i
+    v     u    v"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">dv</span><sup><span 
+class="cmmi-8">i</span></sup></td>                                         <td 
+class="align-label"><a 
+ id="x168-396002r30"></a>(20.30)
+                  </td></tr><tr><td 
+class="align-odd"></td>                     <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmmi-10x-x-109">,</span><sub>
+<span 
+class="cmmi-8">x</span><sup><span 
+class="cmmi-6">j</span></sup></sub><span 
+class="cmmi-10x-x-109">dx</span><sup><span 
+class="cmmi-8">j</span></sup></td>                                                       <td 
+class="align-label"><a 
+ id="x168-396003r31"></a>(20.31)
+                  </td></tr><tr><td 
+class="align-odd"></td>                     <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmmi-10x-x-109">,</span><sub>
+<span 
+class="cmmi-8">x</span><sup><span 
+class="cmmi-6">j</span></sup></sub><img 
+src="manual121x.png" alt="(                )
+ xj,vi +xj,u β uβ,vi"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">dv</span><sup><span 
+class="cmmi-8">i</span></sup></td>                                    <td 
+class="align-label"><a 
+ id="x168-396004r32"></a>(20.32)                  </td></tr></table>
+<!--l. 1067--><p class="noindent" >provides the transformation
+</p>
+<table 
+class="equation"><tr><td><a 
+ id="x168-396005r33"></a>
+<center class="math-display" >
+<img 
+src="manual122x.png" alt="             (    )
+  α     dyα    dxj − 1
+y  ,xj = dvi-⋅  dvi-
+" class="math-display"  /></center></td><td class="equation-label">(20.33)</td></tr></table>
+<!--l. 1071--><p class="nopar" >
+with <span 
+class="ptmri8t-x-x-109">det</span><img 
+src="manual123x.png" alt="(dxj∕dvi)"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">≠</span><span 
+class="cmr-10x-x-109">0 </span>because of the regularity of the transformation which is checked
+by <span 
+class="pcrr8t-x-x-109">DETRAFO</span>. Non-regular transformations are not performed.
+</p><!--l. 1076--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">DETRAFO </span>is not restricted to point transformations. In the case of contact- or higher
+order transformations, the total derivatives <span 
+class="cmmi-10x-x-109">dy</span><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmmi-10x-x-109">∕dv</span><sup><span 
+class="cmmi-8">i</span></sup> and <span 
+class="cmmi-10x-x-109">dx</span><sup><span 
+class="cmmi-8">j</span></sup><span 
+class="cmmi-10x-x-109">∕dv</span><sup><span 
+class="cmmi-8">i</span></sup> then only include all
+<span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmmi-8">i</span></sup><span 
+class="cmsy-10x-x-109">− </span>derivatives of <span 
+class="cmmi-10x-x-109">u</span><sup><span 
+class="cmmi-8">β</span></sup> which occur in
+                                                                     
+
+                                                                     
+</p><table 
+class="align-star">
+                       <tr><td 
+class="align-odd"><span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmmi-8">α</span></sup></td>                       <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmmi-8">α</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmmi-8">i</span></sup><span 
+class="cmmi-10x-x-109">,u</span><sup><span 
+class="cmmi-8">β</span></sup><span 
+class="cmmi-10x-x-109">,u</span><sup><span 
+class="cmmi-8">β</span></sup><span 
+class="cmmi-10x-x-109">,</span><sub>
+<span 
+class="cmmi-8">v</span><sup><span 
+class="cmmi-6">j</span></sup></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmr-10x-x-109">)</span></td>                       <td 
+class="align-label"></td>                       <td 
+class="align-label">
+                       </td></tr><tr><td 
+class="align-odd"><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">k</span></sup></td>                       <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">k</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmmi-8">i</span></sup><span 
+class="cmmi-10x-x-109">,u</span><sup><span 
+class="cmmi-8">β</span></sup><span 
+class="cmmi-10x-x-109">,u</span><sup><span 
+class="cmmi-8">β</span></sup><span 
+class="cmmi-10x-x-109">,</span><sub>
+<span 
+class="cmmi-8">v</span><sup><span 
+class="cmmi-6">j</span></sup></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">.</span></td>                       <td 
+class="align-label"></td>                       <td 
+class="align-label"></td></tr></table>
+<!--l. 1086--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x168-39700020.1.4"></a>Syntax</h5>
+<!--l. 1087--><p class="noindent" >The call of <span 
+class="pcrr8t-x-x-109">DETRAFO </span>is
+</p>
+<div class="flushleft" 
+>
+<!--l. 1089--><p class="noindent" >
+ <span 
+class="pcrr8t-x-x-109">DETRAFO</span>({<span 
+class="ptmri8t-x-x-109">ex</span><sub><span 
+class="cmr-8">1</span></sub>, <span 
+class="ptmri8t-x-x-109">ex</span><sub><span 
+class="cmr-8">2</span></sub>, …, <span 
+class="ptmri8t-x-x-109">ex</span><sub><span 
+class="cmmi-8">m</span></sub>},<br />
+                  {<span 
+class="ptmri8t-x-x-109">ofun</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">=</span><span 
+class="ptmri8t-x-x-109">fex</span><sub><span 
+class="cmr-8">1</span></sub>, <span 
+class="ptmri8t-x-x-109">ofun</span><sub><span 
+class="cmr-8">2</span></sub> <span 
+class="cmr-10x-x-109">=</span><span 
+class="ptmri8t-x-x-109">fex</span><sub><span 
+class="cmr-8">2</span></sub>, …,<span 
+class="ptmri8t-x-x-109">ofun</span><sub><span 
+class="cmmi-8">p</span></sub> <span 
+class="cmr-10x-x-109">=</span><span 
+class="ptmri8t-x-x-109">fex</span><sub><span 
+class="cmmi-8">p</span></sub>},<br />
+                  {<span 
+class="ptmri8t-x-x-109">ovar</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">=</span><span 
+class="ptmri8t-x-x-109">vex</span><sub><span 
+class="cmr-8">1</span></sub>, <span 
+class="ptmri8t-x-x-109">ovar</span><sub><span 
+class="cmr-8">2</span></sub> <span 
+class="cmr-10x-x-109">=</span><span 
+class="ptmri8t-x-x-109">vex</span><sub><span 
+class="cmr-8">2</span></sub>, …, <span 
+class="ptmri8t-x-x-109">ovar</span><sub><span 
+class="cmmi-8">q</span></sub> <span 
+class="cmr-10x-x-109">=</span><span 
+class="ptmri8t-x-x-109">vex</span><sub><span 
+class="cmmi-8">q</span></sub>},<br />
+                  {<span 
+class="ptmri8t-x-x-109">nfun</span><sub><span 
+class="cmr-8">1</span></sub>, <span 
+class="ptmri8t-x-x-109">nfun</span><sub><span 
+class="cmr-8">2</span></sub>, …, <span 
+class="ptmri8t-x-x-109">nfun</span><sub><span 
+class="cmmi-8">p</span></sub>},<br />
+                  {<span 
+class="ptmri8t-x-x-109">nvar</span><sub><span 
+class="cmr-8">1</span></sub>, <span 
+class="ptmri8t-x-x-109">nvar</span><sub><span 
+class="cmr-8">2</span></sub>, …, <span 
+class="ptmri8t-x-x-109">nvar</span><sub><span 
+class="cmmi-8">q</span></sub>});</p></div>
+<!--l. 1099--><p class="noindent" >where <span 
+class="cmmi-10x-x-109">m,p,q </span>are arbitrary. </p>
+     <ul class="itemize1">
+     <li class="itemize">The <span 
+class="ptmri8t-x-x-109">ex</span><sub><span 
+class="cmmi-8">i</span></sub> are diﬀerential expressions to be transformed.
+     </li>
+     <li class="itemize">The second list is the list of old functions <span 
+class="ptmri8t-x-x-109">ofun </span>expressed as expressions <span 
+class="ptmri8t-x-x-109">fex</span>
+     in terms of new functions <span 
+class="ptmri8t-x-x-109">nfun </span>and new independent variables <span 
+class="ptmri8t-x-x-109">nvar</span>.
+                                                                     
+
+                                                                     
+     </li>
+     <li class="itemize">Similarly  the  third  list  expresses  the  old  independent  variables  <span 
+class="ptmri8t-x-x-109">ovar  </span>as
+     expressions  <span 
+class="ptmri8t-x-x-109">vex  </span>in  terms  of  new  functions  <span 
+class="ptmri8t-x-x-109">nfun  </span>and  new  independent
+     variables <span 
+class="ptmri8t-x-x-109">nvar</span>.
+     </li>
+     <li class="itemize">The  last  two  lists  include  the  new  functions  <span 
+class="ptmri8t-x-x-109">nfun  </span>and  new  independent
+     variables <span 
+class="ptmri8t-x-x-109">nvar</span>.</li></ul>
+<!--l. 1115--><p class="noindent" >Names for <span 
+class="ptmri8t-x-x-109">ofun, ovar, nfun </span>and <span 
+class="ptmri8t-x-x-109">nvar </span>can be arbitrarily chosen.
+</p><!--l. 1118--><p class="noindent" >As the result <span 
+class="pcrr8t-x-x-109">DETRAFO </span>returns the ﬁrst argument of its input, i.e. the list
+</p>
+<table 
+class="equation-star"><tr><td>
+                           <span 
+class="cmsy-10x-x-109">{</span><span 
+class="ptmri8t-x-x-109">ex</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span> <span 
+class="ptmri8t-x-x-109">ex</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,</span> <span 
+class="ptmri8t-x-x-109">ex</span><sub><span 
+class="cmmi-8">m</span></sub><span 
+class="cmsy-10x-x-109">}</span>
+</td></tr></table>
+<!--l. 1120--><p class="nopar" >
+where all <span 
+class="ptmri8t-x-x-109">ex</span><sub><span 
+class="cmmi-8">i</span></sub> are transformed.
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x168-39800020.1.4"></a>Limitations of <span 
+class="pcrr8t-x-x-109">DETRAFO</span></h5>
+<!--l. 1124--><p class="noindent" >The only requirement is that the old independent variables <span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">i</span></sup> and old functions <span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmmi-8">α</span></sup>
+must be given explicitly in terms of new variables <span 
+class="cmmi-10x-x-109">v</span><sup><span 
+class="cmmi-8">j</span></sup> and new functions <span 
+class="cmmi-10x-x-109">u</span><sup><span 
+class="cmmi-8">β</span></sup> as
+indicated in the syntax. Then all calculations involve only diﬀerentiations and basic
+algebra.
+</p><!--l. 104--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 106--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse126.html" >Up</a></td><td class="clinks"><a 
+href="manualse127.html" >Next</a></td><td class="clinks"><a 
+href="manualse126.html" >Front</a></td></tr></table><a 
+ id="tailmanualse126.html"></a>   </p> 
+</body> 
+</html>

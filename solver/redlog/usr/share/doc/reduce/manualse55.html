@@ -1,0 +1,110 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Kernels</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch8.html#manualse55.html" >Up</a></td><td class="clinks"><a 
+href="manualse56.html" >Next</a></td><td class="clinks"><a 
+href="#tailmanualse55.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">8.1    </span> <a 
+ id="x72-1190008.1"></a>Kernels</h3>
+<a 
+ id="dx72-119001"></a>
+<!--l. 11--><p class="noindent" >REDUCE is designed so that each operator in the system has an evaluation (or
+simpliﬁcation)<a 
+ id="dx72-119002"></a> function associated with it that transforms the expression into an internal
+canonical form. <a 
+ id="dx72-119003"></a>This form, which bears little resemblance to the original expression, is
+described in detail in <span class="cite">[<a 
+href="manualap2.html#XHearn:71a">Hea71</a>]</span>.
+</p><!--l. 17--><p class="noindent" >The evaluation function may transform its arguments in one of two alternative ways.
+First, it may convert the expression into other operators in the system, leaving no
+functions of the original operator for further manipulation. This is in a sense
+true of the evaluation functions associated with the operators <span 
+class="pcrr8t-x-x-109">+</span>, <span 
+class="pcrr8t-x-x-109">* </span>and <span 
+class="pcrr8t-x-x-109">/ </span>, for
+example, because the canonical form<a 
+ id="dx72-119004"></a> does not include these operators explicitly. It
+is also true of an operator such as the determinant operator <span 
+class="pcrr8t-x-x-109">det</span><a 
+ id="dx72-119005"></a> because the
+relevant evaluation function calculates the appropriate determinant, and the
+operator <span 
+class="pcrr8t-x-x-109">det </span>no longer appears. On the other hand, the evaluation process may
+                                                                     
+
+                                                                     
+leave some residual functions of the relevant operator. For example, with the
+operator <span 
+class="pcrr8t-x-x-109">cos</span>, a residual expression like <span 
+class="pcrr8t-x-x-109">cos(x) </span>may remain after evaluation
+unless a rule for the reduction of cosines into exponentials, for example, were
+introduced. These residual functions of an operator are termed <span 
+class="ptmri8t-x-x-109">kernels</span><a 
+ id="dx72-119006"></a> and are stored
+uniquely like variables. Subsequently, the kernel is carried through the calculation
+as a variable unless transformations are introduced for the operator at a later
+stage.
+</p><!--l. 36--><p class="noindent" ><a 
+ id="switch:INTSTR"></a> In those cases where the evaluation process leaves an operator expression with
+non-trivial arguments, the form of the argument can vary depending on the state of the
+system at the point of evaluation. Such arguments are normally produced in
+expanded form with no terms factored or grouped in any way. For example, the
+expression <span 
+class="pcrr8t-x-x-109">cos(2*x+2*y) </span>will normally be returned in the same form. If the
+argument <span 
+class="pcrr8t-x-x-109">2*x+2*y </span>were evaluated at the top level, however, it would be printed
+as <span 
+class="pcrr8t-x-x-109">2*(X+Y)</span>. If it is desirable to have the arguments themselves in a similar
+form, the switch <span 
+class="pcrr8t-x-x-109">intstr</span><a 
+ id="dx72-119007"></a><a 
+ id="dx72-119008"></a><a 
+ id="dx72-119009"></a> (for “internal structure”), if on, will cause this to
+happen.
+</p><!--l. 48--><p class="noindent" >In cases where the arguments of the kernel operators may be reordered, the system puts
+them in a canonical order, based on an internal intrinsic ordering of the variables.
+However, some commands allow arguments in the form of kernels, and the user has no
+way of telling what internal order the system will assign to these arguments. To resolve
+this diﬃculty, we introduce the notion of a <span 
+class="ptmri8t-x-x-109">kernel form</span><a 
+ id="dx72-119010"></a> as an expression that transforms
+to a kernel on evaluation.
+</p><!--l. 56--><p class="noindent" >Examples of kernel forms are:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-209">
+        a
+ <br />        cos(x*y)
+ <br />        log(sin(x))
+</div>
+<!--l. 61--><p class="nopar" > whereas
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-210">
+        a*b
+ <br />        (a+b)^4
+</div>
+<!--l. 66--><p class="nopar" > are not.
+</p><!--l. 69--><p class="noindent" >We see that kernel forms can usually be used as generalized variables, and most algebraic
+properties associated with variables may also be associated with kernels.
+                                                                     
+
+                                                                     
+</p><!--l. 73--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch8.html#manualse55.html" >Up</a></td><td class="clinks"><a 
+href="manualse56.html" >Next</a></td><td class="clinks"><a 
+href="manualse55.html" >Front</a></td></tr></table><a 
+ id="tailmanualse55.html"></a> </p> 
+</body> 
+</html>

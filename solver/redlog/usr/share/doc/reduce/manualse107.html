@@ -1,0 +1,338 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>FPS: Automatic Calculation of Formal Power Series</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch16.html#manualse107.html" >Up</a></td><td class="clinks"><a 
+href="manualse106.html" >Prev</a></td><td class="clinks"><a 
+href="manualse106.html#tailmanualse106.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse107.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">16.3    </span> <a 
+ id="x138-25900016.3"></a>FPS: Automatic Calculation of Formal Power Series</h3>
+<a 
+ id="dx138-259001"></a>
+<a 
+ id="dx138-259002"></a>
+<!--l. 29--><p class="noindent" >This package can expand a speciﬁc class of functions into their corresponding Laurent-Puiseux
+series.<span class="footnote-mark"><a 
+href="manual139.html#fn3x16"><sup class="textsuperscript">3</sup></a></span><a 
+ id="x138-259003f3"></a> 
+<a 
+ id="dx138-259004"></a>
+<a 
+ id="dx138-259005"></a>
+<a 
+ id="dx138-259006"></a>
+<a 
+ id="dx138-259007"></a>
+</p>
+<h4 class="subsectionHead"><span class="titlemark">16.3.1    </span> <a 
+ id="x138-26000016.3.1"></a>Introduction</h4>
+<!--l. 5--><p class="noindent" >This package can expand functions of certain type into their corresponding
+Laurent-Puiseux series as a sum of terms of the form
+</p>
+<table 
+class="equation-star"><tr><td>
+                      <span 
+class="cmex-10x-x-109">∑</span>
+                         <sub><span 
+class="cmmi-8">k</span><span 
+class="cmr-8">=0</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><span 
+class="cmmi-10x-x-109">a</span><sub>
+<span 
+class="cmmi-8">k</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmr-8">0</span></sub><span 
+class="cmr-10x-x-109">)</span><sup><span 
+class="cmmi-8">mk∕n</span><span 
+class="cmr-8">+</span><span 
+class="cmmi-8">s</span></sup>
+</td></tr></table>
+<!--l. 9--><p class="nopar" >
+where <span 
+class="cmmi-10x-x-109">m </span>is the ‘symmetry number’, <span 
+class="cmmi-10x-x-109">s </span>is the ‘shift number’, <span 
+class="cmmi-10x-x-109">n </span>is the ‘Puiseux
+                                                                     
+
+                                                                     
+number’, and <span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmr-8">0</span></sub> is the ‘point of development’. The following types are supported:
+</p>
+     <ul class="itemize1">
+     <li class="itemize">textbffunctions of ‘rational type’, which are either rational or have a rational
+     derivative of some order;
+     </li>
+     <li class="itemize"><span 
+class="ptmb8t-x-x-109">functions  of  ‘hypergeometric  type’  </span>where  <span 
+class="cmmi-10x-x-109">a</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">k </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">m</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">∕a</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">k</span><span 
+class="cmr-10x-x-109">) </span>is  a  rational
+     function for some integer <span 
+class="cmmi-10x-x-109">m</span>;
+     </li>
+     <li class="itemize"><span 
+class="ptmb8t-x-x-109">functions of ‘explike type’ </span>which satisfy a linear homogeneous diﬀerential
+     equation with constant coeﬃcients.</li></ul>
+<!--l. 26--><p class="noindent" >The <span 
+class="ptmrc8t-x-x-109">F<span 
+class="small-caps">P</span><span 
+class="small-caps">S</span> </span>package is an implementation of the method presented in <span class="cite">[<a 
+href="manualap2.html#XKoepf:92">Koe92</a>]</span>. The
+implementations of this package for <span 
+class="ptmrc8t-x-x-109">M<span 
+class="small-caps">A</span><span 
+class="small-caps">P</span><span 
+class="small-caps">L</span><span 
+class="small-caps">E</span> </span>(by D. Gruntz) and <span 
+class="ptmrc8t-x-x-109">M<span 
+class="small-caps">A</span><span 
+class="small-caps">T</span><span 
+class="small-caps">H</span><span 
+class="small-caps">E</span><span 
+class="small-caps">M</span><span 
+class="small-caps">A</span><span 
+class="small-caps">T</span><span 
+class="small-caps">I</span><span 
+class="small-caps">C</span><span 
+class="small-caps">A</span> </span>(by
+W. Koepf) served as guidelines for this one.
+</p><!--l. 31--><p class="noindent" >Numerous examples can be found in <span class="cite">[<a 
+href="manualap2.html#XKoepf:93a">Koe93b</a>, <a 
+href="manualap2.html#XKoepf:93b">Koe93a</a>]</span>, most of which are contained in
+the test ﬁle <span 
+class="pcrr8t-x-x-109">fps.tst</span>. Many more examples can be found in the extensive bibliography
+of Hansen <span class="cite">[<a 
+href="manualap2.html#XHansen:75">Han75</a>]</span>.
+</p><!--l. 36--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">16.3.2    </span> <a 
+ id="x138-26100016.3.2"></a>REDUCE operator <span 
+class="pcrr8t-x-x-109">FPS</span></h4>
+<a 
+ id="dx138-261001"></a>
+<!--l. 39--><p class="noindent" ><a 
+ id="operator:FPS"></a> <span 
+class="pcrr8t-x-x-109">fps(f,x,x0) </span>tries to ﬁnd a formal power series expansion for <span 
+class="pcrr8t-x-x-109">f </span>with respect to the
+variable <span 
+class="pcrr8t-x-x-109">x </span>at the point of development <span 
+class="pcrr8t-x-x-109">x0</span>. It also works for formal Laurent (negative
+exponents) and Puiseux series (fractional exponents). If the third argument is omitted,
+then <span 
+class="pcrr8t-x-x-109">x0:=0 </span>is assumed.
+</p><!--l. 47--><p class="noindent" >Examples: <span 
+class="pcrr8t-x-x-109">fps(asin(x)^2,x) </span>results in
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-504">
+ <br />         2*k  2*k             2  2
+ <br />        x   *2   *factorial(k) *x
+ <br />infsum(----------------------------,k,0,infinity)
+ <br />        factorial(2*k + 1)*(k + 1)
+</div>
+<!--l. 54--><p class="nopar" > <span 
+class="pcrr8t-x-x-109">fps(sin x,x,pi) </span>gives
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-505">
+                   2*k       k
+ <br />        ( - pi + x)   *( - 1) *( - pi + x)
+ <br />infsum(------------------------------------,k,0,
+ <br />                factorial(2*k + 1)
+ <br />
+ <br />       infinity)
+</div>
+<!--l. 63--><p class="nopar" > and <span 
+class="pcrr8t-x-x-109">fps(sqrt(2-x^2),x) </span>yields
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-506">
+            2*k
+ <br />         - x   *sqrt(2)*factorial(2*k)
+ <br />infsum(--------------------------------,k,0,infinity)
+ <br />           k             2
+ <br />          8 *factorial(k) *(2*k - 1)
+</div>
+<!--l. 71--><p class="nopar" > <a 
+ id="dx138-261002"></a> <a 
+ id="operator:INFSUM"></a> Note: The result contains one or more <span 
+class="pcrr8t-x-x-109">infsum </span>terms such that it does not interfere
+with the REDUCE operator <span 
+class="pcrr8t-x-x-109">sum</span>. In graphical oriented REDUCE interfaces this operator
+results in the usual <span 
+class="cmex-10x-x-109">∑</span>
+  notation.
+</p><!--l. 78--><p class="noindent" >If possible, the output is given using factorials. In some cases, the use of the
+Pochhammer symbol <span 
+class="pcrr8t-x-x-109">pochhammer(a,k)</span><span 
+class="cmr-10x-x-109">:= </span><span 
+class="cmmi-10x-x-109">a</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a </span><span 
+class="cmr-10x-x-109">+ 1)</span><img 
+src="manual60x.png" alt="⋅⋅⋅"  class="@cdots"  /><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">k </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1) </span>is necessary.
+</p><!--l. 82--><p class="noindent" >The operator <span 
+class="pcrr8t-x-x-109">fps </span>uses the operator <span 
+class="pcrr8t-x-x-109">SimpleDE </span>of the next section.
+</p><!--l. 84--><p class="noindent" >If an error message of type
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-507">
+Could not find the limit of:
+</div>
+<!--l. 87--><p class="nopar" > occurs, you can set the corresponding limit yourself and try a recalculation. In the
+computation of <span 
+class="pcrr8t-x-x-109">fps(atan(cot(x)),x,0)</span>, REDUCE is not able to ﬁnd the value
+for the limit <span 
+class="pcrr8t-x-x-109">limit(atan(cot(x)),x,0) </span>since the <span 
+class="pcrr8t-x-x-109">atan </span>function is multi-valued.
+One can choose the branch of <span 
+class="pcrr8t-x-x-109">atan </span>such that this limit equals <span 
+class="cmmi-10x-x-109">π∕</span><span 
+class="cmr-10x-x-109">2 </span>so that we may
+set
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-508">
+let limit(atan(cot(~x)),x,0)=&#x003E;pi/2;
+</div>
+<!--l. 96--><p class="nopar" > and a recalculation of <span 
+class="pcrr8t-x-x-109">fps(atan(cot(x)),x,0) </span>yields the output <span 
+class="pcrr8t-x-x-109">pi - 2*x</span>
+which is the correct local series representation.
+</p><!--l. 101--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">16.3.3    </span> <a 
+ id="x138-26200016.3.3"></a>REDUCE operator <span 
+class="pcrr8t-x-x-109">SimpleDE</span></h4>
+<a 
+ id="dx138-262001"></a>
+<!--l. 103--><p class="noindent" ><a 
+ id="operator:SIMPLEDE"></a>
+</p><!--l. 105--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">SimpleDE(f,x) </span>tries to ﬁnd a homogeneous linear diﬀerential equation with
+polynomial coeﬃcients for <span 
+class="cmmi-10x-x-109">f </span>with respect to <span 
+class="cmmi-10x-x-109">x</span>. Make sure that <span 
+class="cmmi-10x-x-109">y </span>is not a used
+variable. The setting <span 
+class="pcrr8t-x-x-109">factor df; </span>is recommended to receive a nicer output
+form.
+</p><!--l. 110--><p class="noindent" >Examples: <span 
+class="pcrr8t-x-x-109">SimpleDE(asin(x)^2,x) </span>then results in
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-509">
+            2
+ <br />df(y,x,3)*(x  - 1) + 3*df(y,x,2)*x + df(y,x)
+</div>
+<!--l. 114--><p class="nopar" > <span 
+class="pcrr8t-x-x-109">SimpleDE(exp(x^(1/3)),x) </span>gives
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-510">
+              2
+ <br />27*df(y,x,3)*x  + 54*df(y,x,2)*x + 6*df(y,x) - y
+</div>
+<!--l. 119--><p class="nopar" > and <span 
+class="pcrr8t-x-x-109">SimpleDE(sqrt(2-x^2),x) </span>yields
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-511">
+          2
+ <br />df(y,x)*(x  - 2) - x*y
+</div>
+<!--l. 124--><p class="nopar" > <a 
+ id="dx138-262002"></a> <a 
+ id="reserved:FPS_SEARCH_DEPTH"></a> The depth for the search of a diﬀerential equation for <span 
+class="pcrr8t-x-x-109">f </span>is controlled by the variable
+<span 
+class="pcrr8t-x-x-109">fps_search_depth</span>; A higher value for <span 
+class="pcrr8t-x-x-109">fps_search_depth </span>will increase the
+chance to ﬁnd the solution, but increases the complexity as well. The default value
+for <span 
+class="pcrr8t-x-x-109">fps_search_depth </span>is <span 
+class="cmr-10x-x-109">5</span>. E. g., for <span 
+class="pcrr8t-x-x-109">fps(sin(x</span><span 
+class="pcrr8t-x-x-109">^(1/3)),x)</span>, or
+<span 
+class="pcrr8t-x-x-109">SimpleDE(sin(x</span><span 
+class="pcrr8t-x-x-109">^(1/3)),x) </span>a setting <span 
+class="pcrr8t-x-x-109">fps_search_depth:=6 </span>is
+necessary.
+<a 
+ id="dx138-262003"></a>
+</p><!--l. 137--><p class="noindent" ><a 
+ id="switch:TRACEFPS"></a> The output of the <span 
+class="ptmrc8t-x-x-109">F<span 
+class="small-caps">P</span><span 
+class="small-caps">S</span> </span>package can be inﬂuenced by the switch <span 
+class="pcrr8t-x-x-109">tracefps</span>. Setting <span 
+class="pcrr8t-x-x-109">on</span>
+<span 
+class="pcrr8t-x-x-109">tracefps </span>causes various prints of intermediate results.
+</p><!--l. 142--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">16.3.4    </span> <a 
+ id="x138-26300016.3.4"></a>Problems in the current version</h4>
+<!--l. 143--><p class="noindent" >The handling of logarithmic singularities is not yet implemented.
+</p><!--l. 145--><p class="noindent" >The rational type implementation is not yet complete.
+</p><!--l. 147--><p class="noindent" >The support of special functions <span class="cite">[<a 
+href="manualap2.html#XKoepf:94c">Koe94a</a>]</span> will be part of the next version.
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 2--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch16.html#manualse107.html" >Up</a></td><td class="clinks"><a 
+href="manualse106.html" >Prev</a></td><td class="clinks"><a 
+href="manualse106.html#tailmanualse106.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse107.html" >Front</a></td></tr></table><a 
+ id="tailmanualse107.html"></a>  </p> 
+</body> 
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Symmetric and Antisymmetric Operators</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse51.html" >Up</a></td><td class="clinks"><a 
+href="manualse52.html" >Next</a></td><td class="clinks"><a 
+href="manualse50.html" >Prev</a></td><td class="clinks"><a 
+href="manualse50.html#tailmanualse50.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse51.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">7.24    </span> <a 
+ id="x67-1140007.24"></a>Symmetric and Antisymmetric Operators</h3>
+<a 
+ id="dx67-114001"></a>
+<a 
+ id="dx67-114002"></a>
+<a 
+ id="dx67-114003"></a>
+<a 
+ id="dx67-114004"></a>
+<!--l. 126--><p class="noindent" >An operator can be declared to be symmetric with respect to its arguments by the
+declaration <span 
+class="pcrr8t-x-x-109">symmetric</span><a 
+ id="dx67-114005"></a><a 
+ id="dx67-114006"></a>. For example
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-199">
+        symmetric u,v;
+</div>
+<!--l. 131--><p class="nopar" > means that any expression involving the top level operators <span 
+class="pcrr8t-x-x-109">u </span>or <span 
+class="pcrr8t-x-x-109">v </span>will have its
+arguments reordered to conform to the internal order used by REDUCE. The user can
+change this order for kernels by the command <span 
+class="pcrr8t-x-x-109">korder</span>.
+</p><!--l. 137--><p class="noindent" >For example, <span 
+class="pcrr8t-x-x-109">u(x,v(1,2)) </span>would become <span 
+class="pcrr8t-x-x-109">u(v(2,1),x)</span>, since numbers are
+ordered in decreasing order, and expressions are ordered in decreasing order of
+complexity.
+</p><!--l. 141--><p class="noindent" >Similarly the declaration <span 
+class="pcrr8t-x-x-109">antisymmetric</span><a 
+ id="dx67-114007"></a><a 
+ id="dx67-114008"></a><a 
+ id="reserved:ANTISYMMETRIC"></a> declares an operator antisymmetric. For
+example,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-200">
+        antisymmetric l,m;
+</div>
+<!--l. 146--><p class="nopar" > means that any expression involving the top level operators <span 
+class="pcrr8t-x-x-109">l </span>or <span 
+class="pcrr8t-x-x-109">m </span>will have its
+arguments reordered to conform to the internal order of the system, and the sign of the
+expression changed if there are an odd number of argument interchanges necessary to
+bring about the new order.
+</p><!--l. 152--><p class="noindent" >For example, <span 
+class="pcrr8t-x-x-109">l(x,m(1,2)) </span>would become <span 
+class="pcrr8t-x-x-109">-l(-m(2,1),x) </span>since one interchange
+occurs with each operator. An expression like <span 
+class="pcrr8t-x-x-109">l(x,x) </span>would also be replaced by
+0.
+                                                                     
+
+                                                                     
+</p><!--l. 156--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse51.html" >Up</a></td><td class="clinks"><a 
+href="manualse52.html" >Next</a></td><td class="clinks"><a 
+href="manualse50.html" >Prev</a></td><td class="clinks"><a 
+href="manualse50.html#tailmanualse50.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse51.html" >Front</a></td></tr></table><a 
+ id="tailmanualse51.html"></a> </p> 
+</body> 
+</html>

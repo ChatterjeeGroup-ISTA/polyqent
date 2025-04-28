@@ -1,0 +1,145 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Bounds of a Function</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch17.html#manualse113.html" >Up</a></td><td class="clinks"><a 
+href="manualse114.html" >Next</a></td><td class="clinks"><a 
+href="manualse112.html" >Prev</a></td><td class="clinks"><a 
+href="manualse112.html#tailmanualse112.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse113.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">17.6    </span> <a 
+ id="x147-27300017.6"></a>Bounds of a Function</h3>
+<a 
+ id="dx147-273001"></a>
+<!--l. 355--><p class="noindent" ><a 
+ id="operator:BOUNDS"></a>
+</p><!--l. 357--><p class="noindent" >Upper and lower bounds of a real valued function over an interval or a rectangular
+multivariate domain are computed by the operator <span 
+class="pcrr8t-x-x-109">bounds</span>. The algorithmic basis is the
+computation with inequalities: starting from the interval(s) of the variables, the bounds
+are propagated in the expression using the rules for inequality computation. Some
+knowledge about the behavior of special functions like ABS, SIN, COS, EXP, LOG,
+fractional exponentials etc. is integrated and can be evaluated if the operator <span 
+class="pcrr8t-x-x-109">bounds </span>is
+called with rounded mode on (otherwise only algebraic evaluation rules are
+available).
+</p><!--l. 368--><p class="noindent" >If <span 
+class="pcrr8t-x-x-109">bounds </span>ﬁnds a singularity within an interval, the evaluation is stopped with an error
+message indicating the problem part of the expression.
+</p><!--l. 372--><p class="noindent" >Syntax:
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">bounds</span> </dt><dd 
+class="description"><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">exp,var</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">= (</span><span 
+class="cmmi-10x-x-109">l</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">..u</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmr-10x-x-109">)[</span><span 
+class="cmmi-10x-x-109">,var</span><sub><span 
+class="cmr-8">2</span></sub> <span 
+class="cmr-10x-x-109">= (</span><span 
+class="cmmi-10x-x-109">l</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">..u</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmr-10x-x-109">])</span>
+     </dd><dt class="description">
+<span 
+class="ptmbi8t-x-x-109">bounds</span> </dt><dd 
+class="description"><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">exp,</span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">var</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">= (</span><span 
+class="cmmi-10x-x-109">l</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">..u</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmr-10x-x-109">)[</span><span 
+class="cmmi-10x-x-109">,var</span><sub><span 
+class="cmr-8">2</span></sub> <span 
+class="cmr-10x-x-109">= (</span><span 
+class="cmmi-10x-x-109">l</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">..u</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmr-10x-x-109">]</span><span 
+class="cmsy-10x-x-109">}</span><span 
+class="cmr-10x-x-109">)</span>
+     <!--l. 378--><p class="noindent" >where <span 
+class="cmmi-10x-x-109">exp </span>is the function to be investigated,
+     </p><!--l. 380--><p class="noindent" ><span 
+class="cmmi-10x-x-109">var</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,var</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span> are the variables of exp,
+     </p><!--l. 382--><p class="noindent" ><span 
+class="cmmi-10x-x-109">l</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,l</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span> and <span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,u</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span> specify the area (intervals).
+     </p><!--l. 384--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">bounds </span>computes upper and lower bounds for the expression in the given
+     area. An interval is returned.
+</p>
+     </dd></dl>
+<!--l. 389--><p class="noindent" >Example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-525">
+ <br />    bounds(sin x,x=(1 .. 2));
+ <br />
+ <br />    - 1 .. 1
+ <br />
+ <br />    on rounded;
+ <br />    bounds(sin x,x=(1 .. 2));
+ <br />
+ <br />    0.841470984808 .. 1
+ <br />
+ <br />    bounds(x**2+x,x=(-0.5 .. 0.5));
+ <br />
+ <br />     - 0.25 .. 0.75
+ <br />
+</div>
+<!--l. 406--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p><!--l. 408--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch17.html#manualse113.html" >Up</a></td><td class="clinks"><a 
+href="manualse114.html" >Next</a></td><td class="clinks"><a 
+href="manualse112.html" >Prev</a></td><td class="clinks"><a 
+href="manualse112.html#tailmanualse112.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse113.html" >Front</a></td></tr></table><a 
+ id="tailmanualse113.html"></a> </p> 
+</body> 
+</html>

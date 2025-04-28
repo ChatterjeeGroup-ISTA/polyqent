@@ -1,0 +1,165 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Example</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch22.html#manualse208.html" >Up</a></td><td class="clinks"><a 
+href="manualse209.html" >Next</a></td><td class="clinks"><a 
+href="manualse207.html" >Prev</a></td><td class="clinks"><a 
+href="manualse207.html#tailmanualse207.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse208.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">22.6    </span> <a 
+ id="x304-135400022.6"></a>Example</h3>
+<!--l. 260--><p class="noindent" >We give here as an example of a simple calculation in high energy physics the
+computation of the Compton scattering cross-section as given in Bjorken and Drell Eqs.
+(7.72) through (7.74). We wish to compute the trace of
+</p>
+<table 
+class="equation-star"><tr><td>
+       <img 
+src="manual851x.png" alt="α2
+-2-"  class="frac" align="middle" /><img 
+src="manual852x.png" alt="( k′)
+  k-"  class="left" align="middle" /><sup><span 
+class="cmr-8">2</span></sup><img 
+src="manual853x.png" alt="( γ ⋅pf + m )
+  ---2m-----"  class="left" align="middle" /><img 
+src="manual854x.png" alt="( γ ⋅e′γ ⋅eγ ⋅ki  γ ⋅eγ ⋅e′γ ⋅kf)
+  ----2k.p-----+ ----2k′ ⋅p---
+          i               i"  class="left" align="middle" />
+</td></tr></table>
+<!--l. 268--><p class="nopar" >
+</p>
+<table 
+class="equation-star"><tr><td>
+            <img 
+src="manual855x.png" alt="( γ ⋅p + m )
+  ----i----
+     2m"  class="left" align="middle" /><img 
+src="manual856x.png" alt="( γ ⋅k γ ⋅eγ ⋅e′  γ ⋅k γ ⋅e′γ ⋅e)
+  ----i--------+  ---f-′-------
+      2k.pi          2k ⋅pi"  class="left" align="middle" />
+</td></tr></table>
+                                                                     
+
+                                                                     
+<!--l. 274--><p class="nopar" >
+where <span 
+class="cmmi-10x-x-109">k</span><sub><span 
+class="cmmi-8">i</span></sub> and <span 
+class="cmmi-10x-x-109">k</span><sub><span 
+class="cmmi-8">f</span></sub> are the four-momenta of incoming and outgoing photons (with
+polarization vectors <span 
+class="cmmi-10x-x-109">e </span>and <span 
+class="cmmi-10x-x-109">e</span><sup><span 
+class="cmsy-8">′</span></sup> and laboratory energies <span 
+class="cmmi-10x-x-109">k </span>and <span 
+class="cmmi-10x-x-109">k</span><sup><span 
+class="cmsy-8">′</span></sup> respectively) and <span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmmi-8">i</span></sub>, <span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmmi-8">f</span></sub> are
+incident and ﬁnal electron four-momenta.
+</p><!--l. 280--><p class="noindent" >Omitting therefore an overall factor <img 
+src="manual857x.png" alt="α2
+2m2-"  class="frac" align="middle" /><img 
+src="manual858x.png" alt="(   )
+  k′
+  k-"  class="left" align="middle" /><sup><span 
+class="cmr-8">2</span></sup> we need to ﬁnd one quarter of the trace
+of
+</p>
+<table 
+class="equation-star"><tr><td>
+            <img 
+src="manual859x.png" alt="(γ ⋅pf + m )"  class="left" align="middle" /><img 
+src="manual860x.png" alt="(    ′                  ′     )
+ γ-⋅e-γ ⋅eγ-⋅ki+ γ ⋅eγ-⋅e-γ ⋅kf
+     2k.pi           2k′.pi"  class="left" align="middle" /><span 
+class="cmsy-10x-x-109">×</span>
+</td></tr></table>
+<!--l. 286--><p class="nopar" >
+</p>
+<table 
+class="equation-star"><tr><td>
+               <img 
+src="manual861x.png" alt="(γ ⋅p + m )
+     i"  class="left" align="middle" /><img 
+src="manual862x.png" alt="(            ′           ′    )
+ γ-⋅kiγ ⋅eγ-⋅e-+ γ ⋅kfγ-⋅e-γ ⋅e-
+     2k.pi           2k′.pi"  class="left" align="middle" />
+</td></tr></table>
+<!--l. 292--><p class="nopar" >
+A straightforward REDUCE program for this, with appropriate substitutions (using <span 
+class="pcrr8t-x-x-109">p1</span>
+for <span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmmi-8">i</span></sub>, <span 
+class="pcrr8t-x-x-109">pf </span>for <span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmmi-8">f</span></sub>, <span 
+class="pcrr8t-x-x-109">ki </span>for <span 
+class="cmmi-10x-x-109">k</span><sub><span 
+class="cmmi-8">i</span></sub> and <span 
+class="pcrr8t-x-x-109">kf </span>for <span 
+class="cmmi-10x-x-109">k</span><sub><span 
+class="cmmi-8">f</span></sub>) is
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1516">
+ on div; % this gives output in same form
+ <br />         % as Bjorken and Drell.
+ <br /> mass ki= 0, kf= 0, p1= m, pf= m; vector e,ep;
+ <br /> % if e is used as a vector, it loses its scalar
+ <br /> %      identity as the base of natural logarithms.
+ <br /> mshell ki,kf,p1,pf;
+ <br /> let p1.e= 0, p1.ep= 0, p1.pf= m^2+ki.kf, p1.ki= m*k,
+ <br />     p1.kf= m*kp, pf.e= -kf.e, pf.ep= ki.ep,
+ <br />     pf.ki= m*kp, pf.kf= m*k, ki.e= 0, ki.kf= m*(k-kp),
+ <br />     kf.ep= 0, e.e= -1, ep.ep=-1;
+ <br /> operator gp;
+ <br /> for all p let gp(p)= g(l,p)+m;
+ <br /> comment this is just to save us a lot of writing;
+ <br /> gp(pf)*(g(l,ep,e,ki)/(2*ki.p1) + g(l,e,ep,kf)/
+ <br />     (2*kf.p1))
+ <br />   * gp(p1)*(g(l,ki,e,ep)/(2*ki.p1) + g(l,kf,ep,e)/
+ <br />     (2*kf.p1))$
+ <br /> write &#x0022;The Compton cxn is &#x0022;,ws;
+</div>
+<!--l. 315--><p class="nopar" >
+</p><!--l. 317--><p class="noindent" >(We use <span 
+class="pcrr8t-x-x-109">p1 </span>instead of <span 
+class="pcrr8t-x-x-109">pi </span>in the above to avoid confusion with the reserved variable
+<span 
+class="pcrr8t-x-x-109">pi</span>).
+</p><!--l. 320--><p class="noindent" >This program will print the following result
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1517">
+                         2    1      -1    1   -1
+ <br />The Compton cxn is 2*e.ep  + ---*k*kp   + ---*k  *kp - 1
+ <br />                              2            2
+</div>
+<!--l. 325--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p><!--l. 327--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch22.html#manualse208.html" >Up</a></td><td class="clinks"><a 
+href="manualse209.html" >Next</a></td><td class="clinks"><a 
+href="manualse207.html" >Prev</a></td><td class="clinks"><a 
+href="manualse207.html#tailmanualse207.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse208.html" >Front</a></td></tr></table><a 
+ id="tailmanualse208.html"></a> </p> 
+</body> 
+</html>

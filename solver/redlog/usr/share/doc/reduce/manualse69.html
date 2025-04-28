@@ -1,0 +1,184 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>RESULTANT Operator</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch9.html#manualse69.html" >Up</a></td><td class="clinks"><a 
+href="manualse70.html" >Next</a></td><td class="clinks"><a 
+href="manualse68.html" >Prev</a></td><td class="clinks"><a 
+href="manualse68.html#tailmanualse68.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse69.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">9.8    </span> <a 
+ id="x88-1620009.8"></a>RESULTANT Operator</h3>
+<a 
+ id="dx88-162001"></a>
+<!--l. 540--><p class="noindent" ><a 
+ id="operator:RESULTANT"></a> <a 
+ id="switch:BEZOUT"></a>
+</p><!--l. 543--><p class="noindent" >This is used with the syntax
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">resultant(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">polynomial</span><span 
+class="cmsy-10x-x-109">⟩</span>,<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">polynomial</span><span 
+class="cmsy-10x-x-109">⟩</span>,<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">kernel</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">)</span>:<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">polynomial</span><span 
+class="cmsy-10x-x-109">⟩</span>.</div>
+<!--l. 547--><p class="noindent" >It computes the resultant of the two given polynomials with respect to the given variable,
+the coeﬃcients of the polynomials can be taken from any domain. The result can be
+identiﬁed as the determinant of a Sylvester matrix, but can often also be thought of
+informally as the result obtained when the given variable is eliminated between the two
+input polynomials. If the two input polynomials have a non-trivial GCD their resultant
+vanishes.
+</p><!--l. 555--><p class="noindent" >The switch <span 
+class="pcrr8t-x-x-109">bezout</span><a 
+ id="dx88-162002"></a><a 
+ id="dx88-162003"></a><a 
+ id="dx88-162004"></a> controls the computation of the resultants. It is oﬀ by default. In this
+case a subresultant algorithm is used. If the switch Bezout is turned on, the resultant is
+computed via the Bezout Matrix. However, in the latter case, only polynomial
+coeﬃcients are permitted.
+</p><!--l. 562--><p class="noindent" >The sign conventions used by the resultant function follow those in <span class="cite">[<a 
+href="manualap2.html#XLoos:1982">Loo82</a>]</span>. namely,
+with <span 
+class="cmmi-10x-x-109">a </span>and <span 
+class="cmmi-10x-x-109">b </span>not dependent on <span 
+class="cmmi-10x-x-109">x</span>:
+</p><table 
+class="align-star">
+     <tr><td 
+class="align-odd"><span 
+class="cmr-10x-x-109">resultant</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">p</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,q</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,x</span><span 
+class="cmr-10x-x-109">)</span></td>     <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= (</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1)</span><sup><span 
+class="cmr-8">deg</span><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">p</span><span 
+class="cmr-8">)</span><span 
+class="cmsy-8">⋅</span><span 
+class="cmr-8">deg</span><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">q</span><span 
+class="cmr-8">)</span></sup> <span 
+class="cmsy-10x-x-109">⋅</span> <span 
+class="cmr-10x-x-109">resultant</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">q</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,p</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,x</span><span 
+class="cmr-10x-x-109">)</span></td>     <td 
+class="align-label"></td>     <td 
+class="align-label">
+     </td></tr><tr><td 
+class="align-odd"><span 
+class="cmr-10x-x-109">resultant</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a,q</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,x</span><span 
+class="cmr-10x-x-109">)</span></td>        <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">a</span><sup><span 
+class="cmr-8">deg</span><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">p</span><span 
+class="cmr-8">)</span></sup></td>                                   <td 
+class="align-label"></td>     <td 
+class="align-label">
+     </td></tr><tr><td 
+class="align-odd"><span 
+class="cmr-10x-x-109">resultant</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a,b,x</span><span 
+class="cmr-10x-x-109">)</span></td>          <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= 1</span></td>                                        <td 
+class="align-label"></td>     <td 
+class="align-label"></td></tr></table>
+                                                                     
+
+                                                                     
+<!--l. 571--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Examples:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-321">
+                                     2
+ <br />   resultant(x/r*u+y,u*y,u)   -&#x003E;  - y
+</div>
+<!--l. 577--><p class="nopar" >
+</p><!--l. 580--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">calculation in an algebraic extension:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-322">
+   load arnum;
+ <br />   defpoly sqrt2**2 - 2;
+ <br />
+ <br />   resultant(x + sqrt2,sqrt2 * x +1,x) -&#x003E; -1
+</div>
+<!--l. 588--><p class="nopar" >
+</p><!--l. 591--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">or in a modular domain:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-323">
+   setmod 17;
+ <br />   on modular;
+ <br />
+ <br />   resultant(2x+1,3x+4,x)    -&#x003E; 5
+</div>
+<!--l. 599--><p class="nopar" >
+                                                                     
+
+                                                                     
+<table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch9.html#manualse69.html" >Up</a></td><td class="clinks"><a 
+href="manualse70.html" >Next</a></td><td class="clinks"><a 
+href="manualse68.html" >Prev</a></td><td class="clinks"><a 
+href="manualse68.html#tailmanualse68.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse69.html" >Front</a></td></tr></table><a 
+ id="tailmanualse69.html"></a> </p> 
+</body> 
+</html>

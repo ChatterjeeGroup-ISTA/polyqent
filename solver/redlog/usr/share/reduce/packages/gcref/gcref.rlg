@@ -1,0 +1,32 @@
+on gcref;
+
+
+
+symbolic procedure p1(x,y);
+   p2(x) + y;
+
+symbolic procedure p2(x);
+   <<
+      if x>0 then p2(x-1);
+      p1(x-2,1);
+      p3(x)
+   >>;
+
+off gcref;
+p2 p2
+p1 p1
+#
+p2 p1
+p2 p2
+p1 p2
+
+
+end;
+
+Tested on x86_64-pc-windows CSL
+1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 
+Time: gcref  15  0
+1: Leaving REDUCE ... 
+
+
+End of Lisp run after 0.04+0.00 seconds

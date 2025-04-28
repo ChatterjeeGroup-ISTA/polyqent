@@ -1,0 +1,799 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Taylor Expansion</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch16.html#manualse105.html" >Up</a></td><td class="clinks"><a 
+href="manualse106.html" >Next</a></td><td class="clinks"><a 
+href="#tailmanualse105.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">16.1    </span> <a 
+ id="x134-24500016.1"></a>Taylor Expansion</h3>
+<!--l. 13--><p class="noindent" >This package carries out the Taylor expansion of an expression in one or
+more variables and eﬃcient manipulation of the resulting Taylor series.
+Capabilities include basic operations (addition, subtraction, multiplication
+and division) and also application of certain algebraic and transcendental
+functions.<span class="footnote-mark"><a 
+href="manual135.html#fn1x16"><sup class="textsuperscript">1</sup></a></span><a 
+ id="x134-245001f1"></a> 
+<a 
+ id="dx134-245002"></a>
+<a 
+ id="dx134-245003"></a>
+                                                                     
+
+                                                                     
+</p><!--l. 5--><p class="noindent" >The most important operator is <span 
+class="pcrr8t-x-x-109">taylor</span>.<a 
+ id="dx134-245004"></a> It is used as follows: <a 
+ id="operator:TAYLOR"></a>
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">taylor(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exp:algebraic</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><br 
+class="newline" />       <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">var:kernel</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">var0:algebraic</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">order:integer</span><span 
+class="cmsy-10x-x-109">⟩</span>[,…]<span 
+class="pcrr8t-x-x-109">) </span>: algebraic.</div>
+<!--l. 14--><p class="noindent" >where <span 
+class="pcrr8t-x-x-109">exp </span>is the expression to be expanded. It can be any REDUCE object, even an
+expression containing other Taylor kernels. <span 
+class="pcrr8t-x-x-109">var </span>is the kernel with respect to which <span 
+class="pcrr8t-x-x-109">exp</span>
+is to be expanded. <span 
+class="pcrr8t-x-x-109">var0 </span>denotes the expansion point about which and <span 
+class="pcrr8t-x-x-109">order </span>the order
+up to which expansion is to take place. If more than one <span 
+class="pcrr8t-x-x-109">(var, var0, order) </span>triple
+is speciﬁed <span 
+class="pcrr8t-x-x-109">taylor </span>will expand its ﬁrst argument independently with respect to each
+variable in turn. For example,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-461">
+  taylor(e^(x^2+y^2),x,0,2,y,0,2);
+</div>
+<!--l. 23--><p class="nopar" > will calculate the Taylor expansion up to order <span 
+class="cmmi-10x-x-109">X</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">Y</span> <sup><span 
+class="cmr-8">2</span></sup>:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-462">
+       2    2    2  2      3  3
+ <br />  1 + y  + x  + y *x  + O(x ,y )
+</div>
+<!--l. 28--><p class="nopar" > Note that once the expansion has been done it is not possible to calculate higher orders.
+Instead of a kernel, <span 
+class="pcrr8t-x-x-109">var </span>may also be a list of kernels. In this case expansion will take
+place in a way so that the <span 
+class="ptmri8t-x-x-109">sum </span>of the degrees of the kernels does not exceed <span 
+class="pcrr8t-x-x-109">order</span>. If
+<span 
+class="pcrr8t-x-x-109">var0 </span>evaluates to the special identiﬁer <span 
+class="pcrr8t-x-x-109">infinity</span>, expansion is done in a series in
+1/var instead of <span 
+class="pcrr8t-x-x-109">var</span>.
+</p><!--l. 38--><p class="noindent" >The expansion is performed variable per variable, i.e. in the example above by ﬁrst
+expanding <span 
+class="cmr-10x-x-109">exp</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmr-10x-x-109">) </span>with respect to <span 
+class="cmmi-10x-x-109">x </span>and then expanding every coeﬃcient with
+respect to <span 
+class="cmmi-10x-x-109">y</span>.
+<a 
+ id="dx134-245005"></a>
+</p><!--l. 43--><p class="noindent" ><a 
+ id="operator:IMPLICIT_TAYLOR"></a> There are two extra operators to compute the Taylor expansions of implicit and inverse
+functions:
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">implicit_taylor(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">f:algebraic</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><br 
+class="newline" />                                          <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">var:kernel</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">depvar:kernel</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><br 
+class="newline" />                                          <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">var0:algebraic</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">depvar0:algebraic</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><br 
+class="newline" />                                          <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">order:integer</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">) </span>: algebraic.</div>
+<!--l. 54--><p class="noindent" >takes a function f depending on two variables var and depvar and computes the Taylor
+series of the implicit function depvar(var) given by the equation f(var,depvar) = 0, around
+the point var0. (Violation of the necessary condition f(var0,depvar0)=0 causes an error.)
+For example,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-463">
+  implicit_taylor(x^2 + y^2 - 1,x,y,0,1,5);
+</div>
+<!--l. 61--><p class="nopar" > gives the output
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-464">
+       1   2    1   4      6
+ <br />  1 - ---*x  - ---*x  + O(x )
+ <br />       2        8
+</div>
+<!--l. 67--><p class="nopar" >
+</p><!--l. 69--><p class="noindent" ><a 
+ id="operator:INVERSE_TAYLOR"></a> The operator
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">inverse_taylor(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">f:algebraic</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><br 
+class="newline" />                                          <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">var:kernel</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">depvar:kernel</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><br 
+class="newline" />                                          <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">var0:algebraic</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">order:integer</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">)</span><br 
+class="newline" /> : algebraic.</div>
+<!--l. 77--><p class="noindent" >takes a function f depending on var and computes the Taylor series of the inverse of f
+with respect to var0. For example,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-465">
+  inverse_taylor(exp(x)-1,x,y,0,8);
+</div>
+<!--l. 81--><p class="nopar" > yields
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-466">
+       1   2    1   3    1   4    1   5
+ <br />  y - ---*y  + ---*y  - ---*y  + ---*y  + (3 terms)
+ <br />       2        3        4        5
+ <br />
+ <br />        9
+ <br />   + O(y )
+ <br />  
+</div>
+<!--l. 90--><p class="nopar" >
+<a 
+ id="dx134-245006"></a>
+</p><!--l. 93--><p class="noindent" ><a 
+ id="reserved:TAYLORPRINTTERMS"></a> When a Taylor kernel is printed, only a certain number of (non-zero) coeﬃcients are
+shown. If there are more, an expression of the form <span 
+class="pcrr8t-x-x-109">(</span><span 
+class="cmmi-10x-x-109">n  </span><span 
+class="pcrr8t-x-x-109">terms) </span>is printed to indicate
+how many non-zero terms have been suppressed. The number of terms printed is given
+by the value of the shared algebraic variable <span 
+class="pcrr8t-x-x-109">taylorprintterms</span>. Allowed values are
+integers and the special identiﬁer <span 
+class="pcrr8t-x-x-109">ALL</span>. The latter setting speciﬁes that all terms are to be
+printed. The default setting is <span 
+class="cmr-10x-x-109">5</span>.
+<a 
+ id="dx134-245007"></a>
+</p><!--l. 104--><p class="noindent" >The <span 
+class="pcrr8t-x-x-109">part </span>operator can be used to extract subexpressions of a Taylor expansion in the
+usual way. All terms can be accessed, irregardless of the value of the variable
+<span 
+class="pcrr8t-x-x-109">taylorprintterms</span>.
+<a 
+ id="dx134-245008"></a>
+<a 
+ id="dx134-245009"></a>
+<a 
+ id="dx134-245010"></a>
+</p><!--l. 110--><p class="noindent" >If the switch <a 
+href="#switch:TAYLORKEEPORIGINAL"><span 
+class="pcrr8t-x-x-109">taylorkeeporiginal</span></a> is set to <span 
+class="pcrr8t-x-x-109">on </span>the original expression exp is kept
+for later reference. It can be recovered by means of the operator
+</p><!--l. 115--><p class="noindent" ><a 
+ id="operator:TAYLORORIGINAL"></a>            <span 
+class="pcrr8t-x-x-109">taylororiginal</span>(exp:<span 
+class="ptmri8t-x-x-109">exprn</span>):<span 
+class="ptmri8t-x-x-109">exprn</span>
+</p><!--l. 118--><p class="noindent" >An error is signalled if exp is not a Taylor kernel or if the original expression was
+not kept, i.e. if <span 
+class="pcrr8t-x-x-109">taylorkeeporiginal </span>was <span 
+class="pcrr8t-x-x-109">off </span>during expansion. The
+template of a Taylor kernel, i.e. the list of all variables with respect to which
+expansion took place together with expansion point and order can be extracted using
+<a 
+ id="dx134-245011"></a>.
+</p><!--l. 125--><p class="noindent" ><a 
+ id="operator:TAYLORTEMPLATE"></a>            <span 
+class="pcrr8t-x-x-109">taylortemplate</span>(exp:<span 
+class="ptmri8t-x-x-109">exprn</span>):<span 
+class="ptmri8t-x-x-109">list</span>
+</p><!--l. 128--><p class="noindent" >This returns a list of lists with the three elements (var,var0,order). As with
+<span 
+class="pcrr8t-x-x-109">taylororiginal</span>, an error is signalled if exp is not a Taylor kernel.
+                                                                     
+
+                                                                     
+</p><!--l. 132--><p class="noindent" ><a 
+ id="operator:TAYLORCOEFFLIST"></a> <a 
+ id="dx134-245012"></a>            <span 
+class="pcrr8t-x-x-109">taylorcoefflist</span>(exp:<span 
+class="ptmri8t-x-x-109">exprn</span>):<span 
+class="ptmri8t-x-x-109">list</span>
+</p><!--l. 136--><p class="noindent" >This returns a list of two element lists (list of exponents,coeﬃcient). Each exponent
+corresponds to a variable in the template. For homogenous expansion, each exponent is
+replaced by a list of exponents, as the template has a list of variables instead of a single
+one. Again, an error is signalled if exp is not a Taylor kernel.
+</p><!--l. 142--><p class="noindent" >See the test ﬁle for examples.
+</p><!--l. 144--><p class="noindent" >The operator <a 
+ id="operator:TAYLORTOSTANDARD"></a><br 
+class="newline" />           <span 
+class="pcrr8t-x-x-109">taylortostandard</span>(exp:<span 
+class="ptmri8t-x-x-109">exprn</span>):<span 
+class="ptmri8t-x-x-109">exprn</span>
+</p><!--l. 148--><p class="noindent" >converts all Taylor kernels in exp into standard form and <a 
+ id="dx134-245013"></a> resimpliﬁes the result.
+</p><!--l. 151--><p class="noindent" >The boolean operator <a 
+ id="operator:TAYLORSERIESP"></a><br 
+class="newline" />           <span 
+class="pcrr8t-x-x-109">taylorseriesp</span>(exp:<span 
+class="ptmri8t-x-x-109">exprn</span>):<span 
+class="ptmri8t-x-x-109">boolean</span>
+</p><!--l. 155--><p class="noindent" >may be used to determine if exp is a Taylor kernel. <a 
+ id="dx134-245014"></a> (Note that this operator is subject to
+the same restrictions as, e.g., <span 
+class="pcrr8t-x-x-109">ordp </span>or <span 
+class="pcrr8t-x-x-109">numberp</span>, i.e. it may only be used in boolean
+expressions in <span 
+class="pcrr8t-x-x-109">if </span>or <span 
+class="pcrr8t-x-x-109">let </span>statements.
+</p><!--l. 160--><p class="noindent" >Finally there is
+</p><!--l. 162--><p class="noindent" ><a 
+ id="operator:TAYLORCOMBINE"></a>            <span 
+class="pcrr8t-x-x-109">taylorcombine</span>(exp:<span 
+class="ptmri8t-x-x-109">exprn</span>):<span 
+class="ptmri8t-x-x-109">exprn</span>
+</p><!--l. 165--><p class="noindent" >which tries to combine all Taylor kernels found in exp into one. <a 
+ id="dx134-245015"></a> Operations currently
+possible are: <a 
+ id="dx134-245016"></a></p>
+     <ul class="itemize1">
+     <li class="itemize">Addition, subtraction, multiplication, and division.
+     </li>
+     <li class="itemize">Roots, exponentials, and logarithms.
+     </li>
+     <li class="itemize">Trigonometric and hyperbolic functions and their inverses.</li></ul>
+<!--l. 174--><p class="noindent" >Application of unary operators like <span 
+class="pcrr8t-x-x-109">log </span>and <span 
+class="pcrr8t-x-x-109">atan </span>will nearly always succeed. For
+binary operations their arguments have to be Taylor kernels with the same template. This
+means that the expansion variable and the expansion point must match. Expansion order
+is not so important, diﬀerent order usually means that one of them is truncated before
+doing the operation.
+<a 
+ id="dx134-245017"></a>
+<a 
+ id="dx134-245018"></a>
+<a 
+ id="dx134-245019"></a>
+<a 
+ id="dx134-245020"></a>
+</p><!--l. 182--><p class="noindent" >If <a 
+href="#switch:TAYLORKEEPORIGINAL"><span 
+class="pcrr8t-x-x-109">taylorkeeporiginal</span></a> is set to <span 
+class="pcrr8t-x-x-109">on </span>and if all Taylor kernels in <span 
+class="pcrr8t-x-x-109">exp </span>have their
+original expressions kept <a 
+href="#operator:TAYLORCOMBINE"><span 
+class="pcrr8t-x-x-109">taylorcombine</span></a> will also combine these and store the result
+as the original expression of the resulting Taylor kernel. <a 
+ id="dx134-245021"></a><a 
+ id="dx134-245022"></a><a 
+ id="dx134-245023"></a> There is also the switch
+                                                                     
+
+                                                                     
+<a 
+href="#switch:TAYLORAUTOEXPAND"><span 
+class="pcrr8t-x-x-109">taylorautoexpand</span></a> (see below).
+</p><!--l. 189--><p class="noindent" >There are a few restrictions to avoid mathematically undeﬁned expressions: it is not
+possible to take the logarithm of a Taylor kernel which has no terms (i.e. is zero), or to
+divide by such a beast. There are some provisions made to detect singularities during
+expansion: poles that arise because the denominator has zeros at the expansion point are
+detected and properly treated, i.e. the Taylor kernel will start with a negative power.
+(This is accomplished by expanding numerator and denominator separately and
+combining the results.) Essential singularities of the known functions (see above) are
+handled correctly.
+<a 
+ id="dx134-245024"></a>
+</p><!--l. 201--><p class="noindent" >Diﬀerentiation of a Taylor expression is possible. If you diﬀerentiate with respect to one
+of the Taylor variables the order will decrease by one.
+<a 
+ id="dx134-245025"></a>
+</p><!--l. 206--><p class="noindent" >Substitution is a bit restricted: Taylor variables can only be replaced by other kernels.
+There is one exception to this rule: you can always substitute a Taylor variable by an
+expression that evaluates to a constant. Note that REDUCE will not always be able to
+determine that an expression is constant.
+<a 
+ id="dx134-245026"></a>
+</p><!--l. 213--><p class="noindent" >Only simple taylor kernels can be integrated. More complicated expressions that contain
+Taylor kernels as parts of themselves are automatically converted into a standard
+representation by means of the <a 
+href="#operator:TAYLORTOSTANDARD"><span 
+class="pcrr8t-x-x-109">taylortostandard</span></a> operator. In this case a suitable
+warning is printed.
+<a 
+ id="dx134-245027"></a>
+</p><!--l. 219--><p class="noindent" >It is possible to revert a Taylor series of a function <span 
+class="cmmi-10x-x-109">f</span>, i.e., to compute the ﬁrst terms of
+the expansion of the inverse of <span 
+class="cmmi-10x-x-109">f </span>from the expansion of <span 
+class="cmmi-10x-x-109">f</span>. This is done by the
+operator
+</p><!--l. 224--><p class="noindent" ><a 
+ id="operator:TAYLORREVERT"></a> <a 
+ id="dx134-245028"></a>            <span 
+class="pcrr8t-x-x-109">taylorrevert</span>(exp:<span 
+class="ptmri8t-x-x-109">exprn</span>,oldvar:<span 
+class="ptmri8t-x-x-109">kernel</span>, NEWVAR:<span 
+class="ptmri8t-x-x-109">kernel</span>):<span 
+class="ptmri8t-x-x-109">exprn</span>
+</p><!--l. 229--><p class="noindent" >EXP must evaluate to a Taylor kernel with OLDVAR being one of its expansion
+variables. Example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-467">
+  taylor (u - u**2, u, 0, 5)$
+ <br />  taylorrevert (ws, u, x);
+</div>
+<!--l. 234--><p class="nopar" > gives
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-468">
+       2      3      4       5      6
+ <br />  x + x  + 2*x  + 5*x  + 14*x  + O(x )
+</div>
+<!--l. 239--><p class="nopar" >
+</p><!--l. 241--><p class="noindent" >This package introduces a number of new switches:
+<a 
+ id="dx134-245029"></a>
+<a 
+ id="dx134-245030"></a>
+<a 
+ id="dx134-245031"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="pcrr8t-x-x-109">taylorautocombine</span> </dt><dd 
+class="description"><a 
+ id="switch:TAYLORAUTOCOMBINE"></a>causes Taylor expressions to be automatically combined
+     during   the   simpliﬁcation   process.   This   is   equivalent   to   applying
+     <span 
+class="pcrr8t-x-x-109">taylorcombine </span>to every expression that contains Taylor kernels. Default
+     is <span 
+class="pcrr8t-x-x-109">on</span>.
+<a 
+ id="dx134-245032"></a>
+<a 
+ id="dx134-245033"></a>
+<a 
+ id="dx134-245034"></a>
+     </dd><dt class="description">
+<span 
+class="pcrr8t-x-x-109">taylorautoexpand</span> </dt><dd 
+class="description"><a 
+ id="switch:TAYLORAUTOEXPAND"></a> makes Taylor expressions “contagious” in the sense that
+     <span 
+class="pcrr8t-x-x-109">taylorcombine </span>tries to Taylor expand all non-Taylor subexpressions and
+     to combine the result with the rest. Default is <span 
+class="pcrr8t-x-x-109">off</span>.
+<a 
+ id="dx134-245035"></a>
+<a 
+ id="dx134-245036"></a>
+<a 
+ id="dx134-245037"></a>
+     <!--l. 257--><p class="noindent" ><a 
+ id="switch:TAYLORKEEPORIGINAL"></a>
+     </p></dd><dt class="description">
+<span 
+class="pcrr8t-x-x-109">taylorkeeporiginal</span> </dt><dd 
+class="description">forces  the  package  to  keep  the  original  expression,
+     i.e. the expression that was Taylor expanded. All operations performed on
+     the Taylor kernels are also applied to this expression which can be recovered
+     using the operator <span 
+class="pcrr8t-x-x-109">taylororiginal</span>. Default is <span 
+class="pcrr8t-x-x-109">off</span>.
+<a 
+ id="dx134-245038"></a>
+<a 
+ id="dx134-245039"></a>
+<a 
+ id="dx134-245040"></a>
+     <!--l. 265--><p class="noindent" ><a 
+ id="switch:TAYLORPRINTORDER"></a>
+     </p></dd><dt class="description">
+                                                                     
+
+                                                                     
+<span 
+class="pcrr8t-x-x-109">taylorprintorder</span> </dt><dd 
+class="description">causes  the  remainder  to  be  printed  in  big-<span 
+class="cmmi-10x-x-109">O </span>notation.
+     Otherwise, three dots are printed. Default is <span 
+class="pcrr8t-x-x-109">on</span>.
+<a 
+ id="dx134-245041"></a>
+<a 
+ id="dx134-245042"></a>
+<a 
+ id="dx134-245043"></a>
+     </dd><dt class="description">
+<span 
+class="pcrr8t-x-x-109">verboseload</span> </dt><dd 
+class="description">will cause REDUCE to print some information when the Taylor
+     package is loaded. This switch is already present in <span 
+class="phvr8t-x-x-109">PSL </span>systems. Default is
+     <span 
+class="pcrr8t-x-x-109">off</span>.
+     </dd></dl>
+<a 
+ id="dx134-245044"></a>
+<h4 class="subsectionHead"><span class="titlemark">16.1.1    </span> <a 
+ id="x134-24600016.1.1"></a>Caveats</h4>
+<a 
+ id="dx134-246001"></a>
+<a 
+ id="dx134-246002"></a>
+<!--l. 283--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">taylor </span>should always detect non-analytical expressions in its ﬁrst argument. As an
+example, consider the function <span 
+class="cmmi-10x-x-109">xy∕</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">y</span><span 
+class="cmr-10x-x-109">) </span>that is not analytical in the neighborhood of
+<span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x,y</span><span 
+class="cmr-10x-x-109">) = (0</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">0)</span>: Trying to calculate
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-469">
+  taylor(x*y/(x+y),x,0,2,y,0,2);
+</div>
+<!--l. 289--><p class="nopar" > causes an error
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-470">
+***** Not a unit in argument to QUOTTAYLOR
+</div>
+<!--l. 293--><p class="nopar" > Note that it is not generally possible to apply the standard REDUCE operators to a
+Taylor kernel. For example, <span 
+class="pcrr8t-x-x-109">coeff </span>or <span 
+class="pcrr8t-x-x-109">coeffn </span>cannot be used. Instead, the expression
+at hand has to be converted to standard form ﬁrst using the <span 
+class="pcrr8t-x-x-109">taylortostandard</span>
+operator.
+</p><!--l. 300--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">16.1.2    </span> <a 
+ id="x134-24700016.1.2"></a>Warning messages</h4>
+<a 
+ id="dx134-247001"></a>
+     <dl class="description"><dt class="description">
+<span 
+class="pcrr8t-x-x-109">*** Cannot expand further... truncation done</span> </dt><dd 
+class="description"><br 
+class="newline" />You will get this warning if you try to expand a Taylor kernel to a higher
+     order.
+     </dd><dt class="description">
+<span 
+class="pcrr8t-x-x-109">*** Converting Taylor kernels to standard representation</span></dt><dd 
+class="description">
+     This warning appears if you try to integrate an expression containing Taylor
+     kernels.
+     </dd></dl>
+<!--l. 314--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">16.1.3    </span> <a 
+ id="x134-24800016.1.3"></a>Error messages</h4>
+<a 
+ id="dx134-248001"></a>
+     <dl class="description"><dt class="description">
+                                                                     
+
+                                                                     
+<span 
+class="pcrr8t-x-x-109">***** Branch point detected in ...</span> </dt><dd 
+class="description"><br 
+class="newline" />This occurs if you take a rational power of a Taylor kernel and raising the
+     lowest order term of the kernel to this power yields a non analytical term
+     (i.e. a fractional power).
+     </dd><dt class="description">
+<span 
+class="pcrr8t-x-x-109">***** Cannot replace part ... in Taylor kernel</span> </dt><dd 
+class="description"><br 
+class="newline" /><a 
+ id="dx134-248002"></a>The <span 
+class="pcrr8t-x-x-109">part </span>operator can only be used to either replace the template of a Taylor
+     kernel (part 2) or the original expression that is kept for reference (part 3).
+     </dd><dt class="description">
+<span 
+class="pcrr8t-x-x-109">***** Computation loops (recursive definition?): ...</span> </dt><dd 
+class="description"><br 
+class="newline" />Most probably the expression to be expanded contains an operator whose
+     derivative involves the operator itself.
+     </dd><dt class="description">
+<span 
+class="pcrr8t-x-x-109">***** Error during expansion (possible singularity)</span> </dt><dd 
+class="description"><br 
+class="newline" />The expression you are trying to expand caused an error. As far as I know
+     this  can  only  happen  if  it  contains  a  function  with  a  pole  or  an  essential
+     singularity at the expansion point. (But one can never be sure.)
+     </dd><dt class="description">
+<span 
+class="pcrr8t-x-x-109">***** Essential singularity in ...</span> </dt><dd 
+class="description"><br 
+class="newline" />An essential singularity was detected while applying a special function to a
+     Taylor kernel.
+     </dd><dt class="description">
+<span 
+class="pcrr8t-x-x-109">***** Expansion point lies on branch cut in ...</span> </dt><dd 
+class="description"><br 
+class="newline" />The  only  functions  with  branch  cuts  this  package  knows  of  are  (natural)
+     logarithm, inverse circular and hyperbolic tangent and cotangent. The branch
+     cut of the logarithm is assumed to lie on the negative real axis. Those of
+     the  arc  tangent  and  arc  cotangent  functions  are  chosen  to  be  compatible
+     with  this:  both  have  essential  singularities  at  the  points  <span 
+class="cmsy-10x-x-109">±</span><span 
+class="cmmi-10x-x-109">i</span>.  The  branch
+     cut of arc tangent is the straight line along the imaginary axis connecting
+     <span 
+class="cmr-10x-x-109">+1 </span>to  <span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1 </span>going  through  <span 
+class="cmsy-10x-x-109">∞ </span>whereas  that  of  arc  cotangent  goes  through
+     the origin. Consequently, the branch cut of the inverse hyperbolic tangent
+     resp. cotangent lies on the real axis and goes from <span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1 </span>to <span 
+class="cmr-10x-x-109">+1</span>, that of the
+     latter across <span 
+class="cmr-10x-x-109">0</span>, the other across <span 
+class="cmsy-10x-x-109">∞</span>.
+     <!--l. 357--><p class="noindent" >The error message can currently only appear when you try to calculate the
+     inverse tangent or cotangent of a Taylor kernel that starts with a negative
+     degree. The case of a logarithm of a Taylor kernel whose constant term is a
+     negative real number is not caught since it is diﬃcult to detect this in general.
+     </p></dd><dt class="description">
+<span 
+class="pcrr8t-x-x-109">***** Input expression non-zero at given point</span> </dt><dd 
+class="description"><br 
+class="newline" />Violation of the necessary condition f(var0,depvar0)=0 for the arguments of
+                                                                     
+
+                                                                     
+     <span 
+class="pcrr8t-x-x-109">implicit_taylor</span>.
+     </dd><dt class="description">
+<span 
+class="pcrr8t-x-x-109">***** Invalid substitution in Taylor kernel: ...</span> </dt><dd 
+class="description"><br 
+class="newline" />You tried to substitute a variable that is already present in the Taylor kernel
+     or on which one of the Taylor variables depend.
+     </dd><dt class="description">
+<span 
+class="pcrr8t-x-x-109">***** Not a unit in ...</span> </dt><dd 
+class="description"><br 
+class="newline" />This will happen if you try to divide by or take the logarithm of a Taylor
+     series whose constant term vanishes.
+     </dd><dt class="description">
+<span 
+class="pcrr8t-x-x-109">***** Not implemented yet (...)</span> </dt><dd 
+class="description"><br 
+class="newline" />Sorry, but this feature is not implemented, although it is possible to do so.
+     </dd><dt class="description">
+<span 
+class="pcrr8t-x-x-109">***** Reversion of Taylor series not possible: ...</span> </dt><dd 
+class="description"><br 
+class="newline" /><a 
+ id="dx134-248003"></a> You   tried   to   call   the   <span 
+class="pcrr8t-x-x-109">taylorrevert </span>operator   with   inappropriate
+     arguments. The second half of this error message tells you why this operation
+     is not possible.
+     </dd><dt class="description">
+<span 
+class="pcrr8t-x-x-109">***** Taylor kernel doesn’t have an original part</span> </dt><dd 
+class="description"><br 
+class="newline" /><a 
+ id="dx134-248004"></a> <a 
+ id="dx134-248005"></a><a 
+ id="dx134-248006"></a><a 
+ id="dx134-248007"></a> The  Taylor  kernel  upon  which  you  try  to  use  <span 
+class="pcrr8t-x-x-109">taylororiginal </span>was
+     created  with  the  switch  <span 
+class="pcrr8t-x-x-109">taylorkeeporiginal </span>set  to  <span 
+class="pcrr8t-x-x-109">off </span>and  does
+     therefore not keep the original expression.
+     </dd><dt class="description">
+<span 
+class="pcrr8t-x-x-109">***** Wrong number of arguments to TAYLOR</span> </dt><dd 
+class="description"><br 
+class="newline" />You try to use the operator <span 
+class="pcrr8t-x-x-109">taylor </span>with a wrong number of arguments.
+     </dd><dt class="description">
+<span 
+class="pcrr8t-x-x-109">***** Zero divisor in TAYLOREXPAND</span> </dt><dd 
+class="description"><br 
+class="newline" />A  zero  divisor  was  found  while  an  expression  was  being  expanded.  This
+     should not normally occur.
+     </dd><dt class="description">
+<span 
+class="pcrr8t-x-x-109">***** Zero divisor in Taylor substitution</span> </dt><dd 
+class="description"><br 
+class="newline" />That’s exactly what the message says. As an example consider the case of a
+     Taylor kernel containing the term <span 
+class="pcrr8t-x-x-109">1/x </span>and you try to substitute <span 
+class="pcrr8t-x-x-109">x </span>by <span 
+class="pcrr8t-x-x-109">0</span>.
+     </dd><dt class="description">
+<span 
+class="pcrr8t-x-x-109">***** ... invalid as kernel</span> </dt><dd 
+class="description"><br 
+class="newline" />You tried to expand with respect to an expression that is not a kernel.
+                                                                     
+
+                                                                     
+     </dd><dt class="description">
+<span 
+class="pcrr8t-x-x-109">***** ... invalid as order of Taylor expansion</span> </dt><dd 
+class="description"><br 
+class="newline" />The order parameter you gave to <span 
+class="pcrr8t-x-x-109">taylor </span>is not an integer.
+     </dd><dt class="description">
+<span 
+class="pcrr8t-x-x-109">***** ... invalid as Taylor kernel</span> </dt><dd 
+class="description"><br 
+class="newline" /><a 
+ id="dx134-248008"></a><a 
+ id="dx134-248009"></a>You  tried  to  apply  <span 
+class="pcrr8t-x-x-109">taylororiginal </span>or  <span 
+class="pcrr8t-x-x-109">taylortemplate </span>to  an
+     expression that is not a Taylor kernel.
+     </dd><dt class="description">
+<span 
+class="pcrr8t-x-x-109">***** ... invalid as Taylor Template element</span> </dt><dd 
+class="description"><br 
+class="newline" />You tried to substitute the <span 
+class="pcrr8t-x-x-109">taylortemplate </span>part of a Taylor kernel with
+     a  list  of  incorrect  form.  For  the  correct  form  see  the  description  of  the
+     <span 
+class="pcrr8t-x-x-109">taylortemplate </span>operator.
+     </dd><dt class="description">
+<span 
+class="pcrr8t-x-x-109">***** ... invalid as Taylor variable</span> </dt><dd 
+class="description"><br 
+class="newline" />You tried to substitute a Taylor variable by an expression that is not a kernel.
+     </dd><dt class="description">
+<span 
+class="pcrr8t-x-x-109">***** ... invalid as value of TaylorPrintTerms</span> </dt><dd 
+class="description"><br 
+class="newline" /><a 
+ id="dx134-248010"></a> You  have  assigned  an  invalid  value  to  <a 
+href="#reserved:TAYLORPRINTTERMS"><span 
+class="pcrr8t-x-x-109">taylorprintterms</span></a>.  Allowed
+     values are: an integer or the special identiﬁer <span 
+class="pcrr8t-x-x-109">all</span>.
+     </dd><dt class="description">
+<span 
+class="pcrr8t-x-x-109">TAYLOR PACKAGE (...): this can’t happen ...</span> </dt><dd 
+class="description"><br 
+class="newline" />This message shows that an internal inconsistency was detected. This is not
+     your fault, at least as long as you did not try to work with the internal data
+     structures of REDUCE. Send input and output to the REDUCE developers
+     mailing list, together with the version information that is printed out.
+     </dd></dl>
+<!--l. 441--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">16.1.4    </span> <a 
+ id="x134-24900016.1.4"></a>Comparison to other packages</h4>
+<!--l. 443--><p class="noindent" >At the moment there is only one REDUCE package that I know of: the extendible power
+series package by Alan Barnes and Julian Padget. In my opinion there are two major
+diﬀerences: </p>
+     <ul class="itemize1">
+     <li class="itemize">The  interface.  They  use  the  domain  mechanism  for  their  power  series,  I
+     decided to invent a special kind of kernel. Both approaches have advantages
+                                                                     
+
+                                                                     
+     and  disadvantages:  with  domain  modes,  it  is  easier  to  do  certain  things
+     automatically, e.g., conversions.
+     </li>
+     <li class="itemize">The concept of an extendible series: their idea is to remember the original
+     expression and to compute more coeﬃcients when more of them are needed.
+     My approach is to truncate at a certain order and forget how the unexpanded
+     expression  looked  like.  I  think  that  their  method  is  more  widely  usable,
+     whereas mine is more eﬃcient when you know in advance how many terms
+     you need.</li></ul>
+                                                                     
+
+                                                                     
+<!--l. 21--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch16.html#manualse105.html" >Up</a></td><td class="clinks"><a 
+href="manualse106.html" >Next</a></td><td class="clinks"><a 
+href="manualse105.html" >Front</a></td></tr></table><a 
+ id="tailmanualse105.html"></a>  </p> 
+</body> 
+</html>

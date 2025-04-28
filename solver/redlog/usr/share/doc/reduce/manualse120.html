@@ -1,0 +1,66 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>RTrace versus RDebug</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch19.html#manualse120.html" >Up</a></td><td class="clinks"><a 
+href="manualse121.html" >Next</a></td><td class="clinks"><a 
+href="manualse119.html" >Prev</a></td><td class="clinks"><a 
+href="manualse119.html#tailmanualse119.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse120.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">19.2    </span> <a 
+ id="x161-37200019.2"></a>RTrace versus RDebug</h3>
+<!--l. 43--><p class="noindent" >The <span 
+class="pcrr8t-x-x-109">rtrace </span>package is a modiﬁcation (by FJW) of the <span 
+class="pcrr8t-x-x-109">rdebug </span>package (written by
+HM, and included in the <span 
+class="pcrr8t-x-x-109">rtrace </span>source directory). The modiﬁcations are as follows.
+The procedure-tracing facilities in <span 
+class="pcrr8t-x-x-109">rdebug </span>rely upon the low-level tracing facilities in
+PSL; in <span 
+class="pcrr8t-x-x-109">rtrace </span>these low-level facilities have been (partly) re-implemented portably.
+The names of the tracing commands that have been re-implemented portably have been
+changed to avoid conﬂicting with those provided by the underlying Lisp system by
+preceding them with the letter “r”, and they provide a generalized interface
+that supports algebraic mode better. An additional set of rule tracing facilities
+for inactive rules has been provided. Beware that the <span 
+class="pcrr8t-x-x-109">rtrace </span>package is still
+experimental!
+</p><!--l. 56--><p class="noindent" >This package is intended to be portable, and has been tested with both CSL- and
+PSL-based REDUCE. However, it is intended not as a replacement for <span 
+class="pcrr8t-x-x-109">rdebug </span>but
+as a partial re-implementation of <span 
+class="pcrr8t-x-x-109">rdebug </span>that works with CSL-REDUCE,
+and it is assumed that PSL users will continue to use <span 
+class="pcrr8t-x-x-109">rdebug</span>. It should, in
+principle, be possible to use both. Any <span 
+class="pcrr8t-x-x-109">rtrace </span>functions with the same names as
+<span 
+class="pcrr8t-x-x-109">rdebug </span>functions should either be identical or compatible; <span 
+class="pcrr8t-x-x-109">rtrace </span>should be
+loaded after <span 
+class="pcrr8t-x-x-109">rdebug </span>in order to retain any enhancements provided by <span 
+class="pcrr8t-x-x-109">rtrace</span>.
+Perhaps at some future time the two packages should be merged. However, note
+that <span 
+class="pcrr8t-x-x-109">rtrace </span>currently provides <span 
+class="ptmri8t-x-x-109">only tracing </span>(hence the name) and does not
+support break points. (The current version also does not support conditional
+tracing.)
+                                                                     
+
+                                                                     
+</p><!--l. 70--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch19.html#manualse120.html" >Up</a></td><td class="clinks"><a 
+href="manualse121.html" >Next</a></td><td class="clinks"><a 
+href="manualse119.html" >Prev</a></td><td class="clinks"><a 
+href="manualse119.html#tailmanualse119.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse120.html" >Front</a></td></tr></table><a 
+ id="tailmanualse120.html"></a> </p> 
+</body> 
+</html>

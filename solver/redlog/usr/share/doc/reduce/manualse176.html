@@ -1,0 +1,582 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>SETS: A Basic Set Theory Package</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse176.html" >Up</a></td><td class="clinks"><a 
+href="manualse177.html" >Next</a></td><td class="clinks"><a 
+href="manualse175.html" >Prev</a></td><td class="clinks"><a 
+href="manualse175.html#tailmanualse175.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse176.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.51    </span> <a 
+ id="x262-113200020.51"></a>SETS: A Basic Set Theory Package</h3>
+<a 
+ id="dx262-1132001"></a>
+<a 
+ id="dx262-1132002"></a>
+<!--l. 1105--><p class="noindent" >Author: Francis J. Wright.
+<a 
+ id="dx262-1132003"></a>
+</p><!--l. 1--><p class="noindent" > <a 
+ id="dx262-1132004"></a>
+</p><!--l. 6--><p class="noindent" >The SETS package for REDUCE provides algebraic-mode support for set operations on
+lists regarded as sets (or representing explicit sets) and on implicit sets represented by
+identiﬁers. It provides the set-valued inﬁx operators (with synonyms) <span 
+class="pcrr8t-x-x-109">union</span>,
+<span 
+class="pcrr8t-x-x-109">intersection </span>(<span 
+class="pcrr8t-x-x-109">intersect</span>) and <span 
+class="pcrr8t-x-x-109">setdiff </span>(<span 
+class="pcrr8t-x-x-109">\</span>, <span 
+class="pcrr8t-x-x-109">minus</span>) and the Boolean-valued
+inﬁx operators (predicates) <span 
+class="pcrr8t-x-x-109">member</span>, <span 
+class="pcrr8t-x-x-109">subset_eq</span>, <span 
+class="pcrr8t-x-x-109">subset</span>, <span 
+class="pcrr8t-x-x-109">set_eq</span>. The union and
+intersection operators are n-ary and the rest are binary. A list can be explicitly converted
+to the canonical set representation by applying the operator <span 
+class="pcrr8t-x-x-109">mkset</span>. (The package also
+provides an operator not speciﬁcally related to set theory called <span 
+class="pcrr8t-x-x-109">evalb </span>that
+allows the value of any Boolean-valued expression to be displayed in algebraic
+mode.)
+</p><!--l. 22--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.51.1    </span> <a 
+ id="x262-113300020.51.1"></a>Introduction</h4>
+<!--l. 24--><p class="noindent" >REDUCE has no speciﬁc representation for a set, neither in algebraic mode nor
+internally, and any object that is mathematically a set is represented in REDUCE as a list.
+The diﬀerence between a set and a list is that in a set the ordering of elements is not
+signiﬁcant and duplicate elements are not allowed (or are ignored). Hence a list provides
+a perfectly natural and satisfactory representation for a set (but not vice versa). Some
+languages, such as Maple, provide diﬀerent internal representations for sets
+and lists, which may allow sets to be processed more eﬃciently, but this is not
+<span 
+class="ptmri8t-x-x-109">necessary</span>.
+</p><!--l. 34--><p class="noindent" >This package supports set theoretic operations on lists and represents the results as
+normal algebraic-mode lists, so that all other REDUCE facilities that apply to lists can
+still be applied to lists that have been constructed by explicit set operations. The
+algebraic-mode set operations provided by this package have all been available in
+symbolic mode for a long time, and indeed are used internally by the rest of REDUCE,
+                                                                     
+
+                                                                     
+so in that sense set theory facilities in REDUCE are far from new. What this package
+does is make them available in algebraic mode, generalize their operation by extending
+the arity of union and intersection, and allow their arguments to be implicit sets
+represented by unbound identiﬁers. It performs some simpliﬁcations on such
+symbolic set-valued expressions, but this is currently rather <span 
+class="ptmri8t-x-x-109">ad hoc </span>and is probably
+incomplete.
+</p><!--l. 48--><p class="noindent" >For examples of the operation of the SETS package see (or run) the test ﬁle <span 
+class="pcrr8t-x-x-109">sets.tst</span>.
+This package is experimental and developments are under consideration; if you have
+suggestions for improvements (or corrections) then please send them to me (FJW),
+preferably by email. The package is intended to be run under REDUCE 3.5 and later
+versions; it may well run correctly under earlier versions although I cannot provide
+support for such use.
+</p><!--l. 57--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.51.2    </span> <a 
+ id="x262-113400020.51.2"></a>Inﬁx operator precedence</h4>
+<!--l. 59--><p class="noindent" >The set operators are currently inserted into the standard REDUCE precedence list (see
+page <a 
+href="manualse7.html#x12-140002.7">61<!--tex4ht:ref: sect:infix --></a>, §<a 
+href="manualse7.html#x12-140002.7">2.7<!--tex4ht:ref: sect:infix --></a>, of the REDUCE manual) as follows:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1350">
+or and not member memq = set_eq neq eq &#x003E;= &#x003E; &#x003C;= &#x003C;
+ <br />subset_eq subset freeof + - setdiff union intersection
+ <br />* / ^ .
+</div>
+<!--l. 66--><p class="nopar" >
+</p><!--l. 69--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.51.3    </span> <a 
+ id="x262-113500020.51.3"></a>Explicit set representation and <span 
+class="pcrr8t-x-x-109">mkset</span></h4>
+<a 
+ id="dx262-1135001"></a>
+<!--l. 71--><p class="noindent" ><a 
+ id="operator:SETS_MKSET"></a>
+</p><!--l. 73--><p class="noindent" >Explicit sets are represented by lists, and this package does not require any restrictions at
+all on the forms of lists that are regarded as sets. Nevertheless, duplicate elements in a set
+correspond by deﬁnition to the same element and it is conventional and convenient to
+represent them by a single element, i.e. to remove any duplicate elements. I
+will call this a normal representation. Since the order of elements in a set is
+irrelevant it is also conventional and may be convenient to sort them into some
+standard order, and an appropriate ordering of a normal representation gives
+a canonical representation. This means that two identical sets have identical
+representations, and therefore the standard REDUCE equality predicate (<span 
+class="pcrr8t-x-x-109">=</span>)
+<a 
+ id="dx262-1135002"></a> correctly determines set equality; without a canonical representation this is not the
+case.
+</p><!--l. 88--><p class="noindent" >Pre-processing of explicit set-valued arguments of the set-valued operators to remove
+duplicates is always done because of the obvious eﬃciency advantage if there were any
+duplicates, and hence explicit sets appearing in the values of such operators will
+never contain any duplicate elements. Such sets are also currently sorted, mainly
+because the result looks better. The ordering used satisﬁes the <span 
+class="pcrr8t-x-x-109">ordp</span><a 
+ id="dx262-1135003"></a> predicate
+used for most sorting within REDUCE, except that explicit integers are sorted
+into increasing numerical order rather than the decreasing order that satisﬁes
+<span 
+class="pcrr8t-x-x-109">ordp</span>.
+</p><!--l. 99--><p class="noindent" >Hence explicit sets appearing in the result of any set operator are currently returned in a
+canonical form. Any explicit set can also be put into this form by applying the operator
+<span 
+class="pcrr8t-x-x-109">mkset </span>to the list representing it. For example
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1351">
+mkset {1,2,y,x*y,x+y};
+ <br />
+ <br />{x + y,x*y,y,1,2}
+</div>
+<!--l. 107--><p class="nopar" >
+</p><!--l. 109--><p class="noindent" >The empty set is represented by the empty list <span 
+class="pcrr8t-x-x-109">{}</span>.
+</p><!--l. 112--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.51.4    </span> <a 
+ id="x262-113600020.51.4"></a>Union and intersection</h4>
+<a 
+ id="dx262-1136001"></a>
+<a 
+ id="dx262-1136002"></a>
+<a 
+ id="dx262-1136003"></a>
+<!--l. 114--><p class="noindent" ><a 
+ id="operator:SETS_UNION"></a> <a 
+ id="operator:INTERSECTION"></a> <a 
+ id="operator:SETS_INTERSECT"></a> The operator <span 
+class="pcrr8t-x-x-109">intersection </span>(the name used internally) has the shorter synonym
+<span 
+class="pcrr8t-x-x-109">intersect</span>. These operators will probably most commonly be used as binary inﬁx
+operators applied to explicit sets, e.g.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1352">
+{1,2,3} union {2,3,4};
+ <br />
+ <br />{1,2,3,4}
+ <br />
+ <br />{1,2,3} intersect {2,3,4};
+ <br />
+ <br />{2,3}
+</div>
+<!--l. 129--><p class="nopar" > They can also be used as n-ary operators with any number of arguments, in which case it
+saves typing to use them as preﬁx operators (which is possible with all REDUCE inﬁx
+operators), e.g.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1353">
+{1,2,3} union {2,3,4} union {3,4,5};
+ <br />
+ <br />{1,2,3,4,5}
+ <br />
+ <br />intersect({1,2,3}, {2,3,4}, {3,4,5});
+ <br />
+ <br />{3}
+</div>
+<!--l. 141--><p class="nopar" > For completeness, they can currently also be used as unary operators, in which case they
+just return their arguments (in canonical form), and so act as slightly less eﬃcient
+versions of <span 
+class="pcrr8t-x-x-109">mkset </span>(but this may change), e.g.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1354">
+union {1,5,3,5,1};
+ <br />
+ <br />{1,3,5}
+</div>
+<!--l. 150--><p class="nopar" >
+</p><!--l. 153--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.51.5    </span> <a 
+ id="x262-113700020.51.5"></a>Symbolic set expressions</h4>
+<!--l. 155--><p class="noindent" >If one or more of the arguments evaluates to an unbound identiﬁer then it is regarded as
+representing a symbolic implicit set, and the union or intersection will evaluate to
+an expression that still contains the union or intersection operator. These two
+operators are symmetric, and so if they remain symbolic their arguments will
+be sorted as for any symmetric operator. Such symbolic set expressions are
+simpliﬁed, but the simpliﬁcation may not be complete in non-trivial cases. For
+example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1355">
+a union b union {} union b union {7,3};
+ <br />
+ <br />{3,7} union a union b
+ <br />
+ <br />a intersect {};
+ <br />
+ <br />{}
+</div>
+<!--l. 171--><p class="nopar" >
+</p><!--l. 173--><p class="noindent" >In implementations of REDUCE that provide fancy display using mathematical notation,
+the empty set, union, intersection and set diﬀerence are all displayed using their
+conventional mathematical symbols, namely <span 
+class="cmsy-10x-x-109">∅</span>, <span 
+class="cmsy-10x-x-109">∪</span>, <span 
+class="cmsy-10x-x-109">∩</span>, <span 
+class="cmsy-10x-x-109">∖</span>.
+</p><!--l. 178--><p class="noindent" >A symbolic set expression is a valid argument for any other set operator, e.g.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1356">
+a union (b intersect c);
+ <br />
+ <br />b intersection c union a
+</div>
+<!--l. 184--><p class="nopar" >
+</p><!--l. 186--><p class="noindent" >Intersection distributes over union, which is not applied by default but is implemented as
+a rule list assigned to the variable <span 
+class="pcrr8t-x-x-109">set_distribution_rule</span>, e.g. <a 
+ id="dx262-1137001"></a> <a 
+ id="reserved:SET_DISTRIBUTION_RULE"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1357">
+a intersect (b union c);
+ <br />
+ <br />(b union c) intersection a
+ <br />
+ <br />a intersect (b union c) where set_distribution_rule;
+ <br />
+ <br />a intersection b union a intersection c
+</div>
+<!--l. 199--><p class="nopar" >
+</p><!--l. 202--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.51.6    </span> <a 
+ id="x262-113800020.51.6"></a>Set diﬀerence</h4>
+<a 
+ id="dx262-1138001"></a>
+<a 
+ id="dx262-1138002"></a>
+<!--l. 205--><p class="noindent" ><a 
+ id="operator:SETDIFF"></a> <a 
+ id="operator:setdiffop"></a>
+</p><!--l. 208--><p class="noindent" >The set diﬀerence operator is represented by the symbol <span 
+class="pcrr8t-x-x-109">\ </span>and is always output using
+this symbol, although it can also be input using either of the two names <span 
+class="pcrr8t-x-x-109">setdiff </span>(the
+name used internally) or <span 
+class="pcrr8t-x-x-109">minus </span>(as used in Maple). It is a binary operator, its operands
+may be any combination of explicit or implicit sets, and it may be used in an argument of
+any other set operator. Here are some examples:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1358">
+{1,2,3} \ {2,4};
+ <br />
+ <br />{1,3}
+ <br />
+ <br />{1,2,3} \ {};
+ <br />
+ <br />{1,2,3}
+ <br />
+ <br />a \ {1,2};
+ <br />
+ <br />a\{1,2}
+ <br />
+ <br />a \ a;
+ <br />
+ <br />{}
+ <br />
+ <br />a \ {};
+ <br />
+ <br />a
+ <br />
+ <br />{} \ a;
+ <br />
+ <br />{}
+</div>
+<!--l. 239--><p class="nopar" >
+</p><!--l. 242--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.51.7    </span> <a 
+ id="x262-113900020.51.7"></a>Predicates on sets</h4>
+<a 
+ id="dx262-1139001"></a>
+<a 
+ id="dx262-1139002"></a>
+<a 
+ id="dx262-1139003"></a>
+<!--l. 246--><p class="noindent" ><a 
+ id="operator:EVALB"></a>
+</p><!--l. 248--><p class="noindent" >These are all binary inﬁx operators. Currently, like all REDUCE predicates, they can
+                                                                     
+
+                                                                     
+only be used within conditional statements <span 
+class="pcrr8t-x-x-109">if</span>, <span 
+class="pcrr8t-x-x-109">while</span>, <span 
+class="pcrr8t-x-x-109">repeat</span>) or within the
+argument of the <span 
+class="pcrr8t-x-x-109">evalb </span>operator provided by this package, and they cannot remain
+symbolic – a predicate that cannot be evaluated to a Boolean value causes a normal
+REDUCE error.
+</p><!--l. 255--><p class="noindent" >The <span 
+class="pcrr8t-x-x-109">evalb </span>operator provides a convenient shorthand for an <span 
+class="pcrr8t-x-x-109">if </span>statement designed
+purely to display the value of any Boolean expression (not only predicates deﬁned in this
+package). It has some similarity with the <span 
+class="pcrr8t-x-x-109">evalb </span>function in Maple, except that the
+values returned by <span 
+class="pcrr8t-x-x-109">evalb </span>in REDUCE (the identiﬁers <span 
+class="pcrr8t-x-x-109">true </span>and <span 
+class="pcrr8t-x-x-109">false</span>) have no
+signiﬁcance to REDUCE itself. Hence, in REDUCE, use of <span 
+class="pcrr8t-x-x-109">evalb </span>is <span 
+class="ptmri8t-x-x-109">never</span>
+necessary.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1359">
+if a = a then true else false;
+ <br />
+ <br />true
+ <br />
+ <br />evalb(a = a);
+ <br />
+ <br />true
+ <br />
+ <br />if a = b then true else false;
+ <br />
+ <br />false
+ <br />
+ <br />evalb(a = b);
+ <br />
+ <br />false
+ <br />
+ <br />evalb 1;
+ <br />
+ <br />true
+ <br />
+ <br />evalb 0;
+ <br />
+ <br />false
+</div>
+<!--l. 286--><p class="nopar" > I will use the <span 
+class="pcrr8t-x-x-109">evalb </span>operator in preference to an explicit <span 
+class="pcrr8t-x-x-109">if </span>statement for purposes of
+illustration.
+</p><!--l. 291--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.51.7.1    </span> <a 
+ id="x262-114000020.51.7.1"></a>Set membership</h5>
+<a 
+ id="dx262-1140001"></a>
+<!--l. 293--><p class="noindent" ><a 
+ id="operator:SETS_MEMBER"></a>
+</p><!--l. 295--><p class="noindent" >Set membership is tested by the predicate <span 
+class="pcrr8t-x-x-109">member</span>. Its left operand is regarded as a
+potential set element and its right operand <span 
+class="ptmri8t-x-x-109">must </span>evaluate to an explicit set. There is
+                                                                     
+
+                                                                     
+currently no sense in which the right operand could be an implicit set; this would require
+a mechanism for declaring implicit set membership (akin to implicit variable
+dependence) which is currently not implemented. Set membership testing works like
+this:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1360">
+evalb(1 member {1,2,3});
+ <br />
+ <br />true
+ <br />
+ <br />evalb(2 member {1,2} intersect {2,3});
+ <br />
+ <br />true
+ <br />
+ <br />evalb(a member b);
+ <br />
+ <br />***** b invalid as list
+</div>
+<!--l. 314--><p class="nopar" >
+</p><!--l. 317--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.51.7.2    </span> <a 
+ id="x262-114100020.51.7.2"></a>Set inclusion</h5>
+<a 
+ id="dx262-1141001"></a>
+<a 
+ id="dx262-1141002"></a>
+<!--l. 319--><p class="noindent" ><a 
+ id="operator:SUBSET_EQ"></a> <a 
+ id="operator:SUBSET"></a>
+</p><!--l. 322--><p class="noindent" >Set inclusion is tested by the predicate <span 
+class="pcrr8t-x-x-109">subset_eq </span>where <span 
+class="pcrr8t-x-x-109">a subset_eq b </span>is true if
+the set <span 
+class="cmmi-10x-x-109">a </span>is either a subset of or equal to the set <span 
+class="cmmi-10x-x-109">b</span>; strict inclusion is tested by the
+predicate <span 
+class="pcrr8t-x-x-109">subset </span>where <span 
+class="pcrr8t-x-x-109">a subset b </span>is true if the set <span 
+class="cmmi-10x-x-109">a </span>is <span 
+class="ptmri8t-x-x-109">strictly </span>a subset of the set <span 
+class="cmmi-10x-x-109">b</span>
+and is false is <span 
+class="cmmi-10x-x-109">a </span>is equal to <span 
+class="cmmi-10x-x-109">b</span>. These predicates provide some support for symbolic
+set expressions, but this is not yet correct as indicated below. Here are some
+examples:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1361">
+evalb({1,2} subset_eq {1,2,3});
+ <br />
+ <br />true
+ <br />
+ <br />evalb({1,2} subset_eq {1,2});
+ <br />
+ <br />true
+ <br />
+ <br />evalb({1,2} subset {1,2});
+ <br />
+ <br />false
+ <br />
+ <br />
+ <br />evalb(a subset a union b);
+ <br />
+ <br />true
+ <br />
+ <br />evalb(a\b subset a);
+ <br />
+ <br />true
+ <br />
+ <br />evalb(a intersect b subset a union b);  %%% BUG
+ <br />
+ <br />false
+</div>
+<!--l. 354--><p class="nopar" >
+</p><!--l. 356--><p class="noindent" >An undecidable predicate causes a normal REDUCE error, e.g.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1362">
+evalb(a subset_eq {b});
+ <br />
+ <br />***** Cannot evaluate a subset_eq {b}
+ <br />as Boolean-valued set expression
+ <br />
+ <br />evalb(a subset_eq b);  %%% BUG
+ <br />
+ <br />false
+</div>
+<!--l. 366--><p class="nopar" >
+</p><!--l. 369--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.51.7.3    </span> <a 
+ id="x262-114200020.51.7.3"></a>Set equality</h5>
+<a 
+ id="dx262-1142001"></a>
+<!--l. 371--><p class="noindent" ><a 
+ id="operator:SET_EQ"></a>
+</p><!--l. 373--><p class="noindent" >As explained above, equality of two sets in canonical form can be reliably tested by the
+standard REDUCE equality predicate (<span 
+class="pcrr8t-x-x-109">=</span>). This package also provides the predicate
+<span 
+class="pcrr8t-x-x-109">set_eq </span>to test equality of two sets not represented canonically. The two predicates
+behave identically for operands that are symbolic set expressions because these are
+always evaluated to canonical form (although currently this is probably strictly true only
+in simple cases). Here are some examples:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1363">
+evalb({1,2,3} = {1,2,3});
+ <br />
+ <br />true
+ <br />
+ <br />evalb({2,1,3} = {1,3,2});
+ <br />
+ <br />false
+ <br />
+ <br />evalb(mkset{2,1,3} = mkset{1,3,2});
+ <br />
+ <br />true
+ <br />
+ <br />evalb({2,1,3} set_eq {1,3,2});
+ <br />
+ <br />true
+ <br />
+ <br />evalb(a union a = a\{});
+ <br />
+ <br />true
+</div>
+<!--l. 401--><p class="nopar" >
+</p><!--l. 404--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.51.8    </span> <a 
+ id="x262-114300020.51.8"></a>Possible future developments</h4>
+     <ul class="itemize1">
+     <li class="itemize">Unary union/intersection to implement repeated union/intersection on a set
+     of sets.
+     </li>
+     <li class="itemize">More  symbolic  set  algebra,  canonical  forms  for  set  expressions,  more
+     complete simpliﬁcation.
+     </li>
+                                                                     
+
+                                                                     
+     <li class="itemize">Better support for Boolean variables via a version (evalb10?) of <span 
+class="pcrr8t-x-x-109">evalb </span>that
+     returns 1/0 instead of <span 
+class="pcrr8t-x-x-109">true</span>/<span 
+class="pcrr8t-x-x-109">false</span>, or predicates that return 1/0 directly.</li></ul>
+<!--l. 1109--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 1111--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse176.html" >Up</a></td><td class="clinks"><a 
+href="manualse177.html" >Next</a></td><td class="clinks"><a 
+href="manualse175.html" >Prev</a></td><td class="clinks"><a 
+href="manualse175.html#tailmanualse175.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse176.html" >Front</a></td></tr></table><a 
+ id="tailmanualse176.html"></a>  </p> 
+</body> 
+</html>

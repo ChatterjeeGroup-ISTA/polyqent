@@ -1,0 +1,190 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>The Standard Lisp Cross Reference Program</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch23.html#manualse213.html" >Up</a></td><td class="clinks"><a 
+href="manualse214.html" >Next</a></td><td class="clinks"><a 
+href="manualse212.html" >Prev</a></td><td class="clinks"><a 
+href="manualse212.html#tailmanualse212.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse213.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">23.3    </span> <a 
+ id="x310-136000023.3"></a>The Standard Lisp Cross Reference Program</h3>
+<a 
+ id="dx310-1360001"></a>
+<!--l. 91--><p class="noindent" ><a 
+ id="switch:CREF"></a>
+</p><!--l. 93--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">cref</span><a 
+ id="dx310-1360002"></a><a 
+ id="dx310-1360003"></a><a 
+ id="dx310-1360004"></a> is a Standard Lisp program for processing a set of Standard LISP function
+deﬁnitions to produce:
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   1. </dt><dd 
+class="enumerate-enumitem">A “summary” showing:
+          <dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+      (a) </dt><dd 
+class="enumerate-enumitem">A list of ﬁles processed;
+          </dd><dt class="enumerate-enumitem">
+      (b) </dt><dd 
+class="enumerate-enumitem">A  list  of  “entry  points”  (functions  which  are  not  called  or  are  only
+          called by themselves);
+          </dd><dt class="enumerate-enumitem">
+      (c) </dt><dd 
+class="enumerate-enumitem">A list of undeﬁned functions (functions called but not deﬁned in this
+          set of functions);
+          </dd><dt class="enumerate-enumitem">
+      (d) </dt><dd 
+class="enumerate-enumitem">A list of variables that were used non-locally but not declared <span 
+class="pcrr8t-x-x-109">global</span>
+          or <span 
+class="pcrr8t-x-x-109">fluid </span>before their use;
+          </dd><dt class="enumerate-enumitem">
+      (e) </dt><dd 
+class="enumerate-enumitem">A list of variables that were declared <span 
+class="pcrr8t-x-x-109">global </span>but not used as <span 
+class="pcrr8t-x-x-109">fluid</span>s,
+          i.e., bound in a function;
+          </dd><dt class="enumerate-enumitem">
+       (f) </dt><dd 
+class="enumerate-enumitem">A list of <span 
+class="pcrr8t-x-x-109">fluid </span>variables that were not bound in a function so that one
+          might consider declaring them <span 
+class="pcrr8t-x-x-109">global</span>s;
+          </dd><dt class="enumerate-enumitem">
+      (g) </dt><dd 
+class="enumerate-enumitem">A list of all <span 
+class="pcrr8t-x-x-109">global </span>variables present;
+          </dd><dt class="enumerate-enumitem">
+      (h) </dt><dd 
+class="enumerate-enumitem">A list of all <span 
+class="pcrr8t-x-x-109">fluid </span>variables present;
+          </dd><dt class="enumerate-enumitem">
+       (i) </dt><dd 
+class="enumerate-enumitem">A list of all functions present.</dd></dl>
+     </dd><dt class="enumerate-enumitem">
+   2. </dt><dd 
+class="enumerate-enumitem">A “global variable usage” table, showing for each non-local variable:
+                                                                     
+
+                                                                     
+          <dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+      (a) </dt><dd 
+class="enumerate-enumitem">Functions in which it is used as a declared <span 
+class="pcrr8t-x-x-109">fluid </span>or <span 
+class="pcrr8t-x-x-109">global</span>;
+          </dd><dt class="enumerate-enumitem">
+      (b) </dt><dd 
+class="enumerate-enumitem">Functions in which it is used but not declared;
+          </dd><dt class="enumerate-enumitem">
+      (c) </dt><dd 
+class="enumerate-enumitem">Functions in which it is bound;
+          </dd><dt class="enumerate-enumitem">
+      (d) </dt><dd 
+class="enumerate-enumitem">Functions in which it is changed by <span 
+class="pcrr8t-x-x-109">setq</span>.</dd></dl>
+     </dd><dt class="enumerate-enumitem">
+   3. </dt><dd 
+class="enumerate-enumitem">A “function usage” table showing for each function:
+          <dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+      (a) </dt><dd 
+class="enumerate-enumitem">Where it is deﬁned;
+          </dd><dt class="enumerate-enumitem">
+      (b) </dt><dd 
+class="enumerate-enumitem">Functions which call this function;
+          </dd><dt class="enumerate-enumitem">
+      (c) </dt><dd 
+class="enumerate-enumitem">Functions called by it;
+          </dd><dt class="enumerate-enumitem">
+      (d) </dt><dd 
+class="enumerate-enumitem">Non-local variables used.</dd></dl>
+     </dd></dl>
+<!--l. 130--><p class="noindent" >The program will also check that functions are called with the correct number of
+arguments, and print a diagnostic message otherwise.
+</p><!--l. 133--><p class="noindent" >The output is alphabetized on the ﬁrst seven characters of each function name.
+</p><!--l. 136--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">23.3.1    </span> <a 
+ id="x310-136100023.3.1"></a>Restrictions</h4>
+<!--l. 138--><p class="noindent" >Algebraic procedures in REDUCE are treated as if they were symbolic, so that
+algebraic constructs will actually appear as calls to symbolic functions, such as
+<span 
+class="pcrr8t-x-x-109">aeval</span>.
+</p><!--l. 142--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">23.3.2    </span> <a 
+ id="x310-136200023.3.2"></a>Usage</h4>
+                                                                     
+
+                                                                     
+<!--l. 144--><p class="noindent" >To invoke the cross reference program, the switch <span 
+class="pcrr8t-x-x-109">cref</span><a 
+ id="dx310-1362001"></a><a 
+ id="dx310-1362002"></a><a 
+ id="dx310-1362003"></a> is used. <span 
+class="pcrr8t-x-x-109">on cref </span>causes the
+cref program to load and the cross-referencing process to begin. After all the required
+deﬁnitions are loaded, <span 
+class="pcrr8t-x-x-109">off cref </span>will cause the cross-reference listing to be produced.
+For example, if you wish to cross-reference all functions in the ﬁle <span 
+class="pcrr8t-x-x-109">tst.red</span>, and
+produce the cross-reference listing in the ﬁle <span 
+class="pcrr8t-x-x-109">tst.crf</span>, the following sequence can be
+used:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1519">
+        out &#x0022;tst.crf&#x0022;;
+ <br />        on cref;
+ <br />        in &#x0022;tst.red&#x0022;$
+ <br />        off cref;
+ <br />        shut &#x0022;tst.crf&#x0022;;
+</div>
+<!--l. 157--><p class="nopar" > To process more than one ﬁle, more <span 
+class="pcrr8t-x-x-109">in </span>statements may be added before the call of <span 
+class="pcrr8t-x-x-109">off</span>
+<span 
+class="pcrr8t-x-x-109">cref</span>, or the <span 
+class="pcrr8t-x-x-109">in </span>statement changed to include a list of ﬁles.
+</p><!--l. 162--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">23.3.3    </span> <a 
+ id="x310-136300023.3.3"></a>Options</h4>
+<!--l. 164--><p class="noindent" >Functions with the ﬂag <span 
+class="pcrr8t-x-x-109">nolist </span>will not be examined or output. Initially, all Standard
+Lisp functions are so ﬂagged. (In fact, they are kept on a list <span 
+class="pcrr8t-x-x-109">nolist!*</span>, so if you wish
+to see references to <span 
+class="ptmri8t-x-x-109">all </span>functions, then <span 
+class="pcrr8t-x-x-109">cref </span>should be ﬁrst loaded with the command
+<span 
+class="pcrr8t-x-x-109">load cref</span>, and this variable then set to <span 
+class="pcrr8t-x-x-109">nil</span>).
+</p><!--l. 169--><p class="noindent" >It should also be remembered that any macros with the property list ﬂag <span 
+class="pcrr8t-x-x-109">expand</span>, or, if
+the switch <span 
+class="pcrr8t-x-x-109">force </span>is on, without the property list ﬂag <span 
+class="pcrr8t-x-x-109">noexpand</span>, will be expanded
+before the deﬁnition is seen by the cross-reference program, so this ﬂag can
+also be used to select those macros you require expanded and those you do
+not.
+                                                                     
+
+                                                                     
+</p><!--l. 175--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch23.html#manualse213.html" >Up</a></td><td class="clinks"><a 
+href="manualse214.html" >Next</a></td><td class="clinks"><a 
+href="manualse212.html" >Prev</a></td><td class="clinks"><a 
+href="manualse212.html#tailmanualse212.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse213.html" >Front</a></td></tr></table><a 
+ id="tailmanualse213.html"></a>  </p> 
+</body> 
+</html>

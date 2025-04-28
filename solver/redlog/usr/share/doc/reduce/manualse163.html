@@ -1,0 +1,1820 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>ODESOLVE:
+Ordinary Diﬀerential Equation Solver</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse163.html" >Up</a></td><td class="clinks"><a 
+href="manualse164.html" >Next</a></td><td class="clinks"><a 
+href="manualse162.html" >Prev</a></td><td class="clinks"><a 
+href="manualse162.html#tailmanualse162.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse163.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.38    </span> <a 
+ id="x241-103500020.38"></a>ODESOLVE: <br 
+class="newline" />Ordinary Diﬀerential Equation Solver</h3>
+<a 
+ id="dx241-1035001"></a>
+<a 
+ id="dx241-1035002"></a>
+<!--l. 781--><p class="noindent" >ODESOLVE is a solver for ordinary diﬀerential equations. It uses only elementary
+solution techniques. At present, it can handle only a single scalar equation presented as
+an algebraic expression or equation, and it can solve ﬁrst-order equations of simple types,
+linear equations with constant coeﬃcients, Euler equations, and some more complicated
+types. For example, the evaluation of
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1267">
+        depend(y, x);
+ <br />        odesolve(df(y,x) = x^2 + e^x, y, x);
+</div>
+<!--l. 790--><p class="nopar" > yields the result
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1268">
+                               x    3
+ <br />            3*arbconst(1) + 3*e  + x
+ <br />        {y=---------------------------}
+ <br />                        3
+</div>
+<!--l. 797--><p class="nopar" >
+</p><!--l. 799--><p class="noindent" >Main authors: Malcolm MacCallum and Francis Wright.
+</p><!--l. 801--><p class="noindent" >Other contributor: Alan Barnes.
+<a 
+ id="dx241-1035003"></a>
+<a 
+ id="dx241-1035004"></a>
+<a 
+ id="dx241-1035005"></a>
+<a 
+ id="dx241-1035006"></a>
+<a 
+ id="dx241-1035007"></a>
+<a 
+ id="dx241-1035008"></a>
+</p><!--l. 11--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.38.1    </span> <a 
+ id="x241-103600020.38.1"></a>Introduction</h4>
+<!--l. 13--><p class="noindent" ><span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span><span class="cite">[<a 
+href="manualap2.html#XMacCallum:88">Mac88</a>, <a 
+href="manualap2.html#XWright:97">Wri97</a>, <a 
+href="manualap2.html#XWright:99">Wri99</a>]</span> was developed partly under the auspices of the
+European CATHODE project <span class="cite">[<a 
+href="manualap2.html#XCATHODE">CAT</a>]</span>. Various test ﬁles that illustrate the capabilities of
+<span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span></span>, including three versions (with names beginning with <span 
+class="pcrr8t-x-x-109">zim</span>) based on a
+published review of ODE (ordinary diﬀerential equation) solvers <span class="cite">[<a 
+href="manualap2.html#XPostelZimmermann:96">PZ96</a>]</span>, are included in
+the source code distribution in the directory <span 
+class="pcrr8t-x-x-109">packages/odesolve</span>, which you can
+access online at<br 
+class="newline" /><a 
+href="https://sourceforge.net/p/reduce-algebra/code/HEAD/tree/trunk/packages/odesolve/" class="url" ><span 
+class="pcrr8t-x-x-109">https://sourceforge.net/p/reduce-algebra/code/HEAD/tree/trunk/packages/odesolve/</span></a>.
+</p><!--l. 23--><p class="noindent" ><span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>implements most of the simple and well known solution techniques <span class="cite">[<a 
+href="manualap2.html#XZwillinger:92">Zwi92</a>]</span>.
+It also provides an extension interface (see §<a 
+href="#x241-104700020.38.5">20.38.5<!--tex4ht:ref: OEI --></a>), which could be used to support
+more sophisticated solvers, such as PSODE <span class="cite">[<a 
+href="manualap2.html#XMan:94a">Man94</a>, <a 
+href="manualap2.html#XMan:97">MM97</a>, <a 
+href="manualap2.html#XPrelleSinger:83">PS83</a>]</span> and CRACK
+<span class="cite">[<a 
+href="manualap2.html#XBrand:92">BW92</a>]</span>, to handle cases where simple techniques fail, although none of these extensions
+is implemented yet.
+</p><!--l. 31--><p class="noindent" >The main motivation behind <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>is pragmatic. It is intended to meet
+user expectations, to have an easy user-interface that normally does the right
+thing automatically, and to return solutions in the form that the user wants and
+                                                                     
+
+                                                                     
+expects.
+</p><!--l. 36--><p class="noindent" >The <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>package autoloads the ﬁrst time the normal algebraic-mode <span 
+class="pcrr8t-x-x-109">odesolve</span>
+operator is used.
+</p><!--l. 40--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.38.2    </span> <a 
+ id="x241-103700020.38.2"></a>User interface</h4>
+<a 
+ id="dx241-1037001"></a>
+<a 
+ id="dx241-1037002"></a>
+<!--l. 43--><p class="noindent" ><a 
+ id="operator:ODESOLVE"></a> <a 
+ id="operator:DSOLVE"></a>
+</p><!--l. 46--><p class="noindent" >The principal interface is via the operator <span 
+class="pcrr8t-x-x-109">odesolve</span>. (It also has a synonym called
+<span 
+class="pcrr8t-x-x-109">dsolve </span>to make porting of examples from Maple easier, but it does not accept general
+Maple syntax! And if <span 
+class="pcrr8t-x-x-109">solve </span>is applied to a manifest ODE then it will call
+<span 
+class="pcrr8t-x-x-109">odesolve</span>.)
+</p><!--l. 52--><p class="noindent" >For purposes of description let us refer to the dependent variable as “<span 
+class="cmmi-10x-x-109">y</span>” and the
+independent variable as “<span 
+class="cmmi-10x-x-109">x</span>”, but of course the names are arbitrary. The general input
+syntax is
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1269">
+odesolve(ode, y, x, conditions, options);
+</div>
+<!--l. 57--><p class="nopar" > All arguments except the ﬁrst are optional. This is possible because, if necessary,
+<span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>attempts to deduce the dependent and independent variables used and to
+make any necessary <span 
+class="pcrr8t-x-x-109">DEPEND </span>declarations. Messages are output to indicate any
+assumptions or dependence declarations that are made. Here is an example of what is
+probably the shortest possible valid input:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1270">
+odesolve(df(y,x));
+ <br />
+ <br />*** Dependent var(s) assumed to be y
+ <br />
+ <br />*** Independent var assumed to be x
+ <br />
+ <br />*** depend y , x
+ <br />
+ <br />{y=arbconst(1)}
+</div>
+<!--l. 74--><p class="nopar" > Output of <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>messages is controlled by the standard REDUCE switch
+<span 
+class="pcrr8t-x-x-109">msg</span>.
+</p><!--l. 79--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.38.2.1    </span> <a 
+ id="x241-103800020.38.2.1"></a>Specifying the ODE and its variables</h5>
+<!--l. 81--><p class="noindent" >The ﬁrst argument (<span 
+class="pcrr8t-x-x-109">ode</span>) is <span 
+class="ptmri8t-x-x-109">required</span>, and must be either an ODE or a variable (or
+expression) that evaluates to an ODE. Automatic dependence declaration works <span 
+class="ptmri8t-x-x-109">only</span>
+when the ODE is input <span 
+class="ptmri8t-x-x-109">directly </span>as an argument to the <span 
+class="pcrr8t-x-x-109">odesolve </span>operator. Here, “ODE”
+means an equation or expression containing one or more derivatives of <span 
+class="cmmi-10x-x-109">y </span>with respect to
+<span 
+class="cmmi-10x-x-109">x</span>. Derivatives of <span 
+class="cmmi-10x-x-109">y </span>with respect to other variables are not allowed because <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span></span>
+does not solve <span 
+class="ptmri8t-x-x-109">partial </span>diﬀerential equations, and symbolic derivatives of variables other
+than <span 
+class="cmmi-10x-x-109">y </span>are treated as symbolic constants. An expression is implicitly equated to zero, as is
+usual in equation solvers.
+</p><!--l. 93--><p class="noindent" >The independent variable may be either an operator that explicitly depends on the
+independent variable, e.g. <span 
+class="cmmi-10x-x-109">y</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) </span>(as required in Maple), or a simple variable that is
+declared (by the user or automatically by <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span></span>) to depend on the independent
+variable. If the independent variable is an operator then it may depend on parameters as
+well as the independent variable. Variables may be simple identiﬁers or, more generally,
+REDUCE “kernels”, e.g.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1271">
+operator x, y;
+ <br />odesolve(df(y(x(a),b),x(a)) = 0);
+ <br />
+ <br />*** Dependent var(s) assumed to be y(x(a),b)
+ <br />
+ <br />*** Independent var assumed to be x(a)
+ <br />
+ <br />{y(x(a),b)=arbconst(1)}
+</div>
+<!--l. 109--><p class="nopar" >
+</p><!--l. 111--><p class="noindent" >The order in which arguments are given must be preserved, but arguments may be
+omitted, except that if <span 
+class="cmmi-10x-x-109">x </span>is speciﬁed then <span 
+class="cmmi-10x-x-109">y </span>must also be speciﬁed, although
+an empty list <span 
+class="pcrr8t-x-x-109">{} </span>can be used as a “place-holder” to represent “no speciﬁed
+argument”. Variables are distinguished from options by requiring that if a variable
+is speciﬁed then it must appear in the ODE, otherwise it is assumed to be an
+option.
+</p><!--l. 119--><p class="noindent" >Generally in REDUCE it is not recommended to use the identiﬁer <span 
+class="pcrr8t-x-x-109">t </span>as a variable, since it
+is reserved in Lisp. However, it is very common practice in applied mathematics to use it
+as a variable to represent time, and for that reason <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>provides special support to
+allow it as either the independent or a dependent variable. But, of course, its use may still
+cause trouble in other parts of REDUCE!
+</p><!--l. 127--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.38.2.2    </span> <a 
+ id="x241-103900020.38.2.2"></a>Specifying conditions</h5>
+<!--l. 129--><p class="noindent" >If speciﬁed, the “conditions” argument must take the form of an (unordered) list of
+(unordered lists of) equations with either <span 
+class="cmmi-10x-x-109">y</span>, <span 
+class="cmmi-10x-x-109">x</span>, or a derivative of <span 
+class="cmmi-10x-x-109">y </span>on the left. A single list
+of conditions need not be contained within an outer list. Combinations of conditions are
+allowed. Conditions within one (inner) list all relate to the same <span 
+class="cmmi-10x-x-109">x </span>value. For
+example:
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Boundary conditions:</span> </dt><dd 
+class="description">  <br 
+class="newline" />{{y=y0, x=x0}, {y=y1, x=x1}, ...}
+                                                                     
+
+                                                                     
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Initial conditions:</span> </dt><dd 
+class="description">  <br 
+class="newline" />{x=x0, y=y0, df(y,x)=dy0, ...}
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Combined conditions:</span> </dt><dd 
+class="description">  <br 
+class="newline" />{{y=y0, x=x0}, {df(y,x)=dy1, x=x1}, {df(y,x)=dy2, y=y2, x=x2}, ...}</dd></dl>
+<!--l. 145--><p class="noindent" >Here is an example of boundary conditions:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1272">
+odesolve(df(y,x,2) = y, y, x,
+ <br />         {{x = 0, y = A}, {x = 1, y = B}});
+ <br />
+ <br />        2*x      2*x          2
+ <br />     - e   *a + e   *b*e + a*e  - b*e
+ <br />{y=-----------------------------------}
+ <br />                x  2    x
+ <br />               e *e  - e
+</div>
+<!--l. 155--><p class="nopar" > Here is an example of initial conditions:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1273">
+odesolve(df(y,x,2) = y, y, x,
+ <br />         {x = 0, y = A, df(y,x) = B});
+ <br />
+ <br />     2*x      2*x
+ <br />    e   *a + e   *b + a - b
+ <br />{y=-------------------------}
+ <br />                x
+ <br />             2*e
+</div>
+<!--l. 166--><p class="nopar" > Here is an example of combined conditions:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1274">
+odesolve(df(y,x,2) = y, y, x,
+ <br />         {{x=0, y=A}, {x=1, df(y,x)=B}});
+ <br />
+ <br />     2*x      2*x          2
+ <br />    e   *a + e   *b*e + a*e  - b*e
+ <br />{y=--------------------------------}
+ <br />               x  2    x
+ <br />              e *e  + e
+</div>
+<!--l. 177--><p class="nopar" >
+</p><!--l. 179--><p class="noindent" >Boundary conditions on the values of <span 
+class="cmmi-10x-x-109">y </span>at various values of <span 
+class="cmmi-10x-x-109">x </span>may also be speciﬁed by
+replacing the variables by equations with single values or matching lists of values on the
+right, of the form </p>
+<div class="center" 
+>
+<!--l. 182--><p class="noindent" >
+</p><!--l. 183--><p class="noindent" >y = y0, x = x0</p></div>
+<!--l. 185--><p class="noindent" >or </p>
+<div class="center" 
+>
+<!--l. 186--><p class="noindent" >
+</p><!--l. 187--><p class="noindent" >y = {y0, y1, ...}, x = {x0, x2, ...}</p></div>
+<!--l. 189--><p class="noindent" >For example
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1275">
+odesolve(df(y,x) = y, y = A, x = 0);
+ <br />
+ <br />    x
+ <br />{y=e *a}
+ <br />
+ <br />odesolve(df(y,x,2) = y, y = {A, B}, x = {0, 1});
+ <br />
+ <br />        2*x      2*x          2
+ <br />     - e   *a + e   *b*e + a*e  - b*e
+ <br />{y=-----------------------------------}
+ <br />                x  2    x
+ <br />               e *e  - e
+</div>
+<!--l. 203--><p class="nopar" >
+</p><!--l. 206--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.38.2.3    </span> <a 
+ id="x241-104000020.38.2.3"></a>Specifying options and defaults</h5>
+                                                                     
+
+                                                                     
+<a 
+ id="dx241-1040001"></a>
+<a 
+ id="dx241-1040002"></a>
+<a 
+ id="dx241-1040003"></a>
+<a 
+ id="dx241-1040004"></a>
+<a 
+ id="dx241-1040005"></a>
+<a 
+ id="dx241-1040006"></a>
+<a 
+ id="dx241-1040007"></a>
+<a 
+ id="dx241-1040008"></a>
+<a 
+ id="dx241-1040009"></a>
+<a 
+ id="dx241-1040010"></a>
+<a 
+ id="dx241-1040011"></a>
+<a 
+ id="dx241-1040012"></a>
+<a 
+ id="dx241-1040013"></a>
+<a 
+ id="dx241-1040014"></a>
+<a 
+ id="dx241-1040015"></a>
+<a 
+ id="dx241-1040016"></a>
+<a 
+ id="dx241-1040017"></a>
+<a 
+ id="dx241-1040018"></a>
+<a 
+ id="dx241-1040019"></a>
+<a 
+ id="dx241-1040020"></a>
+<a 
+ id="dx241-1040021"></a>
+<a 
+ id="dx241-1040022"></a>
+<a 
+ id="dx241-1040023"></a>
+<a 
+ id="dx241-1040024"></a>
+<a 
+ id="dx241-1040025"></a>
+<a 
+ id="dx241-1040026"></a>
+<a 
+ id="dx241-1040027"></a>
+<a 
+ id="dx241-1040028"></a>
+<a 
+ id="dx241-1040029"></a>
+<a 
+ id="dx241-1040030"></a>
+<!--l. 217--><p class="noindent" ><a 
+ id="switch:ODESOLVE_EXPLICIT"></a> <a 
+ id="switch:ODESOLVE_EXPAND"></a> <a 
+ id="switch:ODESOLVE_FULL"></a> <a 
+ id="switch:ODESOLVE_IMPLICIT"></a> <a 
+ id="switch:ODESOLVE_NOINT"></a> <a 
+ id="switch:ODESOLVE_VERBOSE"></a> <a 
+ id="switch:ODESOLVE_BASIS"></a> <a 
+ id="switch:TRODE"></a> <a 
+ id="switch:ODESOLVE_FAST"></a> <a 
+ id="switch:ODESOLVE_CHECK"></a>
+</p><!--l. 228--><p class="noindent" >The ﬁnal arguments may be one or more of the option identiﬁers listed in the table below,
+which take precedence over the default settings. All options can also be speciﬁed on the
+right of equations with the identiﬁer “output” on the left, e.g. “output = basis”. This
+facility if provided mainly for compatibility with other systems such as Maple, although
+it also allows options to be distinguished from variables in case of ambiguity. Some
+options can be speciﬁed on the left of equations that assign special values to the option.
+Currently, only “trode” and its synonyms can be assigned the value 1 to give an increased
+level of tracing.
+</p><!--l. 239--><p class="noindent" >The following switches set default options – they are all oﬀ by default. Options set
+locally using option arguments override the defaults set by switches. </p>
+                                                                     
+
+                                                                     
+<div class="center" 
+>
+<!--l. 242--><p class="noindent" >
+</p>
+<div class="tabular"> <table id="TBL-145" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-145-1g"><col 
+id="TBL-145-1" /><col 
+id="TBL-145-2" /><col 
+id="TBL-145-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-145-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-145-1-1"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">Switch                  </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-145-1-2"  
+class="td11">  <span 
+class="ptmb8t-x-x-109">Option      </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-145-1-3"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">Eﬀect on solution                              </span></td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-145-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-145-2-1"  
+class="td11"> odesolve_explicit   </td><td  style="white-space:nowrap; text-align:center;" id="TBL-145-2-2"  
+class="td11">  explicit      </td><td  style="white-space:nowrap; text-align:left;" id="TBL-145-2-3"  
+class="td11"> fully explicit                                        </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-145-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-145-3-1"  
+class="td11"> odesolve_expand   </td><td  style="white-space:nowrap; text-align:center;" id="TBL-145-3-2"  
+class="td11">  expand      </td><td  style="white-space:nowrap; text-align:left;" id="TBL-145-3-3"  
+class="td11"> expand roots of unity                          </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-145-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-145-4-1"  
+class="td11"> odesolve_full         </td><td  style="white-space:nowrap; text-align:center;" id="TBL-145-4-2"  
+class="td11">    full         </td><td  style="white-space:nowrap; text-align:left;" id="TBL-145-4-3"  
+class="td11"> fully explicit and expanded                 </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-145-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-145-5-1"  
+class="td11"> odesolve_implicit  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-145-5-2"  
+class="td11">  implicit     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-145-5-3"  
+class="td11"> implicit instead of parametric             </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-145-6-"><td  style="white-space:nowrap; text-align:left;" id="TBL-145-6-1"  
+class="td11">              </td><td  style="white-space:nowrap; text-align:center;" id="TBL-145-6-2"  
+class="td11">   algint       </td><td  style="white-space:nowrap; text-align:left;" id="TBL-145-6-3"  
+class="td11"> turn on algint                                       </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-145-7-"><td  style="white-space:nowrap; text-align:left;" id="TBL-145-7-1"  
+class="td11"> odesolve_noint      </td><td  style="white-space:nowrap; text-align:center;" id="TBL-145-7-2"  
+class="td11">   noint        </td><td  style="white-space:nowrap; text-align:left;" id="TBL-145-7-3"  
+class="td11"> turn oﬀ selected integrations               </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-145-8-"><td  style="white-space:nowrap; text-align:left;" id="TBL-145-8-1"  
+class="td11"> odesolve_verbose  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-145-8-2"  
+class="td11">  verbose     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-145-8-3"  
+class="td11"> display ODE and conditions               </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-145-9-"><td  style="white-space:nowrap; text-align:left;" id="TBL-145-9-1"  
+class="td11"> odesolve_basis       </td><td  style="white-space:nowrap; text-align:center;" id="TBL-145-9-2"  
+class="td11">   basis        </td><td  style="white-space:nowrap; text-align:left;" id="TBL-145-9-3"  
+class="td11"> output basis solution for linear ODE  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-145-10-"><td  style="white-space:nowrap; text-align:left;" id="TBL-145-10-1"  
+class="td11"> trode                       </td><td  style="white-space:nowrap; text-align:center;" id="TBL-145-10-2"  
+class="td11"> <img 
+src="manual490x.png" alt="(       )
+{  trode }
+   trace
+( tracing)"  class="left" align="middle" /> </td><td  style="white-space:nowrap; text-align:left;" id="TBL-145-10-3"  
+class="td11"> turn on algorithm tracing                    </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-145-11-"><td  style="white-space:nowrap; text-align:left;" id="TBL-145-11-1"  
+class="td11"> odesolve_fast         </td><td  style="white-space:nowrap; text-align:center;" id="TBL-145-11-2"  
+class="td11">    fast         </td><td  style="white-space:nowrap; text-align:left;" id="TBL-145-11-3"  
+class="td11"> turn oﬀ heuristics                                </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-145-12-"><td  style="white-space:nowrap; text-align:left;" id="TBL-145-12-1"  
+class="td11"> odesolve_check     </td><td  style="white-space:nowrap; text-align:center;" id="TBL-145-12-2"  
+class="td11">   check       </td><td  style="white-space:nowrap; text-align:left;" id="TBL-145-12-3"  
+class="td11"> turn on solution checking                    </td>
+</tr></table></div></div>
+<!--l. 261--><p class="noindent" >An “explicit” solution is an equation with <span 
+class="cmmi-10x-x-109">y </span>isolated on the left whereas an “implicit”
+solution is an equation that determines <span 
+class="cmmi-10x-x-109">y </span>as one or more of its solutions. A “parametric”
+solution expresses both <span 
+class="cmmi-10x-x-109">x </span>and <span 
+class="cmmi-10x-x-109">y </span>in terms of some additional parameter. Some solution
+techniques naturally produce an explicit solution, but some produce either an implicit or
+a parametric solution. The “explicit” option causes <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>to attempt to convert
+solutions to explicit form, whereas the “implicit” option causes <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>to
+attempt to convert parametric solutions (only) to implicit form (by eliminating the
+parameter). These solution conversions may be slow or may fail in complicated
+cases.
+<a 
+ id="dx241-1040031"></a>
+<a 
+ id="dx241-1040032"></a>
+</p><!--l. 275--><p class="noindent" ><a 
+ id="operator:ROOT_OF_UNITY"></a> <a 
+ id="operator:PLUS_OR_MINUS"></a> <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>introduces two operators used in solutions: <span 
+class="pcrr8t-x-x-109">root_of_unity </span>and
+<span 
+class="pcrr8t-x-x-109">plus_or_minus</span>, the latter being a special case of the former, i.e. a second root of
+unity. These operators carry a tag that associates the same root of unity when it appears
+in more than one place in a solution (cf. the standard <span 
+class="pcrr8t-x-x-109">root_of </span>operator). The
+“expand” option expands a single solution expressed in terms of these operators into
+a set of solutions that do not involve them. <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>also introduces two
+operators <span 
+class="pcrr8t-x-x-109">expand_roots_of_unity </span>and <span 
+class="pcrr8t-x-x-109">expand_plus_or_minus</span>, that
+are used internally to perform the expansion described above, and can be used
+explicitly.
+</p><!--l. 289--><p class="noindent" >The “algint” option turns on “algebraic integration” locally only within <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span></span>. It
+also loads the <span 
+class="pcrr8t-x-x-109">algint </span>package if necessary. Algint allows <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>to solve some
+ODEs for which the standard REDUCE integrator hangs (i.e. takes an extremely long
+time to return). If the resulting solution contains unevaluated integrals then the
+algint switch should be turned on outside <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>before the solution is
+                                                                     
+
+                                                                     
+re-evaluated, otherwise the standard integrator may well hang again! For some
+ODEs, the algint option leads to better solutions than the standard REDUCE
+integrator.
+</p><!--l. 299--><p class="noindent" >Alternatively, the “noint” option prevents REDUCE from attempting to evaluate
+the integrals that arise in some solution techniques. If <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>takes too
+long to return a result then you might try adding this option to see if it helps
+solve this particular ODE, as illustrated in the test ﬁles. This option is provided
+to speed up the computation of solutions that contain integrals that cannot be
+evaluated, because in some cases REDUCE can spend a long time trying to
+evaluate such integrals before returning them unevaluated. This only aﬀects
+integrals evaluated <span 
+class="ptmri8t-x-x-109">within </span>the <span 
+class="pcrr8t-x-x-109">odesolve </span>operator. If a solution containing an
+unevaluated integral that was returned using the “noint” option is re-evaluated, it
+may again take REDUCE a very long time to fail to evaluate the integral, so
+considerable caution is recommended! (A global switch called “noint” is also installed
+when <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>is loaded, and can be turned on to prevent REDUCE from
+attempting to evaluate <span 
+class="ptmri8t-x-x-109">any </span>integrals. But this eﬀect may be very confusing, so
+this switch should be used only with extreme care. If you turn it on and then
+forget, you may wonder why REDUCE seems unable to evaluate even trivial
+integrals!)
+</p><!--l. 319--><p class="noindent" >The “verbose” option causes <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>to display the ODE, variables and
+conditions as it sees them internally, after pre-processing. This is intended for
+use in demonstrations and possibly for debugging, and not really for general
+users.
+</p><!--l. 324--><p class="noindent" >The “basis” option causes <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>to output the general solutions of linear ODEs in
+basis format (explained below). Special solutions (of ODEs with conditions) and
+solutions of nonlinear ODEs are not aﬀected.
+</p><!--l. 329--><p class="noindent" >The “trode” (or “trace” or “tracing”) option turns on tracing of the algorithms used by
+<span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span></span>. It reports its classiﬁcation of the ODE and any intermediate results that it
+computes, such as a chain of progressively simpler (in some sense) ODEs that ﬁnally
+leads to a solution. Tracing can produce a lot of output, e.g. see the test log ﬁle
+“<span 
+class="pcrr8t-x-x-109">zimmer.rlg</span>”. The option “<span 
+class="pcrr8t-x-x-109">trode = 1</span>” or the global assignment “<span 
+class="pcrr8t-x-x-109">!*trode</span>
+<span 
+class="pcrr8t-x-x-109">:= 1</span>” causes <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>to report every test that it tries in its classiﬁcation
+process, producing even more tracing output. This is probably most useful for
+debugging, but it may give the curious user further insight into the operation of
+<span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span></span>.
+</p><!--l. 341--><p class="noindent" >The “fast” option disables all non-deterministic solution techniques (including most of
+those for nonlinear ODEs of order <span 
+class="cmmi-10x-x-109">&#x003E; </span><span 
+class="cmr-10x-x-109">1</span>). It may be most useful if <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>is used as a
+subroutine, including calling it recursively in a hook. It makes <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>behave like
+the version distributed with REDUCE 3.7, and so does not aﬀect the <span 
+class="pcrr8t-x-x-109">odesolve.tst</span>
+ﬁle. The “fast” option causes <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>to return no solution fast in cases where, by
+default, if would return either a solution or no solution more slowly (perhaps much more
+                                                                     
+
+                                                                     
+slowly). Solution of suﬃciently simple “deterministically-solvable” ODEs is
+unaﬀected.
+</p><!--l. 352--><p class="noindent" >The “check” option turns on checking of the solution. This checking is performed by
+code that is largely independent of the solver, so as to perform a genuinely independent
+check. It is not turned on by default so as to avoid the computational overhead, which is
+currently of the order of 30%. A check is made that each component solution satisﬁes the
+ODE and that a general solution contains at least enough arbitrary constants, or
+equivalently that a basis solution contains enough basis functions. Otherwise, warning
+messages are output. It is possible that <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>may fail to verify a solution because
+the automatic simpliﬁcation fails, which indicates a failure in the checker rather than in
+the solver.
+</p><!--l. 364--><p class="noindent" >In some cases, in particular in symbolic solutions of Clairaut ODEs, the checker may
+need to diﬀerentiate a composition of operators using the chain rule. In order to do this, it
+turns on the diﬀerentiator switch <span 
+class="pcrr8t-x-x-109">expanddf </span>locally only.
+</p><!--l. 370--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.38.3    </span> <a 
+ id="x241-104100020.38.3"></a>Output syntax</h4>
+<!--l. 372--><p class="noindent" >If <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>is successful it outputs a list of sub-solutions that together represent the
+solution of the input ODE. Each sub-solution is either an equation that deﬁnes a branch
+of the solution, explicitly or implicitly, or it is a list of equations that deﬁne a branch of
+the solution parametrically in the form <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">y </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">G</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">p</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,x </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">F</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">p</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,p</span><span 
+class="cmsy-10x-x-109">}</span>. Here <span 
+class="cmmi-10x-x-109">p </span>is the
+parameter, which is actually represented in terms of an operator called <span 
+class="pcrr8t-x-x-109">arbparam</span>
+which has an integer argument to distinguish it from other unrelated parameters, as usual
+for arbitrary values in REDUCE.
+</p><!--l. 382--><p class="noindent" >A general solution will contain a number of arbitrary constants represented by an
+operator called <span 
+class="pcrr8t-x-x-109">arbconst </span>with an integer argument to distinguish it from other
+unrelated arbitrary constants. A special solution resulting from applying conditions will
+contain fewer (usually no) arbitrary constants.
+</p><!--l. 388--><p class="noindent" >The general solution of a linear ODE in basis format is a list consisting of a list
+of basis functions for the solution space of the reduced ODE followed by a
+particular solution if the input ODE had a <span 
+class="cmmi-10x-x-109">y</span>-independent “driver” term, i.e. was
+not reduced (which is sometimes ambiguously called “homogeneous”). The
+particular solution is normally omitted if it is zero. The dependent variable
+<span 
+class="cmmi-10x-x-109">y </span>does not appear in a basis solution. The linear solver uses basis solutions
+internally.
+</p><!--l. 397--><p class="noindent" >Currently, there are cases where <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>cannot solve a linear ODE using its linear
+solution techniques, in which case it will try nonlinear techniques. These may generate a
+                                                                     
+
+                                                                     
+solution that is not (obviously) a linear combination of basis solutions. In this case, if a
+basis solution has been requested, <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>will report that it cannot separate the
+nonlinear combination, which it will return as the default linear combination
+solution.
+</p><!--l. 405--><p class="noindent" >If <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>fails to solve the ODE then it will return a list containing the input ODE
+(always in the form of a diﬀerential expression equated to 0). At present, <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span></span>
+does not return partial solutions. If it fails to solve any part of the problem then it regards
+this as complete failure. (You can probably see if this has happened by turning on
+algorithm tracing.)
+</p><!--l. 413--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.38.4    </span> <a 
+ id="x241-104200020.38.4"></a>Solution techniques</h4>
+<!--l. 415--><p class="noindent" >The <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>interface module pre-processes the problem and applies any conditions
+to the solution. The other modules deal with the actual solution.
+</p><!--l. 419--><p class="noindent" ><span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>ﬁrst classiﬁes the input ODE according to whether it is linear or nonlinear
+and calls the appropriate solver. An ODE that consists of a product of linear factors is
+regarded as nonlinear. The second main classiﬁcation is based on whether the input ODE
+is of ﬁrst or higher degree.
+</p><!--l. 425--><p class="noindent" >Solution proceeds essentially by trying to reduce nonlinear ODEs to linear ones, and to
+reduce higher order ODEs to ﬁrst order ODEs. Only simple linear ODEs and simple
+ﬁrst-order nonlinear ODEs can be solved directly. This approach involves considerable
+recursion within <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span></span>.
+</p><!--l. 431--><p class="noindent" >If all solution techniques fail then <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>attempts to factorize the derivative of the
+whole ODE, which sometimes leads to a solution.
+</p><!--l. 436--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.38.4.1    </span> <a 
+ id="x241-104300020.38.4.1"></a>Linear solution techniques</h5>
+<!--l. 438--><p class="noindent" ><span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>splits every linear ODE into a “reduced ODE” and a “driver” term. The
+driver is the component of the ODE that is independent of <span 
+class="cmmi-10x-x-109">y</span>, the reduced ODE is the
+component of the ODE that depends on <span 
+class="cmmi-10x-x-109">y</span>, and the sign convention is such that the ODE
+can be written in the form “reduced ODE = driver”. The reduced ODE is then split into a
+list of “ODE coeﬃcients”.
+</p><!--l. 445--><p class="noindent" >The linear solver now determines the order of the ODE. If it is 1 then the ODE is
+immediately solved using an integrating factor (if necessary). For a higher order linear
+                                                                     
+
+                                                                     
+ODE, <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>considers a sequence of progressively more complicated solution
+techniques. For most purposes, the ODE is made “monic” by dividing through by the
+coeﬃcient of the highest order derivative. This puts the ODE into a standard form and
+eﬀectively deals with arbitrary overall algebraic factors that would otherwise confuse the
+solution process. (Hence, there is no need to perform explicit algebraic factorization on
+linear ODEs.) The only situation in which the original non-monic form of the ODE is
+considered is when checking for exactness, which may depend critically on otherwise
+irrelevant overall factors.
+</p><!--l. 458--><p class="noindent" >If the ODE has constant coeﬃcients then it can (in principle) be solved using elementary
+“D-operator” techniques in terms of exponentials via an auxiliary equation. However,
+this works only if the polynomial auxiliary equation can be solved. Assuming that it can
+and there is a driver term, <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>tries to use a method based on inverse
+“D-operator” techniques that involves repeated integration of products of the solutions of
+the reduced ODE with the driver. Experience (by Malcolm MacCallum) suggests that this
+normally gives the most satisfactory form of solution if the integrals can be evaluated. If
+any integral fails to evaluate, the more general method of “variation of parameters”,
+based on the Wronskian of the solution set of the reduced ODE, is used instead.
+This involves only a single integral and so can never lead to nested unevaluated
+integrals.
+</p><!--l. 472--><p class="noindent" >If the ODE has non-constant coeﬃcients then it may be of Euler (sometimes
+ambiguously called “homogeneous”) type, which can be trivially reduced to an ODE
+with constant coeﬃcients. A shift in <span 
+class="cmmi-10x-x-109">x </span>is accommodated in this process. Next it is tested
+for exactness, which leads to a ﬁrst integral that is an ODE of order one lower. After that
+it is tested for the explicit absence of <span 
+class="cmmi-10x-x-109">y </span>and low order derivatives, which allows
+trivial order reduction. Then the monic ODE is tested for exactness, and if that
+fails and the original ODE was non-monic then the original form is tested for
+exactness.
+</p><!--l. 482--><p class="noindent" >Finally, pattern matching is used to seek a solution involving special functions, such as
+Bessel functions. Currently, this is implemented only for second-order ODEs satisﬁed by
+Bessel and Airy-integral functions. It could easily be extended to other orders and
+other special functions. Shifts in <span 
+class="cmmi-10x-x-109">x </span>could also be accommodated in the pattern
+matching.
+</p><!--l. 489--><p class="noindent" >If all linear techniques fail then <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>currently calls the variable interchange
+routine (described below), which takes it into the nonlinear solver. Occasionally, this is
+successful in producing some, although not necessarily the best, solution of a linear
+ODE.
+</p><!--l. 495--><p class="noindent" >
+</p>
+                                                                     
+
+                                                                     
+<h5 class="subsubsectionHead"><span class="titlemark">20.38.4.2    </span> <a 
+ id="x241-104400020.38.4.2"></a>Nonlinear solution techniques</h5>
+<!--l. 497--><p class="noindent" >In order to handle trivial nonlinearity, <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>ﬁrst factorizes the ODE algebraically,
+solves each factor that depends on <span 
+class="cmmi-10x-x-109">y </span>and then merges the resulting solutions. Other
+factors are ignored, but a warning is output unless they are purely numerical.
+</p><!--l. 502--><p class="noindent" >If all attempts at solution fail then <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>checks whether the original (unfactored)
+ODE was exact, because factorization could destroy exactness. Currently, <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span></span>
+handles only ﬁrst and second order nonlinear exact ODEs.
+</p><!--l. 507--><p class="noindent" >A version of the main solver applied to each algebraic factor branches depending on
+whether the ODE factor is linear or nonlinear, and the nonlinear solver branches
+depending on whether the order is 1 or higher and calls one of the solvers described in
+the next two sections. If that solver fails, <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>checks for exactness (of the factor).
+If that fails, it checks whether only a single order derivative is involved and tries to solve
+algebraically for that. If successful, this decomposes the ODE into components that are,
+in some sense, simpler and may be solvable. (However, in some cases these components
+are algebraically very complicated examples of simple types of ODE that the integrator
+cannot in practice handle, and it can take a very long time before returning an
+unevaluated integral.)
+</p><!--l. 520--><p class="noindent" >If all else fails, <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>interchanges the dependent and independent variables and
+calls the top-level solver recursively. It keeps a list of all ODEs that have entered the
+top-level solver in order to break inﬁnite loops that could arise if the solution of the
+variable-interchanged ODE fails.
+</p><!--l. 527--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x241-104500020.38.4.2"></a>First-order nonlinear solution techniques</h5>
+<!--l. 529--><p class="noindent" >If the ODE is a ﬁrst-degree polynomial in the derivative then <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>represents it in
+terms of the “gradient”, which is a function of <span 
+class="cmmi-10x-x-109">x </span>and <span 
+class="cmmi-10x-x-109">y </span>such that the ODE can be written
+as “<span 
+class="cmmi-10x-x-109">dy∕dx </span><span 
+class="cmr-10x-x-109">=</span> <span 
+class="ptmri8t-x-x-109">gradient</span>”. It then checks <span 
+class="ptmri8t-x-x-109">in sequence </span>for the following special types of
+ODE, each of which it can (in principle) solve:
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Separable</span> </dt><dd 
+class="description">The gradient has the form <span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">g</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">y</span><span 
+class="cmr-10x-x-109">)</span>, leading immediately to a solution
+     by  quadrature,  i.e. the  solution  can  be  immediately  written  in  terms  of
+     indeﬁnite  integrals.  (This  is  considered  to  be  a  solution  of  the  ODE,
+     regardless of whether the integrals can be evaluated.) The solver recognises
+     both explicit and implicit dependence when detecting separable form.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Quasi-separable</span> </dt><dd 
+class="description">The  gradient  has  the  form  <span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">y </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">kx</span><span 
+class="cmr-10x-x-109">)</span>,  which  is  (trivially)
+                                                                     
+
+                                                                     
+     separable  after  a  linear  transformation.  It  arises  as  a  special  case  of  the
+     “quasi-homogeneous” case below, but is better treated earlier as a case in its
+     own right.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Homogeneous</span> </dt><dd 
+class="description">The   gradient   has   the   form   <span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">y∕x</span><span 
+class="cmr-10x-x-109">)</span>,   which   is   algebraically
+     homogeneous. A substitution of the form “<span 
+class="cmmi-10x-x-109">y </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">vx</span>” leads to a ﬁrst-order
+     linear ODE that is (in principle) immediately solvable.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Quasi-homogeneous</span> </dt><dd 
+class="description">The   gradient   has   the   form   <span 
+class="cmmi-10x-x-109">f</span><img 
+src="manual491x.png" alt="( ax+b y+c )
+  a12x+b12y+c12"  class="left" align="middle" />,   which   is
+     homogeneous after a linear transformation.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Bernoulli</span> </dt><dd 
+class="description">The gradient has the form <span 
+class="cmmi-10x-x-109">P</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">y </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">Q</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmmi-8">n</span></sup>, in which case the ODE is
+     a ﬁrst-order linear ODE for <span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmr-8">1</span><span 
+class="cmsy-8">−</span><span 
+class="cmmi-8">n</span></sup>.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Riccati</span> </dt><dd 
+class="description">The gradient has the form <span 
+class="cmmi-10x-x-109">a</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">b</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">y </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">c</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span>, in which case the ODE
+     can be transformed into a <span 
+class="ptmri8t-x-x-109">linear </span>second-order ODE that may be solvable.</dd></dl>
+<!--l. 565--><p class="noindent" >If the ODE is not ﬁrst-degree then it may be linear in either <span 
+class="cmmi-10x-x-109">x </span>or <span 
+class="cmmi-10x-x-109">y</span>. Solving by taking
+advantage of this leads to a parametric solution of the original ODE, in which the
+parameter corresponds to <span 
+class="cmmi-10x-x-109">y</span><span 
+class="cmsy-10x-x-109">′</span>. It may then be possible to eliminate the parameter to give
+either an implicit or explicit solution.
+</p><!--l. 571--><p class="noindent" >An ODE is “solvable for <span 
+class="cmmi-10x-x-109">y</span>” if it can be put into the form <span 
+class="cmmi-10x-x-109">y </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x,y</span><span 
+class="cmsy-10x-x-109">′</span><span 
+class="cmr-10x-x-109">)</span>. Diﬀerentiating
+with respect to <span 
+class="cmmi-10x-x-109">x </span>leads to a ﬁrst-order ODE for <span 
+class="cmmi-10x-x-109">y</span><span 
+class="cmsy-10x-x-109">′</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span>, which may be easier to solve than
+the original ODE. The special case that <span 
+class="cmmi-10x-x-109">y </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">xF</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">y</span><span 
+class="cmsy-10x-x-109">′</span><span 
+class="cmr-10x-x-109">) + </span><span 
+class="cmmi-10x-x-109">G</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">y</span><span 
+class="cmsy-10x-x-109">′</span><span 
+class="cmr-10x-x-109">) </span>is called a Lagrange (or
+d’Alembert) ODE. Diﬀerentiating with respect to <span 
+class="cmmi-10x-x-109">x </span>leads to a ﬁrst-order linear ODE for
+<span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">y</span><span 
+class="cmsy-10x-x-109">′</span><span 
+class="cmr-10x-x-109">)</span>. The even more special case that <span 
+class="cmmi-10x-x-109">y </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">xy</span><span 
+class="cmsy-10x-x-109">′ </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">G</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">y</span><span 
+class="cmsy-10x-x-109">′</span><span 
+class="cmr-10x-x-109">)</span>, which may arise in the
+equivalent implicit form <span 
+class="cmmi-10x-x-109">F</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">xy</span><span 
+class="cmsy-10x-x-109">′− </span><span 
+class="cmmi-10x-x-109">y</span><span 
+class="cmr-10x-x-109">) = </span><span 
+class="cmmi-10x-x-109">G</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">y</span><span 
+class="cmsy-10x-x-109">′</span><span 
+class="cmr-10x-x-109">)</span>, is called a Clairaut ODE. The general
+solution is given by replacing <span 
+class="cmmi-10x-x-109">y</span><span 
+class="cmsy-10x-x-109">′ </span>by an arbitrary constant, and it may be possible to obtain
+a singular solution by diﬀerentiating and solving the resulting factors simultaneously
+with the original ODE.
+</p><!--l. 583--><p class="noindent" >An ODE is “solvable for <span 
+class="cmmi-10x-x-109">x</span>” if it can be put into the form <span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">y,y</span><span 
+class="cmsy-10x-x-109">′</span><span 
+class="cmr-10x-x-109">)</span>. Diﬀerentiating
+with respect to <span 
+class="cmmi-10x-x-109">y </span>leads to a ﬁrst-order ODE for <span 
+class="cmmi-10x-x-109">y</span><span 
+class="cmsy-10x-x-109">′</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">y</span><span 
+class="cmr-10x-x-109">)</span>, which may be easier to solve than
+the original ODE.
+</p><!--l. 587--><p class="noindent" >Currently, <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>recognises the above forms only if the ODE manifestly has the
+speciﬁed form and does not try very hard to actually solve for <span 
+class="cmmi-10x-x-109">x </span>or <span 
+class="cmmi-10x-x-109">y</span>, which perhaps it
+should!
+</p><!--l. 592--><p class="noindent" >
+                                                                     
+
+                                                                     
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x241-104600020.38.4.2"></a>Higher-order nonlinear solution techniques</h5>
+<!--l. 594--><p class="noindent" >The techniques used here are all special cases of Lie symmetry analysis, which is not yet
+applied in any general way.
+</p><!--l. 597--><p class="noindent" >Higher-order nonlinear ODEs are passed through a number of “simpliﬁer” ﬁlters that are
+applied in succession, regardless of whether the previous ﬁlter simpliﬁes the ODE or not.
+Currently, the ﬁrst ﬁlter tests for the explicit absence of <span 
+class="cmmi-10x-x-109">y </span>and low order derivatives,
+which allows trivial order reduction. The second ﬁlter tests whether the ODE
+manifestly depends on <span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">k </span>for some constant <span 
+class="cmmi-10x-x-109">k</span>, in which case it shifts <span 
+class="cmmi-10x-x-109">x </span>to remove
+<span 
+class="cmmi-10x-x-109">k</span>.
+</p><!--l. 605--><p class="noindent" >After that, <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>tests for each of the following special forms in sequence. The
+sequence used here is important, because the classiﬁcation is not unique, so it is
+important to try the most useful classiﬁcation ﬁrst.
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Autonomous</span> </dt><dd 
+class="description">An  ODE  is  autonomous  if  it  does  not  depend  explicitly  on  <span 
+class="cmmi-10x-x-109">x</span>,  in
+     which case it can be reduced to an ODE in <span 
+class="cmmi-10x-x-109">y</span><span 
+class="cmsy-10x-x-109">′ </span>of order one lower.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Scale invariant or equidimensional in </span><span 
+class="cmmi-10x-x-109">x</span> </dt><dd 
+class="description">An   ODE   is   scale   invariant   if   it   is
+     invariant under the transformation <span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmsy-10x-x-109">→ </span><span 
+class="cmmi-10x-x-109">ax,y </span><span 
+class="cmsy-10x-x-109">→ </span><span 
+class="cmmi-10x-x-109">a</span><sup><span 
+class="cmmi-8">p</span></sup><span 
+class="cmmi-10x-x-109">y</span>, where <span 
+class="cmmi-10x-x-109">a </span>is an arbitrary
+     indeterminate and <span 
+class="cmmi-10x-x-109">p </span>is a constant to be determined. It can be reduced to an
+     autonomous ODE, and thence to an ODE of order one lower. The special
+     case <span 
+class="cmmi-10x-x-109">p </span><span 
+class="cmr-10x-x-109">= 0 </span>is called equidimensional in <span 
+class="cmmi-10x-x-109">x</span>. It is the nonlinear generalization
+     of the (reduced) linear Euler ODE.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Equidimensional in </span><span 
+class="cmmi-10x-x-109">y</span> </dt><dd 
+class="description">An ODE is equidimensional in <span 
+class="cmmi-10x-x-109">y </span>if it is invariant under the
+     transformation <span 
+class="cmmi-10x-x-109">y </span><span 
+class="cmsy-10x-x-109">→ </span><span 
+class="cmmi-10x-x-109">ay</span>. An exponential transformation of <span 
+class="cmmi-10x-x-109">y </span>leads to an ODE
+     of the same order that <span 
+class="ptmri8t-x-x-109">may </span>be “more linear” and so easier to solve, but there is
+     no guarantee of this. All (reduced) linear ODEs are trivially equidimensional
+     in <span 
+class="cmmi-10x-x-109">y</span>.</dd></dl>
+<!--l. 630--><p class="noindent" >The recursive nature of <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span></span>, especially the thread described in this section, can
+lead to complicated “arbitrary constant expressions”. Arbitrary constants must be
+included at the point where an ODE is solved by quadrature. Further processing of such a
+solution, as may happen when a recursive solution stack is unwound, can lead to arbitrary
+constant expressions that should be re-written as simple arbitrary constants. There is
+some simple code included to perform this arbitrary constant simpliﬁcation, but it is
+rudimentary and not entirely successful.
+                                                                     
+
+                                                                     
+</p><!--l. 641--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.38.5    </span> <a 
+ id="x241-104700020.38.5"></a>Extension interface</h4>
+<!--l. 643--><p class="noindent" >The idea is that the ODESolve extension interface allows any user to add solution
+techniques without needing to edit and recompile the main source code, and (in
+principle) without needing to be intimately familiar with the internal operation of
+<span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span></span>.
+</p><!--l. 648--><p class="noindent" >The extension interface consists of a number of “hooks” at various critical places within
+<span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span></span>. These hooks are modelled in part on the hook mechanism used to extend
+and customize the Emacs editor, which is a large Lisp-based system with a structure
+similar to that of REDUCE. Each <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>hook is an identiﬁer which can be deﬁned
+to be a function (i.e. a procedure), or have assigned to it (in symbolic mode) a
+function name or a (symbolic mode) list of function names. The function should be
+written to accept the arguments speciﬁed for the particular hook, and it should
+return either a solution to the speciﬁed class of ODE in the speciﬁed form or
+nil.
+</p><!--l. 659--><p class="noindent" >If a hook returns a non-nil value then that value is used by <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>as the solution of
+the ODE at that stage of the solution process. (If the ODE being solved was generated
+internally by <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>or conditions are imposed then the solution will be
+re-processed before being ﬁnally returned by <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span></span>.) If a hook returns nil then it is
+ignored and <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>proceeds as if the hook function had not been called at all. This
+is the same mechanism that it used internally by <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>to run sub-solvers.
+If a hook evaluates to a list of function names then they are applied in turn
+to the hook arguments until a non-nil value is returned and this is the value
+of the hook; otherwise the hook returns nil. The same code is used to run all
+hooks and it checks that an identiﬁer is the name of a function before it tries to
+apply it; otherwise the identiﬁer is ignored. However, the hook code does not
+perform any other checks, so errors within functions run by hooks will probably
+terminate <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>and errors in the return value will probably cause fatal
+errors later in <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span></span>. Such errors are user errors rather than <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span></span>
+errors!
+</p><!--l. 678--><p class="noindent" >Hooks are deﬁned in pairs which are inserted before and after critical stages of the solver,
+which currently means the general ODE solver, the nonlinear ODE solver, and the solver
+for linear ODEs of order greater than one (on the grounds that solving ﬁrst order linear
+ODEs is trivial and the standard <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>code should always suﬃce). The precise
+interface deﬁnition is as follows.
+</p><!--l. 685--><p class="noindent" >A reference to an “algebraic expression” implies that the REDUCE representation is a
+preﬁx or pseudo-preﬁx form. A reference to a “variable” means an identiﬁer (and never a
+more general kernel). The “order” of an ODE is always an explicit positive integer. The
+return value of a hook function must always be either nil or an algebraic-mode list
+(which must be represented as a preﬁx form). Since the input and output of hook
+                                                                     
+
+                                                                     
+functions uses preﬁx forms (and never standard quotient forms), hook functions can
+equally well be written in either algebraic or symbolic mode, and in fact <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>uses
+a mixture internally. (An algebraic-mode procedure can return nil by returning
+nothing. The integer zero is <span 
+class="ptmri8t-x-x-109">not </span>equivalent to nil in the context of <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span></span>
+hooks.)
+</p><!--l. 698--><p class="noindent" >_____________________________________________________________________
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Hook names:</span> </dt><dd 
+class="description"><span 
+class="pcrr8t-x-x-109">ODESolve_Before_Hook</span>, <span 
+class="pcrr8t-x-x-109">ODESolve_After_Hook</span>.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Run before and after:</span> </dt><dd 
+class="description">The general ODE solver.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Arguments:</span> </dt><dd 
+class="description">3
+          <dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+       1. </dt><dd 
+class="enumerate-enumitem">The ODE in the form of an algebraic expression with no denominator
+          that must be made identically zero by the solution.
+          </dd><dt class="enumerate-enumitem">
+       2. </dt><dd 
+class="enumerate-enumitem">The dependent variable.
+          </dd><dt class="enumerate-enumitem">
+       3. </dt><dd 
+class="enumerate-enumitem">The independent variable.</dd></dl>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Return value:</span> </dt><dd 
+class="description">A list of equations exactly as returned by <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>itself.</dd></dl>
+<!--l. 715--><p class="noindent" >_____________________________________________________________________
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Hook names:</span> </dt><dd 
+class="description"><span 
+class="pcrr8t-x-x-109">ODESolve_Before_Non_Hook</span>,<br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">ODESolve_After_Non_Hook</span>.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Run before and after:</span> </dt><dd 
+class="description">The nonlinear ODE solver.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Arguments:</span> </dt><dd 
+class="description">4
+          <dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+       1. </dt><dd 
+class="enumerate-enumitem">The ODE in the form of an algebraic expression with no denominator
+          that must be made identically zero by the solution.
+                                                                     
+
+                                                                     
+          </dd><dt class="enumerate-enumitem">
+       2. </dt><dd 
+class="enumerate-enumitem">The dependent variable.
+          </dd><dt class="enumerate-enumitem">
+       3. </dt><dd 
+class="enumerate-enumitem">The independent variable.
+          </dd><dt class="enumerate-enumitem">
+       4. </dt><dd 
+class="enumerate-enumitem">The order of the ODE.</dd></dl>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Return value:</span> </dt><dd 
+class="description">A list of equations exactly as returned by <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>itself.</dd></dl>
+<!--l. 733--><p class="noindent" >_____________________________________________________________________
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Hook names:</span> </dt><dd 
+class="description"><span 
+class="pcrr8t-x-x-109">ODESolve_Before_Lin_Hook</span>,<br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">ODESolve_After_Lin_Hook</span>.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Run before and after:</span> </dt><dd 
+class="description">The general linear ODE solver.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Arguments:</span> </dt><dd 
+class="description">6
+          <dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+       1. </dt><dd 
+class="enumerate-enumitem">A  list  of  the  coeﬃcient  functions  of  the  “reduced  ODE”,  i.e. the
+          coeﬃcients of the diﬀerent orders (including zero) of derivatives of the
+          dependent variable, each in the form of an algebraic expression, in low
+          to high derivative order. (In general the ODE will not be “monic” so the
+          leading (i.e. last) coeﬃcient function will not be 1. Hence, the ODE
+          may contain an essentially irrelevant overall algebraic factor.)
+          </dd><dt class="enumerate-enumitem">
+       2. </dt><dd 
+class="enumerate-enumitem">The  “driver”  term,  i.e. the  term  involving  only  the  independent
+          variable, in the form of an algebraic expression. The sign convention is
+          such that “reduced ODE = driver”.
+          </dd><dt class="enumerate-enumitem">
+       3. </dt><dd 
+class="enumerate-enumitem">The dependent variable.
+          </dd><dt class="enumerate-enumitem">
+       4. </dt><dd 
+class="enumerate-enumitem">The independent variable.
+          </dd><dt class="enumerate-enumitem">
+       5. </dt><dd 
+class="enumerate-enumitem">The (maximum) order (<span 
+class="cmmi-10x-x-109">&#x003E; </span><span 
+class="cmr-10x-x-109">1</span>) of the ODE.
+          </dd><dt class="enumerate-enumitem">
+       6. </dt><dd 
+class="enumerate-enumitem">The minimum order derivative present.</dd></dl>
+                                                                     
+
+                                                                     
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Return value:</span> </dt><dd 
+class="description">A list consisting of a basis for the solution space of the reduced ODE and
+     optionally a particular integral of the full ODE. This list does not contain any
+     equations, and the dependent variable never appears in it. The particular integral
+     may be omitted if it is zero. The basis is itself a list of algebraic expressions in the
+     independent variable. (Hence the return value is always a list and its ﬁrst element is
+     also always a list.)</dd></dl>
+<!--l. 766--><p class="noindent" >_____________________________________________________________________
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Hook names:</span> </dt><dd 
+class="description"><span 
+class="pcrr8t-x-x-109">ODESolve_Before_Non1Grad_Hook</span>, <br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">ODESolve_After_Non1Grad_Hook</span>.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Run before and after:</span> </dt><dd 
+class="description">The
+     solver for ﬁrst-order ﬁrst-degree nonlinear (“gradient”) ODEs, which can be
+     expressed in the form <span 
+class="cmmi-10x-x-109">dy∕dx </span><span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmr-10x-x-109">gradient</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">y,x</span><span 
+class="cmr-10x-x-109">)</span>.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Arguments:</span> </dt><dd 
+class="description">3
+          <dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+       1. </dt><dd 
+class="enumerate-enumitem">The “gradient”, which is an algebraic expression involving (in general)
+          the dependent and independent variables, to which the ODE equates
+          the derivative.
+          </dd><dt class="enumerate-enumitem">
+       2. </dt><dd 
+class="enumerate-enumitem">The dependent variable.
+          </dd><dt class="enumerate-enumitem">
+       3. </dt><dd 
+class="enumerate-enumitem">The independent variable.</dd></dl>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Return value:</span> </dt><dd 
+class="description">A list of equations exactly as returned by <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">S</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span> </span>itself. (In this case
+     the list should normally contain precisely one equation.)</dd></dl>
+<!--l. 787--><p class="noindent" >_____________________________________________________________________
+</p><!--l. 790--><p class="noindent" >The ﬁle <span 
+class="pcrr8t-x-x-109">extend.tst </span>contains a very simple test and demonstration of the operation of
+the ﬁrst three classes of hook. Beware that this extension interface is experimental and
+subject to change.
+</p><!--l. 805--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 808--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse163.html" >Up</a></td><td class="clinks"><a 
+href="manualse164.html" >Next</a></td><td class="clinks"><a 
+href="manualse162.html" >Prev</a></td><td class="clinks"><a 
+href="manualse162.html#tailmanualse162.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse163.html" >Front</a></td></tr></table><a 
+ id="tailmanualse163.html"></a>  </p> 
+</body> 
+</html>

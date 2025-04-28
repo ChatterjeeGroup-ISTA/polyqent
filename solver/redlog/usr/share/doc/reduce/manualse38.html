@@ -1,0 +1,104 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>MAP Operator</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse38.html" >Up</a></td><td class="clinks"><a 
+href="manualse39.html" >Next</a></td><td class="clinks"><a 
+href="manualse37.html" >Prev</a></td><td class="clinks"><a 
+href="manualse37.html#tailmanualse37.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse38.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">7.11    </span> <a 
+ id="x49-940007.11"></a>MAP Operator</h3>
+<a 
+ id="dx49-94001"></a>
+<!--l. 1707--><p class="noindent" ><a 
+ id="operator:MAP"></a>
+</p><!--l. 1709--><p class="noindent" >The <span 
+class="pcrr8t-x-x-109">map </span>operator applies a uniform evaluation pattern to all members of a composite
+structure: a matrix, a list, or the arguments of an operator expression. The evaluation
+pattern can be a unary procedure, an operator, or an algebraic expression with one free
+variable.
+</p><!--l. 1714--><p class="noindent" >It is used with the syntax:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-159">
+   map(fnc:function,obj:object)
+</div>
+<!--l. 1717--><p class="nopar" > Here <span 
+class="pcrr8t-x-x-109">obj </span>is a list, a matrix or an operator expression. <span 
+class="pcrr8t-x-x-109">fnc </span>can be one of the
+following:
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   1. </dt><dd 
+class="enumerate-enumitem">the name of an operator with a single argument: the operator is evaluated
+     once with each element of <span 
+class="pcrr8t-x-x-109">obj </span>as its single argument;
+     </dd><dt class="enumerate-enumitem">
+   2. </dt><dd 
+class="enumerate-enumitem">an  algebraic  expression  with  exactly  one  free  variable,  i.e.  a  variable
+     preceded by the tilde symbol. The expression is evaluated for each element
+     of <span 
+class="pcrr8t-x-x-109">obj</span>, with the element substituted for the free variable;
+     </dd><dt class="enumerate-enumitem">
+   3. </dt><dd 
+class="enumerate-enumitem">a replacement rule of the form <span 
+class="pcrr8t-x-x-109">var =&#x003E; rep </span>where <span 
+class="pcrr8t-x-x-109">var </span>is a variable (a
+     kernel without a subscript) and <span 
+class="pcrr8t-x-x-109">rep </span>is an expression that contains <span 
+class="pcrr8t-x-x-109">var</span>. The
+     replacement expression <span 
+class="pcrr8t-x-x-109">rep </span>is evaluated for each element of <span 
+class="pcrr8t-x-x-109">obj </span>with the
+     element substituted for <span 
+class="pcrr8t-x-x-109">var</span>. The variable <span 
+class="pcrr8t-x-x-109">var </span>may be optionally preceded
+     by a tilde.</dd></dl>
+<!--l. 1735--><p class="noindent" >The rule form for <span 
+class="pcrr8t-x-x-109">fnc </span>is needed when more than one free variable occurs.
+</p><!--l. 1738--><p class="noindent" >Examples:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-160">
+        map(abs,{1,-2,a,-a})  -&#x003E;  {1,2,ABS(A),ABS(A)}
+ <br />        map(int(~w,x), mat((x^2,x^5),(x^4,x^5))) -&#x003E;
+ <br />
+ <br />                [  3     6 ]
+ <br />                [ x     x  ]
+ <br />                [----  ----]
+ <br />                [ 3     6  ]
+ <br />                [          ]
+ <br />                [  5     6 ]
+ <br />                [ x     x  ]
+ <br />                [----  ----]
+ <br />                [ 5     6  ]
+ <br />
+ <br />        map(~w*6, x^2/3 = y^3/2 -1) -&#x003E; 2*X^2=3*(Y^3-2)
+</div>
+<!--l. 1754--><p class="nopar" >
+</p><!--l. 1756--><p class="noindent" >You can use <span 
+class="pcrr8t-x-x-109">map </span>in nested expressions. However, you cannot apply <span 
+class="pcrr8t-x-x-109">map </span>to a
+non-composite object, e.g. an identiﬁer or a number.
+                                                                     
+
+                                                                     
+</p><!--l. 1760--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse38.html" >Up</a></td><td class="clinks"><a 
+href="manualse39.html" >Next</a></td><td class="clinks"><a 
+href="manualse37.html" >Prev</a></td><td class="clinks"><a 
+href="manualse37.html#tailmanualse37.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse38.html" >Front</a></td></tr></table><a 
+ id="tailmanualse38.html"></a> </p> 
+</body> 
+</html>

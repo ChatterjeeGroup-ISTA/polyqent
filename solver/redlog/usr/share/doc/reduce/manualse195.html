@@ -1,0 +1,119 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Lambda Expressions</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch21.html#manualse195.html" >Up</a></td><td class="clinks"><a 
+href="manualse196.html" >Next</a></td><td class="clinks"><a 
+href="manualse194.html" >Prev</a></td><td class="clinks"><a 
+href="manualse194.html#tailmanualse194.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse195.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">21.4    </span> <a 
+ id="x290-133100021.4"></a>Lambda Expressions</h3>
+<a 
+ id="dx290-1331001"></a>
+<!--l. 134--><p class="noindent" ><a 
+ id="reserved:LAMBDA"></a>
+</p><!--l. 137--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">lambda </span>expressions provide the means for constructing Lisp <span 
+class="pcrr8t-x-x-109">lambda </span>expressions in
+symbolic mode. They may not be used in algebraic mode.
+</p><!--l. 140--><p class="noindent" >Syntax:
+  </p><div class="syntax">
+   <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="pcrro8t-x-x-109">lambda</span><span 
+class="ptmri8t-x-x-109"> expression</span><span 
+class="cmsy-10x-x-109">⟩</span> <span 
+class="cmmi-10x-x-109">→</span> <span 
+class="pcrr8t-x-x-109">lambda </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">varlist</span><span 
+class="cmsy-10x-x-109">⟩⟨</span><span 
+class="ptmri8t-x-x-109">terminator</span><span 
+class="cmsy-10x-x-109">⟩⟨</span><span 
+class="ptmri8t-x-x-109">statement</span><span 
+class="cmsy-10x-x-109">⟩</span></div>
+<!--l. 145--><p class="noindent" >where
+  </p><div class="syntax">
+   <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">varlist</span><span 
+class="cmsy-10x-x-109">⟩</span> <span 
+class="cmmi-10x-x-109">→</span> <span 
+class="pcrr8t-x-x-109">(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">variable</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span>…<span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">variable</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">)</span></div>
+<!--l. 149--><p class="noindent" >e.g.,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1485">
+        lambda (x,y); car x . cdr y;
+</div>
+<!--l. 152--><p class="nopar" > is equivalent to the Lisp <span 
+class="pcrr8t-x-x-109">lambda </span>expression
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1486">
+        (lambda (x y) (cons (car x) (cdr y)))
+</div>
+<!--l. 156--><p class="nopar" > The parentheses may be omitted in specifying the variable list if desired.
+</p><!--l. 159--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">lambda </span>expressions may be used in symbolic mode in place of preﬁx operators, or as an
+argument of the reserved word <a 
+ id="reserved:FUNCTION"></a><span 
+class="pcrr8t-x-x-109">function</span>.
+</p><!--l. 162--><p class="noindent" >In those cases where a <span 
+class="pcrr8t-x-x-109">lambda </span>expression is used to introduce local variables to
+avoid recomputation, a <span 
+class="pcrr8t-x-x-109">where </span>statement can also be used. For example, the
+expression
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1487">
+    (lambda (x,y); list(car x,cdr x,car y,cdr y))
+ <br />        (reverse u,reverse v)
+</div>
+<!--l. 168--><p class="nopar" > can also be written
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1488">
+    {car x,cdr x,car y,cdr y}
+ <br />        where x=reverse u,y=reverse v
+</div>
+<!--l. 173--><p class="nopar" > Where possible, <span 
+class="pcrr8t-x-x-109">where </span>syntax is preferred to <span 
+class="pcrr8t-x-x-109">lambda </span>syntax, since it is more
+natural.
+                                                                     
+
+                                                                     
+</p><!--l. 177--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch21.html#manualse195.html" >Up</a></td><td class="clinks"><a 
+href="manualse196.html" >Next</a></td><td class="clinks"><a 
+href="manualse194.html" >Prev</a></td><td class="clinks"><a 
+href="manualse194.html#tailmanualse194.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse195.html" >Front</a></td></tr></table><a 
+ id="tailmanualse195.html"></a> </p> 
+</body> 
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>17 Solving Numerical Problems</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manual.html#manualch17.html" >Up</a></td><td class="clinks"><a 
+href="manualch18.html" >Next</a></td><td class="clinks"><a 
+href="manualch16.html" >Prev</a></td><td class="clinks"><a 
+href="manualch16.html#tailmanualch16.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualch17.html">Tail</a></td></tr></table><h2 class="ChapterHead"> 17 <a 
+ id="x140-26400017"></a>Solving Numerical Problems</h2>
+<a 
+ id="dx140-264001"></a>
+<a 
+ id="dx140-264002"></a>
+<a 
+ id="dx140-264003"></a>
+<a 
+ id="dx140-264004"></a>
+<!--l. 8--><p class="noindent" >The <span 
+class="ptmrc8t-x-x-109">N<span 
+class="small-caps">U</span><span 
+class="small-caps">M</span><span 
+class="small-caps">E</span><span 
+class="small-caps">R</span><span 
+class="small-caps">I</span><span 
+class="small-caps">C</span> </span>package implements some numerical (approximative)
+algorithms for REDUCE, based on the REDUCE rounded mode
+arithmetic.<span class="footnote-mark"><a 
+href="manual141.html#fn1x17"><sup class="textsuperscript">1</sup></a></span><a 
+ id="x140-264005f1"></a> 
+These algorithms are implemented for standard cases:
+<a 
+ id="dx140-264006"></a>
+<a 
+ id="dx140-264007"></a>
+<a 
+ id="dx140-264008"></a>
+<a 
+ id="dx140-264009"></a>
+</p><!--l. 16--><p class="noindent" >This package implements basic algorithms of numerical analysis. These include:
+</p>
+     <ul class="itemize1">
+     <li class="itemize">solution of algebraic equations by Newton’s method
+                                                                     
+
+                                                                     
+     <div class="verbatim" id="verbatim-512">
+         num_solve({sin x=cos y, x + y = 1},{x=1,y=2})
+</div>
+     <!--l. 22--><p class="nopar" >
+     </p></li>
+     <li class="itemize">solution of ordinary diﬀerential equations
+                                                                     
+
+                                                                     
+     <div class="verbatim" id="verbatim-513">
+         num_odesolve(df(y,x)=y,y=1,x=(0 .. 1),
+      <br />                 iterations=5)
+</div>
+     <!--l. 27--><p class="nopar" >
+     </p></li>
+     <li class="itemize">bounds of a function over an interval
+                                                                     
+
+                                                                     
+     <div class="verbatim" id="verbatim-514">
+         bounds(sin x+x,x=(1 .. 2));
+</div>
+     <!--l. 31--><p class="nopar" >
+     </p></li>
+     <li class="itemize">minimizing a function (Fletcher Reeves steepest descent)
+                                                                     
+
+                                                                     
+     <div class="verbatim" id="verbatim-515">
+         num_min(sin(x)+x/5, x);
+</div>
+     <!--l. 35--><p class="nopar" >
+     </p></li>
+     <li class="itemize">Chebyshev curve ﬁtting
+                                                                     
+
+                                                                     
+     <div class="verbatim" id="verbatim-516">
+         chebyshev_fit(sin x/x,x=(1 .. 3),5);
+</div>
+     <!--l. 39--><p class="nopar" >
+     </p></li>
+     <li class="itemize">numerical quadrature
+                                                                     
+
+                                                                     
+     <div class="verbatim" id="verbatim-517">
+         num_int(sin x,x=(0 .. pi));
+</div>
+     <!--l. 43--><p class="nopar" ></p></li></ul>
+<!--l. 45--><p class="noindent" >They should not be called for ill-conditioned problems; please use standard mathematical
+libraries for these.
+</p>
+<div class="sectionTOCS">
+ <span class="sectionToc" >17.1 <a 
+href="manualse108.html#x142-26500017.1">Syntax</a></span>
+<br /> <span class="sectionToc" >17.2 <a 
+href="manualse109.html#x143-26900017.2">Minima</a></span>
+<br /> <span class="sectionToc" >17.3 <a 
+href="manualse110.html#x144-27000017.3">Roots of Functions / Solutions of Equations</a></span>
+<br /> <span class="sectionToc" >17.4 <a 
+href="manualse111.html#x145-27100017.4">Integrals</a></span>
+<br /> <span class="sectionToc" >17.5 <a 
+href="manualse112.html#x146-27200017.5">Ordinary Diﬀerential Equations</a></span>
+<br /> <span class="sectionToc" >17.6 <a 
+href="manualse113.html#x147-27300017.6">Bounds of a Function</a></span>
+<br /> <span class="sectionToc" >17.7 <a 
+href="manualse114.html#x148-27400017.7">Chebyshev Curve Fitting</a></span>
+<br /> <span class="sectionToc" >17.8 <a 
+href="manualse115.html#x149-27500017.8">General Curve Fitting</a></span>
+</div>
+
+
+
+
+
+
+
+                                                                     
+
+                                                                     
+<table cellspacing="5"><tr><td class="clinks"><a 
+href="manual.html#manualch17.html" >Up</a></td><td class="clinks"><a 
+href="manualch18.html" >Next</a></td><td class="clinks"><a 
+href="manualch16.html" >Prev</a></td><td class="clinks"><a 
+href="manualch16.html#tailmanualch16.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualch17.html" >Front</a></td></tr></table><a 
+ id="tailmanualch17.html"></a>  
+</body> 
+</html>

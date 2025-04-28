@@ -1,0 +1,872 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head>
+<meta name="description" content="The REDUCE Computer Algebra System User's Manual" />  
+<title>REDUCE User’s Manual, Free Version, August 12, 2024</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+                                                                     
+
+                                                                     
+<!--l. 1--><p class="noindent" ><header>REDUCE</header>
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 1--><p class="noindent" >
+                                                                     
+
+                                                                     
+</p>
+<div class="center" 
+>
+<!--l. 4--><p class="noindent" >
+</p><!--l. 6--><p class="noindent" ><span 
+class="ptmb8t-x-x-248">REDUCE</span><br />
+<span 
+class="ptmb8t-x-x-172">User’s Manual</span><br />
+<span 
+class="ptmb8t-x-x-172">Free Version</span><br /><br />
+<span 
+class="ptmb8t-x-x-120">Anthony C.</span><span 
+class="ptmb8t-x-x-120"> Hearn and Rainer Sch</span><span 
+class="ptmb8t-x-x-120">ö</span><span 
+class="ptmb8t-x-x-120">pf</span>
+</p><!--l. 22--><p class="noindent" ><a 
+href="https://reduce-algebra.sourceforge.io/" class="url" ><span 
+class="pcrb8t-x-x-120">https://reduce-algebra.sourceforge.io/</span></a>
+</p><!--l. 26--><p class="noindent" ><span 
+class="ptmb8t-x-x-120">August 12, 2024</span>
+</p>
+</div>
+                                                                     
+
+                                                                     
+<!--l. 32--><p class="noindent" >
+                                                                     
+
+                                                                     
+</p><!--l. 34--><p class="noindent" >Copyright <span 
+class="ptmr8c-x-x-109">©</span>2004–2024 Anthony C. Hearn, Rainer Schöpf and contributors to the
+Reduce project. All rights reserved. <br 
+class="newline" /><br 
+class="newline" />Reproduction of this manual is allowed, provided that the source of the material is clearly
+acknowledged, and the copyright notice is retained.
+                                                                     
+
+                                                                     
+</p><!--l. 334--><p class="noindent" >
+                                                                     
+
+                                                                     
+</p><!--l. 338--><p class="noindent" ><a 
+ id="tocContents.0"></a>
+<a 
+ id="dx1-2"></a>
+<a 
+ id="dx1-3"></a>
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p>
+<div class="tableofcontents">
+<span class="likechapterToc" ><a 
+href="manualli1.html#x2-1000" id="QQ2-2-1">Abstract</a></span>
+<br /><span class="likechapterToc" ><a 
+href="manualli2.html#x3-2000" id="QQ2-3-2">Acknowledgment</a></span>
+<br /><span class="chapterToc" >1 <a 
+href="manualch1.html#x4-30001" id="QQ2-4-3">Introductory Information</a></span>
+<br /><span class="chapterToc" >2 <a 
+href="manualch2.html#x5-40002" id="QQ2-5-4">Structure of Programs</a></span>
+<br /> <span class="sectionToc" >2.1 <a 
+href="manualse1.html#x6-50002.1" id="QQ2-6-5">The REDUCE Standard Character Set</a></span>
+<br /> <span class="sectionToc" >2.2 <a 
+href="manualse2.html#x7-60002.2" id="QQ2-7-6">Numbers</a></span>
+<br /> <span class="sectionToc" >2.3 <a 
+href="manualse3.html#x8-70002.3" id="QQ2-8-7">Identiﬁers</a></span>
+<br /> <span class="sectionToc" >2.4 <a 
+href="manualse4.html#x9-90002.4" id="QQ2-9-9">Variables</a></span>
+<br /> <span class="sectionToc" >2.5 <a 
+href="manualse5.html#x10-110002.5" id="QQ2-10-11">Strings</a></span>
+<br /> <span class="sectionToc" >2.6 <a 
+href="manualse6.html#x11-120002.6" id="QQ2-11-12">Comments</a></span>
+<br /> <span class="sectionToc" >2.7 <a 
+href="manualse7.html#x12-130002.7" id="QQ2-12-13">Operators</a></span>
+<br /><span class="chapterToc" >3 <a 
+href="manualch3.html#x13-150003" id="QQ2-13-15">Expressions</a></span>
+<br /> <span class="sectionToc" >3.1 <a 
+href="manualse8.html#x14-160003.1" id="QQ2-14-16">Scalar Expressions</a></span>
+<br /> <span class="sectionToc" >3.2 <a 
+href="manualse9.html#x15-170003.2" id="QQ2-15-17">Integer Expressions</a></span>
+<br /> <span class="sectionToc" >3.3 <a 
+href="manualse10.html#x16-180003.3" id="QQ2-16-18">Boolean Expressions</a></span>
+<br /> <span class="sectionToc" >3.4 <a 
+href="manualse11.html#x17-190003.4" id="QQ2-17-19">Equations</a></span>
+<br /> <span class="sectionToc" >3.5 <a 
+href="manualse12.html#x18-200003.5" id="QQ2-18-20">Proper Statements as Expressions</a></span>
+<br /><span class="chapterToc" >4 <a 
+href="manualch4.html#x19-210004" id="QQ2-19-21">Lists</a></span>
+<br /> <span class="sectionToc" >4.1 <a 
+href="manualse13.html#x20-220004.1" id="QQ2-20-22">Operations on Lists</a></span>
+<br /><span class="chapterToc" >5 <a 
+href="manualch5.html#x21-330005" id="QQ2-21-33">Statements</a></span>
+<br /> <span class="sectionToc" >5.1 <a 
+href="manualse14.html#x22-340005.1" id="QQ2-22-34">Assignment Statements</a></span>
+<br /> <span class="sectionToc" >5.2 <a 
+href="manualse15.html#x23-360005.2" id="QQ2-23-36">Group Statements</a></span>
+<br /> <span class="sectionToc" >5.3 <a 
+href="manualse16.html#x24-370005.3" id="QQ2-24-37">Conditional Statements</a></span>
+                                                                     
+
+                                                                     
+<br /> <span class="sectionToc" >5.4 <a 
+href="manualse17.html#x25-380005.4" id="QQ2-25-38">FOR Statements</a></span>
+<br /> <span class="sectionToc" >5.5 <a 
+href="manualse18.html#x26-390005.5" id="QQ2-26-39">WHILE … DO</a></span>
+<br /> <span class="sectionToc" >5.6 <a 
+href="manualse19.html#x27-400005.6" id="QQ2-27-40">REPEAT … UNTIL</a></span>
+<br /> <span class="sectionToc" >5.7 <a 
+href="manualse20.html#x28-410005.7" id="QQ2-28-41">Compound Statements</a></span>
+<br /><span class="chapterToc" >6 <a 
+href="manualch6.html#x29-450006" id="QQ2-29-45">Commands and Declarations</a></span>
+<br /> <span class="sectionToc" >6.1 <a 
+href="manualse21.html#x30-460006.1" id="QQ2-30-46">Array Declarations</a></span>
+<br /> <span class="sectionToc" >6.2 <a 
+href="manualse22.html#x31-470006.2" id="QQ2-31-47">Mode Handling Declarations</a></span>
+<br /> <span class="sectionToc" >6.3 <a 
+href="manualse23.html#x32-480006.3" id="QQ2-32-48">END</a></span>
+<br /> <span class="sectionToc" >6.4 <a 
+href="manualse24.html#x33-490006.4" id="QQ2-33-49">BYE Command</a></span>
+<br /> <span class="sectionToc" >6.5 <a 
+href="manualse25.html#x34-500006.5" id="QQ2-34-50">Timing Facilities</a></span>
+<br /> <span class="sectionToc" >6.6 <a 
+href="manualse26.html#x35-510006.6" id="QQ2-35-51">DEFINE Command</a></span>
+<br /> <span class="sectionToc" >6.7 <a 
+href="manualse27.html#x36-520006.7" id="QQ2-36-52">RESETREDUCE Command</a></span>
+<br /><span class="chapterToc" >7 <a 
+href="manualch7.html#x37-530007" id="QQ2-37-53">Built-in Preﬁx Operators</a></span>
+<br /> <span class="sectionToc" >7.1 <a 
+href="manualse28.html#x38-540007.1" id="QQ2-38-54">Numerical Operators</a></span>
+<br /> <span class="sectionToc" >7.2 <a 
+href="manualse29.html#x39-720007.2" id="QQ2-39-72">Mathematical Functions</a></span>
+<br /> <span class="sectionToc" >7.3 <a 
+href="manualse30.html#x40-770007.3" id="QQ2-40-77">Combinatorial Numbers</a></span>
+<br /> <span class="sectionToc" >7.4 <a 
+href="manualse31.html#x41-780007.4" id="QQ2-41-78">Bernoulli, Euler and Fibonacci Numbers</a></span>
+<br /> <span class="sectionToc" >7.5 <a 
+href="manualse32.html#x42-790007.5" id="QQ2-42-79">CHANGEVAR Operator</a></span>
+<br /> <span class="sectionToc" >7.6 <a 
+href="manualse33.html#x43-820007.6" id="QQ2-43-82">CONTINUED_FRACTION Operator</a></span>
+<br /> <span class="sectionToc" >7.7 <a 
+href="manualse34.html#x44-830007.7" id="QQ2-44-83">DF Operator</a></span>
+<br /> <span class="sectionToc" >7.8 <a 
+href="manualse35.html#x45-870007.8" id="QQ2-45-87">INT Operator</a></span>
+<br /> <span class="sectionToc" >7.9 <a 
+href="manualse36.html#x47-920007.9" id="QQ2-47-92">LENGTH Operator</a></span>
+<br /> <span class="sectionToc" >7.10 <a 
+href="manualse37.html#x48-930007.10" id="QQ2-48-93">LIMIT Operator</a></span>
+<br /> <span class="sectionToc" >7.11 <a 
+href="manualse38.html#x49-940007.11" id="QQ2-49-94">MAP Operator</a></span>
+<br /> <span class="sectionToc" >7.12 <a 
+href="manualse39.html#x50-950007.12" id="QQ2-50-95">MKID Operator</a></span>
+<br /> <span class="sectionToc" >7.13 <a 
+href="manualse40.html#x51-960007.13" id="QQ2-51-96">The Pochhammer Notation</a></span>
+<br /> <span class="sectionToc" >7.14 <a 
+href="manualse41.html#x52-970007.14" id="QQ2-52-97">PF Operator</a></span>
+<br /> <span class="sectionToc" >7.15 <a 
+href="manualse42.html#x53-980007.15" id="QQ2-53-98">RESIDUE and POLEORDER Operators</a></span>
+<br /> <span class="sectionToc" >7.16 <a 
+href="manualse43.html#x55-990007.16" id="QQ2-55-99">SELECT Operator</a></span>
+<br /> <span class="sectionToc" >7.17 <a 
+href="manualse44.html#x56-1000007.17" id="QQ2-56-100">SOLVE Operator</a></span>
+                                                                     
+
+                                                                     
+<br /> <span class="sectionToc" >7.18 <a 
+href="manualse45.html#x58-1050007.18" id="QQ2-58-105">Support for Solving Inequalities</a></span>
+<br /> <span class="sectionToc" >7.19 <a 
+href="manualse46.html#x60-1060007.19" id="QQ2-60-106">Finding Rational or Integer Zeros</a></span>
+<br /> <span class="sectionToc" >7.20 <a 
+href="manualse47.html#x62-1100007.20" id="QQ2-62-110">Modular Solve and Roots</a></span>
+<br /> <span class="sectionToc" >7.21 <a 
+href="manualse48.html#x64-1110007.21" id="QQ2-64-111">Even and Odd Operators</a></span>
+<br /> <span class="sectionToc" >7.22 <a 
+href="manualse49.html#x65-1120007.22" id="QQ2-65-112">Linear Operators</a></span>
+<br /> <span class="sectionToc" >7.23 <a 
+href="manualse50.html#x66-1130007.23" id="QQ2-66-113">Non-Commuting Operators</a></span>
+<br /> <span class="sectionToc" >7.24 <a 
+href="manualse51.html#x67-1140007.24" id="QQ2-67-114">Symmetric and Antisymmetric Operators</a></span>
+<br /> <span class="sectionToc" >7.25 <a 
+href="manualse52.html#x68-1150007.25" id="QQ2-68-115">Declaring New Preﬁx Operators</a></span>
+<br /> <span class="sectionToc" >7.26 <a 
+href="manualse53.html#x69-1160007.26" id="QQ2-69-116">Declaring New Inﬁx Operators</a></span>
+<br /> <span class="sectionToc" >7.27 <a 
+href="manualse54.html#x70-1170007.27" id="QQ2-70-117">Creating / Removing Variable Dependency</a></span>
+<br /><span class="chapterToc" >8 <a 
+href="manualch8.html#x71-1180008" id="QQ2-71-118">Display and Structuring of Expressions</a></span>
+<br /> <span class="sectionToc" >8.1 <a 
+href="manualse55.html#x72-1190008.1" id="QQ2-72-119">Kernels</a></span>
+<br /> <span class="sectionToc" >8.2 <a 
+href="manualse56.html#x73-1200008.2" id="QQ2-73-120">The Expression Workspace</a></span>
+<br /> <span class="sectionToc" >8.3 <a 
+href="manualse57.html#x74-1210008.3" id="QQ2-74-121">Output of Expressions</a></span>
+<br /> <span class="sectionToc" >8.4 <a 
+href="manualse58.html#x75-1410008.4" id="QQ2-75-141">Changing the Internal Order of Variables</a></span>
+<br /> <span class="sectionToc" >8.5 <a 
+href="manualse59.html#x76-1420008.5" id="QQ2-76-142">Obtaining Parts of Algebraic Expressions</a></span>
+<br /> <span class="sectionToc" >8.6 <a 
+href="manualse60.html#x77-1470008.6" id="QQ2-77-147">COMPACT Operator</a></span>
+<br /> <span class="sectionToc" >8.7 <a 
+href="manualse61.html#x78-1480008.7" id="QQ2-78-148">TRIGSIMP package</a></span>
+<br /><span class="chapterToc" >9 <a 
+href="manualch9.html#x80-1530009" id="QQ2-80-153">Polynomials and Rationals</a></span>
+<br /> <span class="sectionToc" >9.1 <a 
+href="manualse62.html#x81-1540009.1" id="QQ2-81-154">Controlling the Expansion of Expressions</a></span>
+<br /> <span class="sectionToc" >9.2 <a 
+href="manualse63.html#x82-1550009.2" id="QQ2-82-155">Factorization of Polynomials</a></span>
+<br /> <span class="sectionToc" >9.3 <a 
+href="manualse64.html#x83-1560009.3" id="QQ2-83-156">Cancellation of Common Factors</a></span>
+<br /> <span class="sectionToc" >9.4 <a 
+href="manualse65.html#x84-1580009.4" id="QQ2-84-158">Working with Least Common Multiples</a></span>
+<br /> <span class="sectionToc" >9.5 <a 
+href="manualse66.html#x85-1590009.5" id="QQ2-85-159">Controlling Use of Common Denominators</a></span>
+<br /> <span class="sectionToc" >9.6 <a 
+href="manualse67.html#x86-1600009.6" id="QQ2-86-160">Euclidean Division</a></span>
+<br /> <span class="sectionToc" >9.7 <a 
+href="manualse68.html#x87-1610009.7" id="QQ2-87-161">Polynomial Pseudo-Division</a></span>
+<br /> <span class="sectionToc" >9.8 <a 
+href="manualse69.html#x88-1620009.8" id="QQ2-88-162">RESULTANT Operator</a></span>
+<br /> <span class="sectionToc" >9.9 <a 
+href="manualse70.html#x89-1630009.9" id="QQ2-89-163">DECOMPOSE Operator</a></span>
+<br /> <span class="sectionToc" >9.10 <a 
+href="manualse71.html#x90-1640009.10" id="QQ2-90-164">INTERPOL Operator</a></span>
+<br /> <span class="sectionToc" >9.11 <a 
+href="manualse72.html#x91-1650009.11" id="QQ2-91-165">Obtaining Parts of Polynomials and Rationals</a></span>
+                                                                     
+
+                                                                     
+<br /> <span class="sectionToc" >9.12 <a 
+href="manualse73.html#x92-1750009.12" id="QQ2-92-175">Polynomial Coeﬃcient Arithmetic</a></span>
+<br /> <span class="sectionToc" >9.13 <a 
+href="manualse74.html#x94-1810009.13" id="QQ2-94-181">Finding Roots</a></span>
+<br /><span class="chapterToc" >10 <a 
+href="manualch10.html#x96-19300010" id="QQ2-96-193">Assigning and Testing Algebraic Properties</a></span>
+<br /> <span class="sectionToc" >10.1 <a 
+href="manualse75.html#x97-19400010.1" id="QQ2-97-194">REALVALUED Declaration and Check</a></span>
+<br /> <span class="sectionToc" >10.2 <a 
+href="manualse76.html#x98-19500010.2" id="QQ2-98-195">SELFCONJUGATE Declaration</a></span>
+<br /> <span class="sectionToc" >10.3 <a 
+href="manualse77.html#x99-19600010.3" id="QQ2-99-196">Declaring Complex Conjugates</a></span>
+<br /> <span class="sectionToc" >10.4 <a 
+href="manualse78.html#x100-19700010.4" id="QQ2-100-197">Declaring Expressions Positive or Negative</a></span>
+<br /><span class="chapterToc" >11 <a 
+href="manualch11.html#x101-19800011" id="QQ2-101-198">Substitution Commands</a></span>
+<br /> <span class="sectionToc" >11.1 <a 
+href="manualse79.html#x102-19900011.1" id="QQ2-102-199">SUB Operator</a></span>
+<br /> <span class="sectionToc" >11.2 <a 
+href="manualse80.html#x103-20000011.2" id="QQ2-103-200">LET Rules</a></span>
+<br /> <span class="sectionToc" >11.3 <a 
+href="manualse81.html#x104-20600011.3" id="QQ2-104-206">Rule Lists</a></span>
+<br /> <span class="sectionToc" >11.4 <a 
+href="manualse82.html#x105-21000011.4" id="QQ2-105-210">Asymptotic Commands</a></span>
+<br /><span class="chapterToc" >12 <a 
+href="manualch12.html#x106-21100012" id="QQ2-106-211">File Handling Commands</a></span>
+<br /> <span class="sectionToc" >12.1 <a 
+href="manualse83.html#x107-21200012.1" id="QQ2-107-212">IN Command</a></span>
+<br /> <span class="sectionToc" >12.2 <a 
+href="manualse84.html#x108-21300012.2" id="QQ2-108-213">IN_TEX Command</a></span>
+<br /> <span class="sectionToc" >12.3 <a 
+href="manualse85.html#x109-21400012.3" id="QQ2-109-214">OUT Command</a></span>
+<br /> <span class="sectionToc" >12.4 <a 
+href="manualse86.html#x110-21500012.4" id="QQ2-110-215">SHUT Command</a></span>
+<br /> <span class="sectionToc" >12.5 <a 
+href="manualse87.html#x111-21600012.5" id="QQ2-111-216">Using Variables as Filenames</a></span>
+<br /> <span class="sectionToc" >12.6 <a 
+href="manualse88.html#x112-21700012.6" id="QQ2-112-217">REDUCE Startup File</a></span>
+<br /><span class="chapterToc" >13 <a 
+href="manualch13.html#x114-21800013" id="QQ2-114-218">Commands for Interactive Use</a></span>
+<br /> <span class="sectionToc" >13.1 <a 
+href="manualse89.html#x115-21900013.1" id="QQ2-115-219">Error Handling: <span 
+class="pcrr8t-">errcont</span>, <span 
+class="pcrr8t-">retry</span></a></span>
+<br /> <span class="sectionToc" >13.2 <a 
+href="manualse90.html#x116-22000013.2" id="QQ2-116-220">Referencing Previous Results: <span 
+class="pcrr8t-">input</span>, <span 
+class="pcrr8t-">ws</span>, <span 
+class="pcrr8t-">display</span></a></span>
+<br /> <span class="sectionToc" >13.3 <a 
+href="manualse91.html#x117-22100013.3" id="QQ2-117-221">Interactive Editing: <span 
+class="pcrr8t-">ed</span>, <span 
+class="pcrr8t-">editdef</span></a></span>
+<br /> <span class="sectionToc" >13.4 <a 
+href="manualse92.html#x118-22200013.4" id="QQ2-118-222">Interactive File Control: <span 
+class="pcrr8t-">int</span>, <span 
+class="pcrr8t-">pause</span>, <span 
+class="pcrr8t-">cont</span></a></span>
+<br /><span class="chapterToc" >14 <a 
+href="manualch14.html#x119-22300014" id="QQ2-119-223">Matrix Calculations</a></span>
+<br /> <span class="sectionToc" >14.1 <a 
+href="manualse93.html#x120-22400014.1" id="QQ2-120-224">MAT Operator</a></span>
+<br /> <span class="sectionToc" >14.2 <a 
+href="manualse94.html#x121-22500014.2" id="QQ2-121-225">Matrix Variables</a></span>
+<br /> <span class="sectionToc" >14.3 <a 
+href="manualse95.html#x122-22600014.3" id="QQ2-122-226">Matrix Expressions</a></span>
+<br /> <span class="sectionToc" >14.4 <a 
+href="manualse96.html#x123-22700014.4" id="QQ2-123-227">Operators with Matrix Arguments</a></span>
+<br /> <span class="sectionToc" >14.5 <a 
+href="manualse97.html#x124-23500014.5" id="QQ2-124-235">Matrix Assignments</a></span>
+                                                                     
+
+                                                                     
+<br /> <span class="sectionToc" >14.6 <a 
+href="manualse98.html#x125-23600014.6" id="QQ2-125-236">Evaluating Matrix Elements</a></span>
+<br /><span class="chapterToc" >15 <a 
+href="manualch15.html#x126-23700015" id="QQ2-126-237">Procedures</a></span>
+<br /> <span class="sectionToc" >15.1 <a 
+href="manualse99.html#x127-23800015.1" id="QQ2-127-238">Procedure Heading</a></span>
+<br /> <span class="sectionToc" >15.2 <a 
+href="manualse100.html#x128-23900015.2" id="QQ2-128-239">Procedure Body</a></span>
+<br /> <span class="sectionToc" >15.3 <a 
+href="manualse101.html#x129-24000015.3" id="QQ2-129-240">Matrix- and List-valued Procedures</a></span>
+<br /> <span class="sectionToc" >15.4 <a 
+href="manualse102.html#x130-24100015.4" id="QQ2-130-241">Using LET Inside Procedures</a></span>
+<br /> <span class="sectionToc" >15.5 <a 
+href="manualse103.html#x131-24200015.5" id="QQ2-131-242">LET Rules as Procedures</a></span>
+<br /> <span class="sectionToc" >15.6 <a 
+href="manualse104.html#x132-24300015.6" id="QQ2-132-243">REMEMBER Statement</a></span>
+<br /><span class="chapterToc" >16 <a 
+href="manualch16.html#x133-24400016" id="QQ2-133-244">Series Expansion</a></span>
+<br /> <span class="sectionToc" >16.1 <a 
+href="manualse105.html#x134-24500016.1" id="QQ2-134-245">Taylor Expansion</a></span>
+<br /> <span class="sectionToc" >16.2 <a 
+href="manualse106.html#x136-25000016.2" id="QQ2-136-250">TPS: Extendible Power Series</a></span>
+<br /> <span class="sectionToc" >16.3 <a 
+href="manualse107.html#x138-25900016.3" id="QQ2-138-259">FPS: Automatic Calculation of Formal Power Series</a></span>
+<br /><span class="chapterToc" >17 <a 
+href="manualch17.html#x140-26400017" id="QQ2-140-264">Solving Numerical Problems</a></span>
+<br /> <span class="sectionToc" >17.1 <a 
+href="manualse108.html#x142-26500017.1" id="QQ2-142-265">Syntax</a></span>
+<br /> <span class="sectionToc" >17.2 <a 
+href="manualse109.html#x143-26900017.2" id="QQ2-143-269">Minima</a></span>
+<br /> <span class="sectionToc" >17.3 <a 
+href="manualse110.html#x144-27000017.3" id="QQ2-144-270">Roots of Functions / Solutions of Equations</a></span>
+<br /> <span class="sectionToc" >17.4 <a 
+href="manualse111.html#x145-27100017.4" id="QQ2-145-271">Integrals</a></span>
+<br /> <span class="sectionToc" >17.5 <a 
+href="manualse112.html#x146-27200017.5" id="QQ2-146-272">Ordinary Diﬀerential Equations</a></span>
+<br /> <span class="sectionToc" >17.6 <a 
+href="manualse113.html#x147-27300017.6" id="QQ2-147-273">Bounds of a Function</a></span>
+<br /> <span class="sectionToc" >17.7 <a 
+href="manualse114.html#x148-27400017.7" id="QQ2-148-274">Chebyshev Curve Fitting</a></span>
+<br /> <span class="sectionToc" >17.8 <a 
+href="manualse115.html#x149-27500017.8" id="QQ2-149-275">General Curve Fitting</a></span>
+<br /><span class="chapterToc" >18 <a 
+href="manualch18.html#x150-27600018" id="QQ2-150-276">Graphical Display</a></span>
+<br /> <span class="sectionToc" >18.1 <a 
+href="manualse116.html#x151-27700018.1" id="QQ2-151-277">GNUPLOT: Display of Functions and Surfaces</a></span>
+<br /> <span class="sectionToc" >18.2 <a 
+href="manualse117.html#x153-28900018.2" id="QQ2-153-289">Turtle Graphics</a></span>
+<br /> <span class="sectionToc" >18.3 <a 
+href="manualse118.html#x155-29900018.3" id="QQ2-155-299">Logo Turtle Graphics</a></span>
+<br /><span class="chapterToc" >19 <a 
+href="manualch19.html#x158-37000019" id="QQ2-158-370">Tracing in REDUCE</a></span>
+<br /> <span class="sectionToc" >19.1 <a 
+href="manualse119.html#x159-37100019.1" id="QQ2-159-371">Introduction</a></span>
+<br /> <span class="sectionToc" >19.2 <a 
+href="manualse120.html#x161-37200019.2" id="QQ2-161-372">RTrace versus RDebug</a></span>
+<br /> <span class="sectionToc" >19.3 <a 
+href="manualse121.html#x162-37300019.3" id="QQ2-162-373">Procedure Tracing: RTR, UNRTR</a></span>
+<br /> <span class="sectionToc" >19.4 <a 
+href="manualse122.html#x163-37400019.4" id="QQ2-163-374">Assignment Tracing: RTRST, UNRTRST</a></span>
+                                                                     
+
+                                                                     
+<br /> <span class="sectionToc" >19.5 <a 
+href="manualse123.html#x164-37500019.5" id="QQ2-164-375">Tracing Active Rules: TRRL, UNTRRL</a></span>
+<br /> <span class="sectionToc" >19.6 <a 
+href="manualse124.html#x165-37600019.6" id="QQ2-165-376">Tracing Inactive Rules: TRRLID, UNTRRLID</a></span>
+<br /> <span class="sectionToc" >19.7 <a 
+href="manualse125.html#x166-37700019.7" id="QQ2-166-377">Output Control: RTROUT</a></span>
+<br /><span class="chapterToc" >20 <a 
+href="manualch20.html#x167-37800020" id="QQ2-167-378">User Contributed Packages</a></span>
+<br /> <span class="sectionToc" >20.1 <a 
+href="manualse126.html#x168-37900020.1" id="QQ2-168-379">APPLYSYM: Inﬁnitesimal Symmetries of Diﬀerential Equations</a></span>
+<br /> <span class="sectionToc" >20.2 <a 
+href="manualse127.html#x169-39900020.2" id="QQ2-169-399">ASSIST: Useful Utilities for Various Applications</a></span>
+<br /> <span class="sectionToc" >20.3 <a 
+href="manualse128.html#x170-41400020.3" id="QQ2-170-414">ATENSOR: A REDUCE Program for Tensor Simpliﬁcation</a></span>
+<br /> <span class="sectionToc" >20.4 <a 
+href="manualse129.html#x171-41500020.4" id="QQ2-171-415">AVECTOR: A Vector Algebra and Calculus Package</a></span>
+<br /> <span class="sectionToc" >20.5 <a 
+href="manualse130.html#x172-42300020.5" id="QQ2-172-423">BIBASIS: A Package for Calculating Boolean Involutive Bases</a></span>
+<br /> <span class="sectionToc" >20.6 <a 
+href="manualse131.html#x173-42900020.6" id="QQ2-173-429">BOOLEAN: A Package for Boolean Algebra</a></span>
+<br /> <span class="sectionToc" >20.7 <a 
+href="manualse132.html#x174-43400020.7" id="QQ2-174-434">CALI: A Package for Computational Commutative Algebra</a></span>
+<br /> <span class="sectionToc" >20.8 <a 
+href="manualse133.html#x191-47200020.8" id="QQ2-191-472">CAMAL: Calculations in Celestial Mechanics</a></span>
+<br /> <span class="sectionToc" >20.9 <a 
+href="manualse134.html#x192-49300020.9" id="QQ2-192-493">CANTENS: A Package for Manipulations and Simpliﬁcations of Indexed Objects</a></span>
+<br /> <span class="sectionToc" >20.10 <a 
+href="manualse135.html#x198-51800020.10" id="QQ2-198-518">CDE: A Package for Integrability of PDEs</a></span>
+<br /> <span class="sectionToc" >20.11 <a 
+href="manualse136.html#x202-54500020.11" id="QQ2-202-545">CDIFF: A Package for Computations in Geometry of Diﬀerential Equations</a></span>
+<br /> <span class="sectionToc" >20.12 <a 
+href="manualse137.html#x204-55400020.12" id="QQ2-204-554">CGB: Computing Comprehensive Gröbner Bases</a></span>
+<br /> <span class="sectionToc" >20.13 <a 
+href="manualse138.html#x205-56900020.13" id="QQ2-205-569">COEFF2: A Variant of the <span 
+class="pcrr8t-x-x-109">coeff </span>Operator</a></span>
+<br /> <span class="sectionToc" >20.14 <a 
+href="manualse139.html#x206-57000020.14" id="QQ2-206-570">CRACK: Solving Overdetermined Systems of PDEs or ODEs</a></span>
+<br /> <span class="sectionToc" >20.15 <a 
+href="manualse140.html#x207-57100020.15" id="QQ2-207-571">DESIR: Diﬀerential Linear Homogeneous Equation Solutions in the
+Neighborhood of Irregular and Regular Singular Points</a></span>
+<br /> <span class="sectionToc" >20.16 <a 
+href="manualse141.html#x208-58400020.16" id="QQ2-208-584">DFPART: Derivatives of Generic Functions</a></span>
+<br /> <span class="sectionToc" >20.17 <a 
+href="manualse142.html#x209-58800020.17" id="QQ2-209-588">DUMMY: Canonical Form of Expressions <br 
+class="newline" />with Dummy Variables</a></span>
+<br /> <span class="sectionToc" >20.18 <a 
+href="manualse143.html#x210-59300020.18" id="QQ2-210-593">EDS: A Package for Exterior Diﬀerential Systems</a></span>
+<br /> <span class="sectionToc" >20.19 <a 
+href="manualse144.html#x211-72500020.19" id="QQ2-211-733">ELLIPFN: A Package for Elliptic Functions and Integrals</a></span>
+<br /> <span class="sectionToc" >20.20 <a 
+href="manualse145.html#x212-75300020.20" id="QQ2-212-761">EXCALC: A Diﬀerential Geometry Package</a></span>
+<br /> <span class="sectionToc" >20.21 <a 
+href="manualse146.html#x213-77100020.21" id="QQ2-213-780">FIDE: Finite Diﬀerence Method for Partial Diﬀerential Equations</a></span>
+<br /> <span class="sectionToc" >20.22 <a 
+href="manualse147.html#x214-80700020.22" id="QQ2-214-816">GCREF: A Graph Cross Referencer</a></span>
+<br /> <span class="sectionToc" >20.23 <a 
+href="manualse148.html#x215-81100020.23" id="QQ2-215-820">GENTRAN: A Code Generation Package</a></span>
+<br /> <span class="sectionToc" >20.24 <a 
+href="manualse149.html#x216-81200020.24" id="QQ2-216-821">GRINDER: Calculation of three-loop diagrams in Heavy Quark Eﬀective Theory</a></span>
+<br /> <span class="sectionToc" >20.25 <a 
+href="manualse150.html#x217-81300020.25" id="QQ2-217-822">GROEBNER: A Gröbner Basis Package</a></span>
+                                                                     
+
+                                                                     
+<br /> <span class="sectionToc" >20.26 <a 
+href="manualse151.html#x218-86200020.26" id="QQ2-218-871">GUARDIAN: Guarded Expressions in Practice</a></span>
+<br /> <span class="sectionToc" >20.27 <a 
+href="manualse152.html#x219-89000020.27" id="QQ2-219-899">IDEALS: Arithmetic for Polynomial Ideals</a></span>
+<br /> <span class="sectionToc" >20.28 <a 
+href="manualse153.html#x220-89700020.28" id="QQ2-220-906">INVBASE: A Package for Computing Involutive Bases</a></span>
+<br /> <span class="sectionToc" >20.29 <a 
+href="manualse154.html#x222-90200020.29" id="QQ2-222-911">LALR: A Parser Generator</a></span>
+<br /> <span class="sectionToc" >20.30 <a 
+href="manualse155.html#x223-90500020.30" id="QQ2-223-914">LAPLACE: Laplace Transforms</a></span>
+<br /> <span class="sectionToc" >20.31 <a 
+href="manualse156.html#x224-90600020.31" id="QQ2-224-915">LIE: Functions for the Classiﬁcation of Real <span 
+class="cmmi-10x-x-109">n</span>-Dimensional Lie Algebras</a></span>
+<br /> <span class="sectionToc" >20.32 <a 
+href="manualse157.html#x225-91000020.32" id="QQ2-225-919">LINALG: Linear Algebra Package</a></span>
+<br /> <span class="sectionToc" >20.33 <a 
+href="manualse158.html#x235-97700020.33" id="QQ2-235-986">LISTVECOPS: Vector Operations on Lists</a></span>
+<br /> <span class="sectionToc" >20.34 <a 
+href="manualse159.html#x236-97800020.34" id="QQ2-236-987">LPDO: Linear Partial Diﬀerential Operators</a></span>
+<br /> <span class="sectionToc" >20.35 <a 
+href="manualse160.html#x237-100500020.35" id="QQ2-237-1014">MRVLIMIT: A New Exp-Log Limits Package</a></span>
+<br /> <span class="sectionToc" >20.36 <a 
+href="manualse161.html#x238-101000020.36" id="QQ2-238-1019">NCPOLY: Non-commutative Polynomial Ideals</a></span>
+<br /> <span class="sectionToc" >20.37 <a 
+href="manualse162.html#x240-102300020.37" id="QQ2-240-1032">NORMFORM: Computation of <br 
+class="newline" />Matrix Normal Forms</a></span>
+<br /> <span class="sectionToc" >20.38 <a 
+href="manualse163.html#x241-103500020.38" id="QQ2-241-1044">ODESOLVE: Ordinary Diﬀerential Equation Solver</a></span>
+<br /> <span class="sectionToc" >20.39 <a 
+href="manualse164.html#x242-104800020.39" id="QQ2-242-1057">ORTHOVEC: Manipulation of Scalars and Vectors</a></span>
+<br /> <span class="sectionToc" >20.40 <a 
+href="manualse165.html#x243-105600020.40" id="QQ2-243-1069">PHYSOP: Operator Calculus in Quantum Theory</a></span>
+<br /> <span class="sectionToc" >20.41 <a 
+href="manualse166.html#x249-107100020.41" id="QQ2-249-1084">PM: A REDUCE Pattern Matcher</a></span>
+<br /> <span class="sectionToc" >20.42 <a 
+href="manualse167.html#x250-108400020.42" id="QQ2-250-1097">QHULL: Compute the Complex Hull</a></span>
+<br /> <span class="sectionToc" >20.43 <a 
+href="manualse168.html#x251-108500020.43" id="QQ2-251-1098">QSUM: Indeﬁnite and Deﬁnite Summation of <span 
+class="ptmro8t-x-x-109">q</span>-Hypergeometric Terms</a></span>
+<br /> <span class="sectionToc" >20.44 <a 
+href="manualse169.html#x253-109500020.44" id="QQ2-253-1108">RANDPOLY: A Random Polynomial Generator</a></span>
+<br /> <span class="sectionToc" >20.45 <a 
+href="manualse170.html#x256-110900020.45" id="QQ2-256-1122">RATAPRX: Rational Approximations Package for REDUCE</a></span>
+<br /> <span class="sectionToc" >20.46 <a 
+href="manualse171.html#x257-111500020.46" id="QQ2-257-1128">RATINT: Integrate Rational Functions using the Minimal Algebraic
+Extension to the Constant Field</a></span>
+<br /> <span class="sectionToc" >20.47 <a 
+href="manualse172.html#x258-112700020.47" id="QQ2-258-1140">REACTEQN: Support for Chemical Reaction Equation Systems</a></span>
+<br /> <span class="sectionToc" >20.48 <a 
+href="manualse173.html#x259-112800020.48" id="QQ2-259-1141">REDLOG: Extend REDUCE to a Computer Logic System</a></span>
+<br /> <span class="sectionToc" >20.49 <a 
+href="manualse174.html#x260-112900020.49" id="QQ2-260-1142">RLFI: REDUCE LaTeX Formula Interface</a></span>
+<br /> <span class="sectionToc" >20.50 <a 
+href="manualse175.html#x261-113100020.50" id="QQ2-261-1144">SCOPE: REDUCE Source Code Optimization Package</a></span>
+<br /> <span class="sectionToc" >20.51 <a 
+href="manualse176.html#x262-113200020.51" id="QQ2-262-1145">SETS: A Basic Set Theory Package</a></span>
+<br /> <span class="sectionToc" >20.52 <a 
+href="manualse177.html#x263-114400020.52" id="QQ2-263-1157">SPARSE: Sparse Matrix Calculations</a></span>
+<br /> <span class="sectionToc" >20.53 <a 
+href="manualse178.html#x268-121100020.53" id="QQ2-268-1224">SPDE: Finding Symmetry Groups of PDEs</a></span>
+<br /> <span class="sectionToc" >20.54 <a 
+href="manualse179.html#x269-121500020.54" id="QQ2-269-1232">SPECFN: Package for Special Functions</a></span>
+                                                                     
+
+                                                                     
+<br /> <span class="sectionToc" >20.55 <a 
+href="manualse180.html#x270-125500020.55" id="QQ2-270-1272">SPECFN2: Package for Special Special Functions</a></span>
+<br /> <span class="sectionToc" >20.56 <a 
+href="manualse181.html#x271-125900020.56" id="QQ2-271-1276">SSTOOLS: Computations with Supersymmetric Algebraic and Diﬀerential
+Expressions</a></span>
+<br /> <span class="sectionToc" >20.57 <a 
+href="manualse182.html#x272-126100020.57" id="QQ2-272-1278">SUM: A Package for Series Summation</a></span>
+<br /> <span class="sectionToc" >20.58 <a 
+href="manualse183.html#x273-126200020.58" id="QQ2-273-1279">SYMMETRY: Operations on Symmetric Matrices</a></span>
+<br /> <span class="sectionToc" >20.59 <a 
+href="manualse184.html#x274-126700020.59" id="QQ2-274-1284">TRI: TeX REDUCE Interface</a></span>
+<br /> <span class="sectionToc" >20.60 <a 
+href="manualse185.html#x275-126800020.60" id="QQ2-275-1285">TRIGD: Trigonometrical Functions with Degree Arguments</a></span>
+<br /> <span class="sectionToc" >20.61 <a 
+href="manualse186.html#x278-127300020.61" id="QQ2-278-1290">TRIGINT: Weierstraß Substitution in REDUCE</a></span>
+<br /> <span class="sectionToc" >20.62 <a 
+href="manualse187.html#x279-128200020.62" id="QQ2-279-1300">WU: Wu Algorithm for Polynomial Systems</a></span>
+<br /> <span class="sectionToc" >20.63 <a 
+href="manualse188.html#x280-128300020.63" id="QQ2-280-1301">XCOLOR: Color Factor in some Field Theories</a></span>
+<br /> <span class="sectionToc" >20.64 <a 
+href="manualse189.html#x281-128800020.64" id="QQ2-281-1306">XIDEAL: Gröbner Bases for Exterior Algebra</a></span>
+<br /> <span class="sectionToc" >20.65 <a 
+href="manualse190.html#x282-130500020.65" id="QQ2-282-1323">ZEILBERG: Indeﬁnite and Deﬁnite Summation</a></span>
+<br /> <span class="sectionToc" >20.66 <a 
+href="manualse191.html#x285-132000020.66" id="QQ2-285-1338">ZTRANS: <span 
+class="ptmri8t-x-x-109">Z</span>-Transform Package</a></span>
+<br /><span class="chapterToc" >21 <a 
+href="manualch21.html#x286-132700021" id="QQ2-286-1345">Symbolic Mode</a></span>
+<br /> <span class="sectionToc" >21.1 <a 
+href="manualse192.html#x287-132800021.1" id="QQ2-287-1346">Symbolic Inﬁx Operators</a></span>
+<br /> <span class="sectionToc" >21.2 <a 
+href="manualse193.html#x288-132900021.2" id="QQ2-288-1347">Symbolic Expressions</a></span>
+<br /> <span class="sectionToc" >21.3 <a 
+href="manualse194.html#x289-133000021.3" id="QQ2-289-1348">Quoted Expressions</a></span>
+<br /> <span class="sectionToc" >21.4 <a 
+href="manualse195.html#x290-133100021.4" id="QQ2-290-1349">Lambda Expressions</a></span>
+<br /> <span class="sectionToc" >21.5 <a 
+href="manualse196.html#x291-133200021.5" id="QQ2-291-1350">Symbolic Assignment Statements</a></span>
+<br /> <span class="sectionToc" >21.6 <a 
+href="manualse197.html#x292-133300021.6" id="QQ2-292-1351">FOR EACH Statement</a></span>
+<br /> <span class="sectionToc" >21.7 <a 
+href="manualse198.html#x293-133400021.7" id="QQ2-293-1352">Symbolic Procedures</a></span>
+<br /> <span class="sectionToc" >21.8 <a 
+href="manualse199.html#x294-133500021.8" id="QQ2-294-1353">Standard Lisp Equivalent of REDUCE Input</a></span>
+<br /> <span class="sectionToc" >21.9 <a 
+href="manualse200.html#x295-133600021.9" id="QQ2-295-1354">Communicating with Algebraic Mode</a></span>
+<br /> <span class="sectionToc" >21.10 <a 
+href="manualse201.html#x296-134100021.10" id="QQ2-296-1359">Rlisp ’88</a></span>
+<br /> <span class="sectionToc" >21.11 <a 
+href="manualse202.html#x297-134200021.11" id="QQ2-297-1360">References</a></span>
+<br /><span class="chapterToc" >22 <a 
+href="manualch22.html#x298-134300022" id="QQ2-298-1361">Calculations in High Energy Physics</a></span>
+<br /> <span class="sectionToc" >22.1 <a 
+href="manualse203.html#x299-134400022.1" id="QQ2-299-1362">High Energy Physics Operators</a></span>
+<br /> <span class="sectionToc" >22.2 <a 
+href="manualse204.html#x300-134800022.2" id="QQ2-300-1366">Vector Variables</a></span>
+<br /> <span class="sectionToc" >22.3 <a 
+href="manualse205.html#x301-134900022.3" id="QQ2-301-1367">Additional Expression Types</a></span>
+<br /> <span class="sectionToc" >22.4 <a 
+href="manualse206.html#x302-135200022.4" id="QQ2-302-1370">Trace Calculations</a></span>
+<br /> <span class="sectionToc" >22.5 <a 
+href="manualse207.html#x303-135300022.5" id="QQ2-303-1371">Mass Declarations</a></span>
+                                                                     
+
+                                                                     
+<br /> <span class="sectionToc" >22.6 <a 
+href="manualse208.html#x304-135400022.6" id="QQ2-304-1372">Example</a></span>
+<br /> <span class="sectionToc" >22.7 <a 
+href="manualse209.html#x305-135500022.7" id="QQ2-305-1373">Extensions to More Than Four Dimensions</a></span>
+<br /> <span class="sectionToc" >22.8 <a 
+href="manualse210.html#x306-135600022.8" id="QQ2-306-1374">The CVIT algorithm</a></span>
+<br /><span class="chapterToc" >23 <a 
+href="manualch23.html#x307-135700023" id="QQ2-307-1375">REDUCE and Rlisp Utilities</a></span>
+<br /> <span class="sectionToc" >23.1 <a 
+href="manualse211.html#x308-135800023.1" id="QQ2-308-1376">The Standard Lisp Compiler</a></span>
+<br /> <span class="sectionToc" >23.2 <a 
+href="manualse212.html#x309-135900023.2" id="QQ2-309-1377">Fast Loading Code Generation Program</a></span>
+<br /> <span class="sectionToc" >23.3 <a 
+href="manualse213.html#x310-136000023.3" id="QQ2-310-1378">The Standard Lisp Cross Reference Program</a></span>
+<br /> <span class="sectionToc" >23.4 <a 
+href="manualse214.html#x311-136400023.4" id="QQ2-311-1382">Prettyprinting REDUCE Expressions</a></span>
+<br /> <span class="sectionToc" >23.5 <a 
+href="manualse215.html#x312-136500023.5" id="QQ2-312-1383">Prettyprinting Standard Lisp S-Expressions</a></span>
+<br /><span class="chapterToc" >24 <a 
+href="manualch24.html#x313-136600024" id="QQ2-313-1384">Maintaining REDUCE</a></span>
+<br /><span class="appendixToc" >A <a 
+href="manualap1.html#x314-1367000A" id="QQ2-314-1385">Reserved Identiﬁers</a></span>
+<br /> <span class="sectionToc" >A.1 <a 
+href="manualse216.html#x315-1368000A.1" id="QQ2-315-1386">Commands</a></span>
+<br /> <span class="sectionToc" >A.2 <a 
+href="manualse217.html#x316-1369000A.2" id="QQ2-316-1387">Boolean Operators</a></span>
+<br /> <span class="sectionToc" >A.3 <a 
+href="manualse218.html#x317-1370000A.3" id="QQ2-317-1388">Inﬁx Operators</a></span>
+<br /> <span class="sectionToc" >A.4 <a 
+href="manualse219.html#x318-1371000A.4" id="QQ2-318-1389">Numerical Operators</a></span>
+<br /> <span class="sectionToc" >A.5 <a 
+href="manualse220.html#x319-1372000A.5" id="QQ2-319-1390">Preﬁx Operators</a></span>
+<br /> <span class="sectionToc" >A.6 <a 
+href="manualse221.html#x320-1373000A.6" id="QQ2-320-1391">Reserved Variables</a></span>
+<br /> <span class="sectionToc" >A.7 <a 
+href="manualse222.html#x321-1374000A.7" id="QQ2-321-1392">Switches</a></span>
+<br /> <span class="sectionToc" >A.8 <a 
+href="manualse223.html#x322-1375000A.8" id="QQ2-322-1393">Other Reserved Ids</a></span>
+<br /><span class="appendixToc" >B <a 
+href="manualap2.html#x323-1376000B" id="QQ2-323-1394">Bibliography</a></span>
+<br /><span class="appendixToc" >C <a 
+href="manualap3.html#x324-1377000C" id="QQ2-324-1395">Changes since Version 3.8</a></span>
+<br /><span class="appendixToc" >D <a 
+href="manualap4.html#x325-1394000D" id="QQ2-325-1412">Description of Algorithms</a></span>
+<br /> <span class="sectionToc" >D.1 <a 
+href="manualse224.html#x326-1395000D.1" id="QQ2-326-1413">Deﬁnite Integration</a></span>
+<br /> <span class="sectionToc" >D.2 <a 
+href="manualse225.html#x327-1410000D.2" id="QQ2-327-1428">The CVIT package</a></span>
+<br /><span class="likechapterToc" ><a 
+href="manualli3.html#x328-1415000D.2" id="QQ2-328-1433">Index</a></span>
+<br /> <span class="likesectionToc" ><a 
+href="manualli4.html#x329-1416000D.2" id="QQ2-329-1434">Symbols</a></span>
+<br /> <span class="likesectionToc" ><a 
+href="manualli5.html#x330-1417000D.2" id="QQ2-330-1435">A</a></span>
+<br /> <span class="likesectionToc" ><a 
+href="manualli6.html#x331-1418000D.2" id="QQ2-331-1436">B</a></span>
+<br /> <span class="likesectionToc" ><a 
+href="manualli7.html#x332-1419000D.2" id="QQ2-332-1437">C</a></span>
+<br /> <span class="likesectionToc" ><a 
+href="manualli8.html#x333-1420000D.2" id="QQ2-333-1438">D</a></span>
+                                                                     
+
+                                                                     
+<br /> <span class="likesectionToc" ><a 
+href="manualli9.html#x334-1421000D.2" id="QQ2-334-1439">E</a></span>
+<br /> <span class="likesectionToc" ><a 
+href="manualli10.html#x335-1422000D.2" id="QQ2-335-1440">F</a></span>
+<br /> <span class="likesectionToc" ><a 
+href="manualli11.html#x336-1423000D.2" id="QQ2-336-1441">G</a></span>
+<br /> <span class="likesectionToc" ><a 
+href="manualli12.html#x337-1424000D.2" id="QQ2-337-1442">H</a></span>
+<br /> <span class="likesectionToc" ><a 
+href="manualli13.html#x338-1425000D.2" id="QQ2-338-1443">I</a></span>
+<br /> <span class="likesectionToc" ><a 
+href="manualli14.html#x339-1426000D.2" id="QQ2-339-1444">J</a></span>
+<br /> <span class="likesectionToc" ><a 
+href="manualli15.html#x340-1427000D.2" id="QQ2-340-1445">K</a></span>
+<br /> <span class="likesectionToc" ><a 
+href="manualli16.html#x341-1428000D.2" id="QQ2-341-1446">L</a></span>
+<br /> <span class="likesectionToc" ><a 
+href="manualli17.html#x342-1429000D.2" id="QQ2-342-1447">M</a></span>
+<br /> <span class="likesectionToc" ><a 
+href="manualli18.html#x343-1430000D.2" id="QQ2-343-1448">N</a></span>
+<br /> <span class="likesectionToc" ><a 
+href="manualli19.html#x344-1431000D.2" id="QQ2-344-1449">O</a></span>
+<br /> <span class="likesectionToc" ><a 
+href="manualli20.html#x345-1432000D.2" id="QQ2-345-1450">P</a></span>
+<br /> <span class="likesectionToc" ><a 
+href="manualli21.html#x346-1433000D.2" id="QQ2-346-1451">Q</a></span>
+<br /> <span class="likesectionToc" ><a 
+href="manualli22.html#x347-1434000D.2" id="QQ2-347-1452">R</a></span>
+<br /> <span class="likesectionToc" ><a 
+href="manualli23.html#x348-1435000D.2" id="QQ2-348-1453">S</a></span>
+<br /> <span class="likesectionToc" ><a 
+href="manualli24.html#x349-1436000D.2" id="QQ2-349-1454">T</a></span>
+<br /> <span class="likesectionToc" ><a 
+href="manualli25.html#x350-1437000D.2" id="QQ2-350-1455">U</a></span>
+<br /> <span class="likesectionToc" ><a 
+href="manualli26.html#x351-1438000D.2" id="QQ2-351-1456">V</a></span>
+<br /> <span class="likesectionToc" ><a 
+href="manualli27.html#x352-1439000D.2" id="QQ2-352-1457">W</a></span>
+<br /> <span class="likesectionToc" ><a 
+href="manualli28.html#x353-1440000D.2" id="QQ2-353-1458">X</a></span>
+<br /> <span class="likesectionToc" ><a 
+href="manualli29.html#x354-1441000D.2" id="QQ2-354-1459">Y</a></span>
+<br /> <span class="likesectionToc" ><a 
+href="manualli30.html#x355-1442000D.2" id="QQ2-355-1460">Z</a></span>
+</div>
+                                                                     
+
+                                                                     
+
+                                                                     
+
+                                                                     
+
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+
+                                                                     
+
+                                                                     
+
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+
+                                                                     
+
+                                                                     
+
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+
+                                                                     
+
+                                                                     
+
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+
+                                                                     
+
+                                                                     
+
+                                                                     
+
+                                                                     
+
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+
+                                                                     
+
+                                                                     
+
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+
+                                                                     
+
+                                                                     
+
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+
+                                                                     
+
+                                                                     
+
+                                                                     
+
+                                                                     
+
+                                                                     
+
+                                                                     
+
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+
+                                                                     
+
+                                                                     
+
+<!--l. 2--><p class="noindent" ><a 
+ id="sec:appendixa"></a>
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+<a 
+ id="x1-1366001r1384"></a>
+</p>
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+<a 
+ id="x1-1375001r1384"></a>
+                                                                     
+
+                                                                     
+<a 
+ id="x1-1376001r1384"></a>
+                                                                     
+
+                                                                     
+<a 
+ id="x1-1393001r1384"></a>
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+ 
+</body> 
+</html>
+                                                                     
+
+

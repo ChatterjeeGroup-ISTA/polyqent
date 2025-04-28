@@ -1,0 +1,1 @@
+Resolve[Exists[{c0, c1}, (c0 < 0) && And[(1 >= 0)] && Implies[And[(1 >= 0)], ((1 * c1) >= 0)] && Implies[And[((1 * 1) >= 0), ((1 * c1) >= 0)], ((1 * c1) >= 0)] && Implies[And[(((-2) * 1) >= 0), ((1 * c1) >= 0)], ((1 * c0) >= 0)]], Integers]

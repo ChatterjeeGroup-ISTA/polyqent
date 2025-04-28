@@ -1,0 +1,325 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>REACTEQN: Support for Chemical Reaction Equation Systems</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse172.html" >Up</a></td><td class="clinks"><a 
+href="manualse173.html" >Next</a></td><td class="clinks"><a 
+href="manualse171.html" >Prev</a></td><td class="clinks"><a 
+href="manualse171.html#tailmanualse171.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse172.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.47    </span> <a 
+ id="x258-112700020.47"></a>REACTEQN: Support for Chemical Reaction Equation
+Systems</h3>
+<a 
+ id="dx258-1127001"></a>
+<a 
+ id="dx258-1127002"></a>
+<!--l. 948--><p class="noindent" >This package allows a user to transform chemical reaction systems into ordinary
+diﬀerential equation systems (ODE) corresponding to the laws of pure mass
+action.
+</p><!--l. 954--><p class="noindent" >Author: Herbert Melenk.
+<a 
+ id="dx258-1127003"></a>
+<a 
+ id="dx258-1127004"></a>
+</p><!--l. 4--><p class="noindent" >A single reaction equation is an expression of the form
+     </p><div class="quote">
+     <!--l. 6--><p class="noindent" ><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">n1</span><span 
+class="cmsy-10x-x-109">⟩⟨</span><span 
+class="ptmri8t-x-x-109">s1</span><span 
+class="cmsy-10x-x-109">⟩ </span>+ <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">n2</span><span 
+class="cmsy-10x-x-109">⟩⟨</span><span 
+class="ptmri8t-x-x-109">s2</span><span 
+class="cmsy-10x-x-109">⟩ </span>+ …<span 
+class="pcrr8t-x-x-109">-&#x003E;</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">n3</span><span 
+class="cmsy-10x-x-109">⟩⟨</span><span 
+class="ptmri8t-x-x-109">s3</span><span 
+class="cmsy-10x-x-109">⟩ </span>+ <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">n4</span><span 
+class="cmsy-10x-x-109">⟩⟨</span><span 
+class="ptmri8t-x-x-109">s4</span><span 
+class="cmsy-10x-x-109">⟩ </span>+ …</p></div>
+<!--l. 8--><p class="noindent" >or
+     </p><div class="quote">
+     <!--l. 9--><p class="noindent" ><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">n1</span><span 
+class="cmsy-10x-x-109">⟩⟨</span><span 
+class="ptmri8t-x-x-109">s1</span><span 
+class="cmsy-10x-x-109">⟩ </span>+ <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">n2</span><span 
+class="cmsy-10x-x-109">⟩⟨</span><span 
+class="ptmri8t-x-x-109">s2</span><span 
+class="cmsy-10x-x-109">⟩ </span>+ …<span 
+class="pcrr8t-x-x-109">&#x003C;&#x003E;</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">n3</span><span 
+class="cmsy-10x-x-109">⟩⟨</span><span 
+class="ptmri8t-x-x-109">s3</span><span 
+class="cmsy-10x-x-109">⟩ </span>+ <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">n4</span><span 
+class="cmsy-10x-x-109">⟩⟨</span><span 
+class="ptmri8t-x-x-109">s4</span><span 
+class="cmsy-10x-x-109">⟩ </span>+ …</p></div>
+<!--l. 11--><p class="noindent" >where the <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">si</span><span 
+class="cmsy-10x-x-109">⟩ </span>are arbitrary names of species (REDUCE symbols) and the <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">ni</span><span 
+class="cmsy-10x-x-109">⟩</span>
+are positive integer numbers. The number 1 can be omitted. The connector
+<span 
+class="pcrr8t-x-x-109">-&#x003E; </span>describes a one way reaction, while <span 
+class="pcrr8t-x-x-109">&#x003C;&#x003E; </span>describes a forward and backward
+reaction.
+</p><!--l. 16--><p class="noindent" >A reaction system is a list of reaction equations, each of them optionally followed by one
+or two expressions for the rate constants. A rate constant can a number, a symbol or an
+arbitrary REDUCE expression. If a rate constant is missing, an automatic constant of the
+form RATE(n) (where n is an integer counter) is generated. For double reactions the ﬁrst
+constant is used for the forward direction, the second one for the backward
+direction.
+</p><!--l. 25--><p class="noindent" >The names of the species are collected in a list bound to the REDUCE share variable
+<span 
+class="pcrr8t-x-x-109">species</span><a 
+ id="dx258-1127005"></a>. This list is automatically ﬁlled during the processing of a reaction system.
+The species enter in an order corresponding to their appearance in the reaction system
+and the resulting ode’s will be ordered in the same manner.
+                                                                     
+
+                                                                     
+</p><!--l. 32--><p class="noindent" >If a list of species is preassigned to the variable <span 
+class="pcrr8t-x-x-109">species </span>either explicitly or from
+previous operations, the given order will be maintained and will dominate the
+formatting process. So the ordering of the result can be easily inﬂuenced by the
+user.
+</p><!--l. 38--><p class="noindent" >Syntax:
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">reac2ode{</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">reaction</span><span 
+class="cmsy-10x-x-109">⟩ </span>[,<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">rate</span><span 
+class="cmsy-10x-x-109">⟩ </span>[,<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">rate</span><span 
+class="cmsy-10x-x-109">⟩</span>]] [,<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">reaction</span><span 
+class="cmsy-10x-x-109">⟩ </span>[,<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">rate</span><span 
+class="cmsy-10x-x-109">⟩ </span>[,<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">rate</span><span 
+class="cmsy-10x-x-109">⟩</span>]]] …<span 
+class="pcrr8t-x-x-109">}</span>;</div>
+<!--l. 45--><p class="noindent" >where two rates are applicable only for <span 
+class="pcrr8t-x-x-109">&#x003C;&#x003E; </span>reactions.
+</p><!--l. 47--><p class="noindent" >Result is a system of explicit ordinary diﬀerential equations with polynomial righthand
+sides. As side eﬀect the following variables are set:
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Lists:</span> </dt><dd 
+class="description">
+          <dl class="description"><dt class="description">
+     <span 
+class="pcrr8t-x-x-109">rates</span> </dt><dd 
+class="description"><a 
+ id="variable:RATES"></a>list of the rates in the system
+          </dd><dt class="description">
+     <span 
+class="pcrr8t-x-x-109">species</span> </dt><dd 
+class="description"><a 
+ id="variable:SPECIES"></a> list of the species in the system</dd></dl>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Matrices:</span>  </dt><dd 
+class="description">
+          <dl class="description"><dt class="description">
+     <span 
+class="pcrr8t-x-x-109">inputmat</span> </dt><dd 
+class="description"><a 
+ id="variable:INPUTMAT"></a> matrix of the input coeﬃcients
+          </dd><dt class="description">
+     <span 
+class="pcrr8t-x-x-109">outputmat</span> </dt><dd 
+class="description"><a 
+ id="variable:OUTPUTMAT"></a> matrix of the output coeﬃcients</dd></dl>
+     </dd></dl>
+<!--l. 70--><p class="noindent" >In the matrices the row number corresponds to the input reaction number, while the
+column number corresponds to the species index. Note: if the rates are numerical values,
+it will be in most cases appropriate to switch on REDUCE rounded mode for ﬂoating
+point numbers. That is
+     </p><div class="quote">
+     <!--l. 76--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">on rounded;</span></p></div>
+<!--l. 78--><p class="noindent" >Inputmat and outputmat can be used for linear algebra type investigations of
+the reaction system. The classical reaction matrix is the diﬀerence of these
+matrices; however, the two matrices contain more information than their diﬀerences
+because the appearance of a species on both sides is not reﬂected by the reaction
+matrix.
+                                                                     
+
+                                                                     
+</p><!--l. 85--><p class="noindent" >EXAMPLES: This input
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1347">
+% Example taken from Feinberg (Chemical Engineering):
+ <br />
+ <br />   species := {A1,A2,A3,A4,A5};
+ <br />
+ <br />   reac2ode { A1 + A4 &#x003C;&#x003E; 2A1, rho, beta,
+ <br />              A1 + A2 &#x003C;&#x003E; A3, gamma, epsilon,
+ <br />              A3      &#x003C;&#x003E; A2 + A5, theta, mue};
+</div>
+<!--l. 95--><p class="nopar" > gives the output
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1348">
+ <br />{df(a1,t)
+ <br />
+ <br />                     2
+ <br /> =rho*a1*a4 - beta*a1  - gamma*a1*a2 + epsilon*a3,
+ <br />
+ <br /> df(a2,t)= - gamma*a1*a2 + epsilon*a3 + theta*a3
+ <br />
+ <br />  - mue*a2*a5,
+ <br />
+ <br /> df(a3,t)
+ <br />
+ <br /> =gamma*a1*a2 - epsilon*a3 - theta*a3 + mue*a2*a5,
+ <br />
+ <br />                                2
+ <br /> df(a4,t)= - rho*a1*a4 + beta*a1 ,
+ <br />
+ <br /> df(a5,t)=theta*a3 - mue*a2*a5}
+ <br />
+</div>
+<!--l. 117--><p class="nopar" > The corresponding matrices are
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1349">
+ inputmat;
+ <br />
+ <br />[1  0  0  1  0]
+ <br />[             ]
+ <br />[1  1  0  0  0]
+ <br />[             ]
+ <br />[0  0  1  0  0]
+ <br />
+ <br /> outputmat;
+ <br />
+ <br />[2  0  0  0  0]
+ <br />[             ]
+ <br />[0  0  1  0  0]
+ <br />[             ]
+ <br />[0  1  0  0  1]
+ <br />
+ <br />% computation of the classical reaction matrix as
+ <br />% difference of output and input matrix:
+ <br />
+ <br />  reactmat := outputmat-inputmat;
+ <br />
+ <br />            [1   0   0   -1  0]
+ <br />            [                 ]
+ <br />reactmat := [-1  -1  1   0   0]
+ <br />            [                 ]
+ <br />            [0   1   -1  0   1]
+ <br />
+ <br />% Example with automatic generation of rate constants
+ <br />% and automatic extraction of species
+ <br />
+ <br />   species := {};
+ <br />
+ <br />   reac2ode { A1 + A4 &#x003C;&#x003E; 2A1,
+ <br />              A1 + A2 &#x003C;&#x003E; A3,
+ <br />                   a3 &#x003C;&#x003E; A2 + A5};
+ <br />
+ <br />new species: a1
+ <br />new species: a4
+                                                                     
+
+                                                                     
+ <br />new species: a2
+ <br />new species: a3
+ <br />new species: a5
+ <br />
+ <br />               2
+ <br />{df(a1,t)= - a1 *rate(2) + a1*a4*rate(1)
+ <br />
+ <br />  - a1*a2*rate(3) + a3*rate(4),
+ <br />
+ <br />            2
+ <br /> df(a4,t)=a1 *rate(2) - a1*a4*rate(1),
+ <br />
+ <br /> df(a2,t)= - a1*a2*rate(3) - a2*a5*rate(6)
+ <br />
+ <br />  + a3*rate(5) + a3*rate(4),
+ <br />
+ <br /> df(a3,t)=a1*a2*rate(3) + a2*a5*rate(6)
+ <br />
+ <br />  - a3*rate(5) - a3*rate(4),
+ <br />
+ <br /> df(a5,t)= - a2*a5*rate(6) + a3*rate(5)}
+ <br />
+ <br />% Example with rates computed from numerical expressions
+ <br />
+ <br />   species := {};
+ <br />
+ <br />   reac2ode { A1 + A4 &#x003C;&#x003E; 2A1, 17.3* 22.4^1.5,
+ <br />                              0.04* 22.4^1.5 };
+ <br />
+ <br />new species: a1
+ <br />new species: a4
+ <br />
+ <br />{df(a1,t)
+ <br />
+ <br />                     2
+ <br /> = - 4.24064598853*a1  + 1834.07939004*a1*a4,
+ <br />
+ <br />                          2
+ <br /> df(a4,t)=4.24064598853*a1  - 1834.07939004*a1*a4}
+ <br />
+</div>
+<!--l. 198--><p class="nopar" >
+</p><!--l. 958--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 960--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse172.html" >Up</a></td><td class="clinks"><a 
+href="manualse173.html" >Next</a></td><td class="clinks"><a 
+href="manualse171.html" >Prev</a></td><td class="clinks"><a 
+href="manualse171.html#tailmanualse171.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse172.html" >Front</a></td></tr></table><a 
+ id="tailmanualse172.html"></a> </p> 
+</body> 
+</html>

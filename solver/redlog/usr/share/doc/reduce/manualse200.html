@@ -1,0 +1,514 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Communicating with Algebraic Mode</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch21.html#manualse200.html" >Up</a></td><td class="clinks"><a 
+href="manualse201.html" >Next</a></td><td class="clinks"><a 
+href="manualse199.html" >Prev</a></td><td class="clinks"><a 
+href="manualse199.html#tailmanualse199.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse200.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">21.9    </span> <a 
+ id="x295-133600021.9"></a>Communicating with Algebraic Mode</h3>
+<a 
+ id="dx295-1336001"></a>
+<!--l. 260--><p class="noindent" ><a 
+ id="command:SHARE"></a>
+</p><!--l. 262--><p class="noindent" >One of the principal motivations for a user of the algebraic facilities of REDUCE to learn
+about symbolic mode<a 
+ id="dx295-1336002"></a><a 
+ id="dx295-1336003"></a> is that it gives one access to a wider range of techniques than is
+possible in algebraic mode<a 
+ id="dx295-1336004"></a><a 
+ id="dx295-1336005"></a> alone. For example, if a user wishes to use parts of the system
+deﬁned in the basic system source code, or reﬁne their algebraic code deﬁnitions to
+make them more eﬃcient, then it is necessary to understand the source language
+in fairly complete detail. Moreover, it is also necessary to know a little more
+about the way REDUCE operates internally. Basically, REDUCE considers
+expressions in two forms: preﬁx form, which follow the normal Lisp rules of function
+composition, and so-called canonical form, which uses a completely diﬀerent
+syntax.
+</p><!--l. 275--><p class="noindent" >Once these details are understood, the most critical problem faced by a user is how to
+make expressions and procedures communicate between symbolic and algebraic
+mode. The purpose of this section is to teach a user the basic principles for
+this.
+</p><!--l. 280--><p class="noindent" >If one wants to evaluate an expression in algebraic mode, and then use that expression in
+symbolic mode calculations, or vice versa, the easiest way to do this is to assign a
+variable to that expression whose value is easily obtainable in both modes. To facilitate
+this, a declaration <span 
+class="pcrr8t-x-x-109">share</span><a 
+ id="dx295-1336006"></a> is available. <span 
+class="pcrr8t-x-x-109">share </span>takes a list of identiﬁers as argument, and
+marks these variables as having recognizable values in both modes. The declaration may
+be used in either mode.
+</p><!--l. 288--><p class="noindent" >E.g.,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1492">
+        share x,y;
+</div>
+<!--l. 291--><p class="nopar" > says that <span 
+class="pcrr8t-x-x-109">x </span>and <span 
+class="pcrr8t-x-x-109">y </span>will receive values to be used in both modes.
+</p><!--l. 294--><p class="noindent" >If a <span 
+class="pcrr8t-x-x-109">share </span>declaration is made for a variable with a previously assigned algebraic value,
+that value is also made available in symbolic mode.
+</p><!--l. 298--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">21.9.1    </span> <a 
+ id="x295-133700021.9.1"></a>Passing Algebraic Mode Values to Symbolic Mode</h4>
+<!--l. 300--><p class="noindent" >If one wishes to work with parts of an algebraic mode <a 
+ id="dx295-1337001"></a>expression in symbolic mode,<a 
+ id="dx295-1337002"></a> one
+simply makes an assignment<a 
+ id="dx295-1337003"></a> of a shared variable to the relevant expression in algebraic
+mode. For example, if one wishes to work with <span 
+class="pcrr8t-x-x-109">(a+b)^2</span>, one would say, in algebraic
+mode:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1493">
+        x := (a+b)^2;
+</div>
+<!--l. 307--><p class="nopar" > assuming that <span 
+class="pcrr8t-x-x-109">x </span>was declared shared as above. If we now change to symbolic mode and
+say
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1494">
+        x;
+</div>
+<!--l. 312--><p class="nopar" > its value will be printed as a preﬁx form with the syntax:
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">(*sq </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">standard quotient</span><span 
+class="cmsy-10x-x-109">⟩ </span><span 
+class="pcrr8t-x-x-109">t)</span></div>
+<!--l. 317--><p class="noindent" >This particular format reﬂects the fact that the algebraic mode processor currently likes to
+transfer preﬁx forms from command to command, but doesn’t like to reconvert standard
+forms<a 
+ id="dx295-1337004"></a> (which represent polynomials) and standard quotients back to a true Lisp
+preﬁx form for the expression (which would result in excessive computation).
+So <span 
+class="pcrr8t-x-x-109">*sq </span>is used to tell the algebraic processor that it is dealing with a preﬁx
+form which is really a standard quotient<a 
+ id="dx295-1337005"></a> and the second argument (<span 
+class="pcrr8t-x-x-109">t </span>or <span 
+class="pcrr8t-x-x-109">nil</span>)
+tells it whether it needs further processing (essentially, an <span 
+class="ptmri8t-x-x-109">already simpliﬁed</span>
+ﬂag).
+</p><!--l. 328--><p class="noindent" >So to get the true standard quotient form in symbolic mode, one needs <span 
+class="pcrr8t-x-x-109">cadr </span>of the
+variable. E.g.,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1495">
+        z := cadr x;
+</div>
+<!--l. 332--><p class="nopar" > would store in <span 
+class="pcrr8t-x-x-109">Z </span>the standard quotient form for <span 
+class="pcrr8t-x-x-109">(a+b)^2</span>.
+</p><!--l. 336--><p class="noindent" >Once you have this expression, you can now manipulate it as you wish. To facilitate this,
+a standard set of selectors<a 
+ id="dx295-1337006"></a> and constructors<a 
+ id="dx295-1337007"></a> are available for getting at parts of the form.
+Those presently deﬁned are as follows:
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">REDUCE Selectors</span> </dt><dd 
+class="description"> <!--tex4ht:inline--><div class="tabular"> <table id="TBL-230" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-230-1g"><col 
+id="TBL-230-1" /><col 
+id="TBL-230-2" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-230-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-230-1-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">denr </span></td><td  style="white-space:normal; text-align:left;" id="TBL-230-1-2"  
+class="td11"> <!--l. 349--><p class="noindent" >denominator of standard quotient                  </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-230-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-230-2-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">lc   </span></td><td  style="white-space:normal; text-align:left;" id="TBL-230-2-2"  
+class="td11"> <!--l. 351--><p class="noindent" >leading coeﬃcient of polynomial                  </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-230-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-230-3-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">ldeg </span></td><td  style="white-space:normal; text-align:left;" id="TBL-230-3-2"  
+class="td11"> <!--l. 353--><p class="noindent" >leading degree of polynomial                        </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-230-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-230-4-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">lpow </span></td><td  style="white-space:normal; text-align:left;" id="TBL-230-4-2"  
+class="td11"> <!--l. 355--><p class="noindent" >leading power of polynomial                         </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-230-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-230-5-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">lt   </span></td><td  style="white-space:normal; text-align:left;" id="TBL-230-5-2"  
+class="td11"> <!--l. 357--><p class="noindent" >leading term of polynomial                           </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-230-6-"><td  style="white-space:nowrap; text-align:left;" id="TBL-230-6-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">mvar </span></td><td  style="white-space:normal; text-align:left;" id="TBL-230-6-2"  
+class="td11"> <!--l. 359--><p class="noindent" >main variable of polynomial                         </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-230-7-"><td  style="white-space:nowrap; text-align:left;" id="TBL-230-7-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">numr </span></td><td  style="white-space:normal; text-align:left;" id="TBL-230-7-2"  
+class="td11"> <!--l. 361--><p class="noindent" >numerator (of standard quotient)                   </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-230-8-"><td  style="white-space:nowrap; text-align:left;" id="TBL-230-8-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">pdeg </span></td><td  style="white-space:normal; text-align:left;" id="TBL-230-8-2"  
+class="td11"> <!--l. 363--><p class="noindent" >degree of a power                                          </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-230-9-"><td  style="white-space:nowrap; text-align:left;" id="TBL-230-9-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">red  </span></td><td  style="white-space:normal; text-align:left;" id="TBL-230-9-2"  
+class="td11"> <!--l. 365--><p class="noindent" >reductum of polynomial                                </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-230-10-"><td  style="white-space:nowrap; text-align:left;" id="TBL-230-10-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">tc   </span></td><td  style="white-space:normal; text-align:left;" id="TBL-230-10-2"  
+class="td11"> <!--l. 367--><p class="noindent" >coeﬃcient of a term                                       </p></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-230-11-"><td  style="white-space:nowrap; text-align:left;" id="TBL-230-11-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">tdeg </span></td> <td  style="white-space:normal; text-align:left;" id="TBL-230-11-2"  
+class="td11"> <!--l. 369--><p class="noindent" >degree of a term</p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-230-12-"><td  style="white-space:nowrap; text-align:left;" id="TBL-230-12-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">tpow </span></td><td  style="white-space:normal; text-align:left;" id="TBL-230-12-2"  
+class="td11"> <!--l. 371--><p class="noindent" >power of a term                                             </p></td></tr></table>
+     </div>
+                                                                     
+
+                                                                     
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">REDUCE Constructors</span> </dt><dd 
+class="description"><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"> <table id="TBL-231" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-231-1g"><col 
+id="TBL-231-1" /><col 
+id="TBL-231-2" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-231-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-231-1-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">.+ </span></td><td  style="white-space:normal; text-align:left;" id="TBL-231-1-2"  
+class="td11"> <!--l. 378--><p class="noindent" >add a term to a polynomial                                                    </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-231-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-231-2-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">./ </span></td><td  style="white-space:normal; text-align:left;" id="TBL-231-2-2"  
+class="td11"> <!--l. 380--><p class="noindent" >divide (two polynomials to get quotient)                              </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-231-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-231-3-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">.* </span></td><td  style="white-space:normal; text-align:left;" id="TBL-231-3-2"  
+class="td11"> <!--l. 381--><p class="noindent" >multiply power by coeﬃcient to produce term                     </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-231-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-231-4-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">.^ </span></td><td  style="white-space:normal; text-align:left;" id="TBL-231-4-2"  
+class="td11"> <!--l. 383--><p class="noindent" >raise a variable to a power                                                     </p></td></tr></table>
+     </div></dd></dl>
+<!--l. 387--><p class="noindent" >For example, to ﬁnd the numerator of the standard quotient above, one could
+say:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1496">
+        numr z;
+</div>
+<!--l. 391--><p class="nopar" > or to ﬁnd the leading term of the numerator:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1497">
+        lt numr z;
+</div>
+<!--l. 395--><p class="nopar" > Conversion between various data structures is facilitated by the use of a set of functions
+deﬁned for this purpose. Those currently implemented include:
+</p>
+<div class="tabular"> <table id="TBL-232" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-232-1g"><col 
+id="TBL-232-1" /><col 
+id="TBL-232-2" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-232-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-232-1-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">!*a2f </span></td><td  style="white-space:normal; text-align:left;" id="TBL-232-1-2"  
+class="td11"> <!--l. 402--><p class="noindent" >convert  an  algebraic  expression  to  a  standard  form.  If  result  is
+  rational, an error results;                                                                    </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-232-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-232-2-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">!*a2k  </span></td><td  style="white-space:normal; text-align:left;" id="TBL-232-2-2"  
+class="td11"> <!--l. 405--><p class="noindent" >converts an algebraic expression to a kernel. If this is not possible,
+  an error results;                                                                                   </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-232-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-232-3-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">!*f2a  </span></td><td  style="white-space:normal; text-align:left;" id="TBL-232-3-2"  
+class="td11"> <!--l. 408--><p class="noindent" >converts a standard form to an algebraic expression;                         </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-232-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-232-4-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">!*f2q  </span></td><td  style="white-space:normal; text-align:left;" id="TBL-232-4-2"  
+class="td11"> <!--l. 411--><p class="noindent" >convert a standard form to a standard quotient;                                 </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-232-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-232-5-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">!*k2f  </span></td><td  style="white-space:normal; text-align:left;" id="TBL-232-5-2"  
+class="td11"> <!--l. 414--><p class="noindent" >convert a kernel to a standard form;                                                   </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-232-6-"><td  style="white-space:nowrap; text-align:left;" id="TBL-232-6-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">!*k2q  </span></td><td  style="white-space:normal; text-align:left;" id="TBL-232-6-2"  
+class="td11"> <!--l. 415--><p class="noindent" >convert a kernel to a standard quotient;                                              </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-232-7-"><td  style="white-space:nowrap; text-align:left;" id="TBL-232-7-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">!*kk2f </span></td><td  style="white-space:normal; text-align:left;" id="TBL-232-7-2"  
+class="td11"> <!--l. 417--><p class="noindent" >convert a non-unique kernel to a standard form;                                </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-232-8-"><td  style="white-space:nowrap; text-align:left;" id="TBL-232-8-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">!*kk2q </span></td><td  style="white-space:normal; text-align:left;" id="TBL-232-8-2"  
+class="td11"> <!--l. 418--><p class="noindent" >convert a non-unique kernel to a standard quotient;                          </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-232-9-"><td  style="white-space:nowrap; text-align:left;" id="TBL-232-9-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">!*p2f  </span></td><td  style="white-space:normal; text-align:left;" id="TBL-232-9-2"  
+class="td11"> <!--l. 420--><p class="noindent" >convert a standard power to a standard form;                                    </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-232-10-"><td  style="white-space:nowrap; text-align:left;" id="TBL-232-10-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">!*n2f  </span></td><td  style="white-space:normal; text-align:left;" id="TBL-232-10-2"  
+class="td11"> <!--l. 423--><p class="noindent" >convert a number to a standard form;                                                 </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-232-11-"><td  style="white-space:nowrap; text-align:left;" id="TBL-232-11-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">!*p2q  </span></td><td  style="white-space:normal; text-align:left;" id="TBL-232-11-2"  
+class="td11"> <!--l. 426--><p class="noindent" >convert a standard power to a standard quotient;                               </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-232-12-"><td  style="white-space:nowrap; text-align:left;" id="TBL-232-12-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">!*q2f  </span></td><td  style="white-space:normal; text-align:left;" id="TBL-232-12-2"  
+class="td11"> <!--l. 428--><p class="noindent" >convert  a  standard  quotient  to  a  standard  form.  If  the  quotient
+  denominator is not 1, an error results;                                                </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-232-13-"><td  style="white-space:nowrap; text-align:left;" id="TBL-232-13-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">!*q2k  </span></td><td  style="white-space:normal; text-align:left;" id="TBL-232-13-2"  
+class="td11"> <!--l. 431--><p class="noindent" >convert a standard quotient to a kernel. If this is not possible, an
+  error results;                                                                                       </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-232-14-"><td  style="white-space:nowrap; text-align:left;" id="TBL-232-14-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">!*t2f  </span></td><td  style="white-space:normal; text-align:left;" id="TBL-232-14-2"  
+class="td11"> <!--l. 434--><p class="noindent" >convert a standard term to a standard form                                        </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-232-15-"><td  style="white-space:nowrap; text-align:left;" id="TBL-232-15-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">!*t2q  </span></td><td  style="white-space:normal; text-align:left;" id="TBL-232-15-2"  
+class="td11"> <!--l. 436--><p class="noindent" >convert a standard term to a standard quotient.                                  </p></td>
+</tr></table></div>
+<!--l. 439--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">21.9.2    </span> <a 
+ id="x295-133800021.9.2"></a>Passing Symbolic Mode Values to Algebraic Mode</h4>
+<!--l. 441--><p class="noindent" >In order to pass the value of a shared variable from symbolic mode to algebraic mode, the
+only thing to do is make sure that the value in symbolic mode is a preﬁx expression. E.g.,
+one uses <span 
+class="pcrr8t-x-x-109">(expt (plus a b) 2) </span>for <span 
+class="pcrr8t-x-x-109">(a+b)^2</span>, or the format (<span 
+class="pcrr8t-x-x-109">*sq </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="pcrro8t-x-x-109">standard</span>
+<span 
+class="pcrro8t-x-x-109">quotient</span><span 
+class="cmsy-10x-x-109">⟩ </span><span 
+class="pcrr8t-x-x-109">t</span>) as described above. However, if you have been working with parts of a
+standard form they will probably not be in this form. In that case, you can do the
+following:
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   1. </dt><dd 
+class="enumerate-enumitem">If  it  is  a  standard  quotient,  call  <span 
+class="pcrr8t-x-x-109">prepsq </span>on  it.  This  takes  a  standard
+     quotient as argument, and returns a preﬁx expression. Alternatively, you can
+     call  <span 
+class="pcrr8t-x-x-109">mk!*sq </span>on  it,  which  returns  a  preﬁx  form  like  (<span 
+class="pcrr8t-x-x-109">*sq </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="pcrro8t-x-x-109">standard</span>
+                                                                     
+
+                                                                     
+     <span 
+class="pcrro8t-x-x-109">quotient</span><span 
+class="cmsy-10x-x-109">⟩ </span><span 
+class="pcrr8t-x-x-109">t) </span>and avoids translation of the expression into a true preﬁx
+     form.
+     </dd><dt class="enumerate-enumitem">
+   2. </dt><dd 
+class="enumerate-enumitem">If  it  is  a  standard  form,  call  <span 
+class="pcrr8t-x-x-109">prepf </span>on  it.  This  takes  a  standard  form  as
+     argument,  and  returns  the  equivalent  preﬁx  expression.  Alternatively,  you
+     can convert it to a standard quotient and then call <span 
+class="pcrr8t-x-x-109">mk!*sq</span>.
+     </dd><dt class="enumerate-enumitem">
+   3. </dt><dd 
+class="enumerate-enumitem">If it is a part of a standard form, you must usually ﬁrst build up a standard form out
+     of it, and then go to step 2. The conversion functions described earlier may be used
+     for this purpose. For example,
+          <dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+      (a) </dt><dd 
+class="enumerate-enumitem">If <span 
+class="pcrr8t-x-x-109">z </span>is an expression which is a term, <span 
+class="pcrr8t-x-x-109">!*t2f z </span>is a standard form.
+          </dd><dt class="enumerate-enumitem">
+      (b) </dt><dd 
+class="enumerate-enumitem">If <span 
+class="pcrr8t-x-x-109">z </span>is a standard power, <span 
+class="pcrr8t-x-x-109">!*p2f z </span>is a standard form.
+          </dd><dt class="enumerate-enumitem">
+      (c) </dt><dd 
+class="enumerate-enumitem">If <span 
+class="pcrr8t-x-x-109">z </span>is a variable, you can pass it direct to algebraic mode.</dd></dl>
+     </dd></dl>
+<!--l. 470--><p class="noindent" >For example, to pass the leading term of <span 
+class="pcrr8t-x-x-109">(a+b)^2 </span>back to algebraic mode, one could
+say:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1498">
+        y:= mk!*sq !*t2q lt numr z;
+</div>
+<!--l. 474--><p class="nopar" > where <span 
+class="pcrr8t-x-x-109">y </span>has been declared shared as above. If you now go back to algebraic mode, you
+can work with <span 
+class="pcrr8t-x-x-109">y </span>in the usual way.
+</p><!--l. 479--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">21.9.3    </span> <a 
+ id="x295-133900021.9.3"></a>Complete Example</h4>
+<!--l. 481--><p class="noindent" >The following is the complete code for doing the above steps. The end result will be that
+the square of the leading term of <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">b</span><span 
+class="cmr-10x-x-109">)</span><sup><span 
+class="cmr-8">2</span></sup> is calculated.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1499">
+share x,y;                   % declare X and Y
+ <br />                             % as shared
+ <br />x := (a+b)^2;                % store (a+b)^2 in X
+ <br />symbolic;                    % transfer to symbolic mode
+ <br />z := cadr x;                 % store a true standard
+ <br />                             % quotient in Z
+ <br />lt numr z;                   % print the leading term
+ <br />                             % of the numerator of Z
+ <br />y := mk!*sq !*t2q lt numr z; % store the prefix form of
+ <br />                             % this leading term in Y
+ <br />algebraic;                   % return to algebraic mode
+ <br />y^2;                         % evaluate square of the
+ <br />                             % leading term of (a+b)^2
+</div>
+<!--l. 499--><p class="nopar" >
+</p><!--l. 501--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">21.9.4    </span> <a 
+ id="x295-134000021.9.4"></a>Deﬁning Procedures for Intermode Communication</h4>
+<!--l. 503--><p class="noindent" >If one wishes to deﬁne a procedure in symbolic mode for use as an operator in algebraic
+mode, it is necessary to declare this fact to the system by using the declaration
+<span 
+class="pcrr8t-x-x-109">operator</span><a 
+ id="dx295-1340001"></a> in symbolic mode. Thus
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1500">
+        symbolic operator leadterm;
+</div>
+<!--l. 509--><p class="nopar" > would declare the procedure <span 
+class="pcrr8t-x-x-109">leadterm </span>as an algebraic operator. This declaration <span 
+class="ptmri8t-x-x-109">must</span>
+be made in symbolic mode as the eﬀect in algebraic mode is diﬀerent. The value of such
+a procedure must be a preﬁx form.
+</p><!--l. 514--><p class="noindent" >The algebraic processor will pass arguments to such procedures in preﬁx form. Therefore
+if you want to work with the arguments as standard quotients you must ﬁrst convert them
+to that form by using the function <span 
+class="pcrr8t-x-x-109">SIMP!*</span>. This function takes a preﬁx form as
+argument and returns the evaluated standard quotient.
+</p><!--l. 520--><p class="noindent" >For example, if you want to deﬁne a procedure <span 
+class="pcrr8t-x-x-109">leadterm </span>which gives the leading term
+of an algebraic expression, one could do this as follows:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1501">
+% Declare leadterm as a symbolic mode procedure to
+ <br />% be used in algebraic mode.
+ <br />symbolic operator leadterm;
+ <br />
+ <br />% Define leadterm.
+ <br />symbolic procedure leadterm u;
+ <br />   mk!*sq !*t2q lt numr simp!* u;
+</div>
+<!--l. 531--><p class="nopar" >
+Note that this operator has a diﬀerent eﬀect than the operator <span 
+class="pcrr8t-x-x-109">lterm</span><a 
+ id="dx295-1340002"></a>. In the latter case,
+the calculation is done with respect to the second argument of the operator. In the
+example here, we simply extract the leading term with respect to the system’s choice of
+main variable.
+</p><!--l. 539--><p class="noindent" >Finally, if you wish to use the algebraic evaluator on an argument in a symbolic mode
+deﬁnition, the function <span 
+class="pcrr8t-x-x-109">reval </span>can be used. The one argument of <span 
+class="pcrr8t-x-x-109">reval </span>must be the
+preﬁx form of an expression. <span 
+class="pcrr8t-x-x-109">reval </span>returns the evaluated expression as a true Lisp
+preﬁx form.
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 1--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch21.html#manualse200.html" >Up</a></td><td class="clinks"><a 
+href="manualse201.html" >Next</a></td><td class="clinks"><a 
+href="manualse199.html" >Prev</a></td><td class="clinks"><a 
+href="manualse199.html#tailmanualse199.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse200.html" >Front</a></td></tr></table><a 
+ id="tailmanualse200.html"></a>  </p> 
+</body> 
+</html>

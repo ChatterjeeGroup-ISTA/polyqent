@@ -1,0 +1,112 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Bernoulli, Euler and Fibonacci Numbers</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse31.html" >Up</a></td><td class="clinks"><a 
+href="manualse32.html" >Next</a></td><td class="clinks"><a 
+href="manualse30.html" >Prev</a></td><td class="clinks"><a 
+href="manualse30.html#tailmanualse30.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse31.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">7.4    </span> <a 
+ id="x41-780007.4"></a>Bernoulli, Euler and Fibonacci Numbers</h3>
+<a 
+ id="dx41-78001"></a>
+<a 
+ id="dx41-78002"></a>
+<!--l. 1078--><p class="noindent" ><a 
+ id="operator:BERNOULLI"></a> <span 
+class="ptmb8t-x-x-109">Bernoulli numbers </span>are provided by the unary operator <span 
+class="pcrr8t-x-x-109">Bernoulli</span>. If <span 
+class="cmmi-10x-x-109">n </span>is a
+non-negative integer, the call <span 
+class="pcrr8t-x-x-109">Bernoulli(n) </span>evaluates to the <span 
+class="cmmi-10x-x-109">n</span>th Bernoulli number;
+all of the odd Bernoulli numbers, except <span 
+class="pcrr8t-x-x-109">Bernoulli(1)</span>, are zero. Otherwise the result
+involves the original operator <span 
+class="pcrr8t-x-x-109">Bernoulli</span>; on graphical interfaces this is rendered as
+<span 
+class="cmr-10x-x-109">B</span><sub><span 
+class="cmmi-8">n</span></sub>.
+<a 
+ id="dx41-78003"></a>
+<a 
+ id="dx41-78004"></a>
+</p><!--l. 1087--><p class="noindent" ><a 
+ id="operator:EULER"></a> <span 
+class="ptmb8t-x-x-109">Euler numbers </span>are computed by the unary operator <span 
+class="pcrr8t-x-x-109">Euler</span>. If <span 
+class="cmmi-10x-x-109">n </span>is a non-negative
+integer, the call <span 
+class="pcrr8t-x-x-109">Euler(n) </span>returns the <span 
+class="cmmi-10x-x-109">n</span>th Euler number; all of the odd Euler numbers
+are zero. Otherwise the result returned involves the original operator <span 
+class="pcrr8t-x-x-109">Euler</span>; on
+graphical interfaces this is rendered as <span 
+class="cmr-10x-x-109">E</span><sub><span 
+class="cmmi-8">n</span></sub>.
+<a 
+ id="dx41-78005"></a>
+<a 
+ id="dx41-78006"></a>
+</p><!--l. 1096--><p class="noindent" ><a 
+ id="operator:FIBONACCI"></a> <span 
+class="ptmb8t-x-x-109">Fibonacci numbers </span>are provided by the unary operator <span 
+class="pcrr8t-x-x-109">Fibonacci</span>, where
+<span 
+class="pcrr8t-x-x-109">Fibonacci(n) </span>evaluates to the <span 
+class="cmmi-10x-x-109">n</span>th Fibonacci number; if <span 
+class="cmmi-10x-x-109">n </span>is an integer, this will be
+evaluated following the recursive deﬁnition:
+</p>
+<table 
+class="equation-star"><tr><td>
+              <span 
+class="cmmi-10x-x-109">F</span><sub><span 
+class="cmr-8">0</span></sub> <span 
+class="cmr-10x-x-109">= 0;      </span><span 
+class="cmmi-10x-x-109">F</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">= 1;      </span><span 
+class="cmmi-10x-x-109">F</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">F</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">F</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">2</span></sub><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 1101--><p class="nopar" >
+The recursion is, of course, optimised as a simple loop to avoid repeated computation of
+lower-order numbers. Otherwise the result returned involves the original operator
+                                                                     
+
+                                                                     
+<span 
+class="pcrr8t-x-x-109">fibonacci</span>; on graphical interfaces this is rendered as <span 
+class="cmr-10x-x-109">F</span><sub><span 
+class="cmmi-8">n</span></sub>.
+                                                                     
+
+                                                                     
+</p><!--l. 1109--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse31.html" >Up</a></td><td class="clinks"><a 
+href="manualse32.html" >Next</a></td><td class="clinks"><a 
+href="manualse30.html" >Prev</a></td><td class="clinks"><a 
+href="manualse30.html#tailmanualse30.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse31.html" >Front</a></td></tr></table><a 
+ id="tailmanualse31.html"></a> </p> 
+</body> 
+</html>

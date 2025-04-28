@@ -1,0 +1,292 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>FOR Statements</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch5.html#manualse17.html" >Up</a></td><td class="clinks"><a 
+href="manualse18.html" >Next</a></td><td class="clinks"><a 
+href="manualse16.html" >Prev</a></td><td class="clinks"><a 
+href="manualse16.html#tailmanualse16.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse17.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">5.4    </span> <a 
+ id="x25-380005.4"></a>FOR Statements</h3>
+<!--l. 213--><p class="noindent" ><a 
+ id="command:FOR"></a> <a 
+ id="command:FOREACH"></a> <a 
+ id="reserved:IN"></a> <a 
+ id="reserved:DO"></a> <a 
+ id="reserved:SUM"></a> <a 
+ id="reserved:PRODUCT"></a>
+</p><!--l. 220--><p class="noindent" >The <span 
+class="pcrr8t-x-x-109">for </span>statement<a 
+ id="dx25-38001"></a><a 
+ id="dx25-38002"></a> is used to deﬁne a variety of program loops<a 
+ id="dx25-38003"></a>. Its general syntax is as
+follows:<a 
+ id="dx25-38004"></a> <a 
+ id="dx25-38005"></a><a 
+ id="dx25-38006"></a><a 
+ id="dx25-38007"></a> <a 
+ id="dx25-38008"></a><a 
+ id="dx25-38009"></a> <a 
+ id="dx25-38010"></a><a 
+ id="dx25-38011"></a>
+</p>
+<table 
+class="equation-star"><tr><td>
+ <span 
+class="pcrr8t-">for</span><span 
+class="cmmi-10"> </span><img 
+src="manual9x.png" alt="(                {                   }        )
+||                 step ⟨number⟩until          ||
+{⟨var⟩:= ⟨number⟩           :           ⟨number⟩}
+||                       {in}                  ||
+(             each ⟨var⟩  on   ⟨list⟩            )"  class="left" align="middle" /><span 
+class="cmmi-10"> </span><span 
+class="cmsy-10">⟨</span><span 
+class="ptmri8t-">action</span><span 
+class="cmsy-10">⟩</span><span 
+class="cmmi-10"> </span><span 
+class="cmsy-10">⟨</span><span 
+class="ptmri8t-">exprn</span><span 
+class="cmsy-10">⟩</span>
+</td></tr></table>
+<!--l. 246--><p class="nopar" >
+where
+  </p><div class="syntax">
+   <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">action</span><span 
+class="cmsy-10x-x-109">⟩</span> <span 
+class="cmmi-10x-x-109">→</span> <span 
+class="pcrr8t-x-x-109">do</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmsy-10x-x-109">∣</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="pcrr8t-x-x-109">product</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmsy-10x-x-109">∣</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="pcrr8t-x-x-109">sum</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmsy-10x-x-109">∣</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="pcrr8t-x-x-109">collect</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmsy-10x-x-109">∣</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="pcrr8t-x-x-109">join</span>.</div>
+<!--l. 254--><p class="noindent" >The assignment<a 
+ id="dx25-38012"></a> form of the <span 
+class="pcrr8t-x-x-109">for </span>statement deﬁnes an iteration over the indicated
+numerical range. If expressions that do not evaluate to numbers are used in the
+designated places, an error will result.
+</p><!--l. 259--><p class="noindent" >The <span 
+class="pcrr8t-x-x-109">for each</span><a 
+ id="dx25-38013"></a> form of the <span 
+class="pcrr8t-x-x-109">for </span>statement is designed to iterate down a list. Again, an
+error will occur if a list is not used.
+</p><!--l. 263--><p class="noindent" >The action <span 
+class="pcrr8t-x-x-109">do</span><a 
+ id="dx25-38014"></a> means that <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exprn</span><span 
+class="cmsy-10x-x-109">⟩ </span>is simply evaluated and no value kept; the statement
+returning 0 in this case (or no value at the top level). <span 
+class="pcrr8t-x-x-109">collect </span>means that the results of
+evaluating <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exprn</span><span 
+class="cmsy-10x-x-109">⟩ </span>each time are linked together to make a list, and <span 
+class="pcrr8t-x-x-109">join </span>means that the
+values of <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exprn</span><span 
+class="cmsy-10x-x-109">⟩ </span>are themselves lists that are joined to make one list (similar to <span 
+class="pcrr8t-x-x-109">conc </span>in
+                                                                     
+
+                                                                     
+Lisp). Finally, <span 
+class="pcrr8t-x-x-109">product </span>and <span 
+class="pcrr8t-x-x-109">sum </span>form the respective combined value out of the values
+of <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exprn</span><span 
+class="cmsy-10x-x-109">⟩</span>.
+</p><!--l. 272--><p class="noindent" >In all cases, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exprn</span><span 
+class="cmsy-10x-x-109">⟩ </span>is evaluated algebraically within the scope of the current value of
+<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">var</span><span 
+class="cmsy-10x-x-109">⟩</span>. If <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">action</span><span 
+class="cmsy-10x-x-109">⟩ </span>is <span 
+class="pcrr8t-x-x-109">do</span><a 
+ id="dx25-38015"></a>, then nothing else happens. In other cases, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">action</span><span 
+class="cmsy-10x-x-109">⟩ </span>is a binary
+operator that causes a result to be built up and returned by <span 
+class="pcrr8t-x-x-109">for</span>. In those cases, the
+loop<a 
+ id="dx25-38016"></a> is initialized to a default value (<span 
+class="pcrr8t-x-x-109">0 </span>for <span 
+class="pcrr8t-x-x-109">sum1 </span>for <span 
+class="pcrr8t-x-x-109">product</span>, and an empty
+list for the other actions). The test for the end condition is made before any
+action is taken. As in Pascal, if the variable is out of range in the assignment
+case, or the <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">list</span><span 
+class="cmsy-10x-x-109">⟩ </span>is empty in the <span 
+class="pcrr8t-x-x-109">for each</span><a 
+ id="dx25-38017"></a> case, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exprn</span><span 
+class="cmsy-10x-x-109">⟩ </span>is not evaluated at
+all.
+</p><!--l. 284--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Examples:</span>
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   1. </dt><dd 
+class="enumerate-enumitem">If <span 
+class="pcrr8t-x-x-109">a</span>, <span 
+class="pcrr8t-x-x-109">b </span>have been declared to be arrays, the following stores <span 
+class="cmr-10x-x-109">5</span><sup><span 
+class="cmr-8">2</span></sup> through <span 
+class="cmr-10x-x-109">10</span><sup><span 
+class="cmr-8">2</span></sup> in
+     <span 
+class="pcrr8t-x-x-109">a(5) </span>through <span 
+class="pcrr8t-x-x-109">a(10)</span>, and at the same time stores the cubes in the <span 
+class="pcrr8t-x-x-109">b</span>
+     array:
+                                                                     
+
+                                                                     
+     <div class="verbatim" id="verbatim-54">
+         for i := 5 step 1 until 10 do
+      <br />        &#x003C;&#x003C;a(i):=i^2; b(i):=i^3&#x003E;&#x003E;
+</div>
+     <!--l. 292--><p class="nopar" >
+     </p></dd><dt class="enumerate-enumitem">
+   2. </dt><dd 
+class="enumerate-enumitem">As a convenience, the common construction
+                                                                     
+
+                                                                     
+     <div class="verbatim" id="verbatim-55">
+             step 1 until
+</div>
+     <!--l. 296--><p class="nopar" > may be abbreviated to a colon. Thus, instead of the above we could write:
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-56">
+         for i := 5:10 do &#x003C;&#x003C;a(i):=i^2; b(i):=i^3&#x003E;&#x003E;
+</div>
+     <!--l. 300--><p class="nopar" >
+     </p></dd><dt class="enumerate-enumitem">
+   3. </dt><dd 
+class="enumerate-enumitem">The following sets <span 
+class="pcrr8t-x-x-109">c </span>to the sum of the squares of 1,3,5,7,9; and <span 
+class="pcrr8t-x-x-109">d </span>to the expression
+     <span 
+class="pcrr8t-x-x-109">x*(x+1)*(x+2)*(x+3)*(x+4):</span>
+                                                                     
+
+                                                                     
+     <div class="verbatim" id="verbatim-57">
+             c := for j:=1 step 2 until 9 sum j^2;
+      <br />        d := for k:=0 step 1 until 4 product (x+k);
+</div>
+     <!--l. 306--><p class="nopar" >
+     </p></dd><dt class="enumerate-enumitem">
+   4. </dt><dd 
+class="enumerate-enumitem">The following forms a list of the squares of the elements of the list <span 
+class="pcrr8t-x-x-109">{a,b,c}:</span><a 
+ id="dx25-38022"></a>
+                                                                     
+
+                                                                     
+     <div class="verbatim" id="verbatim-58">
+             for each x in {a,b,c} collect x^2;
+</div>
+     <!--l. 311--><p class="nopar" >
+     </p></dd><dt class="enumerate-enumitem">
+   5. </dt><dd 
+class="enumerate-enumitem">The following forms a list of the listed squares of the elements of the list
+     <span 
+class="pcrr8t-x-x-109">{a,b,c} </span>(i.e., <span 
+class="pcrr8t-x-x-109">{{a^2},{b^2},{c^2}}):</span>
+                                                                     
+
+                                                                     
+     <div class="verbatim" id="verbatim-59">
+             for each x in {a,b,c} collect {x^2};
+</div>
+     <!--l. 317--><p class="nopar" >
+     </p></dd><dt class="enumerate-enumitem">
+   6. </dt><dd 
+class="enumerate-enumitem">The following also forms a list of the squares of the elements of the list
+     <span 
+class="pcrr8t-x-x-109">{a,b,c}, </span>since the <span 
+class="pcrr8t-x-x-109">join </span>operation joins the individual lists into one
+     list:<a 
+ id="dx25-38025"></a>
+                                                                     
+
+                                                                     
+     <div class="verbatim" id="verbatim-60">
+             for each x in {a,b,c} join {x^2};
+</div>
+     <!--l. 323--><p class="nopar" ></p></dd></dl>
+<!--l. 325--><p class="noindent" >The control variable used in the <span 
+class="pcrr8t-x-x-109">for </span>statement is actually a new variable, not related
+to the variable of the same name outside the <span 
+class="pcrr8t-x-x-109">for </span>statement. In other words,
+executing a statement <span 
+class="pcrr8t-x-x-109">for i:=</span>…doesn’t change the system’s assumption that
+<span 
+class="cmmi-10x-x-109">i</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1</span>. Furthermore, in algebraic mode, the value of the control variable
+is substituted in <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exprn</span><span 
+class="cmsy-10x-x-109">⟩ </span>only if it occurs explicitly in that expression. It will
+not replace a variable of the same name in the value of that expression. For
+example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-61">
+        b := a; for a := 1:2 do write b;
+</div>
+<!--l. 336--><p class="nopar" > prints <span 
+class="pcrr8t-x-x-109">A </span>twice, not 1 followed by 2.
+                                                                     
+
+                                                                     
+</p><!--l. 339--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch5.html#manualse17.html" >Up</a></td><td class="clinks"><a 
+href="manualse18.html" >Next</a></td><td class="clinks"><a 
+href="manualse16.html" >Prev</a></td><td class="clinks"><a 
+href="manualse16.html#tailmanualse16.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse17.html" >Front</a></td></tr></table><a 
+ id="tailmanualse17.html"></a> </p> 
+</body> 
+</html>

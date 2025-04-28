@@ -1,0 +1,393 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Obtaining Parts of Polynomials and Rationals</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch9.html#manualse72.html" >Up</a></td><td class="clinks"><a 
+href="manualse73.html" >Next</a></td><td class="clinks"><a 
+href="manualse71.html" >Prev</a></td><td class="clinks"><a 
+href="manualse71.html#tailmanualse71.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse72.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">9.11    </span> <a 
+ id="x91-1650009.11"></a>Obtaining Parts of Polynomials and Rationals</h3>
+<!--l. 644--><p class="noindent" >These operators select various parts of a polynomial or rational function structure.
+Except for the cost of rearrangement of the structure, these operations take very little
+time to perform.
+</p><!--l. 648--><p class="noindent" >For those operators in this section that take a kernel <span 
+class="pcrr8t-x-x-109">var </span>as their second argument, an
+error results if the ﬁrst expression is not a polynomial in <span 
+class="pcrr8t-x-x-109">var</span>, although the coeﬃcients
+themselves can be rational as long as they do not depend on <span 
+class="pcrr8t-x-x-109">var</span>. However, if the switch
+<span 
+class="pcrr8t-x-x-109">ratarg</span><a 
+ id="dx91-165001"></a><a 
+ id="dx91-165002"></a><a 
+ id="dx91-165003"></a> is on, denominators are not checked for dependence on <span 
+class="pcrr8t-x-x-109">var</span>, and are taken to
+be part of the coeﬃcients.
+</p><!--l. 655--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">9.11.1    </span> <a 
+ id="x91-1660009.11.1"></a>DEG Operator</h4>
+<a 
+ id="dx91-166001"></a>
+<!--l. 656--><p class="noindent" ><a 
+ id="operator:DEG"></a>
+</p><!--l. 658--><p class="noindent" >This operator is used with the syntax
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-326">
+        deg(exprn:polynomial,var:kernel):integer.
+</div>
+<!--l. 661--><p class="nopar" > It returns the leading degree<a 
+ id="dx91-166002"></a> of the polynomial <span 
+class="pcrr8t-x-x-109">exprn </span>in the variable <span 
+class="pcrr8t-x-x-109">var</span>. If <span 
+class="pcrr8t-x-x-109">var </span>does
+not occur as a variable in <span 
+class="pcrr8t-x-x-109">exprn</span>, 0 is returned.
+</p><!--l. 666--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Examples:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-327">
+        deg((a+b)*(c+2*d)^2,a) -&#x003E;  1
+ <br />        deg((a+b)*(c+2*d)^2,d) -&#x003E;  2
+ <br />        deg((a+b)*(c+2*d)^2,e) -&#x003E;  0.
+</div>
+<!--l. 671--><p class="nopar" > Note also that if <span 
+class="pcrr8t-x-x-109">ratarg </span>is on,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-328">
+        deg((a+b)^3/a,a)       -&#x003E;  3
+</div>
+<!--l. 675--><p class="nopar" > since in this case, the denominator <span 
+class="pcrr8t-x-x-109">a </span>is considered part of the coeﬃcients of
+the numerator in <span 
+class="pcrr8t-x-x-109">a</span>. With <span 
+class="pcrr8t-x-x-109">ratarg </span>oﬀ, however, an error would result in this
+case.
+</p><!--l. 680--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">9.11.2    </span> <a 
+ id="x91-1670009.11.2"></a>DEN Operator</h4>
+<a 
+ id="dx91-167001"></a>
+<!--l. 681--><p class="noindent" ><a 
+ id="operator:DEN"></a>
+</p><!--l. 683--><p class="noindent" >This is used with the syntax:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-329">
+        den(exprn:rational):polynomial.
+</div>
+<!--l. 686--><p class="nopar" > It returns the denominator of the rational expression <span 
+class="pcrr8t-x-x-109">exprn</span>. If <span 
+class="pcrr8t-x-x-109">exprn </span>is a polynomial,
+1 is returned.
+</p><!--l. 690--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Examples:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-330">
+        den(x/y^2)   -&#x003E;  Y**2
+ <br />        den(100/6)   -&#x003E;  3
+ <br />             % since 100/6 is first simplified to 50/3
+ <br />        den(a/4+b/6) -&#x003E;  12
+ <br />        den(a+b)     -&#x003E;  1
+</div>
+<!--l. 697--><p class="nopar" >
+</p><!--l. 699--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">9.11.3    </span> <a 
+ id="x91-1680009.11.3"></a>LCOF Operator</h4>
+<a 
+ id="dx91-168001"></a>
+<!--l. 700--><p class="noindent" ><a 
+ id="operator:LCOF"></a>
+</p><!--l. 702--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">lcof </span>is used with the syntax
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-331">
+        lcof(exprn:polynomial,var:kernel):polynomial.
+</div>
+<!--l. 705--><p class="nopar" > It returns the leading coeﬃcient<a 
+ id="dx91-168002"></a> of the polynomial <span 
+class="pcrr8t-x-x-109">exprn </span>in the variable <span 
+class="pcrr8t-x-x-109">var</span>. If <span 
+class="pcrr8t-x-x-109">var</span>
+does not occur as a variable in <span 
+class="pcrr8t-x-x-109">exprn</span>, <span 
+class="pcrr8t-x-x-109">exprn </span>is returned. <span 
+class="ptmri8t-x-x-109">Examples:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-332">
+        lcof((a+b)*(c+2*d)^2,a) -&#x003E;  c**2+4*c*d+4*d**2
+ <br />        lcof((a+b)*(c+2*d)^2,d) -&#x003E;  4*(a+b)
+ <br />        lcof((a+b)*(c+2*d),e)   -&#x003E;  a*c+2*a*d+b*c+2*b*d
+</div>
+<!--l. 715--><p class="nopar" >
+</p><!--l. 717--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">9.11.4    </span> <a 
+ id="x91-1690009.11.4"></a>LPOWER Operator</h4>
+<a 
+ id="dx91-169001"></a>
+<!--l. 718--><p class="noindent" ><a 
+ id="operator:LPOWER"></a>
+</p><!--l. 721--><p class="noindent" >Syntax:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-333">
+        lpower(exprn:polynomial,var:kernel):polynomial.
+</div>
+<!--l. 724--><p class="nopar" > <span 
+class="pcrr8t-x-x-109">lpower </span>returns the leading power of <span 
+class="pcrr8t-x-x-109">exprn </span>with respect to <span 
+class="pcrr8t-x-x-109">var</span>. If <span 
+class="pcrr8t-x-x-109">exprn </span>does not
+depend on <span 
+class="pcrr8t-x-x-109">var</span>, 1 is returned.
+</p><!--l. 729--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Examples:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-334">
+        lpower((a+b)*(c+2*d)^2,a) -&#x003E;  a
+ <br />        lpower((a+b)*(c+2*d)^2,d) -&#x003E;  d**2
+ <br />        lpower((a+b)*(c+2*d),e)   -&#x003E;  1
+</div>
+<!--l. 734--><p class="nopar" >
+</p><!--l. 736--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">9.11.5    </span> <a 
+ id="x91-1700009.11.5"></a>LTERM Operator</h4>
+<a 
+ id="dx91-170001"></a>
+<!--l. 737--><p class="noindent" ><a 
+ id="operator:LTERM"></a>
+</p><!--l. 740--><p class="noindent" >Syntax:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-335">
+        lterm(exprn:polynomial,var:kernel):polynomial.
+</div>
+<!--l. 743--><p class="nopar" > <span 
+class="pcrr8t-x-x-109">lterm </span>returns the leading term of <span 
+class="pcrr8t-x-x-109">exprn </span>with respect to <span 
+class="pcrr8t-x-x-109">var</span>. If <span 
+class="pcrr8t-x-x-109">exprn </span>does not
+depend on <span 
+class="pcrr8t-x-x-109">var</span>, <span 
+class="pcrr8t-x-x-109">exprn </span>is returned.
+</p><!--l. 748--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Examples:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-336">
+    lterm((a+b)*(c+2*d)^2,a) -&#x003E;  a*(c**2+4*c*d+4*d**2)
+ <br />    lterm((a+b)*(c+2*d)^2,d) -&#x003E;  4*d**2*(a+b)
+ <br />    lterm((a+b)*(c+2*d),e)   -&#x003E;  a*c+2*a*d+b*c+2*b*d
+</div>
+<!--l. 753--><p class="nopar" >
+</p><!--l. 755--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Compatibility Note:</span><span 
+class="ptmri8t-x-x-109">  </span>In some earlier versions of REDUCE, <span 
+class="pcrr8t-x-x-109">lterm </span>returned <span 
+class="pcrr8t-x-x-109">0 </span>if the
+<span 
+class="pcrr8t-x-x-109">exprn </span>did not depend on <span 
+class="pcrr8t-x-x-109">var</span>. In the present version, <span 
+class="pcrr8t-x-x-109">exprn </span>is always equal to
+<span 
+class="pcrr8t-x-x-109">lterm(exprn,var) + reduct(exprn,var)</span>.
+</p><!--l. 760--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">9.11.6    </span> <a 
+ id="x91-1710009.11.6"></a>MAINVAR Operator</h4>
+<a 
+ id="dx91-171001"></a>
+<!--l. 761--><p class="noindent" ><a 
+ id="operator:MAINVAR"></a>
+</p><!--l. 763--><p class="noindent" >Syntax:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-337">
+        mainvar(exprn:polynomial):expression.
+</div>
+<!--l. 766--><p class="nopar" > Returns the main variable (based on the internal polynomial representation) of <span 
+class="pcrr8t-x-x-109">exprn</span>.
+If <span 
+class="pcrr8t-x-x-109">exprn </span>is a domain element, 0 is returned.
+</p><!--l. 770--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Examples:</span>
+</p><!--l. 772--><p class="noindent" >Assuming <span 
+class="pcrr8t-x-x-109">a </span>has higher kernel order than <span 
+class="pcrr8t-x-x-109">b</span>, <span 
+class="pcrr8t-x-x-109">c</span>, or <span 
+class="pcrr8t-x-x-109">d</span>:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-338">
+        mainvar((a+b)*(c+2*d)^2) -&#x003E;  a
+ <br />        mainvar(2)               -&#x003E;  0
+</div>
+<!--l. 776--><p class="nopar" >
+</p><!--l. 778--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">9.11.7    </span> <a 
+ id="x91-1720009.11.7"></a>NUM Operator</h4>
+<a 
+ id="dx91-172001"></a>
+<!--l. 779--><p class="noindent" ><a 
+ id="operator:NUM"></a>
+</p><!--l. 781--><p class="noindent" >Syntax:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-339">
+        num(exprn:rational):polynomial.
+</div>
+<!--l. 784--><p class="nopar" > Returns the numerator of the rational expression <span 
+class="pcrr8t-x-x-109">exprn</span>. If <span 
+class="pcrr8t-x-x-109">exprn </span>is a polynomial, that
+polynomial is returned.
+</p><!--l. 788--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Examples:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-340">
+        num(x/y^2)  -&#x003E;  x
+ <br />        num(100/6)   -&#x003E;  50
+ <br />        num(a/4+b/6) -&#x003E;  3*a+2*b
+ <br />        num(a+b)     -&#x003E;  a+b
+</div>
+<!--l. 794--><p class="nopar" >
+</p><!--l. 796--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">9.11.8    </span> <a 
+ id="x91-1730009.11.8"></a>REDUCT Operator</h4>
+<a 
+ id="dx91-173001"></a>
+<!--l. 797--><p class="noindent" ><a 
+ id="operator:REDUCT"></a>
+</p><!--l. 799--><p class="noindent" >Syntax:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-341">
+        reduct(exprn:polynomial,var:kernel):polynomial.
+</div>
+<!--l. 802--><p class="nopar" > Returns the reductum of <span 
+class="pcrr8t-x-x-109">exprn </span>with respect to <span 
+class="pcrr8t-x-x-109">var </span>(i.e., the part of <span 
+class="pcrr8t-x-x-109">exprn </span>left after
+the leading term is removed). If <span 
+class="pcrr8t-x-x-109">exprn </span>does not depend on the variable <span 
+class="pcrr8t-x-x-109">var</span>, 0 is
+returned.
+</p><!--l. 807--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Examples:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-342">
+     reduct((a+b)*(c+2*d),a) -&#x003E;  b*(c + 2*d)
+ <br />     reduct((a+b)*(c+2*d),d) -&#x003E;  c*(a + b)
+ <br />     reduct((a+b)*(c+2*d),e) -&#x003E;  0
+</div>
+<!--l. 812--><p class="nopar" >
+</p><!--l. 814--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Compatibility Note:</span><span 
+class="ptmri8t-x-x-109">  </span>In some earlier versions of REDUCE, <span 
+class="pcrr8t-x-x-109">reduct </span>returned <span 
+class="pcrr8t-x-x-109">exprn </span>if
+it did not depend on <span 
+class="pcrr8t-x-x-109">var</span>. In the present version, <span 
+class="pcrr8t-x-x-109">exprn </span>is always equal to
+<span 
+class="pcrr8t-x-x-109">lterm(exprn,var) + reduct(exprn,var)</span>.
+</p><!--l. 818--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">9.11.9    </span> <a 
+ id="x91-1740009.11.9"></a>TOTALDEG Operator</h4>
+<a 
+ id="dx91-174001"></a>
+<!--l. 819--><p class="noindent" ><a 
+ id="operator:TOTALDEG"></a>
+</p><!--l. 821--><p class="noindent" >Syntax:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-343">
+     totaldeg(a*x^2+b*x+c, x)  =&#x003E; 2
+ <br />     totaldeg(a*x^2+b*x+c, {a,b,c})  =&#x003E; 1
+ <br />     totaldeg(a*x^2+b*x+c, {x, a})  =&#x003E; 3
+ <br />     totaldeg(a*x^2+b*x+c, {x,b})  =&#x003E; 2
+ <br />     totaldeg(a*x^2+b*x+c, {p,q,r})  =&#x003E; 0
+</div>
+<!--l. 828--><p class="nopar" > <span 
+class="pcrr8t-x-x-109">totaldeg(u, kernlist) </span>ﬁnds the total degree of the polynomial <span 
+class="pcrr8t-x-x-109">u </span>in the
+variables in <span 
+class="pcrr8t-x-x-109">kernlist</span>. If <span 
+class="pcrr8t-x-x-109">kernlist </span>is not a list it is treated as a simple single
+variable. The denominator of <span 
+class="pcrr8t-x-x-109">u </span>is ignored, and &#x0022;degree&#x0022; here does not pay attention to
+fractional powers. Mentions of a kernel within the argument to any operator or
+function (eg sin, cos, log, sqrt) are ignored. Really <span 
+class="pcrr8t-x-x-109">u </span>is expected to be just a
+polynomial.
+                                                                     
+
+                                                                     
+</p><!--l. 837--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch9.html#manualse72.html" >Up</a></td><td class="clinks"><a 
+href="manualse73.html" >Next</a></td><td class="clinks"><a 
+href="manualse71.html" >Prev</a></td><td class="clinks"><a 
+href="manualse71.html#tailmanualse71.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse72.html" >Front</a></td></tr></table><a 
+ id="tailmanualse72.html"></a>  </p> 
+</body> 
+</html>

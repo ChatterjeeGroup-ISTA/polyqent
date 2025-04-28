@@ -1,0 +1,196 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Finding Rational or Integer Zeros</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse46.html" >Up</a></td><td class="clinks"><a 
+href="manualse47.html" >Next</a></td><td class="clinks"><a 
+href="manualse45.html" >Prev</a></td><td class="clinks"><a 
+href="manualse45.html#tailmanualse45.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse46.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">7.19    </span> <a 
+ id="x60-1060007.19"></a>Finding Rational or Integer Zeros</h3>
+<a 
+ id="dx60-106001"></a>
+<a 
+ id="dx60-106002"></a>
+<a 
+ id="dx60-106003"></a>
+<a 
+ id="dx60-106004"></a>
+<!--l. 16--><p class="noindent" ><a 
+ id="operator:I_SOLVE"></a> <a 
+ id="operator:R_SOLVE"></a> The operators <span 
+class="pcrr8t-x-x-109">r_solve </span>and <span 
+class="pcrr8t-x-x-109">i_solve </span>compute the exact rational zeros of a single
+univariate polynomial using fast modular methods. The algorithm used is that described
+by R. Loos (<span class="cite">[<a 
+href="manualap2.html#XLoos:1983a">Loo83</a>]</span>). The operator <span 
+class="pcrr8t-x-x-109">r_solve </span>computes all rational zeros whereas
+the operator <span 
+class="pcrr8t-x-x-109">i_solve </span>computes only integer zeros in a way that is slightly
+more eﬃcient than extracting them from the rational zeros. The <span 
+class="pcrr8t-x-x-109">r_solve </span>and
+<span 
+class="pcrr8t-x-x-109">i_solve </span>interfaces are almost identical, and are intended to be completely
+compatible with that of the general <span 
+class="pcrr8t-x-x-109">r_solve </span>operator, although <span 
+class="pcrr8t-x-x-109">r_solve </span>and
+<span 
+class="pcrr8t-x-x-109">i_solve </span>give more convenient output when only rational or integer zeros
+respectively are required. The current implementation appears to be faster than
+<span 
+class="pcrr8t-x-x-109">solve </span>by a factor that depends on the example, but is typically up to about
+2.<span class="footnote-mark"><a 
+href="manual61.html#fn5x7"><sup class="textsuperscript">5</sup></a></span><a 
+ id="x60-106005f5"></a> 
+</p><!--l. 32--><p class="noindent" >Extension to compute Gaussian integer and rational zeros and zeros of polynomial
+systems is planned.
+</p>
+<h4 class="subsectionHead"><span class="titlemark">7.19.1    </span> <a 
+ id="x60-1070007.19.1"></a>The user interface</h4>
+<!--l. 38--><p class="noindent" >The ﬁrst argument is required and must simplify to either a univariate polynomial
+expression or equation with integer, rational or rounded coeﬃcients. Symbolic
+coeﬃcients are not allowed (and currently complex coeﬃcients are not allowed either.)
+The argument is simpliﬁed to a quotient of integer polynomials and the denominator is
+silently ignored.
+</p><!--l. 45--><p class="noindent" ><a 
+ id="operator:ARBRAT"></a><span 
+class="pcrr8t-x-x-109">ARBRAT </span>Subsequent arguments are optional. If the polynomial variable is to be
+speciﬁed then it must be the ﬁrst optional argument, and if the ﬁrst optional
+argument is not a valid option (see below) then it is (mis-)interpreted as the
+polynomial variable. However, since the variable in a non-constant univariate
+                                                                     
+
+                                                                     
+polynomial can be deduced from the polynomial it is unnecessary to specify
+it separately, except in the degenerate case that the ﬁrst argument simpliﬁes
+to either 0 or <span 
+class="cmr-10x-x-109">0 = 0</span>. In this case the result is returned by <span 
+class="pcrr8t-x-x-109">i_solve </span>in terms
+of the operator <span 
+class="pcrr8t-x-x-109">arbint </span>and by <span 
+class="pcrr8t-x-x-109">r_solve </span>in terms of the (new) analogous
+operator <span 
+class="pcrr8t-x-x-109">arbrat</span>. The operator <span 
+class="pcrr8t-x-x-109">i_solve </span>will generally run slightly faster than
+<span 
+class="pcrr8t-x-x-109">r_solve</span>.
+</p><!--l. 58--><p class="noindent" >The (rational or integer) zeros of the ﬁrst argument are returned as a list and the default
+output format is the same as that used by <span 
+class="pcrr8t-x-x-109">solve</span>. Each distinct zero is returned in the
+form of an equation with the variable on the left and the multiplicities of the zeros are
+assigned to the variable <span 
+class="pcrr8t-x-x-109">root_multiplicities </span>as a list. However, if the switch
+<span 
+class="pcrr8t-x-x-109">multiplicities </span>is turned on then each zero is explicitly included in the solution
+list the appropriate number of times (and <span 
+class="pcrr8t-x-x-109">root_multiplicities </span>has no
+value).
+</p><!--l. 68--><p class="noindent" >Optional keyword arguments acting as local switches allow other output formats. They
+have the following meanings:
+     </p><dl class="description"><dt class="description">
+<span 
+class="pcrb8t-x-x-109">separate</span><span 
+class="ptmb8t-x-x-109">:</span> </dt><dd 
+class="description">assign      the      multiplicity      list      to      the      global      variable
+     <span 
+class="pcrr8t-x-x-109">root_multiplicities </span>(the default);
+     </dd><dt class="description">
+<span 
+class="pcrb8t-x-x-109">expand </span>or <span 
+class="pcrb8t-x-x-109">multiplicities</span><span 
+class="ptmb8t-x-x-109">:</span> </dt><dd 
+class="description">expand  the  solution  list  to  include  multiple
+     zeros multiple times (the default if the <span 
+class="pcrr8t-x-x-109">multiplicities </span>switch is on);
+     </dd><dt class="description">
+<span 
+class="pcrb8t-x-x-109">together</span><span 
+class="ptmb8t-x-x-109">:</span> </dt><dd 
+class="description">return   each   solution   as   a   list   whose   second   element   is   the
+     multiplicity;
+     </dd><dt class="description">
+<span 
+class="pcrb8t-x-x-109">nomul</span><span 
+class="ptmb8t-x-x-109">:</span> </dt><dd 
+class="description">do not compute multiplicities (thereby saving some time);
+     </dd><dt class="description">
+<span 
+class="pcrb8t-x-x-109">noeqs</span><span 
+class="ptmb8t-x-x-109">:</span> </dt><dd 
+class="description">do not return univariate zeros as equations but just as values.</dd></dl>
+<!--l. 86--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">7.19.2    </span> <a 
+ id="x60-1080007.19.2"></a>Examples</h4>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-190">
+r_solve((9x^2 - 16)*(x^2 - 9), x);
+</div>
+<!--l. 90--><p class="nopar" >
+</p>
+<table 
+class="equation-star"><tr><td>
+                   <img 
+src="manual47x.png" alt="{                           }
+ x = −-4,x = 3,x = − 3,x = 4-
+      3                    3"  class="left" align="middle" />
+</td></tr></table>
+<!--l. 93--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-191">
+i_solve((9x^2 - 16)*(x^2 - 9), x);
+</div>
+<!--l. 96--><p class="nopar" >
+</p>
+<table 
+class="equation-star"><tr><td>
+                           <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">= 3</span><span 
+class="cmmi-10x-x-109">,x </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">3</span><span 
+class="cmsy-10x-x-109">}</span>
+</td></tr></table>
+<!--l. 99--><p class="nopar" >
+See the test/demonstration ﬁle <span 
+class="pcrr8t-x-x-109">rsolve.tst </span>for more examples.
+</p><!--l. 103--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">7.19.3    </span> <a 
+ id="x60-1090007.19.3"></a>Tracing</h4>
+<!--l. 105--><p class="noindent" ><a 
+ id="switch:TRSOLVE"></a> The switch <span 
+class="pcrr8t-x-x-109">trsolve</span><a 
+ id="dx60-109001"></a><a 
+ id="dx60-109002"></a><a 
+ id="dx60-109003"></a> turns on tracing of the algorithm. It is oﬀ by default.
+<a 
+ id="dx60-109004"></a><a 
+ id="dx60-109005"></a>
+                                                                     
+
+                                                                     
+<table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse46.html" >Up</a></td><td class="clinks"><a 
+href="manualse47.html" >Next</a></td><td class="clinks"><a 
+href="manualse45.html" >Prev</a></td><td class="clinks"><a 
+href="manualse45.html#tailmanualse45.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse46.html" >Front</a></td></tr></table><a 
+ id="tailmanualse46.html"></a>  </p> 
+</body> 
+</html>

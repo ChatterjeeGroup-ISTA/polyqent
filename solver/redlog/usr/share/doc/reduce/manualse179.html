@@ -1,0 +1,4654 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>SPECFN: Package for Special Functions</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse179.html" >Up</a></td><td class="clinks"><a 
+href="manualse180.html" >Next</a></td><td class="clinks"><a 
+href="manualse178.html" >Prev</a></td><td class="clinks"><a 
+href="manualse178.html#tailmanualse178.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse179.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.54    </span> <a 
+ id="x269-121500020.54"></a>SPECFN: Package for Special Functions</h3>
+<a 
+ id="dx269-1215001"></a>
+<a 
+ id="dx269-1215002"></a>
+<!--l. 1140--><p class="noindent" >This special function package is separated into two portions to make it easier to handle.
+The packages are called SPECFN and SPECFN2. The ﬁrst one is more general in nature,
+whereas the second is devoted to special special functions. Additional examples can be
+found in the ﬁles <span 
+class="pcrr8t-x-x-109">specfn.tst </span>and <span 
+class="pcrr8t-x-x-109">specfn2.tst </span>in the <span 
+class="pcrr8t-x-x-109">packages/specfn</span>
+directory.
+</p><!--l. 1147--><p class="noindent" >Authors: Chris Cannam, with contributions from Winfried Neun, Herbert Melenk, Victor
+Adamchik, Francis Wright, Alan Barnes and several others.
+<a 
+ id="dx269-1215003"></a>
+<a 
+ id="dx269-1215004"></a>
+<a 
+ id="dx269-1215005"></a>
+<a 
+ id="dx269-1215006"></a>
+<a 
+ id="dx269-1215007"></a>
+<a 
+ id="dx269-1215008"></a>
+<a 
+ id="dx269-1215009"></a>
+<a 
+ id="dx269-1215010"></a>
+<a 
+ id="dx269-1215011"></a>
+<a 
+ id="dx269-1215012"></a>
+<a 
+ id="dx269-1215013"></a>
+<a 
+ id="dx269-1215014"></a>
+</p><!--l. 9--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.54.1    </span> <a 
+ id="x269-121600020.54.1"></a>Special Functions: Introduction</h4>
+                                                                     
+
+                                                                     
+<a 
+ id="dx269-1216001"></a>
+<a 
+ id="dx269-1216002"></a>
+<a 
+ id="dx269-1216003"></a>
+<a 
+ id="dx269-1216004"></a>
+<a 
+ id="dx269-1216005"></a>
+<a 
+ id="dx269-1216006"></a>
+<a 
+ id="dx269-1216007"></a>
+<a 
+ id="dx269-1216008"></a>
+<a 
+ id="dx269-1216009"></a>
+<a 
+ id="dx269-1216010"></a>
+<a 
+ id="dx269-1216011"></a>
+<a 
+ id="dx269-1216012"></a>
+<a 
+ id="dx269-1216013"></a>
+<a 
+ id="dx269-1216014"></a>
+<a 
+ id="dx269-1216015"></a>
+<a 
+ id="dx269-1216016"></a>
+<a 
+ id="dx269-1216017"></a>
+<a 
+ id="dx269-1216018"></a>
+<a 
+ id="dx269-1216019"></a>
+<a 
+ id="dx269-1216020"></a>
+<a 
+ id="dx269-1216021"></a>
+<a 
+ id="dx269-1216022"></a>
+<!--l. 30--><p class="noindent" ><a 
+ id="SPECFNS"></a> The package <span 
+class="ptmrc8t-x-x-109">S<span 
+class="small-caps">P</span><span 
+class="small-caps">E</span><span 
+class="small-caps">C</span><span 
+class="small-caps">F</span><span 
+class="small-caps">N</span> </span>is designed to provide algebraic and numeric manipulations of
+many common special functions, namely:
+</p>
+     <ul class="itemize1">
+     <li class="itemize"><a 
+href="#INTEGF">The Exponential Integral, Sine &#x0026; Cosine Integrals</a>;
+     </li>
+     <li class="itemize"><a 
+href="#INTEGF">The Hyperbolic Sine &#x0026; Cosine Integrals</a>;
+     </li>
+     <li class="itemize"><a 
+href="#INTEGF">The Fresnel Integrals &#x0026; Error function</a>;
+     </li>
+     <li class="itemize"><a 
+href="#GAMMF">The Gamma function</a>;
+     </li>
+     <li class="itemize"><a 
+href="#BETAF">The Beta function</a>;
+     </li>
+     <li class="itemize"><a 
+href="#DIGAM">The psi function</a> &#x0026; its <a 
+href="#POLYGAM">derivatives</a>;
+                                                                     
+
+                                                                     
+     </li>
+     <li class="itemize"><a 
+href="#BESSELF">The Bessel functions</a> <span 
+class="cmmi-10x-x-109">J </span>and <span 
+class="cmmi-10x-x-109">Y </span>of the ﬁrst and second kinds;
+     </li>
+     <li class="itemize"><a 
+href="#BESSELF">The modiﬁed Bessel functions</a> <span 
+class="cmmi-10x-x-109">I </span>and <span 
+class="cmmi-10x-x-109">K</span>;
+     </li>
+     <li class="itemize"><a 
+href="#BESSELF">The Hankel functions</a> <span 
+class="cmmi-10x-x-109">H</span><sup><span 
+class="cmr-8">(1)</span></sup> and <span 
+class="cmmi-10x-x-109">H</span><sup><span 
+class="cmr-8">(2)</span></sup>;
+     </li>
+     <li class="itemize"><a 
+href="#AIRYF">The Airy functions</a>;
+     </li>
+     <li class="itemize"><a 
+href="#HYPERGEOM">The Kummer hypergeometric functions</a> M and U;
+     </li>
+     <li class="itemize"><a 
+href="#HYPERGEOM">The Struve, Lommel and Whittaker functions</a>;
+     </li>
+     <li class="itemize"><a 
+href="#RIEMZETA">The Riemann Zeta function</a>;
+     </li>
+     <li class="itemize"><a 
+href="#POLYLOG">The Dilog function</a>;
+     </li>
+     <li class="itemize"><a 
+href="#POLYLOG">The Polylog and Lerch Phi functions</a>;
+     </li>
+     <li class="itemize"><a 
+href="#LAMBERTW">Lambert’s W function</a>;
+     </li>
+     <li class="itemize"><a 
+href="#SPHSOLH">Associated Legendre Functions</a> (Spherical and Solid Harmonics);
+     </li>
+     <li class="itemize"><a 
+href="#CLEBSCHG">3j and 6j symbols, Clebsch-Gordan coeﬃcients</a>;
+     </li>
+     <li class="itemize"><a 
+href="#STIRL">Stirling Numbers</a>;
+     </li>
+     <li class="itemize">and some <a 
+href="#CONSTS">well-known constants</a>.</li></ul>
+<!--l. 63--><p class="noindent" >All of the above functions (except Stirling numbers) are autoloading.
+</p><!--l. 65--><p class="noindent" >More information on all these functions may be found on the website <a 
+href="https://dlmf.nist.gov/" >DLMF:NIST</a>
+although currently not all functions may conform to these standards.
+</p><!--l. 69--><p class="noindent" >All algorithms whose sources are uncredited are culled from series or expressions found
+in the Dover Handbook of Mathematical Functions<span class="cite">[<a 
+href="manualap2.html#XAbramowitzStegun:72">AS72</a>]</span>.
+                                                                     
+
+                                                                     
+</p><!--l. 73--><p class="noindent" >A nice collection of example plots for special functions can be found in the ﬁle
+<span 
+class="pcrr8t-x-x-109">specplot.tst </span>in the subfolder <span 
+class="pcrr8t-x-x-109">plot </span>of the packages folder. These examples will
+reproduce a number of well-known pictures from <span class="cite">[<a 
+href="manualap2.html#XAbramowitzStegun:72">AS72</a>]</span>.
+</p><!--l. 78--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.54.2    </span> <a 
+ id="x269-121700020.54.2"></a>Polynomial Functions: Introduction</h4>
+<a 
+ id="dx269-1217001"></a>
+<!--l. 80--><p class="noindent" >Most of these polynomial functions are not autoloading. This package needs to be loaded
+before they may be used with the command:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1390">
+        load_package specfn;
+</div>
+<!--l. 84--><p class="nopar" >
+</p><!--l. 86--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.54.2.1    </span> <a 
+ id="x269-121800020.54.2.1"></a>Orthogonal Polynomial Functions</h5>
+<a 
+ id="dx269-1218001"></a>
+<a 
+ id="dx269-1218002"></a>
+<a 
+ id="dx269-1218003"></a>
+<a 
+ id="dx269-1218004"></a>
+<a 
+ id="dx269-1218005"></a>
+<a 
+ id="dx269-1218006"></a>
+<a 
+ id="dx269-1218007"></a>
+<a 
+ id="dx269-1218008"></a>
+<a 
+ id="dx269-1218009"></a>
+<a 
+ id="dx269-1218010"></a>
+<a 
+ id="dx269-1218011"></a>
+<a 
+ id="dx269-1218012"></a>
+<a 
+ id="dx269-1218013"></a>
+<!--l. 95--><p class="noindent" >The polynomial function sets available are: </p>
+     <ul class="itemize1">
+     <li class="itemize"><a 
+href="#operator:HERMITEP">Hermite Polynomials</a>;
+     </li>
+     <li class="itemize"><a 
+href="#operator:LEGENDREP">Legendre Polynomials</a>;
+     </li>
+     <li class="itemize"><a 
+href="#operator:LAGUERREP">Laguerre Polynomials</a>;
+     </li>
+     <li class="itemize"><a 
+href="#operator:CHEBYSHEVT">Chebyshev Polynomials</a>;
+     </li>
+     <li class="itemize"><a 
+href="#operator:JACOBIP">Jacobi Polynomials</a>;
+                                                                     
+
+                                                                     
+     </li>
+     <li class="itemize"><a 
+href="#operator:GEGENBAUERP">Gegenbauer Polynomials</a>;</li></ul>
+<!--l. 105--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.54.2.2    </span> <a 
+ id="x269-121900020.54.2.2"></a>Other Polynomial Functions</h5>
+<a 
+ id="dx269-1219001"></a>
+<a 
+ id="dx269-1219002"></a>
+<a 
+ id="dx269-1219003"></a>
+<a 
+ id="dx269-1219004"></a>
+<a 
+ id="dx269-1219005"></a>
+<a 
+ id="dx269-1219006"></a>
+<a 
+ id="dx269-1219007"></a>
+<a 
+ id="dx269-1219008"></a>
+     <ul class="itemize1">
+     <li class="itemize"><a 
+href="#operator:BERNOULLIP">Bernoulli Numbers &#x0026; Polynomials</a>;
+     </li>
+     <li class="itemize"><a 
+href="#operator:EULERP">Euler Numbers &#x0026; Polynomials</a>;
+     </li>
+     <li class="itemize"><a 
+href="manualse29.html#operator:FIBONACCIP">Fibonnacci Numbers &#x0026; Polynomials</a>;</li></ul>
+<!--l. 117--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.54.3    </span> <a 
+ id="x269-122000020.54.3"></a>Simpliﬁcation and Approximation</h4>
+<!--l. 119--><p class="noindent" >All of the operators supported by this package have certain algebraic simpliﬁcation rules
+to handle special cases, poles, derivatives and so on. Such rules are applied whenever
+they are appropriate. However, if the <span 
+class="pcrr8t-x-x-109">rounded</span><a 
+ id="dx269-1220001"></a><a 
+ id="dx269-1220002"></a><a 
+ id="dx269-1220003"></a> switch is on, numeric evaluation is also
+carried out. Unless otherwise stated below, the result of an application of a special
+function operator to real or complex numeric arguments in rounded mode will be
+approximated numerically whenever it is possible to do so. All approximations are to the
+current precision.
+</p><!--l. 128--><p class="noindent" >Most algebraic simpliﬁcations within the special function package are deﬁned in the
+form of a REDUCE ruleset. Therefore, in order to get a quick insight into the
+simpliﬁcation rules one can use the ShowRules operator, e.g.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1391">
+ShowRules BesselI;
+ <br />
+ <br />                          1          ~z     - ~z
+ <br />{besseli(~n,~z) =&#x003E; ---------------*(e   - e     )
+ <br />                    sqrt(pi*2*~z)
+ <br />
+ <br />                           1
+ <br />  when numberp(~n) and ~n=---,
+ <br />                           2
+ <br />
+ <br />                          1          ~z     - ~z
+ <br /> besseli(~n,~z) =&#x003E; ---------------*(e   + e     )
+ <br />                    sqrt(pi*2*~z)
+ <br />
+ <br />                              1
+ <br />  when numberp(~n) and ~n= - ---,
+ <br />                              2
+ <br />
+ <br /> besseli(~n,~z) =&#x003E; 0
+ <br />
+ <br />  when numberp(~z) and ~z=0
+ <br />   and numberp(~n) and ~n neq 0,
+ <br />
+ <br /> besseli(~n,~z) =&#x003E; besseli( - ~n,~z) when numberp(~n)
+ <br />
+ <br />  and impart(~n)=0 and ~n=floor(~n) and ~n&#x003C;0,
+ <br />
+ <br /> besseli(~n,~z) =&#x003E; do*i(~n,~z)
+ <br />
+ <br />  when numberp(~n) and numberp(~z) and *rounded,
+ <br />
+ <br /> df(besseli(~n,~z),~z)
+ <br />
+ <br />      besseli(~n - 1,~z) + besseli(~n + 1,~z)
+ <br />  =&#x003E; -----------------------------------------,
+ <br />                         2
+ <br />
+ <br /> df(besseli(~n,~z),~z)
+                                                                     
+
+                                                                     
+ <br />
+ <br />  =&#x003E; besseli(1,~z) when numberp(~n) and ~n=0}
+</div>
+<!--l. 173--><p class="nopar" > Several REDUCE packages (such as Sum or Limits) obtain diﬀerent (hopefully better)
+results for the algebraic simpliﬁcations when the <span 
+class="ptmrc8t-x-x-109">S<span 
+class="small-caps">P</span><span 
+class="small-caps">E</span><span 
+class="small-caps">C</span><span 
+class="small-caps">F</span><span 
+class="small-caps">N</span> </span>package is loaded, because the
+latter package contains some information which may be useful and directly applicable
+for other packages, e.g.:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1392">
+sum(1/k^s,k,1,infinity);  % evaluates to zeta(s)
+</div>
+<!--l. 182--><p class="nopar" >
+<a 
+ id="dx269-1220004"></a>
+<a 
+ id="dx269-1220005"></a>
+<a 
+ id="dx269-1220006"></a>
+</p><!--l. 185--><p class="noindent" >A record is kept of all values previously approximated, so that should a value be required
+which has already been computed to the current precision or greater, it can be simply
+looked up. This can result in some storage overheads, particularly if many values are
+computed which will not be needed again. In this case, the switch <span 
+class="pcrr8t-x-x-109">savesfs </span>may be
+turned oﬀ in order to inhibit the storage of approximated values. The switch is on by
+default.
+</p><!--l. 193--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.54.4    </span> <a 
+ id="x269-122100020.54.4"></a>Integral Functions</h4>
+<!--l. 194--><p class="noindent" ><a 
+ id="operator:CHI"></a> <a 
+ id="operator:CI"></a> <a 
+ id="operator:DILOG"></a> <a 
+ id="operator:EI"></a> <a 
+ id="operator:Erf"></a> <a 
+ id="operator:SI"></a> <a 
+ id="operator:Shi"></a> <a 
+ id="operator:Fresnel_S"></a> <a 
+ id="operator:Fresnel_C"></a> <a 
+ id="dx269-1221001"></a><a 
+ id="dx269-1221002"></a> <a 
+ id="dx269-1221003"></a><a 
+ id="dx269-1221004"></a> <a 
+ id="dx269-1221005"></a><a 
+ id="dx269-1221006"></a> <a 
+ id="dx269-1221007"></a><a 
+ id="dx269-1221008"></a> <a 
+ id="dx269-1221009"></a> <a 
+ id="dx269-1221010"></a><a 
+ id="dx269-1221011"></a> <a 
+ id="INTEGF"></a>
+</p><!--l. 211--><p class="noindent" >The <span 
+class="ptmrc8t-x-x-109">S<span 
+class="small-caps">P</span><span 
+class="small-caps">E</span><span 
+class="small-caps">C</span><span 
+class="small-caps">F</span><span 
+class="small-caps">N</span> </span>package includes manipulation and limited numerical evaluation for some
+integral functions, namely
+</p><!--l. 214--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">erf</span>, <span 
+class="pcrr8t-x-x-109">erfc</span>, <span 
+class="pcrr8t-x-x-109">Si</span>, <span 
+class="pcrr8t-x-x-109">Shi</span>, <span 
+class="pcrr8t-x-x-109">si</span>, <span 
+class="pcrr8t-x-x-109">Ci</span>, <span 
+class="pcrr8t-x-x-109">Chi</span>, <span 
+class="pcrr8t-x-x-109">Ei</span>, <span 
+class="pcrr8t-x-x-109">Li</span>, <span 
+class="pcrr8t-x-x-109">Fresnel_C</span>, and <span 
+class="pcrr8t-x-x-109">Fresnel_S</span>.
+</p><!--l. 217--><p class="noindent" >The error function, its complement and the two Fresnel integrals are deﬁned
+by:
+                                                                     
+
+                                                                     
+</p><table 
+class="align-star">
+                 <tr><td 
+class="align-odd"><span 
+class="cmr-10x-x-109">erf</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)</span></td>                  <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual637x.png" alt="√2--
+  π"  class="frac" align="middle" /><span 
+class="cmex-10x-x-109">∫</span>
+    <sub><span 
+class="cmr-8">0</span></sub><sup><span 
+class="cmmi-8">z</span></sup><span 
+class="cmmi-10x-x-109">e</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmmi-8">t</span><sup><span 
+class="cmr-6">2</span></sup>
+      </sup><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmr-10x-x-109">d</span><span 
+class="cmmi-10x-x-109">t</span></td>                              <td 
+class="align-label"></td>                 <td 
+class="align-label">
+                 </td></tr><tr><td 
+class="align-odd"><span 
+class="cmr-10x-x-109">erfc</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)</span></td>                 <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual638x.png" alt="-2--
+√ π-"  class="frac" align="middle" /><span 
+class="cmex-10x-x-109">∫</span>
+    <sub><span 
+class="cmmi-8">z</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><span 
+class="cmmi-10x-x-109">e</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmmi-8">t</span><sup><span 
+class="cmr-6">2</span></sup>
+      </sup><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmr-10x-x-109">d</span><span 
+class="cmmi-10x-x-109">t </span><span 
+class="cmr-10x-x-109">= 1 </span><span 
+class="cmsy-10x-x-109">−</span> <span 
+class="cmr-10x-x-109">erf</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)</span></td>                 <td 
+class="align-label"></td>                 <td 
+class="align-label">
+                 </td></tr><tr><td 
+class="align-odd"><span 
+class="cmmi-10x-x-109">C</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)</span></td>                   <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∫</span>
+  <sub><span 
+class="cmr-8">0</span></sub><sup><span 
+class="cmmi-8">z</span></sup> <span 
+class="cmr-10x-x-109">cos</span><img 
+src="manual639x.png" alt="(π  )
+ --t2
+ 2"  class="left" align="middle" /><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmr-10x-x-109">d</span><span 
+class="cmmi-10x-x-109">t</span></td>                           <td 
+class="align-label"></td>                 <td 
+class="align-label">
+                 </td></tr><tr><td 
+class="align-odd"><span 
+class="cmmi-10x-x-109">S</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)</span></td>                   <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∫</span>
+  <sub><span 
+class="cmr-8">0</span></sub><sup><span 
+class="cmmi-8">z</span></sup> <span 
+class="cmr-10x-x-109">sin</span><img 
+src="manual640x.png" alt="(   )
+ πt2
+ 2"  class="left" align="middle" /><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmr-10x-x-109">d</span><span 
+class="cmmi-10x-x-109">t</span></td>                           <td 
+class="align-label"></td>                 <td 
+class="align-label"></td></tr></table>
+<!--l. 225--><p class="noindent" >respectively.
+</p><!--l. 227--><p class="noindent" >The exponential and related integrals are deﬁned by the following:
+                                                                     
+
+                                                                     
+</p><table 
+class="align-star">
+           <tr><td 
+class="align-odd"><span 
+class="cmr-10x-x-109">Ei</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)</span></td>            <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">e</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmmi-8">z</span></sup> <span 
+class="cmex-10x-x-109">∫</span>
+   <sub><span 
+class="cmmi-8">z</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><img 
+src="manual641x.png" alt="  −t
+-e---
+t+ z"  class="frac" align="middle" /><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmr-10x-x-109">d</span><span 
+class="cmmi-10x-x-109">t</span></td>                                    <td 
+class="align-label"></td>           <td 
+class="align-label">
+           </td></tr><tr><td 
+class="align-odd"><span 
+class="cmr-10x-x-109">Li</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)</span></td>            <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∫</span>
+  <sub><span 
+class="cmr-8">0</span></sub><sup><span 
+class="cmmi-8">z</span></sup><img 
+src="manual642x.png" alt="dt--
+log t"  class="frac" align="middle" /></td>                                           <td 
+class="align-label"></td>           <td 
+class="align-label">
+           </td></tr><tr><td 
+class="align-odd"><span 
+class="cmr-10x-x-109">Si</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)</span></td>            <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∫</span>
+  <sub><span 
+class="cmr-8">0</span></sub><sup><span 
+class="cmmi-8">z</span></sup><img 
+src="manual643x.png" alt="sint
+----
+ t"  class="frac" align="middle" /><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmr-10x-x-109">d</span><span 
+class="cmmi-10x-x-109">t</span></td>                                         <td 
+class="align-label"></td>           <td 
+class="align-label">
+           </td></tr><tr><td 
+class="align-odd"><span 
+class="cmr-10x-x-109">si</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)</span></td>            <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmex-10x-x-109">∫</span>
+  <sub><span 
+class="cmmi-8">z</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><img 
+src="manual644x.png" alt="sint
+  t"  class="frac" align="middle" /><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmr-10x-x-109">d</span><span 
+class="cmmi-10x-x-109">t </span><span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmr-10x-x-109">Si</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmsy-10x-x-109">−</span><img 
+src="manual645x.png" alt="π-
+2"  class="frac" align="middle" /></td>                           <td 
+class="align-label"></td>           <td 
+class="align-label">
+           </td></tr><tr><td 
+class="align-odd"><span 
+class="cmr-10x-x-109">Ci</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)</span></td>            <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmex-10x-x-109">∫</span>
+  <sub><span 
+class="cmmi-8">z</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><img 
+src="manual646x.png" alt="cost
+--t-"  class="frac" align="middle" /><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmr-10x-x-109">d</span><span 
+class="cmmi-10x-x-109">t </span><span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∫</span>
+  <sub><span 
+class="cmr-8">0</span></sub><sup><span 
+class="cmmi-8">z</span></sup><img 
+src="manual647x.png" alt="cost− 1
+---t----"  class="frac" align="middle" /><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmr-10x-x-109">d</span><span 
+class="cmmi-10x-x-109">t </span><span 
+class="cmr-10x-x-109">+</span> <span 
+class="cmr-10x-x-109">log</span> <span 
+class="cmmi-10x-x-109">z </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">γ</span></td>           <td 
+class="align-label"></td>           <td 
+class="align-label">
+           </td></tr><tr><td 
+class="align-odd"><span 
+class="cmr-10x-x-109">Shi</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)</span></td>           <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∫</span>
+  <sub><span 
+class="cmr-8">0</span></sub><sup><span 
+class="cmmi-8">z</span></sup><img 
+src="manual648x.png" alt="sinh-t
+  t"  class="frac" align="middle" /><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmr-10x-x-109">d</span><span 
+class="cmmi-10x-x-109">t</span></td>                                        <td 
+class="align-label"></td>           <td 
+class="align-label">
+           </td></tr><tr><td 
+class="align-odd"><span 
+class="cmr-10x-x-109">Chi</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)</span></td>           <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∫</span>
+  <sub><span 
+class="cmr-8">0</span></sub><sup><span 
+class="cmmi-8">z</span></sup><img 
+src="manual649x.png" alt="cosh-t−-1-
+   t"  class="frac" align="middle" /><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmr-10x-x-109">d</span><span 
+class="cmmi-10x-x-109">t </span><span 
+class="cmr-10x-x-109">+</span> <span 
+class="cmr-10x-x-109">log</span> <span 
+class="cmmi-10x-x-109">z </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">γ</span></td>                         <td 
+class="align-label"></td>           <td 
+class="align-label"></td></tr></table>
+<!--l. 239--><p class="noindent" >where <span 
+class="cmmi-10x-x-109">γ </span>is Euler’s constant (<span 
+class="pcrr8t-x-x-109">Euler_gamma</span>).
+</p><!--l. 241--><p class="noindent" >The deﬁnitions of the exponential and related integrals, the derviatives and
+some limits are known, together with some simple properties such as symmetry
+conditions.
+</p><!--l. 245--><p class="noindent" >The numerical approximations for the integral functions suﬀer from the fact that the
+precision is not set correctly for values of the argument above 10.0 (approx.) and from
+the usage of summations even for large arguments.
+</p><!--l. 250--><p class="noindent" ><span 
+class="cmr-10x-x-109">Li</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)</span> is simpliﬁed to <span 
+class="cmr-10x-x-109">Ei</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmr-10x-x-109">ln</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)) </span>.
+</p><!--l. 252--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.54.5    </span> <a 
+ id="x269-122200020.54.5"></a>The <span 
+class="cmr-10x-x-109">Γ </span>Function and Related Functions</h4>
+<!--l. 254--><p class="noindent" >
+                                                                     
+
+                                                                     
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.54.5.1    </span> <a 
+ id="x269-122300020.54.5.1"></a>The <span 
+class="cmr-10x-x-109">Γ </span>Function</h5>
+<!--l. 255--><p class="noindent" ><a 
+ id="GAMMF"></a> <a 
+ id="operator:GAMMA"></a> <a 
+ id="operator:IGAMMA"></a> <a 
+ id="operator:POLYGAMMA"></a> <a 
+ id="operator:PSI"></a> <a 
+ id="dx269-1223001"></a><a 
+ id="dx269-1223002"></a>
+</p><!--l. 262--><p class="noindent" >This is represented by the unary operator <span 
+class="pcrr8t-x-x-109">Gamma</span>. The <span 
+class="pcrr8t-x-x-109">Gamma </span>function is deﬁned by the
+integral:
+</p>
+<table 
+class="equation-star"><tr><td>
+                        <span 
+class="cmr-10x-x-109">Γ(</span><span 
+class="cmmi-10x-x-109">a</span><span 
+class="cmr-10x-x-109">) =</span> <span 
+class="cmex-10x-x-109">∫</span>
+  <sub><span 
+class="cmr-8">0</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><span 
+class="cmmi-10x-x-109">e</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmmi-8">t</span></sup><span 
+class="cmmi-10x-x-109">t</span><sup><span 
+class="cmmi-8">a</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmr-10x-x-109">d</span><span 
+class="cmmi-10x-x-109">t.</span>
+</td></tr></table>
+<!--l. 264--><p class="nopar" >
+Initial transformations applied with <span 
+class="pcrr8t-x-x-109">rounded </span>oﬀ are: <span 
+class="cmr-10x-x-109">Γ(</span><span 
+class="cmmi-10x-x-109">n</span><span 
+class="cmr-10x-x-109">) </span>for integral <span 
+class="cmmi-10x-x-109">n </span>is computed,
+<span 
+class="cmr-10x-x-109">Γ(</span><span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmr-10x-x-109">+ 1</span><span 
+class="cmmi-10x-x-109">∕</span><span 
+class="cmr-10x-x-109">2) </span>for integral <span 
+class="cmmi-10x-x-109">n </span>is rewritten to an expression in <img 
+src="manual650x.png" alt="√ --
+  π"  class="sqrt"  />, <span 
+class="cmr-10x-x-109">Γ(</span><span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmr-10x-x-109">+ 1</span><span 
+class="cmmi-10x-x-109">∕m</span><span 
+class="cmr-10x-x-109">) </span>for natural <span 
+class="cmmi-10x-x-109">n</span>
+and <span 
+class="cmmi-10x-x-109">m </span>a positive integral power of 2 less than or equal to 64 is rewritten to an expression
+in <span 
+class="cmr-10x-x-109">Γ(1</span><span 
+class="cmmi-10x-x-109">∕m</span><span 
+class="cmr-10x-x-109">)</span>, expressions with arguments at which there is a pole are replaced by
+<span 
+class="pcrr8t-x-x-109">infinity</span>, and those with a negative (real) argument are rewritten so as to have
+positive arguments.
+</p><!--l. 273--><p class="noindent" >The algorithm used for numerical approximation is an implementation of an
+asymptotic series for <span 
+class="cmr-10x-x-109">ln</span><span 
+class="cmr-10x-x-109">(Γ)</span>, with a scaling factor obtained from the <a 
+href="manualse40.html#POCH">Pochhammer
+symbols</a>.
+</p><!--l. 277--><p class="noindent" >An expression for <span 
+class="cmr-10x-x-109">Γ</span><span 
+class="cmsy-10x-x-109">′</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) </span>in terms of <span 
+class="cmr-10x-x-109">Γ </span>and <span 
+class="cmmi-10x-x-109">ψ </span>is included.
+</p><!--l. 280--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.54.5.2    </span> <a 
+ id="x269-122400020.54.5.2"></a>Incomplete Gamma Functions</h5>
+<a 
+ id="dx269-1224001"></a>
+<!--l. 282--><p class="noindent" ><a 
+ id="operator:M_GAMMA"></a> <a 
+ id="dx269-1224002"></a><a 
+ id="dx269-1224003"></a> The (unnormalised) incomplete gamma function is provided by the binary function
+<span 
+class="pcrr8t-x-x-109">m_gamma</span>. In the literature it is normally represented as <span 
+class="cmmi-10x-x-109">γ</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a,z</span><span 
+class="cmr-10x-x-109">) </span>and is deﬁned
+by
+                                                                     
+
+                                                                     
+</p>
+<table 
+class="equation-star"><tr><td>
+                       <span 
+class="cmmi-10x-x-109">γ</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a,z</span><span 
+class="cmr-10x-x-109">) =</span> <span 
+class="cmex-10x-x-109">∫</span>
+  <sub><span 
+class="cmr-8">0</span></sub><sup><span 
+class="cmmi-8">z</span></sup><span 
+class="cmmi-10x-x-109">e</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmmi-8">t</span></sup><span 
+class="cmmi-10x-x-109">t</span><sup><span 
+class="cmmi-8">a</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmr-10x-x-109">d</span><span 
+class="cmmi-10x-x-109">t.</span>
+</td></tr></table>
+<!--l. 287--><p class="nopar" >
+The normalised incomplete gamma function <span 
+class="cmmi-10x-x-109">P</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a,z</span><span 
+class="cmr-10x-x-109">) </span>is provided by the binary function
+<span 
+class="pcrr8t-x-x-109">igamma </span>and is deﬁned as
+</p>
+<table 
+class="equation-star"><tr><td>
+                          <span 
+class="cmmi-10x-x-109">P</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a,z</span><span 
+class="cmr-10x-x-109">) =</span> <img 
+src="manual651x.png" alt="γ(a,z)
+ Γ (a)"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 290--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p><!--l. 292--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.54.5.3    </span> <a 
+ id="x269-122500020.54.5.3"></a>The Beta Functions</h5>
+<!--l. 293--><p class="noindent" ><a 
+ id="BETAF"></a> <a 
+ id="operator:BETA"></a> <a 
+ id="operator:IBETA"></a> <a 
+ id="dx269-1225001"></a><a 
+ id="dx269-1225002"></a><a 
+ id="dx269-1225003"></a> The binary function <span 
+class="cmmi-10x-x-109">B</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a,b</span><span 
+class="cmr-10x-x-109">) </span>is related to the <span 
+class="cmr-10x-x-109">Γ </span>function<span class="cite">[<a 
+href="manualap2.html#XAbramowitzStegun:72">AS72</a>]</span> and is deﬁned
+by
+</p>
+<table 
+class="equation-star"><tr><td>
+                 <span 
+class="cmmi-10x-x-109">B</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a,b</span><span 
+class="cmr-10x-x-109">) =</span> <span 
+class="cmex-10x-x-109">∫</span>
+  <sub><span 
+class="cmr-8">0</span></sub><sup><span 
+class="cmr-8">1</span></sup><span 
+class="cmmi-10x-x-109">t</span><sup><span 
+class="cmmi-8">a</span></sup><span 
+class="cmr-10x-x-109">(1 </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">t</span><span 
+class="cmr-10x-x-109">)</span><sup><span 
+class="cmmi-8">b</span></sup><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmr-10x-x-109">d</span><span 
+class="cmmi-10x-x-109">t </span><span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual652x.png" alt="Γ (a)Γ (b)
+Γ (a+ b)"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 301--><p class="nopar" >
+It is represented by the binary function <span 
+class="pcrr8t-x-x-109">Beta</span>.
+<a 
+ id="dx269-1225004"></a>
+</p><!--l. 305--><p class="noindent" >The unnormalised and nomalised incomplete Beta funtions are deﬁned by
+</p><table 
+class="align-star">
+                      <tr><td 
+class="align-odd"><span 
+class="cmmi-10x-x-109">B</span><sub><span 
+class="cmmi-8">x</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a,b</span><span 
+class="cmr-10x-x-109">)</span></td>                      <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∫</span>
+  <sub><span 
+class="cmr-8">0</span></sub><sup><span 
+class="cmmi-8">x</span></sup><span 
+class="cmmi-10x-x-109">t</span><sup><span 
+class="cmmi-8">a</span></sup><span 
+class="cmr-10x-x-109">(1 </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">t</span><span 
+class="cmr-10x-x-109">)</span><sup><span 
+class="cmmi-8">b</span></sup><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmr-10x-x-109">d</span><span 
+class="cmmi-10x-x-109">t,</span></td>                      <td 
+class="align-label"></td>                      <td 
+class="align-label">
+                      </td></tr><tr><td 
+class="align-odd"><span 
+class="cmmi-10x-x-109">I</span><sub><span 
+class="cmmi-8">x</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a,b</span><span 
+class="cmr-10x-x-109">)</span></td>                       <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual653x.png" alt="Bx(a,b)-
+B (a,b)"  class="frac" align="middle" /></td>                              <td 
+class="align-label"></td>                      <td 
+class="align-label"></td></tr></table>
+                                                                     
+
+                                                                     
+<!--l. 310--><p class="noindent" >respectively. <span 
+class="cmmi-10x-x-109">I</span><sub><span 
+class="cmmi-8">x</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a,b</span><span 
+class="cmr-10x-x-109">) </span>is represented by the ternary function <span 
+class="pcrr8t-x-x-109">ibeta(a,b,x)</span>.
+</p><!--l. 313--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.54.5.4    </span> <a 
+ id="x269-122600020.54.5.4"></a>The Digamma Function, <span 
+class="cmmi-10x-x-109">ψ</span></h5>
+<!--l. 314--><p class="noindent" ><a 
+ id="DIGAM"></a> <a 
+ id="dx269-1226001"></a><a 
+ id="dx269-1226002"></a><a 
+ id="dx269-1226003"></a><a 
+ id="dx269-1226004"></a>
+</p><!--l. 319--><p class="noindent" >This is represented by the unary operator <span 
+class="pcrr8t-x-x-109">psi</span>. It is deﬁned as the logarithmic derivative
+of the <span 
+class="cmr-10x-x-109">Γ </span>function:
+</p>
+<table 
+class="equation-star"><tr><td>
+                            <span 
+class="cmmi-10x-x-109">ψ</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) =</span> <img 
+src="manual654x.png" alt="Γ-′(z)
+ Γ (z)"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 321--><p class="nopar" >
+</p><!--l. 323--><p class="noindent" >Initial transformations for <span 
+class="cmmi-10x-x-109">ψ </span>are applied on a similar basis to those for <span 
+class="cmr-10x-x-109">Γ</span>; where possible,
+<span 
+class="cmmi-10x-x-109">ψ</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) </span>is rewritten in terms of <span 
+class="cmmi-10x-x-109">ψ</span><span 
+class="cmr-10x-x-109">(1) </span>and <span 
+class="cmmi-10x-x-109">ψ</span><span 
+class="cmr-10x-x-109">(</span><img 
+src="manual655x.png" alt="12"  class="frac" align="middle" /><span 
+class="cmr-10x-x-109">)</span>, and expressions with negative arguments
+are rewritten to have positive ones.
+</p><!--l. 328--><p class="noindent" >The algorithm for numerical evaluation of <span 
+class="cmmi-10x-x-109">ψ </span>is based upon an asymptotic series, with a
+suitable scaling.
+</p><!--l. 331--><p class="noindent" >Relations for the derivative and integral of <span 
+class="cmmi-10x-x-109">ψ </span>are included.
+                                                                     
+
+                                                                     
+</p><!--l. 333--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.54.5.5    </span> <a 
+ id="x269-122700020.54.5.5"></a>The Polygamma Functions, <span 
+class="cmmi-10x-x-109">ψ</span><sup><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">)</span></sup></h5>
+<!--l. 334--><p class="noindent" ><a 
+ id="POLYGAM"></a> <a 
+ id="dx269-1227001"></a> <a 
+ id="dx269-1227002"></a><a 
+ id="dx269-1227003"></a>
+</p><!--l. 338--><p class="noindent" >The <span 
+class="cmmi-10x-x-109">n</span>th derivative of the <span 
+class="cmmi-10x-x-109">ψ </span>function is represented by the binary operator <span 
+class="pcrr8t-x-x-109">Polygamma</span>,
+whose ﬁrst argument is <span 
+class="cmmi-10x-x-109">n</span>.
+</p><!--l. 341--><p class="noindent" >Initial manipulations on <span 
+class="cmmi-10x-x-109">ψ</span><sup><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">)</span></sup> are few; where the second argument is <span 
+class="cmr-10x-x-109">1 </span>or <span 
+class="cmr-10x-x-109">3</span><span 
+class="cmmi-10x-x-109">∕</span><span 
+class="cmr-10x-x-109">2</span>, the
+expression is rewritten to one involving the Riemann <span 
+class="cmmi-10x-x-109">ζ </span>function, and when the ﬁrst is
+zero it is rewritten to <span 
+class="cmmi-10x-x-109">ψ</span>; poles are also handled.
+</p><!--l. 346--><p class="noindent" >Numerical evaluation is available for real and complex arguments. The algorithm
+used is again an asymptotic series with a scaling factor; for negative (second)
+arguments, a Reﬂection Formula is used, introducing a term in the <span 
+class="cmmi-10x-x-109">n</span>th derivative of
+<span 
+class="cmr-10x-x-109">cot</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">zπ</span><span 
+class="cmr-10x-x-109">)</span>.
+</p><!--l. 351--><p class="noindent" >Simple relations for derivatives and integrals are provided.
+</p><!--l. 353--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.54.6    </span> <a 
+ id="x269-122800020.54.6"></a>Bessel Functions</h4>
+<!--l. 354--><p class="noindent" ><a 
+ id="operator:BESSELI"></a> <a 
+ id="operator:BESSELJ"></a> <a 
+ id="operator:BESSELK"></a> <a 
+ id="operator:BESSELY"></a> <a 
+ id="operator:HANKEL1"></a> <a 
+ id="operator:HANKEL2"></a> <a 
+ id="BESSELF"></a> <a 
+ id="dx269-1228001"></a><a 
+ id="dx269-1228002"></a> <a 
+ id="dx269-1228003"></a><a 
+ id="dx269-1228004"></a> <a 
+ id="dx269-1228005"></a><a 
+ id="dx269-1228006"></a> <a 
+ id="dx269-1228007"></a><a 
+ id="dx269-1228008"></a>
+</p><!--l. 366--><p class="noindent" >Support is provided for the Bessel functions <span 
+class="cmmi-10x-x-109">J </span>and <span 
+class="cmmi-10x-x-109">Y </span>, the modiﬁed Bessel functions <span 
+class="cmmi-10x-x-109">I</span>
+and <span 
+class="cmmi-10x-x-109">K</span>, and the Hankel functions of the ﬁrst and second kinds. The relevant operators are,
+respectively, <span 
+class="pcrr8t-x-x-109">BesselJ</span>, <span 
+class="pcrr8t-x-x-109">BesselY</span>, <span 
+class="pcrr8t-x-x-109">BesselI</span>, <span 
+class="pcrr8t-x-x-109">BesselK</span>, <span 
+class="pcrr8t-x-x-109">Hankel1 </span>and <span 
+class="pcrr8t-x-x-109">Hankel2</span>,
+which are all binary operators.
+</p><!--l. 372--><p class="noindent" >The Bessel functions <span 
+class="cmmi-10x-x-109">J</span><sub><span 
+class="cmmi-8">ν</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) </span>and <span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmmi-8">ν</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) </span>are solutions of the Bessel equation:
+</p>
+<table 
+class="equation-star"><tr><td>
+                    <span 
+class="cmmi-10x-x-109">z</span><sup><span 
+class="cmr-8">2</span></sup><img 
+src="manual656x.png" alt="d2w-
+dz2"  class="frac" align="middle" /> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">z</span><img 
+src="manual657x.png" alt="dw-
+dz"  class="frac" align="middle" /> <span 
+class="cmr-10x-x-109">+ (</span><span 
+class="cmmi-10x-x-109">z</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">ν</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">w </span><span 
+class="cmr-10x-x-109">= 0</span><span 
+class="cmmi-10x-x-109">.</span>
+                                                                     
+
+                                                                     
+</td></tr></table>
+<!--l. 375--><p class="nopar" >
+Bessel’s function of the ﬁrst kind, <span 
+class="cmmi-10x-x-109">J</span><sub><span 
+class="cmmi-8">ν</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)</span>, has the series expansion:
+</p>
+<table 
+class="equation-star"><tr><td>
+              <span 
+class="cmmi-10x-x-109">J</span><sub><span 
+class="cmmi-8">ν</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) = </span><img 
+src="manual658x.png" alt="(z )
+ --
+ 2"  class="left" align="middle" /><sup><span 
+class="cmmi-8">ν</span></sup> <span 
+class="cmex-10x-x-109">∑</span>
+   <sub><span 
+class="cmmi-8">k</span><span 
+class="cmr-8">=0</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1)</span><sup><span 
+class="cmmi-8">k</span></sup><img 
+src="manual659x.png" alt="    (z∕2 )2k
+--------------
+k!Γ (ν + k + 1)"  class="frac" align="middle" /><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 378--><p class="nopar" >
+Bessel’s function of the second kind, <span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmmi-8">ν</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)</span>, (for non-integral <span 
+class="cmmi-10x-x-109">ν</span>) is deﬁned
+by:
+</p>
+<table 
+class="equation-star"><tr><td>
+                    <span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmmi-8">ν</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) =</span> <img 
+src="manual660x.png" alt="Jν(z)cos(νπ)-−-J−ν(z)
+       sin(νπ)"  class="frac" align="middle" />
+</td></tr></table>
+<!--l. 381--><p class="nopar" >
+or by its limiting value:
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+            <span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmmi-8">ν</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) = </span><img 
+src="manual661x.png" alt="        |
+1 ∂Jν(z)|
+π---∂ν--||"  class="left" align="middle" /><sub><span 
+class="cmmi-8">ν</span><span 
+class="cmr-8">=</span><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">+    </span><img 
+src="manual662x.png" alt="            |
+(− 1)n ∂Jν(z)|
+--π----∂-ν--||"  class="left" align="middle" /><sub><span 
+class="cmmi-8">ν</span><span 
+class="cmr-8">=</span><span 
+class="cmsy-8">−</span><span 
+class="cmmi-8">n</span></sub><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 385--><p class="nopar" >
+It is sometimes known as Weber’s function.
+</p><!--l. 388--><p class="noindent" >The Hankel functions are alternative solutions of the Bessel equation distinguished by
+their asymptotic behaviour as <span 
+class="cmmi-10x-x-109">z </span><span 
+class="cmsy-10x-x-109">→∞</span>:
+</p><table 
+class="align-star">
+               <tr><td 
+class="align-odd"><span 
+class="cmmi-10x-x-109">H</span><sub><span 
+class="cmmi-8">ν</span></sub><sup><span 
+class="cmr-8">(1)</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)</span></td>               <td 
+class="align-even"> <span 
+class="cmsy-10x-x-109">∼</span><img 
+src="manual663x.png" alt="∘ -2-
+  ---
+  πz"  class="sqrt"  /><span 
+class="cmr-10x-x-109">exp</span><img 
+src="manual664x.png" alt="( (    νπ    π))
+ i z − ---−  --
+        2    4"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">,</span></td>                 <td 
+class="align-label"></td>               <td 
+class="align-label">
+               </td></tr><tr><td 
+class="align-odd"><span 
+class="cmmi-10x-x-109">H</span><sub><span 
+class="cmmi-8">ν</span></sub><sup><span 
+class="cmr-8">(2)</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)</span></td>               <td 
+class="align-even"> <span 
+class="cmsy-10x-x-109">∼</span><img 
+src="manual665x.png" alt="∘ ---
+  -2-
+  πz"  class="sqrt"  /><span 
+class="cmr-10x-x-109">exp</span><img 
+src="manual666x.png" alt="(   (    νπ-  π-))
+ − i z −  2 − 4"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">.</span></td>               <td 
+class="align-label"></td>               <td 
+class="align-label"></td></tr></table>
+<!--l. 397--><p class="noindent" >The modiﬁed Bessel functions <span 
+class="cmmi-10x-x-109">I</span><sub><span 
+class="cmmi-8">ν</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) </span>and <span 
+class="cmmi-10x-x-109">K</span><sub><span 
+class="cmmi-8">ν</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) </span>are solutions of the modiﬁed Bessel
+equation:
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                    <span 
+class="cmmi-10x-x-109">z</span><sup><span 
+class="cmr-8">2</span></sup><img 
+src="manual667x.png" alt="d2w
+dz2-"  class="frac" align="middle" /> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">z</span><img 
+src="manual668x.png" alt="dw
+dz-"  class="frac" align="middle" /> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">ν</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">w </span><span 
+class="cmr-10x-x-109">= 0</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 400--><p class="nopar" >
+Since they may be obtained by replacing <span 
+class="cmmi-10x-x-109">z </span>by <span 
+class="cmsy-10x-x-109">±</span><span 
+class="cmmi-10x-x-109">iz </span>the modiﬁed Bessel functions are
+sometimes called <span 
+class="ptmri8t-x-x-109">Bessel functions of imaginary argument</span>. <span 
+class="cmmi-10x-x-109">I</span><sub><span 
+class="cmmi-8">ν</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) </span>has the series
+expansion:
+</p>
+<table 
+class="equation-star"><tr><td>
+                <span 
+class="cmmi-10x-x-109">I</span><sub><span 
+class="cmmi-8">ν</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) = </span><img 
+src="manual669x.png" alt="(  )
+  z-
+  2"  class="left" align="middle" /><sup><span 
+class="cmmi-8">ν</span></sup> <span 
+class="cmex-10x-x-109">∑</span>
+   <sub><span 
+class="cmmi-8">k</span><span 
+class="cmr-8">=0</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><img 
+src="manual670x.png" alt="        2k
+---(z∕2)------
+k!Γ (ν + k + 1)"  class="frac" align="middle" /><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">,</span>
+</td></tr></table>
+<!--l. 404--><p class="nopar" >
+whereas <span 
+class="cmmi-10x-x-109">K</span><sub><span 
+class="cmmi-8">ν</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) </span>is distinguished by its asymptotic behaviour:
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                          <span 
+class="cmmi-10x-x-109">K</span><sub><span 
+class="cmmi-8">ν</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmsy-10x-x-109">∼</span><img 
+src="manual671x.png" alt="∘ -π-
+  ---
+  2z"  class="sqrt"  /><span 
+class="cmmi-10x-x-109">e</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmmi-8">z</span></sup>
+</td></tr></table>
+<!--l. 406--><p class="nopar" >
+as <span 
+class="cmmi-10x-x-109">z </span><span 
+class="cmsy-10x-x-109">→∞</span>. For more information, see the DLMF:NIST chapters on <a 
+href="https://dlmf.nist.gov/10.2" >Hankel &#x0026; Bessel
+functions</a> and <a 
+href="https://dlmf.nist.gov/10.25" >Modiﬁed Bessel functions</a>.
+</p><!--l. 411--><p class="noindent" >The following initial transformations are performed:
+</p>
+     <ul class="itemize1">
+     <li class="itemize">trivial cases or poles of <span 
+class="cmmi-10x-x-109">J</span>, <span 
+class="cmmi-10x-x-109">Y </span>, <span 
+class="cmmi-10x-x-109">I </span>and <span 
+class="cmmi-10x-x-109">K </span>are handled;
+     </li>
+     <li class="itemize"><span 
+class="cmmi-10x-x-109">J</span>, <span 
+class="cmmi-10x-x-109">Y </span>, <span 
+class="cmmi-10x-x-109">I </span>and <span 
+class="cmmi-10x-x-109">K </span>with negative ﬁrst argument are transformed to have positive
+     ﬁrst argument;
+     </li>
+     <li class="itemize"><span 
+class="cmmi-10x-x-109">J </span>with  negative  second  argument  is  transformed  to  have  positive  second
+     argument;
+     </li>
+     <li class="itemize"><span 
+class="cmmi-10x-x-109">Y </span>or <span 
+class="cmmi-10x-x-109">K </span>with non-integral or complex second argument is transformed into
+     an expression in <span 
+class="cmmi-10x-x-109">J </span>or <span 
+class="cmmi-10x-x-109">I </span>respectively;
+     </li>
+     <li class="itemize">derivatives of <span 
+class="cmmi-10x-x-109">J</span>, <span 
+class="cmmi-10x-x-109">Y </span>and <span 
+class="cmmi-10x-x-109">I </span>are carried out;
+     </li>
+     <li class="itemize">derivatives of <span 
+class="cmmi-10x-x-109">K </span>with zero ﬁrst argument are carried out;
+     </li>
+     <li class="itemize">derivatives of Hankel functions are carried out.</li></ul>
+<!--l. 425--><p class="noindent" >Also, if the <span 
+class="pcrr8t-x-x-109">complex</span><a 
+ id="dx269-1228009"></a><a 
+ id="dx269-1228010"></a><a 
+ id="dx269-1228011"></a> switch is on and <span 
+class="pcrr8t-x-x-109">rounded</span><a 
+ id="dx269-1228012"></a><a 
+ id="dx269-1228013"></a><a 
+ id="dx269-1228014"></a> is oﬀ, expressions in Hankel functions
+are rewritten in terms of Bessel functions.
+</p><!--l. 429--><p class="noindent" >No numerical approximation is provided for the Bessel <span 
+class="cmmi-10x-x-109">K </span>function, or for the Hankel
+functions for anything other than special cases. The algorithms used for the other Bessel
+functions are generally implementations of standard ascending series for <span 
+class="cmmi-10x-x-109">J</span>, <span 
+class="cmmi-10x-x-109">Y </span>and <span 
+class="cmmi-10x-x-109">I</span>,
+together with asymptotic series for <span 
+class="cmmi-10x-x-109">J </span>and <span 
+class="cmmi-10x-x-109">Y </span>; usually, the asymptotic series
+are tried ﬁrst, and if the argument is too small for them to attain the current
+precision, the standard series are applied. An obvious optimization prevents
+                                                                     
+
+                                                                     
+an attempt with the asymptotic series if it is clear from the outset that it will
+fail.
+</p><!--l. 439--><p class="noindent" >There are no rules for the integration of Bessel and Hankel functions.
+</p><!--l. 441--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.54.7    </span> <a 
+ id="x269-122900020.54.7"></a>Airy Functions</h4>
+<!--l. 442--><p class="noindent" ><a 
+ id="operator:AIRY_AI"></a> <a 
+ id="operator:AIRY_AIPRIME"></a> <a 
+ id="operator:AIRY_BI"></a> <a 
+ id="operator:AIRY_BIPRIME"></a> <a 
+ id="AIRYF"></a> <a 
+ id="dx269-1229001"></a><a 
+ id="dx269-1229002"></a><a 
+ id="dx269-1229003"></a> <a 
+ id="dx269-1229004"></a><a 
+ id="dx269-1229005"></a>
+</p><!--l. 451--><p class="noindent" >Support is provided for the Airy Functions <span 
+class="cmmi-10x-x-109">Ai </span>and <span 
+class="cmmi-10x-x-109">Bi </span>and for their derivatives <span 
+class="cmmi-10x-x-109">Ai</span><span 
+class="cmsy-10x-x-109">′ </span>and
+<span 
+class="cmmi-10x-x-109">Bi</span><span 
+class="cmsy-10x-x-109">′</span>. The relevant operators are respectively <span 
+class="pcrr8t-x-x-109">Airy_Ai</span>, <span 
+class="pcrr8t-x-x-109">Airy_Bi</span>, <span 
+class="pcrr8t-x-x-109">Airy_Aiprime</span>
+and <span 
+class="pcrr8t-x-x-109">Airy_Biprime</span>, which are all unary.
+</p><!--l. 456--><p class="noindent" >Airy functions are solutions of the diﬀerential equation:
+</p>
+<table 
+class="equation-star"><tr><td>
+                             <img 
+src="manual672x.png" alt="d2w-
+dz2"  class="frac" align="middle" /> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">zw.</span>
+</td></tr></table>
+<!--l. 457--><p class="nopar" >
+</p><!--l. 459--><p class="noindent" >Trivial cases of Airy_Ai and Airy_Bi and their primes are evaluated, and all functions
+accept both real and complex arguments.
+</p><!--l. 462--><p class="noindent" >The Airy Functions can also be represented in terms of Bessel Functions by activating an
+inactive rule set:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1393">
+    let Airy2Bessel_rules;
+</div>
+<!--l. 466--><p class="nopar" > As a result the <span 
+class="pcrr8t-x-x-109">Airy_Ai </span>function will be evaluated using the formula:
+</p>
+<table 
+class="equation-star"><tr><td>
+           <span 
+class="pcrr8t-x-x-109">Ai</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) =</span> <img 
+src="manual673x.png" alt="1
+--
+3"  class="frac" align="middle" /><img 
+src="manual674x.png" alt="√ --
+  z"  class="sqrt"  /><img 
+src="manual675x.png" alt="[                ]
+ I−1∕3(ζ )− I1∕3(ζ)"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">,</span> where <span 
+class="cmmi-10x-x-109">ζ </span><span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual676x.png" alt="2
+--
+3"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">z</span><sup><img 
+src="manual677x.png" alt="2
+3"  class="frac" align="middle" />
+   </sup><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 472--><p class="nopar" >
+<span 
+class="ptmb8t-x-x-109">Note: </span>In order to obtain satisfactory approximations to numerical values both the
+<span 
+class="pcrr8t-x-x-109">complex </span>and <span 
+class="pcrr8t-x-x-109">rounded </span>switches must be on.
+</p><!--l. 477--><p class="noindent" >The algorithms used for the Airy Functions are implementations of standard ascending
+series, together with asymptotic series. At some point it is better to use the asymptotic
+rather than the ascending series, which is calculated by the program and depends on the
+given precision.
+</p><!--l. 483--><p class="noindent" >There are no rules for the integration of Airy Functions.
+</p><!--l. 485--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.54.8    </span> <a 
+ id="x269-123000020.54.8"></a>Hypergeometric and Other Functions</h4>
+<!--l. 486--><p class="noindent" ><a 
+ id="operator:KUMMERM"></a> <a 
+ id="operator:KUMMERU"></a> <a 
+ id="operator:LOMMEL1"></a> <a 
+ id="operator:LOMMEL2"></a> <a 
+ id="operator:STRUVEH"></a> <a 
+ id="operator:STRUVEL"></a> <a 
+ id="operator:WHITTAKERM"></a> <a 
+ id="operator:WHITTAKERU"></a> <a 
+ id="HYPERGEOM"></a> <a 
+ id="dx269-1230001"></a><a 
+ id="dx269-1230002"></a><a 
+ id="dx269-1230003"></a><a 
+ id="dx269-1230004"></a><a 
+ id="dx269-1230005"></a><a 
+ id="dx269-1230006"></a><a 
+ id="dx269-1230007"></a><a 
+ id="dx269-1230008"></a> <a 
+ id="dx269-1230009"></a><a 
+ id="dx269-1230010"></a><a 
+ id="dx269-1230011"></a> <a 
+ id="dx269-1230012"></a><a 
+ id="dx269-1230013"></a>
+</p><!--l. 502--><p class="noindent" >This package also provides some support for other functions, in the form of algebraic
+simpliﬁcations: </p>
+                                                                     
+
+                                                                     
+     <ul class="itemize1">
+     <li class="itemize">The Struve <span 
+class="ptmb8t-x-x-109">H </span>and <span 
+class="ptmb8t-x-x-109">L </span>functions, through the binary operators <span 
+class="pcrr8t-x-x-109">StruveH </span>and
+     <span 
+class="pcrr8t-x-x-109">StruveL</span>, for which manipulations are provided to handle special cases, simplify
+     to more readily handled functions where appropriate, and diﬀerentiate with respect
+     to the second argument. These functions with arguments <span 
+class="cmmi-10x-x-109">ν </span>and <span 
+class="cmmi-10x-x-109">x </span>are solutions of
+     the diﬀerential equation:
+     <table 
+class="equation-star"><tr><td>
+                <img 
+src="manual678x.png" alt="d2w-
+ dx2"  class="frac" align="middle" /> <span 
+class="cmr-10x-x-109">+</span> <img 
+src="manual679x.png" alt="1-
+x"  class="frac" align="middle" /><img 
+src="manual680x.png" alt="dw-
+dx"  class="frac" align="middle" /> <span 
+class="cmr-10x-x-109">+ </span><img 
+src="manual681x.png" alt="(       )
+      ν2-
+  1 − x2"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">w </span><span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual682x.png" alt="--(z∕2)ν−1---
+√π-Γ (ν + 1∕2 )"  class="frac" align="middle" /><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">.</span>
+     </td></tr></table>
+     <!--l. 513--><p class="nopar" >
+     </p></li>
+     <li class="itemize">The Lommel functions of the ﬁrst and second kinds, through the ternary
+     operators <span 
+class="pcrr8t-x-x-109">Lommel1 </span>and <span 
+class="pcrr8t-x-x-109">Lommel2 </span>with arguments <span 
+class="cmmi-10x-x-109">ν</span>, <span 
+class="cmmi-10x-x-109">μ </span>and <span 
+class="cmmi-10x-x-109">x </span>may be
+     considered generalisations of the Struve functions satisfying the diﬀerential
+     equation:
+     <table 
+class="equation-star"><tr><td>
+                    <img 
+src="manual683x.png" alt="d2w
+dx2-"  class="frac" align="middle" /> <span 
+class="cmr-10x-x-109">+</span> <img 
+src="manual684x.png" alt=" 1
+x-"  class="frac" align="middle" /><img 
+src="manual685x.png" alt="dw
+dx-"  class="frac" align="middle" /> <span 
+class="cmr-10x-x-109">+ </span><img 
+src="manual686x.png" alt="(       )
+     ν2
+  1− x2-"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">w </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">z</span><sup><span 
+class="cmmi-8">μ</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">.</span>
+     </td></tr></table>
+     <!--l. 519--><p class="nopar" >
+     Manipulations  are  provided  to  handle  special  cases  and  simplify  where
+     appropriate.
+                                                                     
+
+                                                                     
+     </p></li>
+     <li class="itemize">The Kummer conﬂuent hypergeometric functions M and U (the hypergeometric
+     <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">F</span><sub><span 
+class="cmr-8">1</span></sub> or <span 
+class="cmr-10x-x-109">Φ</span>, and <span 
+class="cmmi-10x-x-109">z</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmmi-8">a</span></sup><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">F</span><sub><span 
+class="cmr-8">0</span></sub> or <span 
+class="cmr-10x-x-109">Ψ</span>, respectively), represented by the ternary operators
+     <span 
+class="pcrr8t-x-x-109">KummerM </span>and <span 
+class="pcrr8t-x-x-109">KummerU </span>with arguments <span 
+class="cmmi-10x-x-109">a</span>, <span 
+class="cmmi-10x-x-109">b </span>and <span 
+class="cmmi-10x-x-109">x</span>, are solutions of the
+     diﬀerential equation:
+     <table 
+class="equation-star"><tr><td>
+                        <img 
+src="manual687x.png" alt="d2w-
+dx2"  class="frac" align="middle" /> <span 
+class="cmr-10x-x-109">+ (</span><span 
+class="cmmi-10x-x-109">b </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span><img 
+src="manual688x.png" alt="dw-
+ dx"  class="frac" align="middle" /> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">aw </span><span 
+class="cmr-10x-x-109">= 0</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">.</span>
+     </td></tr></table>
+     <!--l. 527--><p class="nopar" >
+     There  are  manipulations  for  special  cases  and  simpliﬁcations,  derivatives
+     and, for the M function, numerical approximations for real arguments.
+     </p></li>
+     <li class="itemize">The Whittaker M and W functions are variations upon the Kummer functions,
+     which are represented by the ternary operators <span 
+class="pcrr8t-x-x-109">WhittakerM </span>and <span 
+class="pcrr8t-x-x-109">WhittakerW</span>
+     with arguments <span 
+class="cmmi-10x-x-109">κ</span>, <span 
+class="cmmi-10x-x-109">μ </span>and <span 
+class="cmmi-10x-x-109">x</span>. They satisfy the Whittaker diﬀerential equation:
+     <table 
+class="equation-star"><tr><td>
+                    <img 
+src="manual689x.png" alt="d2W
+dx2--"  class="frac" align="middle" /> <span 
+class="cmr-10x-x-109">+ </span><img 
+src="manual690x.png" alt="( 1−  4μ2   κ   1)
+  --4x2--+  x-− 4-"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">W </span><span 
+class="cmr-10x-x-109">= 0</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">,</span>
+     </td></tr></table>
+     <!--l. 535--><p class="nopar" >
+     which is obtained from the Kummer diﬀerential equation via the substituions
+</p>
+                                                                     
+
+                                                                     
+     <table 
+class="equation-star"><tr><td>
+             <span 
+class="cmmi-10x-x-109">W </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">e</span><sup><span 
+class="cmmi-8">z∕</span><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-10x-x-109">z</span><sup><span 
+class="cmmi-8">μ</span><span 
+class="cmr-8">+1</span><span 
+class="cmmi-8">∕</span><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-10x-x-109">w,      κ </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">b∕</span><span 
+class="cmr-10x-x-109">2 </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">a     μ </span><span 
+class="cmr-10x-x-109">= (</span><span 
+class="cmmi-10x-x-109">b </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1)</span><span 
+class="cmmi-10x-x-109">∕</span><span 
+class="cmr-10x-x-109">2</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">.</span>
+     </td></tr></table>
+     <!--l. 537--><p class="nopar" >
+     The  Whittaker  M  and  W  functions  with  non-numeric  arguments  are
+     simpliﬁed   to   expressions   involving   the   Kummer   M   and   U   functions
+     respectively.</p></li></ul>
+<!--l. 542--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.54.9    </span> <a 
+ id="x269-123100020.54.9"></a>The Riemann Zeta Function</h4>
+<!--l. 543--><p class="noindent" ><a 
+ id="operator:ZETA"></a> <a 
+ id="RIEMZETA"></a> <a 
+ id="dx269-1231001"></a><a 
+ id="dx269-1231002"></a><a 
+ id="dx269-1231003"></a> <a 
+ id="dx269-1231004"></a>This is represented by the unary operator <span 
+class="pcrr8t-x-x-109">Zeta </span>and deﬁned by the formula:
+</p>
+<table 
+class="equation-star"><tr><td>
+                         <span 
+class="cmmi-10x-x-109">ζ</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">s</span><span 
+class="cmr-10x-x-109">) =</span> <span 
+class="cmex-10x-x-109">∑</span>
+  <sub><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">=1</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><img 
+src="manual691x.png" alt="1--
+ns"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 550--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p><!--l. 552--><p class="noindent" >With <span 
+class="pcrr8t-x-x-109">rounded </span>oﬀ, <span 
+class="cmmi-10x-x-109">ζ</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) </span>is evaluated numerically for even integral arguments in the
+range <span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">31 </span><span 
+class="cmmi-10x-x-109">&#x003C; z &#x003C; </span><span 
+class="cmr-10x-x-109">31</span>, and for odd integral arguments in the range <span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">30 </span><span 
+class="cmmi-10x-x-109">&#x003C; z &#x003C; </span><span 
+class="cmr-10x-x-109">16</span>.
+Outside this range the values become a little unwieldy.
+</p><!--l. 557--><p class="noindent" >Numerical evaluation of <span 
+class="cmmi-10x-x-109">ζ </span>is only carried out if the argument is real. The algorithms used
+for <span 
+class="cmmi-10x-x-109">ζ </span>are: for odd integral arguments, an expression relating <span 
+class="cmmi-10x-x-109">ζ</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n</span><span 
+class="cmr-10x-x-109">) </span>with <span 
+class="cmmi-10x-x-109">ψ</span><sup><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup><span 
+class="cmr-10x-x-109">(3)</span>; for even
+arguments, a trivial relationship with the Bernoulli numbers; and for other arguments
+the approach is either (for larger arguments) to take the ﬁrst few primes in the
+standard over-all-primes expansion, and then continue with the deﬁning series with
+natural numbers not divisible by these primes, or (for smaller arguments) to use a
+fast-converging series obtained from <span class="cite">[<a 
+href="manualap2.html#XBenderOrszag:78">BO78</a>]</span>.
+</p><!--l. 566--><p class="noindent" >There are no rules for diﬀerentiation or integration of <span 
+class="cmmi-10x-x-109">ζ</span>.
+</p><!--l. 568--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.54.10    </span> <a 
+ id="x269-123200020.54.10"></a>Polylogarithm and Related Functions</h4>
+<!--l. 569--><p class="noindent" ><a 
+ id="operator:LERCH_PHI"></a> <a 
+ id="POLYLOG"></a> <a 
+ id="dx269-1232001"></a><a 
+ id="dx269-1232002"></a> <a 
+ id="dx269-1232003"></a> The dilogarithm function <span 
+class="cmmi-10x-x-109">Li</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) </span>is deﬁned by
+</p>
+<table 
+class="equation-star"><tr><td>
+               <span 
+class="cmr-10x-x-109">Li</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmsy-10x-x-109">≡</span><span 
+class="cmex-10x-x-109">∑</span>
+  <sub><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">=1</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><img 
+src="manual692x.png" alt="zn-
+n2"  class="frac" align="middle" /> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmex-10x-x-109">∫</span>
+  <sub><span 
+class="cmr-8">0</span></sub><sup><span 
+class="cmmi-8">z</span></sup><img 
+src="manual693x.png" alt="log(1−-t)
+    t"  class="frac" align="middle" /><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmr-10x-x-109">d</span><span 
+class="cmmi-10x-x-109">t</span>
+</td></tr></table>
+<!--l. 575--><p class="nopar" >
+and represented by the unary function <span 
+class="pcrr8t-x-x-109">dilog</span>.
+<a 
+ id="dx269-1232004"></a>
+</p><!--l. 579--><p class="noindent" >The polylogarithm function <span 
+class="cmmi-10x-x-109">Li</span><sub><span 
+class="cmmi-8">s</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) </span>is deﬁned by
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+              <span 
+class="cmr-10x-x-109">Li</span><sub><span 
+class="cmmi-8">s</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmsy-10x-x-109">≡</span><span 
+class="cmex-10x-x-109">∑</span>
+  <sub><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">=1</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><img 
+src="manual694x.png" alt="zn
+ns-"  class="frac" align="middle" /> <span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual695x.png" alt=" z
+Γ (s)"  class="frac" align="middle" /><span 
+class="cmex-10x-x-109">∫</span>
+     <sub><span 
+class="cmr-8">0</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><img 
+src="manual696x.png" alt=" ts−1
+et-−-z"  class="frac" align="middle" /><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmr-10x-x-109">d</span><span 
+class="cmmi-10x-x-109">t.</span>
+</td></tr></table>
+<!--l. 581--><p class="nopar" >
+and represented by the binary function <span 
+class="pcrr8t-x-x-109">Polylog</span>. The case <span 
+class="cmmi-10x-x-109">s </span><span 
+class="cmr-10x-x-109">= 2 </span>is, of course, the
+dilogarithm function and the special case when <span 
+class="cmmi-10x-x-109">z </span><span 
+class="cmr-10x-x-109">= 1 </span>gives the Riemann zeta
+function <span 
+class="cmmi-10x-x-109">ζ</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">s</span><span 
+class="cmr-10x-x-109">)</span>. For <span 
+class="cmmi-10x-x-109">s </span><span 
+class="cmr-10x-x-109">= 1</span>, the polylogarithm reduces to the elementary function:
+<span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">log</span><span 
+class="cmr-10x-x-109">(1 </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">t</span><span 
+class="cmr-10x-x-109">)</span>.
+<a 
+ id="dx269-1232005"></a>
+</p><!--l. 588--><p class="noindent" >Lerch’s transcendent or Lerch Phi function is deﬁned by
+</p>
+<table 
+class="equation-star"><tr><td>
+                     <span 
+class="cmr-10x-x-109">Φ(</span><span 
+class="cmmi-10x-x-109">z,s,a</span><span 
+class="cmr-10x-x-109">) =</span> <span 
+class="cmex-10x-x-109">∑</span>
+  <sub><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">=0</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><img 
+src="manual697x.png" alt="    n
+---z----
+(n + a)s"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 589--><p class="nopar" >
+It is represented by the ternary function <span 
+class="pcrr8t-x-x-109">Lerch_Phi(z,s,a)</span>. For the special case
+<span 
+class="cmmi-10x-x-109">a </span><span 
+class="cmr-10x-x-109">= 1</span>, Lerch’s function is related to a polylogarithm: <span 
+class="cmmi-10x-x-109">zLi</span><sub><span 
+class="cmmi-8">s</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) = Φ(</span><span 
+class="cmmi-10x-x-109">z,s,</span><span 
+class="cmr-10x-x-109">1)</span>.
+                                                                     
+
+                                                                     
+</p><!--l. 594--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.54.11    </span> <a 
+ id="x269-123300020.54.11"></a>Lambert’s W Function</h4>
+<!--l. 595--><p class="noindent" ><a 
+ id="LAMBERTW"></a> <a 
+ id="dx269-1233001"></a><a 
+ id="dx269-1233002"></a>
+</p><!--l. 598--><p class="noindent" >Lambert’s function <span 
+class="cmmi-10x-x-109">ω</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span>, represented by the unary operator <span 
+class="pcrr8t-x-x-109">Lambert_W</span>, is the inverse
+of the function <span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">we</span><sup><span 
+class="cmmi-8">w</span></sup>. Therefore it is an important contribution for the solve
+package.
+</p><!--l. 603--><p class="noindent" >For real-valued arguments <span 
+class="cmmi-10x-x-109">ω</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) </span>is only real-valued in the interval <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">∕e,</span><span 
+class="cmsy-10x-x-109">∞</span><span 
+class="cmr-10x-x-109">)</span>. In the
+interval <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">∕e,</span><span 
+class="cmr-10x-x-109">0)</span>, it is double-valued with a branch point at the point (-1/e, -1) where
+<span 
+class="cmmi-10x-x-109">ω</span><span 
+class="cmsy-10x-x-109">′</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) </span>is singular. The positive branch is deﬁned on the interval <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">∕e,</span><span 
+class="cmsy-10x-x-109">∞</span><span 
+class="cmr-10x-x-109">)</span>
+where it is monotonically increasing with <span 
+class="cmmi-10x-x-109">ω</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmmi-10x-x-109">&#x003E; </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1</span>. The negative branch is
+deﬁned on the interval <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">∕e,</span><span 
+class="cmr-10x-x-109">0) </span>where it is monotonically decreasing with
+<span 
+class="cmmi-10x-x-109">ω</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmmi-10x-x-109">&#x003C; </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1</span>.
+</p><!--l. 611--><p class="noindent" >Simpliﬁcation rules for <span 
+class="cmmi-10x-x-109">ω</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) </span>are provided for the special arguments <span 
+class="cmr-10x-x-109">0 </span>and <span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">∕e </span>and for
+its logarithm, derivative and integral. A previous rule for its exponential caused problems
+with power series expansions about zero and has been deactivated. This does not seem to
+impact on the SOLVE package. However, this rule may be reactivated if required
+by
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1394">
+      let lambert_exp_rule;
+ <br />   %  and deactivated again by
+ <br />      clear lambert_exp_rule;
+</div>
+<!--l. 620--><p class="nopar" >
+</p><!--l. 622--><p class="noindent" >The function is studied extensively in <span class="cite">[<a 
+href="manualap2.html#XHareCorless:92">HCGJ92</a>]</span>. The current implementation will
+compute values on the principal branch for all complex numerical arguments only if the
+switch <span 
+class="pcrr8t-x-x-109">rounded </span>is on. However, since the numerical computations are carried out in
+<span 
+class="pcrr8t-x-x-109">complex-rounded </span>mode, it is also better to turn the switch <span 
+class="pcrr8t-x-x-109">complex </span>to on to avoid
+repeated irritating mode change warnings.
+</p><!--l. 629--><p class="noindent" >The real positive branch is part of the principal branch and currently there is no way
+of computing values on the real negative branch or indeed any non-principal
+values.
+</p><!--l. 633--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.54.12    </span> <a 
+ id="x269-123400020.54.12"></a>Spherical and Solid Harmonics</h4>
+<!--l. 634--><p class="noindent" ><a 
+ id="operator:SPHERICALHARMONICY"></a> <a 
+ id="operator:SOLIDHARMONICY"></a> <a 
+ id="SPHSOLH"></a> <a 
+ id="dx269-1234001"></a><a 
+ id="dx269-1234002"></a><a 
+ id="dx269-1234003"></a>
+</p><!--l. 640--><p class="noindent" >The relevant operators are, respectively,<br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">SolidHarmonicY </span>and <span 
+class="pcrr8t-x-x-109">SphericalHarmonicY</span>.
+</p><!--l. 643--><p class="noindent" >The <span 
+class="pcrr8t-x-x-109">SolidHarmonicY </span>operator implements the Solid Harmonics described below. It
+expects 6 parameter, namely <span 
+class="cmmi-10x-x-109">n</span>, <span 
+class="cmmi-10x-x-109">m</span>, <span 
+class="cmmi-10x-x-109">x</span>, <span 
+class="cmmi-10x-x-109">y</span>, <span 
+class="cmmi-10x-x-109">z </span>and <span 
+class="cmmi-10x-x-109">r</span><span 
+class="cmr-10x-x-109">2 </span>and returns a polynomial in <span 
+class="cmmi-10x-x-109">x</span>, <span 
+class="cmmi-10x-x-109">y</span>, <span 
+class="cmmi-10x-x-109">z </span>and
+<span 
+class="cmmi-10x-x-109">r</span><span 
+class="cmr-10x-x-109">2</span>.
+</p><!--l. 647--><p class="noindent" >The operator <span 
+class="pcrr8t-x-x-109">SphericalHarmonicY </span>is a special case of <span 
+class="pcrr8t-x-x-109">SolidHarmonicY </span>with
+the usual deﬁnition:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1395">
+algebraic procedure SphericalHarmonicY(n,m,theta,phi);
+ <br />        SolidHarmonicY(n,m,sin(theta)*cos(phi),
+ <br />                sin(theta)*sin(phi),cos(theta),1)$
+</div>
+<!--l. 655--><p class="nopar" >
+</p><!--l. 658--><p class="noindent" >Solid Harmonics of order <span 
+class="cmmi-10x-x-109">n </span>(Laplace polynomials) are homogeneous polynomials of
+degree <span 
+class="cmmi-10x-x-109">n </span>in <span 
+class="cmmi-10x-x-109">x</span>, <span 
+class="cmmi-10x-x-109">y</span>, <span 
+class="cmmi-10x-x-109">z </span>which are solutions of the Laplace equation:-
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1396">
+       df(P,x,2) + df(P,y,2) + df(P,z,2) = 0.
+</div>
+<!--l. 664--><p class="nopar" >
+</p><!--l. 666--><p class="noindent" >There are <span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmr-10x-x-109">+ 1 </span>independent such polynomials for any given <span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmsy-10x-x-109">≥ </span><span 
+class="cmr-10x-x-109">0 </span>and with:-
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1397">
+       w!0 = z, w!+ = i*(x-i*y)/2, w!- = i*(x+i*y)/2,
+</div>
+<!--l. 671--><p class="nopar" >
+</p><!--l. 673--><p class="noindent" >they are given by the Fourier integral:-
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1398">
+ S(n,m,w!-,w!0,w!+) =
+ <br />       (1/(2*pi)) *
+ <br />       for u:=-pi:pi integrate(w!0 + w!+ * exp(i*u)
+ <br />            + w!- * exp(-i*u))^n * exp(i*m*u) * du;
+</div>
+<!--l. 680--><p class="nopar" >
+</p><!--l. 682--><p class="noindent" >which is obviously zero if <span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmmi-10x-x-109">m</span><span 
+class="cmsy-10x-x-109">| </span><span 
+class="cmmi-10x-x-109">&#x003E; n </span>since then all terms in the expanded integrand contain
+the factor <span 
+class="cmmi-10x-x-109">e</span><sup><span 
+class="cmmi-8">iku</span></sup> with <span 
+class="cmmi-10x-x-109">k</span><span 
+class="cmmi-10x-x-109">≠</span><span 
+class="cmr-10x-x-109">0</span>.
+</p><!--l. 685--><p class="noindent" ><span 
+class="cmmi-10x-x-109">S</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n,m,x,y,z</span><span 
+class="cmr-10x-x-109">) </span>is proportional to
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1399">
+     r^n * Legendre(n,m,cos theta) * exp(i*phi)
+</div>
+<!--l. 688--><p class="nopar" > where <span 
+class="cmmi-10x-x-109">r</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">z</span><sup><span 
+class="cmr-8">2</span></sup>.
+</p><!--l. 691--><p class="noindent" >The spherical harmonics are simply the restriction of the solid harmonics to the surface
+of the unit sphere and the set of all spherical harmonics with <span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmsy-10x-x-109">≥ </span><span 
+class="cmr-10x-x-109">0</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmsy-10x-x-109">≤ </span><span 
+class="cmmi-10x-x-109">m </span><span 
+class="cmsy-10x-x-109">≤ </span><span 
+class="cmmi-10x-x-109">n </span>form a
+complete orthogonal basis on it, i.e. <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="cmmi-10x-x-109">n,m</span><span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmmi-10x-x-109">n</span><span 
+class="cmsy-10x-x-109">′</span><span 
+class="cmmi-10x-x-109">,m</span><span 
+class="cmsy-10x-x-109">′⟩ </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">δ</span><sub><span 
+class="cmmi-8">n,n</span><span 
+class="cmsy-8">′</span></sub><span 
+class="cmmi-10x-x-109">δ</span><sub><span 
+class="cmmi-8">m,m</span><span 
+class="cmsy-8">′</span></sub> using <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmsy-10x-x-109">⟩ </span>to designate
+the scalar product of functions over the spherical surface.
+</p><!--l. 699--><p class="noindent" >The coeﬃcients of the solid harmonics are normalised in what follows to yield an
+orthonormal system of spherical harmonics.
+</p><!--l. 702--><p class="noindent" >Given their polynomial nature, there are many recursions formulae for the solid
+harmonics and any recursion valid for Legendre functions can be ‘translated’ into solid
+harmonics. However the direct proof is usually far simpler using Laplace’s
+deﬁnition.
+</p><!--l. 707--><p class="noindent" >It is also clear that all diﬀerentiations of solid harmonics are trivial, qua polynomials.
+</p><!--l. 710--><p class="noindent" >Some substantial reduction in the symbolic form would occur if one maintained
+throughout the recursions the symbol <span 
+class="cmmi-10x-x-109">r</span><span 
+class="cmr-10x-x-109">2 </span>(<span 
+class="cmmi-10x-x-109">r </span>cannot occur as it is not rational in <span 
+class="cmmi-10x-x-109">x,y,z</span>).
+Formally the solid harmonics appear in this guise as more compact polynomials in
+<span 
+class="cmmi-10x-x-109">x,y,z,r</span><span 
+class="cmr-10x-x-109">2</span>.
+</p><!--l. 715--><p class="noindent" >Only two recursions are needed:-
+</p><!--l. 717--><p class="noindent" >(i) along the diagonal <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n,n</span><span 
+class="cmr-10x-x-109">)</span>;
+</p><!--l. 719--><p class="noindent" >(ii) along a line of constant <span 
+class="cmmi-10x-x-109">n</span>: <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">m,m</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">m </span><span 
+class="cmr-10x-x-109">+ 1</span><span 
+class="cmmi-10x-x-109">,m</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n,m</span><span 
+class="cmr-10x-x-109">)</span>.
+</p><!--l. 721--><p class="noindent" >Numerically these recursions are stable.
+</p><!--l. 723--><p class="noindent" >For <span 
+class="cmmi-10x-x-109">m &#x003C; </span><span 
+class="cmr-10x-x-109">0 </span>one has:-
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+               <span 
+class="cmmi-10x-x-109">S</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n,m,x,y,z</span><span 
+class="cmr-10x-x-109">) = (</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1)</span><sup><span 
+class="cmmi-8">m</span></sup><span 
+class="cmmi-10x-x-109">S</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n,</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmmi-10x-x-109">m,x,</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmmi-10x-x-109">y,z</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 724--><p class="nopar" >
+</p><!--l. 726--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.54.13    </span> <a 
+ id="x269-123500020.54.13"></a>3j symbols and Clebsch-Gordan Coeﬃcients</h4>
+<!--l. 727--><p class="noindent" ><a 
+ id="CLEBSCHG"></a> <a 
+ id="operator:ThreeJSymbol"></a> <a 
+ id="operator:Clebsch_Gordan"></a> <a 
+ id="dx269-1235001"></a><a 
+ id="dx269-1235002"></a> <a 
+ id="dx269-1235003"></a> The operators <span 
+class="pcrr8t-x-x-109">ThreeJSymbol </span>and <span 
+class="pcrr8t-x-x-109">Clebsch_Gordan </span>are deﬁned as
+in <span class="cite">[<a 
+href="manualap2.html#XLandoltBoernstein:68">LB68</a>]</span> or <span class="cite">[<a 
+href="manualap2.html#XEdmonds:57">Edm57</a>]</span> and expect as arguments three lists of values {<span 
+class="cmmi-10x-x-109">j</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmmi-10x-x-109">,m</span><sub><span 
+class="cmmi-8">i</span></sub>},
+e.g.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1400">
+ThreeJSymbol({J+1,M},{J,-M},{1,0});
+ <br />Clebsch_Gordan({2,0},{2,0},{2,0});
+</div>
+<!--l. 738--><p class="nopar" >
+</p><!--l. 740--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.54.14    </span> <a 
+ id="x269-123600020.54.14"></a>6j symbols </h4>
+<!--l. 741--><p class="noindent" ><a 
+ id="operator:SixJSymbol"></a> The operator <span 
+class="pcrr8t-x-x-109">SixJSymbol </span>is deﬁned as in <span class="cite">[<a 
+href="manualap2.html#XLandoltBoernstein:68">LB68</a>]</span> or <span class="cite">[<a 
+href="manualap2.html#XEdmonds:57">Edm57</a>]</span> and expects two lists of
+values {<span 
+class="cmmi-10x-x-109">j</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,j</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,j</span><sub><span 
+class="cmr-8">3</span></sub>} and {<span 
+class="cmmi-10x-x-109">l</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,l</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,l</span><sub><span 
+class="cmr-8">3</span></sub>} as arguments, e.g.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1401">
+SixJSymbol({7,6,3},{2,4,6});
+</div>
+<!--l. 748--><p class="nopar" >
+</p><!--l. 750--><p class="noindent" >In the current implementation of <span 
+class="pcrr8t-x-x-109">SixJSymbol </span>there is only limited reasoning about the
+minima and maxima of the summation using the <span 
+class="ptmrc8t-x-x-109">I<span 
+class="small-caps">N</span><span 
+class="small-caps">E</span><span 
+class="small-caps">Q</span> </span>package, such that in most cases
+the special 6j-symbols (see e.g. <span class="cite">[<a 
+href="manualap2.html#XLandoltBoernstein:68">LB68</a>]</span>) will not be found.
+</p><!--l. 756--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.54.15    </span> <a 
+ id="x269-123700020.54.15"></a>Stirling Numbers</h4>
+<!--l. 757--><p class="noindent" ><a 
+ id="STIRL"></a> <a 
+ id="operator:STIRLING1"></a> <a 
+ id="operator:STIRLING2"></a> <a 
+ id="dx269-1237001"></a><a 
+ id="dx269-1237002"></a><a 
+ id="dx269-1237003"></a> The Stirling numbers of the ﬁrst and second kind are computed by calling the binary
+operators <span 
+class="pcrr8t-x-x-109">Stirling1 </span>and <span 
+class="pcrr8t-x-x-109">Stirling2 </span>respectively.
+<a 
+ id="dx269-1237004"></a>
+</p><!--l. 766--><p class="noindent" >Stirling numbers of the ﬁrst kind have the generating function:
+</p>
+<table 
+class="equation-star"><tr><td>
+                    <span 
+class="cmex-10x-x-109">∑</span>
+                       <sub><span 
+class="cmmi-8">m</span><span 
+class="cmr-8">=0</span></sub><sup><span 
+class="cmmi-8">n</span></sup><span 
+class="cmmi-10x-x-109">s</span><sub>
+<span 
+class="cmmi-8">n</span></sub><sup><span 
+class="cmmi-8">m</span></sup><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">m</span></sup> <span 
+class="cmr-10x-x-109">= (</span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmr-10x-x-109">+ 1)</span><sub>
+<span 
+class="cmmi-8">n</span></sub>
+</td></tr></table>
+<!--l. 767--><p class="nopar" >
+where <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmr-10x-x-109">+ 1)</span><sub><span 
+class="cmmi-8">n</span></sub> is the <a 
+href="manualse40.html#POCH">Pochhammer symbol</a>. This provides a convenient way of
+calculating these Stirling numbers by extracting coeﬃcients of the polynomial obtained
+by evaluating the Pochhammer symbol. REDUCE however uses an explicit
+summation.
+                                                                     
+
+                                                                     
+</p><!--l. 773--><p class="noindent" >Stirling numbers of the second kind are deﬁned by the formula:
+</p>
+<table 
+class="equation-star"><tr><td>
+                 <span 
+class="cmmi-10x-x-109">S</span><sub><span 
+class="cmmi-8">n</span></sub><sup><span 
+class="cmmi-8">m</span></sup> <span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual698x.png" alt="1--
+m!"  class="frac" align="middle" /><span 
+class="cmex-10x-x-109">∑</span>
+     <sub><span 
+class="cmmi-8">k</span><span 
+class="cmr-8">=0</span></sub><sup><span 
+class="cmmi-8">m</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1)</span><sup><span 
+class="cmmi-8">m</span><span 
+class="cmsy-8">−</span><span 
+class="cmmi-8">k</span></sup><img 
+src="manual699x.png" alt="(  )
+ m
+  k"  /><span 
+class="cmmi-10x-x-109">k</span><sup><span 
+class="cmmi-8">n</span></sup><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 774--><p class="nopar" >
+REDUCE uses this explicit summation to evaluate Stirling numbers of the second
+kind.
+</p><!--l. 778--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.54.16    </span> <a 
+ id="x269-123800020.54.16"></a>Constants</h4>
+<!--l. 779--><p class="noindent" ><a 
+ id="CONSTS"></a> <a 
+ id="dx269-1238001"></a><a 
+ id="dx269-1238002"></a><a 
+ id="dx269-1238003"></a><a 
+ id="dx269-1238004"></a>
+</p><!--l. 784--><p class="noindent" >The following well-known constants are deﬁned in the REDUCE core, but the code for
+computing their numerical value when the switch <span 
+class="pcrr8t-x-x-109">ROUNDED </span>is on is contained in the
+special function package. </p>
+     <ul class="itemize1">
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">Euler_Gamma </span>: Euler’s constant, also available as <span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmmi-10x-x-109">ψ</span><span 
+class="cmr-10x-x-109">(1)</span>;
+     </li>
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">Catalan </span>: Catalan’s constant;
+     </li>
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">Khinchin </span>: Khinchin’s constant, deﬁned in <span class="cite">[<a 
+href="manualap2.html#XKhinchin:64">Khi64</a>]</span> (which takes a lot of
+     time to compute);
+     </li>
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">Golden_Ratio </span>: <img 
+src="manual700x.png" alt="1 + √5--
+-------
+   2"  class="frac" align="middle" /></li></ul>
+                                                                     
+
+                                                                     
+<!--l. 796--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.54.17    </span> <a 
+ id="x269-123900020.54.17"></a>Orthogonal Polynomials</h4>
+<!--l. 797--><p class="noindent" ><a 
+ id="POLYFN"></a> <a 
+ id="dx269-1239001"></a>
+</p><!--l. 800--><p class="noindent" >All the polynomials in this section take two or more parameters; the ﬁrst is the degree of
+the polynomial and the last is its argument. Any remaining arguments are parameters
+which in the literature are normally rendered as subscripts and superscripts. First, the
+deﬁnitions appropriate to all the sets of orthogonal polynomials in the following
+subsections are listed.
+</p><!--l. 806--><p class="noindent" >A set of polynomials <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmsy-10x-x-109">}</span><span 
+class="cmmi-10x-x-109">,</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmr-10x-x-109">= 0</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span> are said to be <span 
+class="ptmri8t-x-x-109">orthogonal </span>on open interval
+<span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a,b</span><span 
+class="cmr-10x-x-109">) </span>(where <span 
+class="cmmi-10x-x-109">a </span>and/or <span 
+class="cmmi-10x-x-109">b </span>may be inﬁnite) with positive weight function <span 
+class="cmmi-10x-x-109">w</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span>
+if
+</p>
+<table 
+class="equation-star"><tr><td>
+              <span 
+class="cmex-10x-x-109">∫</span>
+                <sub><span 
+class="cmmi-8">a</span></sub><sup><span 
+class="cmmi-8">b</span></sup><span 
+class="cmmi-10x-x-109">p</span><sub>
+<span 
+class="cmmi-8">n</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmmi-8">m</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">w</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)d</span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">= 0</span>      when<span 
+class="cmmi-10x-x-109"> m</span><span 
+class="cmmi-10x-x-109">≠</span><span 
+class="cmmi-10x-x-109">n.</span>
+</td></tr></table>
+<!--l. 809--><p class="nopar" >
+This deﬁnes each polynomial <span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) </span>up to a constant factor <span 
+class="cmmi-10x-x-109">c</span><sub><span 
+class="cmmi-8">n</span></sub> which is usually ﬁxed by
+normalisation. If these factors are chosen so that
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+            <span 
+class="cmmi-10x-x-109">h</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∫</span>
+  <sub><span 
+class="cmmi-8">a</span></sub><sup><span 
+class="cmmi-8">b</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">p</span><sub>
+<span 
+class="cmmi-8">n</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">))</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-10x-x-109">w</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)d</span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">= 1</span>      i.e.<span 
+class="cmmi-10x-x-109"> c</span><sub>
+<span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual701x.png" alt="∘ ---
+  hn"  class="sqrt"  />
+</td></tr></table>
+<!--l. 813--><p class="nopar" >
+then the polynomial set is said to be <span 
+class="ptmri8t-x-x-109">orthonormal. </span>An alternative normalisation, that is
+sometimes used, is to set the leading term of each polynomial <span 
+class="cmmi-10x-x-109">k</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">= 1</span>. The polynomial
+set is then said to be <span 
+class="ptmri8t-x-x-109">monic</span>.
+</p><!--l. 819--><p class="noindent" >In REDUCE the normalisation is chosen so that the polynomial sets are orthonormal and
+hence <span 
+class="cmmi-10x-x-109">k</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmmi-10x-x-109">≠</span><span 
+class="cmr-10x-x-109">1 </span>in general. In the subsections below on each of the polynomial
+sets, the interval <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a,b</span><span 
+class="cmr-10x-x-109">) </span>over which the polynomials are orthogonal, the weight
+function <span 
+class="cmmi-10x-x-109">w</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) </span>and the leading coeﬃcient <span 
+class="cmmi-10x-x-109">k</span><sub><span 
+class="cmmi-8">n</span></sub> of the polynomial of degree <span 
+class="cmmi-10x-x-109">n </span>are
+given together with any constraints on any additional parameters. Also given
+are what might be called the ‘ﬁrst moment’ <span class='accenttilde'><span 
+class="cmmi-10x-x-109">h</span></span><sub><span 
+class="cmmi-8">n</span></sub> of the <span 
+class="cmmi-10x-x-109">n</span>th polynomial deﬁned
+by:
+</p>
+<table 
+class="equation-star"><tr><td>
+                      <span class='accenttilde'><span 
+class="cmmi-10x-x-109">h</span></span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∫</span>
+  <sub><span 
+class="cmmi-8">a</span></sub><sup><span 
+class="cmmi-8">b</span></sup><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">p</span><sub>
+<span 
+class="cmmi-8">n</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">))</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-10x-x-109">w</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmr-10x-x-109">d</span><span 
+class="cmmi-10x-x-109">x</span>
+</td></tr></table>
+<!--l. 826--><p class="nopar" >
+and the ratio
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+               <span 
+class="cmmi-10x-x-109">r</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual702x.png" alt="˜kn
+---
+kn"  class="frac" align="middle" />   where<span 
+class="cmmi-10x-x-109"> p</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) = </span><span 
+class="cmmi-10x-x-109">k</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">n</span></sup> <span 
+class="cmr-10x-x-109">+</span> <span class='accenttilde'><span 
+class="cmmi-10x-x-109">k</span></span><sub>
+<span 
+class="cmmi-8">n</span></sub><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup><span 
+class="cmmi-10x-x-109">…</span>
+</td></tr></table>
+<!--l. 829--><p class="nopar" >
+These quantities may be used in <a 
+href="https://dlmf.nist.gov/18.2#iv" >recurrence relations</a> when generating the polynomials.
+</p><!--l. 833--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.54.17.1    </span> <a 
+ id="x269-124000020.54.17.1"></a>Legendre Polynomials</h5>
+<!--l. 834--><p class="noindent" ><a 
+ id="operator:LEGENDREP"></a> <a 
+ id="dx269-1240001"></a><a 
+ id="dx269-1240002"></a> The function call <span 
+class="pcrr8t-x-x-109">LegendreP(n,x) </span>will return the <span 
+class="cmmi-10x-x-109">n</span>th Legendre polynomial if <span 
+class="cmmi-10x-x-109">n </span>is a
+non-negative integer; otherwise the result will involve the original operator <span 
+class="pcrr8t-x-x-109">LegendreP</span>
+or on graphical interfaces <span 
+class="cmmi-10x-x-109">P</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) </span>will be output.
+<a 
+ id="dx269-1240003"></a>
+</p><!--l. 842--><p class="noindent" >The interval of deﬁnition is <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">1)</span>, the weight function <span 
+class="cmmi-10x-x-109">w</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) = 1 </span>and, for the
+orthonormal case, the leading coeﬃcients are given by <span 
+class="cmmi-10x-x-109">k</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">= 2</span><sup><span 
+class="cmmi-8">n</span></sup><span 
+class="cmr-10x-x-109">(</span><img 
+src="manual703x.png" alt="1
+2"  class="frac" align="middle" /><span 
+class="cmr-10x-x-109">)</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmmi-10x-x-109">∕n</span><span 
+class="cmr-10x-x-109">! </span>where <span 
+class="cmr-10x-x-109">(</span><img 
+src="manual704x.png" alt="1
+2"  class="frac" align="middle" /><span 
+class="cmr-10x-x-109">)</span><sub><span 
+class="cmmi-8">n</span></sub> is
+the <a 
+href="manualse40.html#POCH">Pochhammer symbol</a>. Also <span class='accenttilde'><span 
+class="cmmi-10x-x-109">h</span></span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual705x.png" alt="-2--
+2n+1"  class="frac" align="middle" /> and <span 
+class="cmmi-10x-x-109">r</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">= 0</span>.
+</p><!--l. 848--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.54.17.2    </span> <a 
+ id="x269-124100020.54.17.2"></a>Associated Legendre Functions</h5>
+<!--l. 849--><p class="noindent" >The function call <span 
+class="pcrr8t-x-x-109">LegendreP(n,m,x) </span>will return the <span 
+class="cmmi-10x-x-109">n</span>th associated Legendre
+function if <span 
+class="cmmi-10x-x-109">n </span>and <span 
+class="cmmi-10x-x-109">m </span>are integers with <span 
+class="cmr-10x-x-109">0 </span><span 
+class="cmsy-10x-x-109">≤ </span><span 
+class="cmmi-10x-x-109">m </span><span 
+class="cmsy-10x-x-109">≤ </span><span 
+class="cmmi-10x-x-109">n</span>; otherwise the result will involve the
+original operator <span 
+class="pcrr8t-x-x-109">LegendreP </span>or on graphical interfaces <span 
+class="cmmi-10x-x-109">P</span><sub><span 
+class="cmmi-8">n</span></sub><sup><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">m</span><span 
+class="cmr-8">)</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) </span>will be
+output.
+</p><!--l. 854--><p class="noindent" >They are deﬁned by
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                <span 
+class="cmmi-10x-x-109">P</span><sub><span 
+class="cmmi-8">n</span></sub><sup><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">m</span><span 
+class="cmr-8">)</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) = (</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1)</span><sup><span 
+class="cmmi-8">m</span></sup><span 
+class="cmr-10x-x-109">(1 </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmr-10x-x-109">)</span><sup><span 
+class="cmmi-8">m∕</span><span 
+class="cmr-8">2</span></sup><img 
+src="manual706x.png" alt="dmPn (x)
+--dxm---"  class="frac" align="middle" /><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmr-10x-x-109">;</span>
+</td></tr></table>
+<!--l. 855--><p class="nopar" >
+it should be noted that they are only polynomials if <span 
+class="cmmi-10x-x-109">m </span>is even. Currently the extension of
+these functions to negative <span 
+class="cmmi-10x-x-109">n </span>and <span 
+class="cmmi-10x-x-109">m </span>is not implemented in REDUCE.
+</p><!--l. 860--><p class="noindent" >For ﬁxed <span 
+class="cmmi-10x-x-109">m </span>these functions are orthogonal over the interval <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">1)</span>; the weight function
+being <span 
+class="cmmi-10x-x-109">w</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) = 1</span>. However, unlike the polynomials in the rest of this section, they are <span 
+class="ptmri8t-x-x-109">not</span>
+orthonormal:
+</p>
+<table 
+class="equation-star"><tr><td>
+             <span 
+class="cmex-10x-x-109">∫</span>
+               <sub><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sub><sup><span 
+class="cmr-8">1</span></sup><img 
+src="manual707x.png" alt="(       )
+ P (mn )(x )"  class="left" align="middle" /><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmr-10x-x-109">d</span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">h</span><sub>
+<span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual708x.png" alt="    2(l + m )!
+---------------
+(2l + 1)!(l − m )!"  class="frac" align="middle" /><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 864--><p class="nopar" >
+</p><!--l. 866--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.54.17.3    </span> <a 
+ id="x269-124200020.54.17.3"></a>Chebyshev Polynomials</h5>
+<!--l. 867--><p class="noindent" ><a 
+ id="operator:CHEBYSHEVT"></a> <a 
+ id="operator:CHEBYSHEVU"></a> <a 
+ id="dx269-1242001"></a><a 
+ id="dx269-1242002"></a> The function call <span 
+class="pcrr8t-x-x-109">ChebyshevT(n,x) </span>will return the <span 
+class="cmmi-10x-x-109">n</span>th Chebyshev polynomial of
+the ﬁrst kind if <span 
+class="cmmi-10x-x-109">n </span>is a non-negative integer; otherwise the result will involve
+the original operator <span 
+class="pcrr8t-x-x-109">ChebyshevT </span>or on graphical interfaces <span 
+class="cmmi-10x-x-109">T</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) </span>will be
+output.
+</p><!--l. 875--><p class="noindent" >The interval of deﬁnition is <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">1)</span>, the weight function <span 
+class="cmmi-10x-x-109">w</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) = (1 </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmr-10x-x-109">)</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span><span 
+class="cmmi-8">∕</span><span 
+class="cmr-8">2</span></sup> and, for the
+orthonormal case, the leading coeﬃcients are given by <span 
+class="cmmi-10x-x-109">k</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">= 2</span><sup><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup><span 
+class="cmmi-10x-x-109"> </span>for<span 
+class="cmmi-10x-x-109"> n &#x003E; </span><span 
+class="cmr-10x-x-109">0;</span><span 
+class="cmmi-10x-x-109"> k</span><sub><span 
+class="cmr-8">0</span></sub> <span 
+class="cmr-10x-x-109">= 1</span>.
+Also <span class='accenttilde'><span 
+class="cmmi-10x-x-109">h</span></span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">π∕</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmmi-10x-x-109"> </span>for<span 
+class="cmmi-10x-x-109"> n &#x003E; </span><span 
+class="cmr-10x-x-109">0;</span><span 
+class="cmmi-10x-x-109"> </span><span class='accenttilde'><span 
+class="cmmi-10x-x-109">h</span></span><sub><span 
+class="cmr-8">0</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">π</span><span style="margin-left:0.3em" class="thinspace"></span> and <span 
+class="cmmi-10x-x-109">r</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">= 0</span>.
+                                                                     
+
+                                                                     
+<a 
+ id="dx269-1242003"></a>
+</p><!--l. 881--><p class="noindent" >The function call <span 
+class="pcrr8t-x-x-109">ChebyshevU(n,x) </span>will return the <span 
+class="cmmi-10x-x-109">n</span>th Chebyshev polynomial of the
+second kind if <span 
+class="cmmi-10x-x-109">n </span>is a non-negative integer; otherwise the result will involve
+the original operator <span 
+class="pcrr8t-x-x-109">ChebyshevU </span>or on graphical interfaces <span 
+class="cmmi-10x-x-109">U</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) </span>will be
+output.
+</p><!--l. 886--><p class="noindent" >The interval of deﬁnition is <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">1)</span>, the weight function <span 
+class="cmmi-10x-x-109">w</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) = (1 </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmr-10x-x-109">)</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span><span 
+class="cmmi-8">∕</span><span 
+class="cmr-8">2</span></sup> and, for
+the orthonormal case, the leading coeﬃcients are given by <span 
+class="cmmi-10x-x-109">k</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">= 2</span><sup><span 
+class="cmmi-8">n</span></sup>, <span class='accenttilde'><span 
+class="cmmi-10x-x-109">h</span></span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">π∕</span><span 
+class="cmr-10x-x-109">2 </span>and
+<span 
+class="cmmi-10x-x-109">r</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">= 0</span>.
+</p><!--l. 890--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.54.17.4    </span> <a 
+ id="x269-124300020.54.17.4"></a>Gegenbauer Polynomials</h5>
+<!--l. 891--><p class="noindent" ><a 
+ id="operator:GEGENBAUERP"></a> <a 
+ id="dx269-1243001"></a><a 
+ id="dx269-1243002"></a> The function call <span 
+class="pcrr8t-x-x-109">GegenbauerP(n,a,x) </span>will return the Gegenbauer polynomial of
+degree <span 
+class="cmmi-10x-x-109">n </span>and parameter <span 
+class="cmmi-10x-x-109">a </span>if <span 
+class="cmmi-10x-x-109">n </span>is a non-negative integer and <span 
+class="cmmi-10x-x-109">a </span>is numerical; otherwise the
+result will involve the original operator <span 
+class="pcrr8t-x-x-109">GegenbauerP </span>or on graphical interfaces
+<span 
+class="cmmi-10x-x-109">C</span><sub><span 
+class="cmmi-8">n</span></sub><sup><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">a</span><span 
+class="cmr-8">)</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) </span>will be output.
+<a 
+ id="dx269-1243003"></a>
+</p><!--l. 899--><p class="noindent" >The interval of deﬁnition is <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">1)</span>, the weight function <span 
+class="cmmi-10x-x-109">w</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) = (1 </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmr-10x-x-109">)</span><sup><span 
+class="cmmi-8">a</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span><span 
+class="cmmi-8">∕</span><span 
+class="cmr-8">2</span></sup> and, for
+the orthonormal case, the leading coeﬃcients are given by <span 
+class="cmmi-10x-x-109">k</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">= 2</span><sup><span 
+class="cmmi-8">n</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a</span><span 
+class="cmr-10x-x-109">)</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmmi-10x-x-109">∕n</span><span 
+class="cmr-10x-x-109">! </span>where <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a</span><span 
+class="cmr-10x-x-109">)</span><sub><span 
+class="cmmi-8">n</span></sub>
+is the <a 
+href="manualse40.html#POCH">Pochhammer symbol</a>. The parameter <span 
+class="cmmi-10x-x-109">a </span>should satisfy <span 
+class="cmmi-10x-x-109">a &#x003E; </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">∕</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmmi-10x-x-109"> a</span><span 
+class="cmmi-10x-x-109">≠</span><span 
+class="cmr-10x-x-109">0</span>.
+Also
+</p>
+<table 
+class="equation-star"><tr><td>
+                <span class='accenttilde'><span 
+class="cmmi-10x-x-109">h</span></span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual709x.png" alt="21−2aπΓ (n + 2a)
+(n+-a)(Γ (a))2n!"  class="frac" align="middle" />      and    <span 
+class="cmmi-10x-x-109">r</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">= 0</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 905--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p><!--l. 907--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.54.17.5    </span> <a 
+ id="x269-124400020.54.17.5"></a>Jacobi Polynomials</h5>
+<!--l. 908--><p class="noindent" ><a 
+ id="operator:JACOBIP"></a> <a 
+ id="dx269-1244001"></a><a 
+ id="dx269-1244002"></a> The function call <span 
+class="pcrr8t-x-x-109">JacobiP(n,a,b,x) </span>will return the Jacobi polynomial of degree <span 
+class="cmmi-10x-x-109">n</span>
+and parameters <span 
+class="cmmi-10x-x-109">a </span>and <span 
+class="cmmi-10x-x-109">b </span>if <span 
+class="cmmi-10x-x-109">n </span>is a non-negative integer and <span 
+class="cmmi-10x-x-109">a </span>and <span 
+class="cmmi-10x-x-109">b </span>are numerical;
+otherwise the result will involve the original operator <span 
+class="pcrr8t-x-x-109">JacobiP </span>or on graphical
+interfaces <span 
+class="cmmi-10x-x-109">P</span><sub><span 
+class="cmmi-8">n</span></sub><sup><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">a,b</span><span 
+class="cmr-8">)</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) </span>will be output.
+<a 
+ id="dx269-1244003"></a>
+</p><!--l. 917--><p class="noindent" >The interval of deﬁnition is <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">1)</span>, the weight function <span 
+class="cmmi-10x-x-109">w</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) = (1 </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span><sup><span 
+class="cmmi-8">a</span></sup><span 
+class="cmr-10x-x-109">(1 + </span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span><sup><span 
+class="cmmi-8">b</span></sup> and,
+for the orthonormal case, the leading coeﬃcients are given by
+</p>
+<table 
+class="equation-star"><tr><td>
+                        <span class='accenttilde'><span 
+class="cmmi-10x-x-109">h</span></span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual710x.png" alt="(n+ a + b+ 1)n
+------n--------
+     2 n!"  class="frac" align="middle" />
+</td></tr></table>
+<!--l. 920--><p class="nopar" >
+where <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">a </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">b </span><span 
+class="cmr-10x-x-109">+ 1)</span><sub><span 
+class="cmmi-8">n</span></sub> is the <a 
+href="manualse40.html#POCH">Pochhammer symbol</a>. The parameters <span 
+class="cmmi-10x-x-109">a </span>and <span 
+class="cmmi-10x-x-109">b </span>should
+satisfy <span 
+class="cmmi-10x-x-109">a &#x003E; </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmmi-10x-x-109"> b &#x003E; </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1</span>. Also
+                                                                     
+
+                                                                     
+</p><table 
+class="align-star">
+        <tr><td 
+class="align-odd"><span class='accenttilde'><span 
+class="cmmi-10x-x-109">h</span></span><sub><span 
+class="cmr-8">0</span></sub></td>        <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= 2</span><sup><span 
+class="cmmi-8">a</span><span 
+class="cmr-8">+</span><span 
+class="cmmi-8">b</span><span 
+class="cmr-8">+1</span></sup><img 
+src="manual711x.png" alt="Γ (a-+-1)Γ (b+-1)
+  Γ (a + b+ 2)"  class="frac" align="middle" /></td>                                   <td 
+class="align-label"></td>        <td 
+class="align-label">
+        </td></tr><tr><td 
+class="align-odd"><span class='accenttilde'><span 
+class="cmmi-10x-x-109">h</span></span><sub><span 
+class="cmmi-8">n</span></sub></td>        <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= 2</span><sup><span 
+class="cmmi-8">a</span><span 
+class="cmr-8">+</span><span 
+class="cmmi-8">b</span><span 
+class="cmr-8">+1</span></sup><img 
+src="manual712x.png" alt="     Γ (n+ a + 1)Γ (n + b+ 1)
+(2n-+-a+-b-+-1)Γ (n-+-a+-b-+-1)n!"  class="frac" align="middle" />   for<span 
+class="cmmi-10x-x-109"> n &#x003E; </span><span 
+class="cmr-10x-x-109">0</span></td>        <td 
+class="align-label"></td>        <td 
+class="align-label">
+        </td></tr><tr><td 
+class="align-odd"><span 
+class="cmmi-10x-x-109">r</span><sub><span 
+class="cmmi-8">n</span></sub></td>        <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual713x.png" alt="-n(a-−-b)-
+2n + a + b"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">.</span></td>                                              <td 
+class="align-label"></td>        <td 
+class="align-label"></td></tr></table>
+<!--l. 930--><p class="noindent" >The Legendre, Chebyshev and Gegenbauer polynomials are all, in fact, special cases of
+the Jacobi polynomials.
+</p><!--l. 933--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.54.17.6    </span> <a 
+ id="x269-124500020.54.17.6"></a>Laguerre Polynomials</h5>
+<!--l. 934--><p class="noindent" ><a 
+ id="operator:LAGUERREP"></a> <a 
+ id="dx269-1245001"></a><a 
+ id="dx269-1245002"></a> The function call <span 
+class="pcrr8t-x-x-109">LaguerreP(n,x) </span>will return the <span 
+class="cmmi-10x-x-109">n</span>th Laguerre polynomial if <span 
+class="cmmi-10x-x-109">n </span>is a
+non-negative integer; otherwise the result will involve the original operator <span 
+class="pcrr8t-x-x-109">LaguerreP</span>
+or on graphical interfaces <span 
+class="cmmi-10x-x-109">L</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) </span>will be output.
+</p><!--l. 941--><p class="noindent" >The interval of deﬁnition is <span 
+class="cmr-10x-x-109">(0</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">∞</span><span 
+class="cmr-10x-x-109">)</span>, the weight function <span 
+class="cmmi-10x-x-109">w</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) = </span><span 
+class="cmmi-10x-x-109">e</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmmi-8">x</span></sup> and, for the
+orthonormal case, the leading coeﬃcients are given by <span 
+class="cmmi-10x-x-109">k</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">= (</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1)</span><sup><span 
+class="cmmi-8">n</span></sup><span 
+class="cmmi-10x-x-109">∕n</span><span 
+class="cmr-10x-x-109">!</span>, <span class='accenttilde'><span 
+class="cmmi-10x-x-109">h</span></span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">= 1 </span>and
+<span 
+class="cmmi-10x-x-109">r</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmmi-10x-x-109">n</span><sup><span 
+class="cmr-8">2</span></sup>.
+</p><!--l. 945--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.54.17.7    </span> <a 
+ id="x269-124600020.54.17.7"></a>Generalised Laguerre Polynomials</h5>
+<a 
+ id="dx269-1246001"></a>
+<a 
+ id="dx269-1246002"></a>
+<!--l. 947--><p class="noindent" >If used with three arguments <span 
+class="pcrr8t-x-x-109">LaguerreP(n,a,x) </span>returns the <span 
+class="cmmi-10x-x-109">n</span>th generalised (or
+associated) Laguerre polynomial if <span 
+class="cmmi-10x-x-109">n </span>is a non-negative integer and <span 
+class="cmmi-10x-x-109">a </span>is numeric;
+otherwise the result will involve the original operator <span 
+class="pcrr8t-x-x-109">LaguerreP </span>or on graphical
+interfaces <span 
+class="cmmi-10x-x-109">L</span><sub><span 
+class="cmmi-8">n</span></sub><sup><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">a</span><span 
+class="cmr-8">)</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) </span>will be output. These are more properly called <span 
+class="ptmri8t-x-x-109">Sonin polynomials</span>
+                                                                     
+
+                                                                     
+after their discoverer N. Y. Sonin.
+</p><!--l. 954--><p class="noindent" >The interval of deﬁnition is <span 
+class="cmr-10x-x-109">(0</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">∞</span><span 
+class="cmr-10x-x-109">)</span>, the weight function <span 
+class="cmmi-10x-x-109">w</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) = </span><span 
+class="cmmi-10x-x-109">e</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmmi-8">x</span></sup><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">a</span></sup> and, for
+the orthonormal case, the leading coeﬃcients are given by <span 
+class="cmmi-10x-x-109">k</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">= (</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1)</span><sup><span 
+class="cmmi-8">n</span></sup><span 
+class="cmmi-10x-x-109">∕n</span><span 
+class="cmr-10x-x-109">!</span>,
+<span class='accenttilde'><span 
+class="cmmi-10x-x-109">h</span></span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">= Γ(</span><span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">a </span><span 
+class="cmr-10x-x-109">+ 1)</span><span 
+class="cmmi-10x-x-109">∕n</span><span 
+class="cmr-10x-x-109">! </span>and <span 
+class="cmmi-10x-x-109">r</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmmi-10x-x-109">n</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">a</span><span 
+class="cmr-10x-x-109">)</span>. The parameter <span 
+class="cmmi-10x-x-109">a </span>should satisfy
+<span 
+class="cmmi-10x-x-109">a &#x003E; </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1</span>.
+</p><!--l. 959--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.54.17.8    </span> <a 
+ id="x269-124700020.54.17.8"></a>Hermite Polynomials</h5>
+<!--l. 960--><p class="noindent" ><a 
+ id="operator:HERMITEP"></a> <a 
+ id="dx269-1247001"></a><a 
+ id="dx269-1247002"></a> The function call <span 
+class="pcrr8t-x-x-109">HermiteP(n,x) </span>will return the <span 
+class="cmmi-10x-x-109">n</span>th Hermite polynomial if <span 
+class="cmmi-10x-x-109">n </span>is a
+non-negative integer; otherwise the result will involve the original operator <span 
+class="pcrr8t-x-x-109">HermiteP</span>
+or on graphical interfaces <span 
+class="cmmi-10x-x-109">H</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) </span>will be output.
+</p><!--l. 967--><p class="noindent" >The interval of deﬁnition is <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">−∞</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">+</span><span 
+class="cmsy-10x-x-109">∞</span><span 
+class="cmr-10x-x-109">)</span>, the weight function <span 
+class="cmmi-10x-x-109">w</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) = </span><span 
+class="cmmi-10x-x-109">e</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmmi-8">x</span><sup><span 
+class="cmr-6">2</span></sup>
+      </sup> and, for the
+orthonormal case, the leading coeﬃcients are given by <span 
+class="cmmi-10x-x-109">k</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">= 2</span><sup><span 
+class="cmmi-8">n</span></sup>, <span class='accenttilde'><span 
+class="cmmi-10x-x-109">h</span></span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual714x.png" alt="√ π-"  class="sqrt"  /><span 
+class="cmr-10x-x-109">2</span><sup><span 
+class="cmmi-8">n</span>
+</sup><span 
+class="cmmi-10x-x-109">n</span><span 
+class="cmr-10x-x-109">! </span>and
+<span 
+class="cmmi-10x-x-109">r</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">= 0</span>.
+</p><!--l. 972--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.54.18    </span> <a 
+ id="x269-124800020.54.18"></a>Other Polynomials and Related Numbers</h4>
+<a 
+ id="dx269-1248001"></a>
+<!--l. 975--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.54.18.1    </span> <a 
+ id="x269-124900020.54.18.1"></a>Fibonacci Polynomials</h5>
+<a 
+ id="dx269-1249001"></a>
+<a 
+ id="dx269-1249002"></a>
+<!--l. 978--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">FibonacciP(n,x) </span>returns the <span 
+class="cmmi-10x-x-109">n</span>th Fibonacci polynomial in the variable <span 
+class="cmmi-10x-x-109">x</span>. If <span 
+class="cmmi-10x-x-109">n </span>is an
+integer, it will be evaluated using the recursive deﬁnition:
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+      <span 
+class="cmmi-10x-x-109">F</span><sub><span 
+class="cmr-8">0</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) = 0;      </span><span 
+class="cmmi-10x-x-109">F</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) = 1;      </span><span 
+class="cmmi-10x-x-109">F</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) = </span><span 
+class="cmmi-10x-x-109">xF</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) + </span><span 
+class="cmmi-10x-x-109">F</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">2</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 981--><p class="nopar" >
+</p><!--l. 983--><p class="noindent" >The recursion is, of course, optimised as a simple loop to avoid repeated computation of
+lower-order polynomials.
+</p><!--l. 986--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.54.18.2    </span> <a 
+ id="x269-125000020.54.18.2"></a>Euler Numbers and Polynomials</h5>
+<a 
+ id="dx269-1250001"></a>
+<a 
+ id="dx269-1250002"></a>
+<a 
+ id="dx269-1250003"></a>
+<a 
+ id="dx269-1250004"></a>
+<!--l. 989--><p class="noindent" ><a 
+ id="operator:EULERP"></a> Euler numbers are computed by the unary operator <span 
+class="pcrr8t-x-x-109">Euler</span>; the call <span 
+class="pcrr8t-x-x-109">Euler(n) </span>returns
+the <span 
+class="cmmi-10x-x-109">n</span>th Euler number; all the odd Euler numbers are zero. The computation is derived
+directly from Pascal’s triangle of binomial coeﬃcients.
+</p><!--l. 995--><p class="noindent" >The Euler numbers and polynomials have the following generating functions:
+</p>
+<table 
+class="equation-star"><tr><td>
+       <img 
+src="manual715x.png" alt=" 2et
+1+-e2t-"  class="frac" align="middle" /> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∑</span>
+  <sub><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">=0</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><img 
+src="manual716x.png" alt="Entn
+--n!-"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">,</span>        <img 
+src="manual717x.png" alt="  ext
+1-+-et"  class="frac" align="middle" /> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∑</span>
+<sub><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">=0</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><img 
+src="manual718x.png" alt="En (x )tn
+---n!---"  class="frac" align="middle" />
+</td></tr></table>
+<!--l. 998--><p class="nopar" >
+respectively. Thus <span 
+class="cmmi-10x-x-109">E</span><sub><span 
+class="cmr-8">0</span></sub> <span 
+class="cmr-10x-x-109">= 1 </span>and <span 
+class="cmmi-10x-x-109">E</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">= 0</span>. Furthermore the numbers and polynomials are
+related by the equations:
+</p>
+                                                                     
+
+                                                                     
+<table 
+class="equation-star"><tr><td>
+     <span 
+class="cmmi-10x-x-109">E</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">= 2</span><sup><span 
+class="cmmi-8">n</span></sup><span 
+class="cmmi-10x-x-109">E</span><sub>
+<span 
+class="cmmi-8">n</span></sub><img 
+src="manual719x.png" alt="(  )
+  1-
+  2"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">,        E</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) =</span> <span 
+class="cmex-10x-x-109">∑</span>
+  <sub><span 
+class="cmmi-8">k</span><span 
+class="cmr-8">=0</span></sub><sup><span 
+class="cmmi-8">n</span></sup><img 
+src="manual720x.png" alt="(  )
+ n
+ k"  /><img 
+src="manual721x.png" alt="Ek-
+ 2k"  class="frac" align="middle" /><img 
+src="manual722x.png" alt="(      )
+  x − 1-
+      2"  class="left" align="middle" /><sup><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmmi-8">k</span></sup><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 1002--><p class="nopar" >
+</p><!--l. 1004--><p class="noindent" >The Euler polynomials are evaluated for non-negative integer <span 
+class="cmmi-10x-x-109">n </span>by using the summation
+immediately above.
+</p><!--l. 1007--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.54.18.3    </span> <a 
+ id="x269-125100020.54.18.3"></a>Bernoulli Numbers &#x0026; Polynomials</h5>
+<a 
+ id="dx269-1251001"></a>
+<a 
+ id="dx269-1251002"></a>
+<a 
+ id="dx269-1251003"></a>
+<a 
+ id="dx269-1251004"></a>
+<!--l. 1010--><p class="noindent" ><a 
+ id="operator:BERNOULLIP"></a> The call <span 
+class="pcrr8t-x-x-109">Bernoulli(n) </span>evaluates to the <span 
+class="cmmi-10x-x-109">n</span>th Bernoulli number; all of the odd
+Bernoulli numbers, except <span 
+class="pcrr8t-x-x-109">Bernoulli(1)</span>, are zero.
+</p><!--l. 1016--><p class="noindent" >The algorithms for Bernoulli numbers used are based upon those by Herbert Wilf,
+presented by Sandra Fillebrown <span class="cite">[<a 
+href="manualap2.html#XFillebrown:92">Fil92</a>]</span>. If the <span 
+class="pcrr8t-x-x-109">rounded </span>switch is oﬀ, the algorithms are
+exactly those; if it is on, some further rounding may be done to prevent computation of
+redundant digits. Hence, these functions are particularly fast when used to approximate
+the Bernoulli numbers in rounded mode.
+</p><!--l. 1024--><p class="noindent" >The Bernoulli numbers and polynomials have the following generating functions:
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+        <img 
+src="manual723x.png" alt="  t
+et −-1"  class="frac" align="middle" /> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∑</span>
+  <sub><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">=0</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><img 
+src="manual724x.png" alt="Bntn
+-n!--"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">,</span>        <img 
+src="manual725x.png" alt=" text
+et −-1"  class="frac" align="middle" /> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∑</span>
+<sub><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">=0</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><img 
+src="manual726x.png" alt="Bn(x)tn
+--n!----"  class="frac" align="middle" />
+</td></tr></table>
+<!--l. 1026--><p class="nopar" >
+respectively. Thus <span 
+class="cmmi-10x-x-109">B</span><sub><span 
+class="cmr-8">0</span></sub> <span 
+class="cmr-10x-x-109">= 1 </span>and <span 
+class="cmmi-10x-x-109">B</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">−</span><img 
+src="manual727x.png" alt="1
+2"  class="frac" align="middle" />. Furthermore the numbers and polynomials are
+related by the equations:
+</p>
+<table 
+class="equation-star"><tr><td>
+           <span 
+class="cmmi-10x-x-109">B</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">B</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmr-10x-x-109">(0)</span><span 
+class="cmmi-10x-x-109">,        B</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) =</span> <span 
+class="cmex-10x-x-109">∑</span>
+  <sub><span 
+class="cmmi-8">k</span><span 
+class="cmr-8">=0</span></sub><sup><span 
+class="cmmi-8">n</span></sup><img 
+src="manual728x.png" alt="( )
+ n
+ k"  /><span 
+class="cmmi-10x-x-109">B</span><sub><span 
+class="cmmi-8">k</span></sub><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmmi-8">k</span></sup><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 1029--><p class="nopar" >
+</p><!--l. 1031--><p class="noindent" >The Bernoulli polynomials are evaluated for non-negative integer <span 
+class="cmmi-10x-x-109">n </span>by using the
+summation immediately above.
+</p><!--l. 1034--><p class="noindent" >Both the Bernoulli and Euler numbers and polynomials may also be calculated directly
+by expanding the corresponding generating function as a power series in <span 
+class="cmmi-10x-x-109">t </span>using
+either the <span 
+class="ptmrc8t-x-x-109">T<span 
+class="small-caps">P</span><span 
+class="small-caps">S</span> </span>or <span 
+class="ptmrc8t-x-x-109">T<span 
+class="small-caps">A</span><span 
+class="small-caps">Y</span><span 
+class="small-caps">L</span><span 
+class="small-caps">O</span><span 
+class="small-caps">R</span> </span>package, extracting the <span 
+class="cmmi-10x-x-109">n</span>th term and multiplying
+by <span 
+class="cmmi-10x-x-109">n</span><span 
+class="cmr-10x-x-109">!</span>. The use of the <span 
+class="ptmrc8t-x-x-109">T<span 
+class="small-caps">P</span><span 
+class="small-caps">S</span> </span>package is probably preferable here as the series
+for the generating function is extendible and need only be calculated once;
+it will be extended automatically if higher order numbers or polynomials are
+required.
+                                                                     
+
+                                                                     
+</p><!--l. 1042--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.54.19    </span> <a 
+ id="x269-125200020.54.19"></a>Function Bases</h4>
+<a 
+ id="dx269-1252001"></a>
+<a 
+ id="dx269-1252002"></a>
+<a 
+ id="dx269-1252003"></a>
+<a 
+ id="dx269-1252004"></a>
+<a 
+ id="dx269-1252005"></a>
+<a 
+ id="dx269-1252006"></a>
+<a 
+ id="dx269-1252007"></a>
+<a 
+ id="dx269-1252008"></a>
+<a 
+ id="dx269-1252009"></a>
+<!--l. 1052--><p class="noindent" ><a 
+ id="procedure:MONOMIAL_BASE"></a> <a 
+ id="procedure:TRIGONOMETRIC_BASE"></a> <a 
+ id="procedure:BERNSTEIN_BASE"></a> <a 
+ id="procedure:LEGENDRE_BASE"></a> <a 
+ id="procedure:LAGUERRE_BASE"></a> <a 
+ id="procedure:HERMITE_BASE"></a> <a 
+ id="procedure:CHEBYSHEV_BASE_T"></a> <a 
+ id="procedure:CHEBYSHEV_BASE_U"></a> <a 
+ id="procedure:GEGENBAUER_BASE"></a>
+</p><!--l. 1062--><p class="noindent" >The following procedures compute sets of functions e.g. to be used for approximation.
+All procedures have two parameters, the expression to be used as <span 
+class="cmmi-10x-x-109">variable </span>(an identiﬁer
+in most cases) and the order of the desired system. The functions are not scaled to a
+speciﬁc interval, but the <span 
+class="cmmi-10x-x-109">variable </span>can be accompanied by a scale factor and/or a
+translation in order to map the generic interval of orthogonality to another (e.g.
+<span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">∕</span><span 
+class="cmr-10x-x-109">2) </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">pi</span>). The result is a function list with ascending order, such that the ﬁrst
+element is the function of order zero and (for the polynomial systems) the function of
+order <span 
+class="cmmi-10x-x-109">n </span>is the <span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmr-10x-x-109">+ 1</span>-th element.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1402">
+     monomial_base(x,n)       {1,x,...,x**n}
+ <br />     trigonometric_base(x,n)  {1,sin x,cos x,
+ <br />                                 sin(2x),cos(2x)...}
+ <br />     Bernstein_base(x,n)      Bernstein polynomials
+ <br />     Legendre_base(x,n,a,b)   Legendre polynomials
+ <br />     Laguerre_base(x,n,a)     Laguerre polynomials
+ <br />     Hermite_base(x,n)        Hermite polynomials
+ <br />     Chebyshev_base_T(x,n)    Chebyshev polynomials
+ <br />                               of the first kind
+ <br />     Chebyshev_base_U(x,n)    Chebyshev polynomials
+ <br />                               of the second kind
+ <br />     Gegenbauer_base(x,n,a)   Gegenbauer polynomials
+</div>
+<!--l. 1091--><p class="nopar" >
+</p><!--l. 1093--><p class="noindent" >Example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1403">
+ Bernstein_base(x,5);
+ <br />
+ <br />         5      4       3       2
+ <br />    { - X  + 5*X  - 10*X  + 10*X  - 5*X + 1,
+ <br />
+ <br />           4      3      2
+ <br />     5*X*(X  - 4*X  + 6*X  - 4*X + 1),
+ <br />
+ <br />         2      3      2
+ <br />     10*X *( - X  + 3*X  - 3*X + 1),
+ <br />
+ <br />         3   2
+ <br />     10*X *(X  - 2*X + 1),
+ <br />
+ <br />        4
+ <br />     5*X *( - X + 1),
+ <br />
+ <br />      5
+ <br />     X }
+ <br />
+</div>
+<!--l. 1115--><p class="nopar" >
+</p><!--l. 1117--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.54.20    </span> <a 
+ id="x269-125300020.54.20"></a>Acknowledgements</h4>
+<!--l. 1119--><p class="noindent" >The contributions of Kerry Gaskell, Matthew Rebbeck, Lisa Temme, Stephen Scowcroft
+and David Hobbs (all students from the University of Bath on placement in ZIB Berlin
+for one year) were very helpful to augment the package. The advice of René Grognard
+(CSIRO, Australia) for the development of the module for Clebsch-Gordan and 3j,
+6j symbols and the module for spherical and solid harmonics was very much
+appreciated.
+                                                                     
+
+                                                                     
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.54.21    </span> <a 
+ id="x269-125400020.54.21"></a>Tables of Operators and Constants</h4>
+<!--l. 1128--><p class="noindent" ><a 
+ id="SPECFNTAB1"></a>
+</p><!--l. 1130--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Special Functions</span>
+</p>
+<div class="fbox"> <!--tex4ht:inline--><div class="tabular"> <table id="TBL-214" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-214-1g"><col 
+id="TBL-214-1" /><col 
+id="TBL-214-2" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-214-1-"><td  style="white-space:nowrap; text-align:right;" id="TBL-214-1-1"  
+class="td11">                            Function  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-214-1-2"  
+class="td11"> Operator                        </td>
+</tr><tr 
+class="vspace" style="font-size:5.0pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-214-2-"><td  style="white-space:nowrap; text-align:right;" id="TBL-214-2-1"  
+class="td11">                               <span 
+class="cmr-10x-x-109">Si</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-214-2-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">Si(z)           </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-214-3-"><td  style="white-space:nowrap; text-align:right;" id="TBL-214-3-1"  
+class="td11">                          <span 
+class="cmr-10x-x-109">Si</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">π∕</span><span 
+class="cmr-10x-x-109">2  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-214-3-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">s_i(z)          </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-214-4-"><td  style="white-space:nowrap; text-align:right;" id="TBL-214-4-1"  
+class="td11">                               <span 
+class="cmr-10x-x-109">Ci</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-214-4-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">Ci(z)           </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-214-5-"><td  style="white-space:nowrap; text-align:right;" id="TBL-214-5-1"  
+class="td11">                              <span 
+class="cmr-10x-x-109">Shi</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-214-5-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">Shi(z)          </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-214-6-"><td  style="white-space:nowrap; text-align:right;" id="TBL-214-6-1"  
+class="td11">                              <span 
+class="cmr-10x-x-109">Chi</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-214-6-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">Chi(z)          </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-214-7-"><td  style="white-space:nowrap; text-align:right;" id="TBL-214-7-1"  
+class="td11">                               <span 
+class="cmr-10x-x-109">erf</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-214-7-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">Erf(z)          </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-214-8-"><td  style="white-space:nowrap; text-align:right;" id="TBL-214-8-1"  
+class="td11">                            <span 
+class="cmr-10x-x-109">1 </span><span 
+class="cmsy-10x-x-109">−</span> <span 
+class="cmr-10x-x-109">erf</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-214-8-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">erfc(z)         </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-214-9-"><td  style="white-space:nowrap; text-align:right;" id="TBL-214-9-1"  
+class="td11">                               <span 
+class="cmr-10x-x-109">Ei</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-214-9-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">Ei(z)           </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-214-10-"><td  style="white-space:nowrap; text-align:right;" id="TBL-214-10-1"  
+class="td11">                            <span 
+class="cmr-10x-x-109">Ei</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmr-10x-x-109">log</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">))  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-214-10-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">Li(z)           </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-214-11-"><td  style="white-space:nowrap; text-align:right;" id="TBL-214-11-1"  
+class="td11">                               <span 
+class="cmmi-10x-x-109">C</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-214-11-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">Fresnel_C(x)    </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-214-12-"><td  style="white-space:nowrap; text-align:right;" id="TBL-214-12-1"  
+class="td11">                               <span 
+class="cmmi-10x-x-109">S</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-214-12-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">Fresnel_S(x)    </span></td>
+</tr><tr 
+class="vspace" style="font-size:5.0pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-214-13-"><td  style="white-space:nowrap; text-align:right;" id="TBL-214-13-1"  
+class="td11">                              <span 
+class="cmmi-10x-x-109">B</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a,b</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-214-13-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">Beta(a,b)       </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-214-14-"><td  style="white-space:nowrap; text-align:right;" id="TBL-214-14-1"  
+class="td11">                                <span 
+class="cmr-10x-x-109">Γ(</span><span 
+class="cmmi-10x-x-109">a</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-214-14-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">Gamma(a)        </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-214-15-"><td  style="white-space:nowrap; text-align:right;" id="TBL-214-15-1"  
+class="td11">  normalized incomplete Beta <span 
+class="cmmi-10x-x-109">I</span><sub><span 
+class="cmmi-8">x</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a,b</span><span 
+class="cmr-10x-x-109">) =</span> <img 
+src="manual729x.png" alt="Bx-(a,b)
+ B (a,b)"  class="frac" align="middle" />  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-214-15-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">iBeta(a,b,x)    </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-214-16-"><td  style="white-space:nowrap; text-align:right;" id="TBL-214-16-1"  
+class="td11"> normalized incomplete Gamma <span 
+class="cmmi-10x-x-109">P</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a,z</span><span 
+class="cmr-10x-x-109">) =</span> <img 
+src="manual730x.png" alt="γ(a,z)
+ Γ (a)"  class="frac" align="middle" />  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-214-16-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">iGamma(a,z)     </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-214-17-"><td  style="white-space:nowrap; text-align:right;" id="TBL-214-17-1"  
+class="td11">                incomplete Gamma <span 
+class="cmmi-10x-x-109">γ</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a,z</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-214-17-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">m_gamma(a,z)    </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-214-18-"><td  style="white-space:nowrap; text-align:right;" id="TBL-214-18-1"  
+class="td11">                                <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a</span><span 
+class="cmr-10x-x-109">)</span><sub><span 
+class="cmmi-8">k</span></sub>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-214-18-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">Pochhammer(a,k) </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-214-19-"><td  style="white-space:nowrap; text-align:right;" id="TBL-214-19-1"  
+class="td11">                               <span 
+class="cmmi-10x-x-109">ψ</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-214-19-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">Psi(z)          </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-214-20-"><td  style="white-space:nowrap; text-align:right;" id="TBL-214-20-1"  
+class="td11">                              <span 
+class="cmmi-10x-x-109">ψ</span><sup><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">)</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-214-20-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">Polygamma(n,z)  </span></td>
+</tr><tr 
+class="vspace" style="font-size:5.0pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-214-21-"><td  style="white-space:nowrap; text-align:right;" id="TBL-214-21-1"  
+class="td11">                               <span 
+class="cmmi-10x-x-109">J</span><sub><span 
+class="cmmi-8">ν</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-214-21-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">BesselJ(nu,z)   </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-214-22-"><td  style="white-space:nowrap; text-align:right;" id="TBL-214-22-1"  
+class="td11">                              <span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmmi-8">ν</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-214-22-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">BesselY(nu,z)   </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-214-23-"><td  style="white-space:nowrap; text-align:right;" id="TBL-214-23-1"  
+class="td11">                               <span 
+class="cmmi-10x-x-109">I</span><sub><span 
+class="cmmi-8">ν</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-214-23-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">BesselI(nu,z)   </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-214-24-"><td  style="white-space:nowrap; text-align:right;" id="TBL-214-24-1"  
+class="td11">                              <span 
+class="cmmi-10x-x-109">K</span><sub><span 
+class="cmmi-8">ν</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-214-24-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">BesselK(nu,z)   </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-214-25-"><td  style="white-space:nowrap; text-align:right;" id="TBL-214-25-1"  
+class="td11">                            <span 
+class="cmmi-10x-x-109">H</span><sub><span 
+class="cmmi-8">n</span></sub><sup><span 
+class="cmr-8">(1)</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-214-25-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">Hankel1(n,z)    </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-214-26-"><td  style="white-space:nowrap; text-align:right;" id="TBL-214-26-1"  
+class="td11">                            <span 
+class="cmmi-10x-x-109">H</span><sub><span 
+class="cmmi-8">n</span></sub><sup><span 
+class="cmr-8">(2)</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-214-26-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">Hankel2(n,z)    </span></td>
+</tr><tr 
+class="vspace" style="font-size:5.0pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-214-27-"><td  style="white-space:nowrap; text-align:right;" id="TBL-214-27-1"  
+class="td11">                                    </td></tr></table>                   </div></div>
+<!--l. 1161--><p class="noindent" >
+                                                                     
+
+                                                                     
+</p><!--l. 1163--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">More Special Functions </span><a 
+ id="SPECFNTAB2"></a>
+</p>
+<div class="fbox"> <!--tex4ht:inline--><div class="tabular"> <table id="TBL-215" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-215-1g"><col 
+id="TBL-215-1" /><col 
+id="TBL-215-2" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-215-1-"><td  style="white-space:nowrap; text-align:right;" id="TBL-215-1-1"  
+class="td11">                       Function  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-215-1-2"  
+class="td11"> Operator                                         </td>
+</tr><tr 
+class="vspace" style="font-size:5.0pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-215-2-"><td  style="white-space:nowrap; text-align:right;" id="TBL-215-2-1"  
+class="td11">                         <span 
+class="cmr-10x-x-109">Ai</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-215-2-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">Airy_Ai(z)             </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-215-3-"><td  style="white-space:nowrap; text-align:right;" id="TBL-215-3-1"  
+class="td11">                         <span 
+class="cmr-10x-x-109">Bi</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-215-3-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">Airy_Bi(z)             </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-215-4-"><td  style="white-space:nowrap; text-align:right;" id="TBL-215-4-1"  
+class="td11">                         <span 
+class="cmr-10x-x-109">Ai</span><span 
+class="cmsy-10x-x-109">′</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-215-4-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">Airy_Aiprime(z)        </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-215-5-"><td  style="white-space:nowrap; text-align:right;" id="TBL-215-5-1"  
+class="td11">                         <span 
+class="cmr-10x-x-109">Bi</span><span 
+class="cmsy-10x-x-109">′</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-215-5-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">Airy_Biprime(z)        </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-215-6-"><td  style="white-space:nowrap; text-align:right;" id="TBL-215-6-1"  
+class="td11">                         <span 
+class="cmbx-10x-x-109">H</span><sub><span 
+class="cmmi-8">ν</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-215-6-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">StruveH(nu,z)          </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-215-7-"><td  style="white-space:nowrap; text-align:right;" id="TBL-215-7-1"  
+class="td11">                         <span 
+class="cmbx-10x-x-109">L</span><sub><span 
+class="cmmi-8">ν</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-215-7-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">StruveL(nu,z)          </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-215-8-"><td  style="white-space:nowrap; text-align:right;" id="TBL-215-8-1"  
+class="td11">                        <span 
+class="cmmi-10x-x-109">s</span><sub><span 
+class="cmmi-8">a,b</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-215-8-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">Lommel1(a,b,z)         </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-215-9-"><td  style="white-space:nowrap; text-align:right;" id="TBL-215-9-1"  
+class="td11">                        <span 
+class="cmmi-10x-x-109">S</span><sub><span 
+class="cmmi-8">a,b</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-215-9-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">Lommel2(a,b,z)         </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-215-10-"><td  style="white-space:nowrap; text-align:right;" id="TBL-215-10-1"  
+class="td11">   <span 
+class="cmmi-10x-x-109">M</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a,b,z</span><span 
+class="cmr-10x-x-109">) </span>or <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">F</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a,b</span><span 
+class="cmr-10x-x-109">;</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) </span>or <span 
+class="cmr-10x-x-109">Φ(</span><span 
+class="cmmi-10x-x-109">a,b</span><span 
+class="cmr-10x-x-109">;</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-215-10-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">KummerM(a,b,z)         </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-215-11-"><td  style="white-space:nowrap; text-align:right;" id="TBL-215-11-1"  
+class="td11"> <span 
+class="cmmi-10x-x-109">U</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a,b,z</span><span 
+class="cmr-10x-x-109">) </span>or <span 
+class="cmmi-10x-x-109">z</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmmi-8">a</span></sup><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">F</span><sub><span 
+class="cmr-8">0</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a,b</span><span 
+class="cmr-10x-x-109">;</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)</span> or <span 
+class="cmr-10x-x-109">Ψ(</span><span 
+class="cmmi-10x-x-109">a,b</span><span 
+class="cmr-10x-x-109">;</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-215-11-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">KummerU(a,b,z)         </span></td>
+</tr><tr 
+class="vspace" style="font-size:6.0pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-215-12-"><td  style="white-space:nowrap; text-align:right;" id="TBL-215-12-1"  
+class="td11">           Expression in Kummer_M  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-215-12-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">WhittakerM(kappa,mu,z) </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-215-13-"><td  style="white-space:nowrap; text-align:right;" id="TBL-215-13-1"  
+class="td11">            Expression in Kummer_U  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-215-13-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">WhittakerW(kappa,mu,z) </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-215-14-"><td  style="white-space:nowrap; text-align:right;" id="TBL-215-14-1"  
+class="td11">                  Riemann’s <span 
+class="cmmi-10x-x-109">ζ</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-215-14-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">zeta(z)                </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-215-15-"><td  style="white-space:nowrap; text-align:right;" id="TBL-215-15-1"  
+class="td11">                    Lambert <span 
+class="cmmi-10x-x-109">ω</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-215-15-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">Lambert_W(z)           </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-215-16-"><td  style="white-space:nowrap; text-align:right;" id="TBL-215-16-1"  
+class="td11">                         <span 
+class="cmr-10x-x-109">Li</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-215-16-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">dilog(z)               </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-215-17-"><td  style="white-space:nowrap; text-align:right;" id="TBL-215-17-1"  
+class="td11">                        <span 
+class="cmr-10x-x-109">Li</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-215-17-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">Polylog(n,z)           </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-215-18-"><td  style="white-space:nowrap; text-align:right;" id="TBL-215-18-1"  
+class="td11">        Lerch’s transcendent <span 
+class="cmr-10x-x-109">Φ(</span><span 
+class="cmmi-10x-x-109">z,s,a</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-215-18-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">Lerch_Phi(z,s,a)       </span></td>
+</tr><tr 
+class="vspace" style="font-size:5.0pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-215-19-"><td  style="white-space:nowrap; text-align:right;" id="TBL-215-19-1"  
+class="td11">                              </td></tr></table>                          </div></div>
+<div class="fbox"> <!--tex4ht:inline--><div class="tabular"><table id="TBL-216" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-216-1g"><col 
+id="TBL-216-1" /><col 
+id="TBL-216-2" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-216-1-"><td  style="white-space:nowrap; text-align:right;" id="TBL-216-1-1"  
+class="td11">            Function  </td><td  style="white-space:nowrap; text-align:left; vertical-align:middle;" id="TBL-216-1-2"  
+class="td11"> <!--l. 1209--><p class="noindent" >Operator                                                                </p></td>
+</tr><tr 
+class="vspace" style="font-size:5.0pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-216-2-"><td  style="white-space:nowrap; text-align:right;" id="TBL-216-2-1"  
+class="td11">        <span 
+class="cmmi-10x-x-109">Y </span><sub><span 
+class="cmmi-8">n</span></sub><sup><span 
+class="cmmi-8">m</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x,y,z,r</span><span 
+class="cmr-10x-x-109">2)  </span></td><td  style="white-space:nowrap; text-align:left; vertical-align:middle;" id="TBL-216-2-2"  
+class="td11"> <!--l. 1209--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">SolidHarmonicY(n,m,x,y,z,r2)</span>     </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-216-3-"><td  style="white-space:nowrap; text-align:right;" id="TBL-216-3-1"  
+class="td11">            <span 
+class="cmmi-10x-x-109">Y </span><sub><span 
+class="cmmi-8">n</span></sub><sup><span 
+class="cmmi-8">m</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">𝜃,ϕ</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left; vertical-align:middle;" id="TBL-216-3-2"  
+class="td11"> <!--l. 1209--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">SphericalHarmonicY(n,m,theta,phi)</span> </p> </td>
+</tr><tr 
+class="vspace" style="font-size:5.0pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-216-4-"><td  style="white-space:nowrap; text-align:right;" id="TBL-216-4-1"  
+class="td11">         <img 
+src="manual731x.png" alt="(         )
+  j1 j2 j3
+  m1m2m3"  class="left" align="middle" /> </td><td  style="white-space:nowrap; text-align:left; vertical-align:middle;" id="TBL-216-4-2"  
+class="td11"> <!--l. 1209--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">ThreeJSymbol({j1,m1},{j2,m2},</span><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">{j3,m3})</span>                         </p></td>
+</tr><tr 
+class="vspace" style="font-size:11.38109pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-216-5-"><td  style="white-space:nowrap; text-align:right;" id="TBL-216-5-1"  
+class="td11"> <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">j</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">m</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">j</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">m</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmsy-10x-x-109">∣</span><span 
+class="cmmi-10x-x-109">j</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">j</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">j</span><sub><span 
+class="cmr-8">3</span></sub> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">m</span><sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left; vertical-align:middle;" id="TBL-216-5-2"  
+class="td11"> <!--l. 1209--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">Clebsch_Gordan({j1,m1},{j2,m2},</span><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">{j3,m3})</span>                         </p></td>
+</tr><tr 
+class="vspace" style="font-size:11.38109pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-216-6-"><td  style="white-space:nowrap; text-align:right;" id="TBL-216-6-1"  
+class="td11">         <img 
+src="manual732x.png" alt="{         }
+  j1 j2 j3
+  m1m2m3"  class="left" align="middle" /> </td><td  style="white-space:nowrap; text-align:left; vertical-align:middle;" id="TBL-216-6-2"  
+class="td11"> <!--l. 1209--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">SixJSymbol({j1,j2,j3},{l1,l2,l3})</span> </p> </td>
+</tr><tr 
+class="vspace" style="font-size:5.0pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-216-7-"><td  style="white-space:nowrap; text-align:right;" id="TBL-216-7-1"  
+class="td11">                    </td></tr></table>                                   </div></div>
+<!--l. 1210--><p class="noindent" >
+                                                                     
+
+                                                                     
+</p><!--l. 1212--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Polynomial Functions </span><a 
+ id="SPECFNTAB3"></a>
+</p>
+<div class="fbox"> <!--tex4ht:inline--><div class="tabular"> <table id="TBL-217" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-217-1g"><col 
+id="TBL-217-1" /><col 
+id="TBL-217-2" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-217-1-"><td  style="white-space:nowrap; text-align:right;" id="TBL-217-1-1"  
+class="td11">                Function  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-217-1-2"  
+class="td11"> Operator                                           </td>
+</tr><tr 
+class="vspace" style="font-size:5.0pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-217-2-"><td  style="white-space:nowrap; text-align:right;" id="TBL-217-2-1"  
+class="td11">  Fibonacci Polynomials <span 
+class="cmmi-10x-x-109">F</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-217-2-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">FibonacciP(n,x)         </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-217-3-"><td  style="white-space:nowrap; text-align:right;" id="TBL-217-3-1"  
+class="td11">                  <span 
+class="cmmi-10x-x-109">B</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-217-3-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">BernoulliP(n,x)         </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-217-4-"><td  style="white-space:nowrap; text-align:right;" id="TBL-217-4-1"  
+class="td11">                  <span 
+class="cmmi-10x-x-109">E</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-217-4-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">EulerP(n,x)             </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-217-5-"><td  style="white-space:nowrap; text-align:right;" id="TBL-217-5-1"  
+class="td11">                  <span 
+class="cmmi-10x-x-109">H</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-217-5-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">HermiteP(n,x)           </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-217-6-"><td  style="white-space:nowrap; text-align:right;" id="TBL-217-6-1"  
+class="td11">                  <span 
+class="cmmi-10x-x-109">L</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-217-6-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">LaguerreP(n,x)          </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-217-7-"><td  style="white-space:nowrap; text-align:right;" id="TBL-217-7-1"  
+class="td11"> Generalised Laguerre <span 
+class="cmmi-10x-x-109">L</span><sub><span 
+class="cmmi-8">n</span></sub><sup><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">m</span><span 
+class="cmr-8">)</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-217-7-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">LaguerreP(n,m,x)        </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-217-8-"><td  style="white-space:nowrap; text-align:right;" id="TBL-217-8-1"  
+class="td11">                  <span 
+class="cmmi-10x-x-109">P</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-217-8-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">LegendreP(n,x)          </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-217-9-"><td  style="white-space:nowrap; text-align:right;" id="TBL-217-9-1"  
+class="td11"> Associated Legendre <span 
+class="cmmi-10x-x-109">P</span><sub><span 
+class="cmmi-8">n</span></sub><sup><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">m</span><span 
+class="cmr-8">)</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-217-9-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">LegendreP(n,m,x)        </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-217-10-"><td  style="white-space:nowrap; text-align:right;" id="TBL-217-10-1"  
+class="td11">                  <span 
+class="cmmi-10x-x-109">U</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-217-10-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">ChebyshevU(n,x)         </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-217-11-"><td  style="white-space:nowrap; text-align:right;" id="TBL-217-11-1"  
+class="td11">                  <span 
+class="cmmi-10x-x-109">T</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-217-11-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">ChebyshevT(n,x)         </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-217-12-"><td  style="white-space:nowrap; text-align:right;" id="TBL-217-12-1"  
+class="td11">                <span 
+class="cmmi-10x-x-109">C</span><sub><span 
+class="cmmi-8">n</span></sub><sup><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">α</span><span 
+class="cmr-8">)</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-217-12-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">GegenbauerP(n,alpha,x)  </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-217-13-"><td  style="white-space:nowrap; text-align:right;" id="TBL-217-13-1"  
+class="td11">               <span 
+class="cmmi-10x-x-109">P</span><sub><span 
+class="cmmi-8">n</span></sub><sup><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">α,β</span><span 
+class="cmr-8">)</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-217-13-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">JacobiP(n,alpha,beta,x) </span></td>
+</tr><tr 
+class="vspace" style="font-size:5.0pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-217-14-"><td  style="white-space:nowrap; text-align:right;" id="TBL-217-14-1"  
+class="td11">                       </td></tr></table>                              </div></div>
+<!--l. 1234--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Well-known Numbers and Reserved Constants </span><a 
+ id="SPECFNTAB4"></a>
+</p>
+<div class="fbox"> <!--tex4ht:inline--><div class="tabular"> <table id="TBL-218" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-218-1g"><col 
+id="TBL-218-1" /><col 
+id="TBL-218-2" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-218-1-"><td  style="white-space:nowrap; text-align:right;" id="TBL-218-1-1"  
+class="td11">            Function  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-218-1-2"  
+class="td11"> Operator                      </td>
+</tr><tr 
+class="vspace" style="font-size:5.0pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-218-2-"><td  style="white-space:nowrap; text-align:right;" id="TBL-218-2-1"  
+class="td11">               <img 
+src="manual733x.png" alt="(  )
+ n
+ m"  /> </td><td  style="white-space:nowrap; text-align:left;" id="TBL-218-2-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">Binomial(n,m)  </span></td>
+</tr><tr 
+class="vspace" style="font-size:10.0pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-218-3-"><td  style="white-space:nowrap; text-align:right;" id="TBL-218-3-1"  
+class="td11">   Fibonacci Numbers <span 
+class="cmmi-10x-x-109">F</span><sub><span 
+class="cmmi-8">n</span></sub>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-218-3-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">Fibonacci(n)   </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-218-4-"><td  style="white-space:nowrap; text-align:right;" id="TBL-218-4-1"  
+class="td11">                <span 
+class="cmr-10x-x-109">s</span><sub><span 
+class="cmmi-8">n</span></sub><sup><span 
+class="cmmi-8">m</span></sup>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-218-4-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">Stirling1(n,m) </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-218-5-"><td  style="white-space:nowrap; text-align:right;" id="TBL-218-5-1"  
+class="td11">                <span 
+class="cmr-10x-x-109">S</span><sub><span 
+class="cmmi-8">n</span></sub><sup><span 
+class="cmmi-8">m</span></sup>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-218-5-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">Stirling2(n,m) </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-218-6-"><td  style="white-space:nowrap; text-align:right;" id="TBL-218-6-1"  
+class="td11">      Bernoulli(<span 
+class="cmmi-10x-x-109">n</span>) or <span 
+class="cmmi-10x-x-109">B</span><sub><span 
+class="cmmi-8">n</span></sub>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-218-6-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">Bernoulli(n)   </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-218-7-"><td  style="white-space:nowrap; text-align:right;" id="TBL-218-7-1"  
+class="td11">        Euler(<span 
+class="cmmi-10x-x-109">n</span>) or <span 
+class="cmmi-10x-x-109">E</span><sub><span 
+class="cmmi-8">n</span></sub>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-218-7-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">Euler(n)       </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-218-8-"><td  style="white-space:nowrap; text-align:right;" id="TBL-218-8-1"  
+class="td11">      Motzkin(<span 
+class="cmmi-10x-x-109">n</span>) or <span 
+class="cmmi-10x-x-109">M</span><sub><span 
+class="cmmi-8">n</span></sub>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-218-8-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">Motzkin(</span><span 
+class="cmmi-10x-x-109">n</span><span 
+class="pcrr8t-x-x-109">)     </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-218-9-"><td  style="white-space:nowrap; text-align:right;" id="TBL-218-9-1"  
+class="td11">                   </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-218-10-"><td  style="white-space:nowrap; text-align:right;" id="TBL-218-10-1"  
+class="td11"> Constant</td><td  style="white-space:nowrap; text-align:left;" id="TBL-218-10-2"  
+class="td11"> REDUCE name          </td>
+</tr><tr 
+class="vspace" style="font-size:5.0pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-218-11-"><td  style="white-space:nowrap; text-align:right;" id="TBL-218-11-1"  
+class="td11">     Square root of <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-218-11-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">i              </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-218-12-"><td  style="white-space:nowrap; text-align:right;" id="TBL-218-12-1"  
+class="td11">                  <span 
+class="cmmi-10x-x-109">π </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-218-12-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">pi             </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-218-13-"><td  style="white-space:nowrap; text-align:right;" id="TBL-218-13-1"  
+class="td11"> Base of natural logarithms  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-218-13-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">e              </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-218-14-"><td  style="white-space:nowrap; text-align:right;" id="TBL-218-14-1"  
+class="td11">      Euler’s <span 
+class="cmmi-10x-x-109">γ </span>constant  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-218-14-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">Euler_gamma    </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-218-15-"><td  style="white-space:nowrap; text-align:right;" id="TBL-218-15-1"  
+class="td11">      Catalan’s constant  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-218-15-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">Catalan        </span></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-218-16-"><td  style="white-space:nowrap; text-align:right;" id="TBL-218-16-1"  
+class="td11"> Khinchin’s constant </td> <td  style="white-space:nowrap; text-align:left;" id="TBL-218-16-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">Khinchin</span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-218-17-"><td  style="white-space:nowrap; text-align:right;" id="TBL-218-17-1"  
+class="td11">          Golden ratio  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-218-17-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">Golden_ratio   </span></td>
+</tr><tr 
+class="vspace" style="font-size:5.0pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-218-18-"><td  style="white-space:nowrap; text-align:right;" id="TBL-218-18-1"  
+class="td11">                   </td></tr></table>                                 </div></div>
+                                                                     
+
+                                                                     
+<!--l. 1152--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse179.html" >Up</a></td><td class="clinks"><a 
+href="manualse180.html" >Next</a></td><td class="clinks"><a 
+href="manualse178.html" >Prev</a></td><td class="clinks"><a 
+href="manualse178.html#tailmanualse178.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse179.html" >Front</a></td></tr></table><a 
+ id="tailmanualse179.html"></a>  </p> 
+</body> 
+</html>

@@ -1,0 +1,302 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Obtaining Parts of Algebraic Expressions</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch8.html#manualse59.html" >Up</a></td><td class="clinks"><a 
+href="manualse60.html" >Next</a></td><td class="clinks"><a 
+href="manualse58.html" >Prev</a></td><td class="clinks"><a 
+href="manualse58.html#tailmanualse58.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse59.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">8.5    </span> <a 
+ id="x76-1420008.5"></a>Obtaining Parts of Algebraic Expressions</h3>
+<!--l. 800--><p class="noindent" >There are many occasions where it is desirable to obtain a speciﬁc part of an expression,
+or even change such a part to another expression. A number of operators are available in
+REDUCE for this purpose, and will be described in this section. In addition, operators
+for obtaining speciﬁc parts of polynomials and rational functions (such as a denominator)
+are described in another section.
+</p><!--l. 807--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">8.5.1    </span> <a 
+ id="x76-1430008.5.1"></a>COEFF Operator</h4>
+<a 
+ id="dx76-143001"></a>
+<!--l. 808--><p class="noindent" ><a 
+ id="operator:COEFF"></a> <a 
+ id="switch:RATARG"></a> Syntax:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-252">
+        coeff(exprn:polynomial,var:kernel)
+</div>
+<!--l. 813--><p class="nopar" > <span 
+class="pcrr8t-x-x-109">coeff </span>is an operator that partitions <span 
+class="pcrr8t-x-x-109">exprn </span>into its various coeﬃcients with
+respect to <span 
+class="pcrr8t-x-x-109">var </span>and returns them as a list, with the coeﬃcient independent of <span 
+class="pcrr8t-x-x-109">var</span>
+ﬁrst.
+</p><!--l. 818--><p class="noindent" >Under normal circumstances, an error results if <span 
+class="pcrr8t-x-x-109">exprn </span>is not a polynomial in <span 
+class="pcrr8t-x-x-109">var</span>,
+although the coeﬃcients themselves can be rational as long as they do not depend on
+<span 
+class="pcrr8t-x-x-109">var</span>. However, if the switch <span 
+class="pcrr8t-x-x-109">ratarg</span><a 
+ id="dx76-143002"></a><a 
+ id="dx76-143003"></a><a 
+ id="dx76-143004"></a> is on, denominators are not checked for
+dependence on <span 
+class="pcrr8t-x-x-109">var</span>, and are taken to be part of the coeﬃcients.
+</p><!--l. 824--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Example:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-253">
+        coeff((y^2+z)^3/z,y);
+</div>
+<!--l. 827--><p class="nopar" > returns the result
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-254">
+          2
+ <br />        {z ,0,3*z,0,3,0,1/z}.
+</div>
+<!--l. 832--><p class="nopar" > whereas
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-255">
+        coeff((y^2+z)^3/y,y);
+</div>
+<!--l. 836--><p class="nopar" > gives an error if <span 
+class="pcrr8t-x-x-109">ratarg </span>is oﬀ, and the result
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-256">
+          3        2
+ <br />        {z /y,0,3*z /y,0,3*z/y,0,1/y}
+</div>
+<!--l. 841--><p class="nopar" > if <span 
+class="pcrr8t-x-x-109">ratarg </span>is on.
+</p><!--l. 844--><p class="noindent" ><a 
+ id="reserved:HIGH_POW"></a> <a 
+ id="reserved:LOW_POW"></a> <a 
+ id="dx76-143005"></a><a 
+ id="dx76-143006"></a> The length of the result of <span 
+class="pcrr8t-x-x-109">coeff </span>is the highest power of <span 
+class="pcrr8t-x-x-109">var </span>encountered plus 1. In
+the above examples it is 7. In addition, the variable <span 
+class="pcrr8t-x-x-109">high_pow</span><a 
+ id="dx76-143007"></a> is set to the highest
+non-zero power found in <span 
+class="pcrr8t-x-x-109">exprn </span>during the evaluation, and <span 
+class="pcrr8t-x-x-109">low_pow</span><a 
+ id="dx76-143008"></a> to the lowest
+non-zero power, or zero if there is a constant term. If <span 
+class="pcrr8t-x-x-109">exprn </span>is a constant, then
+<span 
+class="pcrr8t-x-x-109">high_pow </span>and <span 
+class="pcrr8t-x-x-109">low_pow </span>are both set to zero.
+</p><!--l. 856--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">8.5.2    </span> <a 
+ id="x76-1440008.5.2"></a>COEFFN Operator</h4>
+<a 
+ id="dx76-144001"></a>
+<!--l. 857--><p class="noindent" ><a 
+ id="operator:COEFFN"></a>
+</p><!--l. 859--><p class="noindent" >The <span 
+class="pcrr8t-x-x-109">coeffn </span>operator is designed to give the user a particular coeﬃcient of a variable in
+a polynomial, as opposed to <span 
+class="pcrr8t-x-x-109">coeff </span>that returns all coeﬃcients. <span 
+class="pcrr8t-x-x-109">coeffn </span>is used with
+the syntax
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-257">
+        coeffn(exprn:polynomial,var:kernel,n:integer)
+</div>
+<!--l. 864--><p class="nopar" > It returns the <span 
+class="cmmi-10x-x-109">n</span><sup><span 
+class="cmmi-8">th</span></sup> coeﬃcient of <span 
+class="pcrr8t-x-x-109">var </span>in the polynomial <span 
+class="pcrr8t-x-x-109">exprn</span>.
+</p><!--l. 868--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">8.5.3    </span> <a 
+ id="x76-1450008.5.3"></a>PART Operator</h4>
+<a 
+ id="dx76-145001"></a>
+<!--l. 869--><p class="noindent" ><a 
+ id="operator:PART"></a> Syntax:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-258">
+        part(exprn:algebraic[,intexp:integer])
+</div>
+<!--l. 873--><p class="nopar" >
+</p><!--l. 875--><p class="noindent" >This operator works on the form of the expression as printed <span 
+class="ptmri8t-x-x-109">or as it would have been</span>
+<span 
+class="ptmri8t-x-x-109">printed at that point in the calculation </span>bearing in mind all the relevant switch settings at
+that point. The reader therefore needs some familiarity with the way that expressions are
+represented in preﬁx form in REDUCE to use these operators eﬀectively. Furthermore, it
+is assumed that <span 
+class="pcrr8t-x-x-109">pri </span>is on at that point in the calculation. The reason for this is that with
+<span 
+class="pcrr8t-x-x-109">pri </span>oﬀ, an expression is printed by walking the tree representing the expression
+internally. To save space, it is never actually transformed into the equivalent preﬁx
+expression as occurs when <span 
+class="pcrr8t-x-x-109">pri </span>is on. However, the operations on polynomials
+described elsewhere can be equally well used in this case to obtain the relevant
+parts.
+</p><!--l. 888--><p class="noindent" >The evaluation proceeds recursively down the integer expression list. In other
+words,
+  </p><div class="syntax">
+  <!--tex4ht:inline--><div class="tabular"> <table id="TBL-23" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-23-1g"><col 
+id="TBL-23-1" /><col 
+id="TBL-23-2" /><col 
+id="TBL-23-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-23-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-23-1-1"  
+class="td01"><span 
+class="pcrr8t-x-x-109">part(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">expression</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">integer1</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">integer2</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">)            </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-23-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-23-2-1"  
+class="td01">   <span 
+class="cmmi-10x-x-109">→</span> <span 
+class="pcrr8t-x-x-109">part(part(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">expression</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">integer1</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">),</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">integer2</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">) </span></td></tr></table>
+  </div></div>
+<!--l. 894--><p class="noindent" >and so on, and
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">part(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">expression</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">)</span> <span 
+class="cmmi-10x-x-109">→</span> <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">expression</span><span 
+class="cmsy-10x-x-109">⟩</span>.</div>
+<!--l. 898--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">intexp </span>can be any expression that evaluates to an integer. If the integer is positive, then
+that term of the expression is found. If the integer is 0, the operator is returned. Finally, if
+the integer is negative, the counting is from the tail of the expression rather than the
+head.
+</p><!--l. 904--><p class="noindent" >For example, if the expression <span 
+class="pcrr8t-x-x-109">a+b </span>is printed as <span 
+class="pcrr8t-x-x-109">a+b </span>(i.e., the ordering of the variables is
+alphabetical), then
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-259">
+        part(a+b,2)  -&#x003E;   b
+ <br />        part(a+b,-1) -&#x003E;   b
+ <br />and
+ <br />        part(a+b,0)  -&#x003E;  plus
+</div>
+<!--l. 911--><p class="nopar" > <a 
+ id="operator:ARGLENGTH"></a> An operator <span 
+class="pcrr8t-x-x-109">arglength</span><a 
+ id="dx76-145002"></a> is available to determine the number of arguments of the top
+level operator in an expression. If the expression does not contain a top level operator,
+then <span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1 </span>is returned. For example,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-260">
+        arglength(a+b+c) -&#x003E;  3
+ <br />        arglength(f())   -&#x003E;  0
+ <br />        arglength(a)     -&#x003E;  -1
+</div>
+<!--l. 921--><p class="nopar" >
+</p><!--l. 923--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">8.5.4    </span> <a 
+ id="x76-1460008.5.4"></a>Substituting for Parts of Expressions</h4>
+<!--l. 925--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">part </span>may also be used to substitute for a given part of an expression. In this case, the
+<span 
+class="pcrr8t-x-x-109">part </span>construct appears on the left-hand side of an assignment statement, and the
+expression to replace the given part on the right-hand side.
+</p><!--l. 930--><p class="noindent" >For example, with the normal settings of the REDUCE switches:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-261">
+        xx := a+b;
+ <br />        part(xx,2) := c;   -&#x003E;  a+c
+ <br />        part(c+d,0) := -;   -&#x003E; c-d
+</div>
+<!--l. 935--><p class="nopar" >
+</p><!--l. 937--><p class="noindent" >Note that <span 
+class="pcrr8t-x-x-109">xx </span>in the above is not changed by this substitution. In addition, unlike
+expressions such as array and matrix elements that have an <span 
+class="ptmri8t-x-x-109">instant evaluation</span><a 
+ id="dx76-146001"></a> property,
+the values of <span 
+class="pcrr8t-x-x-109">part(xx,2) </span>and <span 
+class="pcrr8t-x-x-109">part(c+d,0) </span>are also not changed.
+                                                                     
+
+                                                                     
+</p><!--l. 943--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch8.html#manualse59.html" >Up</a></td><td class="clinks"><a 
+href="manualse60.html" >Next</a></td><td class="clinks"><a 
+href="manualse58.html" >Prev</a></td><td class="clinks"><a 
+href="manualse58.html#tailmanualse58.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse59.html" >Front</a></td></tr></table><a 
+ id="tailmanualse59.html"></a>  </p> 
+</body> 
+</html>

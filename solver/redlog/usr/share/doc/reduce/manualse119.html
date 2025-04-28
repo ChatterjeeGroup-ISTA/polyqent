@@ -1,0 +1,65 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Introduction</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch19.html#manualse119.html" >Up</a></td><td class="clinks"><a 
+href="manualse120.html" >Next</a></td><td class="clinks"><a 
+href="#tailmanualse119.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">19.1    </span> <a 
+ id="x159-37100019.1"></a>Introduction</h3>
+<!--l. 11--><p class="noindent" >The package <span 
+class="pcrr8t-x-x-109">rtrace </span>provides portable tracing facilities for REDUCE
+programming.<span class="footnote-mark"><a 
+href="manual160.html#fn1x19"><sup class="textsuperscript">1</sup></a></span><a 
+ id="x159-371001f1"></a> 
+These include </p>
+     <ul class="itemize1">
+     <li class="itemize">entry-exit tracing of procedures,
+     </li>
+     <li class="itemize">assignment tracing of procedures,
+     </li>
+     <li class="itemize">tracing of rules when they ﬁre.</li></ul>
+<!--l. 21--><p class="noindent" >In contrast to conventional Lisp-level tracing, values are printed in algebraic style
+whenever possible if the switch <span 
+class="pcrr8t-x-x-109">rtrace</span><a 
+ id="dx159-371002"></a><a 
+ id="dx159-371003"></a><a 
+ id="dx159-371004"></a> is on, which it is by default. The output has
+                                                                     
+
+                                                                     
+been specially tailored for the needs of algebraic-mode programming. Most features can
+be applied without explicitly modifying the target program, and they can be turned on
+and oﬀ dynamically at run time. If the switch <span 
+class="pcrr8t-x-x-109">rtrace </span>is turned oﬀ then values are
+printed in conventional Lisp style, and the result should be similar to the tracing provided
+by the underlying Lisp system.
+</p><!--l. 32--><p class="noindent" >To make the facilities available, load the package using the command
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-621">
+load_package rtrace;
+</div>
+<!--l. 35--><p class="nopar" > Alternatively, the package can be set up to auto load by putting appropriate code in your
+REDUCE initialisation ﬁle. An example is provided in the ﬁle <span 
+class="pcrr8t-x-x-109">reduce.rc </span>in the
+<span 
+class="pcrr8t-x-x-109">rtrace </span>source directory.
+                                                                     
+
+                                                                     
+</p><!--l. 41--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch19.html#manualse119.html" >Up</a></td><td class="clinks"><a 
+href="manualse120.html" >Next</a></td><td class="clinks"><a 
+href="manualse119.html" >Front</a></td></tr></table><a 
+ id="tailmanualse119.html"></a> </p> 
+</body> 
+</html>

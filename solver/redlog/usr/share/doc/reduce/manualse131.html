@@ -1,0 +1,293 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>BOOLEAN: A Package for Boolean Algebra</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse131.html" >Up</a></td><td class="clinks"><a 
+href="manualse132.html" >Next</a></td><td class="clinks"><a 
+href="manualse130.html" >Prev</a></td><td class="clinks"><a 
+href="manualse130.html#tailmanualse130.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse131.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.6    </span> <a 
+ id="x173-42900020.6"></a>BOOLEAN: A Package for Boolean Algebra</h3>
+<a 
+ id="dx173-429001"></a>
+<a 
+ id="dx173-429002"></a>
+<!--l. 168--><p class="noindent" >This package supports the computation with boolean expressions in the propositional
+calculus. The data objects are composed from algebraic expressions connected by the
+inﬁx boolean operators <span 
+class="ptmb8t-x-x-109">and</span>, <span 
+class="ptmb8t-x-x-109">or</span>, <span 
+class="ptmb8t-x-x-109">implies</span>, <span 
+class="ptmb8t-x-x-109">equiv</span>, and the unary preﬁx operator <span 
+class="ptmb8t-x-x-109">not</span>.
+<span 
+class="ptmb8t-x-x-109">Boolean </span>allows you to simplify expressions built from these operators, and to test
+properties like equivalence, subset property etc.
+</p><!--l. 175--><p class="noindent" >Author: Herbert Melenk.
+<a 
+ id="dx173-429003"></a>
+<a 
+ id="dx173-429004"></a>
+</p><!--l. 5--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.6.1    </span> <a 
+ id="x173-43000020.6.1"></a>Introduction</h4>
+<!--l. 7--><p class="noindent" >The package <span 
+class="ptmrc8t-x-x-109">B<span 
+class="small-caps">O</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">E</span><span 
+class="small-caps">A</span><span 
+class="small-caps">N</span> </span>supports the computation with boolean expressions in the
+propositional calculus. The data objects are composed from algebraic expressions
+(“atomic parts”, “leafs”) connected by the inﬁx boolean operators <span 
+class="pcrr8t-x-x-109">and</span>, <span 
+class="pcrr8t-x-x-109">or</span>, <span 
+class="pcrr8t-x-x-109">implies</span>,
+<span 
+class="pcrr8t-x-x-109">equiv</span>, and the unary preﬁx operator <span 
+class="pcrr8t-x-x-109">not</span>. <span 
+class="ptmrc8t-x-x-109">B<span 
+class="small-caps">O</span><span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">E</span><span 
+class="small-caps">A</span><span 
+class="small-caps">N</span> </span>allows you to simplify
+expressions built from these operators, and to test properties like equivalence, subset
+property etc. Also the reduction of a boolean expression by a partial evaluation and
+combination of its atomic parts is supported.
+</p><!--l. 18--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.6.2    </span> <a 
+ id="x173-43100020.6.2"></a>Entering boolean expressions</h4>
+<a 
+ id="dx173-431001"></a>
+<!--l. 21--><p class="noindent" >In order to distinguish boolean data expressions from boolean expressions in the
+REDUCE programming language (e.g. in an <span 
+class="pcrr8t-x-x-109">if </span>statement), each expression must be
+tagged explicitly by an operator <span 
+class="pcrr8t-x-x-109">boolean</span>. Otherwise the boolean operators are not
+accepted in the REDUCE algebraic mode input. The ﬁrst argument of <span 
+class="pcrr8t-x-x-109">boolean</span>
+                                                                     
+
+                                                                     
+can be any boolean expression, which may contain references to other boolean
+values.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-747">
+    boolean (a and b or c);
+ <br />    q := boolean(a and b implies c);
+ <br />    boolean(q or not c);
+</div>
+<!--l. 33--><p class="nopar" > Brackets are used to override the operator precedence as usual. The leafs or atoms of a
+boolean expression are those parts which do not contain a leading boolean operator.
+These are considered as constants during the boolean evaluation. There are two
+pre-deﬁned values: </p>
+     <ul class="itemize1">
+     <li class="itemize"><span 
+class="ptmb8t-x-x-109">true</span>, <span 
+class="ptmb8t-x-x-109">t </span>or <span 
+class="ptmb8t-x-x-109">1</span>
+     </li>
+     <li class="itemize"><span 
+class="ptmb8t-x-x-109">false</span>, <span 
+class="ptmb8t-x-x-109">nil </span>or <span 
+class="ptmb8t-x-x-109">0</span></li></ul>
+<!--l. 43--><p class="noindent" >These represent the boolean constants. In a result form they are used only as <span 
+class="ptmb8t-x-x-109">1 </span>and
+<span 
+class="ptmb8t-x-x-109">0</span>.
+</p><!--l. 46--><p class="noindent" >By default, a <span 
+class="ptmb8t-x-x-109">boolean </span>expression is converted to a disjunctive normal form, that is a form
+where terms are connected by <span 
+class="ptmb8t-x-x-109">or </span>on the top level and each term is set of leaf expressions,
+eventually preceded by <span 
+class="ptmb8t-x-x-109">not </span>and connected by <span 
+class="ptmb8t-x-x-109">and</span>. An operators <span 
+class="ptmb8t-x-x-109">or </span>or <span 
+class="ptmb8t-x-x-109">and </span>is omitted if it
+would have only one single operand. The result of the transformation is again an
+expression with leading operator <span 
+class="ptmb8t-x-x-109">boolean </span>such that the boolean expressions remain
+separated from other algebraic data. Only the boolean constants <span 
+class="ptmb8t-x-x-109">0 </span>and <span 
+class="ptmb8t-x-x-109">1 </span>are returned
+untagged.
+</p><!--l. 57--><p class="noindent" >On output, the operators <span 
+class="ptmb8t-x-x-109">and </span>and <span 
+class="ptmb8t-x-x-109">or </span>are represented as <span 
+class="pcrr8t-x-x-109">/\ </span>and <span 
+class="pcrr8t-x-x-109">\/</span>, respectively.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-748">
+boolean(true and false);
+ <br />    -&#x003E;   0
+ <br />boolean(a or not(b and c));
+ <br />    -&#x003E; boolean(not(b) \/ not(c) \/ a)
+ <br />boolean(a equiv not c);
+ <br />    -&#x003E; boolean(not(a)/\c \/ a/\not(c))
+</div>
+<!--l. 67--><p class="nopar" >
+</p><!--l. 69--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.6.3    </span> <a 
+ id="x173-43200020.6.3"></a>Normal forms</h4>
+<!--l. 71--><p class="noindent" >The <span 
+class="ptmb8t-x-x-109">disjunctive </span>normal form is used by default. It represents the “natural” view and
+allows us to represent any form free or parentheses. Alternatively a <span 
+class="ptmb8t-x-x-109">conjunctive </span>normal
+form can be selected as simpliﬁcation target, which is a form with leading operator <span 
+class="ptmb8t-x-x-109">and</span>.
+To produce that form add the keyword <span 
+class="ptmb8t-x-x-109">and </span>as an additional argument to a call of
+<span 
+class="ptmb8t-x-x-109">boolean</span>.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-749">
+boolean (a or b implies c);
+ <br />                    -&#x003E;
+ <br />     boolean(not(a)/\not(b) \/ c)
+ <br />
+ <br />boolean (a or b implies c, and);
+ <br />                    -&#x003E;
+ <br />     boolean((not(a) \/ c)/\(not(b) \/ c))
+</div>
+<!--l. 86--><p class="nopar" >
+</p><!--l. 88--><p class="noindent" >Usually the result is a fully reduced disjunctive or conjuntive normal form, where all
+redundant elements have been eliminated following the rules
+</p><!--l. 92--><p class="noindent" ><span 
+class="cmmi-10x-x-109">a </span><span 
+class="cmsy-10x-x-109">∧ </span><span 
+class="cmmi-10x-x-109">b </span><span 
+class="cmsy-10x-x-109">∨¬</span><span 
+class="cmmi-10x-x-109">a </span><span 
+class="cmsy-10x-x-109">∧ </span><span 
+class="cmmi-10x-x-109">b</span><span 
+class="cmmi-10x-x-109">↔</span><span 
+class="cmmi-10x-x-109">b</span>
+</p><!--l. 94--><p class="noindent" ><span 
+class="cmmi-10x-x-109">a </span><span 
+class="cmsy-10x-x-109">∨ </span><span 
+class="cmmi-10x-x-109">b </span><span 
+class="cmsy-10x-x-109">∧¬</span><span 
+class="cmmi-10x-x-109">a </span><span 
+class="cmsy-10x-x-109">∨ </span><span 
+class="cmmi-10x-x-109">b</span><span 
+class="cmmi-10x-x-109">↔</span><span 
+class="cmmi-10x-x-109">b</span>
+</p><!--l. 97--><p class="noindent" >Internally the full normal forms are computed as intermediate result; in these forms each
+term contains all leaf expressions, each one exactly once. This unreduced form is
+returned when you set the additional keyword <span 
+class="ptmb8t-x-x-109">full</span>:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-750">
+boolean (a or b implies c, full);
+ <br />                   -&#x003E;
+ <br />boolean(a/\b/\c \/ a/\not(b)/\c \/ not(a)/\b/\c
+ <br />
+ <br />         \/ not(a)/\not(b)/\c
+ <br />
+ <br />         \/ not(a)/\not(b)/\not(c))
+</div>
+<!--l. 109--><p class="nopar" >
+</p><!--l. 111--><p class="noindent" >The keywords <span 
+class="ptmb8t-x-x-109">full </span>and <span 
+class="ptmb8t-x-x-109">and </span>may be combined.
+</p><!--l. 113--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.6.4    </span> <a 
+ id="x173-43300020.6.4"></a>Evaluation of a boolean expression</h4>
+<!--l. 115--><p class="noindent" ><a 
+ id="operator:TESTBOOL"></a> If the leafs of the boolean expression are algebraic expressions which may evaluate to
+logical values because the environment has changed (e.g. variables have been bound),
+you can re–investigate the expression using the operator <span 
+class="pcrr8t-x-x-109">testbool</span><a 
+ id="dx173-433001"></a> with the boolean
+expression as argument. This operator tries to evaluate all leaf expressions in REDUCE
+boolean style. As many terms as possible are replaced by their boolean values; the others
+remain unchanged. The resulting expression is contracted to a minimal form. The
+result <span 
+class="ptmb8t-x-x-109">1 </span>(= true) or <span 
+class="ptmb8t-x-x-109">0 </span>(=false) signals that the complete expression could be
+evaluated.
+</p><!--l. 128--><p class="noindent" >In the following example the leafs are built as numeric greater test. For using <span 
+class="cmmi-10x-x-109">&#x003E;</span> in the
+expressions the greater sign must be declared operator ﬁrst. The error messages are
+meaningless.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-751">
+operator &#x003E;;
+ <br />fm:=boolean(x&#x003E;v or not (u&#x003E;v));
+ <br />        -&#x003E;
+ <br />    fm := boolean(not(u&#x003E;v) \/ x&#x003E;v)
+ <br />
+ <br />v:=10$
+ <br />
+ <br />testbool fm;
+ <br />
+ <br />   ***** u - 10 invalid as number
+ <br />   ***** x - 10 invalid as number
+ <br />
+ <br />        -&#x003E;
+ <br />   boolean(not(u&#x003E;10) \/ x&#x003E;10)
+ <br />
+ <br />x:=3$
+ <br />testbool fm;
+ <br />
+ <br />   ***** u - 10 invalid as number
+ <br />
+ <br />        -&#x003E;
+ <br />   boolean(not(u&#x003E;10))
+ <br />
+ <br />x:=17$
+ <br />
+ <br />testbool fm;
+ <br />
+ <br />   ***** u - 10 invalid as number
+ <br />
+ <br />        -&#x003E;
+ <br />    1
+ <br />
+</div>
+<!--l. 164--><p class="nopar" >
+</p><!--l. 179--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 181--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse131.html" >Up</a></td><td class="clinks"><a 
+href="manualse132.html" >Next</a></td><td class="clinks"><a 
+href="manualse130.html" >Prev</a></td><td class="clinks"><a 
+href="manualse130.html#tailmanualse130.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse131.html" >Front</a></td></tr></table><a 
+ id="tailmanualse131.html"></a>  </p> 
+</body> 
+</html>

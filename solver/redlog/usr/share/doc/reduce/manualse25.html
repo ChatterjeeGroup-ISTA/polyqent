@@ -1,0 +1,69 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Timing Facilities</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch6.html#manualse25.html" >Up</a></td><td class="clinks"><a 
+href="manualse26.html" >Next</a></td><td class="clinks"><a 
+href="manualse24.html" >Prev</a></td><td class="clinks"><a 
+href="manualse24.html#tailmanualse24.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse25.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">6.5    </span> <a 
+ id="x34-500006.5"></a>Timing Facilities</h3>
+<a 
+ id="dx34-50001"></a>
+<!--l. 150--><p class="noindent" ><a 
+ id="command:SHOWTIME"></a>
+</p><!--l. 152--><p class="noindent" >The command <span 
+class="pcrr8t-x-x-109">showtime</span><a 
+ id="dx34-50002"></a> causes REDUCE to print the elapsed time since the last
+call of this command or, on its ﬁrst call, since the current REDUCE session
+began.
+</p><!--l. 157--><p class="noindent" >Turning on the <a 
+href="manualse22.html#switch:TIME">switch</a> <span 
+class="pcrr8t-x-x-109">time</span><a 
+ id="dx34-50003"></a><a 
+ id="dx34-50004"></a><a 
+ id="dx34-50005"></a> causes REDUCE to print a message after each command
+giving the elapsed CPU time since the last command, or since <span 
+class="pcrr8t-x-x-109">time </span>was last turned oﬀ,
+or the session began.
+</p><!--l. 162--><p class="noindent" >The time is normally given in milliseconds and gives the time as measured by a system
+clock. The operations covered by this measure are system dependent.
+</p><!--l. 166--><p class="noindent" >The Lisp function <span 
+class="pcrr8t-x-x-109">time() </span>returns CPU time since the session began in milliseconds
+as an integer. It could be used in algebraic mode to time a computation like
+this:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-80">
+        % Make time() available in algebraic mode:
+ <br />        symbolic operator time;
+ <br />
+ <br />        start_time := time();
+ <br />        % perform a computation...
+ <br />        time_taken := time() - start_time;
+ <br />
+ <br />        write &#x0022;Time taken was &#x0022;, time_taken, &#x0022; ms.&#x0022;;
+</div>
+<!--l. 178--><p class="nopar" > Beware that modern computers can perform many computations in less than a
+millisecond, so the time taken may be reported inaccurately as zero.
+                                                                     
+
+                                                                     
+</p><!--l. 183--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch6.html#manualse25.html" >Up</a></td><td class="clinks"><a 
+href="manualse26.html" >Next</a></td><td class="clinks"><a 
+href="manualse24.html" >Prev</a></td><td class="clinks"><a 
+href="manualse24.html#tailmanualse24.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse25.html" >Front</a></td></tr></table><a 
+ id="tailmanualse25.html"></a> </p> 
+</body> 
+</html>

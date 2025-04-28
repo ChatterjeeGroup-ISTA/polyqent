@@ -1,0 +1,116 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>5 Statements</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manual.html#manualch5.html" >Up</a></td><td class="clinks"><a 
+href="manualch6.html" >Next</a></td><td class="clinks"><a 
+href="manualch4.html" >Prev</a></td><td class="clinks"><a 
+href="manualch4.html#tailmanualch4.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualch5.html">Tail</a></td></tr></table><h2 class="ChapterHead"> 5 <a 
+ id="x21-330005"></a>Statements</h2>
+<!--l. 3--><p class="noindent" >A statement<a 
+ id="dx21-33001"></a> is any combination of reserved words and expressions, and has the syntax
+<a 
+ id="dx21-33002"></a>
+  </p><div class="syntax">
+   <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">statement</span><span 
+class="cmsy-10x-x-109">⟩</span> <span 
+class="cmmi-10x-x-109">→</span> <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">expression</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmsy-10x-x-109">∣</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">proper statement</span><span 
+class="cmsy-10x-x-109">⟩</span></div>
+<!--l. 8--><p class="noindent" >A REDUCE program consists of a series of commands which are statements followed by
+a terminator:<a 
+ id="dx21-33003"></a> <a 
+ id="dx21-33004"></a><a 
+ id="dx21-33005"></a><a 
+ id="dx21-33006"></a> <a 
+ id="dx21-33007"></a><a 
+ id="dx21-33008"></a>
+  </p><div class="syntax">
+   <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">terminator</span><span 
+class="cmsy-10x-x-109">⟩</span> <span 
+class="cmmi-10x-x-109">→</span> <span 
+class="pcrr8t-x-x-109">;</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmsy-10x-x-109">∣</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="pcrr8t-x-x-109">$</span></div>
+<!--l. 16--><p class="noindent" >The division of the program into lines is arbitrary. Several statements can be on one line,
+or one statement can be freely broken onto several lines. If the program is run
+interactively, statements ending with ; or $ are not processed until an end-of-line
+character is encountered. This character can vary from system to system, but is normally
+the <span class="fbox"><span 
+class="phvr8t-x-x-109">Return</span></span> key on an ASCII terminal. Speciﬁc systems may also use additional keys as
+statement terminators.
+</p><!--l. 24--><p class="noindent" >If a statement is a proper statement<a 
+ id="dx21-33009"></a>, the appropriate action takes place.
+</p><!--l. 27--><p class="noindent" >Depending on the nature of the proper statement some result or response may or may
+not be printed out, and the response may or may not depend on the terminator
+used.
+</p><!--l. 31--><p class="noindent" >If a statement is an expression, it is evaluated. If the terminator is a semicolon, the result
+is printed. If the terminator is a dollar sign, the result is not printed. Because it is not
+usually possible to know in advance how large an expression will be, no explicit format
+statements are oﬀered to the user. However, a variety of output declarations are available
+so that the output can be produced in diﬀerent forms. These output declarations are
+explained in Section <a 
+href="manualse57.html#x74-1260008.3.3">8.3.3<!--tex4ht:ref: sec-output --></a>.
+</p><!--l. 39--><p class="noindent" >The following sub-sections describe the types of proper statements <a 
+ id="dx21-33010"></a>in REDUCE.
+</p><!--l. 42--><p class="noindent" ><a 
+ id="reserved:assignop"></a>
+</p>
+<div class="sectionTOCS">
+ <span class="sectionToc" >5.1 <a 
+href="manualse14.html#x22-340005.1">Assignment Statements</a></span>
+<br /> <span class="sectionToc" >5.2 <a 
+href="manualse15.html#x23-360005.2">Group Statements</a></span>
+<br /> <span class="sectionToc" >5.3 <a 
+href="manualse16.html#x24-370005.3">Conditional Statements</a></span>
+<br /> <span class="sectionToc" >5.4 <a 
+href="manualse17.html#x25-380005.4">FOR Statements</a></span>
+                                                                     
+
+                                                                     
+<br /> <span class="sectionToc" >5.5 <a 
+href="manualse18.html#x26-390005.5">WHILE … DO</a></span>
+<br /> <span class="sectionToc" >5.6 <a 
+href="manualse19.html#x27-400005.6">REPEAT … UNTIL</a></span>
+<br /> <span class="sectionToc" >5.7 <a 
+href="manualse20.html#x28-410005.7">Compound Statements</a></span>
+</div>
+
+
+
+
+
+
+                                                                     
+
+                                                                     
+<table cellspacing="5"><tr><td class="clinks"><a 
+href="manual.html#manualch5.html" >Up</a></td><td class="clinks"><a 
+href="manualch6.html" >Next</a></td><td class="clinks"><a 
+href="manualch4.html" >Prev</a></td><td class="clinks"><a 
+href="manualch4.html#tailmanualch4.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualch5.html" >Front</a></td></tr></table><a 
+ id="tailmanualch5.html"></a>  
+</body> 
+</html>

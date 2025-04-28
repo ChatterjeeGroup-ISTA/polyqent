@@ -1,0 +1,242 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>LAPLACE: Laplace Transforms</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse155.html" >Up</a></td><td class="clinks"><a 
+href="manualse156.html" >Next</a></td><td class="clinks"><a 
+href="manualse154.html" >Prev</a></td><td class="clinks"><a 
+href="manualse154.html#tailmanualse154.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse155.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.30    </span> <a 
+ id="x223-90500020.30"></a>LAPLACE: Laplace Transforms</h3>
+<a 
+ id="dx223-905001"></a>
+<a 
+ id="dx223-905002"></a>
+<!--l. 615--><p class="noindent" >This package can calculate ordinary and inverse Laplace transforms of expressions.
+Documentation is in plain text.
+</p><!--l. 618--><p class="noindent" >Authors: C. Kazasov, M. Spiridonova, V. Tomov.
+<a 
+ id="dx223-905003"></a>
+<a 
+ id="dx223-905004"></a>
+<a 
+ id="dx223-905005"></a>
+<a 
+ id="dx223-905006"></a>
+<a 
+ id="dx223-905007"></a>
+<a 
+ id="dx223-905008"></a>
+<a 
+ id="dx223-905009"></a>
+<a 
+ id="dx223-905010"></a>
+</p><!--l. 9--><p class="noindent" ><a 
+ id="operator:LAPLACE"></a> <a 
+ id="operator:INVLAP"></a> <a 
+ id="dx223-905011"></a> <a 
+ id="dx223-905012"></a> Reference: <span class="cite">[<a 
+href="manualap2.html#XKazasov:87">Kaz87</a>]</span>.
+</p><!--l. 15--><p class="noindent" >Some hints on how to use to use this package:<br 
+class="newline" /> Syntax:
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">laplace</span>(<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exp</span><span 
+class="cmsy-10x-x-109">⟩</span>,<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">var-s</span><span 
+class="cmsy-10x-x-109">⟩</span>,<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">var-t</span><span 
+class="cmsy-10x-x-109">⟩</span>)<br 
+class="newline" /> <span 
+class="pcrr8t-x-x-109">invlap</span>(<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exp</span><span 
+class="cmsy-10x-x-109">⟩</span>,<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">var-s</span><span 
+class="cmsy-10x-x-109">⟩</span>,<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">var-t</span><span 
+class="cmsy-10x-x-109">⟩</span>)</div>
+<!--l. 24--><p class="noindent" >where <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exp</span><span 
+class="cmsy-10x-x-109">⟩ </span>is the expression to be transformed, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">var-s</span><span 
+class="cmsy-10x-x-109">⟩ </span>is the source variable (in most
+cases <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exp</span><span 
+class="cmsy-10x-x-109">⟩ </span>depends explicitly of this variable) and <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">var-t</span><span 
+class="cmsy-10x-x-109">⟩ </span>is the target variable. If
+<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">var-t</span><span 
+class="cmsy-10x-x-109">⟩ </span>is omitted, the above operators use an internal variable <span 
+class="pcrr8t-x-x-109">lp!&#x0026; </span>or <span 
+class="pcrr8t-x-x-109">il!&#x0026;</span>,
+respectively.
+</p><!--l. 29--><p class="noindent" >The following switches can be used to control the transformations: <br 
+class="newline" /><a 
+ id="dx223-905013"></a><a 
+ id="dx223-905014"></a><a 
+ id="dx223-905015"></a> <a 
+ id="dx223-905016"></a><a 
+ id="dx223-905017"></a><a 
+ id="dx223-905018"></a> <a 
+ id="dx223-905019"></a><a 
+ id="dx223-905020"></a><a 
+ id="dx223-905021"></a> <a 
+ id="switch:LMON"></a> <a 
+ id="switch:LHYP"></a> <a 
+ id="switch:LTRIG"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="pcrr8t-x-x-109">lmon</span><span 
+class="ptmb8t-x-x-109">:</span> </dt><dd 
+class="description">If on, sin, cos, sinh and cosh are converted by <span 
+class="pcrr8t-x-x-109">laplace </span>into exponentials,
+                                                                     
+
+                                                                     
+     </dd><dt class="description">
+<span 
+class="pcrr8t-x-x-109">lhyp</span><span 
+class="ptmb8t-x-x-109">:</span> </dt><dd 
+class="description">If on, expressions <span 
+class="cmmi-10x-x-109">e</span><sup><span class='accenttilde'><span 
+class="cmmi-8"> </span></span><span 
+class="cmmi-8">x</span></sup> are converted by <span 
+class="pcrr8t-x-x-109">invlap </span>into hyperbolic functions
+     sinh and cosh,
+     </dd><dt class="description">
+<span 
+class="pcrr8t-x-x-109">ltrig</span><span 
+class="ptmb8t-x-x-109">:</span> </dt><dd 
+class="description">If  on,  expressions  <span 
+class="cmmi-10x-x-109">e</span><sup><span class='accenttilde'><span 
+class="cmmi-8"> </span></span><span 
+class="cmmi-8">x</span></sup>  are  converted  by  <span 
+class="pcrr8t-x-x-109">invlap </span>into  trigonometric
+     functions sin and cos.</dd></dl>
+<!--l. 45--><p class="noindent" >The system can be extended by adding Laplace transformation rules for single functions
+by rules or rule sets.  In such a rule the source variable <span 
+class="ptmri8t-x-x-109">must </span>be free, the target variable
+<span 
+class="ptmri8t-x-x-109">must </span>be <span 
+class="pcrr8t-x-x-109">il!&#x0026; </span>for <span 
+class="pcrr8t-x-x-109">laplace </span>and <span 
+class="pcrr8t-x-x-109">lp!&#x0026; </span>for <span 
+class="pcrr8t-x-x-109">invlap </span>and the third parameter
+should be omitted.  Also rules for transforming derivatives are entered in such a
+form.
+                                                                     
+
+                                                                     
+</p><!--l. 52--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Examples:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1234">
+ <br />    let {laplace(log(~x),x)
+ <br />             =&#x003E; -log(Euler_Gamma * il!&#x0026;)/il!&#x0026;,
+ <br />
+ <br />         invlap(log(Euler_Gamma * ~x)/x,x)
+ <br />             =&#x003E; -log(lp!&#x0026;)};
+ <br />
+ <br />
+ <br />    operator f;
+ <br />
+ <br />    let{
+ <br />
+ <br />    laplace(df(f(~x),x),x)
+ <br />           =&#x003E; il!&#x0026;*laplace(f(x),x) - sub(x=0,f(x)),
+ <br />
+ <br />    laplace(df(f(~x),x,~n),x)
+ <br />           =&#x003E; il!&#x0026;**n*laplace(f(x),x) -
+ <br />
+ <br />    for i:=n-1 step -1 until 0 sum
+ <br />
+ <br />    sub(x=0, df(f(x),x,n-1-i)) * il!&#x0026;**i
+ <br />
+ <br />    when fixp n,
+ <br />
+ <br />    laplace(f(~x),x) = f(il!&#x0026;)
+ <br />
+ <br />    };
+ <br />
+</div>
+<!--l. 82--><p class="nopar" >
+</p><!--l. 85--><p class="noindent" >Remarks about some functions:<br 
+class="newline" /> The <span 
+class="pcrr8t-x-x-109">delta </span>and <span 
+class="pcrr8t-x-x-109">gamma </span>functions are known. <br 
+class="newline" />ONE is the name of the unit step function. <br 
+class="newline" />INTL is a parametrized integral function
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">intl</span>(<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">expr</span><span 
+class="cmsy-10x-x-109">⟩</span>,<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">var</span><span 
+class="cmsy-10x-x-109">⟩</span>,0,<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">obj.var</span><span 
+class="cmsy-10x-x-109">⟩</span>)</div>
+<!--l. 92--><p class="noindent" >which means “Integral of <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">expr</span><span 
+class="cmsy-10x-x-109">⟩ </span>w.r.t. <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">var</span><span 
+class="cmsy-10x-x-109">⟩ </span>taken from 0 to <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">obj.var</span><span 
+class="cmsy-10x-x-109">⟩</span>”, e.g.
+<span 
+class="pcrr8t-x-x-109">intl(</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmsy-10x-x-109">∗</span><span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-10x-x-109">,y,</span><span 
+class="cmr-10x-x-109">0</span><span 
+class="cmmi-10x-x-109">,x</span><span 
+class="pcrr8t-x-x-109">) </span>which is formally a function in <span 
+class="cmmi-10x-x-109">x</span>.<br 
+class="newline" />We recommend reading the ﬁle <span 
+class="pcrr8t-x-x-109">laplace.tst </span>for a further introduction.
+</p><!--l. 622--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 624--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse155.html" >Up</a></td><td class="clinks"><a 
+href="manualse156.html" >Next</a></td><td class="clinks"><a 
+href="manualse154.html" >Prev</a></td><td class="clinks"><a 
+href="manualse154.html#tailmanualse154.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse155.html" >Front</a></td></tr></table><a 
+ id="tailmanualse155.html"></a> </p> 
+</body> 
+</html>

@@ -1,0 +1,1647 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>RATAPRX: Rational Approximations Package for REDUCE</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse170.html" >Up</a></td><td class="clinks"><a 
+href="manualse171.html" >Next</a></td><td class="clinks"><a 
+href="manualse169.html" >Prev</a></td><td class="clinks"><a 
+href="manualse169.html#tailmanualse169.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse170.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.45    </span> <a 
+ id="x256-110900020.45"></a>RATAPRX: Rational Approximations Package for
+REDUCE</h3>
+<a 
+ id="dx256-1109001"></a>
+<a 
+ id="dx256-1109002"></a>
+<!--l. 927--><p class="noindent" >Authors: Lisa Temme, Wolfram Koepf and Alan Barnes
+<a 
+ id="dx256-1109003"></a>
+<a 
+ id="dx256-1109004"></a>
+<a 
+ id="dx256-1109005"></a>
+<a 
+ id="dx256-1109006"></a>
+<a 
+ id="dx256-1109007"></a>
+<a 
+ id="dx256-1109008"></a>
+</p><!--l. 6--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.45.1    </span> <a 
+ id="x256-111000020.45.1"></a>Periodic Decimal Representation</h4>
+<a 
+ id="dx256-1110001"></a>
+<!--l. 13--><p class="noindent" >The division of one integer by another often results in a period in the decimal
+part. The <span 
+class="pcrr8t-x-x-109">rational2periodic </span>function in this package can recognise and
+represent such an answer in a periodic representation. The inverse function,
+<span 
+class="pcrr8t-x-x-109">periodic2rational</span>, converts a periodic representation back to a rational
+number.
+</p><!--l. 20--><p class="noindent" ><a 
+ id="operator:RATIONAL2PERIODIC"></a> <a 
+ id="operator:PERIODIC2RATIONAL"></a> <a 
+ id="operator:PERIODIC"></a>
+</p><!--l. 24--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x256-111100020.45.1"></a><span class="underline"><span 
+class="ptmb8t-x-x-109">Periodic Representation of a Rational Number</span></span></h5>
+                                                                     
+
+                                                                     
+           <dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">SYNTAX:</span>  </dt><dd 
+class="description"><a 
+ id="dx256-1111001"></a>
+             <div class="syntax">
+             <span 
+class="pcrr8t-x-x-109">rational2periodic(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="pcrro8t-x-x-109">n</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">)</span><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">rational2periodic(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="pcrro8t-x-x-109">n</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="pcrro8t-x-x-109">b</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">)</span></div>
+           </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">INPUT:</span>    </dt><dd 
+class="description"><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">n</span><span 
+class="cmsy-10x-x-109">⟩  </span>is a rational number<br 
+class="newline" /><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">b</span><span 
+class="cmsy-10x-x-109">⟩  </span>is the number base, if absent the default is <span 
+class="cmr-10x-x-109">10</span>.
+           </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">RESULT:</span>  </dt><dd 
+class="description"><a 
+ id="dx256-1111002"></a>
+             <div class="syntax">
+             <span 
+class="pcrr8t-x-x-109">periodic({</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">a1</span><span 
+class="cmsy-10x-x-109">⟩</span>,…,<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">an</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">}</span>,<br 
+class="newline" />                      <span 
+class="pcrr8t-x-x-109">{</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">b1</span><span 
+class="cmsy-10x-x-109">⟩</span>,…,<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">bm</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">}</span>,<br 
+class="newline" />                      <span 
+class="pcrr8t-x-x-109">{</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">c1</span><span 
+class="cmsy-10x-x-109">⟩</span>,…,<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">ck</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">}</span>,<br 
+class="newline" />                      <span 
+class="cmsy-10x-x-109">±⟨</span><span 
+class="ptmri8t-x-x-109">b</span><span 
+class="cmsy-10x-x-109">⟩</span>)</div>
+           <!--l. 51--><p class="noindent" >where <span 
+class="pcrr8t-x-x-109">{</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="pcrro8t-x-x-109">a1</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="pcrr8t-x-x-109">…,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="pcrro8t-x-x-109">an</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">} </span>is a list of the digits in the integer part,<br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">{</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="pcrro8t-x-x-109">b1</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="pcrr8t-x-x-109">…,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="pcrro8t-x-x-109">bm</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">} </span>is a list of the digits in the non-periodic part,<br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">{</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="pcrro8t-x-x-109">c1</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="pcrr8t-x-x-109">…,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="pcrro8t-x-x-109">ck</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">} </span>is a list of the digits in the periodic part<br 
+class="newline" />and <span 
+class="cmsy-10x-x-109">±⟨</span><span 
+class="ptmri8t-x-x-109">b</span><span 
+class="cmsy-10x-x-109">⟩ </span>where <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">b</span><span 
+class="cmsy-10x-x-109">⟩ </span>is the number base <span 
+class="cmr-10x-x-109">2 </span><span 
+class="cmsy-10x-x-109">≤ </span><span 
+class="cmr-10x-x-109">b </span><span 
+class="cmsy-10x-x-109">≤ </span><span 
+class="cmr-10x-x-109">16</span>, <br 
+class="newline" />a minus indicating the rational number <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">n</span><span 
+class="cmsy-10x-x-109">⟩ </span>was negative.
+           </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">EXAMPLES:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">59</span><span 
+class="cmmi-10x-x-109">∕</span><span 
+class="cmr-10x-x-109">70 </span>written as <span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">0</span><span 
+class="cmmi-10x-x-109">.</span><span 
+class="cmr-10x-x-109">8</span><span class="overline"><span 
+class="cmr-10x-x-109">428571</span></span>
+                                                                     
+
+                                                                     
+           <div class="verbatim" id="verbatim-1336">
+             1: rational2periodic(-59/70);
+            <br />
+            <br />  periodic({0}, {8}, {4,2,8,5,7,1}, -10)}
+            <br />
+            <br />  2: rational2periodic(1/80,16);
+            <br />
+            <br />  periodic({0}, {0}, {3}, 16)
+</div>
+           <!--l. 67--><p class="nopar" ></p></dd></dl>
+<!--l. 70--><p class="noindent" >Normally the operator <span 
+class="pcrr8t-x-x-109">periodic </span>will not be seen as the output will be prettyprinted as
+<span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">0</span><span 
+class="cmmi-10x-x-109">.</span><span 
+class="cmr-10x-x-109">8</span><span class="overline"><span 
+class="cmr-10x-x-109">428571</span></span> and <span 
+class="cmr-10x-x-109">0</span><span 
+class="cmmi-10x-x-109">.</span><span 
+class="cmr-10x-x-109">0</span><span class="overline"><span 
+class="cmr-10x-x-109">3</span></span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmr-10x-x-109">(</span>base <span 
+class="cmr-10x-x-109">16) </span>respectively.
+</p><!--l. 74--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x256-111200020.45.1"></a><span class="underline"><span 
+class="ptmb8t-x-x-109">Rational Number of a Periodic Representation</span></span></h5>
+           <dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">SYNTAX:</span>  </dt><dd 
+class="description"><a 
+ id="dx256-1112001"></a>
+           <!--l. 81--><p class="noindent" >
+             </p><div class="syntax">
+             <span 
+class="pcrr8t-x-x-109">periodic2rational(</span><br 
+class="newline" />  <span 
+class="pcrr8t-x-x-109">periodic({</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">a1</span><span 
+class="cmsy-10x-x-109">⟩</span>,…,<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">an</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">}</span>,<br 
+class="newline" />                          <span 
+class="pcrr8t-x-x-109">{</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">b1</span><span 
+class="cmsy-10x-x-109">⟩</span>,…,<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">bm</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">}</span>,<br 
+class="newline" />                          <span 
+class="pcrr8t-x-x-109">{</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">c1</span><span 
+class="cmsy-10x-x-109">⟩</span>,…,<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">ck</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">}</span>,<br 
+class="newline" />                          <span 
+class="cmsy-10x-x-109">±⟨</span><span 
+class="ptmri8t-x-x-109">b</span><span 
+class="cmsy-10x-x-109">⟩</span>))<br 
+class="newline" /> <span 
+class="pcrr8t-x-x-109">periodic2rational({</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">a1</span><span 
+class="cmsy-10x-x-109">⟩</span>,…,<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">an</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">}</span>,<br 
+class="newline" />                                           <span 
+class="pcrr8t-x-x-109">{</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">b1</span><span 
+class="cmsy-10x-x-109">⟩</span>,…,<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">bm</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">}</span>,<br 
+class="newline" />                                           <span 
+class="pcrr8t-x-x-109">{</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">c1</span><span 
+class="cmsy-10x-x-109">⟩</span>,…,<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">ck</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">}</span>,<br 
+class="newline" />                                           <span 
+class="cmsy-10x-x-109">±⟨</span><span 
+class="ptmri8t-x-x-109">b</span><span 
+class="cmsy-10x-x-109">⟩</span>)</div>
+           </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">INPUT:</span>    </dt><dd 
+class="description"><span 
+class="pcrr8t-x-x-109">{</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="pcrro8t-x-x-109">a1</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="pcrr8t-x-x-109">…,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="pcrro8t-x-x-109">an</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">} </span>is a list of the digits in the integer part,<br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">{</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="pcrro8t-x-x-109">b1</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="pcrr8t-x-x-109">…,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="pcrro8t-x-x-109">bm</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">} </span>is a list of the digits in the non-periodic part,<br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">{</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="pcrro8t-x-x-109">c1</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="pcrr8t-x-x-109">…,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="pcrro8t-x-x-109">ck</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">} </span>is a list of the digits in the periodic part<br 
+class="newline" />and where <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">b</span><span 
+class="cmsy-10x-x-109">⟩ </span>is the number base <span 
+class="cmr-10x-x-109">2 </span><span 
+class="cmsy-10x-x-109">≤ </span><span 
+class="cmr-10x-x-109">b </span><span 
+class="cmsy-10x-x-109">≤ </span><span 
+class="cmr-10x-x-109">16</span>, a minus<br 
+class="newline" />indicating the rational number result should be negative. <br 
+class="newline" />If the base is omitted, 10 is assumed.
+           </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">RESULT:</span>  </dt><dd 
+class="description">A rational number.
+           </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">EXAMPLES:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="cmr-10x-x-109">0</span><span 
+class="cmmi-10x-x-109">.</span><span 
+class="cmr-10x-x-109">8</span><span class="overline"><span 
+class="cmr-10x-x-109">428571</span></span> written as <span 
+class="cmr-10x-x-109">59</span><span 
+class="cmmi-10x-x-109">∕</span><span 
+class="cmr-10x-x-109">70</span>
+                                                                     
+
+                                                                     
+           <div class="verbatim" id="verbatim-1337">
+             3: periodic2rational(
+            <br />         periodic({0},{8},{4,2,8,5,7,1}));
+            <br />   59
+            <br />  ----
+            <br />   70
+            <br />
+            <br />  4: periodic2rational(
+            <br />         {0},{8},{4,2,8,5,7,1}, -10);
+            <br />
+            <br />      59
+            <br />   - ----
+            <br />      70
+</div>
+           <!--l. 119--><p class="nopar" ></p></dd></dl>
+<!--l. 122--><p class="noindent" >Note that <span 
+class="pcrr8t-x-x-109">periodic2rational </span>will produce the correct rational result when passed a
+parameter for the periodic part which is not minimal. Similarly, a parameter for the
+periodic part which consists of all 9’s (or in base <span 
+class="cmmi-10x-x-109">b</span>, all <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">b </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1)</span>’s) is treated correctly
+although such periodic parts are not canonical and are never generated by calls to
+<span 
+class="pcrr8t-x-x-109">rational2periodic</span>.
+</p><!--l. 129--><p class="noindent" >For example,
+     </p><div class="quote">
+     <!--l. 131--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">periodic2rational({0}, {}, {1, 2, 1, 2}); </span><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">periodic2rational({0}, {1}, {2, 1}); </span><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">periodic2rational({0}, {1, 2}, {1, 2, 1, 2});</span></p></div>
+<!--l. 135--><p class="noindent" >all produce the same rational result, namely <img 
+src="manual539x.png" alt="-4
+33"  class="frac" align="middle" />, as the canonical input
+     </p><div class="quote">
+     <!--l. 137--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">periodic2rational({0}, {}, {1, 2});</span></p></div>
+<!--l. 139--><p class="noindent" >Similarly,
+     </p><div class="quote">
+                                                                     
+
+                                                                     
+     <!--l. 141--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">periodic2rational({0}, {}, {9}); </span><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">periodic2rational({0}, {9}, {9}); </span><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">periodic2rational({0}, {}, {9, 9, 9, 9});</span></p></div>
+<!--l. 145--><p class="noindent" >all produce the same rational result, namely <span 
+class="cmr-10x-x-109">1</span>, as the canonical input
+     </p><div class="quote">
+     <!--l. 147--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">periodic2rational({1}, {}, {});</span></p></div>
+<!--l. 150--><p class="noindent" >Although the operators <span 
+class="pcrr8t-x-x-109">periodic2rational </span>and <span 
+class="pcrr8t-x-x-109">rational2periodic </span>work
+even when <span 
+class="pcrr8t-x-x-109">ROUNDED </span>is <span 
+class="pcrr8t-x-x-109">ON</span>, they are best used when <span 
+class="pcrr8t-x-x-109">ROUNDED </span>is <span 
+class="pcrr8t-x-x-109">OFF</span>. The input to
+<span 
+class="pcrr8t-x-x-109">rational2periodic </span>should not be a rounded number, otherwise an error
+results.
+</p><!--l. 156--><p class="noindent" >For example, the input <span 
+class="pcrr8t-x-x-109">rational2periodic(1/7); </span>will produce the intended
+periodic representation even with <span 
+class="pcrr8t-x-x-109">ROUNDED ON</span>. However, the input
+</p><!--l. 160--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">a := 1/7; rational2periodic(a);</span>
+</p><!--l. 162--><p class="noindent" >will result in an error as the simpliﬁer is applied in the assignment and rounds the
+rational number.
+</p><!--l. 165--><p class="noindent" >Similarly, although the result of <span 
+class="pcrr8t-x-x-109">periodic2rational </span>will always be a rational
+number (represented by a <span 
+class="pcrr8t-x-x-109">QUOTIENT </span>preﬁx form), if the simpliﬁer is applied to the
+result a rounded value will be produced.
+</p><!--l. 173--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.45.2    </span> <a 
+ id="x256-111300020.45.2"></a>Continued Fractions</h4>
+<a 
+ id="dx256-1113001"></a>
+<!--l. 176--><p class="noindent" >A continued fraction (see  <span class="cite">[<a 
+href="manualap2.html#XJonesThron:80">JT80</a>]</span>) has the general form
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                        <span 
+class="cmmi-12x-x-120">a</span><sub><span 
+class="cmr-10">0</span></sub> <span 
+class="cmr-12x-x-120">+</span> <img 
+src="manual540x.png" alt="------a1------
+      ---a2---
+b1 +  b2+b-a3+...
+          3"  class="frac" align="middle" /><span 
+class="cmmi-12x-x-120">.</span>
+</td></tr></table>
+<!--l. 182--><p class="nopar" >
+</p><!--l. 185--><p class="noindent" >A more compact way of writing this is as
+</p>
+<table 
+class="equation-star"><tr><td>
+                       <span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmr-8">0</span></sub> <span 
+class="cmr-10x-x-109">+</span> <img 
+src="manual541x.png" alt="a1|
+|b1"  class="frac" align="middle" /> <span 
+class="cmr-10x-x-109">+</span> <img 
+src="manual542x.png" alt="a2|
+|b2"  class="frac" align="middle" /> <span 
+class="cmr-10x-x-109">+</span> <img 
+src="manual543x.png" alt="a3|
+|b3"  class="frac" align="middle" /> <span 
+class="cmr-10x-x-109">+</span> <span 
+class="cmmi-10x-x-109">…</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 186--><p class="nopar" >
+</p><!--l. 188--><p class="noindent" >Even more succinctly:
+</p>
+<table 
+class="equation-star"><tr><td>
+                      <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmr-8">0</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,b</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmsy-10x-x-109">}</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,b</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmsy-10x-x-109">}</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmsy-10x-x-109">}</span>
+</td></tr></table>
+                                                                     
+
+                                                                     
+<!--l. 189--><p class="nopar" >
+<a 
+ id="dx256-1113002"></a>
+</p><!--l. 193--><p class="noindent" >This is represented in REDUCE as </p>
+<div class="center" 
+>
+<!--l. 194--><p class="noindent" >
+</p><!--l. 195--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">contfrac(</span><span 
+class="pcrro8t-x-x-109">Expression</span><span 
+class="pcrr8t-x-x-109">, </span><span 
+class="pcrro8t-x-x-109">Rational approximant</span><span 
+class="pcrr8t-x-x-109">,</span>
+<span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">a</span><span 
+class="cmr-10x-x-109">0</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">a</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,b</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmsy-10x-x-109">}</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">a</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">,b</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmsy-10x-x-109">}</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmsy-10x-x-109">}</span><span 
+class="pcrr8t-x-x-109">)</span></p></div>
+<!--l. 200--><p class="noindent" ><a 
+ id="operator:CFRAC"></a> The operator <span 
+class="pcrr8t-x-x-109">cfrac</span><a 
+ id="dx256-1113003"></a> is used to generate a generalised continued fraction expansion of
+an algebraic expression.
+</p><!--l. 205--><p class="noindent" >
+  </p><div class="syntax">
+  <!--tex4ht:inline--><div class="tabular"> <table id="TBL-158" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-158-1g"><col 
+id="TBL-158-1" /><col 
+id="TBL-158-2" /><col 
+id="TBL-158-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-158-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-158-1-1"  
+class="td01"><span 
+class="pcrr8t-x-x-109">cfrac(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">num</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">)            </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-158-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-158-2-1"  
+class="td01"><span 
+class="pcrr8t-x-x-109">cfrac(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">num</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">length</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">)      </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-158-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-158-3-1"  
+class="td01"><span 
+class="pcrr8t-x-x-109">cfrac(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">func</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">var</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">)        </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-158-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-158-4-1"  
+class="td01"><span 
+class="pcrr8t-x-x-109">cfrac(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">func</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">var</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">length</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">) </span></td></tr></table>
+  </div></div>
+<!--l. 214--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">INPUT:</span><br 
+class="newline" /><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">num</span><span 
+class="cmsy-10x-x-109">⟩</span> is any real number<br 
+class="newline" /><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">func</span><span 
+class="cmsy-10x-x-109">⟩</span> is a function<br 
+class="newline" /><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">var</span><span 
+class="cmsy-10x-x-109">⟩</span> is the function main variable<br 
+class="newline" /><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">length</span><span 
+class="cmsy-10x-x-109">⟩</span> is the maximum number of terms (continuents) to be generated and is
+<span 
+class="ptmb8t-x-x-109">optional</span>.
+</p><!--l. 221--><p class="noindent" >For non-rational function or irrational number input the <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">length</span><span 
+class="cmsy-10x-x-109">⟩ </span>argument speciﬁes the
+number of continuents (ordered pairs, <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmmi-10x-x-109">,b</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmsy-10x-x-109">}</span>), to be returned. Its default value is ﬁve.
+For rational function or rational number input the <span 
+class="pcrr8t-x-x-109">length </span>argument can only truncate
+the answer, it cannot return additional pairs even if the precision is increased. The
+default for rational function or rational number input is the complete continued
+fraction.
+</p><!--l. 230--><p class="noindent" ><a 
+ id="switch:CF_TAYLOR"></a> <a 
+ id="dx256-1113004"></a>
+</p><!--l. 233--><p class="noindent" >For a non-rational function, power series expansion is necessary. The new switch
+<span 
+class="pcrr8t-x-x-109">cf_taylor </span>controls whether the <span 
+class="ptmrc8t-x-x-109">T<span 
+class="small-caps">A</span><span 
+class="small-caps">Y</span><span 
+class="small-caps">L</span><span 
+class="small-caps">O</span><span 
+class="small-caps">R</span> </span>or the <span 
+class="ptmrc8t-x-x-109">T<span 
+class="small-caps">P</span><span 
+class="small-caps">S</span> </span>package is used to produce the
+power series required. By default this switch is OFF and so the <span 
+class="ptmrc8t-x-x-109">T<span 
+class="small-caps">P</span><span 
+class="small-caps">S</span> </span>package is normally
+employed. In most cases the choice is not important, but the TPS option is somewhat
+better at handling cases where the series expansion is rather sparse. In a few
+cases TPS may fail to produce a series expansion when TAYLOR succeeds and
+vice-versa.
+                                                                     
+
+                                                                     
+</p><!--l. 242--><p class="noindent" >For numerical input the default value is exact for rational number arguments whilst for
+irrational or rounded input it is dependent on the precision of the session. The <span 
+class="pcrr8t-x-x-109">length</span>
+argument will only take eﬀect if is smaller than the number of ordered pairs which the
+default value would return.
+</p><!--l. 248--><p class="noindent" >If the number of continuent pairs returned does not exceed twelve, the result will usually
+be pretty-printed as a two element list consisting of the convergent followed by a
+rendering of the traditional continued fraction expansion. For a larger number of pairs the
+output is of the second element is printed as a list of pairs. Thus, usually the operator
+<span 
+class="pcrr8t-x-x-109">contfrac </span>is not seen in the output.
+</p><!--l. 256--><p class="noindent" ><span 
+class="ptmb8t-x-x-120">EXAMPLES</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1338">
+cfrac(pi, 4);
+ <br />
+ <br />     355             1
+ <br />{pi,-----,3 + ----------------}
+ <br />     113               1
+ <br />               7 + ----------
+ <br />                          1
+ <br />                    15 + ---
+ <br />                          1
+ <br />
+ <br />cfrac(sqrt 2, 5);
+ <br />
+ <br />          41                1
+ <br />{sqrt(2),----,1 + ---------------------}
+ <br />          29                  1
+ <br />                   2 + ---------------
+ <br />                                1
+ <br />                        2 + ---------
+ <br />                                  1
+ <br />                             2 + ---
+ <br />                                  2
+ <br />
+ <br />cfrac(23.696, 4);
+ <br />
+ <br />  2962   237              1
+ <br />{------,-----,23 + ---------------}
+ <br />  125    10                 1
+ <br />                    1 + ---------
+ <br />                              1
+ <br />                         2 + ---
+ <br />                              3
+ <br />
+ <br />cfrac((x+2/3)^2/(6*x-5), x, 10);
+ <br />
+ <br />     2
+ <br />  9*x  + 12*x + 4
+ <br />{-----------------,   exact,
+ <br />     54*x - 45
+                                                                     
+
+                                                                     
+ <br />
+ <br />   6*x + 13          1
+ <br /> ---------- + -------------}
+ <br />     36         24*x - 20
+ <br />               -----------
+ <br />                    9
+ <br />
+ <br />cfrac(e^x, x);
+ <br />
+ <br />
+ <br />       3      2
+ <br />  x   x  + 9*x  + 36*x + 60
+ <br />{e , -----------------------,
+ <br />           2
+ <br />        3*x  - 24*x + 60
+ <br />
+ <br />                  x
+ <br /> 1 + ---------------------------}
+ <br />                    x
+ <br />      1 - ---------------------
+ <br />                      x
+ <br />           2 + ---------------
+ <br />                        x
+ <br />                3 - ---------
+ <br />                          x
+ <br />                     2 + ---
+ <br />                          5
+</div>
+<!--l. 323--><p class="nopar" >
+</p><!--l. 325--><p class="noindent" ><a 
+ id="operator:CF"></a>
+</p><!--l. 327--><p class="noindent" >The operator <span 
+class="pcrr8t-x-x-109">CF</span><a 
+ id="dx256-1113005"></a> is a synonym for the operator <span 
+class="pcrr8t-x-x-109">continued_fraction</span><a 
+ id="dx256-1113006"></a>.
+  </p><div class="syntax">
+  <!--tex4ht:inline--><div class="tabular"> <table id="TBL-159" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-159-1g"><col 
+id="TBL-159-1" /><col 
+id="TBL-159-2" /><col 
+id="TBL-159-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-159-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-159-1-1"  
+class="td01"><span 
+class="pcrr8t-x-x-109">cf(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">num</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">)               </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-159-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-159-2-1"  
+class="td01"><span 
+class="pcrr8t-x-x-109">cf(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">num</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">size</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">)          </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-159-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-159-3-1"  
+class="td01"><span 
+class="pcrr8t-x-x-109">cf(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">num</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">size</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">numterms</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">) </span></td></tr></table>
+  </div></div>
+<!--l. 336--><p class="noindent" >The operator takes the same arguments as the operator <span 
+class="pcrr8t-x-x-109">continued_fraction</span>: the
+original number to be expanded <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">num</span><span 
+class="cmsy-10x-x-109">⟩</span>, an optional maximum size <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">size</span><span 
+class="cmsy-10x-x-109">⟩ </span>permitted for
+the denominator of the convergent and an optional maximum number of continuents
+<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">numterms</span><span 
+class="cmsy-10x-x-109">⟩ </span>to be generated.
+</p><!--l. 342--><p class="noindent" >The output is in the same format as that of <span 
+class="pcrr8t-x-x-109">cfrac </span>described above. As with the operator
+<span 
+class="pcrr8t-x-x-109">cfrac </span>output of <span 
+class="pcrr8t-x-x-109">CF </span>is normally pretty-printed so the operator <span 
+class="pcrr8t-x-x-109">confract </span>will not be
+                                                                     
+
+                                                                     
+seen.
+</p><!--l. 346--><p class="noindent" ><a 
+ id="operator:CF_EXPRESSION"></a> <a 
+ id="operator:CF_CONTINUENTS"></a> <a 
+ id="operator:CF_CONVERGENT"></a> <a 
+ id="operator:CF_CONVERGENTS"></a>
+</p><!--l. 351--><p class="noindent" >The operators <a 
+ id="dx256-1113007"></a><span 
+class="pcrr8t-x-x-109">cf_expression</span>, <a 
+ id="dx256-1113008"></a><span 
+class="pcrr8t-x-x-109">cf_convergent </span>and <a 
+ id="dx256-1113009"></a><span 
+class="pcrr8t-x-x-109">cf_continuents </span>are
+accessors and allow the various parts of a continued fraction object <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">cf_object</span><span 
+class="cmsy-10x-x-109">⟩ </span>(as
+returned by any of the operators <span 
+class="pcrr8t-x-x-109">cf</span>, <span 
+class="pcrr8t-x-x-109">cfrac</span>, <span 
+class="pcrr8t-x-x-109">continued_fraction </span>and
+<span 
+class="pcrr8t-x-x-109">cf_euler</span>) to be extracted. <a 
+ id="dx256-1113010"></a>
+</p><!--l. 359--><p class="noindent" >These three operators return, respectively, the originating expression of the continued
+fraction object, the last convergent of the continued fraction, a list of its continuents (that
+is a list of pairs of partial numerators and denominators).
+</p><!--l. 364--><p class="noindent" >The operator <span 
+class="pcrr8t-x-x-109">cf_convergents</span><a 
+ id="dx256-1113011"></a> returns a list of all the convergents of the
+expansion.
+  </p><div class="syntax">
+  <!--tex4ht:inline--><div class="tabular"> <table id="TBL-160" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-160-1g"><col 
+id="TBL-160-1" /><col 
+id="TBL-160-2" /><col 
+id="TBL-160-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-160-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-160-1-1"  
+class="td01"><span 
+class="pcrr8t-x-x-109">cf_expression(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">cf_object</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">) </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-160-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-160-2-1"  
+class="td01"><span 
+class="pcrr8t-x-x-109">cf_convergent(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">cf_object</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">)  </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-160-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-160-3-1"  
+class="td01"><span 
+class="pcrr8t-x-x-109">cf_continuents(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">cf_object</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">) </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-160-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-160-4-1"  
+class="td01"><span 
+class="pcrr8t-x-x-109">cf_convergents(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">cf_object</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">) </span></td></tr></table>
+  </div></div>
+<!--l. 373--><p class="noindent" ><span 
+class="ptmb8t-x-x-120">EXAMPLES</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1339">
+2: cf(6/11);
+ <br />
+ <br />  6    6          1
+ <br />{----,----,---------------}
+ <br />  11   11           1
+ <br />            1 + ---------
+ <br />                      1
+ <br />                 1 + ---
+ <br />                      5
+ <br />
+ <br />3: a := cf(pi,1000);
+ <br />
+ <br />          355             1
+ <br />a := {pi,-----,3 + ----------------}
+ <br />          113               1
+ <br />                    7 + ----------
+ <br />                               1
+ <br />                         15 + ---
+ <br />                               1
+ <br />
+ <br />4: cf_convergents a;
+ <br />
+ <br />    22   333   355
+ <br />{3,----,-----,-----}
+ <br />    7    106   113
+ <br />
+ <br />5: cf_continuents a;
+ <br />
+ <br />{3,7,15,1}
+ <br />
+ <br />6: precision 20;
+ <br />
+ <br />12
+ <br />
+ <br />7: cf pi;
+ <br />
+ <br />{pi,
+ <br />
+                                                                     
+
+                                                                     
+ <br />  21053343141
+ <br /> -------------,
+ <br />  6701487259
+ <br />
+ <br /> {3,
+ <br />
+ <br />  {1,7},
+ <br />
+ <br />  {1,15},
+ <br />
+ <br />  {1,1},
+ <br />
+ <br />  {1,292},
+ <br />
+ <br />  {1,1},
+ <br />
+ <br />  {1,1},
+ <br />
+ <br />  {1,1},
+ <br />
+ <br />  {1,2},
+ <br />
+ <br />  {1,1},
+ <br />
+ <br />  {1,3},
+ <br />
+ <br />  {1,1},
+ <br />
+ <br />  {1,14},
+ <br />
+ <br />  {1,2},
+ <br />
+ <br />  {1,1},
+ <br />
+ <br />  {1,1},
+ <br />
+ <br />  {1,2},
+ <br />
+ <br />  {1,2},
+ <br />
+ <br />  {1,2},
+ <br />
+ <br />  {1,2},
+ <br />
+                                                                     
+
+                                                                     
+ <br />  {1,1}}}
+</div>
+<!--l. 458--><p class="nopar" >
+<a 
+ id="dx256-1113012"></a>
+</p><!--l. 461--><p class="noindent" ><a 
+ id="operator:CF_EULER"></a> The operator <span 
+class="pcrr8t-x-x-109">cf_euler </span>is used to generate a generalised continued fraction
+expansion of an algebraic expression using a formula due to Leonhard Euler
+( <span class="cite">[<a 
+href="manualap2.html#XEuler:1748">Eul48</a>]</span>).
+  </p><div class="syntax">
+  <!--tex4ht:inline--><div class="tabular"> <table id="TBL-161" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-161-1g"><col 
+id="TBL-161-1" /><col 
+id="TBL-161-2" /><col 
+id="TBL-161-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-161-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-161-1-1"  
+class="td01"><span 
+class="pcrr8t-x-x-109">cf_euler(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">func</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">var</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">)       </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-161-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-161-2-1"  
+class="td01"><span 
+class="pcrr8t-x-x-109">cf_euler(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">func</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">var</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">length</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">) </span></td></tr></table>
+  </div></div>
+<!--l. 472--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">INPUT:</span><br 
+class="newline" /><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">func</span><span 
+class="cmsy-10x-x-109">⟩</span> is a function<br 
+class="newline" /><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">var</span><span 
+class="cmsy-10x-x-109">⟩</span> is the function main variable<br 
+class="newline" /><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">length</span><span 
+class="cmsy-10x-x-109">⟩</span> is the maximum number of continuents to be generated and is <span 
+class="ptmb8t-x-x-109">optional</span>.
+</p><!--l. 478--><p class="noindent" >The meaning of the parameters is similar to those of <span 
+class="pcrr8t-x-x-109">cfrac</span>, but the continued fraction
+expansion generated will usually be diﬀerent. Note that unlike <span 
+class="pcrr8t-x-x-109">cfrac</span>, <span 
+class="pcrr8t-x-x-109">cf_euler</span>
+cannot currently generate continued fraction expansion of numbers and for a rational
+function argument (with a non-constant denominator) the expansion will not be
+exact.
+</p><!--l. 484--><p class="noindent" ><a 
+ id="operator:CF_UNIT_NUMERATORS"></a> <a 
+ id="operator:CF_UNIT_DENOMINATORS"></a> <a 
+ id="operator:CF_REMOVE_FRACTIONS"></a> <a 
+ id="operator:CF_REMOVE_CONSTANT"></a> A number of operators are provided for transforming their continued fraction argument
+<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">cf_object</span><span 
+class="cmsy-10x-x-109">⟩ </span>into an equivalent expansion, that is one with exactly the same convergents.
+They all accept as their single argument any continued fraction object <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">cf_object</span><span 
+class="cmsy-10x-x-109">⟩</span>. These
+are:
+</p><!--l. 495--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">cf_unit_denominators</span><a 
+ id="dx256-1113013"></a><br 
+class="newline" />converts all partial denominators to 1.<br 
+class="newline" /> <span 
+class="pcrr8t-x-x-109">cf_unit_numerators</span><a 
+ id="dx256-1113014"></a><br 
+class="newline" />converts all partial numerators to 1.<br 
+class="newline" /> <span 
+class="pcrr8t-x-x-109">cf_remove_fractions</span><a 
+ id="dx256-1113015"></a><br 
+class="newline" />converts the denominators of the partial numerators and partial denominators in the
+continuents to 1.<br 
+class="newline" /> <span 
+class="pcrr8t-x-x-109">cf_remove_constant</span><a 
+ id="dx256-1113016"></a><br 
+class="newline" />removes the zeroth continuent (if non-zero) absorbing it into the ﬁrst continuent
+pair.
+                                                                     
+
+                                                                     
+</p><!--l. 506--><p class="noindent" ><a 
+ id="operator:CF_TRANSFORM"></a> The operator <span 
+class="pcrr8t-x-x-109">cf_transform</span><a 
+ id="dx256-1113017"></a> is a general purpose function for transforming its
+continued fraction argument <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">cf_object</span><span 
+class="cmsy-10x-x-109">⟩ </span>into an equivalent expansion. Unlike the four
+preceding operators it requires a second argument: a list of multipliers used to modify the
+partial numerators and denominators of the original expansion.
+  </p><div class="syntax">
+  <!--tex4ht:inline--><div class="tabular"> <table id="TBL-162" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-162-1g"><col 
+id="TBL-162-1" /><col 
+id="TBL-162-2" /><col 
+id="TBL-162-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-162-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-162-1-1"  
+class="td01"><span 
+class="pcrr8t-x-x-109">cf_transform(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">cf_object</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">multiplier-list</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">) </span></td></tr></table>
+  </div></div>
+<!--l. 517--><p class="noindent" >To understand the operation of <span 
+class="pcrr8t-x-x-109">cf_transform </span>consider ﬁrst the special case where
+<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">multiplier-list</span><span 
+class="cmsy-10x-x-109">⟩ </span>is a list of the form <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,l</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmsy-10x-x-109">} </span>whose nth element is <span 
+class="cmmi-10x-x-109">l</span><sub><span 
+class="cmmi-8">n</span></sub>. Only
+the nth continuent pair <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109"> b</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmsy-10x-x-109">} </span>and (n+1)th partial numerator <span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">+1</span></sub> are altered and
+become <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">l</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109"> l</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmmi-10x-x-109">b</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmsy-10x-x-109">} </span>and <span 
+class="cmmi-10x-x-109">l</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">+1</span></sub> respectively. For a <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">multiplier-list</span><span 
+class="cmsy-10x-x-109">⟩ </span>that has more than
+one non-unit element, the above transformations are applied sequentially from left to
+right.
+</p><!--l. 526--><p class="noindent" >If the number of continuent pairs in the <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">cf_object</span><span 
+class="cmsy-10x-x-109">⟩ </span>is greater than the length of the
+<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">multiplier-list</span><span 
+class="cmsy-10x-x-109">⟩</span>, the latter is (in eﬀect) padded with 1’s. Conversely if it is shorter, the
+surplus elements of <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">multiplier-list</span><span 
+class="cmsy-10x-x-109">⟩ </span>are ignored.
+</p><!--l. 531--><p class="noindent" ><a 
+ id="operator:CF_EVEN_ODD"></a> The operator <span 
+class="pcrr8t-x-x-109">cf_even_odd</span><a 
+ id="dx256-1113018"></a> splits its continued fraction argument <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">cf_object</span><span 
+class="cmsy-10x-x-109">⟩ </span>into two
+continued fraction objects: namely its even and odd parts (in that order) which are
+returned as a two-element list.
+  </p><div class="syntax">
+  <!--tex4ht:inline--><div class="tabular"> <table id="TBL-163" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-163-1g"><col 
+id="TBL-163-1" /><col 
+id="TBL-163-2" /><col 
+id="TBL-163-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-163-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-163-1-1"  
+class="td01"><span 
+class="pcrr8t-x-x-109">cf_even_odd(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">cf_object</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">) </span></td></tr></table>
+  </div></div>
+<!--l. 539--><p class="noindent" >The convergents of the even part are the even-numbered convergents of the original
+expansion and those of the odd part are the odd-numbered ones (except the zeroth
+convergent which is necessarily zero). For the continued fraction expansions
+generated by the operators <span 
+class="pcrr8t-x-x-109">cf </span>and <span 
+class="pcrr8t-x-x-109">cfrac </span>with a numerical ﬁrst argument <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">num</span><span 
+class="cmsy-10x-x-109">⟩</span>.
+The convergents of the even part form a monotonically increasing sequence
+whilst those of the odd part (after the zeroth) form a monotonically decreasing
+sequence.
+</p><!--l. 547--><p class="noindent" ><span 
+class="ptmb8t-x-x-120">EXAMPLES</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1340">
+cf_remove_fractions(cf_euler(e^x, x, 4));
+ <br />
+ <br />        3      2
+ <br />  x    x  + 3*x  + 6*x + 6
+ <br />{e , ---------------------,
+ <br />              6
+ <br />
+ <br />                   1
+ <br /> -------------------------------------}
+ <br />                     x
+ <br />  1 - -------------------------------
+ <br />                          x
+ <br />       (x + 1) - -------------------
+ <br />                              2*x
+ <br />                  (x + 2) - -------
+ <br />                             x + 3
+ <br />
+ <br />a := cf_remove_fractions(cf_euler(4*atan x, x, 4));
+ <br />
+ <br />a := {4*atan(x),
+ <br />
+ <br />              7       5        3
+ <br />        - 60*x  + 84*x  - 140*x  + 420*x
+ <br />      -----------------------------------,
+ <br />                      105
+ <br />
+ <br />                  2       2
+ <br />      (4*x)/(1 + x /(( - x  + 3)
+ <br />
+ <br />                                   2
+ <br />                                9*x
+ <br />                 + -------------------------------
+ <br />                                            2
+ <br />                           2            25*x
+ <br />                    ( - 3*x  + 5) + -------------
+ <br />                                           2
+ <br />                                      - 5*x  + 7
+ <br />
+                                                                     
+
+                                                                     
+ <br />                ))}
+ <br />
+ <br />b := (a where x =&#x003E; 1);
+ <br />
+ <br />          304            4
+ <br />b := {pi,-----,----------------------}
+ <br />          105              1
+ <br />                1 + ----------------
+ <br />                             9
+ <br />                     2 + ----------
+ <br />                               25
+ <br />                          2 + ----
+ <br />                               2
+ <br />
+ <br />c := cf(pi, 0, 6);
+ <br />
+ <br />          104348                    1
+ <br />c := {pi,--------,3 + ------------------------------}
+ <br />          33215                       1
+ <br />                       7 + ------------------------
+ <br />                                         1
+ <br />                            15 + -----------------
+ <br />                                           1
+ <br />                                  1 + -----------
+ <br />                                              1
+ <br />                                       292 + ---
+ <br />                                              1
+ <br />
+ <br />cf_remove_constant c;
+ <br />
+ <br />     104348                22
+ <br />{pi,--------,-------------------------------}
+ <br />     33215                    1
+ <br />              7 + -------------------------
+ <br />                                22
+ <br />                   333 + -----------------
+ <br />                                   1
+ <br />                          1 + -----------
+ <br />                                      1
+ <br />                               292 + ---
+ <br />                                      1
+ <br />
+ <br />c:= cf(pi, 0, 8)$
+ <br />d := cf_even_odd c;
+                                                                     
+
+                                                                     
+ <br />
+ <br />           208341                15
+ <br />d := {{pi,--------,3 + ----------------------},
+ <br />           66317                   292
+ <br />                        106 - --------------
+ <br />                                       15
+ <br />                               4687 - -----
+ <br />                                       585
+ <br />
+ <br />           312689             22
+ <br />      {pi,--------,-------------------------}}
+ <br />           99532                 1
+ <br />                    7 + -------------------
+ <br />                                   22
+ <br />                         355 - -----------
+ <br />                                       1
+ <br />                                294 - ---
+ <br />                                       3
+ <br />cf_convergents c;
+ <br />
+ <br />    22   333   355   103993   104348   208341
+ <br />{3,----,-----,-----,--------,--------,--------,
+ <br />    7    106   113   33102    33215    66317
+ <br />
+ <br />  312689
+ <br /> --------}
+ <br />  99532
+ <br />
+ <br />cf_convergents first d;
+ <br />
+ <br />    333   103993   208341
+ <br />{3,-----,--------,--------}
+ <br />    106   33102    66317
+ <br />
+ <br />cf_convergents second d;
+ <br />
+ <br />    22   355   104348   312689
+ <br />{0,----,-----,--------,--------}
+ <br />    7    113   33215    99532
+</div>
+<!--l. 670--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p><!--l. 673--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.45.3    </span> <a 
+ id="x256-111400020.45.3"></a>Padé Approximation</h4>
+<a 
+ id="dx256-1114001"></a>
+<!--l. 676--><p class="noindent" >The Padé approximant represents a function by the ratio of two polynomials. The
+coeﬃcients of the powers occuring in the polynomials are determined by the coeﬃcients
+in the Taylor series expansion of the function (see  <span class="cite">[<a 
+href="manualap2.html#XBakerGravesMorris:81">BGM96</a>]</span>). Given a power
+series
+</p>
+<table 
+class="equation-star"><tr><td>
+                  <span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) = </span><span 
+class="cmmi-10x-x-109">c</span><sub><span 
+class="cmr-8">0</span></sub> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">c</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">h</span><span 
+class="cmr-10x-x-109">) + </span><span 
+class="cmmi-10x-x-109">c</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">h</span><span 
+class="cmr-10x-x-109">)</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-10x-x-109">…</span>
+</td></tr></table>
+<!--l. 680--><p class="nopar" >
+and the degree of numerator, <span 
+class="cmmi-10x-x-109">n</span>, and of the denominator, <span 
+class="cmmi-10x-x-109">d</span>, the <span 
+class="pcrr8t-x-x-109">pade </span>function ﬁnds the
+unique coeﬃcients <span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmmi-10x-x-109">,</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">b</span><sub><span 
+class="cmmi-8">i</span></sub> in the Padé approximant
+</p>
+<table 
+class="equation-star"><tr><td>
+                        <img 
+src="manual544x.png" alt="                   n
+a0-+-a1x-+-⋅⋅⋅+-anxd
+ b0 + b1x + ⋅⋅⋅+ bdx"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 684--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p><!--l. 686--><p class="noindent" ><a 
+ id="operator:PADE"></a> <a 
+ id="dx256-1114002"></a>
+           </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">SYNTAX:</span>  </dt><dd 
+class="description">
+             <div class="syntax">
+             <span 
+class="pcrr8t-x-x-109">pade(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="pcrro8t-x-x-109">f</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">, </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="pcrro8t-x-x-109">x</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">, </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="pcrro8t-x-x-109">h</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">, </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="pcrro8t-x-x-109">n</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">, </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="pcrro8t-x-x-109">d</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">)</span></div>
+           </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">INPUT:</span>    </dt><dd 
+class="description"><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">f </span><span 
+class="cmsy-10x-x-109">⟩</span>        the funtion to be approximated<br 
+class="newline" /><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">x</span><span 
+class="cmsy-10x-x-109">⟩</span>        the function variable<br 
+class="newline" /><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">h</span><span 
+class="cmsy-10x-x-109">⟩</span>        the point at which the approximation is evaluated<br 
+class="newline" /><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">n</span><span 
+class="cmsy-10x-x-109">⟩</span>        the (speciﬁed) degree of the numerator<br 
+class="newline" /><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">d</span><span 
+class="cmsy-10x-x-109">⟩</span>        the (speciﬁed) degree of the denominator
+           </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">RESULT:</span>  </dt><dd 
+class="description">Padé Approximant, ie. a rational function.
+           </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">ERROR MESSAGES:</span> </dt><dd 
+class="description">     
+    <ul class="itemize1">
+    <li class="itemize"><span 
+class="pcrr8t-x-x-109">***** not yet implemented</span><br 
+class="newline" />The Taylor series expansion for the function, f, has not yet been implemented
+    in the REDUCE Taylor Package.
+    </li>
+    <li class="itemize"><span 
+class="pcrr8t-x-x-109">***** no Pade Approximation exists</span><br 
+class="newline" />A Padé Approximant of this function does not exist.
+    </li>
+    <li class="itemize"><span 
+class="pcrr8t-x-x-109">***** Pade Approximation of this order does not</span>
+    <span 
+class="pcrr8t-x-x-109">exist</span><br 
+class="newline" />A   Padé   Approximant   of   this   order   (ie.   the   speciﬁed   numerator   and
+    denominator orders) does not exist but one of a diﬀerent order may exist.</li></ul>
+           </dd></dl>
+<!--l. 726--><p class="noindent" ><span 
+class="ptmb8t-x-x-120">EXAMPLES</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1341">
+23: pade(sin(x),x,0,3,3);
+ <br />
+ <br />          2
+ <br /> x*( - 7*x  + 60)
+ <br />------------------
+ <br />       2
+ <br />   3*(x  + 20)
+ <br />
+ <br />24: pade(tanh(x),x,0,5,5);
+ <br />
+ <br />     4        2
+ <br /> x*(x  + 105*x  + 945)
+ <br />-----------------------
+ <br />      4       2
+ <br /> 15*(x  + 28*x  + 63)
+ <br />
+ <br />25: pade(atan(x),x,0,5,5);
+ <br />
+ <br />        4        2
+ <br /> x*(64*x  + 735*x  + 945)
+ <br />--------------------------
+ <br />         4       2
+ <br /> 15*(15*x  + 70*x  + 63)
+ <br />
+ <br />26: pade(exp(1/x),x,0,5,5);
+ <br />
+ <br />***** no Pade Approximation exists
+ <br />
+ <br />27: pade(factorial(x),x,1,3,3);
+ <br />
+ <br />***** not yet implemented
+ <br />
+ <br />28: pade(asech(x),x,0,3,3);
+ <br />
+ <br />            2                        2                 2
+ <br />- 3*log(x)*x  + 8*log(x) + 3*log(2)*x  - 8*log(2) + 2*x
+ <br />--------------------------------------------------------
+ <br />                          2
+                                                                     
+
+                                                                     
+ <br />                       3*x  - 8
+ <br />
+ <br />29: taylor(ws-asech(x),x,0,10);
+ <br />
+ <br />               11
+ <br />log(x)*(0 + O(x  ))
+ <br />
+ <br />     13    6     43    8    1611    10      11
+ <br /> + (-----*x  + ------*x  + -------*x   + O(x  ))
+ <br />     768        2048        81920
+ <br />
+ <br />30: pade(sin(x)/x^2,x,0,10,0);
+ <br />
+ <br />***** Pade Approximation of this order does not exist
+ <br />
+ <br />31:  pade(sin(x)/x^2,x,0,10,2);
+ <br />
+ <br />     10        8         6           4            2
+ <br />( - x   + 110*x  - 7920*x  + 332640*x  - 6652800*x
+ <br />
+ <br />  + 39916800)/(39916800*x)
+ <br />
+ <br />32: pade(exp(x),x,0,10,10);
+ <br />
+ <br />  10        9         8           7            6
+ <br />(x   + 110*x  + 5940*x  + 205920*x  + 5045040*x
+ <br />
+ <br />              5               4                3
+ <br />  + 90810720*x  + 1210809600*x  + 11762150400*x
+ <br />
+ <br />                 2
+ <br />  + 79394515200*x  + 335221286400*x + 670442572800)/
+ <br />
+ <br />      10        9         8           7            6
+ <br />    (x   - 110*x  + 5940*x  - 205920*x  + 5045040*x
+ <br />
+ <br />                     5               4
+ <br />         - 90810720*x  + 1210809600*x
+ <br />
+ <br />                        3               2
+ <br />         - 11762150400*x + 79394515200*x
+ <br />
+ <br />         - 335221286400*x + 670442572800)
+ <br />
+                                                                     
+
+                                                                     
+ <br />33: pade(sin(sqrt(x)),x,0,3,3);
+ <br />
+ <br />(sqrt(x)*
+ <br />            3            2
+ <br />  (56447*x  - 4851504*x  + 132113520*x - 885487680))\
+ <br />
+ <br />              3         2
+ <br />    (7*(179*x  - 7200*x  - 2209680*x - 126498240))
+</div>
+<!--l. 819--><p class="nopar" >
+</p><!--l. 931--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 933--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse170.html" >Up</a></td><td class="clinks"><a 
+href="manualse171.html" >Next</a></td><td class="clinks"><a 
+href="manualse169.html" >Prev</a></td><td class="clinks"><a 
+href="manualse169.html#tailmanualse169.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse170.html" >Front</a></td></tr></table><a 
+ id="tailmanualse170.html"></a>  </p> 
+</body> 
+</html>

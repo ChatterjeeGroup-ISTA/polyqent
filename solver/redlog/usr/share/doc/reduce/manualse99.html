@@ -1,0 +1,101 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Procedure Heading</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch15.html#manualse99.html" >Up</a></td><td class="clinks"><a 
+href="manualse100.html" >Next</a></td><td class="clinks"><a 
+href="#tailmanualse99.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">15.1    </span> <a 
+ id="x127-23800015.1"></a>Procedure Heading</h3>
+<a 
+ id="dx127-238001"></a>
+<!--l. 46--><p class="noindent" >Each procedure has a heading consisting of the word <span 
+class="pcrr8t-x-x-109">procedure </span>(optionally
+preceded by the word <span 
+class="pcrr8t-x-x-109">algebraic</span>), followed by the name of the procedure to be
+deﬁned, and followed by its formal parameters – the symbols that will be used
+in the body of the deﬁnition to illustrate what is to be done. There are three
+cases:
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   1. </dt><dd 
+class="enumerate-enumitem">No parameters. Simply follow the procedure name with a terminator (semicolon or
+     dollar sign).
+                                                                     
+
+                                                                     
+     <div class="verbatim" id="verbatim-438">
+             procedure abc;
+</div>
+     <!--l. 56--><p class="nopar" >
+     </p><!--l. 58--><p class="noindent" >When such a procedure is used in an expression or command, <span 
+class="pcrr8t-x-x-109">abc()</span>, with empty
+     parentheses, must be written.
+     </p></dd><dt class="enumerate-enumitem">
+   2. </dt><dd 
+class="enumerate-enumitem">One parameter. Enclose it in parentheses <span 
+class="ptmri8t-x-x-109">or </span>just leave at least one space, then
+     follow with a terminator.
+                                                                     
+
+                                                                     
+     <div class="verbatim" id="verbatim-439">
+             procedure abc(x);
+</div>
+     <!--l. 65--><p class="nopar" > or
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-440">
+             procedure abc x;
+</div>
+     <!--l. 69--><p class="nopar" >
+     </p></dd><dt class="enumerate-enumitem">
+   3. </dt><dd 
+class="enumerate-enumitem">More than one parameter. Enclose them in parentheses, separated by commas, then
+     follow with a terminator.
+                                                                     
+
+                                                                     
+     <div class="verbatim" id="verbatim-441">
+             procedure abc(x,y,z);
+</div>
+     <!--l. 75--><p class="nopar" ></p></dd></dl>
+<!--l. 77--><p class="noindent" >Referring to the last example, if later in some expression being evaluated the symbols
+<span 
+class="pcrr8t-x-x-109">abc(u,p*q,123) </span>appear, the operations of the procedure body will be carried out as
+if <span 
+class="pcrr8t-x-x-109">x </span>had the same value as <span 
+class="pcrr8t-x-x-109">u </span>does, <span 
+class="pcrr8t-x-x-109">y </span>the same value as <span 
+class="pcrr8t-x-x-109">p*q </span>does, and <span 
+class="pcrr8t-x-x-109">z </span>the value 123.
+The values of <span 
+class="pcrr8t-x-x-109">x</span>, <span 
+class="pcrr8t-x-x-109">y</span>, <span 
+class="pcrr8t-x-x-109">z</span>, after the procedure body operations are completed are unchanged.
+So, normally, are the values of <span 
+class="pcrr8t-x-x-109">u</span>, <span 
+class="pcrr8t-x-x-109">p</span>, <span 
+class="pcrr8t-x-x-109">q</span>, and (of course) 123. (This is technically referred
+to as call by value.)<a 
+ id="dx127-238005"></a>
+</p><!--l. 86--><p class="noindent" >The reader will have noted the word <span 
+class="ptmri8t-x-x-109">normally </span>a few lines earlier. The call by value
+protections can be bypassed if necessary, as described elsewhere.
+                                                                     
+
+                                                                     
+</p><!--l. 90--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch15.html#manualse99.html" >Up</a></td><td class="clinks"><a 
+href="manualse100.html" >Next</a></td><td class="clinks"><a 
+href="manualse99.html" >Front</a></td></tr></table><a 
+ id="tailmanualse99.html"></a> </p> 
+</body> 
+</html>

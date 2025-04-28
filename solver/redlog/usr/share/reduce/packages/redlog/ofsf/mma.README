@@ -1,0 +1,9 @@
+The mma module provides a file-based interface to Mathematica's CAD
+
+It automatically checks for executable
+/Applications/Mathematica.app/Contents/MacOS/MathKernel or /usr/local/bin/math,
+which are the common names for text-based Mathematica on OSX and Linux,
+repectively. This can be overridden with an environment variable MATHEMATICA.
+Note that at least on OSX, MathKernel must be called with its absolute path.
+
+Windows is not supported.

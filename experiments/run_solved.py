@@ -5,7 +5,7 @@ import time
 from tabulate import tabulate
 
 
-columns = ['base-mathsat', 'base-z3', 'h1-mathsat', 'h1-z3', 'h2-mathsat', 'h2-z3', 'h12-mathsat', 'h2-z3', 'direct-z3','cvc5']
+columns = ['base-mathsat', 'base-z3', 'h1-mathsat', 'h1-z3', 'h2-mathsat', 'h2-z3', 'h12-mathsat', 'h2-z3', 'direct-z3-','cvc5-', 'redlog-', 'mathematica-']
 
 list_of_xs = {'base':[], 'h1':[], 'h2':[], 'h12':[]}
 list_of_ys = {'base':[], 'h1':[], 'h2':[], 'h12':[]}
@@ -20,15 +20,22 @@ def run_commands(file_name):
             exp_name = row['name']
             command = row[col_name + '-cmd']
 
-            print('>>> run experiment ' + exp_name + ' from ' + file_name)
-
+            print('>>> run experiment ' + exp_name + ' from ' + file_name + ' using ' + col_name)
+            print(command)
             os.chdir("..")
             os.makedirs("work/", exist_ok=True)
             try:
                 start = time.time()
+                output = ""
                 output = str(subprocess.check_output(f"timeout 180 {command}", shell=True))
                 process_time = time.time() - start
-                if "unsat" in output:
+                if col_name == 'redlog-':
+                    if "true" in output:
+                        results[col_name][exp_name] = {'sat': True, 'time': process_time}
+                elif col_name == 'mathematica-':
+                    if "True" in output:
+                        results[col_name][exp_name] = {'sat': True, 'time': process_time}
+                elif "unsat" in output:
                     results[col_name][exp_name] = {'sat': False}
                 elif "sat" in output:
                     results[col_name][exp_name] = {'sat': True, 'time': process_time}
@@ -47,10 +54,10 @@ def run_commands(file_name):
 all_results = [run_commands('Results-Termination.csv'), run_commands('Results-Non-termination.csv'), run_commands('Results-almost-sure-termination.csv'), run_commands('Results-polysynth.csv')]
 
 table_data = [[None] + columns,
-              ['Termination']+[None]*10,
-              ['None_termination']+[None]*10,
-              ['AST']+[None]*10,
-              ['Polysynth']+[None]*10]
+              ['Termination']+[None]*14,
+              ['None_termination']+[None]*14,
+              ['AST']+[None]*14,
+              ['Polysynth']+[None]*14]
 print('\n\n\n=======================================\nResults:\n===========================================\n')
 
 for j in range(len(all_results)):

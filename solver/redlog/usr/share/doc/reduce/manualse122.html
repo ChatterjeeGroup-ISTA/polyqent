@@ -1,0 +1,121 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Assignment Tracing: RTRST, UNRTRST</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch19.html#manualse122.html" >Up</a></td><td class="clinks"><a 
+href="manualse123.html" >Next</a></td><td class="clinks"><a 
+href="manualse121.html" >Prev</a></td><td class="clinks"><a 
+href="manualse121.html#tailmanualse121.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse122.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">19.4    </span> <a 
+ id="x163-37400019.4"></a>Assignment Tracing: RTRST, UNRTRST</h3>
+<!--l. 173--><p class="noindent" ><a 
+ id="command:RTRST"></a> <a 
+ id="command:UNRTRST"></a> <a 
+ id="dx163-374001"></a> <a 
+ id="dx163-374002"></a> One often needs information about the internal behaviour of a procedure, especially if
+it is a longer piece of code. For an interpreted procedure declared in an <span 
+class="pcrr8t-x-x-109">rtrst</span>
+command:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-626">
+rtrst &#x003C;proc1&#x003E;, &#x003C;proc2&#x003E;, ..., &#x003C;procn&#x003E;;
+</div>
+<!--l. 182--><p class="nopar" > all explicit assignments executed (as either the symbolic-mode <span 
+class="pcrr8t-x-x-109">setq </span>or the
+algebraic-mode <span 
+class="pcrr8t-x-x-109">setk</span>) inside these procedures are displayed during procedure
+execution. All procedure tracing (assignment and entry-exit) is removed by the command
+<span 
+class="pcrr8t-x-x-109">unrtrst </span>(or <span 
+class="pcrr8t-x-x-109">unrtr</span>, for which it is just a synonym):
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-627">
+unrtrst &#x003C;proc1&#x003E;, &#x003C;proc2&#x003E;, ..., &#x003C;procn&#x003E;;
+</div>
+<!--l. 192--><p class="nopar" > Assignment tracing is not possible if a procedure is compiled, either because it was
+loaded from a “fasl” ﬁle or image, or because it was compiled as it was read in as source
+code. This is because assignment tracing works by modifying the interpreted code of the
+procedure, which must therefore be available.
+</p><!--l. 199--><p class="noindent" >Applying <span 
+class="pcrr8t-x-x-109">rtr </span>to a procedure that has been declared in an <span 
+class="pcrr8t-x-x-109">rtrst </span>command, or
+vice versa, toggles the type of tracing applied (and displays an explanatory
+message).
+</p><!--l. 203--><p class="noindent" >Note that when a program contains a <span 
+class="pcrr8t-x-x-109">for </span>loop, REDUCE translates this to a sequence of
+Lisp instructions. When using <span 
+class="pcrr8t-x-x-109">rtrst</span>, the printout is driven by the “unfolded” code.
+When the code contains a <span 
+class="pcrr8t-x-x-109">for each </span><span 
+class="pcrr8t-x-x-109">… in </span>statement, the name of the control variable
+is internally used to keep the remainder of the list during the loop, and you will see the
+corresponding assignments in the trace rather than the individual values in the loop steps,
+e.g.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-628">
+procedure fold u;
+ <br />   for each x in u sum x$
+ <br />
+ <br />rtrst fold;
+ <br />
+ <br />(fold)
+ <br />
+ <br />fold {z, z*y, y};
+</div>
+<!--l. 220--><p class="nopar" > produces the following output (using CSL-REDUCE):
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-629">
+Enter (1) fold
+ <br />   u:  {z,y*z,y}$
+ <br />x := [z,y*z,y]$
+ <br />G0 := 0$
+ <br />G0 := z$
+ <br />x := [y*z,y]$
+ <br />G0 := z*(y + 1)$
+ <br />x := [y]$
+ <br />G0 := y*z + y + z$
+ <br />x := []$
+ <br />Leave (1) fold = y*z + y + z$
+ <br />
+ <br />y*z + y + z
+ <br />
+ <br />unrtrst fold;
+ <br />
+ <br />(fold)
+</div>
+<!--l. 240--><p class="nopar" > In this example, the printed assignments for <span 
+class="pcrr8t-x-x-109">x </span>show the various stages of the loop. The
+variable <span 
+class="pcrr8t-x-x-109">G0 </span>is an internally generated place-holder for the sum, and may have a slightly
+diﬀerent name depending on the underlying Lisp systems.
+                                                                     
+
+                                                                     
+</p><!--l. 246--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch19.html#manualse122.html" >Up</a></td><td class="clinks"><a 
+href="manualse123.html" >Next</a></td><td class="clinks"><a 
+href="manualse121.html" >Prev</a></td><td class="clinks"><a 
+href="manualse121.html#tailmanualse121.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse122.html" >Front</a></td></tr></table><a 
+ id="tailmanualse122.html"></a> </p> 
+</body> 
+</html>

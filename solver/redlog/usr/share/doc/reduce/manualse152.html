@@ -1,0 +1,496 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>IDEALS: Arithmetic for Polynomial Ideals</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse152.html" >Up</a></td><td class="clinks"><a 
+href="manualse153.html" >Next</a></td><td class="clinks"><a 
+href="manualse151.html" >Prev</a></td><td class="clinks"><a 
+href="manualse151.html#tailmanualse151.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse152.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.27    </span> <a 
+ id="x219-89000020.27"></a>IDEALS: Arithmetic for Polynomial Ideals</h3>
+<a 
+ id="dx219-890001"></a>
+<a 
+ id="dx219-890002"></a>
+<!--l. 562--><p class="noindent" >This package implements the basic arithmetic for polynomial ideals by exploiting the
+Gröbner bases package of REDUCE. In order to save computing time all intermediate
+Gröbner bases are stored internally such that time consuming repetitions are
+inhibited.
+</p><!--l. 567--><p class="noindent" >Author: Herbert Melenk.
+<a 
+ id="dx219-890003"></a>
+<a 
+ id="dx219-890004"></a>
+</p><!--l. 4--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.27.1    </span> <a 
+ id="x219-89100020.27.1"></a>Introduction</h4>
+<!--l. 6--><p class="noindent" >This package implements the basic arithmetic for polynomial ideals by exploiting the
+Gröbner bases package of REDUCE. In order to save computing time all intermediate
+Gröbner bases are stored internally such that time consuming repetitions are inhibited.
+A uniform setting facilitates the access.
+</p><!--l. 12--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.27.2    </span> <a 
+ id="x219-89200020.27.2"></a>Initialization</h4>
+<a 
+ id="dx219-892001"></a>
+<!--l. 15--><p class="noindent" ><a 
+ id="operator:I_SETTING"></a> Prior to any computation the set of variables has to be declared by calling the operator
+<span 
+class="pcrr8t-x-x-109">I_setting </span>. E.g. in order to initiate computations in the polynomial ring <span 
+class="cmmi-10x-x-109">Q</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">x,y,z</span><span 
+class="cmr-10x-x-109">]</span>
+call
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1221">
+    I_setting(x,y,z);
+</div>
+<!--l. 21--><p class="nopar" > A subsequent call to <span 
+class="pcrr8t-x-x-109">I_setting </span>allows one to select another set of variables; at
+the same time the internal data structures are cleared in order to free memory
+resources.
+</p><!--l. 26--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.27.3    </span> <a 
+ id="x219-89300020.27.3"></a>Bases</h4>
+<a 
+ id="dx219-893001"></a>
+<!--l. 29--><p class="noindent" ><a 
+ id="reserved:IDEALS_I"></a> <a 
+ id="dx219-893002"></a> <a 
+ id="operator:IDEAL2LIST"></a> An ideal is represented by a basis (set of polynomials) tagged with the symbol <span 
+class="pcrr8t-x-x-109">I</span>,
+e.g.,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1222">
+   u := I(x*z-y**2, x**3-y*z);
+</div>
+<!--l. 36--><p class="nopar" > Alternatively a list of polynomials can be used as input basis; however, all arithmetic
+results will be presented in the above form. The operator <span 
+class="pcrr8t-x-x-109">ideal2list </span>allows one to
+convert an ideal basis into a conventional REDUCE list.
+</p><!--l. 42--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x219-89400020.27.3"></a>Operators</h5>
+<!--l. 44--><p class="noindent" >Because of syntactical restrictions in REDUCE, special operators have to be used for
+ideal arithmetic: <a 
+ id="dx219-894001"></a> <a 
+ id="dx219-894002"></a> <a 
+ id="dx219-894003"></a> <a 
+ id="dx219-894004"></a> <a 
+ id="dx219-894005"></a> <a 
+ id="dx219-894006"></a> <a 
+ id="dx219-894007"></a> <a 
+ id="dx219-894008"></a> <a 
+ id="dx219-894009"></a> <a 
+ id="operator:IDEALS_IDEALSUM"></a> <a 
+ id="operator:IDEALPRODUCT"></a> <a 
+ id="operator:IDEALS_IDEALQUOTIENT"></a> <a 
+ id="operator:IDEALQUOTIENTALT"></a> <a 
+ id="operator:IDEALEQUALITY"></a> <a 
+ id="operator:IDEALSUBSET"></a> <a 
+ id="operator:IDEALINTERSECTION"></a> <a 
+ id="operator:IDEALMEMBER"></a> <a 
+ id="operator:IDEALGB"></a>
+     </p><div class="quote">
+     <div class="tabular"> <table id="TBL-89" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-89-1g"><col 
+id="TBL-89-1" /><col 
+id="TBL-89-2" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-89-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-89-1-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">.*          </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-89-1-2"  
+class="td11"> ideal product (inﬁx)                                    </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-89-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-89-2-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">.:           </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-89-2-2"  
+class="td11"> ideal quotient (inﬁx)                                   </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-89-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-89-3-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">./           </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-89-3-2"  
+class="td11"> ideal quotient (inﬁx)                                   </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-89-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-89-4-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">.=           </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-89-4-2"  
+class="td11"> ideal equality test (inﬁx)                             </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-89-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-89-5-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">subset       </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-89-5-2"  
+class="td11"> ideal inclusion test (inﬁx)                           </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-89-6-"><td  style="white-space:nowrap; text-align:left;" id="TBL-89-6-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">intersection </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-89-6-2"  
+class="td11"> ideal intersection (preﬁx,binary)                 </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-89-7-"><td  style="white-space:nowrap; text-align:left;" id="TBL-89-7-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">member       </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-89-7-2"  
+class="td11"> test for membership in an ideal                   </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-89-8-"><td  style="white-space:nowrap; text-align:left;" id="TBL-89-8-1"  
+class="td11">              </td><td  style="white-space:nowrap; text-align:left;" id="TBL-89-8-2"  
+class="td11"> (inﬁx: polynomial and ideal)                      </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-89-9-"><td  style="white-space:nowrap; text-align:left;" id="TBL-89-9-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">gb           </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-89-9-2"  
+class="td11"> Groebner basis of an ideal (preﬁx, unary)  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-89-10-"><td  style="white-space:nowrap; text-align:left;" id="TBL-89-10-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">ideal2list   </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-89-10-2"  
+class="td11"> convert ideal basis to polynomial list          </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-89-11-"><td  style="white-space:nowrap; text-align:left;" id="TBL-89-11-1"  
+class="td11">              </td><td  style="white-space:nowrap; text-align:left;" id="TBL-89-11-2"  
+class="td11"> (preﬁx,unary)                                              </td></tr></table>
+     </div></div>
+<!--l. 80--><p class="noindent" >Example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1223">
+    I(x+y,x^2) .* I(x-z);
+ <br />
+ <br />      2                      2    2
+ <br />   i(x  + x*y - x*z - y*z,x*y  - y *z)
+</div>
+<!--l. 87--><p class="nopar" >
+</p><!--l. 89--><p class="noindent" >The test operators return the values 1 (=true) or 0 (=false) such that they can be used in
+REDUCE <span 
+class="pcrr8t-x-x-109">if</span>-<span 
+class="pcrr8t-x-x-109">then</span>-<span 
+class="pcrr8t-x-x-109">else </span>statements directly.
+</p><!--l. 93--><p class="noindent" >The results of <span 
+class="pcrr8t-x-x-109">.+</span>, <span 
+class="pcrr8t-x-x-109">.*</span>, <span 
+class="pcrr8t-x-x-109">.:</span>/<span 
+class="pcrr8t-x-x-109">./</span>, and <span 
+class="pcrr8t-x-x-109">intersection </span>are ideals represented by their
+Gröbner basis in the current setting and term order. The term order can be modiﬁed
+using the operator <span 
+class="pcrr8t-x-x-109">torder</span><a 
+ id="dx219-894010"></a> from the Gröbner package. Note that ideal equality cannot
+be tested with the REDUCE equal sign:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1224">
+ <br />   I(x,y)  = I(y,x)       is false
+ <br />   I(x,y) .= I(y,x)       is true
+ <br />
+</div>
+<!--l. 104--><p class="nopar" >
+</p><!--l. 106--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.27.4    </span> <a 
+ id="x219-89500020.27.4"></a>Algorithms</h4>
+<!--l. 108--><p class="noindent" >The operators <span 
+class="pcrr8t-x-x-109">groebner</span>, <span 
+class="pcrr8t-x-x-109">preduce</span>, and <span 
+class="pcrr8t-x-x-109">idealquotient </span>of the <a 
+ id="dx219-895001"></a><a 
+ id="dx219-895002"></a><a 
+ id="dx219-895003"></a>REDUCE
+Gröbner package support the basic algorithms:
+</p><!--l. 114--><p class="noindent" ><span 
+class="cmtt-10x-x-109">gb</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">Iu</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,u</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">...</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmsy-10x-x-109">→</span><span 
+class="cmtt-10x-x-109">groebner</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,u</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">...</span><span 
+class="cmsy-10x-x-109">}</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">x,...</span><span 
+class="cmsy-10x-x-109">}</span><span 
+class="cmr-10x-x-109">)</span>
+</p><!--l. 116--><p class="noindent" ><span 
+class="cmmi-10x-x-109">p </span><span 
+class="cmsy-10x-x-109">∈ </span><span 
+class="cmmi-10x-x-109">I</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmsy-10x-x-109">→ </span><span 
+class="cmmi-10x-x-109">p </span><span 
+class="cmr-10x-x-109">= 0</span><span 
+class="cmmi-10x-x-109"> mod</span><span 
+class="cmmi-10x-x-109"> I</span><sub><span 
+class="cmr-8">1</span></sub>
+</p><!--l. 118--><p class="noindent" ><span 
+class="cmmi-10x-x-109">I</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">: </span><span 
+class="cmmi-10x-x-109">I</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">p</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmsy-10x-x-109">→ </span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">I</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmex-10x-x-109">⋂</span>
+  <span 
+class="cmmi-10x-x-109">I</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">p</span><span 
+class="cmr-10x-x-109">))</span><span 
+class="cmmi-10x-x-109">∕p</span><span 
+class="cmmi-10x-x-109"> elementwise</span>
+</p><!--l. 120--><p class="noindent" >On top of these the <span 
+class="ptmrc8t-x-x-109">I<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">A</span><span 
+class="small-caps">L</span><span 
+class="small-caps">S</span> </span>package implements the following operations:
+</p><!--l. 125--><p class="noindent" ><span 
+class="cmmi-10x-x-109">I</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,u</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">...</span><span 
+class="cmr-10x-x-109">) + </span><span 
+class="cmmi-10x-x-109">I</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">v</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,v</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">...</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmsy-10x-x-109">→ </span><span 
+class="cmmi-10x-x-109">GB</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">I</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,u</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">...,v</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,v</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">...</span><span 
+class="cmr-10x-x-109">))</span>
+</p><!--l. 128--><p class="noindent" ><span 
+class="cmmi-10x-x-109">I</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,u</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">...</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">I</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">v</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,v</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">...</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmsy-10x-x-109">→ </span><span 
+class="cmmi-10x-x-109">GB</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">I</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">v</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,u</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">v</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">,...,u</span><sub><span 
+class="cmr-8">2</span></sub> <span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">v</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,u</span><sub><span 
+class="cmr-8">2</span></sub> <span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">v</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">...</span><span 
+class="cmr-10x-x-109">))</span>
+</p><!--l. 132--><p class="noindent" ><span 
+class="cmmi-10x-x-109">I</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmex-10x-x-109">⋂</span>
+  <span 
+class="cmmi-10x-x-109">I</span><sub><span 
+class="cmr-8">2</span></sub> <span 
+class="cmsy-10x-x-109">→ </span><span 
+class="cmmi-10x-x-109">Q</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">x,...</span><span 
+class="cmr-10x-x-109">]</span><span 
+class="cmex-10x-x-109">⋂</span>
+  <span 
+class="cmmi-10x-x-109">GB</span><sub><span 
+class="cmmi-8">lex</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">t </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">I</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">+ (1 </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">t</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">I</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">t,x,..</span><span 
+class="cmsy-10x-x-109">}</span><span 
+class="cmr-10x-x-109">)</span>
+</p><!--l. 136--><p class="noindent" ><span 
+class="cmmi-10x-x-109">I</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">: </span><span 
+class="cmmi-10x-x-109">I</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,p</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,...</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmsy-10x-x-109">→ </span><span 
+class="cmmi-10x-x-109">I</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">: </span><span 
+class="cmmi-10x-x-109">I</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmex-10x-x-109">⋂</span>
+  <span 
+class="cmmi-10x-x-109">I</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">: </span><span 
+class="cmmi-10x-x-109">I</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmex-10x-x-109">⋂</span>
+  <span 
+class="cmmi-10x-x-109">...</span>
+</p><!--l. 139--><p class="noindent" ><span 
+class="cmmi-10x-x-109">I</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">I</span><sub><span 
+class="cmr-8">2</span></sub> <span 
+class="cmsy-10x-x-109">→ </span><span 
+class="cmmi-10x-x-109">GB</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">I</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmr-10x-x-109">) = </span><span 
+class="cmmi-10x-x-109">GB</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">I</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmr-10x-x-109">)</span>
+</p><!--l. 141--><p class="noindent" ><span 
+class="cmmi-10x-x-109">I</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmsy-10x-x-109">⊆ </span><span 
+class="cmmi-10x-x-109">I</span><sub><span 
+class="cmr-8">2</span></sub> <span 
+class="cmsy-10x-x-109">→</span> <span 
+class="cmmi-10x-x-109"> u</span><sub><span 
+class="cmmi-8">i</span></sub> <span 
+class="cmsy-10x-x-109">∈ </span><span 
+class="cmmi-10x-x-109">I</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmsy-10x-x-109">∀</span><span 
+class="cmmi-10x-x-109"> u</span><sub><span 
+class="cmmi-8">i</span></sub> <span 
+class="cmsy-10x-x-109">∈ </span><span 
+class="cmmi-10x-x-109">I</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">I</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,u</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">...</span><span 
+class="cmr-10x-x-109">)</span>
+</p><!--l. 144--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.27.5    </span> <a 
+ id="x219-89600020.27.5"></a>Examples</h4>
+<!--l. 146--><p class="noindent" >Please consult the ﬁle <span 
+class="pcrr8t-x-x-109">ideals.tst</span>.
+                                                                     
+
+                                                                     
+</p><!--l. 571--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 587--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse152.html" >Up</a></td><td class="clinks"><a 
+href="manualse153.html" >Next</a></td><td class="clinks"><a 
+href="manualse151.html" >Prev</a></td><td class="clinks"><a 
+href="manualse151.html#tailmanualse151.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse152.html" >Front</a></td></tr></table><a 
+ id="tailmanualse152.html"></a>  </p> 
+</body> 
+</html>

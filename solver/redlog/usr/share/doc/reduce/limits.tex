@@ -1,0 +1,95 @@
+\section{LIMIT Operator}
+\index{Computing limits}
+\index{Kameny, Stanley L.}\index{People!Kameny, Stanley L.}
+\index{Cohen, Ian}\index{People!Cohen, Ian}
+\index{Fitch, John P.}\index{People!Fitch, John P.}
+
+LIMITS is a fast limit package for REDUCE for functions which are
+continuous except for computable poles and singularities, written by Stanley L.~Kameny, based on some
+earlier work by Ian Cohen and John P. Fitch.  The Truncated Power Series
+package is used for non-critical points, at which the value of the
+function is the constant term in the expansion around that point.
+\index{l'H\^opital's rule}
+l'H\^opital's rule is used in critical cases, with preprocessing of
+$\infty - \infty$ forms and reformatting of product forms in order
+to apply l'H\^opital's rule.  A limited amount of bounded arithmetic
+is also employed where applicable.
+
+The standard way of calling limit, applying all of the methods, is
+\ttindextype{limit}{operator}\hypertarget{operator:LIMIT}{}
+\begin{syntax}
+  \f{limit(}\meta{exprn:algebraic},\,\meta{var:kernel},\,%
+    \meta{limpoint:algebraic})\,:\,\textit{algebraic}
+\end{syntax}
+The result is the limit of exprn as var approaches limpoint.
+To compute the of \(\sin(x)/x\) at the point $0$, enter
+\begin{verbatim}
+limit(sin(x)/x,x,0);
+
+1
+\end{verbatim}
+If the limit depends upon the direction of approach to the \texttt{limpoint},                                                                                                        the onesided limit functions \texttt{limit!+} and \texttt{limit!-} may be used:
+\ttindextype{limit"!+}{operator}\ttindextype{limit"!-}{operator}
+\hypertarget{operator:LIMIT+}{}
+\hypertarget{operator:LIMIT-}{}
+\begin{syntaxtable}
+  \texttt{limit!+(}\meta{exprn:algebraic},\,\meta{var:kernel},\,%
+    \meta{limpoint:algebraic}\texttt{)}\,:\,\textit{algebraic} \\
+  \texttt{limit!-(}\meta{exprn:algebraic},\,\meta{var:kernel},\,%
+    \meta{limpoint:algebraic}\texttt{)}\,:\,\textit{algebraic}
+\end{syntaxtable}
+they are defined by:
+\begin{quote}
+\begin{tabular}{l}
+ \texttt{limit!+ (limit!-)} (exp,var,limpoint) $\rightarrow$\texttt{limit}(exp*,$\epsilon$,0), \\
+  \qquad exp*=sub(var=var+(-)$\epsilon^2$,exp)
+\end{tabular}
+\end{quote}
+for example,
+\begin{verbatim}
+limit!+(sqrt x/sin x,x,0);
+
+infinity;
+\end{verbatim}
+
+
+\iffalse
+\subsection{Diagnostic Functions}
+
+\ttindex{LIMIT0}
+\hypertarget{operator:LIMIT0}{}
+\vspace{.1in}
+\noindent \texttt{LIMIT!-}(EXPRN:\emph{algebraic}, VAR:\emph{kernel},
+LIMPOINT:\emph{algebraic}):\emph{algebraic}
+\noindent \texttt{LIMIT0}(EXPRN:\emph{algebraic}, VAR:\emph{kernel},
+LIMPOINT:\emph{algebraic}):\emph{algebraic}
+\vspace{.1in}
+
+This function will use all parts of the limits package, but it does not
+combine log terms before taking limits, so it may fail if there is a sum
+of log terms which have a removable singularity in some of the terms.
+
+\ttindex{LIMIT1}
+\vspace{.1in}
+\noindent \texttt{LIMIT1}(EXPRN:\emph{algebraic}, VAR:\emph{kernel},
+LIMPOINT:\emph{algebraic}):\emph{algebraic}
+\vspace{.1in}
+
+\index{TPS package}
+This function uses the TPS branch only, and will fail if the limit point is
+singular.
+
+\ttindex{LIMIT2}
+\hypertarget{operator:LIMIT2}{}
+\begin{quote}
+\begin{tabular}{l@{}l}
+\texttt{LIMIT2(} & TOP:\emph{algebraic}, \\
+&BOT:\emph{algebraic}, \\
+&VAR:\emph{kernel}, \\
+&LIMPOINT:\emph{algebraic}):\emph{algebraic}
+\end{tabular}
+\end{quote}
+
+This function applies l'H\^opital's rule to the quotient (TOP/BOT).
+
+\fi

@@ -1,0 +1,184 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Assignment Statements</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch5.html#manualse14.html" >Up</a></td><td class="clinks"><a 
+href="manualse15.html" >Next</a></td><td class="clinks"><a 
+href="#tailmanualse14.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">5.1    </span> <a 
+ id="x22-340005.1"></a>Assignment Statements</h3>
+<!--l. 46--><p class="noindent" >These statements<a 
+ id="dx22-34001"></a><a 
+ id="dx22-34002"></a> <a 
+ id="dx22-34003"></a>have the syntax
+  </p><div class="syntax">
+   <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">assignment statement</span><span 
+class="cmsy-10x-x-109">⟩</span> <span 
+class="cmmi-10x-x-109">→</span> <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">expression</span><span 
+class="cmsy-10x-x-109">⟩ </span><span 
+class="pcrr8t-x-x-109">:= </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">expression</span><span 
+class="cmsy-10x-x-109">⟩</span></div>
+<!--l. 51--><p class="noindent" >The <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">expression</span><span 
+class="cmsy-10x-x-109">⟩ </span>on the left side is normally the name of a variable, an operator symbol
+with its list of arguments ﬁlled in, or an array name with the proper number of integer
+subscript values within the array bounds. For example:
+     </p><div class="quote">
+     <div class="tabular"> <table id="TBL-9" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-9-1g"><col 
+id="TBL-9-1" /><col 
+id="TBL-9-2" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-9-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-9-1-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">a1 := b + c           </span></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-9-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-9-2-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">h(l,m) := x-2*y </span>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-9-2-2"  
+class="td11"> (where <span 
+class="pcrr8t-x-x-109">h </span>is an operator)       </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-9-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-9-3-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">k(3,5) := x-2*y       </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-9-3-2"  
+class="td11"> (where <span 
+class="pcrr8t-x-x-109">k </span>is a 2-dim. array)  </td></tr></table>
+     </div></div>
+<!--l. 62--><p class="noindent" >More general assignments<a 
+ id="dx22-34004"></a> such as <span 
+class="pcrr8t-x-x-109">a+b := c </span>are also allowed. The eﬀect of these is
+explained in Section <a 
+href="manualse80.html#x103-20500011.2.5">11.2.5<!--tex4ht:ref: sec-gensubs --></a>.
+</p><!--l. 65--><p class="noindent" >An assignment statement causes the expression on the right-hand-side to be evaluated. If
+the left-hand-side is a variable, the value of the right-hand-side is assigned to that
+unevaluated variable. If the left-hand-side is an operator or array expression, the
+arguments of that operator or array are evaluated, but no other simpliﬁcation done. The
+evaluated right-hand-side is then assigned to the resulting expression. For example, if <span 
+class="pcrr8t-x-x-109">a</span>
+is a single-dimensional array, <span 
+class="pcrr8t-x-x-109">a(1+1) := b </span>assigns the value <span 
+class="pcrr8t-x-x-109">b </span>to the array element
+<span 
+class="pcrr8t-x-x-109">a(2)</span>.
+</p><!--l. 74--><p class="noindent" >If a semicolon is used as the terminator when an assignment <a 
+ id="dx22-34005"></a>is issued as a command (i.e.
+not as a part of a group statement or procedure or other similar construct), the left-hand
+side symbol of the assignment statement is printed out, followed by a “<span 
+class="pcrr8t-x-x-109">:=</span>”, followed by
+the value of the expression on the right.
+</p><!--l. 80--><p class="noindent" >It is also possible to write a multiple assignment statement: <a 
+ id="dx22-34006"></a><a 
+ id="dx22-34007"></a>
+  </p><div class="syntax">
+   <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">expression</span><span 
+class="cmsy-10x-x-109">⟩ </span><span 
+class="pcrr8t-x-x-109">:= </span>…  <span 
+class="pcrr8t-x-x-109">:= </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">expression</span><span 
+class="cmsy-10x-x-109">⟩ </span><span 
+class="pcrr8t-x-x-109">:= </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">expression</span><span 
+class="cmsy-10x-x-109">⟩</span></div>
+<!--l. 87--><p class="noindent" >In this form, each <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">expression</span><span 
+class="cmsy-10x-x-109">⟩ </span>but the last is set to the value of the last <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">expression</span><span 
+class="cmsy-10x-x-109">⟩</span>. If a
+                                                                     
+
+                                                                     
+semicolon is used as a terminator, each expression except the last is printed followed by a
+“<span 
+class="pcrr8t-x-x-109">:=</span>” ending with the value of the last expression.
+</p><!--l. 93--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">5.1.1    </span> <a 
+ id="x22-350005.1.1"></a>Set and Unset Statements</h4>
+<!--l. 94--><p class="noindent" ><a 
+ id="command:SET"></a> <a 
+ id="command:UNSET"></a> <a 
+ id="dx22-35001"></a><a 
+ id="dx22-35002"></a> <a 
+ id="dx22-35003"></a><a 
+ id="dx22-35004"></a>
+</p><!--l. 99--><p class="noindent" >In some cases, it is desirable to perform an assignment in which <span 
+class="ptmri8t-x-x-109">both </span>the left- and
+right-hand sides of an assignment<a 
+ id="dx22-35005"></a> are evaluated. In this case, the <span 
+class="pcrr8t-x-x-109">set</span><a 
+ id="dx22-35006"></a> statement can be
+used with the syntax:
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">set(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">expression</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">expression</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">);</span></div>
+<!--l. 106--><p class="noindent" >For example, the statements
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-45">
+        j := 23;
+ <br />        set(mkid(a,j),x);
+</div>
+<!--l. 110--><p class="nopar" > assigns the value <span 
+class="pcrr8t-x-x-109">X </span>to <span 
+class="pcrr8t-x-x-109">A23</span>.
+</p><!--l. 113--><p class="noindent" >To remove a value from such a variable, the <span 
+class="pcrr8t-x-x-109">unset</span><a 
+ id="dx22-35007"></a> statement can be used with the
+syntax:
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">unset(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">expression</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">);</span></div>
+<!--l. 118--><p class="noindent" >For example, the statement
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-46">
+        j := 23;
+ <br />        unset(mkid(a,j));
+</div>
+<!--l. 122--><p class="nopar" > clears the value of <span 
+class="pcrr8t-x-x-109">A23</span>.
+                                                                     
+
+                                                                     
+</p><!--l. 125--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch5.html#manualse14.html" >Up</a></td><td class="clinks"><a 
+href="manualse15.html" >Next</a></td><td class="clinks"><a 
+href="manualse14.html" >Front</a></td></tr></table><a 
+ id="tailmanualse14.html"></a>  </p> 
+</body> 
+</html>

@@ -1,0 +1,213 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Chebyshev Curve Fitting</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch17.html#manualse114.html" >Up</a></td><td class="clinks"><a 
+href="manualse115.html" >Next</a></td><td class="clinks"><a 
+href="manualse113.html" >Prev</a></td><td class="clinks"><a 
+href="manualse113.html#tailmanualse113.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse114.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">17.7    </span> <a 
+ id="x148-27400017.7"></a>Chebyshev Curve Fitting</h3>
+<a 
+ id="dx148-274001"></a>
+<a 
+ id="dx148-274002"></a>
+<a 
+ id="dx148-274003"></a>
+<a 
+ id="dx148-274004"></a>
+<!--l. 413--><p class="noindent" ><a 
+ id="operator:CHEBYSHEV_FIT"></a> <a 
+ id="operator:CHEBYSHEV_EVAL"></a> <a 
+ id="operator:CHEBYSHEV_DF"></a> <a 
+ id="operator:CHEBYSHEV_INT"></a>
+</p><!--l. 418--><p class="noindent" >The operator family <span 
+class="cmmi-10x-x-109">Chebyshev</span>_<span 
+class="cmmi-10x-x-109">…</span> implements approximation and evaluation of
+functions by the Chebyshev method. Let <span 
+class="cmmi-10x-x-109">T</span><sub><span 
+class="cmmi-8">n</span></sub><sup><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">a,b</span><span 
+class="cmr-8">)</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) </span>be the Chebyshev polynomial of
+order <span 
+class="cmmi-10x-x-109">n </span>transformed to the interval <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a,b</span><span 
+class="cmr-10x-x-109">)</span>. Then a function <span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) </span>can be approximated in
+<span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a,b</span><span 
+class="cmr-10x-x-109">) </span>by a series
+</p>
+<table 
+class="equation-star"><tr><td>
+                      <span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmsy-10x-x-109">≈</span><span 
+class="cmex-10x-x-109">∑</span>
+  <sub><span 
+class="cmmi-8">i</span><span 
+class="cmr-8">=0</span></sub><sup><span 
+class="cmmi-8">N</span></sup><span 
+class="cmmi-10x-x-109">c</span><sub>
+<span 
+class="cmmi-8">i</span></sub><span 
+class="cmmi-10x-x-109">T</span><sub><span 
+class="cmmi-8">i</span></sub><sup><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">a,b</span><span 
+class="cmr-8">)</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span>
+</td></tr></table>
+<!--l. 426--><p class="nopar" >
+The operator <span 
+class="pcrr8t-x-x-109">chebyshev_fit </span>computes this approximation and returns a list, which
+has as ﬁrst element the sum expressed as a polynomial and as second element the
+sequence of Chebyshev coeﬃcients <span 
+class="cmmi-10x-x-109">c</span><sub><span 
+class="cmmi-8">i</span></sub>. <span 
+class="pcrr8t-x-x-109">chebyshev_df </span>and <span 
+class="pcrr8t-x-x-109">chebyshev_int</span>
+transform a Chebyshev coeﬃcient list into the coeﬃcients of the corresponding
+derivative or integral respectively. For evaluating a Chebyshev approximation at a given
+point in the basic interval the operator <span 
+class="pcrr8t-x-x-109">chebyshev_eval </span>can be used. Note that
+<span 
+class="pcrr8t-x-x-109">Chebyshev_eval </span>is based on a recurrence relation which is in general more stable
+than a direct evaluation of the complete polynomial.
+                                                                     
+
+                                                                     
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">chebyshev_ﬁt</span> </dt><dd 
+class="description"><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">fcn,var </span><span 
+class="cmr-10x-x-109">= (</span><span 
+class="cmmi-10x-x-109">lo..hi</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,n</span><span 
+class="cmr-10x-x-109">)</span>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">chebyshev_eval</span> </dt><dd 
+class="description"><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">coeffs,var </span><span 
+class="cmr-10x-x-109">= (</span><span 
+class="cmmi-10x-x-109">lo..hi</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,var </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">pt</span><span 
+class="cmr-10x-x-109">)</span>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">chebyshev_df</span> </dt><dd 
+class="description"><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">coeffs,var </span><span 
+class="cmr-10x-x-109">= (</span><span 
+class="cmmi-10x-x-109">lo..hi</span><span 
+class="cmr-10x-x-109">))</span>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">chebyshev_int</span> </dt><dd 
+class="description"><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">coeffs,var </span><span 
+class="cmr-10x-x-109">= (</span><span 
+class="cmmi-10x-x-109">lo..hi</span><span 
+class="cmr-10x-x-109">))</span>
+     <!--l. 449--><p class="noindent" >where <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">fcn</span><span 
+class="cmsy-10x-x-109">⟩ </span>is an algebraic expression (the function to be ﬁtted), <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">var</span><span 
+class="cmsy-10x-x-109">⟩ </span>is
+     the variable of <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">fcn</span><span 
+class="cmsy-10x-x-109">⟩</span>, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">lo</span><span 
+class="cmsy-10x-x-109">⟩ </span>and <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">hi</span><span 
+class="cmsy-10x-x-109">⟩ </span>are numerical real values which describe
+     an  interval  (<span 
+class="cmmi-10x-x-109">lo &#x003C; hi</span>),  <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">n</span><span 
+class="cmsy-10x-x-109">⟩ </span>is  the  approximation  order,  a  positive  integer,
+     set to 20 if missing, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">pt</span><span 
+class="cmsy-10x-x-109">⟩ </span>is a numerical value in the interval and <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">coeﬀs</span><span 
+class="cmsy-10x-x-109">⟩</span>
+     is  a  series  of  Chebyshev  coeﬃcients,  computed  by  one  of  the  operators
+     <span 
+class="pcrr8t-x-x-109">chebyshev_coeff</span>, <span 
+class="pcrr8t-x-x-109">chebyshev_df</span>, or <span 
+class="pcrr8t-x-x-109">chebyshev_int</span>.</p></dd></dl>
+<!--l. 458--><p class="noindent" >Example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-526">
+on rounded;
+ <br />
+ <br />w:=chebyshev_fit(sin x/x,x=(1 .. 3),5);
+ <br />
+ <br />w := {0.0382345446975*x  - 0.239802588672*x
+ <br />
+ <br />       + 0.0651206939005*x + 0.977836217464,
+ <br />
+ <br />      {0.899091895826,-0.406599215895,
+ <br />
+ <br />       -0.00519766024352,0.00946374143079,
+ <br />
+ <br />       -0.0000948947435876}}
+ <br />
+ <br />chebyshev_eval(second w, x=(1 .. 3), x=2.1);
+ <br />
+ <br />0.411091086819
+</div>
+<!--l. 478--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p><!--l. 480--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch17.html#manualse114.html" >Up</a></td><td class="clinks"><a 
+href="manualse115.html" >Next</a></td><td class="clinks"><a 
+href="manualse113.html" >Prev</a></td><td class="clinks"><a 
+href="manualse113.html#tailmanualse113.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse114.html" >Front</a></td></tr></table><a 
+ id="tailmanualse114.html"></a> </p> 
+</body> 
+</html>

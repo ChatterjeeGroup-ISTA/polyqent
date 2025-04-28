@@ -1,0 +1,79 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Controlling the Expansion of Expressions</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch9.html#manualse62.html" >Up</a></td><td class="clinks"><a 
+href="manualse63.html" >Next</a></td><td class="clinks"><a 
+href="#tailmanualse62.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">9.1    </span> <a 
+ id="x81-1540009.1"></a>Controlling the Expansion of Expressions</h3>
+<!--l. 42--><p class="noindent" ><a 
+ id="switch:EXP"></a> <a 
+ id="dx81-154001"></a><a 
+ id="dx81-154002"></a><a 
+ id="dx81-154003"></a>
+</p><!--l. 45--><p class="noindent" >The switch <span 
+class="pcrr8t-x-x-109">exp</span><a 
+ id="dx81-154004"></a><a 
+ id="dx81-154005"></a><a 
+ id="dx81-154006"></a> controls the expansion of expressions. If it is oﬀ, no expansion of
+powers or products of expressions occurs. Users should note however that in this case
+results come out in a normal but not necessarily canonical form. This means that zero
+expressions simplify to zero, but that two equivalent expressions need not necessarily
+                                                                     
+
+                                                                     
+simplify to the same form.
+</p><!--l. 52--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Example: </span>With <span 
+class="pcrr8t-x-x-109">exp </span>on, the two expressions
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-292">
+        (a+b)*(a+2*b)
+</div>
+<!--l. 55--><p class="nopar" > and
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-293">
+        a^2+3*a*b+2*b^2
+</div>
+<!--l. 59--><p class="nopar" > will both simplify to the latter form. With <span 
+class="pcrr8t-x-x-109">exp </span>oﬀ, they would remain unchanged,
+unless the complete factoring (<span 
+class="pcrr8t-x-x-109">allfac</span>) option were in force. <span 
+class="pcrr8t-x-x-109">exp </span>is normally
+on.
+</p><!--l. 64--><p class="noindent" >Several operators that expect a polynomial as an argument behave diﬀerently when <span 
+class="pcrr8t-x-x-109">exp</span>
+is oﬀ, since there is often only one term at the top level. For example, with <span 
+class="pcrr8t-x-x-109">exp</span>
+oﬀ
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-294">
+        length((a+b+c)^3/(c+d));
+</div>
+<!--l. 69--><p class="nopar" > returns the value 1.
+                                                                     
+
+                                                                     
+</p><!--l. 72--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch9.html#manualse62.html" >Up</a></td><td class="clinks"><a 
+href="manualse63.html" >Next</a></td><td class="clinks"><a 
+href="manualse62.html" >Front</a></td></tr></table><a 
+ id="tailmanualse62.html"></a> </p> 
+</body> 
+</html>

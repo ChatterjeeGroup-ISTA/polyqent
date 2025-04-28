@@ -1,0 +1,1533 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>FIDE: Finite Diﬀerence Method for Partial Diﬀerential Equations</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse146.html" >Up</a></td><td class="clinks"><a 
+href="manualse147.html" >Next</a></td><td class="clinks"><a 
+href="manualse145.html" >Prev</a></td><td class="clinks"><a 
+href="manualse145.html#tailmanualse145.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse146.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.21    </span> <a 
+ id="x213-77100020.21"></a>FIDE: Finite Diﬀerence Method for Partial Diﬀerential
+Equations</h3>
+<a 
+ id="dx213-771001"></a>
+<a 
+ id="dx213-771002"></a>
+<!--l. 430--><p class="noindent" >This package performs automation of the process of numerically solving partial
+diﬀerential equations systems (PDES) by means of computer algebra. For PDES
+solving, the ﬁnite diﬀerence method is applied. The computer algebra system
+REDUCE and the numerical programming language FORTRAN are used in the
+presented methodology. The main aim of this methodology is to speed up the
+process of preparing numerical programs for solving PDES. This process is
+quite often, especially for complicated systems, a tedious and time consuming
+task.
+</p><!--l. 439--><p class="noindent" >Documentation for this package is in plain text.
+</p><!--l. 441--><p class="noindent" >Author: Richard Liska.
+<a 
+ id="dx213-771003"></a>
+<a 
+ id="dx213-771004"></a>
+</p><!--l. 4--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.21.1    </span> <a 
+ id="x213-77200020.21.1"></a>Abstract</h4>
+<!--l. 7--><p class="noindent" >The <span 
+class="ptmrc8t-x-x-109">F<span 
+class="small-caps">I</span><span 
+class="small-caps">D</span><span 
+class="small-caps">E</span> </span>package performs automation of the process of numerical solving partial
+diﬀerential equations systems (PDES) by means of computer algebra. For PDES solving
+ﬁnite diﬀerence method is applied. The computer algebra system REDUCE and the
+numerical programming language FORTRAN are used in the presented methodology.
+The main aim of this methodology is to speed up the process of preparing numerical
+programs for solving PDES. This process is quite often, especially for complicated
+systems, a tedious and time consuming task. In the process one can ﬁnd several
+stages in which computer algebra can be used for performing routine analytical
+calculations, namely: transforming diﬀerential equations into diﬀerent coordinate
+systems, discretization of diﬀerential equations, analysis of diﬀerence schemes and
+generation of numerical programs. The <span 
+class="ptmrc8t-x-x-109">F<span 
+class="small-caps">I</span><span 
+class="small-caps">D</span><span 
+class="small-caps">E</span> </span>package consists of the following
+modules:
+     </p><dl class="description"><dt class="description">
+                                                                     
+
+                                                                     
+<span 
+class="ptmb8t-x-x-109">EXPRES</span> </dt><dd 
+class="description">for transforming PDES into any orthogonal coordinate system.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">IIMET</span> </dt><dd 
+class="description">for discretization of PDES by integro-interpolation method.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">APPROX</span> </dt><dd 
+class="description">for determining the order of approximation of diﬀerence scheme.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">CHARPOL</span> </dt><dd 
+class="description">for calculation of ampliﬁcation matrix and characteristic polynomial
+     of diﬀerence scheme, which are needed in Fourier stability analysis.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">HURWP</span> </dt><dd 
+class="description">for polynomial roots locating necessary in verifying the von Neumann
+     stability condition.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">LINBAND</span> </dt><dd 
+class="description">for generating the block of FORTRAN code, which solves a system
+     of  linear  algebraic  equations  with  band  matrix  appearing  quite  often  in
+     diﬀerence schemes.</dd></dl>
+<!--l. 35--><p class="noindent" >Version 1.1 of the <span 
+class="ptmrc8t-x-x-109">F<span 
+class="small-caps">I</span><span 
+class="small-caps">D</span><span 
+class="small-caps">E</span> </span>package is the result of porting <span 
+class="ptmrc8t-x-x-109">F<span 
+class="small-caps">I</span><span 
+class="small-caps">D</span><span 
+class="small-caps">E</span> </span>package to REDUCE 3.4.
+In comparison with Version 1.0 some features has been changed in the LINBAND
+module (possibility to interface several numerical libraries).
+</p><!--l. 40--><p class="noindent" >For reference, see <span class="cite">[<a 
+href="manualap2.html#XLiska:90">LD90</a>]</span>.
+</p><!--l. 44--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.21.2    </span> <a 
+ id="x213-77300020.21.2"></a>EXPRES</h4>
+<!--l. 49--><p class="noindent" >A Module for Transforming Diﬀerential Operators and Equations into an Arbitrary
+Orthogonal Coordinate System
+</p><!--l. 55--><p class="noindent" >This module makes it possible to express various scalar, vector, and tensor diﬀerential
+equations in any orthogonal coordinate system. All transformations needed are
+executed automatically according to the coordinate system given by the user. The
+module was implemented according to the similar MACSYMA module from
+[1].
+</p><!--l. 62--><p class="noindent" >
+</p>
+                                                                     
+
+                                                                     
+<h5 class="subsubsectionHead"><a 
+ id="x213-77400020.21.2"></a>The speciﬁcation of the coordinate system</h5>
+<!--l. 64--><p class="noindent" >The coordinate system is speciﬁed using the following statement:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1161">
+  SCALEFACTORS &#x003C;d&#x003E;,&#x003C;tr 1&#x003E;,...,&#x003C;tr d&#x003E;,&#x003C;cor 1&#x003E;,...,&#x003C;cor d&#x003E;;
+ <br />  &#x003C;d&#x003E; ::= 2 | 3                       coordinate system dimension
+ <br />  &#x003C;tr i&#x003E; ::= &#x0022;algebraic expression&#x0022;   the expression of the i-th
+ <br />                                      Cartesian coordinate in new
+ <br />                                      coordinates
+ <br />  &#x003C;cor i&#x003E; ::= &#x0022;identifier&#x0022;            the i-th new coordinate
+</div>
+<!--l. 72--><p class="nopar" > All evaluated quantities are transformed into the coordinate system set by the last
+SCALEFACTORS statement. By default, if this statement is not applied, the
+three-dimensional Cartesian coordinate system is employed. During the evaluation of
+SCALEFACTORS statement the metric coeﬃcients, i.e. scale factors SF(i), of a deﬁned
+coordinate system are computed and printed. If the WRCHRI switch is ON, then the
+nonzero Christoﬀel symbols of the coordinate system are printed too. By default the
+WRCHRI switch is OFF.
+</p><!--l. 82--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x213-77500020.21.2"></a>The declaration of tensor quantities</h5>
+<!--l. 84--><p class="noindent" >Tensor quantities are represented by identiﬁers. The VECTORS declaration declares the
+identiﬁers as vectors, the DYADS declaration declares the identiﬁers as dyads. i.e.
+two-dimensional tensors, and the TENSOR declaration declares the identiﬁers as tensor
+variables. The declarations have the following syntax:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1162">
+  &#x003C;declaration&#x003E; &#x003C;id 1&#x003E;,&#x003C;id 2&#x003E;,...,&#x003C;id n&#x003E;;
+ <br />  &#x003C;declaration&#x003E; ::= VECTORS | DYADS | TENSOR
+ <br />  &#x003C;id i&#x003E; ::= &#x0022;identifier&#x0022;
+</div>
+<!--l. 93--><p class="nopar" > The value of the identiﬁer V declared as vector in the two-dimensional coordinate
+system is (V(1), V(2)), where V(i) are the components of vector V. The value of the
+identiﬁer T declared as a dyad is ((T(1,1), T(1,2)), (T(2,1), T(2,2))). The value of the
+tensor variable can be any tensor (see below). Tensor variables can be used only for
+a single coordinate system, after the coordinate system redeﬁning by a new
+SCALEFACTORS statement, the tensor variables have to be re-deﬁned using the
+assigning statement.
+</p><!--l. 104--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x213-77600020.21.2"></a>New inﬁx operators</h5>
+<!--l. 107--><p class="noindent" >For four diﬀerent products between the tensor quantities, new inﬁx operators have been
+introduced (in the explaining examples, a two-dimensional coordinate system, vectors U,
+V, and dyads T, W are considered):
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1163">
+  .  - scalar product                U.V = U(1)*V(1)+U(2)*V(2)
+ <br />  ?  - vector product                U?V = U(1)*V(2)-U(2)*V(1)
+ <br />  &#x0026;  - outer product                 U&#x0026;V = ((U(1)*V(1),U(1)*V(2)),
+ <br />                                            (U(2)*V(1),U(2)*V(2)))
+ <br />  #  - double scalar product         T#W = T(1,1)*W(1,1)+T(1,2)*W(1,2)+
+ <br />                                           T(2,1)*W(2,1)+T(2,2)*W(2,2)
+</div>
+<!--l. 118--><p class="nopar" > The other usual arithmetic inﬁx operators +, -, *, ** can be used in all situations
+that have sense (e.g. vector addition, a multiplication of a tensor by a scalar,
+etc.).
+</p><!--l. 124--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x213-77700020.21.2"></a>New preﬁx operators</h5>
+<!--l. 126--><p class="noindent" >New preﬁx operators have been introduced to express tensor quantities in its components
+and the diﬀerential operators over the tensor quantities:
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">VECT</span> </dt><dd 
+class="description">- the explicit expression of a vector in its components
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">DYAD</span> </dt><dd 
+class="description">- the explicit expression of a dyad in its components
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">GRAD</span> </dt><dd 
+class="description">- diﬀerential operator of gradient
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">DIV</span> </dt><dd 
+class="description">- diﬀerential operator of divergence
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">LAPL</span> </dt><dd 
+class="description">- Laplace’s diﬀerential operator
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">CURL</span> </dt><dd 
+class="description">- diﬀerential operator of curl
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">DIRDF</span> </dt><dd 
+class="description">- diﬀerential operator of the derivative in direction (1st argument is the
+     directional vector)</dd></dl>
+                                                                     
+
+                                                                     
+<!--l. 139--><p class="noindent" >The results of the diﬀerential operators are written using the DIFF operator.
+DIFF(&#x003C;scalar&#x003E;,&#x003C;cor i&#x003E;) expresses the derivative of &#x003C;scalar&#x003E; with respect to the
+coordinate &#x003C;cor i&#x003E;. This operator is not further simpliﬁed. If the user wants to make it
+simpler as common derivatives, he performs the following declaration:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1164">
+  FOR ALL X,Y LET DIFF(X,Y) = DF(X,Y);  .
+</div>
+<!--l. 146--><p class="nopar" > Then, however, we must realize that if the scalars or tensor quantities do not directly
+explicitly depend on the coordinates, their dependencies have to be declared using the
+DEPEND statements, otherwise the derivative will be evaluated to zero. The
+dependence of all vector or dyadic components (as dependence of the name
+of vector or dyad) has to appear before VECTORS or DYADS declarations,
+otherwise after these declarations one has to declare the dependencies of all
+components. For formulating the explicit derivatives of tensor expressions, the
+diﬀerentiation operator DF can be used (e.g. the diﬀerentiation of a vector in its
+components).
+</p><!--l. 159--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x213-77800020.21.2"></a>Tensor expressions</h5>
+<!--l. 162--><p class="noindent" >Tensor expressions are the input into the EXPRES module and can have a variety of
+forms. The output is then the formulation of the given tensor expression in the speciﬁed
+coordinate system. The most general form of a tensor expression &#x003C;tensor&#x003E; is described as
+follows (the conditions (d=i) represent the limitation on the dimension of the coordinate
+system equalling i):
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1165">
+  &#x003C;tensor&#x003E; ::= &#x003C;scalar&#x003E; | &#x003C;vector&#x003E; | &#x003C;dyad&#x003E;
+ <br />  &#x003C;scalar&#x003E; ::= &#x0022;algebraic expression, can contain &#x003C;scalars&#x003E;&#x0022; |
+ <br />               &#x0022;tensor variable with scalar value&#x0022; |
+ <br />               &#x003C;vector 1&#x003E;.&#x003C;vector 2&#x003E; | &#x003C;dyad 1&#x003E;#&#x003C;dyad 2&#x003E; |
+ <br />               (d=2)&#x003C;vector 1&#x003E;?&#x003C;vector 2&#x003E; | DIV &#x003C;vector&#x003E; |
+ <br />               LAPL &#x003C;scalar&#x003E; | (d=2) ROT &#x003C;vector&#x003E; |
+ <br />               DIRDF(&#x003C;vector&#x003E;,&#x003C;scalar&#x003E;)
+ <br />  &#x003C;vector&#x003E; ::= &#x0022;identifier declared by VECTORS statement&#x0022; |
+ <br />               &#x0022;tensor variable with vector value&#x0022; |
+ <br />               VECT(&#x003C;scalar 1&#x003E;,...,&#x003C;scalar d&#x003E;) | -&#x003C;vector&#x003E; |
+ <br />               &#x003C;vector 1&#x003E;+&#x003C;vector 2&#x003E; | &#x003C;vector 1&#x003E;-&#x003C;vector 2&#x003E; |
+ <br />               &#x003C;scalar&#x003E;*&#x003C;vector&#x003E; | &#x003C;vector&#x003E;/&#x003C;scalar&#x003E; |
+ <br />               &#x003C;dyad&#x003E;.&#x003C;vector&#x003E; | &#x003C;vector&#x003E;.&#x003C;dyad&#x003E; | (d=3)
+ <br />               &#x003C;vector 1&#x003E;?&#x003C;vector 2&#x003E; | (d=2) &#x003C;vector&#x003E;?&#x003C;dyad&#x003E; |
+ <br />               (d=2) &#x003C;dyad&#x003E;?&#x003C;vector&#x003E; | GRAD &#x003C;scalar&#x003E; |
+ <br />               DIV &#x003C;dyad&#x003E; | LAPL &#x003C;vector&#x003E; | (d=3) ROT &#x003C;vector&#x003E; |
+ <br />               DIRDF(&#x003C;vector 1&#x003E;,&#x003C;vector 2&#x003E;) | DF(&#x003C;vector&#x003E;,&#x0022;usual
+ <br />               further arguments&#x0022;)
+ <br />  &#x003C;dyad&#x003E;    ::= &#x0022;identifier declared by DYADS statement&#x0022; |
+ <br />               &#x0022;tensor variable with dyadic value&#x0022; |
+ <br />               DYAD((&#x003C;scalar 11&#x003E;,...,&#x003C;scalar 1d&#x003E;),...,(&#x003C;scalar d1&#x003E;,
+ <br />               ...,&#x003C;scalar dd&#x003E;)) | -&#x003C;dyad&#x003E; | &#x003C;dyad 1&#x003E;+&#x003C;dyad 2&#x003E; |
+ <br />               &#x003C;dyad 1&#x003E;-&#x003C;dyad 2&#x003E; | &#x003C;scalar&#x003E;*&#x003C;dyad&#x003E; | &#x003C;dyad&#x003E;/&#x003C;scalar&#x003E;
+ <br />               | &#x003C;dyad 1&#x003E;.&#x003C;dyad 2&#x003E; | &#x003C;vector 1&#x003E;&#x0026;&#x003C;vector 2&#x003E; |
+ <br />               (d=3) &#x003C;vector&#x003E;?&#x003C;dyad&#x003E; | (d=3) &#x003C;dyad&#x003E;?&#x003C;vector&#x003E; |
+ <br />               GRAD &#x003C;vector&#x003E; | DF(&#x003C;dyad&#x003E;,&#x0022;usual further arguments&#x0022;)
+</div>
+<!--l. 195--><p class="nopar" >
+</p><!--l. 197--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x213-77900020.21.2"></a>Assigning statement</h5>
+<!--l. 200--><p class="noindent" >The assigning statement for tensor variables has a usual syntax, namely:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1166">
+  &#x003C;tensor variable&#x003E; := &#x003C;tensor&#x003E;
+ <br />  &#x003C;tensor variable&#x003E; ::= &#x0022;identifier declared TENSOR&#x0022;  .
+</div>
+<!--l. 205--><p class="nopar" > The assigning statement assigns the tensor variable the value of the given tensor
+expression, formulated in the given coordinate system. After a change of the coordinate
+system, the tensor variables have to be redeﬁned.
+</p><!--l. 211--><p class="noindent" >For reference, see <span class="cite">[<a 
+href="manualap2.html#XWirthPhD1980">Wir80</a>]</span>.
+</p><!--l. 216--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.21.3    </span> <a 
+ id="x213-78000020.21.3"></a>IIMET</h4>
+<!--l. 220--><p class="noindent" >A Module for Discretizing the Systems of Partial Diﬀerential Equations
+</p><!--l. 225--><p class="noindent" >This program module makes it possible to discretize the speciﬁed system of partial
+diﬀerential equations using the integro-interpolation method, minimizing the
+number of the used interpolations in each independent variable. It can be used for
+non-linear systems and vector or tensor variables as well. The user speciﬁes
+the way of discretizing individual terms of diﬀerential equations, controls the
+discretization and obtains various diﬀerence schemes according to his own
+wish.
+</p><!--l. 234--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x213-78100020.21.3"></a>Speciﬁcation of the coordinates and the indices corresponding to them</h5>
+<!--l. 236--><p class="noindent" >The independent variables of diﬀerential equations will be called coordinates. The
+names of the coordinates and the indices that will correspond to the particular
+coordinates in the diﬀerence scheme are deﬁned using the COORDINATES
+statement:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1167">
+  COORDINATES  &#x003C;coordinate 1&#x003E;{,&#x003C;coordinate i&#x003E;} [ INTO
+ <br />             &#x003C;index 1&#x003E;{,&#x003C;index i&#x003E;}];
+ <br />  &#x003C;coordinate i&#x003E; ::= &#x0022;identifier&#x0022;  - the name of the coordinate
+ <br />  &#x003C;index i&#x003E; ::= &#x0022;identifier&#x0022;       - the name of the index
+</div>
+<!--l. 245--><p class="nopar" > This statement speciﬁes that the &#x003C;coordinate i&#x003E; will correspond to the &#x003C;index i&#x003E;. A
+new COORDINATES statement cancels the deﬁnitions given by the preceding
+COORDINATES statement. If the part [ INTO ... ] is not included in the statement, the
+statement assigns the coordinates the indices I, J, K, L, M, N, respectively. If it is
+included, the number of coordinates and the number of indices should be the
+same.
+</p><!--l. 255--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x213-78200020.21.3"></a>2.2 Diﬀerence grids</h5>
+<!--l. 258--><p class="noindent" >In the discretization, orthogonal diﬀerence grids are employed. In addition to the basic
+grid, called the integer one, there is another, the half-integer grid in each coordinate,
+whose cellular boundary points lie in the centers of the cells of the integer grid. The
+designation of the cellular separating points and centers is determined by the
+CENTERGRID switch: if it is ON and the index in the given coordinate is I, the centers
+of the grid cells are designated by indices I, I + 1,..., and the boundary points of the cells
+by indices I + 1/2,..., if, on the contrary, the switch is OFF, the cellular centers are
+designated by indices I + 1/2,..., and the boundary points by indices I, I + 1,... (see Fig.
+2.1).
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1168">
+                                         ON CENTERGRID
+ <br />  I-1/2     I       I+1/2          I+1            I+3/2
+ <br />---|--------|--------|--------------|--------------|----
+ <br />   I       I+1/2    I+1            I+3/2          I+2
+ <br />                                         OFF CENTERGRID
+ <br />
+ <br />              Figure 2.1 Types of grid
+</div>
+<!--l. 277--><p class="nopar" > In the case of ON CENTERGRID, the indices i,i+1,i-1... thus designate the centers of
+the cells of the integer grid and the boundary points of the cells of the half-integer grid,
+and, similarly, in the case of OFF CENTERGRID, the boundaries of the cells of the
+integer grid and the central points of the half-integer grid. The meaning of the integer and
+half-integer grids depends on the CENTERGRID switch in the described way. After
+the package is loaded, the CENTERGRID is ON. Obviously, this switch is
+signiﬁcant only for non-uniform grids with a variable size of each cell. The grids can
+be uniform, i.e. with a constant cell size - the step of the grid. The following
+statement:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1169">
+  GRID UNIFORM,&#x003C;coordinate&#x003E;{,&#x003C;coordinate&#x003E;};
+</div>
+<!--l. 291--><p class="nopar" > deﬁnes uniform grids in all coordinates occurring in it. Those coordinates that do not
+occur in the GRID UNIFORM statement are supposed to have non-uniform grids. In the
+outputs, the grid step is designated by the identiﬁer that is made by putting the character
+H before the name of the coordinate. For a uniform grid, this identiﬁer (e.g. for the
+coordinate X the grid step HX) has the meaning of a step of an integer or half-integer
+grids that are identical. For a non-uniform grid, this identiﬁer is an operator
+and has the meaning of a step of an integer grid, i.e. the length of a cell whose
+center (in the case of ON CENTERGRID) or beginning (in the case of OFF
+CENTERGRID) is designated by a single argument of this operator. For each coordinate
+s designated by the identiﬁer i, this step of the integer non-uniform grid is deﬁned as
+follows:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1170">
+  Hs(i+j) = s(i+j+1/2) - s(i+j-1/2)      at ON CENTERGRID
+ <br />  Hs(i+j) = s(i+j+1) - s(i+j)            at OFF CENTERGRID
+</div>
+<!--l. 309--><p class="nopar" > for all integers j (s(k) designates the value of the coordinate s in the cellular boundary
+point subscripted with the index k). The steps of the half-integer non-uniform grid are not
+applied in outputs.
+</p><!--l. 315--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x213-78300020.21.3"></a>Declaring the dependence of functions on coordinates</h5>
+<!--l. 318--><p class="noindent" >In the system of partial diﬀerential equations, two types of functions, in other words
+dependent variables can occur: namely, the given functions, whose values are known
+before the given system is solved, and the sought functions, whose values are not
+available until the system of equations is solved. The functions can be scalar, vector, or
+tensor, for vector or tensor functions the EXPRES module has to be applied at
+the same time. The names of the functions employed in the given system and
+their dependence on the coordinates are speciﬁed using the DEPENDENCE
+statement.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1171">
+  DEPENDENCE &#x003C;dependence&#x003E;{,&#x003C;dependence&#x003E;};
+ <br />  &#x003C;dependence&#x003E; ::= &#x003C;function&#x003E;([&#x003C;order&#x003E;],&#x003C;coordinate&#x003E;{,
+ <br />                   &#x003C;coordinate&#x003E;})
+ <br />  &#x003C;function&#x003E; ::= &#x0022;identifier&#x0022;  - the name of the function
+ <br />  &#x003C;order&#x003E; ::= 1|2 tensor order of the function (the value of
+ <br />              the function is 1 - vector, 2 - dyad (two-
+ <br />              dimensional tensor))
+</div>
+<!--l. 335--><p class="nopar" > Every &#x003C;dependence&#x003E; in the statement determines on which &#x003C;coordinates&#x003E; the
+&#x003C;function&#x003E; depends. If the tensor &#x003C;order&#x003E; of the function occurs in the &#x003C;dependence&#x003E;,
+the &#x003C;function&#x003E; is declared as a vector or a dyad. If, however, the &#x003C;function&#x003E; has been
+declared by the VECTORS and DYADS statements of the EXPRES module, the user
+need not present the tensor &#x003C;order&#x003E;. By default, a function without any declaration is
+regarded as scalar. In the discretization, all scalar components of tensor functions are
+replaced by identiﬁers that arise by putting successively the function name and the
+individual indices of the given component (e.g. the tensor component T(1,2), written in
+the EXPRES module as T(1,2), is represented by the identiﬁer T12). Before
+the DEPENDENCE statement is executed, the coordinates have to be deﬁned
+using the COORDINATES statement. There may be several DEPENDENCE
+statements. The DEPENDENCE statement cancels all preceding determinations of
+which grids are to be used for diﬀerentiating the function or the equation for this
+function. These determinations can be either deﬁned by the ISGRID or GRIDEQ
+statements, or computed in the evaluation of the IIM statement. The GIVEN
+statement:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1172">
+  GIVEN &#x003C;function&#x003E;{,&#x003C;function&#x003E;};
+</div>
+<!--l. 356--><p class="nopar" > declares all functions included in it as given functions whose values are known to the
+user or can be computed. The CLEARGIVEN statement:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1173">
+  CLEARGIVEN;
+</div>
+<!--l. 361--><p class="nopar" > cancels all preceding GIVEN declarations. If the TWOGRID switch is ON, the given
+functions can be diﬀerentiated both on the integer and the half-integer grids. If the
+TWOGRID switch is OFF, any given function can be diﬀerentiated only on one grid.
+After the package is loaded, the TWOGRID is ON.
+</p><!--l. 369--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x213-78400020.21.3"></a>Functions and diﬀerence grids</h5>
+<!--l. 372--><p class="noindent" >Every scalar function or scalar component of a vector or a dyadic function occurring in
+the discretized system can be discretized in any of the coordinates either on the
+integer or half-integer grid. One of the tasks of the IIMET module is to ﬁnd the
+optimum distribution of each of these dependent variables of the system on the
+integer and half-integer grids in all variables so that the number of the performed
+interpolations in the integro-interpolation method will be minimal. Using the
+statement
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1174">
+  SAME &#x003C;function&#x003E;{,&#x003C;function&#x003E;};
+</div>
+<!--l. 382--><p class="nopar" > all functions given in one of these declarations will be discretized on the same grids in
+all coordinates. In each SAME statement, at least one of these functions in one SAME
+statement must be the sought one. If the given function occurs in the SAME statement, it
+will be discretized only on one grid, regardless of the state of the TWOGRID switch. If a
+vector or a dyadic function occurs in the SAME statement, what has been said
+above relates to all its scalar components. There are several SAME statements
+that can be presented. All SAME statements can be canceled by the following
+statement:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1175">
+  CLEARSAME;
+</div>
+<!--l. 394--><p class="nopar" > The SAME statement can be successfully used, for example, when the given function
+depends on the function sought in a complicated manner that cannot be included either
+in the diﬀerential equation or in the diﬀerence scheme explicitly, and when
+both the functions are desired to be discretized in the same points so that the
+user will not be forced to execute the interpolation during the evaluation of the
+given function. In some cases, it is convenient too to specify directly which
+variable on which grid is to be discretized, for which case the ISGRID statement is
+applied:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1176">
+  ISGRID &#x003C;s-function&#x003E;{,&#x003C;s-function&#x003E;};
+ <br />  &#x003C;s-function&#x003E; ::= &#x003C;function&#x003E;([&#x003C;component&#x003E;,]&#x003C;s-grid&#x003E;{,&#x003C;s-grid&#x003E;})
+ <br />  &#x003C;s-grid&#x003E; ::= &#x003C;coordinate&#x003E; .. &#x003C;grid&#x003E;,
+ <br />  &#x003C;grid&#x003E; ::= ONE | HALF            designation of the integer
+ <br />                                   (ONE) and half-integer (HALF)
+ <br />                                   grids
+ <br />  &#x003C;component&#x003E; ::= &#x003C;i-dim&#x003E; |        for the vector &#x003C;function&#x003E;
+ <br />                  &#x003C;i-dim&#x003E;,&#x003C;i-dim&#x003E;  for the dyadic &#x003C;function&#x003E;
+ <br />                                   it is not presented for the
+ <br />                                   scalar &#x003C;function&#x003E;
+ <br />  &#x003C;i-dim&#x003E; ::= *| &#x0022;natural number from 1 to the space dimension
+ <br />                the space dimension is specified in the EXPRES
+ <br />                module by the SCALEFACTORS statement, * means all
+ <br />                components
+</div>
+<!--l. 419--><p class="nopar" > The statement deﬁnes that the given functions or their components will be discretized in
+the speciﬁed coordinates on the speciﬁed grids, so that, for example, the statement
+ISGRID U (X..ONE,Y..HALF), V(1,Z..ONE), T(*,1,X..HALF); deﬁnes that scalar U
+will be discretized on the integer grid in the coordinate X, and on the half-integer one in
+the coordinate Y, the ﬁrst component of vector V will be on the integer grid in the
+coordinate Z, and the ﬁrst column of tensor T will be on the half-integer grid
+in the coordinate X. The ISGRID statement can be applied more times. The
+functions used in this statement have to be declared before by the DEPENDENCE
+statement.
+</p><!--l. 432--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x213-78500020.21.3"></a>Equations and diﬀerence grids</h5>
+<!--l. 435--><p class="noindent" >Every equation of the system of partial diﬀerential equations is an equation for some
+sought function (speciﬁed in the IIM statement). The correspondence between the sought
+functions and the equations is mutually unambiguous. The GRIDEQ statement makes it
+possible to determine on which grid an individual equation will be discretized in some or
+all coordinates
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1177">
+  GRIDEQ &#x003C;g-function&#x003E;{,&#x003C;g-function&#x003E;};
+ <br />  &#x003C;g-function&#x003E; ::= &#x003C;function&#x003E;(&#x003C;s-grid&#x003E;{,&#x003C;s-grid&#x003E;})
+</div>
+<!--l. 444--><p class="nopar" > Every equation can be discretized in any coordinate either on the integer or half-integer
+grid. This statement determines the discretization of the equations given by the functions
+included in it in given coordinates, on given grids. The meaning of the fact that an
+equation is discretized on a certain grid is as follows: index I used in the DIFMATCH
+statements (discussed in the following section), specifying the discretization of the basic
+terms, will be located in the center of the cell of this grid, and indices I+1/2,
+I-1/2 from the DIFMATCH statement on the boundaries of the cell of this grid.
+The actual name of the index in the given coordinate is determined using the
+COORDINATES statement, and its location on the grid is set by the CENTERGRID
+switch.
+</p><!--l. 460--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x213-78600020.21.3"></a>Discretization of basic terms</h5>
+<!--l. 462--><p class="noindent" >The discretization of a system of partial diﬀerential equations is executed successively in
+individual coordinates. In the discretization of an equation in one coordinate, the
+equation is linearized into its basic terms ﬁrst that will be discretized independently then.
+If D is the designation for the discretization operator in the coordinate x, this
+linearization obeys the following rules:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1178">
+  1. D(a+b) = D(a)+D(b)
+ <br />  2. D(-a)  = -D(a)
+ <br />  3. D(p.a) = p.D(a)        (p does not depend on the coordinate x)
+ <br />  4. D(a/p) = D(a)/p
+</div>
+<!--l. 473--><p class="nopar" > The linearization lasts as long as some of these rules can be applied. The basic terms that
+must be discretized after the linearization have then the forms of the following
+quantities:
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   1. </dt><dd 
+class="enumerate-enumitem">The actual coordinate in which the discretization is performed.
+     </dd><dt class="enumerate-enumitem">
+   2. </dt><dd 
+class="enumerate-enumitem">The sought function.
+     </dd><dt class="enumerate-enumitem">
+   3. </dt><dd 
+class="enumerate-enumitem">The given function.
+     </dd><dt class="enumerate-enumitem">
+   4. </dt><dd 
+class="enumerate-enumitem">The product of the quantities 1 - 7.
+     </dd><dt class="enumerate-enumitem">
+   5. </dt><dd 
+class="enumerate-enumitem">The quotient of the quantities 1 - 7.
+     </dd><dt class="enumerate-enumitem">
+   6. </dt><dd 
+class="enumerate-enumitem">The natural power of the quantities 1 - 7.
+     </dd><dt class="enumerate-enumitem">
+   7. </dt><dd 
+class="enumerate-enumitem">The derivative of the quantities 1 - 7 with respect to the actual coordinate.</dd></dl>
+<!--l. 487--><p class="noindent" >The way of discretizing these basic terms, while the functions are on integer and
+half-integer grids, is determined using the DIFMATCH statement:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1179">
+  DIFMATCH &#x003C;coordinate&#x003E;,&#x003C;pattern term&#x003E;,{{&#x003C;grid specification&#x003E;,}
+ <br />           &#x003C;number of interpolations&#x003E;, &#x003C;discretized term&#x003E;};
+ <br />  &#x003C;coordinate&#x003E; ::= ALL | &#x0022;identifier&#x0022; - the coordinate name from
+ <br />                                        the COORDINATES statement
+ <br />  &#x003C;pattern term&#x003E; ::= &#x003C;pattern coordinate&#x003E;|
+ <br />       &#x003C;pattern sought function&#x003E;|
+ <br />       &#x003C;pattern given function&#x003E;|&#x003C;pattern term&#x003E; *
+ <br />       &#x003C;pattern term&#x003E;|&#x003C;pattern term&#x003E; / &#x003C;pattern term&#x003E;|
+ <br />       &#x003C;pattern term&#x003E; ** &#x003C;exponent&#x003E;|
+ <br />       DIFF(&#x003C;pattern term&#x003E;,&#x003C;pattern coordinate&#x003E;[,&#x003C;order
+ <br />       of derivative&#x003E;])|
+ <br />       &#x003C;declared operator&#x003E;(&#x003C;pattern term&#x003E;{,&#x003C;pattern term&#x003E;})
+ <br />  &#x003C;pattern coordinate&#x003E; ::= X
+ <br />  &#x003C;pattern sought function&#x003E; ::= U | V | W
+ <br />  &#x003C;pattern given function&#x003E; ::= F | G
+ <br />  &#x003C;exponent&#x003E; ::= N | &#x0022;integer greater than 1&#x0022;
+ <br />  &#x003C;order of derivative&#x003E; ::= &#x0022;integer greater than 2&#x0022;
+ <br />  &#x003C;grid specification&#x003E; ::= &#x003C;pattern function&#x003E;=&#x003C;grid&#x003E;
+ <br />  &#x003C;pattern function&#x003E; ::= &#x003C;pattern sought function&#x003E;|
+ <br />                         &#x003C;pattern given function&#x003E;
+ <br />  &#x003C;number of interpolations&#x003E; ::= &#x0022;non-negative integer&#x0022;
+ <br />  &#x003C;discretized term&#x003E; ::= &#x003C;pattern operator&#x003E;(&#x003C;index expression&#x003E;)|
+ <br />                &#x0022;natural number&#x0022;|DI|DIM1|DIP1|DIM2|DIP2|
+ <br />                &#x003C;declared term&#x003E; | - &#x003C;discretized term&#x003E; |
+ <br />                &#x003C;discretized term&#x003E; + &#x003C;discretized term&#x003E; |
+ <br />                &#x003C;discretized term&#x003E; * &#x003C;discretized term&#x003E; |
+ <br />                &#x003C;discretized term&#x003E; / &#x003C;discretized term&#x003E; |
+ <br />                (&#x003C;discretized term&#x003E;) |
+ <br />                &#x003C;discretized term&#x003E; **&#x003C;exponent&#x003E;
+ <br />  &#x003C;pattern operator&#x003E; ::= X | U | V | W | F | G
+ <br />  &#x003C;index expression&#x003E; ::= &#x003C;pattern index&#x003E; |
+ <br />                         &#x003C;pattern index&#x003E; + &#x003C;increment&#x003E; |
+ <br />                         &#x003C;pattern index&#x003E; - &#x003C;increment&#x003E;
+ <br />  &#x003C;pattern index&#x003E; ::= I
+ <br />  &#x003C;increment&#x003E; = &#x0022;rational number&#x0022;
+ <br />  DIFCONST &#x003C;declared term&#x003E;{,&#x003C;declared term&#x003E;};
+ <br />  &#x003C;declared term&#x003E; ::= &#x0022;identifier&#x0022; - the constant parameter of
+ <br />                                     the difference scheme.
+                                                                     
+
+                                                                     
+ <br />  DIFFUNC &#x003C;declared operator&#x003E;{,&#x003C;declared operator&#x003E;};
+ <br />  &#x003C;declared operator&#x003E; ::= &#x0022;identifier&#x0022; - prefix operator, that can
+ <br />                appear in discretized equations (e.g. SIN).
+</div>
+<!--l. 532--><p class="nopar" > The ﬁrst parameter of the DIFMATCH statement determines the coordinate for which
+the discretization deﬁned in it is valid. If ALL is used, the discretization will be
+valid for all coordinates, and this discretization is accepted when it has been
+checked whether there has been no other discretization deﬁned for the given
+coordinate and the given pattern term. Each pattern sought function, occurring in the
+pattern term, must be included in the speciﬁcation of the grids. The pattern given
+functions from the pattern term can occur in the grid speciﬁcation, but in some
+cases (see below) need not. In the grid speciﬁcation the maximum number of
+3 pattern functions may occur. The discretization of each pattern term has to
+be speciﬁed in all combinations of the pattern functions occurring in the grid
+speciﬁcation, on the integer and half-integer grids, that is 2**n variants for the grid
+speciﬁcation with n pattern functions (n=0,1,2,3). The discretized term is the
+discretization of the pattern term in the pattern coordinate X in the point X(I)
+on the pattern grid (see Fig. 2.2), and the pattern functions occurring in the
+grid speciﬁcation are in the discretized term on the respective grids from this
+speciﬁcation (to the discretized term corresponds the grid speciﬁcation preceding
+it).
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1180">
+                                            integer grid
+ <br />        X(I-1)                X(I)               X(I+1)
+ <br />          |        DIM1        |       DIP1        |
+ <br />---|------|------|-------------|-------------|-----|-----|---
+ <br />   |    DIM2     |            DI             |    DIP2   |
+ <br /> X(I-3/2)      X(I-1/2)                    X(I+1/2)     X(I+3/2)
+ <br />                                            half-integer grid
+ <br />
+ <br />                 Figure 2.2 Pattern grid
+</div>
+<!--l. 563--><p class="nopar" > The pattern grid steps deﬁned as
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1181">
+  DIM2 = X(I - 1/2) - X(I - 3/2)
+ <br />  DIM1 = X(I) - X(I - 1)
+ <br />  DI   = X(I + 1/2) - X(I - 1/2)
+ <br />  DIP1 = X(I + 1) - X(I)
+ <br />  DIP2 = X(I + 3/2) - X(I + 1/2)
+</div>
+<!--l. 571--><p class="nopar" > can occur in the discretized term. In the integro-interpolation method, the discretized
+term is speciﬁed by the integral
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1182">
+  &#x003C;discretized term&#x003E;=1/(X(I+1/2)-X(I-1/2))*DINT(X(I-1/2),X(I+1/2),
+ <br />                                                &#x003C;pattern term&#x003E;,X),
+</div>
+<!--l. 578--><p class="nopar" > where DINT is operator of deﬁnite integration DINT(from, to, function, variable). The
+number of interpolations determines how many interpolations were needed for
+calculating this integral in the given discrete form (the function on the integer or
+half-integer grid). If the integro-interpolation method is not used, the more convenient is
+the distribution of the functions on the half-integer and integer grids, the smaller number
+is chosen by the user. The parameters of the diﬀerence scheme deﬁned by the
+DIFCONST statement can occur in the discretized expression too (for example, the
+implicit-explicit scheme on the implicit layer multiplied by the constant C and on the
+explicit one by (1-C)). As a matter of fact, all DIFMATCH statements create a base of
+pattern terms with the rules of how to discretize these terms in individual coordinates
+under the assumption that the functions occurring in the pattern terms are on the grids
+determined in the grid speciﬁcation (all combinations must be included). The
+DIFMATCH statement does not check whether the discretized term is actually the
+discretization of the pattern term or whether in the discretized term occur the
+functions from the grid speciﬁcation on the grids given by this speciﬁcation.
+An example can be the following deﬁnition of the discretization of the ﬁrst
+and second derivatives of the sought function in the coordinate R on a uniform
+grid:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1183">
+  DIFMATCH R,DIFF(U,X),U=ONE,2,(U(I+1)-U(I-1))/(2*DI);
+ <br />                         U=HALF,0,(U(I+1/2)-U(I-1/2))/DI;
+ <br />  DIFMATCH R,DIFF(U,X,2),U=ONE,0,(U(I+1)-2*U(I)+U(I-1))/DI**2,
+ <br />    U=HALF,2,(U(I+3/2)-U(I+1/2)-U(I-1/2)+U(I-3/2))/(2*DI**2);
+ <br />
+ <br />     All DIFMATCH statements can be cleared by the statement
+ <br />
+ <br />  CLEARDIFMATCH;
+</div>
+<!--l. 609--><p class="nopar" > After this statement user has to supply its own DIFMATCH statements. But now back to
+the discretizing of the basic terms obtained by the linearization of the partial diﬀerential
+equation, as mentioned at the beginning of this section. Using the method of pattern
+matching, for each basic term a term representing its pattern is found in the base of
+pattern terms (speciﬁed by the DIFMATCH statements). The pattern matching obeys the
+following rules:
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   1. </dt><dd 
+class="enumerate-enumitem">The pattern for the coordinate in which the discretization is executed is the
+     pattern coordinate X.
+     </dd><dt class="enumerate-enumitem">
+   2. </dt><dd 
+class="enumerate-enumitem">The pattern for the sought function is some pattern sought function, and this
+     correspondence is mutually unambiguous.
+     </dd><dt class="enumerate-enumitem">
+   3. </dt><dd 
+class="enumerate-enumitem">The  pattern  for  the  given  function  is  some  pattern  given  function,  or,  in
+     case  the  EQFU  switch  is  ON,  some  pattern  sought  function,  and,  again,
+     the  correspondence  of  the  pattern  with  the  given  function  is  mutually
+     unambiguous (after loading the EQFU switch is ON).
+     </dd><dt class="enumerate-enumitem">
+   4. </dt><dd 
+class="enumerate-enumitem">The pattern for the products of quantities is the product of the patterns of
+     these quantities, irrespective of their sequence.
+     </dd><dt class="enumerate-enumitem">
+   5. </dt><dd 
+class="enumerate-enumitem">The pattern for the quotient of quantities is the quotient of the patterns of
+     these quantities.
+     </dd><dt class="enumerate-enumitem">
+   6. </dt><dd 
+class="enumerate-enumitem">The  pattern  for  the  natural  power  of  a  quantity  is  the  same  power  of  the
+                                                                     
+
+                                                                     
+     pattern of this quantity or the power of this quantity with the pattern exponent
+     N.
+     </dd><dt class="enumerate-enumitem">
+   7. </dt><dd 
+class="enumerate-enumitem">The pattern for the derivative of a quantity with respect to the coordinate
+     in  which  the  discretization  is  executed  is  the  derivative  of  the  pattern  of
+     this quantity with respect to the pattern coordinate X of the same order of
+     diﬀerentiation.
+     </dd><dt class="enumerate-enumitem">
+   8. </dt><dd 
+class="enumerate-enumitem">The pattern for the sum of the quantities that have the same pattern with the
+     identical correspondence of functions and pattern functions is this common
+     pattern (so that it will not be necessary to multiply the parentheses during
+     discretizing the products in the second and further coordinates).</dd></dl>
+<!--l. 651--><p class="noindent" >When matching the pattern of one basic term, the program ﬁnds the pattern term and the
+functions corresponding to the pattern functions, maybe also the exponent corresponding
+to the pattern exponent N. After determining on which grids the individual functions and
+the individual equations will be discretized, which will be discussed in the next
+section, the program ﬁnds in the pattern term base the discretized term either
+with pattern functions on the same grids as are the functions from the basic
+term corresponding to them in case that the given equation is diﬀerentiated on
+the integer grid, or with pattern functions on inverse grids (an inverse integer
+grid is a half-integer grid, and vice versa) compared with those used for the
+functions from the basic term corresponding to them in case the given equation is
+diﬀerentiated on the half-integer grid (the discretized term in the DIFMATCH
+statement is expressed in the point X(I), i.e. on the integer grid, and holds for the
+discretizing of the equation on the integer grid; with regard to the substitutions for
+the pattern index I mentioned later, it is possible to proceed in this way and
+not necessary to deﬁne the discretization in the points X(I+1/2) too, i.e. on
+the half-integer grid). The program replaces in the thus obtained discretized
+term:
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   1. </dt><dd 
+class="enumerate-enumitem">The  pattern  coordinate  X  with  the  particular  coordinate  s  in  which  the
+     discretization is actually performed.
+     </dd><dt class="enumerate-enumitem">
+   2. </dt><dd 
+class="enumerate-enumitem">The pattern index I and the grid steps DIM2, DIM1, DI, DIP1, DIP2 with
+     the expression given in table 2.1 according to the state of the CENTERGRID
+     switch and to the fact whether the given equation is discretized on the integer
+     or half-integer grid (i is the index corresponding to the coordinate s according
+     to the COORDINATES statement, the grid steps were deﬁned in section 2.2)
+     </dd><dt class="enumerate-enumitem">
+                                                                     
+
+                                                                     
+   3. </dt><dd 
+class="enumerate-enumitem">The pattern functions with the corresponding functions from the basic term
+     and, possibly, the pattern exponent with the corresponding exponent from
+     the basic term.</dd></dl>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-1184">
+--------------------------------------------------------------------
+ <br />|                   the equation discretized on                    |
+ <br />|          the integer grid         |    the half-integer grid     |
+ <br />|        CENTERGRID      |CENTERGRID|CENTERGRID|     CENTERGRID    |
+ <br />|           OFF          |   ON     |   OFF    |         ON        |
+ <br />|------------------------------------------------------------------|
+ <br />| I  |            i                 |            i+1/2             |
+ <br />|----|-------------------------------------------------------------|
+ <br />|DIM2|(Hs(i-2)+Hs(i-1))/2|     Hs(i-1)         |(Hs(i-1)+Hs(i))/2  |
+ <br />|DIM1|      Hs(i-1)      | (Hs(i-1)+Hs(i))/2   |      Hs(i)        |
+ <br />|DI  |(Hs(i-1)+Hs(i))/2  |     Hs(i)           |(Hs(i)+Hs(i+1))/2  |
+ <br />|DIP1|      Hs(i)        | (Hs(i)+Hs(i+1))/2   |      Hs(i+1)      |
+ <br />|DIP2|(Hs(i)+Hs(i+1))/2  |     Hs(i+1)         |(Hs(i+1)+Hs(i+2))/2|
+ <br />--------------------------------------------------------------------
+ <br />
+ <br />        Table 2.1  Values of the pattern index and
+ <br />                   the pattern grid steps.
+</div>
+<!--l. 704--><p class="nopar" > More details will be given now to the discretization of the given functions and its
+speciﬁcation. The given function may occur in the SAME statement, which makes it
+bound with some sought function, in other words it can be discretized only on
+one grid. This means that all basic terms, in which this function occurs, must
+have their pattern terms in whose discretization deﬁnitions by the DIFMATCH
+statement the pattern function corresponding to the mentioned given function has to
+occur in the grid speciﬁcation. If the given function does not occur in the SAME
+statement and the TWOGRID switch is OFF, i.e. it can be discretized only on
+one grid again, the same holds true. If, however, the given function does not
+occur in the SAME statement and the TWOGRID switch is ON, i.e. it can be
+discretized simultaneously on the integer and the half-integer grids, then the basic
+terms of the equations including this function have their pattern terms in whose
+discretization deﬁnitions the pattern function corresponding to the mentioned
+given function need not occur in the grid speciﬁcation. If, however, in spite
+of all, this pattern function in the discretization deﬁnition does occur in the
+grid speciﬁcation, it is the alternative with a smaller number of interpolations
+occurring in the DIFMATCH statement that is selected for each particular basic
+term with a corresponding pattern (the given function can be on the integer or
+half-integer grid). Before the discretization is executed, it is necessary to deﬁne
+using the DIFMATCH statements the discretization of all pattern terms that
+are the patterns of all basic terms of all equations appearing in the discretized
+                                                                     
+
+                                                                     
+system in all coordinates. The fact that the pattern terms of the basic terms of
+partial equations occur repeatedly in individual systems has made it possible to
+create a library of the discretizations of the basic types of pattern terms using the
+integro-interpolation method. This library is a component part of the IIMET
+module (in its end) and makes work easier for those users who ﬁnd the pattern
+matching mechanism described here too diﬃcult. New DIFMATCH statements
+have to be created by those whose equations will contain a basic term having
+no pattern in this library, or those who need another method to perform the
+discretization. The described implemented algorithm of discretizing the basic terms is
+suﬃciently general to enable the use of a nearly arbitrary discretization on orthogonal
+grids.
+</p><!--l. 744--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x213-78700020.21.3"></a>Discretization of a system of equations</h5>
+<!--l. 747--><p class="noindent" >All statements inﬂuencing the run of the discretization that one want use in this run
+have to be executed before the discretization is initiated. The COORDINATES,
+DEPENDENCE, and DIFMATCH statements have to occur in all applications. Further, if
+necessary, the GRID UNIFORM, GIVEN, ISGRID, GRIDEQ, SAME, and DIFCONST
+statements can be used, or some of the CENTREGRID, TWOGRID, EQFU, and
+FULLEQ switches can be set. Only then the discretization of a system of partial
+diﬀerential equations can be started using the IIM statement:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1185">
+  IIM &#x003C;array&#x003E;{,&#x003C;sought function&#x003E;,&#x003C;equation&#x003E;};
+ <br />  &#x003C;array&#x003E; ::= &#x0022;identifier&#x0022; - the name of the array for storing
+ <br />                             the result
+ <br />  &#x003C;sought function&#x003E; ::= &#x0022;identifier&#x0022; - the name of the function
+ <br />                        whose behavior is described by the
+ <br />                        equation
+ <br />  &#x003C;equation&#x003E; ::= &#x003C;left side&#x003E; = &#x003C;right side&#x003E;
+ <br />  &#x003C;left side&#x003E; ::= &#x0022;algebraic expression&#x0022; , the derivatives are
+ <br />                  designated by the DIFF operator
+ <br />  &#x003C;right side&#x003E; ::= &#x0022;algebraic expression&#x0022;
+</div>
+<!--l. 766--><p class="nopar" > Hence, in the IIM statement the name of the array in which the resulting diﬀerence
+schemes will be stored, and the pair sought function - equation, which describes this
+function, are speciﬁed. The meaning of the relation between the sought function and its
+equation during the discretization lies in the fact that the sought function is preferred in
+its equation so that the interpolation is not, if possible, used in discretizing the terms of
+this equation that contain it. In the equations, the functions and the coordinates appear
+as identiﬁers. The identiﬁers that have not been declared as functions by the
+DEPENDENCE statement or as coordinates by the COORDINATES statement are
+considered constants independent of the coordinates. The partial derivatives are
+expressed by the DIFF operator that has the same syntax as the standard diﬀerentiation
+operator DF. The functions and the equations can also have the vector or tensor
+character. If these non-scalar quantities are applied, the EXPRES module has
+to be used together with the IIMET module, and also non-scalar diﬀerential
+operators such as GRAD, DIV, etc. can be employed. The sequence performed by
+the program in the discretization can be brieﬂy summed up in the following
+items:
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   1. </dt><dd 
+class="enumerate-enumitem">If there are non-scalar functions or equations in a system of equations, they
+     are automatically converted into scalar quantities by means of the EXPRES
+     module.
+     </dd><dt class="enumerate-enumitem">
+   2. </dt><dd 
+class="enumerate-enumitem">In each equation, the terms containing derivatives are transferred to the left
+     side, and the other terms to the right side of the equation.
+     </dd><dt class="enumerate-enumitem">
+   3. </dt><dd 
+class="enumerate-enumitem">For each coordinate, with respect to the sequence in which they occur in the
+                                                                     
+
+                                                                     
+     COORDINATES statement, the following is executed:
+     <!--l. 798--><p class="noindent" >a)  It  is  determined  on  which  grids  all  functions  and  all  equations  in  the
+     actual coordinate will be discretized, and simultaneously the limits are kept
+     resulting from the ISGRID, GRIDEQ, and SAME statements if they were
+     used. Such a distribution of functions and equations on the grids is selected
+     among all possible variants that ensures the minimum sum of all numbers of
+     the interpolations of the basic terms (speciﬁed by the DIFMATCH statement)
+     of  all  equations  if  the  FULLEQ  switch  is  ON,  or  of  all  left  sides  of  the
+     equations  if  the  FULLEQ  switch  is  OFF  (after  the  loading  the  FULLEQ
+     switch is ON).
+     </p><!--l. 809--><p class="noindent" >b)  The  discretization  itself  is  executed,  as  speciﬁed  by  the  DIFMATCH
+     statements.
+     </p></dd><dt class="enumerate-enumitem">
+   4. </dt><dd 
+class="enumerate-enumitem">If  the  array  name  is  A,  then  if  there  is  only  one  scalar  equation  in  the
+     IIM  statement,  the  discretized  left  side  of  this  equation  is  stored  in  A(0)
+     and the discretized right side in A(1) (after the transfer mentioned in item
+     2),  if  there  are  more  scalar  equations  than  one  in  the  IIM  statement,  the
+     discretization of the left side of the i-th scalar equation is stored in A(i,0) and
+     the discretization of the right side in A(i,1).</dd></dl>
+<!--l. 820--><p class="noindent" >The IIM statement can be used more times during one program run, and between
+its calls, the discretizing process can be altered using other statements of this
+module.
+</p><!--l. 825--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x213-78800020.21.3"></a>Error messages</h5>
+<!--l. 828--><p class="noindent" >The IIMET module provides error messages in the case of the user’s errors. Similarly as
+in the REDUCE system, the error reporting is marked with ﬁve stars : &#x0022;*****&#x0022; on
+the line start. Some error messages are identical with those of the REDUCE
+system. Here are given some other error messages that require a more detailed
+explanation:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1186">
+***** Matching of X term not found
+ <br />        - the discretization of the pattern term that is the pattern of
+ <br />          the basic term printed on the place X has not been
+ <br />          defined (using the DIFMATCH statement)
+ <br />***** Variable of type F not defined on grids in DIFMATCH
+ <br />        - in the definition of the discretizing of the pattern term
+ <br />          the given functions were not used in the grid
+ <br />          specification and are needed now
+ <br />***** X Free vars not yet implemented
+ <br />        - in the grid specification in the DIFMATCH statement
+ <br />          more than 3 pattern functions were used
+ <br />***** All grids not given for term X
+ <br />        - in the definition of the discretization of the pattern of
+ <br />          the basic term printed on the place X not all
+ <br />          necessary combinations of the grid specification
+ <br />          of the pattern functions were presented
+</div>
+<!--l. 850--><p class="nopar" >
+</p><!--l. 853--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.21.4    </span> <a 
+ id="x213-78900020.21.4"></a>APPROX</h4>
+<!--l. 857--><p class="noindent" >A Module for Determining the Precision Order of the Diﬀerence Scheme
+</p><!--l. 862--><p class="noindent" >This module makes it possible to determine the diﬀerential equation that is
+solved by the given diﬀerence scheme, and to determine the order of accuracy
+of the solution of this scheme in the grid steps in individual coordinates. The
+discrete function values are expanded into the Taylor series in the speciﬁed
+point.
+</p><!--l. 870--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x213-79000020.21.4"></a>Speciﬁcation of the coordinates and the indices corresponding to them</h5>
+                                                                     
+
+                                                                     
+<!--l. 873--><p class="noindent" >The COORDINATES statement, described in the IIMET module manual, specifying the
+coordinates and the indices corresponding to them is the same for this program module
+as well. It has the same meaning and syntax. The present module version assumes a
+uniform grid in all coordinates. The grid step in the input diﬀerence schemes has to be
+designated by an identiﬁer consisting of the character H and the name of the coordinate,
+e.g. the step of the coordinate X is HX.
+</p><!--l. 882--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x213-79100020.21.4"></a>Speciﬁcation of the Taylor expansion</h5>
+<!--l. 884--><p class="noindent" >In the determining of the approximation order, all discrete values of the functions are
+expanded into the Taylor series in all coordinates. In order to determine the Taylor
+expansion, the program needs to know the point in which it performs this expansion, and
+the number of terms in the Taylor series in individual coordinates. The center of
+the Taylor expansion is speciﬁed by the CENTER statement and the number
+of terms in the Taylor series in individual coordinates by the MAXORDER
+statement:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1187">
+  CENTER &#x003C;center&#x003E;{,&#x003C;center&#x003E;};
+ <br />  &#x003C;center&#x003E; ::= &#x003C;coordinate&#x003E; = &#x003C;increment&#x003E;
+ <br />  &#x003C;increment&#x003E; ::= &#x0022;rational number&#x0022;
+ <br />  MAXORDER &#x003C;order&#x003E;{,&#x003C;order&#x003E;};
+ <br />  &#x003C;order&#x003E; ::= &#x003C;coordinate&#x003E; = &#x003C;number of terms&#x003E;
+ <br />  &#x003C;number of terms&#x003E; ::= &#x0022;natural number&#x0022;
+</div>
+<!--l. 899--><p class="nopar" > The increment in the CENTER statement determines that the center of the Taylor
+expansion in the given coordinate will be in the point speciﬁed by the index I +
+&#x003C;increment&#x003E;, where I is the index corresponding to this coordinate, deﬁned using the
+COORDINATES statement, e.g. the following example
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1188">
+  COORDINATE T,X INTO N,J;
+ <br />  CENTER T = 1/2, X = 1;
+ <br />  MAXORDER T = 2, X = 3;
+</div>
+<!--l. 909--><p class="nopar" > speciﬁes that the center of the Taylor expansion will be in the point (t(n+1/2),x(j+1)) and
+that until the second derivatives with respect to t (second powers of ht) and until the third
+derivatives with respect to x (third powers of hx) the expansion will be performed. The
+CENTER and MAXORDER statements can be placed only after the COORDINATES
+statement. If the center of the Taylor expansion is not deﬁned in some coordinate, it
+is supposed to be in the point given by the index of this coordinate (i.e. zero
+increment). If the number of the terms of the Taylor expansion is not deﬁned in some
+coordinate, the expansion is performed until the third derivatives with respect to this
+coordinate.
+</p><!--l. 922--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x213-79200020.21.4"></a>Function declaration</h5>
+<!--l. 925--><p class="noindent" >All functions whose discrete values are to be expanded into the Taylor series must be
+declared using the FUNCTIONS statement:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1189">
+  FUNCTIONS &#x003C;name of function&#x003E;{,&#x003C;name of function&#x003E;};
+ <br />  &#x003C;name of function&#x003E; ::= &#x0022;identifier&#x0022;
+</div>
+<!--l. 930--><p class="nopar" > In the speciﬁcation of the diﬀerence scheme, the functions are used as operators with
+one or more arguments, designating the discrete values of the functions. Each argument
+is the sum of the coordinate index (from the COORDINATES statement) and a rational
+number. If some index is omitted in the arguments of a function, this functional value is
+supposed to lie in the point in which the Taylor expansion is performed, as
+speciﬁed by the CENTER statement. In other words, if the COORDINATES
+and CENTER statements, shown in the example in the previous section, are
+valid, then it holds that U(N+1) = U(N+1,J+1) and U(J-1) = U(N+1/2,J-1). The
+FUNCTIONS statement can declare both the sought and the known functions for the
+expansion.
+</p><!--l. 946--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x213-79300020.21.4"></a>Order of accuracy determination</h5>
+<!--l. 949--><p class="noindent" >The order of accuracy of the diﬀerence scheme is determined by the APPROX
+statement:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1190">
+  APPROX (&#x003C;diff. scheme&#x003E;);
+ <br />  &#x003C;diff. scheme&#x003E; ::=  &#x003C;l. side&#x003E; = &#x003C;r. side&#x003E;
+ <br />  &#x003C;l. (r.) side&#x003E; ::= &#x0022;algebraic expression&#x0022;
+</div>
+<!--l. 955--><p class="nopar" > In the diﬀerence scheme occur the functions in the form described in the preceding
+section, the coordinate indices and the grid steps described in section 3.1, and the other
+symbolic parameters of the diﬀerence scheme. The APPROX statement expands all
+discrete values of the functions declared in the FUNCTIONS statement into
+the Taylor series in all coordinates (the point in which the Taylor expansion
+is performed is speciﬁed by the CENTER statement, and the number of the
+expansion terms by the MAXORDER statement), substitutes the expansions into the
+diﬀerence scheme, which gives a modiﬁed diﬀerential equation. The modiﬁed
+diﬀerential equation, containing the grid steps too, is an equation that is really solved
+by the diﬀerence scheme (into the given orders in the grid steps). The partial
+diﬀerential equation, whose solution is approximated by the diﬀerence scheme, is
+determined by replacing the grid steps by zeros and is displayed after the following
+message:
+</p><!--l. 972--><p class="noindent" >&#x0022;Diﬀerence scheme approximates diﬀerential equation&#x0022;
+</p><!--l. 974--><p class="noindent" >Then the following message is displayed:
+</p><!--l. 976--><p class="noindent" >&#x0022;with orders of approximation:&#x0022;
+</p><!--l. 978--><p class="noindent" >and the lowest powers (except for zero) of the grid steps in all coordinates, occurring
+in the modiﬁed diﬀerential equation are written. If the PRAPPROX switch is
+ON, then the rest of the modiﬁed diﬀerential equation is printed. If this rest is
+added to the left hand side of the approximated diﬀerential equation, one obtain
+modiﬁed equation. By default the PRAPPROX switch is OFF. If the grid steps
+are found in some denominator in the modiﬁed equation, i.e. with a negative
+exponent, the following message is written, preceding the approximated diﬀerential
+equation:
+</p><!--l. 988--><p class="noindent" >&#x0022;Reformulate diﬀerence scheme, grid steps remain in denominator&#x0022;
+</p><!--l. 990--><p class="noindent" >and the approximated diﬀerential equation is not correctly determined (one of its sides is
+zero). Generally, this message means that there is a term in the diﬀerence scheme that is
+not a diﬀerence replacement of the derivative, i.e. the ratio of the diﬀerences of the
+discrete function values and the discrete values of the coordinates (the steps of the
+diﬀerence grid). The user, however, must realize that in some cases such a term occurs
+purposefully in the diﬀerence scheme (e.g. on the grid boundary to keep the scheme
+                                                                     
+
+                                                                     
+conservative).
+</p><!--l. 1000--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.21.5    </span> <a 
+ id="x213-79400020.21.5"></a>CHARPOL</h4>
+<!--l. 1004--><p class="noindent" >A Module for Calculating the Ampliﬁcation Matrix and the Characteristic Polynomial of
+the Diﬀerence Scheme
+</p><!--l. 1010--><p class="noindent" >This program module is used for the ﬁrst step of the stability analysis of the diﬀerence
+scheme using the Fourier method. It substitutes the Fourier components into the
+diﬀerence scheme, calculates the ampliﬁcation matrix of the scheme for transition from
+one time layer to another, and computes the characteristic polynomial of this
+matrix.
+</p><!--l. 1018--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x213-79500020.21.5"></a>Commands common with the IIMET module</h5>
+<!--l. 1021--><p class="noindent" >The COORDINATES and GRID UNIFORM statements, described in the IIMET module
+manual, are applied in this module as well, having the same meaning and syntax. The
+time coordinate is assumed to be designated by the identiﬁer T. The present module
+version requires all coordinates to have uniform grids, i.e. to be declared in the GRID
+UNIFORM statement. The grid step in the input diﬀerence schemes has to be designated
+by the identiﬁer consisting of the character H and the name of the coordinate, e.g. the
+step of the time coordinate T is HT.
+</p><!--l. 1031--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x213-79600020.21.5"></a>Function declaration</h5>
+<!--l. 1034--><p class="noindent" >The UNFUNC statement declares the names of the sought functions used in the
+diﬀerence scheme:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1191">
+  UNFUNC &#x003C;function&#x003E;{,&#x003C;function&#x003E;}
+ <br />  &#x003C;function&#x003E; ::= &#x0022;identifier&#x0022; - the name of the sought function
+</div>
+<!--l. 1039--><p class="nopar" > The functions are used in the diﬀerence schemes as operators with one or more
+arguments for designating the discrete function values. Each argument is the sum of the
+index (from the COORDINATES statement) and a rational number. If some
+index is omitted in the function arguments, this function value is supposed to lie
+in the point speciﬁed only by this index, which means that, with the indices
+N and J and the function U, it holds that U(N+1) = U(N+1,J) and U(J-1) =
+U(N,J-1). As two-step (in time) diﬀerence schemes may be used only, the time
+index may occur either completely alone in the arguments, or in the sum with a
+one.
+</p><!--l. 1051--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x213-79700020.21.5"></a>Ampliﬁcation matrix</h5>
+<!--l. 1053--><p class="noindent" >The AMPMAT matrix operator computes the ampliﬁcation matrix of a two-step
+diﬀerence scheme. Its argument is an one column matrix of the dimension (1,k), where k
+is the number of the equations of the diﬀerence scheme, that contains the diﬀerence
+equations of this scheme as algebraic expressions equal to the diﬀerence of the right and
+left sides of the diﬀerence equations. The value of the AMPMAT matrix operator is the
+square ampliﬁcation matrix of the dimension (k,k). During the computation of the
+ampliﬁcation matrix, two new identiﬁers are created for each spatial coordinate. The
+identiﬁer made up of the character K and the name of the coordinate represents the wave
+number in this coordinate, and the identiﬁer made up of the character A and the name of
+the coordinate represents the product of this wave number and the grid step
+in this coordinate divided by the least common multiple of all denominators
+occurring in the scheme in the function argument containing the index of this
+coordinate. On the output an equation is displayed deﬁning the latter identiﬁer. For
+example, if in the case of function U and index J in the coordinate X the expression
+U(J+1/2) has been used in the scheme (and, simultaneously, no denominator
+higher than 2 has occurred in the arguments with J), the following equation is
+displayed: AX: = (KX*HX)/2. The deﬁnition of these quantities As allows to express
+every sum occurring in the argument of the exponentials as the sum of these
+quantities multiplied by integers, so that after a transformation, the ampliﬁcation
+                                                                     
+
+                                                                     
+matrix will contain only sin(As) and cos(As) (for all spatial coordinates s).
+The AMPMAT operator performs these transformations automatically. If the
+PRFOURMAT switch is ON (after the loading it is ON), the matrices H0 and H1
+(the ampliﬁcation matrix is equal to -H1**(-1)*H0) are displayed during the
+evaluation of the AMPMAT operator. These matrices can be used for ﬁnding a
+suitable substitution for the goniometric functions in the next run for a greater
+simpliﬁcation. The TCON matrix operator transforms the square matrix into
+a Hermit-conjugate matrix, i.e. a transposed and complex conjugate one. Its
+argument is the square matrix and its value is Hermit-conjugate matrix of the
+argument. The Hermit-conjugate matrix is used for testing the normality and
+unitarity of the ampliﬁcation matrix in the determining of the suﬃcient stability
+condition.
+</p><!--l. 1093--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x213-79800020.21.5"></a>Characteristic polynomial</h5>
+<!--l. 1096--><p class="noindent" >The CHARPOL operator calculates the characteristic polynomial of the given square
+matrix. The variable of the characteristic polynomial is designated by the LAM identiﬁer.
+The operator has one argument, the square matrix, and its value is its characteristic
+polynomial in LAM.
+</p><!--l. 1102--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x213-79900020.21.5"></a>Automatic denotation</h5>
+<!--l. 1104--><p class="noindent" >Several statements and procedures are designed for automatic denotation of some parts
+of algebraic expressions by identiﬁers. This denotation is namely useful when we obtain
+very large expressions, which cannot ﬁt into the available memory. We can denote
+subparts of an expression from the previous step of calculation by identiﬁers, replace
+these subparts by these identiﬁers and continue the analytic calculation only with these
+identiﬁers. Every time we use this technique we have to explicitly survive in processed
+expressions those algebraic quantities which will be necessary in the following steps of
+calculation. The process of denotation and replacement is performed automatically and
+the algebraic values which are denoted by these new identiﬁers can be written out at any
+time. We describe how this automatic denotation can be used. The statement
+DENOTID deﬁnes the beginning letters of newly created identiﬁers. Its syntax
+is
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1192">
+  DENOTID &#x003C;id&#x003E;;
+ <br />  &#x003C;id&#x003E; ::= &#x0022;identifier&#x0022;
+</div>
+<!--l. 1122--><p class="nopar" > After this statement the new identiﬁers created by the operators DENOTEPOL and
+DENOTEMAT will begin with the letters of the identiﬁer &#x003C;id&#x003E; used in this
+statement. Without using any DENOTID statement all new identiﬁers will begin
+with one letter A. We suggest to use this statement every time before using
+operators DENOTEPOL or DENOTEMAT with some new identiﬁer and to
+choose identiﬁers used in this statement in such a way that the newly created
+identiﬁers are not equal to any identiﬁers used in the expressions you are working
+with. The operator DENOTEPOL has one argument, a polynomial in LAM, and
+denotes the real and imaginary part of its coeﬃcients by new identiﬁers. The real
+part of the j-th LAM power coeﬃcient is denoted by the identiﬁer &#x003C;id&#x003E;R0j
+and the imaginary part by &#x003C;id&#x003E;I0j, where &#x003C;id&#x003E; is the identiﬁer used in the last
+DENOTID statement. The denotation is done only for non-numeric coeﬃcients. The
+value of this operator is the polynomial in LAM with coeﬃcients constructed
+from the new identiﬁers. The algebraic expressions which are denoted by these
+identiﬁers are stored as LISP data structure standard quotient in the LISP variable
+DENOTATION!* (assoc. list). The operator DENOTEMAT has one argument,
+a matrix, and denotes the real and imaginary parts of its elements. The real
+part of the (j,k) matrix element is denoted by the identiﬁer &#x003C;id&#x003E;Rjk and the
+imaginary part by &#x003C;id&#x003E;Ijk. The returned value of the operator is the original matrix
+with non-numeric elements replaced by &#x003C;id&#x003E;Rjk + I*&#x003C;id&#x003E;Ijk. Other matters are
+the same as for the DENOTEPOL operator. The statement PRDENOT has the
+syntax
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1193">
+  PRDENOT;
+</div>
+<!--l. 1150--><p class="nopar" > and writes from the variable DENOTATION!* the deﬁnitions of all new identiﬁers
+introduced by the DENOTEPOL and DENOTEMAT operators since the last call of
+CLEARDENOT statement (or program start) in the format deﬁned by the present setting
+of output control declarations and switches. The deﬁnitions are written in the same order
+as they have been entered, so that the deﬁnitions of the ﬁrst DENOTEPOL or
+DENOTEMAT operators are written ﬁrst. This order guarantees that this statement can
+be utilized directly to generate a semantically correct numerical program (the identiﬁers
+from the ﬁrst denotation can appear in the second one, etc.). The statement
+CLEARDENOT with the syntax
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1194">
+  CLEARDENOT;
+</div>
+<!--l. 1164--><p class="nopar" > clears the variable DENOTATION!*, so that all denotations saved earlier by the
+DENOTEPOL and DENOTEMAT operators in this variable are lost. The PRDENOT
+statement succeeding this statement writes nothing.
+</p><!--l. 1172--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.21.6    </span> <a 
+ id="x213-80000020.21.6"></a>HURWP</h4>
+<!--l. 1176--><p class="noindent" >A Module for Polynomial Roots Locating
+</p><!--l. 1180--><p class="noindent" >This module is used for verifying the stability of a polynomial, i.e. for verifying if all
+roots of a polynomial lie in a unit circle with its center in the origin. By investigating the
+characteristic polynomial of the diﬀerence scheme, the user can determine the conditions
+of the stability of this scheme.
+</p><!--l. 1187--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x213-80100020.21.6"></a>Conformal mapping</h5>
+<!--l. 1190--><p class="noindent" >The HURW operator transforms a polynomial using the conformal mapping
+LAM=(z+1)/(z-1). Its argument is a polynomial in LAM and its value is a transformed
+polynomial in LAM (LAM=z). If P is a polynomial in LAM, then it holds: all roots
+LAM1i of the polynomial P are in their absolute values smaller than one, i.e. |LAM1i|&#x003C;1,
+iﬀ the real parts of all roots LAM2i of the HURW(P) polynomial are negative, i.e. Re
+(LAM2i)&#x003C;0. The elimination of the unit polynomial roots (LAM=1), which
+has to occur before the conformal transformation is performed, is made by the
+TROOT1 operator. The argument of this operator is a polynomial in LAM and
+its value is a polynomial in LAM not having its root equal to one any more.
+Mostly, the investigated polynomial has some more parameters. For some special
+values of those parameters, the polynomial may have a unit root. During the
+evaluation of the TROOT1 operator, the condition concerning the polynomial
+parameters is displayed, and if it is fulﬁlled, the resulting polynomial has a unit
+root.
+                                                                     
+
+                                                                     
+</p><!--l. 1208--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x213-80200020.21.6"></a>Investigation of polynomial roots</h5>
+<!--l. 1210--><p class="noindent" >The HURWITZP operator checks whether a polynomial is the Hurwitz polynomial, i.e.
+whether all its roots have negative real parts. The argument of the HURWITZP
+operator is a polynomial in LAM with real or complex coeﬃcients, and its value is
+YES if the argument is the Hurwitz polynomial. It is NO if the argument is
+not the Hurwitz polynomial, and COND if it is the Hurwitz polynomial when
+the conditions displayed by the HURWITZP operator during its analysis are
+fulﬁlled. These conditions have the form of inequalities and contain algebraic
+expressions made up of the polynomial coeﬃcients. The conditions have to be
+valid either simultaneously, or they are designated and a proposition is created
+from them by the AND and OR logic operators that has to be fulﬁlled (it is the
+condition concerning the parameters occurring in the polynomial coeﬃcient) by a
+polynomial to be the Hurwitz one. This proposition is the suﬃcient condition, the
+necessary condition is the fulﬁllment of all the inequalities displayed. If the
+HURWITZP operator is called interactively, the user is directly asked if the inequalities
+are or are not valid. The user responds &#x0022;Y&#x0022; if the displayed inequality is valid,
+&#x0022;N&#x0022; if it is not, and &#x0022;?&#x0022; if he does not know whether the inequality is true or
+not.
+</p><!--l. 1232--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.21.7    </span> <a 
+ id="x213-80300020.21.7"></a>LINBAND</h4>
+<!--l. 1237--><p class="noindent" >A Module for Generating the Numeric Program for Solving a System of Linear
+Algebraic Equations with Band Matrix
+</p><!--l. 1243--><p class="noindent" >The LINBAND module generates the numeric program in the FORTRAN language,
+which solves a system of linear algebraic equations with band matrix using the
+routine from the LINPACK, NAG ,IMSL or ESSL program library. As input
+data only the system of equations is given to the program. Automatically, the
+statements of the FORTRAN language are generated that ﬁll the band matrix
+of the system in the corresponding memory mode of chosen library, call the
+solving routine, and assign the chosen variables to the solution of the system. The
+module can be used for solving linear diﬀerence schemes often having the band
+matrix.
+                                                                     
+
+                                                                     
+</p><!--l. 1254--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x213-80400020.21.7"></a>Program generation</h5>
+<!--l. 1256--><p class="noindent" >The program in the FORTRAN language is generated by the GENLINBANDSOL
+statement (the braces in this syntax deﬁnition occur directly in the program and do not
+have the usual meaning of the possibility of repetition, they designate REDUCE
+lists):
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1195">
+  GENLINBANDSOL (&#x003C;n-lower&#x003E;,&#x003C;n-upper&#x003E;,{&#x003C;system&#x003E;});
+ <br />  &#x003C;n-lower&#x003E; ::= &#x0022;natural number&#x0022;
+ <br />  &#x003C;n-upper&#x003E; ::= &#x0022;natural number&#x0022;
+ <br />  &#x003C;system&#x003E; ::= &#x003C;part of system&#x003E; | &#x003C;part of system&#x003E;,&#x003C;system&#x003E;
+ <br />  &#x003C;part of system&#x003E;::= {&#x003C;variable&#x003E;,&#x003C;equation&#x003E;} | &#x003C;loop&#x003E;
+ <br />  &#x003C;variable&#x003E; ::= &#x0022;kernel&#x0022;
+ <br />  &#x003C;equation&#x003E; ::= &#x003C;left side&#x003E; = &#x003C;right side&#x003E;
+ <br />  &#x003C;left side&#x003E; ::= &#x0022;algebraic expression&#x0022;
+ <br />  &#x003C;right side&#x003E; ::= &#x0022;algebraic expression&#x0022;
+ <br />  &#x003C;loop&#x003E; ::= {DO,{&#x003C;parameter&#x003E;,&#x003C;from&#x003E;,&#x003C;to&#x003E;,&#x003C;step&#x003E;},&#x003C;c-system&#x003E;}
+ <br />  &#x003C;parameter&#x003E; ::= &#x0022;identifier&#x0022;
+ <br />  &#x003C;from&#x003E; ::= &#x003C;i-expression&#x003E;
+ <br />  &#x003C;to&#x003E; ::= &#x003C;i-expression&#x003E;
+ <br />  &#x003C;step&#x003E; ::= &#x003C;i-expression&#x003E;
+ <br />  &#x003C;i-expression&#x003E; ::= &#x0022;algebraic expression&#x0022; with natural value
+ <br />                                        (evaluated in FORTRAN)
+ <br />  &#x003C;c-system&#x003E; ::= &#x003C;part of c-system&#x003E; | &#x003C;part of c-system&#x003E;,&#x003C;c-
+ <br />       system&#x003E;
+ <br />  &#x003C;part of c-system&#x003E; ::= {&#x003C;variable&#x003E;,&#x003C;equation&#x003E;}
+</div>
+<!--l. 1280--><p class="nopar" > The ﬁrst and second argument of the GENLINBANDSOL statement speciﬁes
+the number of the lower (below the main diagonal) and the upper diagonals
+of the band matrix of the system. The system of linear algebraic equations is
+speciﬁed by means of lists expressed by braces   in the REDUCE system. The
+variables of the equation system can be identiﬁers, but most probably they are
+operators with an argument or with arguments that are analogous to array in
+FORTRAN. The left side of each equation has to be a linear combination of the
+system variables, the right side, on the contrary, is not allowed to contain any
+variables of the system. The sequence of the band matrix lines is given by the
+sequence of the equations, and the sequence of the columns by the sequence of the
+variables in the list describing the equation system. The meaning of the loop in
+the system list is similar to that of the DO loop of the FORTRAN language.
+The individual variables and equations described by the loop are obtained as
+follows:
+</p><!--l. 1297--><p class="noindent" >1. &#x003C;parameter&#x003E; = &#x003C;from&#x003E;. 2. The &#x003C;parameter&#x003E; value is substituted into the variables and
+equations of the &#x003C;c-system&#x003E; loop, by which further variables and equations of the system
+are obtained. 3. &#x003C;parameter&#x003E; is increased by &#x003C;step&#x003E;. 4. If &#x003C;parameter&#x003E; is less or equal
+                                                                     
+
+                                                                     
+&#x003C;to&#x003E;, then go to step 2, else all variables and equations described by the loop have
+already been obtained.
+</p><!--l. 1306--><p class="noindent" >The variables and equations of the system included in the loop usually contain the loop
+parameter, which mostly occur in the operator arguments in the REDUCE language, or in
+the array indices in the FORTRAN language. If NL = &#x003C;n-lower&#x003E;, NU = &#x003C;n-upper&#x003E;, and
+for some loop F = &#x003C;from&#x003E;, T = &#x003C;to&#x003E;, S = &#x003C;step&#x003E; and N is the number of the equations in
+the loop &#x003C;c-system&#x003E;, it has to be true that
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1196">
+  UP(NL/N) + UP(NU/N) &#x003C; DOWN((T-F)/S)
+</div>
+<!--l. 1314--><p class="nopar" > where UP represents the rounding-oﬀ to a higher natural number, and DOWN the
+rounding-oﬀ to a lower natural number. With regard to the fact that, for example, the last
+variable before the loop is not required to equal the last variable from the loop
+system, into which the loop parameter equal to F-S is substituted, when the
+band matrix is being constructed, from the FORTRAN loop that corresponds
+to the loop from the speciﬁcation of the equation system, at least the ﬁrst NL
+variables-equations have to be moved to precede the FORTRAN loop, and at least
+the last NU variables-equations have to be moved to follow this loop in order
+that the correspondence of the system variables in this loop with the system
+variables before and after this loop will be secured. And this move requires
+the above mentioned condition to be fulﬁlled. As, in most cases, NL/N and
+NU/N are small with respect to (T-F)/S, this condition does not represent any
+considerable constrain. The loop parameters &#x003C;from&#x003E;, &#x003C;to&#x003E;, and &#x003C;step&#x003E; can be natural
+numbers or expressions that must have natural values in the run of the FORTRAN
+program.
+</p><!--l. 1334--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x213-80500020.21.7"></a>Choosing the numerical library</h5>
+<!--l. 1336--><p class="noindent" >The user can choose the routines of which numerical library will be used in the generated
+FORTRAN code. The supported numerical libraries are: LINPACK, NAG, IMSL and
+ESSL (IBM Engineering and Scientiﬁc Subroutine Library) . The routines DGBFA,
+DGBSL (band solver) and DGTSL (tridiagonal solver) are used from the LINPACK
+library, the routines F01LBF, F04LDF (band solver) and F01LEF, F04LEF (tridiagonal
+solver) are used from the NAG library, the routine LEQT1B is used from the IMSL
+library and the routines DGBF, DGBS (band solver) and DGTF, DGTS (tridiagonal
+solver) are used from the ESSL library. By default the LINPACK library routines are
+used. The using of other libraries is controlled by the switches NAG,IMSL and ESSL.
+All these switches are by default OFF. If the switch IMSL is ON then the IMSL library
+routine is used. If the switch IMSL is OFF and the switch NAG is ON then NAG
+library routines are used. If the switches IMSL and NAG are OFF and the switch
+ESSL is ON then the ESSL library is used. During generating the code using
+LINPACK, NAG or ESSL libraries the special routines are use for systems with
+                                                                     
+
+                                                                     
+tridiagonal matrices, because tridiagonal solvers are faster than the band matrix
+solvers.
+</p><!--l. 1356--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x213-80600020.21.7"></a>Completion of the generated code</h5>
+<!--l. 1359--><p class="noindent" >The GENLINBANDSOL statement generates a block of FORTRAN code ( a block of
+statements of the FORTRAN language) that performs the solution of the given system of
+linear algebraic equations. In order to be used, this block of code has to be completed
+with some declarations and statements, thus getting a certain envelope that enables it to
+be integrated into the main program. In order to be able to work, the generated block of
+code has to be preceded by:
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   1. </dt><dd 
+class="enumerate-enumitem">The declaration of arrays as described by the comments generated into the
+     FORTRAN code (near the calling of library routines)
+     </dd><dt class="enumerate-enumitem">
+   2. </dt><dd 
+class="enumerate-enumitem">The  assigning  the  values  to  the  integer  variables  describing  the  real
+     dimensions  of  used  arrays  (again  as  described  in  generated  FORTRAN
+     comments)
+     </dd><dt class="enumerate-enumitem">
+   3. </dt><dd 
+class="enumerate-enumitem">The ﬁlling of the variables that can occur in the loop parameters.
+     </dd><dt class="enumerate-enumitem">
+   4. </dt><dd 
+class="enumerate-enumitem">The ﬁlling or declaration of all variables and arrays occurring in the system
+     equations, except for the variables of the system of linear equations.
+     </dd><dt class="enumerate-enumitem">
+   5. </dt><dd 
+class="enumerate-enumitem">The deﬁnition of subroutine ERROUT the call to which is generated after
+     some routines found that the matrix is algorithmically singular</dd></dl>
+<!--l. 1384--><p class="noindent" >The mentioned envelope for the generated block can be created manually, or directly
+using the GENTRAN program package for generating numeric programs. The
+LINBAND module itself uses the GENTRAN package, and the GENLINBANDSOL
+statement can be applied directly in the input ﬁles of the GENTRAN package (template
+processing). The GENTRAN package has to be loaded prior to loading of the LINBAND
+module. The generated block of FORTRAN code has to be linked with the routines from
+chosen numerical library.
+</p><!--l. 1393--><p class="noindent" >For reference, see <span class="cite">[<a 
+href="manualap2.html#XLiska:91b">Lis91</a>]</span>.
+</p><!--l. 445--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 448--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse146.html" >Up</a></td><td class="clinks"><a 
+href="manualse147.html" >Next</a></td><td class="clinks"><a 
+href="manualse145.html" >Prev</a></td><td class="clinks"><a 
+href="manualse145.html#tailmanualse145.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse146.html" >Front</a></td></tr></table><a 
+ id="tailmanualse146.html"></a>   </p> 
+</body> 
+</html>

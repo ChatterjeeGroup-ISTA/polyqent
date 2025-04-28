@@ -1,0 +1,800 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>DESIR: Diﬀerential Linear Homogeneous Equation Solutions in the Neighborhood of
+Irregular and Regular Singular Points</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse140.html" >Up</a></td><td class="clinks"><a 
+href="manualse141.html" >Next</a></td><td class="clinks"><a 
+href="manualse139.html" >Prev</a></td><td class="clinks"><a 
+href="manualse139.html#tailmanualse139.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse140.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.15    </span> <a 
+ id="x207-57100020.15"></a>DESIR: Diﬀerential Linear Homogeneous Equation
+Solutions in the Neighborhood of Irregular and Regular Singular Points</h3>
+<a 
+ id="dx207-571001"></a>
+<a 
+ id="dx207-571002"></a>
+<!--l. 340--><p class="noindent" >This package enables the basis of formal solutions to be computed for an ordinary
+homogeneous diﬀerential equation with polynomial coeﬃcients over Q of any order,
+in the neighborhood of zero (regular or irregular singular point, or ordinary
+point).
+</p><!--l. 345--><p class="noindent" >Authors: C. Dicrescenzo, F. Richard-Jung, E. Tournier.
+<a 
+ id="dx207-571003"></a>
+<a 
+ id="dx207-571004"></a>
+<a 
+ id="dx207-571005"></a>
+<a 
+ id="dx207-571006"></a>
+<a 
+ id="dx207-571007"></a>
+<a 
+ id="dx207-571008"></a>
+</p>
+<div class="center" 
+>
+<!--l. 7--><p class="noindent" >
+</p><!--l. 8--><p class="noindent" >Diﬀerential linear homogenous Equation Solutions in the<br />
+neighbourhood of Irregular and Regular singular points<br /><br />
+Version 3.1  -  Septembre 89<br /><br />
+Groupe de Calcul Formel de Grenoble<br />
+laboratoire TIM3<br /><br />
+(C. Dicrescenzo, F. Richard-Jung, E. Tournier)<br /><br />
+E-mail: dicresc@afp.imag.fr</p></div>
+                                                                     
+
+                                                                     
+<!--l. 18--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.15.1    </span> <a 
+ id="x207-57200020.15.1"></a>INTRODUCTION</h4>
+<!--l. 20--><p class="noindent" >This software enables the basis of formal solutions to be computed for an ordinary
+homogeneous diﬀerential equation with polynomial coeﬃcients over Q of any order, in
+the neighbourhood of zero ( regular or irregular singular point, or ordinary point ).
+<br 
+class="newline" />Tools have been added to deal with equations with a polynomial right-hand side,
+parameters and a singular point not to be found at zero.
+</p><!--l. 27--><p class="noindent" >This software can be used in two ways : </p>
+     <ul class="itemize1">
+     <li class="itemize">direct ( DELIRE procedure )
+     </li>
+     <li class="itemize">interactive ( DESIR procedure)</li></ul>
+<!--l. 33--><p class="noindent" >The basic procedure is the DELIRE procedure which enables the solutions of a linear
+homogeneous diﬀerential equation to be computed in the neigh- bourhood of
+zero.
+</p><!--l. 37--><p class="noindent" >The DESIR procedure is a procedure without argument whereby DELIRE can be
+called without preliminary treatment to the data, that is to say, in an interactive
+autonomous way. This procedure also proposes some transfor- mations on the
+initial equation. This allows one to start comfortably with an equation which
+has a non zero singular point, a polynomial right-hand side and parameters.
+<br 
+class="newline" />This document is a succint user manual. For more details on the underlying mathematics
+and the algorithms used, the reader can refer to : </p>
+<div class="center" 
+>
+<!--l. 45--><p class="noindent" >
+     </p><dl class="description"><dt class="description">
+                                                                     
+
+                                                                     
+<span 
+class="ptmb8t-x-x-109">E. Tournier</span> </dt><dd 
+class="description">:  Solutions  formelles  d’equations  diﬀerentielles  -  Le  logiciel  de
+     calcul formel DESIR.<br />
+     These d’Etat de l’Universite Joseph Fourier (Grenoble - avril 87).</dd></dl>
+</div>
+<!--l. 53--><p class="noindent" >He will ﬁnd more precision on use of parameters in : </p>
+<div class="center" 
+>
+<!--l. 54--><p class="noindent" >
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">F. Richard-Jung</span> </dt><dd 
+class="description">:     Representation     graphique     de     solutions     d’equations
+     diﬀerentielles dans le champ complexe.<br />
+     These de l’Universite Louis Pasteur (Strasbourg - septembre 88).</dd></dl>
+</div>
+<!--l. 62--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.15.2    </span> <a 
+ id="x207-57300020.15.2"></a>FORMS OF SOLUTIONS</h4>
+<!--l. 63--><p class="noindent" >We have tried to represent solutions in the simplest form possible. For that, we have had
+to choose diﬀerent forms according to the complexity of the equation (parameters) and
+the later use we shall have of these solutions.
+</p><!--l. 68--><p class="noindent" >&#x0022;<span 
+class="ptmb8t-x-x-109">general solution</span>&#x0022;  =  {......, { split_sol , cond },....}
+</p>
+<div class="center" 
+>
+<!--l. 70--><p class="noindent" >
+</p>
+                                                                     
+
+                                                                     
+<div class="tabular"> <table id="TBL-54" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-54-1g"><col 
+id="TBL-54-1" /><col 
+id="TBL-54-2" /><col 
+id="TBL-54-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-54-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-54-1-1"  
+class="td11"> cond       </td><td  style="white-space:nowrap; text-align:center;" id="TBL-54-1-2"  
+class="td11"> =  </td><td  style="white-space:normal; text-align:left;" id="TBL-54-1-3"  
+class="td11"> <!--l. 73--><p class="noindent" >list  of  conditions  or  empty  list  (if  there  is  no  condition)
+  that parameters have to verify such that split_sol is in the
+  basis of solutions. In fact, if there are parameters, basis of
+  solutions can have diﬀerent expressions according to the
+  values of parameters. ( Note : if cond={}, the list &#x0022;general
+  solution&#x0022; has one element only.)                                            </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-54-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-54-2-1"  
+class="td11"> split_sol  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-54-2-2"  
+class="td11"> =  </td><td  style="white-space:normal; text-align:left;" id="TBL-54-2-3"  
+class="td11"> <!--l. 79--><p class="noindent" >{ <span 
+class="cmmi-10x-x-109">q,ram,polysol,r </span>}                                                             </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-54-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-54-3-1"  
+class="td11">       </td><td  style="white-space:nowrap; text-align:center;" id="TBL-54-3-2"  
+class="td11">   </td><td  style="white-space:normal; text-align:left;" id="TBL-54-3-3"  
+class="td11"> <!--l. 80--><p class="noindent" >(  &#x0022;  split  solution  &#x0022;  enables  precise  information  on  the
+  solution to be obtained immediately )                                    </p></td>
+</tr></table></div></div>
+<!--l. 85--><p class="noindent" >The variable in the diﬀerential operator being x, solutions are expressed in respect
+to a new variable xt, which is a fractional power of x, in the following way
+:
+</p>
+<div class="center" 
+>
+<!--l. 89--><p class="noindent" >
+</p>
+<div class="tabular"> <table id="TBL-55" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-55-1g"><col 
+id="TBL-55-1" /><col 
+id="TBL-55-2" /><col 
+id="TBL-55-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-55-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-55-1-1"  
+class="td11"> <span 
+class="cmmi-10x-x-109">q        </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-55-1-2"  
+class="td11"> :  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-55-1-3"  
+class="td11"> polynomial in <span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">∕xt </span>with complex coeﬃcients                             </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-55-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-55-2-1"  
+class="td11"> <span 
+class="cmmi-10x-x-109">ram    </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-55-2-2"  
+class="td11"> :  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-55-2-3"  
+class="td11"> <span 
+class="cmmi-10x-x-109">xt </span>= <span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">ram</span></sup> (<span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">∕ram </span>is an integer)                                                  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-55-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-55-3-1"  
+class="td11"> <span 
+class="cmmi-10x-x-109">polysol </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-55-3-2"  
+class="td11"> :  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-55-3-3"  
+class="td11"> <span 
+class="cmmi-10x-x-109">polynomial </span>in <span 
+class="cmmi-10x-x-109">log</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">xt</span><span 
+class="cmr-10x-x-109">) </span>with formal series in <span 
+class="cmmi-10x-x-109">xt </span>coeﬃcients       </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-55-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-55-4-1"  
+class="td11"> <span 
+class="cmmi-10x-x-109">r        </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-55-4-2"  
+class="td11"> :  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-55-4-3"  
+class="td11"> root of a complex coeﬃcient polynomial (&#x0022;indicial equation&#x0022;).  </td>
+</tr></table></div></div>
+<!--l. 99--><p class="noindent" >&#x0022;<span 
+class="ptmb8t-x-x-109">standard solution</span>&#x0022;  = <span 
+class="cmmi-10x-x-109">e</span><sup><span 
+class="cmmi-8">qx</span></sup><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">r</span><span 
+class="cmsy-8">∗</span><span 
+class="cmmi-8">ram</span></sup><span 
+class="cmmi-10x-x-109">polysolx</span>
+</p><!--l. 101--><p class="noindent" ><span 
+class="cmmi-10x-x-109">qx </span>and <span 
+class="cmmi-10x-x-109">polysolx </span>are <span 
+class="cmmi-10x-x-109">q </span>and <span 
+class="cmmi-10x-x-109">polysol </span>expressions in which <span 
+class="cmmi-10x-x-109">xt </span>has been replaced by
+<span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">ram</span></sup>
+</p><!--l. 104--><p class="noindent" >N.B. : the form of these solutions is simpliﬁed according to the nature of the point zero.
+</p>
+     <ul class="itemize1">
+     <li class="itemize">if  0  is  a  regular  singular  point  :  the  series  appearing  in  <span 
+class="cmmi-10x-x-109">polysol </span>are
+     convergent, <span 
+class="cmmi-10x-x-109">ram </span>= 1 and <span 
+class="cmmi-10x-x-109">q </span>= 0.
+     </li>
+     <li class="itemize">if  0  is  a  regular  point,  we  also  have  :  <span 
+class="cmmi-10x-x-109">polysol </span>is  constant  in  <span 
+class="cmmi-10x-x-109">log</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">xt</span><span 
+class="cmr-10x-x-109">) </span>(no
+     logarithmic terms).</li></ul>
+                                                                     
+
+                                                                     
+<!--l. 113--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.15.3    </span> <a 
+ id="x207-57400020.15.3"></a>INTERACTIVE USE</h4>
+<div class="tabular"> <table id="TBL-56" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-56-1g"><col 
+id="TBL-56-1" /><col 
+id="TBL-56-2" /><col 
+id="TBL-56-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-56-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-56-1-1"  
+class="td11"> To call the procedure  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-56-1-2"  
+class="td11"> :  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-56-1-3"  
+class="td11"> desir();                  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-56-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-56-2-1"  
+class="td11">                </td><td  style="white-space:nowrap; text-align:center;" id="TBL-56-2-2"  
+class="td11">  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-56-2-3"  
+class="td11"> solution:=desir();  </td>
+</tr></table>
+</div>
+<!--l. 120--><p class="noindent" >The DESIR procedure computes formal solutions of a linear homogeneous diﬀerential
+equation in an interactive way. <br 
+class="newline" />In this equation the variable <span 
+class="ptmri8t-x-x-109">must be x</span>.
+</p><!--l. 124--><p class="noindent" >The procedure requires the order and the coeﬃcients of the equation, the names of
+parameters if there are any, then if the user wants to transform this equation and how ( for
+example to bring back a singular point to zero see procedures changehom, changevar,
+changefonc - ).
+</p><!--l. 128--><p class="noindent" >This procedure DISPLAYS the solutions and RETURNS a list of general term { lcoeﬀ,
+{....,{ general_solution },....}}. The number of elements in this list is linked to the
+number of transformations requested : <br 
+class="newline" /><!--tex4ht:inline--></p><div class="tabular"> <table id="TBL-57" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-57-1g"><col 
+id="TBL-57-1" /><col 
+id="TBL-57-2" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-57-1-"><td  style="white-space:nowrap; text-align:right;" id="TBL-57-1-1"  
+class="td11"> *  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-57-1-2"  
+class="td11"> lcoeﬀ : list of coeﬃcients of the diﬀerential equation    </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-57-2-"><td  style="white-space:nowrap; text-align:right;" id="TBL-57-2-1"  
+class="td11"> *  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-57-2-2"  
+class="td11"> general_solution : solution written in the general form  </td>
+</tr></table>
+</div>
+<!--l. 136--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.15.4    </span> <a 
+ id="x207-57500020.15.4"></a>DIRECT USE</h4>
+<!--l. 138--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">procedure delire(</span><span 
+class="cmmi-10x-x-109">x,k,grille,lcoeff,param</span><span 
+class="ptmb8t-x-x-109">);</span><br 
+class="newline" />This procedure computes formal solutions of a linear homogeneous diﬀerential equation
+with polynomial coeﬃcients over Q and of any order, in the neighborhood of zero, regular or
+irregular singular point. In fact it initializes the call of the NEWTON procedure that is a
+recursive procedure (algorithm of NEWTON-RAMIS-MALGRANGE)
+</p>
+<div class="center" 
+>
+<!--l. 145--><p class="noindent" >
+</p>
+                                                                     
+
+                                                                     
+<div class="tabular"> <table id="TBL-58" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-58-1g"><col 
+id="TBL-58-1" /><col 
+id="TBL-58-2" /><col 
+id="TBL-58-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-58-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-58-1-1"  
+class="td11"> <span 
+class="cmmi-10x-x-109">x       </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-58-1-2"  
+class="td11"> :  </td><td  style="white-space:normal; text-align:left;" id="TBL-58-1-3"  
+class="td11"> <!--l. 147--><p class="noindent" >variable                                                                                             </p></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-58-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-58-2-1"  
+class="td11"> <span 
+class="cmmi-10x-x-109">k </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-58-2-2"  
+class="td11"> : </td><td  style="white-space:normal; text-align:left;" id="TBL-58-2-3"  
+class="td11"> <!--l. 148--><p class="noindent" >&#x0022;number of desired terms&#x0022;.</p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-58-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-58-3-1"  
+class="td11">       </td><td  style="white-space:nowrap; text-align:center;" id="TBL-58-3-2"  
+class="td11">  </td><td  style="white-space:normal; text-align:left;" id="TBL-58-3-3"  
+class="td11"> <!--l. 149--><p class="noindent" >For each formal series in <span 
+class="cmmi-10x-x-109">xt </span>appearing in <span 
+class="cmmi-10x-x-109">polysol</span>,                          </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-58-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-58-4-1"  
+class="td11">       </td><td  style="white-space:nowrap; text-align:center;" id="TBL-58-4-2"  
+class="td11">  </td><td  style="white-space:normal; text-align:left;" id="TBL-58-4-3"  
+class="td11"> <!--l. 150--><p class="noindent" ><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmr-8">0</span></sub> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">xt </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">xt</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">... </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmmi-10x-x-109">xt</span><sup><span 
+class="cmmi-8">n</span></sup> <span 
+class="cmr-10x-x-109">+</span> <span 
+class="cmmi-10x-x-109">…</span>, we compute the <span 
+class="cmmi-10x-x-109">k </span><span 
+class="cmr-10x-x-109">+ 1 </span>ﬁrst
+  coeﬃcients <span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmr-8">0</span></sub><span 
+class="cmmi-10x-x-109">,a</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,a</span><sub><span 
+class="cmmi-8">k</span></sub><span 
+class="cmmi-10x-x-109">.</span>                                          </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-58-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-58-5-1"  
+class="td11"> <span 
+class="cmmi-10x-x-109">grille   </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-58-5-2"  
+class="td11"> :  </td><td  style="white-space:normal; text-align:left;" id="TBL-58-5-3"  
+class="td11"> <!--l. 152--><p class="noindent" >the  coeﬃcients  of  the  diﬀerential  operator  are  polynomial  in
+  <span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">grille</span></sup> (in general <span 
+class="cmmi-10x-x-109">grille </span><span 
+class="cmr-10x-x-109">= 1</span>)                                                           </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-58-6-"><td  style="white-space:nowrap; text-align:left;" id="TBL-58-6-1"  
+class="td11"> <span 
+class="cmmi-10x-x-109">lcoeff  </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-58-6-2"  
+class="td11"> :  </td><td  style="white-space:normal; text-align:left;" id="TBL-58-6-3"  
+class="td11"> <!--l. 154--><p class="noindent" >list of coeﬃcients of the diﬀerential operator (in increasing order
+  of diﬀerentiation)                                                                              </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-58-7-"><td  style="white-space:nowrap; text-align:left;" id="TBL-58-7-1"  
+class="td11"> <span 
+class="cmmi-10x-x-109">param </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-58-7-2"  
+class="td11"> :  </td><td  style="white-space:normal; text-align:left;" id="TBL-58-7-3"  
+class="td11"> <!--l. 156--><p class="noindent" >list of parameters                                                                              </p></td>
+</tr></table></div></div>
+<!--l. 160--><p class="noindent" >This procedure RETURNS the list of general solutions.
+</p><!--l. 162--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.15.5    </span> <a 
+ id="x207-57600020.15.5"></a>USEFUL FUNCTIONS</h4>
+<!--l. 164--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x207-57700020.15.5"></a>Reading of equation coeﬃcients</h5>
+<!--l. 166--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">procedure lectabcoef( ); </span><br 
+class="newline" />This procedure is called by DESIR to read the coeﬃcients of an equation, in <span 
+class="ptmri8t-x-x-109">increasing</span>
+<span 
+class="ptmri8t-x-x-109">order of diﬀerentiation</span>, but can be used independently.
+</p><!--l. 170--><p class="noindent" >reading of n : order of the equation. <br 
+class="newline" />reading of parameters (only if a variable other than <span 
+class="cmmi-10x-x-109">x </span>appears in the coeﬃcients)
+<br 
+class="newline" />this procedure returns the list { <span 
+class="cmmi-10x-x-109">lcoeff,param </span>} made up of the list of coeﬃcients and
+the list of parameters (which can be empty).
+</p><!--l. 176--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x207-57800020.15.5"></a>Veriﬁcation of results</h5>
+<!--l. 178--><p class="noindent" >procedure solvalide(<span 
+class="cmmi-10x-x-109">solutions,solk,k</span>); <br 
+class="newline" />This procedure enables the validity of the solution number solk in the list &#x0022;solutions&#x0022; to
+be veriﬁed. <br 
+class="newline" /><span 
+class="cmmi-10x-x-109">solutions </span>= {<span 
+class="cmmi-10x-x-109">lcoeff</span>,{....,{<span 
+class="cmmi-10x-x-109">general</span>_<span 
+class="cmmi-10x-x-109">solution</span>},....}} is any element of the list returned
+                                                                     
+
+                                                                     
+by DESIR or is {<span 
+class="cmmi-10x-x-109">lcoeff,sol</span>} where <span 
+class="cmmi-10x-x-109">sol </span>is the list returned by DELIRE.
+</p><!--l. 185--><p class="noindent" >If we carry over the solution <span 
+class="cmmi-10x-x-109">e</span><sup><span 
+class="cmmi-8">qx</span></sup><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">r</span><span 
+class="cmsy-8">∗</span><span 
+class="cmmi-8">ram</span></sup><span 
+class="cmmi-10x-x-109">polysolx </span>in the equation, the result has the form
+<span 
+class="cmmi-10x-x-109">e</span><sup><span 
+class="cmmi-8">qx</span></sup><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">r</span><span 
+class="cmsy-8">∗</span><span 
+class="cmmi-8">ram</span></sup><span 
+class="cmmi-10x-x-109">reste</span>, where <span 
+class="cmmi-10x-x-109">reste </span>is a polynomial in <span 
+class="cmmi-10x-x-109">log</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">xt</span><span 
+class="cmr-10x-x-109">)</span>, with polynomial coeﬃcients in
+<span 
+class="cmmi-10x-x-109">xt</span>. This procedure computes the minimal valuation V of <span 
+class="cmmi-10x-x-109">reste </span>as polynomial in <span 
+class="cmmi-10x-x-109">xt</span>,
+using <span 
+class="cmmi-10x-x-109">k </span>&#x0022;number of desired terms&#x0022; asked for at the call of DESIR or DELIRE,
+and DISPLAYS the &#x0022;theoretical&#x0022; size order of the regular part of the result :
+<span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">ram</span><span 
+class="cmsy-8">∗</span><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">r</span><span 
+class="cmr-8">+</span><span 
+class="cmmi-8">v</span><span 
+class="cmr-8">)</span></sup>.
+</p><!--l. 193--><p class="noindent" >On the other hand, this procedure carries over the solution in the equation and
+DISPLAYS the signiﬁcative term of the result. This is of the form :
+</p>
+<table 
+class="equation-star"><tr><td>
+        <span 
+class="cmmi-10x-x-109">e</span><sup><span 
+class="cmmi-8">qx</span></sup><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">a</span></sup><span 
+class="cmmi-10x-x-109">polynomial</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">log</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">xt</span><span 
+class="cmr-10x-x-109">))</span><span 
+class="cmmi-10x-x-109">,</span>      with    <span 
+class="cmmi-10x-x-109">a &#x003E;</span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">ram </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">r </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">v</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 196--><p class="nopar" >
+</p><!--l. 198--><p class="noindent" >Finally this procedure RETURNS the complete result of the carry over of the solution in
+the equation.
+</p><!--l. 200--><p class="noindent" >This procedure cannot be used if the solution number solk is linked to a condition.
+</p><!--l. 203--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x207-57900020.15.5"></a>Writing of diﬀerent forms of results</h5>
+<!--l. 205--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">procedure standsol(solutions);</span>
+</p><!--l. 207--><p class="noindent" >This procedure enables the simpliﬁed form of each solution to be obtained from the list
+&#x0022;solutions&#x0022;, {<span 
+class="cmmi-10x-x-109">lcoeff</span>,{...,{<span 
+class="cmmi-10x-x-109">general</span>_<span 
+class="cmmi-10x-x-109">solution</span>},....}} which is one of the elements of
+the list returned by DESIR, or {<span 
+class="cmmi-10x-x-109">lcoeff,sol</span>} where <span 
+class="cmmi-10x-x-109">sol </span>is the list returned by
+DELIRE.
+                                                                     
+
+                                                                     
+</p><!--l. 211--><p class="noindent" >This procedure RETURNS a list of 3 elements : { <span 
+class="cmmi-10x-x-109">lcoeff,solstand,solcond </span>}
+<br 
+class="newline" /><!--tex4ht:inline--></p><div class="tabular"> <table id="TBL-59" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-59-1g"><col 
+id="TBL-59-1" /><col 
+id="TBL-59-2" /><col 
+id="TBL-59-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-59-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-59-1-1"  
+class="td11"> <span 
+class="cmmi-10x-x-109">lcoef     </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-59-1-2"  
+class="td11"> =  </td><td  style="white-space:normal; text-align:left;" id="TBL-59-1-3"  
+class="td11"> <!--l. 213--><p class="noindent" >list of diﬀerential equation coeﬃcients                                  </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-59-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-59-2-1"  
+class="td11"> <span 
+class="cmmi-10x-x-109">solstand </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-59-2-2"  
+class="td11"> =  </td><td  style="white-space:normal; text-align:left;" id="TBL-59-2-3"  
+class="td11"> <!--l. 214--><p class="noindent" >list of solutions written in standard form                               </p></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-59-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-59-3-1"  
+class="td11"> <span 
+class="cmmi-10x-x-109">solcond </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-59-3-2"  
+class="td11"> = </td><td  style="white-space:normal; text-align:left;" id="TBL-59-3-3"  
+class="td11"> <!--l. 215--><p class="noindent" >list of conditional solutions that have not been written in
+  standard form. This solutions remain in general form.          </p></td>
+</tr></table></div>
+<!--l. 219--><p class="noindent" >This procedure has no meaning for &#x0022;conditional&#x0022; solutions. In case, a value has to
+be given to  the parameters, that can be done either by calling the procedure
+SORPARAM that displays and returns these solutions in the standard form, either by
+calling the procedure SOLPARAM which returns these solutions in general
+form.
+</p><!--l. 225--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">procedure sorsol(sol);</span>
+</p><!--l. 227--><p class="noindent" >This procedure is called by DESIR to write the solution <span 
+class="cmmi-10x-x-109">sol</span>, given in general form,
+in standard form with enumeration of diﬀerent conditions (if there are any).
+<br 
+class="newline" />It can be used independently.
+</p><!--l. 232--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x207-58000020.15.5"></a>Writing of solutions after the choice of parameters</h5>
+<!--l. 234--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">procedure sorparam(</span><span 
+class="cmmi-10x-x-109">solutions,param</span><span 
+class="ptmb8t-x-x-109">);</span>
+</p><!--l. 236--><p class="noindent" >This is an interactive procedure which displays the solutions evaluated : the value of
+parameters is requested. <br 
+class="newline" /><!--tex4ht:inline--></p><div class="tabular"> <table id="TBL-60" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-60-1g"><col 
+id="TBL-60-1" /><col 
+id="TBL-60-2" /><col 
+id="TBL-60-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-60-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-60-1-1"  
+class="td11"> <span 
+class="cmmi-10x-x-109">solutions </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-60-1-2"  
+class="td11"> :  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-60-1-3"  
+class="td11"> {<span 
+class="cmmi-10x-x-109">lcoeff</span>,{....,{<span 
+class="cmmi-10x-x-109">general</span>_<span 
+class="cmmi-10x-x-109">solution</span>},....}}  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-60-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-60-2-1"  
+class="td11"> <span 
+class="cmmi-10x-x-109">param     </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-60-2-2"  
+class="td11"> :  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-60-2-3"  
+class="td11"> list of parameters.                                     </td>
+</tr></table>
+</div> <br 
+class="newline" />It returns the list formed of 2 elements :
+     <ul class="itemize1">
+     <li class="itemize">list of evaluated coeﬃcients of the equation
+     </li>
+     <li class="itemize">list of standard solutions evaluated for the value of parameters.</li></ul>
+<!--l. 250--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">procedure solparam(</span><span 
+class="cmmi-10x-x-109">solutions,param,valparam</span><span 
+class="ptmb8t-x-x-109">); </span><br 
+class="newline" />This procedure evaluates the general solutions for the value of parameters given by
+valparam and returns these solutions in general form. <br 
+class="newline" /><!--tex4ht:inline--></p><div class="tabular"> <table id="TBL-61" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-61-1g"><col 
+id="TBL-61-1" /><col 
+id="TBL-61-2" /><col 
+id="TBL-61-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-61-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-61-1-1"  
+class="td11"> <span 
+class="cmmi-10x-x-109">solutions </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-61-1-2"  
+class="td11"> :  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-61-1-3"  
+class="td11"> {<span 
+class="cmmi-10x-x-109">lcoeff</span>,{....,{<span 
+class="cmmi-10x-x-109">general</span>_<span 
+class="cmmi-10x-x-109">solution</span>},....}}  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-61-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-61-2-1"  
+class="td11"> <span 
+class="cmmi-10x-x-109">param     </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-61-2-2"  
+class="td11"> :  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-61-2-3"  
+class="td11"> list of parameters                                      </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-61-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-61-3-1"  
+class="td11"> <span 
+class="cmmi-10x-x-109">valparam  </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-61-3-2"  
+class="td11"> :  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-61-3-3"  
+class="td11"> list of parameters values                           </td>
+</tr></table></div> <br 
+class="newline" />It returns the list formed of 2 elements :
+                                                                     
+
+                                                                     
+     <ul class="itemize1">
+     <li class="itemize">list of evaluated coeﬃcients of the equation
+     </li>
+     <li class="itemize">list of solutions in general form, evaluated for the value of parameters.</li></ul>
+<!--l. 266--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x207-58100020.15.5"></a>Transformations</h5>
+<!--l. 268--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">procedure changehom(</span><span 
+class="cmmi-10x-x-109">lcoeff,x,secmember,id</span><span 
+class="ptmb8t-x-x-109">); </span><br 
+class="newline" />Diﬀerentiation of an equation with right-hand side. <br 
+class="newline" /><!--tex4ht:inline--></p><div class="tabular"> <table id="TBL-62" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-62-1g"><col 
+id="TBL-62-1" /><col 
+id="TBL-62-2" /><col 
+id="TBL-62-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-62-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-62-1-1"  
+class="td11"> <span 
+class="cmmi-10x-x-109">lcoeff      </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-62-1-2"  
+class="td11"> :  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-62-1-3"  
+class="td11"> list of coeﬃcients of the equation  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-62-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-62-2-1"  
+class="td11"> <span 
+class="cmmi-10x-x-109">x             </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-62-2-2"  
+class="td11"> :  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-62-2-3"  
+class="td11"> variable                                           </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-62-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-62-3-1"  
+class="td11"> <span 
+class="cmmi-10x-x-109">secmember </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-62-3-2"  
+class="td11"> :  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-62-3-3"  
+class="td11"> right-hand side                                </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-62-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-62-4-1"  
+class="td11"> <span 
+class="cmmi-10x-x-109">id            </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-62-4-2"  
+class="td11"> :  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-62-4-3"  
+class="td11"> order of the diﬀerentiation.            </td>
+</tr></table></div> <br 
+class="newline" />It returns the list of coeﬃcients of the diﬀerentiated equation. It enables an equation with
+polynomial right-hand side to be transformed into a homogeneous equation by
+diﬀerentiating id times, <span 
+class="cmmi-10x-x-109">id </span>= degre(<span 
+class="cmmi-10x-x-109">secmember</span>) + 1. <br 
+class="newline" /><span 
+class="ptmb8t-x-x-109">procedure changevar(</span><span 
+class="cmmi-10x-x-109">lcoeff,x,v,fct</span><span 
+class="ptmb8t-x-x-109">); </span><br 
+class="newline" />Changing of variable in the homogeneous equation deﬁned by the list,lcoeﬀ of its
+coeﬃcients : the old variable <span 
+class="cmmi-10x-x-109">x </span>and the new variable <span 
+class="cmmi-10x-x-109">v </span>are linked by the relation
+<span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">fct</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">v</span><span 
+class="cmr-10x-x-109">)</span>.
+<!--l. 289--><p class="noindent" >It returns the list of coeﬃcients in respect to the variable <span 
+class="cmmi-10x-x-109">v </span>of the new equation.
+</p><!--l. 292--><p class="noindent" >examples of use :
+</p>
+     <ul class="itemize1">
+     <li class="itemize">translation enabling a rational singularity to be brought back to zero.
+     </li>
+     <li class="itemize"><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">= 1</span><span 
+class="cmmi-10x-x-109">∕v </span>brings the inﬁnity to 0.</li></ul>
+<!--l. 299--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">procedure changefonc(</span><span 
+class="cmmi-10x-x-109">lcoeff,x,q,fct</span><span 
+class="ptmb8t-x-x-109">); </span><br 
+class="newline" />Changing of unknown function in the homogeneous equation deﬁned by the list lcoeﬀ of
+its coeﬃcients : <br 
+class="newline" /><!--tex4ht:inline--></p><div class="tabular"> <table id="TBL-63" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-63-1g"><col 
+id="TBL-63-1" /><col 
+id="TBL-63-2" /><col 
+id="TBL-63-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-63-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-63-1-1"  
+class="td11"> <span 
+class="cmmi-10x-x-109">lcoeff  </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-63-1-2"  
+class="td11"> :  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-63-1-3"  
+class="td11"> list of coeﬃcients of the initial equation       </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-63-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-63-2-1"  
+class="td11"> <span 
+class="cmmi-10x-x-109">x        </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-63-2-2"  
+class="td11"> :  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-63-2-3"  
+class="td11"> variable                                                          </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-63-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-63-3-1"  
+class="td11"> <span 
+class="cmmi-10x-x-109">q        </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-63-3-2"  
+class="td11"> :  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-63-3-3"  
+class="td11"> new unknown function                                   </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-63-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-63-4-1"  
+class="td11"> <span 
+class="cmmi-10x-x-109">fct      </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-63-4-2"  
+class="td11"> :  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-63-4-3"  
+class="td11"> <span 
+class="cmmi-10x-x-109">y </span>being the unknown function  <span 
+class="cmmi-10x-x-109">y </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">fct</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">q</span><span 
+class="cmr-10x-x-109">)  </span></td>
+</tr></table></div> <br 
+class="newline" />It returns the list of coeﬃcients of the new equation.
+                                                                     
+
+                                                                     
+<!--l. 313--><p class="noindent" >Example of use :
+</p><!--l. 315--><p class="noindent" >this procedure enables the computation,in the neighbourhood of an irregular singularity,
+of the &#x0022;reduced&#x0022; equation associated to one of the slopes (the Newton polygon having a
+null slope of no null length). This equation gives much informations on the associated
+divergent series.
+</p><!--l. 320--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x207-58200020.15.5"></a>Optional writing of intermediary results</h5>
+<!--l. 322--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">switch trdesir </span>: when it is ON, at each step of the Newton algorithm, a description of the
+Newton polygon is displayed (it is possible to follow the break of slopes), and at each
+call of the FROBENIUS procedure ( case of a null slope ) the corresponding indicial
+equation is displayed.
+</p><!--l. 327--><p class="noindent" >By default, this switch is OFF.
+</p><!--l. 329--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.15.6    </span> <a 
+ id="x207-58300020.15.6"></a>LIMITATIONS</h4>
+<!--l. 332--><p class="noindent" >
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   1. </dt><dd 
+class="enumerate-enumitem">This DESIR version is limited to diﬀerential equations leading to indicial
+     equations of degree <span 
+class="cmmi-10x-x-109">&#x003C;</span><span 
+class="cmr-10x-x-109">= </span>3. To pass beyond this limit, a further version written
+     in the D5 environment of the computation with algebraic numbers has to be
+     used.
+     </dd><dt class="enumerate-enumitem">
+   2. </dt><dd 
+class="enumerate-enumitem">The  computation  of  a  basis  of  solutions  for  an  equation  depending  on
+     parameters is assured only when the indicial equations are of degree <span 
+class="cmmi-10x-x-109">&#x003C;</span><span 
+class="cmr-10x-x-109">= </span>2.</dd></dl>
+<!--l. 349--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 351--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse140.html" >Up</a></td><td class="clinks"><a 
+href="manualse141.html" >Next</a></td><td class="clinks"><a 
+href="manualse139.html" >Prev</a></td><td class="clinks"><a 
+href="manualse139.html#tailmanualse139.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse140.html" >Front</a></td></tr></table><a 
+ id="tailmanualse140.html"></a>  </p> 
+</body> 
+</html>

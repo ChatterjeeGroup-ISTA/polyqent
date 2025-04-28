@@ -1,0 +1,448 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Compound Statements</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch5.html#manualse20.html" >Up</a></td><td class="clinks"><a 
+href="manualse19.html" >Prev</a></td><td class="clinks"><a 
+href="manualse19.html#tailmanualse19.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse20.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">5.7    </span> <a 
+ id="x28-410005.7"></a>Compound Statements</h3>
+<!--l. 417--><p class="noindent" ><a 
+ id="command:BEGIN"></a>
+<a 
+ id="dx28-41001"></a>
+<a 
+ id="dx28-41002"></a>
+</p><!--l. 419--><p class="noindent" >Often the desired process can best (or only) be described as a series of steps to be carried
+out one after the other. In many cases, this can be achieved by use of the group statement<a 
+ id="dx28-41003"></a>.
+However, each step often provides some intermediate result, until at the end we have the
+ﬁnal result wanted. Alternatively, iterations on the steps are needed that are
+not possible with constructs such as <span 
+class="pcrr8t-x-x-109">while</span><a 
+ id="dx28-41004"></a> or <span 
+class="pcrr8t-x-x-109">repeat</span><a 
+ id="dx28-41005"></a> statements. In such
+cases the steps of the process must be enclosed between the words <span 
+class="pcrr8t-x-x-109">begin </span>and
+<span 
+class="pcrr8t-x-x-109">end</span><a 
+ id="dx28-41006"></a> forming what is technically called a <span 
+class="ptmri8t-x-x-109">block</span><a 
+ id="dx28-41007"></a> or <span 
+class="ptmri8t-x-x-109">compound </span>statement. Such a
+compound statement can in fact be used wherever a group statement appears.
+The converse is not true: <span 
+class="pcrr8t-x-x-109">begin </span><span 
+class="pcrr8t-x-x-109">…end </span>can be used in ways that <span 
+class="pcrr8t-x-x-109">&#x003C;&#x003C;</span>… <span 
+class="pcrr8t-x-x-109">&#x003E;&#x003E;</span>
+cannot.
+</p><!--l. 435--><p class="noindent" ><a 
+ id="command:SCALAR"></a> <a 
+ id="command:INTEGER"></a> <a 
+ id="command:REAL"></a>
+</p><!--l. 439--><p class="noindent" >If intermediate results must be formed, local variables must be provided in which to store
+them. <span 
+class="ptmri8t-x-x-109">Local </span>means that their values are deleted as soon as the block’s operations are
+complete, and there is no conﬂict with variables outside the block that happen to have the
+same name. Local variables are created by a <span 
+class="pcrr8t-x-x-109">scalar</span><a 
+ id="dx28-41008"></a> declaration immediately after the
+<span 
+class="pcrr8t-x-x-109">begin</span>:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-64">
+     scalar a,b,c,z;
+</div>
+<!--l. 447--><p class="nopar" > If more convenient, several <span 
+class="pcrr8t-x-x-109">scalar </span>declarations can be given one after another:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-65">
+     scalar a,b,c;
+ <br />     scalar z;
+</div>
+<!--l. 453--><p class="nopar" > In place of <span 
+class="pcrr8t-x-x-109">scalar </span>one can also use the declarations <span 
+class="pcrr8t-x-x-109">integer</span><a 
+ id="dx28-41009"></a> or <span 
+class="pcrr8t-x-x-109">real</span><a 
+ id="dx28-41010"></a>. In the present
+version of REDUCE variables declared <span 
+class="pcrr8t-x-x-109">integer </span>are expected to have only integer
+values, and are initialized by default to 0. <span 
+class="pcrr8t-x-x-109">real </span>variables on the other hand are currently
+treated as algebraic mode <span 
+class="pcrr8t-x-x-109">scalar</span>s.
+</p><!--l. 461--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">CAUTION: </span><span 
+class="pcrr8t-x-x-109">integer</span>, <span 
+class="pcrr8t-x-x-109">real </span>and <span 
+class="pcrr8t-x-x-109">scalar </span>declarations can only be given immediately
+after a <span 
+class="pcrr8t-x-x-109">begin</span>. An error will result if they are used after other statements in a block
+(including <span 
+class="pcrr8t-x-x-109">array </span>and <span 
+class="pcrr8t-x-x-109">operator </span>declarations, which are global in scope), or outside
+the top-most block (e.g., at the top level). All variables declared <span 
+class="pcrr8t-x-x-109">scalar </span>are
+automatically initialized by default to zero in algebraic mode (<span 
+class="pcrr8t-x-x-109">nil </span>in symbolic
+mode).
+</p><!--l. 469--><p class="noindent" >Optionally, each variable appearing in a <span 
+class="pcrr8t-x-x-109">scalar</span>, <span 
+class="pcrr8t-x-x-109">integer </span>or <span 
+class="pcrr8t-x-x-109">real </span>declaration can be
+followed by an assignment operator and an initial value, which overrides the default
+initial value. For example,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-66">
+   scalar x := 5;
+</div>
+<!--l. 475--><p class="nopar" > has the same eﬀect as
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-67">
+   scalar x; x := 5;
+</div>
+<!--l. 479--><p class="nopar" > Any symbols not declared as local variables in a block refer to the variables of the same
+name in the current calling environment. In particular, if they are not so declared at a
+higher level (e.g., in a surrounding block or as parameters in a calling procedure), their
+values can be permanently changed.
+</p><!--l. 486--><p class="noindent" >Following the <span 
+class="pcrr8t-x-x-109">scalar</span><a 
+ id="dx28-41011"></a> declaration(s), if any, write the statements to be executed, one
+after the other, separated by delimiters (e.g., <span 
+class="pcrr8t-x-x-109">; </span>or <span 
+class="pcrr8t-x-x-109">$</span>) (it doesn’t matter which). However,
+from a stylistic point of view, <span 
+class="pcrr8t-x-x-109">; </span>is preferred.
+</p><!--l. 491--><p class="noindent" >The last statement in the body, just before <span 
+class="pcrr8t-x-x-109">end</span>, need not have a terminator (since the
+<span 
+class="pcrr8t-x-x-109">begin</span>… <span 
+class="pcrr8t-x-x-109">end </span>are in a sense brackets conﬁning the block statements). The last statement
+must also be the command <span 
+class="pcrr8t-x-x-109">return</span><a 
+ id="dx28-41012"></a> followed by the variable or expression whose value
+is to be the value returned by the procedure. If the <span 
+class="pcrr8t-x-x-109">return </span>is omitted (or nothing is
+written after the word <span 
+class="pcrr8t-x-x-109">return</span>) the procedure will have no value or the value zero,
+depending on how it is used (and <span 
+class="pcrr8t-x-x-109">nil </span>in symbolic mode). Remember to put a terminator
+after the <span 
+class="pcrr8t-x-x-109">end</span>.
+</p><!--l. 501--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Examples:</span>
+</p><!--l. 503--><p class="noindent" >Given a previously assigned integer value for <span 
+class="pcrr8t-x-x-109">n</span>, the following block will compute the
+Legendre polynomial of degree <span 
+class="pcrr8t-x-x-109">n </span>in the variable <span 
+class="pcrr8t-x-x-109">x</span>:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-68">
+    begin scalar seed,deriv,top,fact;
+ <br />       seed:=1/(y^2 - 2*x*y +1)^(1/2);
+ <br />       deriv:=df(seed,y,n);
+ <br />       top:=sub(y=0,deriv);
+ <br />       fact:=for i:=1:n product i;
+ <br />       return top/fact
+ <br />    end;
+</div>
+<!--l. 514--><p class="nopar" >
+</p><!--l. 516--><p class="noindent" >This block uses explicit initialization and computes the 10th Fibonacci number:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-69">
+    begin integer f1 := 1, f2 := 1, f3;
+ <br />       for i := 3 : 10 do
+ <br />          &#x003C;&#x003C; f3 := f1 + f2; f1 := f2; f2 := f3 &#x003E;&#x003E;;
+ <br />       return f3
+ <br />    end;
+</div>
+<!--l. 523--><p class="nopar" >
+</p><!--l. 525--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">5.7.1    </span> <a 
+ id="x28-420005.7.1"></a>Compound Statements with GO TO</h4>
+<a 
+ id="dx28-42001"></a>
+<a 
+ id="dx28-42002"></a>
+<!--l. 528--><p class="noindent" >It is possible to have more complicated structures inside the <span 
+class="pcrr8t-x-x-109">begin</span>… <span 
+class="pcrr8t-x-x-109">end</span><a 
+ id="dx28-42003"></a> brackets than
+indicated in the previous example. That the individual lines of the program need not
+be assignment<a 
+ id="dx28-42004"></a> statements, but could be almost any other kind of statement or
+command, needs no explanation. For example, conditional statements, and <span 
+class="pcrr8t-x-x-109">while</span><a 
+ id="dx28-42005"></a>
+and <span 
+class="pcrr8t-x-x-109">repeat</span><a 
+ id="dx28-42006"></a> constructions, have an obvious role in deﬁning more intricate
+blocks.
+</p><!--l. 537--><p class="noindent" >If these structured constructs don’t suﬃce, it is possible to use labels <a 
+ id="dx28-42007"></a>and <span 
+class="pcrr8t-x-x-109">go</span>
+<span 
+class="pcrr8t-x-x-109">to</span>s<a 
+ id="dx28-42008"></a> within a compound statement,<a 
+ id="dx28-42009"></a> and also to use <span 
+class="pcrr8t-x-x-109">return</span><a 
+ id="dx28-42010"></a> in places within
+the block other than just before the <span 
+class="pcrr8t-x-x-109">end</span>. The following subsections discuss
+these matters in detail. For many readers the following example, presenting one
+possible deﬁnition of a process to calculate the factorial of <span 
+class="pcrr8t-x-x-109">n </span>for preassigned <span 
+class="pcrr8t-x-x-109">n </span>will
+suﬃce:
+</p><!--l. 546--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Example:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-70">
+        begin scalar m;
+ <br />            m:=1;
+ <br />         l: if n=0 then return m;
+ <br />            m:=m*n;
+ <br />            n:=n-1;
+ <br />            go to l
+ <br />        end;
+</div>
+<!--l. 555--><p class="nopar" >
+</p><!--l. 557--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">5.7.2    </span> <a 
+ id="x28-430005.7.2"></a>Labels and GO TO Statements</h4>
+<!--l. 558--><p class="noindent" ><a 
+ id="command:GOTO"></a>
+<a 
+ id="dx28-43001"></a>
+<a 
+ id="dx28-43002"></a>
+</p><!--l. 560--><p class="noindent" >Within a <span 
+class="pcrr8t-x-x-109">begin </span><span 
+class="pcrr8t-x-x-109">…end </span>compound statement it is possible to label statements, and
+transfer to them out of sequence using <span 
+class="pcrr8t-x-x-109">goto </span>statements. Only statements on the top
+level inside compound statements can be labeled, not ones inside subsidiary
+constructions like <span 
+class="cmmi-10x-x-109">&#x003C;&#x003C; </span>…<span 
+class="cmmi-10x-x-109">&#x003E;&#x003E;</span>, <span 
+class="pcrr8t-x-x-109">if</span>…<span 
+class="pcrr8t-x-x-109">then</span>…, <span 
+class="pcrr8t-x-x-109">while</span>…<span 
+class="pcrr8t-x-x-109">do</span>…, etc.
+</p><!--l. 567--><p class="noindent" >Labels and <span 
+class="pcrr8t-x-x-109">go to </span>statements have the syntax:
+  </p><div class="syntax">
+  <!--tex4ht:inline--><div class="tabular"> <table id="TBL-11" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-11-1g"><col 
+id="TBL-11-1" /><col 
+id="TBL-11-2" /><col 
+id="TBL-11-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-11-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-11-1-1"  
+class="td01"><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">go to statement</span><span 
+class="cmsy-10x-x-109">⟩  </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-11-1-2"  
+class="td11"> <span 
+class="cmmi-10x-x-109">→</span> </td><td  style="white-space:nowrap; text-align:left;" id="TBL-11-1-3"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">go to </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">label</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmsy-10x-x-109">∣</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="pcrr8t-x-x-109">goto </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">label</span><span 
+class="cmsy-10x-x-109">⟩ </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-11-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-11-2-1"  
+class="td01"><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">label</span><span 
+class="cmsy-10x-x-109">⟩       </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-11-2-2"  
+class="td11"> <span 
+class="cmmi-10x-x-109">→</span> </td><td  style="white-space:nowrap; text-align:left;" id="TBL-11-2-3"  
+class="td11"> <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">identiﬁer</span><span 
+class="cmsy-10x-x-109">⟩             </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-11-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-11-3-1"  
+class="td01"><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">labeled statement</span><span 
+class="cmsy-10x-x-109">⟩ </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-11-3-2"  
+class="td11"> <span 
+class="cmmi-10x-x-109">→</span> </td><td  style="white-space:nowrap; text-align:left;" id="TBL-11-3-3"  
+class="td11"> <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">label</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">:</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">statement</span><span 
+class="cmsy-10x-x-109">⟩        </span></td></tr></table>
+  </div></div>
+<!--l. 574--><p class="noindent" >Note that statement names cannot be used as labels.
+</p><!--l. 576--><p class="noindent" >While <span 
+class="pcrr8t-x-x-109">go to </span>is an unconditional transfer, it is frequently used in conditional statements
+such as
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-71">
+        if x&#x003E;5 then go to abcd;
+</div>
+<!--l. 580--><p class="nopar" > giving the eﬀect of a conditional transfer.
+</p><!--l. 583--><p class="noindent" >Transfers using <span 
+class="pcrr8t-x-x-109">go to</span>s can only occur within the block in which the <span 
+class="pcrr8t-x-x-109">go to </span>is used. In
+other words, you cannot transfer from an inner block to an outer block using a <span 
+class="pcrr8t-x-x-109">go to</span>.
+However, if a group statement occurs within a compound statement, it is possible to jump
+out of that group statement to a point within the compound statement using a <span 
+class="pcrr8t-x-x-109">go</span>
+<span 
+class="pcrr8t-x-x-109">to</span>.
+</p><!--l. 589--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">5.7.3    </span> <a 
+ id="x28-440005.7.3"></a>RETURN Statements</h4>
+<!--l. 590--><p class="noindent" ><a 
+ id="command:RETURN"></a>
+</p><!--l. 592--><p class="noindent" >The value corresponding to a <span 
+class="pcrr8t-x-x-109">begin</span>… <span 
+class="pcrr8t-x-x-109">end </span>compound statement,<a 
+ id="dx28-44001"></a><a 
+ id="dx28-44002"></a> <a 
+ id="dx28-44003"></a> such as a procedure
+body, is normally 0 (<span 
+class="pcrr8t-x-x-109">nil </span>in symbolic mode). By executing a <span 
+class="pcrr8t-x-x-109">return</span><a 
+ id="dx28-44004"></a> statement in
+the compound statement a diﬀerent value can be returned. After a <span 
+class="pcrr8t-x-x-109">return</span>
+statement is executed, no further statements within the compound statement are
+executed.
+</p><!--l. 600--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">Examples:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-72">
+        return x+y;
+ <br />        return m;
+ <br />        return;
+</div>
+<!--l. 605--><p class="nopar" > Note that parentheses are not required around the <span 
+class="pcrr8t-x-x-109">x+y</span>, although they are permitted. The
+last example is equivalent to <span 
+class="pcrr8t-x-x-109">return 0 </span>or <span 
+class="pcrr8t-x-x-109">return nil</span>, depending on whether the
+block is used as part of an expression or not.
+</p><!--l. 611--><p class="noindent" >Since <span 
+class="pcrr8t-x-x-109">return</span><a 
+ id="dx28-44005"></a> actually moves up only one block<a 
+ id="dx28-44006"></a> level, in a sense the casual
+user is not expected to understand, we tabulate some cautions concerning its
+use.
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   1. </dt><dd 
+class="enumerate-enumitem"><span 
+class="pcrr8t-x-x-109">return </span>can be used on the top level inside the compound statement, i.e. as
+     one of the statements bracketed together by the <span 
+class="pcrr8t-x-x-109">begin</span>… <span 
+class="pcrr8t-x-x-109">end</span><a 
+ id="dx28-44008"></a>
+     </dd><dt class="enumerate-enumitem">
+   2. </dt><dd 
+class="enumerate-enumitem"><span 
+class="pcrr8t-x-x-109">return </span>can be used within a top level <span 
+class="pcrr8t-x-x-109">&#x003C;&#x003C; </span>… <span 
+class="pcrr8t-x-x-109">&#x003E;&#x003E; </span>construction within the
+     compound statement. In this case, the <span 
+class="pcrr8t-x-x-109">return </span>transfers control out of both
+     the group statement and the compound statement.
+     </dd><dt class="enumerate-enumitem">
+   3. </dt><dd 
+class="enumerate-enumitem"><span 
+class="pcrr8t-x-x-109">return </span>can be used within an <span 
+class="pcrr8t-x-x-109">if</span>… <span 
+class="pcrr8t-x-x-109">then</span>… <span 
+class="pcrr8t-x-x-109">else</span>… on the top level within
+     the compound statement.</dd></dl>
+<!--l. 628--><p class="noindent" >NOTE: At present, there is no construct provided to permit early termination of a <span 
+class="pcrr8t-x-x-109">for</span><a 
+ id="dx28-44011"></a>,
+<span 
+class="pcrr8t-x-x-109">while</span><a 
+ id="dx28-44012"></a>, or <span 
+class="pcrr8t-x-x-109">repeat</span><a 
+ id="dx28-44013"></a> statement. In particular, the use of <span 
+class="pcrr8t-x-x-109">return </span>in such cases results in
+a syntax error. For example,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-73">
+    begin scalar y;
+ <br />       y := for i:=0:99 do if a(i)=x then return b(i);
+ <br />       ...
+</div>
+<!--l. 636--><p class="nopar" > will lead to an error.
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 1--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch5.html#manualse20.html" >Up</a></td><td class="clinks"><a 
+href="manualse19.html" >Prev</a></td><td class="clinks"><a 
+href="manualse19.html#tailmanualse19.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse20.html" >Front</a></td></tr></table><a 
+ id="tailmanualse20.html"></a>  </p> 
+</body> 
+</html>

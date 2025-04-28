@@ -1,0 +1,63 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>COMPACT Operator</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch8.html#manualse60.html" >Up</a></td><td class="clinks"><a 
+href="manualse61.html" >Next</a></td><td class="clinks"><a 
+href="manualse59.html" >Prev</a></td><td class="clinks"><a 
+href="manualse59.html#tailmanualse59.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse60.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">8.6    </span> <a 
+ id="x77-1470008.6"></a>COMPACT Operator</h3>
+<a 
+ id="dx77-147001"></a>
+<a 
+ id="dx77-147002"></a>
+<a 
+ id="dx77-147003"></a>
+<!--l. 948--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">compact </span>is an operator for the reduction of a polynomial in the presence of side
+relations. It applies the side relations to the polynomial so that an equivalent
+expression results with as few terms as possible. For example, the evaluation
+of
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-262">
+   compact(s*(1-sin x^2)+c*(1-cos x^2)+sin x^2+cos x^2,
+ <br />           {cos x^2+sin x^2=1});
+</div>
+<!--l. 955--><p class="nopar" > yields the result
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-263">
+         2           2
+ <br />   cos(x) *s + sin(x) *c + 1
+</div>
+<!--l. 960--><p class="nopar" > <a 
+ id="dx77-147004"></a><a 
+ id="dx77-147005"></a><a 
+ id="dx77-147006"></a> <a 
+ id="switch:TRCOMPACT"></a> The switch <span 
+class="pcrr8t-x-x-109">trcompact </span>can be used to trace the operation.
+                                                                     
+
+                                                                     
+</p><!--l. 1--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch8.html#manualse60.html" >Up</a></td><td class="clinks"><a 
+href="manualse61.html" >Next</a></td><td class="clinks"><a 
+href="manualse59.html" >Prev</a></td><td class="clinks"><a 
+href="manualse59.html#tailmanualse59.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse60.html" >Front</a></td></tr></table><a 
+ id="tailmanualse60.html"></a> </p> 
+</body> 
+</html>

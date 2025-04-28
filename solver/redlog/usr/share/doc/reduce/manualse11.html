@@ -1,0 +1,74 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Equations</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch3.html#manualse11.html" >Up</a></td><td class="clinks"><a 
+href="manualse12.html" >Next</a></td><td class="clinks"><a 
+href="manualse10.html" >Prev</a></td><td class="clinks"><a 
+href="manualse10.html#tailmanualse10.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse11.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">3.4    </span> <a 
+ id="x17-190003.4"></a>Equations</h3>
+<!--l. 205--><p class="noindent" >Equations<a 
+ id="dx17-19001"></a> are a particular type of expression with the syntax
+  </p><div class="syntax">
+   <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">expression</span><span 
+class="cmsy-10x-x-109">⟩ </span><span 
+class="pcrr8t-x-x-109">= </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">expression</span><span 
+class="cmsy-10x-x-109">⟩</span>.</div>
+<!--l. 209--><p class="noindent" >In addition to their role as boolean expressions, they can also be used as arguments to
+several operators (e.g., <span 
+class="pcrr8t-x-x-109">solve</span>), and can be returned as values.
+</p><!--l. 213--><p class="noindent" ><a 
+ id="switch:EVALLHSEQP"></a> Under normal circumstances, the right-hand-side of the equation is evaluated but not the
+left-hand-side. This also applies to any substitutions made by the <span 
+class="pcrr8t-x-x-109">sub</span><a 
+ id="dx17-19002"></a> operator.
+If both sides are to be evaluated, the switch <span 
+class="pcrr8t-x-x-109">evallhseqp</span><a 
+ id="dx17-19003"></a><a 
+ id="dx17-19004"></a><a 
+ id="dx17-19005"></a> should be turned
+on.
+</p><!--l. 220--><p class="noindent" ><a 
+ id="operator:LHS"></a> <a 
+ id="operator:RHS"></a> To facilitate the handling of equations, two selectors, <span 
+class="pcrr8t-x-x-109">lhs</span><a 
+ id="dx17-19006"></a> and <span 
+class="pcrr8t-x-x-109">rhs</span>,<a 
+ id="dx17-19007"></a> which return
+the left- and right-hand sides of an equation<a 
+ id="dx17-19008"></a> respectively, are provided. For
+example,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-33">
+        lhs(a+b=c) -&#x003E; a+b
+ <br />and
+ <br />        rhs(a+b=c) -&#x003E; c.
+</div>
+<!--l. 230--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p><!--l. 232--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch3.html#manualse11.html" >Up</a></td><td class="clinks"><a 
+href="manualse12.html" >Next</a></td><td class="clinks"><a 
+href="manualse10.html" >Prev</a></td><td class="clinks"><a 
+href="manualse10.html#tailmanualse10.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse11.html" >Front</a></td></tr></table><a 
+ id="tailmanualse11.html"></a> </p> 
+</body> 
+</html>

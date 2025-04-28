@@ -1,0 +1,110 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Syntax</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch17.html#manualse108.html" >Up</a></td><td class="clinks"><a 
+href="manualse109.html" >Next</a></td><td class="clinks"><a 
+href="#tailmanualse108.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">17.1    </span> <a 
+ id="x142-26500017.1"></a>Syntax</h3>
+<!--l. 52--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">17.1.1    </span> <a 
+ id="x142-26600017.1.1"></a>Intervals, Starting Points</h4>
+<a 
+ id="dx142-266001"></a>
+<!--l. 55--><p class="noindent" >Intervals are generally coded as lower bound and upper bound connected by the operator
+‘<span 
+class="pcrr8t-x-x-109">..</span>’, usually associated to a variable in an equation. E.g.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-518">
+     x= (2.5 .. 3.5)
+</div>
+<!--l. 61--><p class="nopar" > means that the variable x is taken in the range from 2.5 up to 3.5. Note, that the bounds
+can be algebraic expressions, which, however, must evaluate to numeric results. In cases
+where an interval is returned as the result, the lower and upper bounds can be extracted
+by the <span 
+class="pcrr8t-x-x-109">part </span>operator as the ﬁrst and second part respectively. A starting point is
+speciﬁed by an equation with a numeric righthand side, e.g.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-519">
+     x=3.0
+</div>
+<!--l. 72--><p class="nopar" > If for multivariate applications several coordinates must be speciﬁed by intervals or as a
+starting point, these speciﬁcations can be collected in one parameter (which is then a list)
+or they can be given as separate parameters alternatively. The list form is more
+appropriate when the parameters are built from other REDUCE calculations in an
+automatic style, while the ﬂat form is more convenient for direct interactive
+input.
+</p><!--l. 82--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">17.1.2    </span> <a 
+ id="x142-26700017.1.2"></a>Accuracy Control</h4>
+<!--l. 84--><p class="noindent" >The keyword parameters <span 
+class="pcrr8t-x-x-109">accuracy=</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">a</span><span 
+class="cmsy-10x-x-109">⟩ </span>and <span 
+class="pcrr8t-x-x-109">iterations=</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">i</span><span 
+class="cmsy-10x-x-109">⟩</span>, where <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">a</span><span 
+class="cmsy-10x-x-109">⟩ </span>and <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">i</span><span 
+class="cmsy-10x-x-109">⟩</span>
+must be positive integer numbers, control the iterative algorithms: the iteration is
+continued until the local error is below <span 
+class="cmr-10x-x-109">10</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmmi-8">a</span></sup>; if that is impossible within <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">i</span><span 
+class="cmsy-10x-x-109">⟩ </span>steps, the
+iteration is terminated with an error message. The values reached so far are then returned
+as the result.
+</p><!--l. 92--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">17.1.3    </span> <a 
+ id="x142-26800017.1.3"></a>Tracing</h4>
+<a 
+ id="dx142-268001"></a>
+<a 
+ id="dx142-268002"></a>
+<a 
+ id="dx142-268003"></a>
+<!--l. 94--><p class="noindent" >Normally the algorithms produce only a minimum of printed output during their
+operation. In cases of an unsuccessful or unexpected long operation a trace of the
+iteration can be printed by setting
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-520">
+    on trnumeric;
+</div>
+<!--l. 100--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p><!--l. 103--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch17.html#manualse108.html" >Up</a></td><td class="clinks"><a 
+href="manualse109.html" >Next</a></td><td class="clinks"><a 
+href="manualse108.html" >Front</a></td></tr></table><a 
+ id="tailmanualse108.html"></a>  </p> 
+</body> 
+</html>

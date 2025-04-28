@@ -1,0 +1,139 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Support for Solving Inequalities</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse45.html" >Up</a></td><td class="clinks"><a 
+href="manualse46.html" >Next</a></td><td class="clinks"><a 
+href="manualse44.html" >Prev</a></td><td class="clinks"><a 
+href="manualse44.html#tailmanualse44.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse45.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">7.18    </span> <a 
+ id="x58-1050007.18"></a>Support for Solving Inequalities</h3>
+<a 
+ id="dx58-105001"></a>
+<a 
+ id="dx58-105002"></a>
+<a 
+ id="dx58-105003"></a>
+<!--l. 7--><p class="noindent" ><a 
+ id="operator:INEQ_SOLVE"></a> The operator <span 
+class="pcrr8t-x-x-109">ineq_solve </span>tries to solves single inequalities and sets of coupled
+inequalities<span class="footnote-mark"><a 
+href="manual59.html#fn4x7"><sup class="textsuperscript">4</sup></a></span><a 
+ id="x58-105004f4"></a> .
+The following types of systems are supported: </p>
+     <ul class="itemize1">
+     <li class="itemize">only numeric coeﬃcients (no parametric system),
+     </li>
+     <li class="itemize">a linear system of mixed equations and <span 
+class="cmmi-10x-x-109">&#x003C;</span><span 
+class="cmr-10x-x-109">= </span>– <span 
+class="cmmi-10x-x-109">&#x003E;</span><span 
+class="cmr-10x-x-109">= </span>inequalities, applying the
+     method of Fourier and Motzkin, as described by G. B. Dantzig in <span class="cite">[<a 
+href="manualap2.html#XDantzig1963">Dan</a>]</span>,
+     </li>
+     <li class="itemize">a univariate inequality with <span 
+class="cmmi-10x-x-109">&#x003C;</span><span 
+class="cmr-10x-x-109">=</span>, <span 
+class="cmmi-10x-x-109">&#x003E;</span><span 
+class="cmr-10x-x-109">=</span>, <span 
+class="cmmi-10x-x-109">&#x003E; </span>or <span 
+class="cmmi-10x-x-109">&#x003C; </span>operator and polynomial or
+     rational left–hand and right–hand sides, or a system of such inequalities with
+     only one variable.</li></ul>
+<!--l. 19--><p class="noindent" >For linear optimization problems please use the operator <span 
+class="pcrr8t-x-x-109">simplex </span>of the <span 
+class="ptmrc8t-x-x-109">L<span 
+class="small-caps">I</span><span 
+class="small-caps">N</span><span 
+class="small-caps">A</span><span 
+class="small-caps">L</span><span 
+class="small-caps">G</span></span>
+package (cf. section <a 
+href="manualse157.html#x225-91000020.32">20.32<!--tex4ht:ref: LINALG --></a>).
+</p><!--l. 22--><p class="noindent" >Syntax:
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">ineq_solve(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="pcrro8t-x-x-109">expr</span><span 
+class="cmsy-10x-x-109">⟩ </span><span 
+class="pcrr8t-x-x-109">[,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="pcrro8t-x-x-109">vl</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">])</span></div>
+<!--l. 26--><p class="noindent" >where <span 
+class="cmmi-10x-x-109">&#x003C;</span>expr<span 
+class="cmmi-10x-x-109">&#x003E; </span>is an inequality or a list of coupled inequalities and equations, and the
+optional argument <span 
+class="cmmi-10x-x-109">&#x003C;</span>vl<span 
+class="cmmi-10x-x-109">&#x003E; </span>is a single variable (kernel) or a list of variables (kernels). If not
+speciﬁed, they are extracted automatically from <span 
+class="cmmi-10x-x-109">&#x003C;</span>expr<span 
+class="cmmi-10x-x-109">&#x003E;</span>. For multivariate input an
+explicit variable list speciﬁes the elimination sequence: the last member is the most
+speciﬁc one.
+</p><!--l. 33--><p class="noindent" >An error message occurs if the input cannot be processed by the currently implemented
+algorithms.
+                                                                     
+
+                                                                     
+</p><!--l. 36--><p class="noindent" >The result is a list. It is empty if the system has no feasible solution. Otherwise the result
+presents the admissible ranges as set of equations where each variable is equated to one
+expression or to an interval. The most speciﬁc variable is the ﬁrst one in the result list
+and each form contains only preceding variables (resolved form). The interval limits can
+be formal <span 
+class="ptmb8t-x-x-109">max </span>or <span 
+class="ptmb8t-x-x-109">min </span>expressions. Algebraic numbers are encoded as rounded number
+approximations.
+</p><!--l. 45--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Examples</span>:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-189">
+ineq_solve({(2*x^2+x-1)/(x-1) &#x003E;=  (x+1/2)^2, x&#x003E;0});
+ <br />
+ <br />{x=(0 .. 0.326583),x=(1 .. 2.56777)}
+ <br />
+ <br /> reg:=
+ <br /> {a + b - c&#x003E;=0, a - b + c&#x003E;=0, - a + b + c&#x003E;=0, 0&#x003E;=0,
+ <br />  2&#x003E;=0, 2*c - 2&#x003E;=0, a - b + c&#x003E;=0, a + b - c&#x003E;=0,
+ <br />   - a + b + c - 2&#x003E;=0, 2&#x003E;=0, 0&#x003E;=0, 2*b - 2&#x003E;=0,
+ <br />  k + 1&#x003E;=0, - a - b - c + k&#x003E;=0,
+ <br />   - a - b - c + k + 2&#x003E;=0, - 2*b + k&#x003E;=0,
+ <br />   - 2*c + k&#x003E;=0, a + b + c - k&#x003E;=0,
+ <br />  2*b + 2*c - k - 2&#x003E;=0, a + b + c - k&#x003E;=0}$
+ <br />
+ <br />ineq_solve (reg,{k,a,b,c});
+ <br />
+ <br />{c=(1 .. infinity),
+ <br />
+ <br /> b=(1 .. infinity),
+ <br />
+ <br /> a=(max( - b + c,b - c) .. b + c - 2),
+ <br />
+ <br /> k=a + b + c}
+</div>
+<!--l. 70--><p class="nopar" >
+                                                                     
+
+                                                                     
+<table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse45.html" >Up</a></td><td class="clinks"><a 
+href="manualse46.html" >Next</a></td><td class="clinks"><a 
+href="manualse44.html" >Prev</a></td><td class="clinks"><a 
+href="manualse44.html#tailmanualse44.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse45.html" >Front</a></td></tr></table><a 
+ id="tailmanualse45.html"></a> </p> 
+</body> 
+</html>

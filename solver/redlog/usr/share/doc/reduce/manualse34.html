@@ -1,0 +1,418 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>DF Operator</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse34.html" >Up</a></td><td class="clinks"><a 
+href="manualse35.html" >Next</a></td><td class="clinks"><a 
+href="manualse33.html" >Prev</a></td><td class="clinks"><a 
+href="manualse33.html#tailmanualse33.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse34.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">7.7    </span> <a 
+ id="x44-830007.7"></a>DF Operator</h3>
+<!--l. 1388--><p class="noindent" ><a 
+ id="operator:DF"></a> The operator <span 
+class="pcrr8t-x-x-109">df</span><a 
+ id="dx44-83001"></a> is used to represent partial diﬀerentiation<a 
+ id="dx44-83002"></a> with respect to one or more
+variables. It is used with the syntax:
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">df(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exprn:algebraic</span><span 
+class="cmsy-10x-x-109">⟩</span>[, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">var:kernel</span><span 
+class="cmsy-10x-x-109">⟩</span>&#x003C;, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">num:integer</span><span 
+class="cmsy-10x-x-109">⟩</span>&#x003E;]) : <span 
+class="ptmri8t-x-x-109">algebraic</span>.</div>
+<!--l. 1395--><p class="noindent" >The ﬁrst argument is the expression to be diﬀerentiated. The remaining arguments
+specify the diﬀerentiation variables and the number of times they are applied.
+</p><!--l. 1399--><p class="noindent" >The number <span 
+class="pcrr8t-x-x-109">num </span>may be omitted if it is 1. For example, </p>
+<div class="flushleft" 
+>
+<!--l. 1400--><p class="noindent" >
+                 <!--tex4ht:inline--></p><div class="tabular"> <table id="TBL-17" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-17-1g"><col 
+id="TBL-17-1" /><col 
+id="TBL-17-2" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-17-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-17-1-1"  
+class="td00"><span 
+class="pcrr8t-x-x-109">df(y,x)           </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-17-1-2"  
+class="td01"> = <span 
+class="cmmi-10x-x-109">∂y∕∂x               </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-17-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-17-2-1"  
+class="td00"><span 
+class="pcrr8t-x-x-109">df(y,x,2)         </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-17-2-2"  
+class="td01"> = <span 
+class="cmmi-10x-x-109">∂</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-10x-x-109">y∕∂x</span><sup><span 
+class="cmr-8">2</span></sup>                   </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-17-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-17-3-1"  
+class="td00"><span 
+class="pcrr8t-x-x-109">df(y,x1,2,x2,x3,2)</span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-17-3-2"  
+class="td01"> = <span 
+class="cmmi-10x-x-109">∂</span><sup><span 
+class="cmr-8">5</span></sup><span 
+class="cmmi-10x-x-109">y∕∂x</span><sub><span 
+class="cmr-8">1</span></sub><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-10x-x-109">∂x</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">∂x</span><sub><span 
+class="cmr-8">3</span></sub><sup><span 
+class="cmr-8">2</span></sup>.  </td>
+</tr></table></div></div>
+<!--l. 1410--><p class="noindent" >The evaluation of <span 
+class="pcrr8t-x-x-109">df(y,x) </span>proceeds as follows: ﬁrst, the values of <span 
+class="pcrr8t-x-x-109">y </span>and <span 
+class="pcrr8t-x-x-109">x </span>are found.
+Let us assume that <span 
+class="pcrr8t-x-x-109">x </span>has no assigned value, so its value is <span 
+class="pcrr8t-x-x-109">x</span>. Each term or other part of
+the value of <span 
+class="pcrr8t-x-x-109">y </span>that contains the variable <span 
+class="pcrr8t-x-x-109">x </span>is diﬀerentiated by the standard rules. If <span 
+class="pcrr8t-x-x-109">z </span>is
+another variable, not <span 
+class="pcrr8t-x-x-109">x </span>itself, then its derivative with respect to <span 
+class="pcrr8t-x-x-109">x </span>is taken to be 0, unless
+<span 
+class="pcrr8t-x-x-109">z </span>has previously been declared to <span 
+class="pcrr8t-x-x-109">depend </span>on <span 
+class="pcrr8t-x-x-109">x</span>, in which case the derivative is reported
+as the symbol <span 
+class="pcrr8t-x-x-109">df(z,x)</span>.
+</p><!--l. 1420--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">7.7.1    </span> <a 
+ id="x44-840007.7.1"></a>Switches inﬂuencing diﬀerentiation</h4>
+<!--l. 1421--><p class="noindent" ><a 
+ id="switch:COMMUTEDF"></a> <a 
+ id="switch:NOCOMMUTEDF"></a> <a 
+ id="switch:SIMPNONCOMDF"></a>
+</p><!--l. 1425--><p class="noindent" >Consider <span 
+class="pcrr8t-x-x-109">df(u,x,y,z)</span>, assuming <span 
+class="pcrr8t-x-x-109">u </span>depends on each of <span 
+class="pcrr8t-x-x-109">x,y,z </span>in some way. If none
+of <span 
+class="pcrr8t-x-x-109">x,y,z </span>is equal to <span 
+class="pcrr8t-x-x-109">u </span>then the order of diﬀerentiation is commuted into a canonical
+form, unless the switch <span 
+class="pcrr8t-x-x-109">nocommutedf</span><a 
+ id="dx44-84001"></a><a 
+ id="dx44-84002"></a><a 
+ id="dx44-84003"></a> is turned on (default is oﬀ). If at least one of
+<span 
+class="pcrr8t-x-x-109">x,y,z </span>is equal to <span 
+class="pcrr8t-x-x-109">u </span>then the order of diﬀerentiation is <span 
+class="ptmri8t-x-x-109">not </span>fully commuted and the
+derivative is <span 
+class="ptmri8t-x-x-109">not </span>simpliﬁed to zero, unless the switch <span 
+class="pcrr8t-x-x-109">commutedf</span><a 
+ id="dx44-84004"></a><a 
+ id="dx44-84005"></a><a 
+ id="dx44-84006"></a> is turned on. It is oﬀ
+                                                                     
+
+                                                                     
+by default.
+</p><!--l. 1435--><p class="noindent" >If <span 
+class="pcrr8t-x-x-109">commutedf </span>is oﬀ and the switch <span 
+class="pcrr8t-x-x-109">simpnoncomdf</span><a 
+ id="dx44-84007"></a><a 
+ id="dx44-84008"></a><a 
+ id="dx44-84009"></a> is on then simplify as
+follows:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-145">
+        df(u,x,u)        -&#x003E;  df(u,x,2) / df(u,x)
+ <br />        df(u,x,n,u)      -&#x003E;  df(u,x,n+1) / df(u,x)
+</div>
+<!--l. 1440--><p class="nopar" > <span 
+class="ptmri8t-x-x-109">provided </span><span 
+class="pcrr8t-x-x-109">u </span>depends only on the one variable <span 
+class="pcrr8t-x-x-109">x</span>. This simpliﬁcation removes the
+non-commutative aspect of the derivative.
+</p><!--l. 1444--><p class="noindent" ><a 
+ id="switch:EXPANDDF"></a> If the switch <span 
+class="pcrr8t-x-x-109">expanddf</span><a 
+ id="dx44-84010"></a><a 
+ id="dx44-84011"></a><a 
+ id="dx44-84012"></a> is turned on then REDUCE uses the chain rule to expand
+symbolic derivatives of indirectly dependent variables provided the result is
+unambiguous, i.e. provided there is no direct dependence. It is oﬀ by default. Thus, for
+example, given
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-146">
+        depend f,u,v; depend {u,v},x;
+ <br />        on expanddf;
+ <br />        df(f,x)    -&#x003E; df(f,u)*df(u,x) + df(f,v)*df(v,x)
+</div>
+<!--l. 1453--><p class="nopar" > whereas after
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-147">
+        depend f,x;
+</div>
+<!--l. 1457--><p class="nopar" > <span 
+class="pcrr8t-x-x-109">df(f,x) </span>does not expand at all (since the result would be ambiguous and the
+algorithm would loop).
+</p><!--l. 1461--><p class="noindent" ><a 
+ id="switch:ALLOWDFINT"></a> <a 
+ id="switch:DFINT"></a> Turning on the switch <span 
+class="pcrr8t-x-x-109">allowdfint</span><a 
+ id="dx44-84013"></a><a 
+ id="dx44-84014"></a><a 
+ id="dx44-84015"></a> allows “diﬀerentiation under the integral sign”,
+i.e.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-148">
+        df(int(y, x), v) -&#x003E; int(df(y, v), x)
+</div>
+<!--l. 1467--><p class="nopar" > if this results in a simpliﬁcation. If the switch <span 
+class="pcrr8t-x-x-109">dfint</span><a 
+ id="dx44-84016"></a><a 
+ id="dx44-84017"></a><a 
+ id="dx44-84018"></a> is also turned on then this
+happens regardless of whether the result simpliﬁes. Both switches are oﬀ by
+default.
+</p><!--l. 1473--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">7.7.2    </span> <a 
+ id="x44-850007.7.2"></a>Adding Diﬀerentiation Rules</h4>
+<!--l. 1474--><p class="noindent" ><a 
+ id="command:LETdf"></a>
+</p><!--l. 1476--><p class="noindent" >The <span 
+class="pcrr8t-x-x-109">let</span><a 
+ id="dx44-85001"></a> statement can be used to introduce rules for diﬀerentiation of user-deﬁned
+operators. Its general form is
+  </p><div class="syntax">
+  <!--tex4ht:inline--><div class="tabular"> <table id="TBL-18" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-18-1g"><col 
+id="TBL-18-1" /><col 
+id="TBL-18-2" /><col 
+id="TBL-18-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-18-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-18-1-1"  
+class="td01"><span 
+class="pcrr8t-x-x-109">for all </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">var1</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span>…<span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">varn</span><span 
+class="cmsy-10x-x-109">⟩                 </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-18-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-18-2-1"  
+class="td01">   <span 
+class="pcrr8t-x-x-109">let df(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">operator</span><span 
+class="cmsy-10x-x-109">⟩⟨</span><span 
+class="ptmri8t-x-x-109">varlist</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">vari</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">) = </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">expression</span><span 
+class="cmsy-10x-x-109">⟩ </span></td></tr></table>
+  </div></div>
+<!--l. 1483--><p class="noindent" >where
+  </p><div class="syntax">
+   <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">varlist</span><span 
+class="cmsy-10x-x-109">⟩</span> <span 
+class="cmmi-10x-x-109">→</span> (<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">var1</span><span 
+class="cmsy-10x-x-109">⟩</span>, …, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">varn</span><span 
+class="cmsy-10x-x-109">⟩</span>),</div>
+<!--l. 1487--><p class="noindent" >and <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">var1</span><span 
+class="cmsy-10x-x-109">⟩</span>, …, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">varn</span><span 
+class="cmsy-10x-x-109">⟩ </span>are the dummy variable arguments of <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">operator</span><span 
+class="cmsy-10x-x-109">⟩</span>.
+</p><!--l. 1491--><p class="noindent" >An analogous form applies to inﬁx operators.
+</p><!--l. 1493--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Examples:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-149">
+        for all x let df(tan x,x) = 1 + tan(x)^2;
+</div>
+<!--l. 1496--><p class="nopar" > (This is how the tan diﬀerentiation rule appears in the REDUCE source.)
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-150">
+        for all x,y let df(f(x,y),x)=2*f(x,y),
+ <br />                        df(f(x,y),y)=x*f(x,y);
+</div>
+<!--l. 1502--><p class="nopar" > Notice that all dummy arguments of the relevant operator must be declared arbitrary by
+the <span 
+class="pcrr8t-x-x-109">for all </span>command, and that rules may be supplied for operators with any number
+of arguments. If no diﬀerentiation rule appears for an argument in an operator, the
+diﬀerentiation routines will return as result an expression in terms of <span 
+class="pcrr8t-x-x-109">df</span><a 
+ id="dx44-85002"></a>. For example, if
+the rule for the diﬀerentiation with respect to the second argument of <span 
+class="pcrr8t-x-x-109">f </span>is not supplied,
+the evaluation of <span 
+class="pcrr8t-x-x-109">df(f(x,z),z) </span>would leave this expression unchanged. (No
+<span 
+class="pcrr8t-x-x-109">depend </span>declaration is needed here, since <span 
+class="pcrr8t-x-x-109">f(x,z) </span>obviously “depends on”
+<span 
+class="pcrr8t-x-x-109">Z</span>.)
+</p><!--l. 1513--><p class="noindent" >Once such a rule has been deﬁned for a given operator, any future diﬀerentiation<a 
+ id="dx44-85003"></a> rules for
+that operator must be deﬁned with the same number of arguments for that operator,
+otherwise we get the error message
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-151">
+   Incompatible DF rule argument length for &#x003C;operator&#x003E;
+</div>
+<!--l. 1519--><p class="nopar" >
+</p><!--l. 1522--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">7.7.3    </span> <a 
+ id="x44-860007.7.3"></a>Options controlling display of derivatives</h4>
+<!--l. 1523--><p class="noindent" ><a 
+ id="switch:DFPRINT"></a>
+</p><!--l. 1525--><p class="noindent" >If the switch <span 
+class="pcrr8t-x-x-109">dfprint</span><a 
+ id="dx44-86001"></a><a 
+ id="dx44-86002"></a><a 
+ id="dx44-86003"></a> is turned on (it is oﬀ by default) then derivatives are displayed
+using subscripts, as illustrated below. In graphical environments with typeset
+mathematics enabled, the (shared) variable <span 
+class="pcrr8t-x-x-109">fancy_print_df</span><a 
+ id="dx44-86004"></a> can be set to
+one of the values <span 
+class="pcrr8t-x-x-109">partial</span><a 
+ id="dx44-86005"></a>, <span 
+class="pcrr8t-x-x-109">total</span><a 
+ id="dx44-86006"></a> or <span 
+class="pcrr8t-x-x-109">indexed</span><a 
+ id="dx44-86007"></a> to control the display of
+derivatives. The default value is <span 
+class="pcrr8t-x-x-109">partial</span>. However, if the switch <span 
+class="pcrr8t-x-x-109">dfprint </span>is on
+then <span 
+class="pcrr8t-x-x-109">fancy_print_df </span>is ignored. For example, with the following settings,
+derivatives are displayed as follows (assuming <span 
+class="pcrr8t-x-x-109">depend f,x,y </span>and <span 
+class="pcrr8t-x-x-109">operator</span>
+<span 
+class="pcrr8t-x-x-109">g</span>):<br 
+class="newline" /> <!--tex4ht:inline--></p><div class="tabular"> <table id="TBL-19" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-19-1g"><col 
+id="TBL-19-1" /><col 
+id="TBL-19-2" /><col 
+id="TBL-19-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-19-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-19-1-1"  
+class="td11">          <div class="multicolumn"  style="white-space:nowrap; text-align:center;">Setting</div>                        </td><td  style="white-space:nowrap; text-align:center;" id="TBL-19-1-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">df(f,x,2,y) </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-19-1-3"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">df(g(x,y),x,2,y) </span></td>
+</tr><tr 
+class="vspace" style="font-size:2.18996pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-19-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-19-2-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">fancy_print_df:=partial </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-19-2-2"  
+class="td11">   <img 
+src="manual32x.png" alt="   3
+-∂-f--
+∂x2 ∂y "  class="math"  />     </td><td  style="white-space:nowrap; text-align:center;" id="TBL-19-2-3"  
+class="td11">     <img 
+src="manual33x.png" alt=" 3
+∂-g(x,y)-
+ ∂x2∂y "  class="math"  />       </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-19-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-19-3-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">fancy_print_df:=total   </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-19-3-2"  
+class="td11">   <img 
+src="manual34x.png" alt="-d3f--
+dx2dy "  class="math"  />     </td><td  style="white-space:nowrap; text-align:center;" id="TBL-19-3-3"  
+class="td11">     <img 
+src="manual35x.png" alt="d3g(x,y)
+ dx2dy "  class="math"  />        </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-19-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-19-4-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">fancy_print_df:=indexed </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-19-4-2"  
+class="td11">    <img 
+src="manual36x.png" alt="fx,x,y  "  class="math"  />        </td><td  style="white-space:nowrap; text-align:center;" id="TBL-19-4-3"  
+class="td11">    <img 
+src="manual37x.png" alt="g(x,y)x,x,y  "  class="math"  />         </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-19-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-19-5-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">on dfprint              </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-19-5-2"  
+class="td11">    <img 
+src="manual38x.png" alt="fx,x,y  "  class="math"  />        </td><td  style="white-space:nowrap; text-align:center;" id="TBL-19-5-3"  
+class="td11">      <img 
+src="manual39x.png" alt="gx,x,y  "  class="math"  />             </td>
+</tr></table></div>
+                                                                     
+
+                                                                     
+<!--l. 1548--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse34.html" >Up</a></td><td class="clinks"><a 
+href="manualse35.html" >Next</a></td><td class="clinks"><a 
+href="manualse33.html" >Prev</a></td><td class="clinks"><a 
+href="manualse33.html#tailmanualse33.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse34.html" >Front</a></td></tr></table><a 
+ id="tailmanualse34.html"></a>  </p> 
+</body> 
+</html>

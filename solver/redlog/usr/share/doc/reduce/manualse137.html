@@ -1,0 +1,467 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>CGB: Computing Comprehensive Grobner Bases</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse137.html" >Up</a></td><td class="clinks"><a 
+href="manualse138.html" >Next</a></td><td class="clinks"><a 
+href="manualse136.html" >Prev</a></td><td class="clinks"><a 
+href="manualse136.html#tailmanualse136.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse137.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.12    </span> <a 
+ id="x204-55400020.12"></a>CGB: Computing Comprehensive Gröbner
+Bases</h3>
+<a 
+ id="dx204-554001"></a>
+<a 
+ id="dx204-554002"></a>
+<!--l. 248--><p class="noindent" >Authors: Andreas Dolzmann, Thomas Sturm, and Winfried Neun
+<a 
+ id="dx204-554003"></a>
+<a 
+ id="dx204-554004"></a>
+<a 
+ id="dx204-554005"></a>
+<a 
+ id="dx204-554006"></a>
+<a 
+ id="dx204-554007"></a>
+<a 
+ id="dx204-554008"></a>
+</p><!--l. 34--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.12.1    </span> <a 
+ id="x204-55500020.12.1"></a>Introduction</h4>
+<!--l. 35--><p class="noindent" >Consider the ideal basis <span 
+class="cmmi-10x-x-109">F </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">ax,x </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">y</span><span 
+class="cmsy-10x-x-109">}</span>. Treating <span 
+class="cmmi-10x-x-109">a </span>as a parameter, the calling
+sequence
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1039">
+torder({x,y},lex)$
+ <br />groebner{a*x,x+y};
+ <br />
+ <br />  {x,y}
+</div>
+<!--l. 42--><p class="nopar" > yields <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">x,y</span><span 
+class="cmsy-10x-x-109">} </span>as reduced Gröbner basis. This is, however, not correct under the
+specialization <span 
+class="cmmi-10x-x-109">a </span><span 
+class="cmr-10x-x-109">= 0</span>. The reduced Gröbner basis would then be <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">y</span><span 
+class="cmsy-10x-x-109">}</span>. Taking these
+results together, we obtain <span 
+class="cmmi-10x-x-109">C </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">y,ax,ay</span><span 
+class="cmsy-10x-x-109">}</span>, which is correct wrt. <span 
+class="ptmri8t-x-x-109">all </span>specializations
+for <span 
+class="cmmi-10x-x-109">a </span>including zero specializations. We call this set <span 
+class="cmmi-10x-x-109">C </span>a <span 
+class="ptmri8t-x-x-109">comprehensive Gr</span><span 
+class="ptmri8t-x-x-109">ö</span><span 
+class="ptmri8t-x-x-109">bner basis</span>
+(<span 
+class="ptmrc8t-x-x-109"><span 
+class="small-caps">C</span><span 
+class="small-caps">G</span><span 
+class="small-caps">B</span></span>).
+</p><!--l. 50--><p class="noindent" >The notion of a <span 
+class="ptmrc8t-x-x-109"><span 
+class="small-caps">C</span><span 
+class="small-caps">G</span><span 
+class="small-caps">B</span> </span>and a corresponding algorithm has been introduced bei
+Weispfenning <span class="cite">[<a 
+href="manualap2.html#XWeispfenning:92">Wei92</a>]</span>. This algorithm works by performing case distinctions
+wrt. parametric coeﬃcient polynomials in order to ﬁnd out what the head monomials are
+under all possible specializations. It does thus not only determine a <span 
+class="ptmrc8t-x-x-109"><span 
+class="small-caps">C</span><span 
+class="small-caps">G</span><span 
+class="small-caps">B</span></span>, but even
+classiﬁes the contained polynomials wrt. the specializations they are relevant for. If we
+keep the Gröbner bases for all cases separate and associate information on the
+respective specializations with them, we obtain a <span 
+class="ptmri8t-x-x-109">Gr</span><span 
+class="ptmri8t-x-x-109">ö</span><span 
+class="ptmri8t-x-x-109">bner system</span>. For our example, the
+Gröbner system is the following;
+</p>
+<table 
+class="equation-star"><tr><td>
+                      <img 
+src="manual191x.png" alt="[       |              ]
+  a ⁄= 0 |{x + y,ax,ay}
+  a = 0 |   {x + y}"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 67--><p class="nopar" >
+A <span 
+class="ptmrc8t-x-x-109"><span 
+class="small-caps">C</span><span 
+class="small-caps">G</span><span 
+class="small-caps">B</span> </span>is obtained as the union of the single Gröbner bases in a Gröbner system. It has
+also been shown that, on the other hand, a Gröbner system can easily be reconstructed
+from a given <span 
+class="ptmrc8t-x-x-109"><span 
+class="small-caps">C</span><span 
+class="small-caps">G</span><span 
+class="small-caps">B</span> </span><span class="cite">[<a 
+href="manualap2.html#XWeispfenning:92">Wei92</a>]</span>.
+                                                                     
+
+                                                                     
+</p><!--l. 73--><p class="noindent" >The CGB package provides functions for computing both <span 
+class="ptmrc8t-x-x-109"><span 
+class="small-caps">C</span><span 
+class="small-caps">G</span><span 
+class="small-caps">B</span></span>’s and Gröbner systems,
+and for turning Gröbner systems into <span 
+class="ptmrc8t-x-x-109"><span 
+class="small-caps">C</span><span 
+class="small-caps">G</span><span 
+class="small-caps">B</span></span>’s.
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.12.2    </span> <a 
+ id="x204-55600020.12.2"></a>Using the REDLOG Package</h4>
+<!--l. 77--><p class="noindent" >For managing the conditions occurring with the <span 
+class="ptmrc8t-x-x-109"><span 
+class="small-caps">C</span><span 
+class="small-caps">G</span><span 
+class="small-caps">B</span> </span>computations, the CGB package
+uses the package REDLOG implementing ﬁrst-order formulas, <span class="cite">[<a 
+href="manualap2.html#XDolzmannSturm:97a">DS97a</a>, <a 
+href="manualap2.html#XDolzmann:99">DS99</a>]</span>, which is
+also part of the <span 
+class="ptmrc8t-x-x-109"><span 
+class="small-caps">R</span><span 
+class="small-caps">E</span><span 
+class="small-caps">D</span><span 
+class="small-caps">U</span><span 
+class="small-caps">C</span><span 
+class="small-caps">E</span> </span>distribution.
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.12.3    </span> <a 
+ id="x204-55700020.12.3"></a>Term Ordering Mode</h4>
+<a 
+ id="dx204-557001"></a>
+<a 
+ id="dx204-557002"></a>
+<a 
+ id="dx204-557003"></a>
+<!--l. 84--><p class="noindent" >The CGB package uses the settings made with the function <span 
+class="pcrr8t-x-x-109">torder </span>of the GROEBNER
+package. This includes in particular the choice of the main variables. All variables not
+mentioned in the variable list argument of <span 
+class="pcrr8t-x-x-109">torder </span>are parameters. The only term
+ordering modes recognized by <span 
+class="ptmrc8t-x-x-109"><span 
+class="small-caps">C</span><span 
+class="small-caps">G</span><span 
+class="small-caps">B</span> </span>are <span 
+class="pcrr8t-x-x-109">lex </span>and <span 
+class="pcrr8t-x-x-109">revgradlex</span>.
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.12.4    </span> <a 
+ id="x204-55800020.12.4"></a>CGB: Comprehensive Gröbner Basis</h4>
+<a 
+ id="dx204-558001"></a>
+<!--l. 92--><p class="noindent" >The function <span 
+class="pcrr8t-x-x-109">cgb </span>expects a list <span 
+class="cmmi-10x-x-109">F </span>of expressions. It returns a <span 
+class="ptmrc8t-x-x-109"><span 
+class="small-caps">C</span><span 
+class="small-caps">G</span><span 
+class="small-caps">B</span> </span>of <span 
+class="cmmi-10x-x-109">F </span>wrt. the current
+<span 
+class="pcrr8t-x-x-109">torder </span>setting.
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x204-55900020.12.4"></a>Example</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-1040">
+torder({x,y},lex)$
+ <br />cgb{a*x+y,x+b*y};
+ <br />
+ <br />{x + b*y,a*x + y,(a*b - 1)*y}
+ <br />
+ <br />ws;
+ <br />
+ <br />{b*y + x,
+ <br />
+ <br /> a*x + y,
+ <br />
+ <br /> y*(a*b - 1)}
+</div>
+<!--l. 109--><p class="nopar" > Note that the basis returned by the <span 
+class="pcrr8t-x-x-109">cgb </span>call has not undergone the standard evaluation
+process: The returned polynomials are ordered wrt. the chosen term order. Reevaluation
+changes this as can be seen with the output of <span 
+class="pcrr8t-x-x-109">ws</span>.
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.12.5    </span> <a 
+ id="x204-56000020.12.5"></a>GSYS: Gröbner System</h4>
+<a 
+ id="dx204-560001"></a>
+<!--l. 116--><p class="noindent" >The function <span 
+class="pcrr8t-x-x-109">gsys </span>follows the same calling conventions as <span 
+class="pcrr8t-x-x-109">cgb</span>. It returns the complete
+Gröbner system represented as a nested list </p>
+<div class="center" 
+>
+<!--l. 119--><p class="noindent" >
+</p><!--l. 120--><p class="noindent" ><img 
+src="manual192x.png" alt="{{c1,{g11,...,g1n1}},...,{cm,{gm1, ...,g1nm} }}. "  class="math"  /></p></div>
+<!--l. 125--><p class="noindent" >The <span 
+class="cmmi-10x-x-109">c</span><sub><span 
+class="cmmi-8">i</span></sub> are conditions in the parameters represented as quantiﬁer-free REDLOG
+formulas. Each choice of parameters will obey at least one of the <span 
+class="cmmi-10x-x-109">c</span><sub><span 
+class="cmmi-8">i</span></sub>. Whenever a choice
+of parameters obeys some <span 
+class="cmmi-10x-x-109">c</span><sub><span 
+class="cmmi-8">i</span></sub>, the corresponding <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmmi-8">i</span><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,g</span><sub><span 
+class="cmmi-8">in</span><sub><span 
+class="cmmi-6">i</span></sub></sub><span 
+class="cmsy-10x-x-109">} </span>is a Gröbner basis for this
+choice.
+</p>
+                                                                     
+
+                                                                     
+<h5 class="likesubsubsectionHead"><a 
+ id="x204-56100020.12.5"></a>Example</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-1041">
+torder({x,y},lex)$
+ <br />gsys {a*x+y,x+b*y};
+ <br />
+ <br />{{a*b - 1 &#x003C;&#x003E; 0 and a &#x003C;&#x003E; 0,
+ <br />
+ <br />  {a*x + y,x + b*y,(a*b - 1)*y}},
+ <br />
+ <br /> {a &#x003C;&#x003E; 0 and a*b - 1 = 0,
+ <br />
+ <br />  {a*x + y,x + b*y}},
+ <br />
+ <br /> {a = 0,{a*x + y,x + b*y}}}
+</div>
+<!--l. 145--><p class="nopar" > As with the function <span 
+class="pcrr8t-x-x-109">cgb</span>, the contained polynomials remain unevaluated.
+</p><!--l. 149--><p class="noindent" >Computing a Gröbner system is not harder than computing a <span 
+class="ptmrc8t-x-x-109"><span 
+class="small-caps">C</span><span 
+class="small-caps">G</span><span 
+class="small-caps">B</span></span>. In fact, <span 
+class="pcrr8t-x-x-109">cgb </span>also
+computes a Gröbner system and then turns it into a <span 
+class="ptmrc8t-x-x-109"><span 
+class="small-caps">C</span><span 
+class="small-caps">G</span><span 
+class="small-caps">B</span></span>.
+</p><!--l. 153--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x204-56200020.12.5"></a>Switch CGBGEN: Only the Generic Case</h5>
+<a 
+ id="dx204-562001"></a>
+<!--l. 155--><p class="noindent" >If the switch <span 
+class="pcrr8t-x-x-109">cgbgen </span>is turned on, both <span 
+class="pcrr8t-x-x-109">gsys </span>and <span 
+class="pcrr8t-x-x-109">cgb </span>will assume all parametric
+coeﬃcients to be non-zero ignoring the other cases. For <span 
+class="pcrr8t-x-x-109">cgb </span>this means that the
+result equals—up to auto-reduction—that of <span 
+class="pcrr8t-x-x-109">groebner</span>. A call to <span 
+class="pcrr8t-x-x-109">gsys </span>will
+return this result as a single case including the assumptions made during the
+computation:
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x204-56300020.12.5"></a>Example</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-1042">
+torder({x,y},lex)$
+ <br />on cgbgen;
+ <br />gsys{a*x+y,x+b*y};
+ <br />
+ <br />{{a*b - 1 &#x003C;&#x003E; 0 and a &#x003C;&#x003E; 0,
+ <br />
+ <br />  {a*x + y,x + b*y,(a*b - 1)*y}}}
+ <br />
+ <br />off cgbgen;
+</div>
+<!--l. 173--><p class="nopar" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.12.6    </span> <a 
+ id="x204-56400020.12.6"></a>GSYS2CGB: Gröbner System to CGB</h4>
+<a 
+ id="dx204-564001"></a>
+<!--l. 177--><p class="noindent" >The call <span 
+class="pcrr8t-x-x-109">gsys2cgb </span>turns a given Gröbner system into a <span 
+class="ptmrc8t-x-x-109"><span 
+class="small-caps">C</span><span 
+class="small-caps">G</span><span 
+class="small-caps">B</span> </span>by constructing the union
+of the Gröbner bases of the single cases.
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x204-56500020.12.6"></a>Example</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-1043">
+torder({x,y},lex)$
+ <br />gsys{a*x+y,x+b*y}$
+ <br />gsys2cgb ws;
+ <br />
+ <br />{x + b*y,a*x + y,(a*b - 1)*y}
+</div>
+<!--l. 188--><p class="nopar" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.12.7    </span> <a 
+ id="x204-56600020.12.7"></a>Switch CGBREAL: Computing over the Real Numbers</h4>
+<a 
+ id="dx204-566001"></a>
+<!--l. 193--><p class="noindent" >All computations considered so far have taken place over the complex numbers, more
+precisely, over algebraically closed ﬁelds. Over the real numbers, certain branches of the
+<span 
+class="ptmrc8t-x-x-109"><span 
+class="small-caps">C</span><span 
+class="small-caps">G</span><span 
+class="small-caps">B</span> </span>computation can become inconsitent though they are not inconsistent over the
+complex numbers. Consider, e.g., a condition <span 
+class="cmmi-10x-x-109">a</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">+ 1 = 0</span>.
+</p><!--l. 199--><p class="noindent" >When turning on the switch <span 
+class="pcrr8t-x-x-109">cgbreal</span>, all simpliﬁcations of conditions are
+performed over the real numbers. The methods used for this are described in
+<span class="cite">[<a 
+href="manualap2.html#XDolzmann:97b">DS97b</a>]</span>.
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x204-56700020.12.7"></a>Example</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-1044">
+torder({x,y},lex)$
+ <br />off cgbreal;
+ <br />gsys {a*x+y,x-a*y};
+ <br />
+ <br />   2
+ <br />{{a  + 1 &#x003C;&#x003E; 0 and a &#x003C;&#x003E; 0,
+ <br />
+ <br />                     2
+ <br />  {a*x + y,x - a*y,(a  + 1)*y}},
+ <br />
+ <br />              2
+ <br /> {a &#x003C;&#x003E; 0 and a  + 1 = 0,{a*x + y,x - a*y}},
+ <br />
+ <br /> {a = 0,{a*x + y,x - a*y}}}
+ <br />
+ <br />on cgbreal;
+ <br />gsys({a*x+y,x-a*y});
+ <br />
+ <br />{{a &#x003C;&#x003E; 0,
+ <br />
+ <br />                     2
+ <br />  {a*x + y,x - a*y,(a  + 1)*y}},
+ <br />
+ <br /> {a = 0,{a*x + y,x - a*y}}}
+</div>
+<!--l. 229--><p class="nopar" >
+</p><!--l. 231--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.12.8    </span> <a 
+ id="x204-56800020.12.8"></a>Switches</h4>
+<a 
+ id="dx204-568001"></a>
+<a 
+ id="dx204-568002"></a>
+<a 
+ id="dx204-568003"></a>
+     <dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">cgbreal</span> </dt><dd 
+class="description">Compute over the real numbers. See Section <a 
+href="#x204-56600020.12.7">20.12.7<!--tex4ht:ref: cgbreal --></a> for details.
+                                                                     
+
+                                                                     
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">cgbgs</span> </dt><dd 
+class="description">Gröbner  simpliﬁcation  of  the  condition.  The  switch  <span 
+class="pcrr8t-x-x-109">cgbgs </span>can  be
+     turned on for applying advanced algebraic simpliﬁcation techniques to the
+     conditions. This will, in general, slow down the computation, but lead to a
+     simpler Gröbner system.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">cgbstat</span> </dt><dd 
+class="description">Statistics of the CGB run. The switch <span 
+class="pcrr8t-x-x-109">cgbstat </span>toggles the creation and
+     output of statistical information on the CGB run. The statistical information
+     is printed at the end of the run.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">cgbfullred</span> </dt><dd 
+class="description">Full reduction. By default, the CGB functions perform full reductions
+     in contrast to pure top reductions. By turning oﬀ the switch <span 
+class="pcrr8t-x-x-109">cgbfullred</span>,
+     reduction can be restricted to top reductions.</dd></dl>
+<!--l. 252--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 254--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse137.html" >Up</a></td><td class="clinks"><a 
+href="manualse138.html" >Next</a></td><td class="clinks"><a 
+href="manualse136.html" >Prev</a></td><td class="clinks"><a 
+href="manualse136.html#tailmanualse136.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse137.html" >Front</a></td></tr></table><a 
+ id="tailmanualse137.html"></a>  </p> 
+</body> 
+</html>

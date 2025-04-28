@@ -1,0 +1,1216 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Deﬁnite Integration</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualap4.html#manualse224.html" >Up</a></td><td class="clinks"><a 
+href="manualse225.html" >Next</a></td><td class="clinks"><a 
+href="#tailmanualse224.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">D.1    </span> <a 
+ id="x326-1395000D.1"></a>Deﬁnite Integration</h3>
+<!--l. 15--><p class="noindent" >This section describes part of REDUCE’s deﬁnite integration package that is able to
+calculate the deﬁnite integrals of many functions, including several special functions.
+There are other parts of this package, such as Stan Kameny’s code for contour
+integration, that are not included here. The integration process described here is not the
+more normal approach of initially calculating the indeﬁnite integral, but is instead the
+rather unusual idea of representing each function as a Meijer G-function (a
+formal deﬁnition of the Meijer G-function can be found in <span class="cite">[<a 
+href="manualap2.html#XPrudnikov:90c">PBM89</a>]</span>), and then
+calculating the integral by using the following Meijer G integration formula.
+<a 
+ id="dx326-1395001"></a>
+</p>
+<table 
+class="equation"><tr><td><a 
+ id="x326-1395002r1"></a>
+                                                                     
+
+                                                                     
+<center class="math-display" >
+<img 
+src="manual863x.png" alt="            (    |    )     (      |     )          (   |    )
+∫ ∞              ||(cu)             || (ap)          ij    ||(gk)
+    xα−1Gstuv  σx |      Gmnpq   ωxl∕k|       dx = kG kl  ξ |
+ 0               |(dv)             | (bq)               |(hl)
+" class="math-display"  /></center></td><td class="equation-label">(D.1)</td></tr></table>
+<!--l. 33--><p class="nopar" >
+</p><!--l. 35--><p class="noindent" >The resulting Meijer G-function is then retransformed, either directly or via a
+hypergeometric function simpliﬁcation, to give the answer. A more detailed account of
+this theory can be found in <span class="cite">[<a 
+href="manualap2.html#XAdamchik90">AM90</a>]</span>.
+</p><!--l. 40--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">D.1.1    </span> <a 
+ id="x326-1396000D.1.1"></a>Integration between zero and inﬁnity</h4>
+<!--l. 42--><p class="noindent" >As an example, if one wishes to calculate the following integral
+</p>
+<table 
+class="equation-star"><tr><td>
+                        <span 
+class="cmex-10x-x-109">∫</span>
+                           <sub><span 
+class="cmr-8">0</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup><span 
+class="cmmi-10x-x-109">e</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmmi-8">x</span></sup> <span 
+class="cmr-10x-x-109">sin</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">dx</span>
+</td></tr></table>
+<!--l. 46--><p class="nopar" >
+</p><!--l. 48--><p class="noindent" >then initially the correct Meijer G-functions are found, via a pattern matching process,
+and are substituted into eq. <a 
+href="#x326-1395002r1">D.1<!--tex4ht:ref: defint:eq1 --></a> to give
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+            <img 
+src="manual864x.png" alt="√--
+ π"  class="sqrt"  /><span 
+class="cmex-10x-x-109">∫</span>
+                  <sub><span 
+class="cmr-8">0</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup><span 
+class="cmmi-10x-x-109">G</span><sub>
+<span 
+class="cmr-8">01</span></sub><sup><span 
+class="cmr-8">10</span></sup><img 
+src="manual865x.png" alt="   |
+(  | .)
+  x||
+   | 0"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">G</span><sub><span 
+class="cmr-8">02</span></sub><sup><span 
+class="cmr-8">10</span></sup><img 
+src="manual866x.png" alt="     |
+( x2 | ..)
+  ---|| 1
+   4 | 20"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">dx</span>
+</td></tr></table>
+<!--l. 57--><p class="nopar" >
+</p><!--l. 59--><p class="noindent" >The cases for validity of the integral are then checked. If these are found to be
+satisfactory then the formula is calculated and we obtain the following Meijer
+G-function
+</p>
+<table 
+class="equation-star"><tr><td>
+                           <span 
+class="cmmi-10x-x-109">G</span><sub><span 
+class="cmr-8">22</span></sub><sup><span 
+class="cmr-8">12</span></sup><img 
+src="manual867x.png" alt="(  |   )
+   || 121
+ 1 || 10
+     2"  class="left" align="middle" />
+</td></tr></table>
+<!--l. 65--><p class="nopar" >
+</p><!--l. 67--><p class="noindent" >This is reduced to the following hypergeometric function
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                           <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">F</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmr-10x-x-109">(</span><img 
+src="manual868x.png" alt="1-
+2"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">1;</span><img 
+src="manual869x.png" alt="3-
+2"  class="frac" align="middle" /><span 
+class="cmr-10x-x-109">;</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1)</span>
+</td></tr></table>
+<!--l. 71--><p class="nopar" >
+</p><!--l. 73--><p class="noindent" >which is then calculated to give the correct answer of
+</p>
+<table 
+class="equation-star"><tr><td>
+                                 <img 
+src="manual870x.png" alt="π-
+4"  class="frac" align="middle" />
+</td></tr></table>
+<!--l. 77--><p class="nopar" >
+</p><!--l. 79--><p class="noindent" >The above formula (<a 
+href="#x326-1395002r1">D.1<!--tex4ht:ref: defint:eq1 --></a>) is also true for the integration of a single Meijer G-function by
+replacing the second Meijer G-function with a trivial Meijer G-function.
+</p><!--l. 83--><p class="noindent" >A list of numerous particular Meijer G-functions is available in <span class="cite">[<a 
+href="manualap2.html#XPrudnikov:90c">PBM89</a>]</span>.
+</p><!--l. 86--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">D.1.2    </span> <a 
+ id="x326-1397000D.1.2"></a>Integration over other ranges</h4>
+<!--l. 88--><p class="noindent" >Although the description so far has been limited to the computation of deﬁnite integrals
+between 0 and inﬁnity, it can also be extended to calculate integrals between 0 and some
+speciﬁc upper bound, and by further extension, integrals between any two bounds. One
+approach is to use the Heaviside function, i.e.
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                <span 
+class="cmex-10x-x-109">∫</span>
+                   <sub><span 
+class="cmr-8">0</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-10x-x-109">e</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmmi-8">x</span></sup><span 
+class="cmmi-10x-x-109">H</span><span 
+class="cmr-10x-x-109">(1 </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">dx </span><span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∫</span>
+  <sub><span 
+class="cmr-8">0</span></sub><sup><span 
+class="cmr-8">1</span></sup><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-10x-x-109">e</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmmi-8">x</span></sup><span 
+class="cmmi-10x-x-109">dx</span>
+</td></tr></table>
+<!--l. 96--><p class="nopar" >
+</p><!--l. 98--><p class="noindent" >Another approach, again not involving the normal indeﬁnite integration process, again
+uses Meijer G-functions, this time by means of the following formula
+</p>
+<table 
+class="equation"><tr><td><a 
+ id="x326-1397001r2"></a>
+<center class="math-display" >
+<img 
+src="manual871x.png" alt="            (    |    )                (    |                      )
+∫ y              ||(au)                      ||(a1..an,1 − α,an+1..ap)
+   xα− 1Gmpnq   σx |      dx = yαGmnp++11q+1  σy |
+ 0               |(bv)                      | (b1..bm,− α,bm+1..bq)
+" class="math-display"  /></center></td><td class="equation-label">(D.2)</td></tr></table>
+<!--l. 107--><p class="nopar" >
+</p><!--l. 109--><p class="noindent" >For a more detailed look at the theory behind this see <span class="cite">[<a 
+href="manualap2.html#XAdamchik90">AM90</a>]</span>.
+</p><!--l. 112--><p class="noindent" >For example, if one wishes to calculate the following integral
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                           <span 
+class="cmex-10x-x-109">∫</span>
+                             <sub><span 
+class="cmr-8">0</span></sub><sup><span 
+class="cmmi-8">y</span></sup> <span 
+class="cmr-10x-x-109">sin</span><span 
+class="cmr-10x-x-109">(2</span><img 
+src="manual872x.png" alt="√ --
+  x"  class="sqrt"  /><span 
+class="cmr-10x-x-109">)</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">dx</span>
+</td></tr></table>
+<!--l. 116--><p class="nopar" >
+</p><!--l. 118--><p class="noindent" >then initially the correct Meijer G-function is found, by a pattern matching process, and
+is substituted into eq. <a 
+href="#x326-1397001r2">D.2<!--tex4ht:ref: defint:eq2 --></a> to give
+</p>
+<table 
+class="equation-star"><tr><td>
+                        <span 
+class="cmex-10x-x-109">∫</span>
+                          <sub><span 
+class="cmr-8">0</span></sub><sup><span 
+class="cmmi-8">y</span></sup><span 
+class="cmmi-10x-x-109">G</span><sub>
+<span 
+class="cmr-8">02</span></sub><sup><span 
+class="cmr-8">10</span></sup><img 
+src="manual873x.png" alt="(  |   )
+   || ..
+ x | 1
+   | 20"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">dx</span>
+</td></tr></table>
+<!--l. 125--><p class="nopar" >
+</p><!--l. 127--><p class="noindent" >which then in turn gives
+</p>
+<table 
+class="equation-star"><tr><td>
+                       <span 
+class="cmmi-10x-x-109">yG</span><sub><span 
+class="cmr-8">13</span></sub><sup><span 
+class="cmr-8">11</span></sup><img 
+src="manual874x.png" alt="(   ||      )
+  y ||1 0
+    |2 − 10"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">dx</span>
+</td></tr></table>
+                                                                     
+
+                                                                     
+<!--l. 131--><p class="nopar" >
+</p><!--l. 133--><p class="noindent" >and returns the result
+</p>
+<table 
+class="equation-star"><tr><td>
+                           <img 
+src="manual875x.png" alt="√ πJ   (2√y-)y
+----3∕21∕4------
+     y"  class="frac" align="middle" />
+</td></tr></table>
+<!--l. 137--><p class="nopar" >
+</p><!--l. 139--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">D.1.2.1    </span> <a 
+ id="x326-1398000D.1.2.1"></a>Examples</h5>
+<table 
+class="equation-star"><tr><td>
+                             <span 
+class="cmex-10x-x-109">∫</span>
+                               <sub><span 
+class="cmr-8">0</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><span 
+class="cmmi-10x-x-109">e</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmmi-8">x</span></sup><span 
+class="cmmi-10x-x-109">dx</span>
+</td></tr></table>
+<!--l. 143--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1520">
+ int(e^(-x),x,0,infinity);
+ <br />
+ <br /> 1
+</div>
+<!--l. 150--><p class="nopar" >
+</p>
+<table 
+class="equation-star"><tr><td>
+                          <span 
+class="cmex-10x-x-109">∫</span>
+                            <sub><span 
+class="cmr-8">0</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">sin</span><span 
+class="cmr-10x-x-109">(1</span><span 
+class="cmmi-10x-x-109">∕x</span><span 
+class="cmr-10x-x-109">)</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">dx</span>
+</td></tr></table>
+<!--l. 154--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1521">
+ int(x*sin(1/x),x,0,infinity);
+ <br />
+ <br />            1
+ <br /> int(x*sin(---),x,0,infinity)
+ <br />            x
+</div>
+<!--l. 162--><p class="nopar" >
+</p>
+<table 
+class="equation-star"><tr><td>
+                         <span 
+class="cmex-10x-x-109">∫</span>
+                           <sub><span 
+class="cmr-8">0</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">cos</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">e</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">2</span><span 
+class="cmmi-8">x</span></sup><span 
+class="cmmi-10x-x-109">dx</span>
+</td></tr></table>
+<!--l. 166--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1522">
+ int(x^2*cos(x)*e^(-2*x),x,0,infinity);
+ <br />
+ <br />   4
+ <br /> -----
+ <br />  125
+</div>
+<!--l. 174--><p class="nopar" >
+</p>
+<table 
+class="equation-star"><tr><td>
+               <span 
+class="cmex-10x-x-109">∫</span>
+                 <sub><span 
+class="cmr-8">0</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><span 
+class="cmmi-10x-x-109">xe</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span><span 
+class="cmmi-8">∕</span><span 
+class="cmr-8">2</span><span 
+class="cmmi-8">x</span></sup><span 
+class="cmmi-10x-x-109">H</span><span 
+class="cmr-10x-x-109">(1 </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">dx </span><span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∫</span>
+  <sub><span 
+class="cmr-8">0</span></sub><sup><span 
+class="cmr-8">1</span></sup><span 
+class="cmmi-10x-x-109">xe</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span><span 
+class="cmmi-8">∕</span><span 
+class="cmr-8">2</span><span 
+class="cmmi-8">x</span></sup><span 
+class="cmmi-10x-x-109">dx</span>
+</td></tr></table>
+<!--l. 178--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1523">
+ int(x*e^(-1/2x)*Heaviside(1-x),x,0,infinity);
+ <br />
+ <br />  2*(2*sqrt(e) - 3)
+ <br /> -------------------
+ <br />       sqrt(e)
+</div>
+<!--l. 186--><p class="nopar" >
+</p>
+<table 
+class="equation-star"><tr><td>
+                          <span 
+class="cmex-10x-x-109">∫</span>
+                            <sub><span 
+class="cmr-8">0</span></sub><sup><span 
+class="cmr-8">1</span></sup><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">log</span><span 
+class="cmr-10x-x-109">(1 + </span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">dx</span>
+</td></tr></table>
+<!--l. 190--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1524">
+ int(x*log(1+x),x,0,1);
+ <br />
+ <br />  1
+ <br /> ---
+ <br />  4
+</div>
+<!--l. 198--><p class="nopar" >
+</p>
+<table 
+class="equation-star"><tr><td>
+                            <span 
+class="cmex-10x-x-109">∫</span>
+                              <sub><span 
+class="cmr-8">0</span></sub><sup><span 
+class="cmmi-8">y</span></sup> <span 
+class="cmr-10x-x-109">cos</span><span 
+class="cmr-10x-x-109">(2</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">dx</span>
+</td></tr></table>
+<!--l. 202--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1525">
+ int(cos(2x),x,y,2y);
+ <br />
+ <br />  sin(4*y) - sin(2*y)
+ <br /> ---------------------
+ <br />           2
+</div>
+<!--l. 210--><p class="nopar" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">D.1.3    </span> <a 
+ id="x326-1399000D.1.3"></a>Integral Transforms</h4>
+<!--l. 213--><p class="noindent" >A useful application of the deﬁnite integration package is in the calculation of various
+integral transforms. The transforms available are as follows:
+</p>
+     <ul class="itemize1">
+     <li class="itemize">
+     Laplace
+     transform
+     </li>
+     <li class="itemize">
+     Hankel
+     transform
+     </li>
+     <li class="itemize">
+     Y-transform
+     </li>
+                                                                     
+
+                                                                     
+     <li class="itemize">
+     K-transform
+     </li>
+     <li class="itemize">
+     StruveH
+     transform
+     </li>
+     <li class="itemize">
+     Fourier
+     sine
+     transform
+     </li>
+     <li class="itemize">
+     Fourier
+     cosine
+     transform</li></ul>
+<!--l. 227--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">D.1.3.1    </span> <a 
+ id="x326-1400000D.1.3.1"></a>Laplace transform</h5>
+<a 
+ id="dx326-1400001"></a>
+<a 
+ id="dx326-1400002"></a>
+<!--l. 230--><p class="noindent" ><a 
+ id="operator:LAPLACE_TRANSFORM"></a> <a 
+ id="dx326-1400003"></a>
+</p><!--l. 233--><p class="noindent" >The Laplace transform
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                   <span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">s</span><span 
+class="cmr-10x-x-109">) = </span><span 
+class="cmsy-10x-x-109">ℒ{</span><span 
+class="cmr-10x-x-109">F(</span><span 
+class="cmmi-10x-x-109">t</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmsy-10x-x-109">} </span><span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∫</span>
+  <sub><span 
+class="cmr-8">0</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><span 
+class="cmmi-10x-x-109">e</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmmi-8">st</span></sup><span 
+class="cmmi-10x-x-109">F</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">t</span><span 
+class="cmr-10x-x-109">)</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">dt</span>
+</td></tr></table>
+<!--l. 237--><p class="nopar" >
+</p><!--l. 239--><p class="noindent" >can be calculated by using the <span 
+class="pcrr8t-x-x-109">laplace_transform </span>operator.
+</p><!--l. 241--><p class="noindent" >This requires as parameters </p>
+     <ul class="itemize1">
+     <li class="itemize">
+     the
+     function
+     to
+     be
+     integrated
+     </li>
+     <li class="itemize">
+     the
+     integration
+     variable.</li></ul>
+<!--l. 247--><p class="noindent" >For example
+</p>
+<table 
+class="equation-star"><tr><td>
+                               <span 
+class="cmsy-10x-x-109">ℒ{</span><span 
+class="cmmi-10x-x-109">e</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmmi-8">at</span></sup><span 
+class="cmsy-10x-x-109">}</span>
+</td></tr></table>
+<!--l. 251--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p><!--l. 253--><p class="noindent" >is entered as
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1526">
+        laplace_transform(e^(-a*x),x);
+</div>
+<!--l. 257--><p class="nopar" >
+</p><!--l. 259--><p class="noindent" >and returns the result
+</p>
+<table 
+class="equation-star"><tr><td>
+                                <img 
+src="manual876x.png" alt="  1
+s-+-a"  class="frac" align="middle" />
+</td></tr></table>
+<!--l. 263--><p class="nopar" >
+</p><!--l. 265--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">D.1.3.2    </span> <a 
+ id="x326-1401000D.1.3.2"></a>Hankel transform</h5>
+<a 
+ id="dx326-1401001"></a>
+<a 
+ id="dx326-1401002"></a>
+<!--l. 268--><p class="noindent" ><a 
+ id="operator:HANKEL_TRANSFORM"></a> <a 
+ id="dx326-1401003"></a>
+</p><!--l. 271--><p class="noindent" >The Hankel transform
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                     <span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">ω</span><span 
+class="cmr-10x-x-109">) =</span> <span 
+class="cmex-10x-x-109">∫</span>
+  <sub><span 
+class="cmr-8">0</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><span 
+class="cmmi-10x-x-109">F</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">t</span><span 
+class="cmr-10x-x-109">)</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">J</span><sub>
+<span 
+class="cmmi-8">ν</span></sub><span 
+class="cmr-10x-x-109">(2</span><img 
+src="manual877x.png" alt="√ ---
+  ωt"  class="sqrt"  /><span 
+class="cmr-10x-x-109">)</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">dt</span>
+</td></tr></table>
+<!--l. 274--><p class="nopar" >
+</p><!--l. 276--><p class="noindent" >can be calculated by using the <span 
+class="pcrr8t-x-x-109">hankel_transform </span>operator, e.g.,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1527">
+        hankel_transform(f(x),x);
+</div>
+<!--l. 280--><p class="nopar" >
+</p><!--l. 282--><p class="noindent" >This is used in the same way as the <span 
+class="pcrr8t-x-x-109">laplace_transform </span>operator.
+</p><!--l. 284--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">D.1.3.3    </span> <a 
+ id="x326-1402000D.1.3.3"></a>Y-transform</h5>
+<a 
+ id="dx326-1402001"></a>
+<a 
+ id="dx326-1402002"></a>
+<!--l. 287--><p class="noindent" ><a 
+ id="operator:Y_TRANSFORM"></a> <a 
+ id="dx326-1402003"></a>
+</p><!--l. 290--><p class="noindent" >The Y-transform
+</p>
+<table 
+class="equation-star"><tr><td>
+                     <span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">ω</span><span 
+class="cmr-10x-x-109">) =</span> <span 
+class="cmex-10x-x-109">∫</span>
+  <sub><span 
+class="cmr-8">0</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><span 
+class="cmmi-10x-x-109">F</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">t</span><span 
+class="cmr-10x-x-109">)</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">Y</span> <sub>
+<span 
+class="cmmi-8">ν</span></sub><span 
+class="cmr-10x-x-109">(2</span><img 
+src="manual878x.png" alt="√---
+ ωt"  class="sqrt"  /><span 
+class="cmr-10x-x-109">)</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">dt</span>
+</td></tr></table>
+<!--l. 294--><p class="nopar" >
+</p><!--l. 296--><p class="noindent" >can be calculated by using the <span 
+class="pcrr8t-x-x-109">Y_transform </span>operator, e.g.,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1528">
+        Y_transform(f(x),x);
+</div>
+<!--l. 300--><p class="nopar" >
+</p><!--l. 302--><p class="noindent" >This is used in the same way as the <span 
+class="pcrr8t-x-x-109">laplace_transform </span>operator.
+</p><!--l. 304--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">D.1.3.4    </span> <a 
+ id="x326-1403000D.1.3.4"></a>K-transform</h5>
+<a 
+ id="dx326-1403001"></a>
+<a 
+ id="dx326-1403002"></a>
+<!--l. 307--><p class="noindent" ><a 
+ id="operator:K_TRANSFORM"></a> <a 
+ id="dx326-1403003"></a>
+</p><!--l. 310--><p class="noindent" >The K-transform
+</p>
+<table 
+class="equation-star"><tr><td>
+                     <span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">ω</span><span 
+class="cmr-10x-x-109">) =</span> <span 
+class="cmex-10x-x-109">∫</span>
+  <sub><span 
+class="cmr-8">0</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><span 
+class="cmmi-10x-x-109">F</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">t</span><span 
+class="cmr-10x-x-109">)</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">K</span><sub>
+<span 
+class="cmmi-8">ν</span></sub><span 
+class="cmr-10x-x-109">(2</span><img 
+src="manual879x.png" alt="√---
+ ωt"  class="sqrt"  /><span 
+class="cmr-10x-x-109">)</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">dt</span>
+</td></tr></table>
+<!--l. 314--><p class="nopar" >
+</p><!--l. 316--><p class="noindent" >can be calculated by using the <span 
+class="pcrr8t-x-x-109">K_transform </span>operator, e.g.,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1529">
+        K_transform(f(x),x);
+</div>
+<!--l. 320--><p class="nopar" >
+</p><!--l. 322--><p class="noindent" >This is used in the same way as the <span 
+class="pcrr8t-x-x-109">laplace_transform </span>operator.
+</p><!--l. 324--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">D.1.3.5    </span> <a 
+ id="x326-1404000D.1.3.5"></a>StruveH transform</h5>
+<a 
+ id="dx326-1404001"></a>
+<a 
+ id="dx326-1404002"></a>
+<!--l. 327--><p class="noindent" ><a 
+ id="operator:STRUVEH_TRANSFORM"></a> <a 
+ id="dx326-1404003"></a>
+</p><!--l. 330--><p class="noindent" >The StruveH transform
+</p>
+<table 
+class="equation-star"><tr><td>
+                 <span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">ω</span><span 
+class="cmr-10x-x-109">) =</span> <span 
+class="cmex-10x-x-109">∫</span>
+  <sub><span 
+class="cmr-8">0</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><span 
+class="cmmi-10x-x-109">F</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">t</span><span 
+class="cmr-10x-x-109">)</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">StruveH</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">ν,</span><span 
+class="cmr-10x-x-109">2</span><img 
+src="manual880x.png" alt="√ ---
+  ωt"  class="sqrt"  /><span 
+class="cmr-10x-x-109">)</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">dt</span>
+</td></tr></table>
+<!--l. 334--><p class="nopar" >
+</p><!--l. 336--><p class="noindent" >can be calculated by using the <span 
+class="pcrr8t-x-x-109">struveh_transform </span>operator, e.g.,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1530">
+        struveh_transform(f(x),x);
+</div>
+<!--l. 340--><p class="nopar" >
+</p><!--l. 342--><p class="noindent" >This is used in the same way as the <span 
+class="pcrr8t-x-x-109">laplace_transform </span>operator.
+</p><!--l. 344--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">D.1.3.6    </span> <a 
+ id="x326-1405000D.1.3.6"></a>Fourier sine transform</h5>
+<a 
+ id="dx326-1405001"></a>
+<a 
+ id="dx326-1405002"></a>
+<!--l. 347--><p class="noindent" ><a 
+ id="operator:FOURIER_SIN"></a> <a 
+ id="dx326-1405003"></a>
+</p><!--l. 350--><p class="noindent" >The Fourier sine transform
+</p>
+<table 
+class="equation-star"><tr><td>
+                      <span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">s</span><span 
+class="cmr-10x-x-109">) =</span> <span 
+class="cmex-10x-x-109">∫</span>
+  <sub><span 
+class="cmr-8">0</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><span 
+class="cmmi-10x-x-109">F</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">t</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmr-10x-x-109">sin</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">st</span><span 
+class="cmr-10x-x-109">)</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">dt</span>
+</td></tr></table>
+<!--l. 354--><p class="nopar" >
+</p><!--l. 356--><p class="noindent" >can be calculated by using the <span 
+class="pcrr8t-x-x-109">fourier_sin </span>operator, e.g.,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1531">
+        fourier_sin(f(x),x);
+</div>
+<!--l. 359--><p class="nopar" >
+</p><!--l. 361--><p class="noindent" >This is used in the same way as the <span 
+class="pcrr8t-x-x-109">laplace_transform </span>operator.
+</p><!--l. 363--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">D.1.3.7    </span> <a 
+ id="x326-1406000D.1.3.7"></a>Fourier cosine transform</h5>
+<a 
+ id="dx326-1406001"></a>
+<a 
+ id="dx326-1406002"></a>
+<!--l. 366--><p class="noindent" ><a 
+ id="operator:FOURIER_COS"></a> <a 
+ id="dx326-1406003"></a>
+</p><!--l. 369--><p class="noindent" >The Fourier cosine transform
+</p>
+<table 
+class="equation-star"><tr><td>
+                      <span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">s</span><span 
+class="cmr-10x-x-109">) =</span> <span 
+class="cmex-10x-x-109">∫</span>
+  <sub><span 
+class="cmr-8">0</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><span 
+class="cmmi-10x-x-109">F</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">t</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmr-10x-x-109">cos</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">st</span><span 
+class="cmr-10x-x-109">)</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">dt</span>
+</td></tr></table>
+<!--l. 373--><p class="nopar" >
+</p><!--l. 375--><p class="noindent" >can be calculated by using the <span 
+class="pcrr8t-x-x-109">fourier_cos </span>operator, e.g.,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1532">
+        fourier_cos(f(x),x);
+</div>
+<!--l. 378--><p class="nopar" >
+</p><!--l. 380--><p class="noindent" >This is used in the same way as the <span 
+class="pcrr8t-x-x-109">laplace_transform </span>operator.
+</p><!--l. 382--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">D.1.3.8    </span> <a 
+ id="x326-1407000D.1.3.8"></a>The print_conditions function</h5>
+<!--l. 383--><p class="noindent" ><a 
+ id="operator:PRINT_CONDITIONS"></a> <a 
+ id="dx326-1407001"></a>
+</p><!--l. 386--><p class="noindent" >The required conditions for the validity of the transform integrals can be viewed using
+the following command:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1533">
+        print_conditions().
+</div>
+<!--l. 391--><p class="nopar" >
+</p><!--l. 393--><p class="noindent" >For example after calculating the following laplace transform
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1534">
+        laplace_transform(x^k,x);
+</div>
+<!--l. 397--><p class="nopar" >
+</p><!--l. 399--><p class="noindent" >using the <span 
+class="pcrr8t-x-x-109">print_conditions </span>operator would produce
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1535">
+                             1
+ <br />repart(sum(ai) - sum(bj)) + ---*(q + 1 - p)
+ <br />                             2
+ <br />
+ <br />&#x003E;(q - p)*repart(s) and
+ <br />
+ <br />( - min(repart(bj))&#x003C;repart(s))&#x003C;1 - max(repart(ai))
+ <br />
+ <br /> or arg(eta)=pi*delta or
+ <br />
+ <br />( - min(repart(bj))&#x003C;repart(s))&#x003C;1 - max(repart(ai))
+ <br />
+ <br /> or arg(eta)&#x003C;pi*delta
+</div>
+<!--l. 415--><p class="nopar" >
+</p><!--l. 417--><p class="noindent" >where
+</p>
+<table 
+class="equation-star"><tr><td>
+<div class="array"> <table id="TBL-234" class="array" 
+cellpadding="0" cellspacing="0"  
+><colgroup id="TBL-234-1g"><col 
+id="TBL-234-1" /></colgroup><tr  
+ style="vertical-align:baseline;"><td  style="white-space:nowrap; text-align:left;" 
+><div class="td11"> <span 
+class="cmmi-10x-x-109">delta </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">s </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">t </span><span 
+class="cmsy-10x-x-109">−</span><img 
+src="manual881x.png" alt="u−2v-"  class="frac" align="middle" />                            </div></td>
+</tr><tr  
+ style="vertical-align:baseline;"><td  style="white-space:nowrap; text-align:left;" 
+><div class="td11"> <span 
+class="cmmi-10x-x-109">eta </span><span 
+class="cmr-10x-x-109">= 1 </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">α</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">v </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">u</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">μ </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">ρ           </span></div></td>
+</tr><tr  
+ style="vertical-align:baseline;"><td  style="white-space:nowrap; text-align:left;" 
+><div class="td11"> <span 
+class="cmmi-10x-x-109">μ </span><span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∑</span>
+  <sub><span 
+class="cmmi-8">j</span><span 
+class="cmr-8">=1</span></sub><sup><span 
+class="cmmi-8">q</span></sup><span 
+class="cmmi-10x-x-109">b</span><sub><span 
+class="cmmi-8">j</span></sub> <span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmex-10x-x-109">∑</span>
+  <sub><span 
+class="cmmi-8">i</span><span 
+class="cmr-8">=1</span></sub><sup><span 
+class="cmmi-8">p</span></sup><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">i</span></sub> <span 
+class="cmr-10x-x-109">+</span> <img 
+src="manual882x.png" alt="p−2q"  class="frac" align="middle" /> <span 
+class="cmr-10x-x-109">+ 1  </span></div></td>
+</tr><tr  
+ style="vertical-align:baseline;"><td  style="white-space:nowrap; text-align:left;" 
+><div class="td11"> <span 
+class="cmmi-10x-x-109">ρ </span><span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∑</span>
+  <sub><span 
+class="cmmi-8">j</span><span 
+class="cmr-8">=1</span></sub><sup><span 
+class="cmmi-8">v</span></sup><span 
+class="cmmi-10x-x-109">dj </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmex-10x-x-109">∑</span>
+  <sub><span 
+class="cmmi-8">i</span><span 
+class="cmr-8">=1</span></sub><sup><span 
+class="cmmi-8">u</span></sup><span 
+class="cmmi-10x-x-109">c</span><sub><span 
+class="cmmi-8">i</span></sub> <span 
+class="cmr-10x-x-109">+</span> <img 
+src="manual883x.png" alt="u−2v-"  class="frac" align="middle" /> <span 
+class="cmr-10x-x-109">+ 1 </span></div></td>
+</tr><tr  
+ style="vertical-align:baseline;"><td  style="white-space:nowrap; text-align:left;" 
+><div class="td11"> <span 
+class="cmmi-10x-x-109">s,t,u,v,p,q,α</span>as in eq. <a 
+href="#x326-1395002r1">D.1<!--tex4ht:ref: defint:eq1 --></a>                 </div></td>
+</tr></table>                                                                     </div>
+</td></tr></table>
+<!--l. 426--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p><!--l. 428--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">D.1.4    </span> <a 
+ id="x326-1408000D.1.4"></a>Extending the Tables</h4>
+<!--l. 430--><p class="noindent" >The relevant Meijer G representation for any function is found by a pattern-matching
+process which is carried out on a list of Meijer G-function deﬁnitions. This list,
+although extensive, can never hope to be complete and therefore the user may
+wish to add more deﬁnitions. Deﬁnitions can be added by adding the following
+lines:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1536">
+  defint_choose(f(~x),~var =&#x003E; f1(n,x);
+ <br />
+ <br />  symbolic putv(mellin!-transforms!*,n,’
+ <br />                (() (m n p q) (ai) (bj) (C) (var)));
+ <br />
+</div>
+<!--l. 442--><p class="nopar" > where <span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) </span>is the new function, <span 
+class="cmmi-10x-x-109">i </span><span 
+class="cmr-10x-x-109">= 1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,p</span>, <span 
+class="cmmi-10x-x-109">j </span><span 
+class="cmr-10x-x-109">= 1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,q</span>, <span 
+class="cmmi-10x-x-109">C </span>a constant, var =
+variable, n = an indexing number, where all expression must be in internal preﬁx
+form.
+</p><!--l. 447--><p class="noindent" >For example when considering <span 
+class="cmr-10x-x-109">cos</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) </span>we have the <span 
+class="ptmri8t-x-x-109">Meijer G representation</span>
+<span 
+class="ptmri8t-x-x-109">–</span>
+</p>
+<table 
+class="equation-star"><tr><td>
+                    <span 
+class="cmr-10x-x-109">cos</span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual884x.png" alt="√ --
+  π"  class="sqrt"  /><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">G</span><sub><span 
+class="cmr-8">02</span></sub><sup><span 
+class="cmr-8">10</span></sup><img 
+src="manual885x.png" alt="(  2 ||   )
+  x--|| ..1
+  4  |02"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">dx</span>
+</td></tr></table>
+<!--l. 452--><p class="nopar" >
+i.e. <span 
+class="cmmi-10x-x-109">m </span><span 
+class="cmr-10x-x-109">= 1</span>, <span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmr-10x-x-109">= 0</span>, <span 
+class="cmmi-10x-x-109">p </span><span 
+class="cmr-10x-x-109">= 0</span>, <span 
+class="cmmi-10x-x-109">q </span><span 
+class="cmr-10x-x-109">= 2</span>, <span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">i</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">{}</span>, <span 
+class="cmmi-10x-x-109">b</span><sub><span 
+class="cmmi-8">j</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmr-10x-x-109">0</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">∕</span><span 
+class="cmr-10x-x-109">2)</span>, <span 
+class="cmmi-10x-x-109">C </span><span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual886x.png" alt="√ --
+  π"  class="sqrt"  />. The corresponding
+<span 
+class="ptmri8t-x-x-109">internal deﬁnite integration package representation </span>is
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1537">
+  defint_choose(cos(~x),~var) =&#x003E; f1(3,x);
+</div>
+<!--l. 457--><p class="nopar" > where 3 is the indexing number corresponding to the 3 in the following formula
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1538">
+  symbolic putv(mellin!-transforms!*,3,’
+ <br />                (() (1 0 0 2) () (nil (quotient 1 2))
+ <br />                (sqrt pi) (quotient (expt x 2) 4)));
+</div>
+<!--l. 464--><p class="nopar" >
+</p><!--l. 466--><p class="noindent" >or the more interesting example of the Bessel function <span 
+class="cmmi-10x-x-109">J</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span>:
+</p><!--l. 468--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Meijer G representation –</span>
+</p>
+<table 
+class="equation-star"><tr><td>
+                      <span 
+class="cmmi-10x-x-109">J</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">G</span><sub><span 
+class="cmr-8">02</span></sub><sup><span 
+class="cmr-8">10</span></sup><img 
+src="manual887x.png" alt="     |
+( x2 |  .. )
+  ---|| n−-n
+   4 | 2 2"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">dx</span>
+</td></tr></table>
+<!--l. 473--><p class="nopar" >
+</p><!--l. 475--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Internal deﬁnite integration package representation –</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1539">
+  defint_choose(besselj(~n,~x),~var) =&#x003E; f1(50,x,n);
+ <br />
+ <br />  symbolic putv(mellin!-transforms!*,50,’
+ <br />          ((n) (1 0 0 2) () ((quotient n 2)
+ <br />                             (minus (quotient n 2))) 1
+ <br />                            (quotient (expt x 2) 4)));
+</div>
+<!--l. 484--><p class="nopar" >
+</p><!--l. 488--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">D.1.5    </span> <a 
+ id="x326-1409000D.1.5"></a>Acknowledgements</h4>
+<a 
+ id="dx326-1409001"></a>
+<a 
+ id="dx326-1409002"></a>
+<!--l. 490--><p class="noindent" >Kerry Gaskell would like to thank Victor Adamchik whose implementation of the
+deﬁnite integration package for REDUCE is vital to this interface.
+</p><!--l. 2--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 4--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualap4.html#manualse224.html" >Up</a></td><td class="clinks"><a 
+href="manualse225.html" >Next</a></td><td class="clinks"><a 
+href="manualse224.html" >Front</a></td></tr></table><a 
+ id="tailmanualse224.html"></a>  </p> 
+</body> 
+</html>

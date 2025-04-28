@@ -1,0 +1,60 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Modular Solve and Roots</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse47.html" >Up</a></td><td class="clinks"><a 
+href="manualse48.html" >Next</a></td><td class="clinks"><a 
+href="manualse46.html" >Prev</a></td><td class="clinks"><a 
+href="manualse46.html#tailmanualse46.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse47.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">7.20    </span> <a 
+ id="x62-1100007.20"></a>Modular Solve and Roots</h3>
+<a 
+ id="dx62-110001"></a>
+<a 
+ id="dx62-110002"></a>
+<!--l. 6--><p class="noindent" ><a 
+ id="operator:M_SOLVE"></a> <a 
+ id="operator:M_ROOTS"></a> The operators <span 
+class="pcrr8t-x-x-109">(</span>m_solve) and <span 
+class="pcrr8t-x-x-109">(</span>m_roots) are for modular polynomials and modular polynomial
+systems.<span class="footnote-mark"><a 
+href="manual63.html#fn6x7"><sup class="textsuperscript">6</sup></a></span><a 
+ id="x62-110003f6"></a> 
+The moduli need not be primes. <span 
+class="pcrr8t-x-x-109">m_solve </span>requires a modulus to be set. <span 
+class="pcrr8t-x-x-109">m_roots </span>takes
+the modulus as a second argument. For example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-192">
+on modular; setmod 8;
+ <br />m_solve(2x=4);            -&#x003E;  {{X=2},{X=6}}
+ <br />m_solve({x^2-y^3=3});
+ <br />    -&#x003E;  {{X=0,Y=5}, {X=2,Y=1}, {X=4,Y=5}, {X=6,Y=1}}
+ <br />m_solve({x=2,x^2-y^3=3}); -&#x003E;  {{X=2,Y=1}}
+ <br />off modular;
+ <br />m_roots(x^2-1,8);         -&#x003E;  {1,3,5,7}
+ <br />m_roots(x^3-x,7);         -&#x003E;  {0,1,6}
+</div>
+<!--l. 22--><p class="nopar" >
+                                                                     
+
+                                                                     
+<table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse47.html" >Up</a></td><td class="clinks"><a 
+href="manualse48.html" >Next</a></td><td class="clinks"><a 
+href="manualse46.html" >Prev</a></td><td class="clinks"><a 
+href="manualse46.html#tailmanualse46.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse47.html" >Front</a></td></tr></table><a 
+ id="tailmanualse47.html"></a> </p> 
+</body> 
+</html>

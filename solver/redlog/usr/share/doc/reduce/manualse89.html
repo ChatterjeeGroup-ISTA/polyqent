@@ -1,0 +1,52 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Error Handling: errcont, retry</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch13.html#manualse89.html" >Up</a></td><td class="clinks"><a 
+href="manualse90.html" >Next</a></td><td class="clinks"><a 
+href="#tailmanualse89.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">13.1    </span> <a 
+ id="x115-21900013.1"></a>Error Handling: <span 
+class="pcrr8t-">errcont</span>, <span 
+class="pcrr8t-">retry</span></h3>
+<!--l. 20--><p class="noindent" ><a 
+ id="switch:ERRCONT"></a> There is also a diﬀerence in the handling of errors. In the former case, the computation
+can continue since you have the opportunity to correct the mistake. In batch mode, the
+error may lead to consequent erroneous (and possibly time consuming) computations. So
+in the default case, no further evaluation occurs, although the remainder of the input is
+checked for syntax errors. A message <span 
+class="pcrr8t-x-x-109">&#x0022;Continuing with parsing only&#x0022;</span>
+informs you that this is happening. On the other hand, the switch <span 
+class="pcrr8t-x-x-109">errcont</span>,<a 
+ id="dx115-219001"></a><a 
+ id="dx115-219002"></a><a 
+ id="dx115-219003"></a> if
+on, will cause the system to continue evaluating expressions after such errors
+occur.
+</p><!--l. 32--><p class="noindent" ><a 
+ id="command:RETRY"></a> When a syntactical error occurs, the place where the system detected the error is marked
+with three dollar signs (<span 
+class="pcrr8t-x-x-109">$$$</span>). In interactive mode, you can then use <span 
+class="pcrr8t-x-x-109">ed</span><a 
+ id="dx115-219004"></a> to correct the
+error, or retype the command. When a non-syntactical error occurs in interactive mode,
+the command being evaluated at the time the last error occurred is saved, and may later
+be reevaluated by the command <span 
+class="pcrr8t-x-x-109">retry</span>.<a 
+ id="dx115-219005"></a>
+                                                                     
+
+                                                                     
+</p><!--l. 41--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch13.html#manualse89.html" >Up</a></td><td class="clinks"><a 
+href="manualse90.html" >Next</a></td><td class="clinks"><a 
+href="manualse89.html" >Front</a></td></tr></table><a 
+ id="tailmanualse89.html"></a> </p> 
+</body> 
+</html>

@@ -1,0 +1,389 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>C Changes since Version 3.8</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manual.html#manualap3.html" >Up</a></td><td class="clinks"><a 
+href="manualap4.html" >Next</a></td><td class="clinks"><a 
+href="manualap2.html" >Prev</a></td><td class="clinks"><a 
+href="manualap2.html#tailmanualap2.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualap3.html">Tail</a></td></tr></table><h2 class="appendixHead"><span class="titlemark">Appendix C</span><br /><a 
+ id="x324-1377000C"></a>Changes since Version 3.8</h2>
+<div class="likeparagraphTOCS">
+</div>
+<!--l. 3--><p class="noindent" ><span class="likeparagraphHead"><a 
+ id="x324-1378000C"></a>New packages</span>
+assert bibasis breduce cde cdiﬀ clprl gcref guardian lalr lessons libreduce listvecops
+logoturtle lpdo redfront reduce4 sstools utf8
+</p>
+<!--l. 24--><p class="noindent" ><span class="likeparagraphHead"><a 
+ id="x324-1379000C"></a>Core package rlisp</span>
+Support for namespaces (::)
+</p><!--l. 28--><p class="noindent" >Default value in switch statement
+</p><!--l. 30--><p class="noindent" >Support for utf8 characters
+</p><!--l. 32--><p class="noindent" >in_tex command
+</p>
+<!--l. 34--><p class="noindent" ><span class="likeparagraphHead"><a 
+ id="x324-1380000C"></a>Core package poly</span>
+Improvements for diﬀerentiation: new switches <span 
+class="pcrr8t-x-x-109">expanddf</span>, <span 
+class="pcrr8t-x-x-109">allowdfint </span>etc (from
+odesolve)
+</p><!--l. 39--><p class="noindent" >New operator <span 
+class="pcrr8t-x-x-109">reimpart</span>
+</p>
+<!--l. 41--><p class="noindent" ><span class="likeparagraphHead"><a 
+ id="x324-1381000C"></a>Core package alg</span>
+New switch <span 
+class="pcrr8t-x-x-109">precise_complex</span>
+</p><!--l. 45--><p class="noindent" >Improvements for switch <span 
+class="pcrr8t-x-x-109">combineexpt </span>(exptchk.red)
+</p><!--l. 47--><p class="noindent" >New command <span 
+class="pcrr8t-x-x-109">unset</span>
+</p><!--l. 49--><p class="noindent" >New operators <span 
+class="pcrr8t-x-x-109">continued_fraction</span>, <span 
+class="pcrr8t-x-x-109">totaldeg</span>
+</p><!--l. 51--><p class="noindent" >Improvements to the <span 
+class="pcrr8t-x-x-109">conj </span>operator, added <span 
+class="pcrr8t-x-x-109">selfconjugate </span>declaration.
+</p><!--l. 53--><p class="noindent" >Added <span 
+class="pcrr8t-x-x-109">complex_conjugates </span>declaration to associate pairs of identiﬁers as mutual
+                                                                     
+
+                                                                     
+complex-conjugates.
+</p>
+<!--l. 56--><p class="noindent" ><span class="likeparagraphHead"><a 
+ id="x324-1382000C"></a>Core Package mathpr</span>
+New switch <span 
+class="pcrr8t-x-x-109">unicode_in_off_nat </span>to have unicode characters displayed as such
+when nat is oﬀ.
+</p>
+<!--l. 61--><p class="noindent" ><span class="likeparagraphHead"><a 
+ id="x324-1383000C"></a>Core Package solve</span>
+New boolean operator <span 
+class="pcrr8t-x-x-109">polyp</span>(p,var), to determine whether p is a pure polynomial in var,
+ie. the coeﬃcients of p do not contain var.
+</p>
+<!--l. 66--><p class="noindent" ><span class="likeparagraphHead"><a 
+ id="x324-1384000C"></a>Core Package matrix</span>
+New keyword <span 
+class="ptmb8t-x-x-109">matrixproc </span>for declaration of matrix-valued procedures, and listproc for
+declaration of list-valued procedures.
+</p>
+<!--l. 70--><p class="noindent" ><span class="likeparagraphHead"><a 
+ id="x324-1385000C"></a>Operators now deﬁned in the REDUCE core</span>
+From changevar: <span 
+class="pcrr8t-x-x-109">changevar</span>,
+</p><!--l. 74--><p class="noindent" >From polyrat: <span 
+class="pcrr8t-x-x-109">divide</span>, <span 
+class="pcrr8t-x-x-109">pseudo_divide</span>, <span 
+class="pcrr8t-x-x-109">pseudo_div</span>, <span 
+class="pcrr8t-x-x-109">pseudo_quotient</span>,
+<span 
+class="pcrr8t-x-x-109">pseudo_remainder</span>,
+</p><!--l. 76--><p class="noindent" >From specfn: <span 
+class="pcrr8t-x-x-109">Li</span>, <span 
+class="pcrr8t-x-x-109">Si</span>, <span 
+class="pcrr8t-x-x-109">Ci</span>, <span 
+class="pcrr8t-x-x-109">Shi</span>, <span 
+class="pcrr8t-x-x-109">Chi</span>, <span 
+class="pcrr8t-x-x-109">Fresnel_S</span>, <span 
+class="pcrr8t-x-x-109">Fresnel_C</span>, <span 
+class="pcrr8t-x-x-109">gamma</span>, <span 
+class="pcrr8t-x-x-109">igamma</span>,
+<span 
+class="pcrr8t-x-x-109">psi</span>, <span 
+class="pcrr8t-x-x-109">polygamma</span>, <span 
+class="pcrr8t-x-x-109">beta</span>, <span 
+class="pcrr8t-x-x-109">ibeta</span>, <span 
+class="pcrr8t-x-x-109">euler</span>, <span 
+class="pcrr8t-x-x-109">bernoulli</span>, <span 
+class="pcrr8t-x-x-109">pochhammer</span>,
+<span 
+class="pcrr8t-x-x-109">lerch_phi</span>, <span 
+class="pcrr8t-x-x-109">polylog</span>, <span 
+class="pcrr8t-x-x-109">zeta</span>, <span 
+class="pcrr8t-x-x-109">besselj</span>, <span 
+class="pcrr8t-x-x-109">bessely</span>, <span 
+class="pcrr8t-x-x-109">besseli</span>, <span 
+class="pcrr8t-x-x-109">besselk</span>,
+<span 
+class="pcrr8t-x-x-109">hankel1</span>, <span 
+class="pcrr8t-x-x-109">hankel2</span>, <span 
+class="pcrr8t-x-x-109">kummerM</span>, <span 
+class="pcrr8t-x-x-109">kummerU</span>, <span 
+class="pcrr8t-x-x-109">struveh</span>, <span 
+class="pcrr8t-x-x-109">struvel</span>, <span 
+class="pcrr8t-x-x-109">lommel1</span>,
+<span 
+class="pcrr8t-x-x-109">lommel2</span>, <span 
+class="pcrr8t-x-x-109">whittakerm</span>, <span 
+class="pcrr8t-x-x-109">whittakerw</span>, <span 
+class="pcrr8t-x-x-109">Airy_Ai</span>, <span 
+class="pcrr8t-x-x-109">Airy_Bi</span>, <span 
+class="pcrr8t-x-x-109">Airy_AiPrime</span>,
+<span 
+class="pcrr8t-x-x-109">Airy_biprime</span>, <span 
+class="pcrr8t-x-x-109">binomial</span>, <span 
+class="pcrr8t-x-x-109">solidharmonic</span>, <span 
+class="pcrr8t-x-x-109">sphericalharmonic</span>,
+<span 
+class="pcrr8t-x-x-109">fibonacci</span>,<span 
+class="pcrr8t-x-x-109">fibonaccip</span>, <span 
+class="pcrr8t-x-x-109">motzkin</span>, <span 
+class="pcrr8t-x-x-109">hypergeometric</span>, <span 
+class="pcrr8t-x-x-109">MeijerG</span>
+</p><!--l. 107--><p class="noindent" >From limit: <span 
+class="pcrr8t-x-x-109">limits</span>, <span 
+class="pcrr8t-x-x-109">limit!+</span>, <span 
+class="pcrr8t-x-x-109">limit!-</span>,
+</p><!--l. 110--><p class="noindent" >From taylor and tps <span 
+class="pcrr8t-x-x-109">taylor</span>, <span 
+class="pcrr8t-x-x-109">implicit_taylor</span>, <span 
+class="pcrr8t-x-x-109">inverse_taylor</span>,
+<span 
+class="pcrr8t-x-x-109">taylororiginal</span>, <span 
+class="pcrr8t-x-x-109">taylortemplate</span>, <span 
+class="pcrr8t-x-x-109">taylorcoefflist</span>, <span 
+class="pcrr8t-x-x-109">taylortostandard</span>,
+                                                                     
+
+                                                                     
+<span 
+class="pcrr8t-x-x-109">taylorcombine</span>, <span 
+class="pcrr8t-x-x-109">taylorseriesp</span>, <span 
+class="pcrr8t-x-x-109">taylorrevert</span>, <span 
+class="pcrr8t-x-x-109">ps</span>, <span 
+class="pcrr8t-x-x-109">psexplim</span>,
+<span 
+class="pcrr8t-x-x-109">psordlim</span>, <span 
+class="pcrr8t-x-x-109">psterm</span>, <span 
+class="pcrr8t-x-x-109">psorder</span>, <span 
+class="pcrr8t-x-x-109">pssetorder</span>, <span 
+class="pcrr8t-x-x-109">psdepvar</span>, <span 
+class="pcrr8t-x-x-109">psexpansionpt</span>,
+<span 
+class="pcrr8t-x-x-109">psfunction</span>, <span 
+class="pcrr8t-x-x-109">pschangevar</span>, <span 
+class="pcrr8t-x-x-109">psreverse</span>, <span 
+class="pcrr8t-x-x-109">pscompose</span>, <span 
+class="pcrr8t-x-x-109">pssum</span>, <span 
+class="pcrr8t-x-x-109">pstaylor</span>,
+<span 
+class="pcrr8t-x-x-109">pscopy</span>, <span 
+class="pcrr8t-x-x-109">pstruncate</span>
+</p><!--l. 118--><p class="noindent" >From fps: <span 
+class="pcrr8t-x-x-109">fps</span>, <span 
+class="pcrr8t-x-x-109">simplede</span>, <span 
+class="pcrr8t-x-x-109">infsum</span>
+</p><!--l. 120--><p class="noindent" >From compact: <span 
+class="pcrr8t-x-x-109">compact</span>
+</p><!--l. 122--><p class="noindent" >From residue: <span 
+class="pcrr8t-x-x-109">residue</span>, <span 
+class="pcrr8t-x-x-109">poleorder</span>
+</p><!--l. 124--><p class="noindent" >From ineq and rsolve: <span 
+class="pcrr8t-x-x-109">ineq_solve</span>, <span 
+class="pcrr8t-x-x-109">r_solve</span>, <span 
+class="pcrr8t-x-x-109">i_solve</span>,
+</p><!--l. 126--><p class="noindent" >From roots: <span 
+class="pcrr8t-x-x-109">realroots</span>, <span 
+class="pcrr8t-x-x-109">isolater</span>, <span 
+class="pcrr8t-x-x-109">rlrootno</span>, <span 
+class="pcrr8t-x-x-109">roots</span>, <span 
+class="pcrr8t-x-x-109">roots_at_prec</span>,
+<span 
+class="pcrr8t-x-x-109">root_val</span>, <span 
+class="pcrr8t-x-x-109">nearestroot</span>, <span 
+class="pcrr8t-x-x-109">firstroot</span>, <span 
+class="pcrr8t-x-x-109">getroot</span>, <span 
+class="pcrr8t-x-x-109">mkpoly</span>, <span 
+class="pcrr8t-x-x-109">gfnewt</span>,
+<span 
+class="pcrr8t-x-x-109">gfroot</span>,
+</p><!--l. 131--><p class="noindent" >From laplace: <span 
+class="pcrr8t-x-x-109">laplace</span>, <span 
+class="pcrr8t-x-x-109">invlap</span>,
+</p><!--l. 133--><p class="noindent" >From deﬁnt: <span 
+class="pcrr8t-x-x-109">laplace_transform</span>, <span 
+class="pcrr8t-x-x-109">hankel_transform</span>, <span 
+class="pcrr8t-x-x-109">y_transform</span>,
+<span 
+class="pcrr8t-x-x-109">k_transform</span>, <span 
+class="pcrr8t-x-x-109">struveh_transform</span>, <span 
+class="pcrr8t-x-x-109">fourier_sin</span>, <span 
+class="pcrr8t-x-x-109">fourier_cos</span>,
+</p><!--l. 137--><p class="noindent" >From arnum: <span 
+class="pcrr8t-x-x-109">defpoly</span>, <span 
+class="pcrr8t-x-x-109">split_field</span>
+</p><!--l. 139--><p class="noindent" >From zeilberg: <span 
+class="pcrr8t-x-x-109">extended_gosper</span>, <span 
+class="pcrr8t-x-x-109">extended_sumrecursion</span>,
+<span 
+class="pcrr8t-x-x-109">gosper</span>, <span 
+class="pcrr8t-x-x-109">hyperrecursion</span>, <span 
+class="pcrr8t-x-x-109">hypersum</span>, <span 
+class="pcrr8t-x-x-109">hyperterm</span>, <span 
+class="pcrr8t-x-x-109">sumtohyper</span>,
+<span 
+class="pcrr8t-x-x-109">sumrecursion</span>, <span 
+class="pcrr8t-x-x-109">simplify_gamma</span>, <span 
+class="pcrr8t-x-x-109">simplify_gamma2</span>, <span 
+class="pcrr8t-x-x-109">simplify_gamman</span>,
+<span 
+class="pcrr8t-x-x-109">simplify_combinatorial</span>,
+</p><!--l. 145--><p class="noindent" >From trigsimp: <span 
+class="pcrr8t-x-x-109">trigsimp</span>, <span 
+class="pcrr8t-x-x-109">triggcd</span>, <span 
+class="pcrr8t-x-x-109">trigfactorize</span>
+</p><!--l. 147--><p class="noindent" >From ratint: <span 
+class="pcrr8t-x-x-109">ratint</span>, <span 
+class="pcrr8t-x-x-109">log_sum</span>
+</p><!--l. 149--><p class="noindent" >From odesolve: <span 
+class="pcrr8t-x-x-109">odesolve</span>, <span 
+class="pcrr8t-x-x-109">dsolve</span>, <span 
+class="pcrr8t-x-x-109">root_of_unity</span>, <span 
+class="pcrr8t-x-x-109">plus_or_minus</span>,
+</p><!--l. 152--><p class="noindent" >From gnuplot: New operator <span 
+class="pcrr8t-x-x-109">plot</span>, new commands <span 
+class="pcrr8t-x-x-109">gnuplot</span>, <span 
+class="pcrr8t-x-x-109">plotshow </span>and
+<span 
+class="pcrr8t-x-x-109">plotreset</span>.
+</p><!--l. 155--><p class="noindent" >New switches <span 
+class="pcrr8t-x-x-109">tracefps</span>, <span 
+class="pcrr8t-x-x-109">zb_factor</span>, <span 
+class="pcrr8t-x-x-109">zb_proof</span>, <span 
+class="pcrr8t-x-x-109">zb_trace</span>
+</p><!--l. 157--><p class="noindent" >Constants now part of the core:<br />
+<span 
+class="pcrr8t-x-x-109">catalan</span>, <span 
+class="pcrr8t-x-x-109">euler_gamma</span>, <span 
+class="pcrr8t-x-x-109">golden_ratio</span>, <span 
+class="pcrr8t-x-x-109">khinchin</span>.
+</p><!--l. 161--><p class="noindent" >Variables as part of the core: <span 
+class="pcrr8t-x-x-109">gosper_representation</span>, <span 
+class="pcrr8t-x-x-109">zb_direction</span>,
+<span 
+class="pcrr8t-x-x-109">zb_order</span>, <span 
+class="pcrr8t-x-x-109">zeilberger_representation</span>,
+</p><!--l. 165--><p class="noindent" >Consistent branch cuts for complex numerical functions.
+</p>
+<!--l. 169--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x324-1386000C"></a><span 
+class="ptmb8t-x-x-109">Package specfn</span></span>
+psi (digamma) function can now be calculated numerically for complex arguments.
+                                                                     
+
+                                                                     
+</p>
+<!--l. 173--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x324-1387000C"></a><span 
+class="ptmb8t-x-x-109">Package specfn</span></span>
+New functions: <span 
+class="pcrr8t-x-x-109">theta1d</span>, <span 
+class="pcrr8t-x-x-109">theta2d</span>, <span 
+class="pcrr8t-x-x-109">theta3d </span>and <span 
+class="pcrr8t-x-x-109">theta4d </span>— numerical
+evaluation derivatives of theta functions.
+</p>
+<!--l. 178--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x324-1388000C"></a><span 
+class="ptmb8t-x-x-109">Package specfn</span></span>
+<span 
+class="pcrr8t-x-x-109">Weierstrass</span>, <span 
+class="pcrr8t-x-x-109">WeierstrassZeta</span>, <span 
+class="pcrr8t-x-x-109">sigma</span>, <span 
+class="pcrr8t-x-x-109">sigma1</span>, <span 
+class="pcrr8t-x-x-109">sigma2</span>, <span 
+class="pcrr8t-x-x-109">sigma3 </span>and
+<span 
+class="pcrr8t-x-x-109">sigma4 </span>— rules and numerical code added.
+</p>
+<!--l. 183--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x324-1389000C"></a><span 
+class="ptmb8t-x-x-109">Package deﬁnt</span></span>
+Added tracing output printing of which is controlled by the switch <span 
+class="pcrr8t-x-x-109">trdefint</span>.
+</p>
+<!--l. 187--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x324-1390000C"></a><span 
+class="ptmb8t-x-x-109">TeXmacs interface</span></span>
+Print prompt numbers by setting the switch <span 
+class="pcrr8t-x-x-109">promptnumbers </span>to on by default.
+</p>
+<!--l. 191--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x324-1391000C"></a><span 
+class="ptmb8t-x-x-109">Package excalc</span></span>
+New command <span 
+class="pcrr8t-x-x-109">killing_vector</span>.
+</p>
+<!--l. 195--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x324-1392000C"></a><span 
+class="ptmb8t-x-x-109">Package specfn</span></span>
+<span 
+class="pcrr8t-x-x-109">arcsn</span>, <span 
+class="pcrr8t-x-x-109">arccn</span>, <span 
+class="pcrr8t-x-x-109">arcdn</span>, <span 
+class="pcrr8t-x-x-109">arcns</span>, <span 
+class="pcrr8t-x-x-109">arcnc</span>, <span 
+class="pcrr8t-x-x-109">arcnd</span>, <span 
+class="pcrr8t-x-x-109">arcsc</span>, <span 
+class="pcrr8t-x-x-109">arcsd</span>, <span 
+class="pcrr8t-x-x-109">arccs</span>, <span 
+class="pcrr8t-x-x-109">arccd</span>,
+<span 
+class="pcrr8t-x-x-109">arcds</span>, <span 
+class="pcrr8t-x-x-109">arcdc </span>— rules and numerical code added for inverse Jacobian elliptic funtions,
+real arguments and values only.
+                                                                     
+
+                                                                     
+</p>
+<!--l. 202--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x324-1393000C"></a><span 
+class="ptmb8t-x-x-109">Package ellipfn</span></span>
+New package comprising modules: <span 
+class="pcrr8t-x-x-109">ellipfn</span>, <span 
+class="pcrr8t-x-x-109">efjacobi</span>, <span 
+class="pcrr8t-x-x-109">efellint</span>, <span 
+class="pcrr8t-x-x-109">efjacinv</span>,
+<span 
+class="pcrr8t-x-x-109">eftheta </span>and <span 
+class="pcrr8t-x-x-109">efweier</span>. These are essentially copies of the modules <span 
+class="pcrr8t-x-x-109">sfellip</span>,
+<span 
+class="pcrr8t-x-x-109">sfellipi</span>, <span 
+class="pcrr8t-x-x-109">sfellipinv</span>, <span 
+class="pcrr8t-x-x-109">sftheta </span>and <span 
+class="pcrr8t-x-x-109">sfweier </span>which have been removed from
+package <span 
+class="pcrr8t-x-x-109">specfn</span>. Documentation moved into a new user contributed package in
+<span 
+class="pcrr8t-x-x-109">ellipfn.tex</span>.
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 2--><p class="noindent" ><a 
+ id="sec:appendixd"></a>
+                                                                     
+
+                                                                     
+<table cellspacing="5"><tr><td class="clinks"><a 
+href="manual.html#manualap3.html" >Up</a></td><td class="clinks"><a 
+href="manualap4.html" >Next</a></td><td class="clinks"><a 
+href="manualap2.html" >Prev</a></td><td class="clinks"><a 
+href="manualap2.html#tailmanualap2.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualap3.html" >Front</a></td></tr></table><a 
+ id="tailmanualap3.html"></a>  </p> 
+</body> 
+</html>

@@ -1,0 +1,555 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>The CVIT package</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualap4.html#manualse225.html" >Up</a></td><td class="clinks"><a 
+href="manualse224.html" >Prev</a></td><td class="clinks"><a 
+href="manualse224.html#tailmanualse224.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse225.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">D.2    </span> <a 
+ id="x327-1410000D.2"></a>The CVIT package</h3>
+<a 
+ id="dx327-1410001"></a>
+<a 
+ id="dx327-1410002"></a>
+<!--l. 7--><p class="noindent" >This package provides an alternative method for computing traces of Dirac gamma
+matrices, based on an algorithm by Cvitanovich that treats gamma matrices as 3-j
+symbols.
+</p><!--l. 11--><p class="noindent" >Authors: V.Ilyin, A.Kryukov, A.Rodionov, A.Taranov. <a 
+ id="dx327-1410003"></a><a 
+ id="dx327-1410004"></a> <a 
+ id="dx327-1410005"></a><a 
+ id="dx327-1410006"></a> <a 
+ id="dx327-1410007"></a><a 
+ id="dx327-1410008"></a> <a 
+ id="dx327-1410009"></a><a 
+ id="dx327-1410010"></a>
+</p><!--l. 17--><p class="noindent" >In modern high energy physics the calculation of Feynman diagrams are still very
+important. One of the diﬃculties of these calculations are trace calculations. So the
+calculation of traces of Dirac’s <span 
+class="cmmi-10x-x-109">γ</span>-matrices were one of ﬁrst task of computer algebra
+systems. All available algorithms are based on the fact that gamma-matrices constitute a
+basis of a Cliﬀord algebra:
+</p>
+<table 
+class="equation-star"><tr><td>
+                          <img 
+src="manual888x.png" alt="{Gm, Gn }"  class="left" align="middle" /> <span 
+class="cmr-10x-x-109">= 2</span><span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmmi-8">mn</span></sub><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 25--><p class="nopar" >
+</p><!--l. 27--><p class="noindent" >We present the implementation of an alternative algorithm based on treating of
+gamma-matrices as 3-j symbols (details may be found in <span class="cite">[<a 
+href="manualap2.html#XIlyin:89">IKRT89</a>, <a 
+href="manualap2.html#XKennedy:1982">Ken82</a>]</span>).
+</p><!--l. 31--><p class="noindent" >The program consists of 5 modules described below.
+</p><!--l. 33--><p class="noindent" >
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1540">
+ <br />                    MODULES CROSS REFERENCES
+ <br />   +--------+
+ <br />   | REDUCE |
+ <br />   |________|                  |ISIMP1
+ <br />    ISIMP2|         +-----------------------+
+ <br />          +---&#x003E;-----| RED_TO_CVIT_INTERFACE |
+ <br />                    |_______________________|
+ <br />                 CALC_SPUR|          |REPLACE_BY_VECTOR
+ <br />                          |          |REPLACE_BY_VECTORP
+ <br />                          |          |GAMMA5P
+ <br />                          ^          V
+ <br />                         +--------------+
+ <br />                         | CVITMAPPING  |
+ <br />                         |______________|
+ <br />                                ^
+ <br />                                |PRE-CALC-MAP
+ <br />                                |CALC_MAP_TAR
+ <br />                                |CALC_DENTAR
+ <br />                                |
+ <br />                         +-------------+
+ <br />                         | INTERFIERZ  |
+ <br />                         |_____________|
+ <br />                            |         |MK-NUMR
+ <br />                            |         |STRAND-ALG-TOP
+ <br />                            |         ^
+ <br />               MAP-TO-STRAND|    +------------+
+ <br />                   INCIDENT1|    | EVAL-MAPS  |
+ <br />                            |    |____________|
+ <br />                            ^               |DELETEZ1
+ <br />                            |               |CONTRACT-STRAND
+ <br />                  +----------------+        |COLOR-STRAND
+ <br />                  | MAP-TO-STRAND  |----&#x003E;---+
+ <br />                  |________________|
+ <br />
+ <br />
+                                                                     
+
+                                                                     
+</div>
+<!--l. 71--><p class="nopar" >
+</p>
+<h4 class="likesubsectionHead"><a 
+ id="x327-1411000D.2"></a>Module RED_TO_CVIT_INTERFACE</h4>
+<div class="center" 
+>
+<!--l. 76--><p class="noindent" >
+</p><!--l. 77--><p class="noindent" >Author: A.P.Kryukov<br />
+Purpose:interface REDUCE and CVIT package</p></div>
+<!--l. 81--><p class="noindent" >RED_TO_CVIT_INTERFACE module is intended for connection of REDUCE with
+main module of CVIT package. The main idea is to preserve standard REDUCE syntax
+for high energy calculations. For realization of this we redeﬁne  SYMBOLIC
+PROCEDURE ISIMP1 from HEPhys module of REDUCE system.
+</p><!--l. 87--><p class="noindent" >After loading CVIT package user may use switch CVIT which is <span 
+class="pcrr8t-x-x-109">ON </span>by default. If switch
+CVIT is <span 
+class="pcrr8t-x-x-109">OFF </span>then calculations of Diracs matrices traces are performed using
+standard REDUCE facilities. If CVIT switch is <span 
+class="pcrr8t-x-x-109">ON </span>then CVIT package will be
+active.
+</p><!--l. 92--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">RED_TO_CVIT_INTERFACE </span>module performs some primitive simpliﬁcation and
+control input data independently. For example it remove <span 
+class="cmmi-10x-x-109">G</span><sub><span 
+class="cmmi-8">m</span></sub><span 
+class="cmmi-10x-x-109">G</span><sub><span 
+class="cmmi-8">m</span></sub>, check parity of the
+number of Dirac matrices in each trace <span 
+class="ptmri8t-x-x-109">etc</span>. There is one principal restriction concerning
+G5-matrix. There are no closed form for trace in non-integer dimension case
+when trace include G5-matrix. The next restriction is that if the space-time
+dimension is integer then it must be even (2,4,6,...). If these and other restrictions are
+violated then the user get corresponding error message. List of messages is
+included.
+</p>
+<div class="center" 
+>
+<!--l. 102--><p class="noindent" >
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1541">
+                  LIST OF IMPORTED FUNCTIONS
+ <br />-------------------------------------------------
+ <br /> Function              From module
+ <br />-------------------------------------------------
+ <br /> ISIMP2                HEPhys
+ <br /> CALC_SPUR             CVITMAPPING
+ <br />-------------------------------------------------
+</div>
+<!--l. 111--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1542">
+                  LIST OF EXPORTED FUNCTION
+ <br />-------------------------------------------------
+ <br /> Function              To module
+ <br />-------------------------------------------------
+ <br /> ISIMP1                HEPhys (redefine)
+ <br /> REPLACE_BY_VECTOR     EVAL_MAP
+ <br /> REPLACE_BY_VECTORP    EVAL__MAP
+ <br /> GAMMA5P               CVITMAPPING, EVAL_MAP
+ <br />-------------------------------------------------
+</div>
+<!--l. 123--><p class="nopar" ></p></div>
+<!--l. 128--><p class="noindent" >
+</p>
+<h4 class="likesubsectionHead"><a 
+ id="x327-1412000D.2"></a>Module CVITMAPPING</h4>
+<div class="center" 
+>
+<!--l. 130--><p class="noindent" >
+</p><!--l. 131--><p class="noindent" >Author: A.Ya.Rodionov<br />
+Purpose: graphs reduction</p></div>
+<!--l. 135--><p class="noindent" >CVITMAPPING module is intended for diagrams calculation according to
+Cvitanovic - Kennedy algorithm. The top function of this module CALC_SPUR is
+called from RED_TO_CVIT_INTERFACE interface module. The main idea of
+the algorithm consists in diagram simpliﬁcation according to rules (1.9’) and
+(1.14) from [1]. The input data - trace of Diracs gamma matrices (G-matrices)
+has a form of a list of identiﬁers lists with cyclic order. Some of identiﬁers
+may be identical. In this case we assume summation over dummy indices. So
+trace Sp(GbGr).Sp(GwGbGcGwGcGr) is represented as list ((b r) (w b c w c
+r)).
+                                                                     
+
+                                                                     
+</p><!--l. 146--><p class="noindent" >The ﬁrst step is to transform the input data to “map” structure and then to reduce the map
+to a “simple” one. This transformation is made by function TRANSFORM_MAP_ (top
+function). Transformation is made in three steps. At the ﬁrst step the input data are
+transformed to the internal form - a map (by function PREPARE_MAP_). At the second
+step a map is subjected to Fierz transformations (1.14) (function MK_SIMPLE_MAP_).
+At this step of optimization can be maid (if switch CVITOP is on) by function
+MK_FIRZ_OP. In this case Fierzing starts with linked vertices with minimal
+distance (number of vertices) between them. After Fierz transformations map
+is further reduced by vertex simpliﬁcation routine MK_SIMPLE_VERTEX
+using (1.9’). Vertices reduced to primitive ones, that is to vertices with three or
+less edges. This is the last (third) step in transformation from input to internal
+data.
+</p><!--l. 161--><p class="noindent" >The next step is optional. If switch CVITBTR is on factorisation of bubble
+(function FIND_BUBBLES1) and triangle (function FIND_TRIANGLES1)
+submaps is made. This factorisation is very eﬃcient for “wheel” diagrams and
+unnecessary for “lattice” diagrams. Factorisation is made recursively by substituting
+composed edges for bubbles and composed vertices for triangles. So check (function
+SORT_ATLAS) must be done to test possibility of future marking procedure. If
+the check fails then a new attempt to reorganize atlas (so we call complicated
+structure witch consists of MAP, COEFFicient and DENOMinator) is made. This
+cause backtracking (but very seldom). Backtracking can be traced by turning
+on switch CVITRACE. FIND_BUBLTR is the top function of this program’s
+branch.
+</p><!--l. 174--><p class="noindent" >Then atlases must be prepared (top function WORLD_FROM_ATLAS) for ﬁnal
+algebraic calculations. The resulted object called “world” consists of edges
+names list (EDGELIST), their marking variants (VARIANTS) and WORLD1
+structure. WORLD1 structure diﬀers from WORLD structure in one point. It
+contains MAP2 structure instead of MAP structure. MAP2 is very complicated
+structure and consist of VARIANTS, marking plan and GSTRAND. (GSTRAND
+constructed by PRE!-CALC!-MAP_ from INTERFIERZ module.) By marking we
+understand marking of edges with numbers according to Cvitanovic - Kennedy
+algorithm.
+</p><!--l. 184--><p class="noindent" >The last step is performed by function CALC_WORLD. At this step algebraic
+calculations are done. Two functions CALC_MAP_TAR and CALC_DENTAR from
+INTERFIERZ module make algebraic expressions in the preﬁx form. This expressions
+are further simpliﬁed by function <span 
+class="pcrr8t-x-x-109">REVAL</span>. This is the REDUCE system general function
+for algebraic expressions simpliﬁcation. <span 
+class="pcrr8t-x-x-109">REVAL </span>and <span 
+class="pcrr8t-x-x-109">SIMP!* </span>are the only REDUCE
+functions used in this module.
+</p><!--l. 192--><p class="noindent" >There are also some functions for printing several internal structures: PRINT_ATLAS,
+PRINT_VERTEX, PRINT_EDGE, PRINT_COEFF, PRINT_DENOM. This functions
+can be used for debugging.
+                                                                     
+
+                                                                     
+</p><!--l. 196--><p class="noindent" >If an error occur in module CVITMAPPING the error message “ERROR IN MAP
+CREATING ROUTINES” is displayed. Error has number 55. The switch CVITERROR
+allows to give full information about error: name of function where error occurs and
+names and values of function’s arguments. If CVITERROR switch is on and
+backtracking fails message about error in SORT_ATLAS function is printed. The result
+of computation however will be correct because in this case factorized structure is not
+used. This happens extremely seldom.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1543">
+                  List of imported function
+ <br />-------------------------------------------------
+ <br /> function              from module
+ <br />-------------------------------------------------
+ <br /> REVAL                 REDUCE
+ <br /> SIMP!*                REDUCE
+ <br /> CALC_MAP_TAR          INTERFIERZ
+ <br /> CALC_DENTAR           INTERFIERZ
+ <br /> PRE!-CALC!-MAP_       INTERFIERZ
+ <br /> GAMMA5P               RED_TO_CVIT_INTERFACE
+ <br />-------------------------------------------------
+</div>
+<!--l. 218--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1544">
+                  List of exported function
+ <br />-------------------------------------------------
+ <br /> function              to module
+ <br />-------------------------------------------------
+ <br /> CALC_SPUR             REDUCE - CVIT interface
+ <br />-------------------------------------------------
+</div>
+<!--l. 227--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1545">
+                        Data structure
+ <br /> WORLD     ::=  (EDGELIST,VARIANTS,WORLD1)
+ <br /> WORLD1    ::=  (MAP2,COEFF,DENOM)
+ <br /> MAP2      ::=  (MAPS,VARIANTS,PLAN)
+ <br /> MAPS      ::=  (EDGEPAIR . GSTRAND)
+ <br /> MAP1      ::=  (EDGEPAIR . MAP)
+ <br /> MAP       ::=  list of VERTICES (unordered)
+ <br /> EDGEPAIR  ::=  (OLDEDGELIST . NEWEDGELIST)
+ <br /> COEFF     ::=  list of WORLDS (unordered)
+ <br /> ATLAS     ::=  (MAP,COEFF,DENOM)
+ <br /> GSTRAND   ::=  (STRAND*,MAP,TADPOLES,DELTAS)
+ <br /> VERTEX    ::=  list of EDGEs (with cyclic order)
+ <br /> EDGE      ::=  (NAME,PROPERTY,TYPE)
+ <br /> NAME      ::=  ATOM
+ <br /> PROPERTY  ::=  (FIRSTPAIR . SECONDPAIR)
+ <br /> TYPE      ::=  T or NIL
+ <br /> ------------------------------------------------
+ <br /> *Define in module MAP!-TO!-STRAND.
+ <br />
+</div>
+<!--l. 249--><p class="nopar" >
+</p><!--l. 251--><p class="noindent" >
+</p>
+<h4 class="likesubsectionHead"><a 
+ id="x327-1413000D.2"></a>Modules INTERFIERZ, EVAL_MAPS, AND MAP-TO-STRAND</h4>
+<div class="center" 
+>
+<!--l. 253--><p class="noindent" >
+</p><!--l. 254--><p class="noindent" >Author: A.Taranov<br />
+Purpose: evaluate single Map</p></div>
+                                                                     
+
+                                                                     
+<!--l. 258--><p class="noindent" >Module INTERFIERZ exports to module CVITMAPPING three functions:
+PRE-CALC-MAP_, CALC-MAP_TAR, CALC-DENTAR.
+</p><!--l. 261--><p class="noindent" >Function PRE-CALC-MAP_ is used for preliminary processing of a map. It returns a list
+of the form (STRAND NEWMAP TADEPOLES DELTAS) where STRAND is strand
+structure described in MAP-TO-STRAND module. NEWMAP is a map structure
+without “tadepoles” and “deltas”. “Tadepole” is a loop connected with map with only
+one line (edge). “Delta” is a single line disconnected from a map. TADEPOLES is a list
+of “tadepole” submaps. DELTAS is a list (CONS E1 E2) where E1 and E2
+are
+</p><!--l. 269--><p class="noindent" >Function CALC_MAP_TAR takes a list of the same form as returned by
+PRE-CALC-MAP_, a-list, of the form (... edge . weight ... ) and returns a preﬁx form of
+algebraic expression corresponding to the map numerator.
+</p><!--l. 274--><p class="noindent" >Function CALC-DENTAR returns a preﬁx form of algebraic expression corresponding to
+the map denominator.
+</p><!--l. 277--><p class="noindent" >Module EVAL-MAP exports to module INTERFIERZ functions MK-NUMR and
+STRAND-ALG-TOP.
+</p><!--l. 280--><p class="noindent" >Function MK-NUMR returns a preﬁx form for some combinatorial coeﬃcient
+(Pohgammer symbol).
+</p><!--l. 283--><p class="noindent" >Function STRAND-ALG-TOP performs an actual computation of a preﬁx form of
+algebraic expression corresponding to the map numerator. This computation is based on
+a “strand” structure constructed from the “map” structure.
+</p><!--l. 288--><p class="noindent" >Module MAP-TO-STRAND exports functions MAP-TO-STRAND, INCIDENT1 to
+module INTERFIERZ and functions DELETEZ1, CONTRACT-STRAND,
+COLOR-STRAND to module EVAL-MAPS.
+</p><!--l. 292--><p class="noindent" >Function INCIDENT1 is a selector in “strand” structure. DELETEZ1 performs auxiliary
+optimization of “strand”. MAP-TO-STRAND transforms “map” to “strand” structure.
+The latter is describe in program module.
+</p><!--l. 297--><p class="noindent" >CONTRACT-STRAND do strand vertex simpliﬁcations of “strand” and COLOR-STRAND
+ﬁnishes strand generation.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1546">
+ <br />            Description of STRAND  data structure.
+ <br /> STRAND ::=&#x003C;LIST OF VERTEX&#x003E;
+ <br /> VERTEX ::=&#x003C;NAME&#x003E; . (&#x003C;LIST OF ROAD&#x003E; &#x003C;LIST OF ROAD&#x003E;)
+ <br /> ROAD   ::=&#x003C;ID&#x003E; . NUMBER
+ <br /> NAME   ::=NUMBER
+</div>
+<!--l. 307--><p class="nopar" >
+</p><!--l. 310--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x327-1414000D.2"></a>LIST OF MESSAGES</h5>
+     <ul class="itemize1">
+     <li class="itemize">
+     CALC_SPUR:
+     <span 
+class="cmmi-10x-x-109">&#x003C;</span>vecdim<span 
+class="cmmi-10x-x-109">&#x003E;</span>
+     IS
+     NOT
+     EVEN
+     SPACE-TIME
+     DIMENSION
+     The
+     dimension
+     of
+     space-time
+     <span 
+class="cmmi-10x-x-109">&#x003C;</span>vecdimis
+     integer
+     but
+     not
+     even.
+                                                                     
+
+                                                                     
+     Only
+     even
+     numeric
+     dimensions
+     are
+     allowed.
+     </li>
+     <li class="itemize">
+     NOSPUR
+     NOT
+     YET
+     IMPLEMENTED
+     Attempt
+     to
+     calculate
+     trace
+     when
+     NOSPUR
+     switch
+     is
+     on.
+     This
+     facility
+     is
+     not
+     implemented
+     now.
+     </li>
+     <li class="itemize">
+     G5
+     INVALID
+     FOR
+     VECDIM
+     NEQ
+     4
+     Attempt
+     to
+     calculate
+     trace
+     with
+                                                                     
+
+                                                                     
+     gamma5-matrix
+     for
+     space-time
+     dimension
+     not
+     equal
+     to
+     4.
+     </li>
+     <li class="itemize">
+     CALC_SPUR:
+     <span 
+class="cmmi-10x-x-109">&#x003C;</span>expr<span 
+class="cmmi-10x-x-109">&#x003E;</span>
+     HAS
+     NON-UNIT
+     DENOMINATOR
+     The
+     &#x003C;expr&#x003E;
+     has
+     non-unit
+     denominator.
+     </li>
+     <li class="itemize">
+     THREE
+     INDICES
+     HAVE
+     NAME
+     <span 
+class="cmmi-10x-x-109">&#x003C;</span>name<span 
+class="cmmi-10x-x-109">&#x003E;</span>
+     There
+     are
+     three
+     indices
+     with
+     equal
+     names
+     in
+     evaluated
+     expression.
+     </li></ul>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-1547">
+                  List of switches
+ <br />------------------------------------------------------------
+ <br /> switch           default    comment
+ <br />------------------------------------------------------------
+ <br /> CVIT             ON         If it is on then use Kennedy-
+ <br />                             Cvitanovic algorithm else use
+ <br />                             standard facilities.
+ <br /> CVITOP           OFF        Fierz optimization switch
+ <br /> CVITBTR          ON         Bubbles and triangles
+ <br />                             factorisation switch
+ <br /> CVITRACE         OFF        Backtracking tracing switch
+ <br />------------------------------------------------------------
+</div>
+<!--l. 347--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1548">
+                 Functions cross references*.
+ <br />
+ <br />CALC_SPUR
+ <br /> |
+ <br /> +--&#x003E;SIMP!* (REDUCE)
+ <br />     |
+ <br />     +--&#x003E;CALC_SPUR0
+ <br />         |
+ <br />         |---&#x003E;TRANSFORM_MAP_
+ <br />         |    |
+ <br />         |    |---&#x003E;MK_SIMPLE_VERTEX
+ <br />         |    +---&#x003E;MK_SIMPLE_MAP_
+ <br />         |         |
+ <br />         |         +---&#x003E;MK_SIMPLE_MAP_1
+ <br />         |              |
+ <br />         |              +---&#x003E;MK_FIERS_OP
+ <br />         |
+ <br />         |---&#x003E;WORLD_FROM_ATLAS
+ <br />         |    |
+ <br />         |    +---&#x003E;CONSTR_WORLDS
+ <br />         |         |
+ <br />         |         +----&#x003E;MK_WORLD1
+ <br />         |               |
+ <br />         |               +---&#x003E;MAP_2_FROM_MAP_1
+ <br />         |                    |
+ <br />         |                    |---&#x003E;MARK_EDGES
+ <br />         |                    +---&#x003E;MAP_1_TO_STRAND
+ <br />         |                         |
+ <br />         |                         +--&#x003E;PRE!-CALC!-MAP_
+ <br />         |                             (INTERFIRZ)
+ <br />         |
+ <br />         |---&#x003E;CALC_WORLD
+ <br />         |    |
+ <br />         |    |---&#x003E;CALC!-MAP_TAR (INTERFIRZ)
+ <br />         |    |---&#x003E;CALC!-DENTAR (INTERFIRZ)
+ <br />         |    +---&#x003E;REVAL (REDUCE)
+                                                                     
+
+                                                                     
+ <br />         |
+ <br />         +---&#x003E;FIND_BUBLTR
+ <br />              |
+ <br />              +---&#x003E;FIND_BUBLTR0
+ <br />                   |
+ <br />                   |---&#x003E;SORT_ATLAS
+ <br />                   +---&#x003E;FIND_BUBLTR1
+ <br />                        |
+ <br />                        |---&#x003E;FIND_BUBLES1
+ <br />                        +---&#x003E;FIND_TRIANGLES1
+ <br />*Unmarked functions are from CVITMPPING module.
+ <br />
+</div>
+<!--l. 399--><p class="nopar" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 1--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualap4.html#manualse225.html" >Up</a></td><td class="clinks"><a 
+href="manualse224.html" >Prev</a></td><td class="clinks"><a 
+href="manualse224.html#tailmanualse224.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse225.html" >Front</a></td></tr></table><a 
+ id="tailmanualse225.html"></a>   </p> 
+</body> 
+</html>

@@ -1,0 +1,119 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>DEFINE Command</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch6.html#manualse26.html" >Up</a></td><td class="clinks"><a 
+href="manualse27.html" >Next</a></td><td class="clinks"><a 
+href="manualse25.html" >Prev</a></td><td class="clinks"><a 
+href="manualse25.html#tailmanualse25.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse26.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">6.6    </span> <a 
+ id="x35-510006.6"></a>DEFINE Command</h3>
+<!--l. 184--><p class="noindent" ><a 
+ id="command:DEFINE"></a>
+<a 
+ id="dx35-51001"></a>
+<a 
+ id="dx35-51002"></a>
+</p><!--l. 187--><p class="noindent" >The command <span 
+class="pcrr8t-x-x-109">define </span>allows a user to supply a new name for any identiﬁer or replace
+it by any well-formed expression. Its argument is a list of expressions of the
+form
+  </p><div class="syntax">
+  <!--tex4ht:inline--><div class="tabular"> <table id="TBL-13" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-13-1g"><col 
+id="TBL-13-1" /><col 
+id="TBL-13-2" /><col 
+id="TBL-13-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-13-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-13-1-1"  
+class="td01"><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">identiﬁer</span><span 
+class="cmsy-10x-x-109">⟩ </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-13-1-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">= </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-13-1-3"  
+class="td11"> <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">number</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmsy-10x-x-109">∣</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">identiﬁer</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmsy-10x-x-109">∣</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">operator</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmsy-10x-x-109">∣</span><span 
+class="cmmi-10x-x-109">  </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-13-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-13-2-1"  
+class="td01">         </td><td  style="white-space:nowrap; text-align:center;" id="TBL-13-2-2"  
+class="td11">   </td><td  style="white-space:nowrap; text-align:left;" id="TBL-13-2-3"  
+class="td11"> <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">reserved word</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmsy-10x-x-109">∣</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">expression</span><span 
+class="cmsy-10x-x-109">⟩      </span></td></tr></table>
+  </div></div>
+<!--l. 195--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Example:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-81">
+        define be==,x=y+z;
+</div>
+<!--l. 198--><p class="nopar" > means that <span 
+class="pcrr8t-x-x-109">be </span>will be interpreted as an equal sign, and <span 
+class="pcrr8t-x-x-109">x </span>as the expression <span 
+class="pcrr8t-x-x-109">y+z </span>from
+then on. This renaming is done at parse time, and therefore takes precedence over any
+other replacement declared for the same identiﬁer. It stays in eﬀect until the end of the
+REDUCE run.
+</p><!--l. 205--><p class="noindent" >The identiﬁers <span 
+class="pcrr8t-x-x-109">algebraic </span>and <span 
+class="pcrr8t-x-x-109">symbolic </span>have properties which prevent <span 
+class="pcrr8t-x-x-109">define</span>
+from being used on them. To deﬁne <span 
+class="pcrr8t-x-x-109">alg </span>to be a synonym for <span 
+class="pcrr8t-x-x-109">algebraic</span>, use the more
+complicated construction
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-82">
+        put(’alg,’newnam,’algebraic);
+</div>
+<!--l. 211--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p><!--l. 213--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch6.html#manualse26.html" >Up</a></td><td class="clinks"><a 
+href="manualse27.html" >Next</a></td><td class="clinks"><a 
+href="manualse25.html" >Prev</a></td><td class="clinks"><a 
+href="manualse25.html#tailmanualse25.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse26.html" >Front</a></td></tr></table><a 
+ id="tailmanualse26.html"></a> </p> 
+</body> 
+</html>

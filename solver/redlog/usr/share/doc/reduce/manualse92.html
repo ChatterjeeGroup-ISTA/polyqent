@@ -1,0 +1,78 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Interactive File Control: int, pause, cont</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch13.html#manualse92.html" >Up</a></td><td class="clinks"><a 
+href="manualse91.html" >Prev</a></td><td class="clinks"><a 
+href="manualse91.html#tailmanualse91.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse92.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">13.4    </span> <a 
+ id="x118-22200013.4"></a>Interactive File Control: <span 
+class="pcrr8t-">int</span>, <span 
+class="pcrr8t-">pause</span>, <span 
+class="pcrr8t-">cont</span></h3>
+<!--l. 201--><p class="noindent" ><a 
+ id="switch:INT"></a> If input is coming from an external ﬁle, the system treats it as a batch processed
+calculation. If you desire interactive<a 
+ id="dx118-222001"></a> response in this case, you can include the
+command <span 
+class="pcrr8t-x-x-109">on int</span>;<a 
+ id="dx118-222002"></a><a 
+ id="dx118-222003"></a><a 
+ id="dx118-222004"></a> in the ﬁle. Likewise, you can issue the command <span 
+class="pcrr8t-x-x-109">off</span>
+<span 
+class="pcrr8t-x-x-109">int</span>; in the main program if you do not desire continual questioning from the
+system. Regardless of the setting of the switch <span 
+class="pcrr8t-x-x-109">int</span>, input commands from a ﬁle
+are not kept in the system, and so cannot be referenced using <span 
+class="pcrr8t-x-x-109">input </span>or <span 
+class="pcrr8t-x-x-109">ws</span>,
+or edited using <span 
+class="pcrr8t-x-x-109">ed</span>. However, an implementation of REDUCE may provide a
+link to an external system editor that can be used for such editing. The speciﬁc
+instructions for the particular implementation should be consulted for information on
+this.
+</p><!--l. 216--><p class="noindent" ><a 
+ id="CONT-and-PAUSE"></a> Two commands are available in REDUCE for interactive use of ﬁles. <span 
+class="pcrr8t-x-x-109">pause</span>;<a 
+ id="dx118-222005"></a><a 
+ id="dx118-222006"></a> may be
+inserted at any point in an input ﬁle. When this command is encountered on input, the
+system prints the message <span 
+class="pcrr8t-x-x-109">Cont? (Y or N) </span>on your terminal and halts. If you
+respond <span 
+class="pcrr8t-x-x-109">y </span>(for yes), the calculation continues from that point in the ﬁle. If you respond <span 
+class="pcrr8t-x-x-109">n</span>
+(for no), control is returned to the terminal, and you can input further statements and
+commands. Later on you can use the command <span 
+class="pcrr8t-x-x-109">cont;</span><a 
+ id="dx118-222007"></a><a 
+ id="dx118-222008"></a> to transfer control back to the
+point in the ﬁle following the last <span 
+class="pcrr8t-x-x-109">pause; </span>encountered. A top-level <span 
+class="pcrr8t-x-x-109">pause; </span>from the
+terminal has no eﬀect.
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 1--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch13.html#manualse92.html" >Up</a></td><td class="clinks"><a 
+href="manualse91.html" >Prev</a></td><td class="clinks"><a 
+href="manualse91.html#tailmanualse91.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse92.html" >Front</a></td></tr></table><a 
+ id="tailmanualse92.html"></a> </p> 
+</body> 
+</html>

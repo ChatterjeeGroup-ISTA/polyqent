@@ -1,0 +1,76 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Tracing Inactive Rules: TRRLID, UNTRRLID</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch19.html#manualse124.html" >Up</a></td><td class="clinks"><a 
+href="manualse125.html" >Next</a></td><td class="clinks"><a 
+href="manualse123.html" >Prev</a></td><td class="clinks"><a 
+href="manualse123.html#tailmanualse123.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse124.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">19.6    </span> <a 
+ id="x165-37600019.6"></a>Tracing Inactive Rules: TRRLID, UNTRRLID</h3>
+<!--l. 331--><p class="noindent" ><a 
+ id="command:TRRLID"></a> <a 
+ id="command:UNTRRLID"></a> <a 
+ id="dx165-376001"></a> <a 
+ id="dx165-376002"></a> The command <span 
+class="pcrr8t-x-x-109">trrlid </span>initiates tracing of individual rule lists that have been assigned
+to variables, but have not been activated using <span 
+class="pcrr8t-x-x-109">let</span>:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-633">
+trrlid &#x003C;rlid1&#x003E;, &#x003C;rlid2&#x003E;, ..., &#x003C;rlidn&#x003E;;
+</div>
+<!--l. 340--><p class="nopar" > where each of the <span 
+class="cmmi-10x-x-109">&#x003C; rlid</span><sub><span 
+class="cmmi-8">i</span></sub> <span 
+class="cmmi-10x-x-109">&#x003E; </span>is an identiﬁer of a rule list (that is, a non-indexed variable
+which is bound to a rule list). It is assumed that they will be activated later, either via a
+<span 
+class="pcrr8t-x-x-109">let </span>command or by using the <span 
+class="pcrr8t-x-x-109">where </span>operator. When they are activated and ﬁre,
+tracing output will be as if they had been traced using <span 
+class="pcrr8t-x-x-109">trrl</span>. The command
+<span 
+class="pcrr8t-x-x-109">untrrlid </span>clears the tracing. This facility is an extension of the <span 
+class="pcrr8t-x-x-109">rdebug</span>
+package.
+</p><!--l. 349--><p class="noindent" >Here is a simple example that continues the example above:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-634">
+trrlid trigrules;
+ <br />
+ <br />1 - sin(x)^2 where trigrules;
+ <br />
+ <br />Rule trigrules.1: sin(x)**2 =&#x003E; 1 - cos(x)**2$
+ <br />
+ <br />      2
+ <br />cos(x)
+ <br />
+ <br />untrrlid trigrules;
+</div>
+<!--l. 361--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p><!--l. 363--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch19.html#manualse124.html" >Up</a></td><td class="clinks"><a 
+href="manualse125.html" >Next</a></td><td class="clinks"><a 
+href="manualse123.html" >Prev</a></td><td class="clinks"><a 
+href="manualse123.html#tailmanualse123.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse124.html" >Front</a></td></tr></table><a 
+ id="tailmanualse124.html"></a> </p> 
+</body> 
+</html>

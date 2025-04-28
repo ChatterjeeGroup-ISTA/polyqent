@@ -1,0 +1,642 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>SOLVE Operator</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse44.html" >Up</a></td><td class="clinks"><a 
+href="manualse45.html" >Next</a></td><td class="clinks"><a 
+href="manualse43.html" >Prev</a></td><td class="clinks"><a 
+href="manualse43.html#tailmanualse43.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse44.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">7.17    </span> <a 
+ id="x56-1000007.17"></a>SOLVE Operator</h3>
+<a 
+ id="dx56-100001"></a>
+<!--l. 2--><p class="noindent" ><a 
+ id="operator:SOLVE"></a> <span 
+class="pcrr8t-x-x-109">solve </span>is an operator for solving one or more simultaneous algebraic equations. It is
+used with the syntax:
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">solve</span>(<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exprn:algebraic</span><span 
+class="cmsy-10x-x-109">⟩</span>[, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">var:kernel</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmsy-10x-x-109">∣</span><span 
+class="cmmi-10x-x-109"> </span>, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">varlist:list of kernels</span><span 
+class="cmsy-10x-x-109">⟩</span>]) : <span 
+class="ptmri8t-x-x-109">list</span>.</div>
+<!--l. 9--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">exprn </span>is of the form <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">expression</span><span 
+class="cmsy-10x-x-109">⟩ </span>or <span 
+class="pcrr8t-x-x-109">{</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">expression1</span><span 
+class="cmsy-10x-x-109">⟩</span>,<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">expression2</span><span 
+class="cmsy-10x-x-109">⟩</span>, …<span 
+class="pcrr8t-x-x-109">}</span>. Each
+expression is an algebraic equation, or is the diﬀerence of the two sides of the
+equation. The second argument is either a kernel or a list of kernels representing
+the unknowns in the system. This argument may be omitted if the number of
+distinct, non-constant, top-level kernels equals the number of unknowns, in
+which case these kernels are presumed to be the unknowns and a message is
+printed:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-170">
+           solve(x^2 - 1);
+ <br />
+ <br />           -&#x003E;
+ <br />
+ <br />           Unknown: x
+ <br />
+ <br />           {x=1,x=-1}
+</div>
+<!--l. 26--><p class="nopar" > For one equation, <span 
+class="pcrr8t-x-x-109">solve</span><a 
+ id="dx56-100002"></a> recursively uses factorization and decomposition,
+together with the known inverses of <span 
+class="pcrr8t-x-x-109">log</span>, <span 
+class="pcrr8t-x-x-109">sin</span>, <span 
+class="pcrr8t-x-x-109">cos</span>, <span 
+class="pcrr8t-x-x-109">^</span>, <span 
+class="pcrr8t-x-x-109">acos</span>, <span 
+class="pcrr8t-x-x-109">asin</span>, and
+linear, quadratic, cubic, quartic, or binomial factors. Solutions of equations
+built with exponentials or logarithms are often expressed in terms of Lambert’s
+W function.<a 
+ id="dx56-100003"></a> This function is (partially) implemented in the special functions
+package.
+</p><!--l. 36--><p class="noindent" >Linear equations are solved by the multi-step elimination method due to Bareiss, unless
+the switch <span 
+class="pcrr8t-x-x-109">cramer</span><a 
+ id="dx56-100004"></a><a 
+ id="dx56-100005"></a><a 
+ id="dx56-100006"></a> is on, in which case Cramer’s method is used. The Bareiss method is
+usually more eﬃcient unless the system is large and dense.
+</p><!--l. 41--><p class="noindent" >Non-linear equations are solved using the Groebner basis package<a 
+ id="dx56-100007"></a><a 
+ id="dx56-100008"></a> (chapter <a 
+href="manualse150.html#x217-81300020.25">20.25<!--tex4ht:ref: GROEBNER --></a>).
+Users should note that this can be quite a time consuming process.
+</p><!--l. 46--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Examples:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-171">
+            solve(log(sin(x+3))^5 = 8,x);
+ <br />            solve(a*log(sin(x+3))^5 - b, sin(x+3));
+ <br />            solve({a*x+y=3,y=-2},{x,y});
+</div>
+<!--l. 51--><p class="nopar" >
+</p><!--l. 53--><p class="noindent" ><a 
+ id="operator:ROOT_OF"></a> <span 
+class="pcrr8t-x-x-109">solve </span>returns a list of solutions. If there is one unknown, each solution is an equation
+for the unknown. If a complete solution was found, the unknown will appear by itself on
+the left-hand side of the equation. On the other hand, if the solve package could not ﬁnd a
+solution, the “solution” will be an equation for the unknown in terms of the operator
+<span 
+class="pcrr8t-x-x-109">root_of</span><a 
+ id="dx56-100009"></a>. If there are several unknowns, each solution will be a list of equations for the
+unknowns. For example,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-172">
+     solve(x^2=1,x);             -&#x003E; {x=-1,x=1}
+ <br />
+ <br />     solve(x^7-x^6+x^2=1,x)
+ <br />                            6
+ <br />            -&#x003E; {x=root_of(x_  + x_ + 1,x_,tag_1),x=1}
+ <br />
+ <br />     solve({x+3y=7,y-x=1},{x,y}) -&#x003E; {{x=1,y=2}}.
+</div>
+<!--l. 70--><p class="nopar" > <a 
+ id="reserved:ROOT_MULTIPLICITIES"></a><a 
+ id="dx56-100010"></a><a 
+ id="dx56-100011"></a> The TAG argument is used to uniquely identify those particular solutions. Solution
+multiplicities are stored in the global variable <span 
+class="pcrr8t-x-x-109">root_multiplicities </span>rather than
+the solution list. The value of this variable is a list of the multiplicities of the solutions for
+the last call of <span 
+class="pcrr8t-x-x-109">solve</span>. <a 
+ id="dx56-100012"></a> For example,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-173">
+       solve(x^2=2x-1,x); root_multiplicities;
+</div>
+<!--l. 81--><p class="nopar" > gives the results
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-174">
+        {x=1}
+ <br />
+ <br />        {2}
+</div>
+<!--l. 87--><p class="nopar" >
+</p><!--l. 89--><p class="noindent" ><a 
+ id="switch:MULTIPLICITIES"></a> If you want the multiplicities explicitly displayed, the switch <span 
+class="pcrr8t-x-x-109">multiplicities</span><a 
+ id="dx56-100013"></a><a 
+ id="dx56-100014"></a><a 
+ id="dx56-100015"></a> can
+be turned on. For example
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-175">
+        on multiplicities; solve(x^2=2x-1,x);
+</div>
+<!--l. 94--><p class="nopar" > yields the result
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-176">
+        {x=1,x=1}
+</div>
+<!--l. 98--><p class="nopar" >
+</p><!--l. 100--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">7.17.1    </span> <a 
+ id="x56-1010007.17.1"></a>Handling of Undetermined Solutions</h4>
+<!--l. 101--><p class="noindent" >When <span 
+class="pcrr8t-x-x-109">solve </span>cannot ﬁnd a solution to an equation, it normally returns an equation for
+the relevant indeterminates in terms of the operator <span 
+class="pcrr8t-x-x-109">ROOT_OF</span>.<a 
+ id="dx56-101001"></a> For example, the
+expression
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-177">
+        solve(cos(x) + log(x),x);
+</div>
+<!--l. 106--><p class="nopar" > returns the result
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-178">
+       {x=root_of(cos(x_) + log(x_),x_,tag_1)} .
+</div>
+<!--l. 110--><p class="nopar" >
+</p><!--l. 112--><p class="noindent" ><a 
+ id="operator:ONE_OF"></a> <a 
+ id="operator:EXPAND_CASES"></a> An expression with a top-level <span 
+class="pcrr8t-x-x-109">root_of </span>operator is implicitly a list with an unknown
+number of elements (since we don’t always know how many solutions an equation has).
+If a substitution is made into such an expression, closed form solutions can emerge. If
+this occurs, the <span 
+class="pcrr8t-x-x-109">root_of </span>construct is replaced by an operator <span 
+class="pcrr8t-x-x-109">one_of</span>.<a 
+ id="dx56-101002"></a> At this point it
+is of course possible to transform the result of the original <span 
+class="pcrr8t-x-x-109">solve </span>operator expression
+into a standard <span 
+class="pcrr8t-x-x-109">solve </span>solution. To eﬀect this, the operator <span 
+class="pcrr8t-x-x-109">expand_cases</span><a 
+ id="dx56-101003"></a> can be
+used.
+</p><!--l. 124--><p class="noindent" >The following example shows the use of these facilities:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-179">
+solve(-a*x^3+a*x^2+x^4-x^3-4*x^2+4,x);
+ <br />              2     3
+ <br />{x=root_of(a*x_  - x_  + 4*x_ + 4,x_,tag_2),x=1}
+ <br />
+ <br />sub(a=-1,ws);
+ <br />
+ <br />{x=one_of({2,-1,-2},tag_2),x=1}
+ <br />
+ <br />expand_cases ws;
+ <br />
+ <br />{x=2,x=-1,x=-2,x=1}
+</div>
+<!--l. 137--><p class="nopar" >
+</p><!--l. 139--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">7.17.2    </span> <a 
+ id="x56-1020007.17.2"></a>Solutions of Equations Involving Cubics and Quartics</h4>
+<!--l. 140--><p class="noindent" ><a 
+ id="switch:FULLROOTS"></a> <a 
+ id="switch:TRIGFORM"></a>
+</p><!--l. 143--><p class="noindent" >Since roots of cubics and quartics can often be very messy, a switch <span 
+class="pcrr8t-x-x-109">fullroots</span><a 
+ id="dx56-102001"></a><a 
+ id="dx56-102002"></a><a 
+ id="dx56-102003"></a> is
+available, that, when oﬀ (the default), will prevent the production of a result in closed
+form. The <span 
+class="pcrr8t-x-x-109">root_of </span>construct will be used in this case instead.
+</p><!--l. 148--><p class="noindent" >In constructing the solutions of cubics and quartics, trigonometrical forms are used
+where appropriate. This option is under the control of a switch <span 
+class="pcrr8t-x-x-109">trigform</span>,<a 
+ id="dx56-102004"></a><a 
+ id="dx56-102005"></a><a 
+ id="dx56-102006"></a> which is
+normally on.
+</p><!--l. 152--><p class="noindent" >The following example illustrates the use of these facilities:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-180">
+let xx = solve(x^3+x+1,x);
+ <br />
+ <br />xx;
+ <br />             3
+ <br />{x=root_of(x_  + x_ + 1,x_)}
+ <br />
+ <br />on fullroots;
+ <br />
+ <br />xx;
+ <br />
+ <br />                           - sqrt(31)*i
+ <br />                    atan(---------------)
+ <br />                            3*sqrt(3)
+ <br />{x=(i*(sqrt(3)*sin(-----------------------)
+ <br />                              3
+ <br />
+ <br />                      - sqrt(31)*i
+ <br />               atan(---------------)
+ <br />                       3*sqrt(3)
+ <br />        - cos(-----------------------)))/sqrt(3),
+ <br />                         3
+ <br />
+ <br />                              - sqrt(31)*i
+ <br />                       atan(---------------)
+ <br />                               3*sqrt(3)
+ <br /> x=( - i*(sqrt(3)*sin(-----------------------)
+ <br />                                 3
+ <br />
+ <br />                         - sqrt(31)*i
+ <br />                  atan(---------------)
+ <br />                          3*sqrt(3)
+ <br />           + cos(-----------------------)))/sqrt(
+ <br />                            3
+ <br />
+ <br />      3),
+ <br />
+ <br />                  - sqrt(31)*i
+ <br />           atan(---------------)
+                                                                     
+
+                                                                     
+ <br />                   3*sqrt(3)
+ <br />    2*cos(-----------------------)*i
+ <br />                     3
+ <br /> x=----------------------------------}
+ <br />                sqrt(3)
+ <br />
+ <br />off trigform;
+ <br />
+ <br />xx;
+ <br />                             2/3
+ <br />{x=( - (sqrt(31) - 3*sqrt(3))   *sqrt(3)*i
+ <br />
+ <br />                             2/3    2/3
+ <br />     - (sqrt(31) - 3*sqrt(3))    - 2   *sqrt(3)*i
+ <br />
+ <br />        2/3                           1/3  1/3
+ <br />     + 2   )/(2*(sqrt(31) - 3*sqrt(3))   *6
+ <br />
+ <br />                1/6
+ <br />              *3   ),
+ <br />
+ <br />                          2/3
+ <br /> x=((sqrt(31) - 3*sqrt(3))   *sqrt(3)*i
+ <br />
+ <br />                             2/3    2/3
+ <br />     - (sqrt(31) - 3*sqrt(3))    + 2   *sqrt(3)*i
+ <br />
+ <br />        2/3                           1/3  1/3
+ <br />     + 2   )/(2*(sqrt(31) - 3*sqrt(3))   *6
+ <br />
+ <br />                1/6
+ <br />              *3   ),
+ <br />
+ <br />                           2/3    2/3
+ <br />     (sqrt(31) - 3*sqrt(3))    - 2
+ <br /> x=-------------------------------------}
+ <br />                          1/3  1/3  1/6
+ <br />    (sqrt(31) - 3*sqrt(3))   *6   *3
+</div>
+<!--l. 230--><p class="nopar" >
+</p><!--l. 232--><p class="noindent" >
+                                                                     
+
+                                                                     
+</p>
+<h4 class="subsectionHead"><span class="titlemark">7.17.3    </span> <a 
+ id="x56-1030007.17.3"></a>Other Options</h4>
+<!--l. 233--><p class="noindent" ><a 
+ id="switch:SOLVESINGULAR"></a> <a 
+ id="switch:ALLBRANCH"></a> <a 
+ id="switch:ARBVARS"></a> <a 
+ id="operator:ARBCOMPLEX"></a> <a 
+ id="operator:ARBINT"></a> If <span 
+class="pcrr8t-x-x-109">solvesingular</span><a 
+ id="dx56-103001"></a><a 
+ id="dx56-103002"></a><a 
+ id="dx56-103003"></a> is on (the default setting), degenerate systems such as <span 
+class="pcrr8t-x-x-109">x+y=0</span>,
+<span 
+class="pcrr8t-x-x-109">2x+2y=0 </span>will be solved by introducing appropriate arbitrary constants. The consistent
+singular equation 0=0 or equations involving functions with multiple inverses may
+introduce unique new indeterminant kernels <span 
+class="pcrr8t-x-x-109">arbcomplex(j)</span>, or <span 
+class="pcrr8t-x-x-109">arbint(j)</span>,
+(<span 
+class="cmmi-10x-x-109">j</span>=1,2,...), <a 
+ id="dx56-103004"></a><a 
+ id="dx56-103005"></a> representing arbitrary complex or integer numbers respectively. To
+automatically select the principal branches, do <span 
+class="pcrr8t-x-x-109">off allbranch</span>. <a 
+ id="dx56-103006"></a><a 
+ id="dx56-103007"></a><a 
+ id="dx56-103008"></a> To avoid the
+introduction of new indeterminant kernels do <span 
+class="pcrr8t-x-x-109">off arbvars</span><a 
+ id="dx56-103009"></a><a 
+ id="dx56-103010"></a><a 
+ id="dx56-103011"></a> – then no equations are
+generated for the free variables and their original names are used to express the
+solution forms. To suppress solutions of consistent singular equations do <span 
+class="pcrr8t-x-x-109">off</span>
+<span 
+class="pcrr8t-x-x-109">solvesingular</span>.
+</p><!--l. 254--><p class="noindent" >To incorporate additional inverse functions do, for example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-181">
+     put(’sinh,’inverse,’asinh);
+ <br />     put(’asinh,’inverse,’sinh);
+</div>
+<!--l. 258--><p class="nopar" > together with any desired simpliﬁcation rules such as
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-182">
+     for all x let sinh(asinh(x))=x, asinh(sinh(x))=x;
+</div>
+<!--l. 262--><p class="nopar" > For completeness, functions with non-unique inverses should be treated as <span 
+class="pcrr8t-x-x-109">^</span>, <span 
+class="pcrr8t-x-x-109">sin</span>, and
+<span 
+class="pcrr8t-x-x-109">cos </span>are in the <span 
+class="pcrr8t-x-x-109">solve </span>module source.
+</p><!--l. 267--><p class="noindent" >Arguments of <span 
+class="pcrr8t-x-x-109">asin </span>and <span 
+class="pcrr8t-x-x-109">acos </span>are not checked to ensure that the absolute value of the
+real part does not exceed 1; and arguments of <span 
+class="pcrr8t-x-x-109">log </span>are not checked to ensure that the
+absolute value of the imaginary part does not exceed <span 
+class="cmmi-10x-x-109">π</span>; but checks (perhaps involving
+user response for non-numerical arguments) could be introduced using <span 
+class="pcrr8t-x-x-109">let</span><a 
+ id="dx56-103012"></a> statements
+for these operators.
+</p><!--l. 274--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">7.17.4    </span> <a 
+ id="x56-1040007.17.4"></a>Parameters and Variable Dependency</h4>
+<!--l. 276--><p class="noindent" >The proper design of a variable sequence supplied as a second argument to
+<span 
+class="pcrr8t-x-x-109">solve </span>is important for the structure of the solution of an equation system.
+Any unknown in the system not in this list is considered totally free. E.g. the
+call
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-183">
+    solve({x=2*z,z=2*y},{z});
+</div>
+<!--l. 283--><p class="nopar" > produces an empty list as a result because there is no function <span 
+class="cmmi-10x-x-109">z </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x,y</span><span 
+class="cmr-10x-x-109">) </span>which
+fulﬁlls both equations for arbitrary <span 
+class="cmmi-10x-x-109">x </span>and <span 
+class="cmmi-10x-x-109">y </span>values. <a 
+ id="reserved:requirements"></a> In such a case the share
+variable <span 
+class="pcrr8t-x-x-109">requirements</span><a 
+ id="dx56-104001"></a><a 
+ id="dx56-104002"></a> displays a set of restrictions for the parameters of the
+system:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-184">
+    requirements;
+ <br />
+ <br />    {x - 4*y}
+</div>
+<!--l. 294--><p class="nopar" > The non-existence of a formal solution is caused by a contradiction which disappears
+only if the parameters of the initial system are set such that all members of the
+requirements list take the value zero. For a linear system the set is complete:
+a solution of the requirements list makes the initial system solvable. E.g. in
+the above case a substitution <span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">= 4</span><span 
+class="cmmi-10x-x-109">y </span>makes the equation set consistent. For
+a non-linear system only one inconsistency is detected. If such a system has
+more than one inconsistency, you must reduce them one after the other.
+<span class="footnote-mark"><a 
+href="manual57.html#fn3x7"><sup class="textsuperscript">3</sup></a></span><a 
+ id="x56-104003f3"></a> The
+set shows you also the dependency among the parameters: here one of <span 
+class="cmmi-10x-x-109">x </span>and <span 
+class="cmmi-10x-x-109">y </span>is free and
+a formal solution of the system can be computed by adding it to the variable
+list of <span 
+class="pcrr8t-x-x-109">solve</span>. The requirement set is not unique – there may be other such
+sets.
+</p><!--l. 320--><p class="noindent" >A system with parameters may have a formal solution, e.g. 
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-185">
+     solve({x=a*z+1,0=b*z-y},{z,x});
+ <br />
+ <br />        y     a*y + b
+ <br />   {{z=---,x=---------}}
+ <br />        b        b
+</div>
+<!--l. 327--><p class="nopar" > which is not valid for all possible values of the parameters. <a 
+ id="reserved:assumptions"></a> The variable
+<span 
+class="pcrr8t-x-x-109">assumptions</span><a 
+ id="dx56-104004"></a><a 
+ id="dx56-104005"></a> contains then a list of restrictions: the solutions are valid only as long
+as none of these expressions vanishes. Any zero of one of them represents a
+special case that is not covered by the formal solution. In the above case the value
+is
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-186">
+    assumptions;
+ <br />
+ <br />    {b}
+</div>
+<!--l. 341--><p class="nopar" > which excludes formally the case <span 
+class="cmmi-10x-x-109">b </span><span 
+class="cmr-10x-x-109">= 0</span>; obviously this special parameter value makes
+the system singular. The set of assumptions is complete for both, linear and non–linear
+systems.
+</p><!--l. 346--><p class="noindent" ><a 
+ id="switch:VAROPT"></a> <span 
+class="pcrr8t-x-x-109">solve </span>rearranges the variable sequence to reduce the (expected) computing time.
+This behavior is controlled by the switch <span 
+class="pcrr8t-x-x-109">varopt</span><a 
+ id="dx56-104006"></a><a 
+ id="dx56-104007"></a><a 
+ id="dx56-104008"></a>, which is on by default.
+If it is turned oﬀ, the supplied variable sequence is used or the system kernel
+ordering is taken if the variable list is omitted. The eﬀect is demonstrated by an
+example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-187">
+   s:= {y^3+3x=0,x^2+y^2=1};
+ <br />
+ <br />   solve(s,{y,x});
+ <br />
+ <br />                  6       2
+ <br />   {{y=root_of(y_  + 9*y_  - 9,y_),
+ <br />
+ <br />            3
+ <br />         - y
+ <br />     x=-------}}
+ <br />          3
+ <br />
+ <br />   off varopt; solve(s,{y,x});
+ <br />
+ <br />                  6       4        2
+ <br />   {{x=root_of(x_  - 3*x_  + 12*x_  - 1,x_),
+ <br />
+ <br />               4      2
+ <br />        x*( - x  + 2*x  - 10)
+ <br />     y=-----------------------}}
+ <br />                  3
+ <br />
+</div>
+<!--l. 376--><p class="nopar" > In the ﬁrst case, <span 
+class="pcrr8t-x-x-109">solve </span>forms the solution as a set of pairs <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">y</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmmi-10x-x-109">,x</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">y</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmr-10x-x-109">)) </span>because the
+degree of <span 
+class="cmmi-10x-x-109">x </span>is higher – such a rearrangement makes the internal computation of the
+Gröbner basis generally faster. For the second case the explicitly given variable
+sequence is used such that the solution has now the form <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmmi-10x-x-109">,y</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmr-10x-x-109">))</span>. Controlling
+the variable sequence is especially important if the system has one or more
+free variables. As an alternative to turning oﬀ <span 
+class="pcrr8t-x-x-109">varopt</span>, a partial dependency
+among the variables can be declared using the <span 
+class="pcrr8t-x-x-109">depend</span><a 
+ id="dx56-104009"></a> statement: <span 
+class="pcrr8t-x-x-109">solve </span>then
+rearranges the variable sequence but keeps any variable ahead of those on which it
+depends.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-188">
+   on varopt;
+ <br />   s:={a^3+b,b^2+c}$
+ <br />   solve(s,{a,b,c});
+ <br />
+ <br />                           3       6
+ <br />   {{a=arbcomplex(1),b= - a ,c= - a }}
+ <br />
+ <br />   depend a,c; depend b,c; solve(s,{a,b,c});
+ <br />
+ <br />   {{c=arbcomplex(2),
+ <br />
+ <br />                 6
+ <br />     a=root_of(a_  + c,a_),
+ <br />
+ <br />           3
+ <br />     b= - a }}
+</div>
+<!--l. 405--><p class="nopar" > Here <span 
+class="pcrr8t-x-x-109">solve </span>is forced to put <span 
+class="cmmi-10x-x-109">c </span>after <span 
+class="cmmi-10x-x-109">a </span>and after <span 
+class="cmmi-10x-x-109">b</span>, but there is no obstacle to
+interchanging <span 
+class="cmmi-10x-x-109">a </span>and <span 
+class="cmmi-10x-x-109">b</span>.  <a 
+ id="dx56-104010"></a><a 
+ id="dx56-104011"></a>
+                                                                     
+
+                                                                     
+<table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse44.html" >Up</a></td><td class="clinks"><a 
+href="manualse45.html" >Next</a></td><td class="clinks"><a 
+href="manualse43.html" >Prev</a></td><td class="clinks"><a 
+href="manualse43.html#tailmanualse43.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse44.html" >Front</a></td></tr></table><a 
+ id="tailmanualse44.html"></a>  </p> 
+</body> 
+</html>

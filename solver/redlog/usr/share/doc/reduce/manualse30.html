@@ -1,0 +1,198 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Combinatorial Numbers</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse30.html" >Up</a></td><td class="clinks"><a 
+href="manualse31.html" >Next</a></td><td class="clinks"><a 
+href="manualse29.html" >Prev</a></td><td class="clinks"><a 
+href="manualse29.html#tailmanualse29.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse30.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">7.3    </span> <a 
+ id="x40-770007.3"></a>Combinatorial Numbers</h3>
+<a 
+ id="dx40-77001"></a>
+<a 
+ id="dx40-77002"></a>
+<a 
+ id="dx40-77003"></a>
+<!--l. 1016--><p class="noindent" ><a 
+ id="operator:BINOMIAL"></a> <span 
+class="ptmb8t-x-x-109">Binomial coeﬃcients </span>are provided by the binary operator <span 
+class="pcrr8t-x-x-109">Binomial</span>. The value of
+<span 
+class="pcrr8t-x-x-109">Binomial(n, m)</span>, where <span 
+class="cmmi-10x-x-109">n </span>and <span 
+class="cmmi-10x-x-109">m </span>are non-negative integers with <span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmsy-10x-x-109">≥ </span><span 
+class="cmmi-10x-x-109">m</span>, is the
+number of ways of choosing <span 
+class="cmmi-10x-x-109">m </span>items from a set of <span 
+class="cmmi-10x-x-109">n </span>distinct items as well, of course, as
+being the coeﬃcient of <span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">m</span></sup> in the expansion of <span 
+class="cmr-10x-x-109">(1 + </span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span><sup><span 
+class="cmmi-8">n</span></sup>.
+</p><!--l. 1023--><p class="noindent" >The function call <span 
+class="pcrr8t-x-x-109">Binomial(n,m)</span>, where <span 
+class="cmmi-10x-x-109">n </span>and <span 
+class="cmmi-10x-x-109">m </span>are non-negative integers, will
+return the expected integer value (from Pascal’s triangle). For other real numerical values
+the result will usually involve the <span 
+class="cmr-10x-x-109">Γ </span>function, but if the switch <span 
+class="pcrr8t-x-x-109">rounded </span>is ON the <span 
+class="cmr-10x-x-109">Γ</span>
+functions will be evaluated numerically. This will also be the case for complex numerical
+arguments if the switch <span 
+class="pcrr8t-x-x-109">complex </span>is ON. For non-numeric arguments the result returned
+will involve the original operator <span 
+class="pcrr8t-x-x-109">binomial</span>, or its pretty-printed equivalent on
+graphical interfaces.
+</p><!--l. 1033--><p class="noindent" ><a 
+ id="operator:Stirling1"></a><a 
+ id="operator:Stirling2"></a> <a 
+ id="dx40-77004"></a><a 
+ id="dx40-77005"></a><a 
+ id="dx40-77006"></a> <span 
+class="ptmb8t-x-x-109">Stirling numbers </span>of the ﬁrst and second kind are computed by the binary operators
+<span 
+class="pcrr8t-x-x-109">Stirling1 </span>and <span 
+class="pcrr8t-x-x-109">Stirling2 </span>respectively using explicit formulae. <span 
+class="pcrr8t-x-x-109">Stirling1(n,</span>
+<span 
+class="pcrr8t-x-x-109">k) </span>is <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1)</span><sup><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmmi-8">k</span></sup><span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmsy-10x-x-109">× </span><span 
+class="ptmri8t-x-x-109">(the number of permutations of the set </span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,n</span><span 
+class="cmsy-10x-x-109">} </span><span 
+class="ptmri8t-x-x-109">into exactly </span><span 
+class="cmmi-10x-x-109">k</span>
+<span 
+class="ptmri8t-x-x-109">cycles)</span>.<br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">Stirling2(n, k) </span>is <span 
+class="ptmri8t-x-x-109">the number of partitions of the set </span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,n</span><span 
+class="cmsy-10x-x-109">} </span><span 
+class="ptmri8t-x-x-109">into exactly </span><span 
+class="cmmi-10x-x-109">k</span>
+<span 
+class="ptmri8t-x-x-109">non-empty subsets</span>.<br 
+class="newline" />Here <span 
+class="cmmi-10x-x-109">n </span>and <span 
+class="cmmi-10x-x-109">k </span>should be non-negative integers with <span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmsy-10x-x-109">≥ </span><span 
+class="cmmi-10x-x-109">k</span>.
+</p><!--l. 1045--><p class="noindent" >For integer arguments an integer result will be returned, otherwise a result involving the
+original operator will be returned. Note on graphical user interfaces <span 
+class="pcrr8t-x-x-109">Stirling1(n,m)</span>
+and <span 
+class="pcrr8t-x-x-109">Stirling2(n,m) </span>are rendered as <span 
+class="cmr-10x-x-109">s</span><sub><span 
+class="cmmi-8">n</span></sub><sup><span 
+class="cmmi-8">m</span></sup> and <span 
+class="cmr-10x-x-109">S</span><sub><span 
+class="cmmi-8">n</span></sub><sup><span 
+class="cmmi-8">m</span></sup> respectively.
+</p><!--l. 1051--><p class="noindent" >Stirling numbers are implemented in the non-core package SPECFN and are
+not currently autoloading. Before use this package should be loaded with the
+command:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-138">
+    load_package specfn;
+</div>
+<!--l. 1056--><p class="nopar" > For more information see <a 
+href="manualse179.html#STIRL">here</a>.
+</p><!--l. 1059--><p class="noindent" ><a 
+ id="operator:MOTZKIN"></a> <a 
+ id="dx40-77007"></a><a 
+ id="dx40-77008"></a> <span 
+class="ptmb8t-x-x-109">A Motzkin number </span><span 
+class="cmmi-10x-x-109">M</span><sub><span 
+class="cmmi-8">n</span></sub> (named after Theodore Motzkin) is the number of diﬀerent
+ways of drawing non-intersecting chords on a circle between <span 
+class="cmmi-10x-x-109">n </span>points. For a non-negative
+integer <span 
+class="cmmi-10x-x-109">n</span>, the operator <span 
+class="pcrr8t-x-x-109">Motzkin(n) </span>returns the <span 
+class="cmmi-10x-x-109">n</span>th Motzkin number, according to the
+recursion formula
+</p>
+<table 
+class="equation-star"><tr><td>
+      <span 
+class="cmmi-10x-x-109">M</span><sub><span 
+class="cmr-8">0</span></sub> <span 
+class="cmr-10x-x-109">= 1;      </span><span 
+class="cmmi-10x-x-109">M</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">= 1;      </span><span 
+class="cmmi-10x-x-109">M</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">+1</span></sub> <span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual15x.png" alt="2n + 3
+------
+ n+  3"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">M</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">+</span> <img 
+src="manual16x.png" alt="  3n
+-----
+n + 3"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">M</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sub><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 1068--><p class="nopar" >
+The recursion is, of course, optimised as a simple loop to avoid repeated computation of
+lower-order numbers.
+</p><!--l. 1072--><p class="noindent" >For the functions in this and the section below a <a 
+href="manualse179.html#SPECFNTAB4">Quick Reference Table</a> is available. It
+also includes a list of reserved constants known to REDUCE.
+                                                                     
+
+                                                                     
+</p><!--l. 1076--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse30.html" >Up</a></td><td class="clinks"><a 
+href="manualse31.html" >Next</a></td><td class="clinks"><a 
+href="manualse29.html" >Prev</a></td><td class="clinks"><a 
+href="manualse29.html#tailmanualse29.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse30.html" >Front</a></td></tr></table><a 
+ id="tailmanualse30.html"></a> </p> 
+</body> 
+</html>

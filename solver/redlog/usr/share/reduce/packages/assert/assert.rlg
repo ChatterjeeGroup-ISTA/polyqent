@@ -1,0 +1,146 @@
+symbolic;
+
+
+nil
+
+
+on1 'assert;
+
+
+nil
+
+on1 'assert_procedures;
+
+
+nil
+
+
+struct Tag;
+*** struct tag is not checked 
+
+
+
+nil
+
+struct Posnumber asserted by posnumberp;
+
+
+nil
+
+
+procedure posnumberp(s);
+   numberp s and s > 0;
+
+
+posnumberp
+
+
+asserted procedure hugo(x1: Number, x2: Posnumber, x3: Tag): DottedPair;
+   x3 . (x1 + x2);
+
+
+(hugo)
+
+
+hugo(1, 1, 'y);
+
+
+(y . 2)
+
+hugo(1, -1, 'y);
+
+
+(y . 0)
+
+
+assert_install hugo;
+
+
+nil
+
+
+hugo(1, 1, 'y);
+
+
+(y . 2)
+
+hugo(1, -1, 'y);
+
+
+Backtrace from top of stack:
+backtrace assert_error assert_check1 hugo errorset!* begin11 
+process!-one!-reduce!-statement begin1a in_list1a in errorset!* begin11 
+process!-one!-reduce!-statement begin1 errorset!* begin 
+
+hugo being entered:
+   a1:   1
+   a2:   -1
+   a3:   y
+
+***** assertion `hugo(number, posnumber, tag): dottedpair' is violated by a2 
+(at assert.tst:21)
+
+
+assert_uninstall hugo;
+
+
+nil
+
+
+declare addf: (SF, SF) -> SF;
+
+
+(addf hugo)
+
+declare addsq: (SQ, SQ) -> SQ;
+
+
+(addsq addf hugo)
+
+
+assert_install addf, addsq;
+
+
+nil
+
+
+addsq(simp 'x, numr simp 'x);
+
+
+Backtrace from top of stack:
+backtrace assert_error assert_check1 addsq errorset!* begin11 
+process!-one!-reduce!-statement begin1a in_list1a in errorset!* begin11 
+process!-one!-reduce!-statement begin1 errorset!* begin 
+
+addsq being entered:
+   a1:   ((((x . 1) . 1)) . 1)
+   a2:   (((x . 1) . 1))
+
+***** assertion `addsq(sq, sq): sq' is violated by a2 (at 
+assert.tst:30)
+
+
+algebraic;
+
+
+
+assert_analyze();
+
+------------------------------------------------------------------------
+function          #calls              #bad calls   #assertion violations
+------------------------------------------------------------------------
+------------------------------------------------------------------------
+sum                    0                       0                       0
+------------------------------------------------------------------------
+
+
+assert_uninstall_all();
+
+
+*** assert_uninstall addsq 
+
+*** assert_uninstall addf 
+
+
+end;
+

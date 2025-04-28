@@ -1,0 +1,136 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>FOR EACH Statement</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch21.html#manualse197.html" >Up</a></td><td class="clinks"><a 
+href="manualse198.html" >Next</a></td><td class="clinks"><a 
+href="manualse196.html" >Prev</a></td><td class="clinks"><a 
+href="manualse196.html#tailmanualse196.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse197.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">21.6    </span> <a 
+ id="x292-133300021.6"></a>FOR EACH Statement</h3>
+<a 
+ id="dx292-1333001"></a>
+<a 
+ id="dx292-1333002"></a>
+<!--l. 192--><p class="noindent" >The <span 
+class="pcrr8t-x-x-109">for each </span>form of the <span 
+class="pcrr8t-x-x-109">for </span>statement, designed for iteration down a list, is more
+general in symbolic mode. Its syntax is:
+  </p><div class="syntax">
+           <span 
+class="pcrr8t-x-x-109">for each </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">id:identiﬁer</span><span 
+class="cmsy-10x-x-109">⟩      </span>(<span 
+class="pcrr8t-x-x-109">in</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmsy-10x-x-109">∣</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="pcrr8t-x-x-109">on</span>)                  <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">lst:list</span><span 
+class="cmsy-10x-x-109">⟩</span>
+  (<span 
+class="pcrr8t-x-x-109">do</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmsy-10x-x-109">∣</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="pcrr8t-x-x-109">collect</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmsy-10x-x-109">∣</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="pcrr8t-x-x-109">join</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmsy-10x-x-109">∣</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="pcrr8t-x-x-109">product</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmsy-10x-x-109">∣</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="pcrr8t-x-x-109">sum</span>)<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exprn:S-expr</span><span 
+class="cmsy-10x-x-109">⟩</span></div>
+<!--l. 198--><p class="noindent" >As in algebraic mode, if the keyword <span 
+class="pcrr8t-x-x-109">in </span>is used, iteration is on each element of the list.
+With <span 
+class="pcrr8t-x-x-109">on</span>, iteration is on the whole list remaining at each point in the iteration. As a result,
+we have the following equivalence between each form of <span 
+class="pcrr8t-x-x-109">for each </span>and the various
+mapping functions in Lisp: </p>
+<div class="center" 
+>
+<!--l. 203--><p class="noindent" >
+</p><!--l. 209--><p class="noindent" >
+<!--tex4ht:inline--></p><div class="tabular"> <table id="TBL-229" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-229-1g"><col 
+id="TBL-229-1" /></colgroup><colgroup id="TBL-229-2g"><col 
+id="TBL-229-2" /><col 
+id="TBL-229-3" /><col 
+id="TBL-229-4" /></colgroup><tr 
+class="hline"><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-229-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-229-1-1"  
+class="td11">   </td><td  style="white-space:nowrap; text-align:left;" id="TBL-229-1-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">do   </span></td><td  style="white-space:nowrap; text-align:right;" id="TBL-229-1-3"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">collect </span></td><td  style="white-space:nowrap; text-align:right;" id="TBL-229-1-4"  
+class="td11">   <span 
+class="pcrr8t-x-x-109">join </span></td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-229-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-229-2-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">in </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-229-2-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">mapc </span></td><td  style="white-space:nowrap; text-align:right;" id="TBL-229-2-3"  
+class="td11">  <span 
+class="pcrr8t-x-x-109">mapcar </span></td><td  style="white-space:nowrap; text-align:right;" id="TBL-229-2-4"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">mapcan </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-229-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-229-3-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">on </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-229-3-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">map  </span></td><td  style="white-space:nowrap; text-align:right;" id="TBL-229-3-3"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">maplist </span></td><td  style="white-space:nowrap; text-align:right;" id="TBL-229-3-4"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">mapcon </span></td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-229-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-229-4-1"  
+class="td11">    </td>
+</tr></table></div></div>
+<!--l. 211--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Example: </span>To list each element of the list <span 
+class="pcrr8t-x-x-109">(a b c)</span>:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1489">
+        for each x in ’(a b c) collect list x;
+</div>
+<!--l. 214--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p><!--l. 216--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch21.html#manualse197.html" >Up</a></td><td class="clinks"><a 
+href="manualse198.html" >Next</a></td><td class="clinks"><a 
+href="manualse196.html" >Prev</a></td><td class="clinks"><a 
+href="manualse196.html#tailmanualse196.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse197.html" >Front</a></td></tr></table><a 
+ id="tailmanualse197.html"></a> </p> 
+</body> 
+</html>

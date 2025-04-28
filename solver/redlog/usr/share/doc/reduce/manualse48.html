@@ -1,0 +1,81 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Even and Odd Operators</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse48.html" >Up</a></td><td class="clinks"><a 
+href="manualse49.html" >Next</a></td><td class="clinks"><a 
+href="manualse47.html" >Prev</a></td><td class="clinks"><a 
+href="manualse47.html#tailmanualse47.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse48.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">7.21    </span> <a 
+ id="x64-1110007.21"></a>Even and Odd Operators</h3>
+<a 
+ id="dx64-111001"></a>
+<a 
+ id="dx64-111002"></a>
+<a 
+ id="dx64-111003"></a>
+<a 
+ id="dx64-111004"></a>
+<!--l. 4--><p class="noindent" ><a 
+ id="command:EVEN"></a> <a 
+ id="command:ODD"></a> <a 
+ id="command:NONZERO"></a> An operator can be declared to be <span 
+class="ptmri8t-x-x-109">even </span>or <span 
+class="ptmri8t-x-x-109">odd </span>in its ﬁrst argument by the declarations
+<span 
+class="pcrr8t-x-x-109">even</span><a 
+ id="dx64-111005"></a><a 
+ id="dx64-111006"></a> and <span 
+class="pcrr8t-x-x-109">odd</span><a 
+ id="dx64-111007"></a><a 
+ id="dx64-111008"></a> respectively. Expressions involving an operator declared in this manner
+are transformed if the ﬁrst argument contains a minus sign. Any other arguments are not
+aﬀected. In addition, if say <span 
+class="pcrr8t-x-x-109">f </span>is declared odd, then <span 
+class="pcrr8t-x-x-109">f(0) </span>is replaced by zero unless
+<span 
+class="pcrr8t-x-x-109">f </span>is also declared <span 
+class="ptmri8t-x-x-109">non zero </span>by the declaration <span 
+class="pcrr8t-x-x-109">nonzero</span><a 
+ id="dx64-111009"></a><a 
+ id="dx64-111010"></a>. For example, the
+declarations
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-193">
+        even f1; odd f2;
+</div>
+<!--l. 18--><p class="nopar" > mean that
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-194">
+        f1(-a)    -&#x003E;    f1(a)
+ <br />        f2(-a)    -&#x003E;   -f2(a)
+ <br />        f1(-a,-b) -&#x003E;    f1(a,-b)
+ <br />        f2(0)     -&#x003E;    0.
+</div>
+<!--l. 25--><p class="nopar" > To inhibit the last transformation, say <span 
+class="pcrr8t-x-x-109">nonzero f2;</span>.
+                                                                     
+
+                                                                     
+</p><!--l. 28--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse48.html" >Up</a></td><td class="clinks"><a 
+href="manualse49.html" >Next</a></td><td class="clinks"><a 
+href="manualse47.html" >Prev</a></td><td class="clinks"><a 
+href="manualse47.html#tailmanualse47.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse48.html" >Front</a></td></tr></table><a 
+ id="tailmanualse48.html"></a> </p> 
+</body> 
+</html>

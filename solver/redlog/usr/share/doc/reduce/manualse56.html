@@ -1,0 +1,97 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>The Expression Workspace</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch8.html#manualse56.html" >Up</a></td><td class="clinks"><a 
+href="manualse57.html" >Next</a></td><td class="clinks"><a 
+href="manualse55.html" >Prev</a></td><td class="clinks"><a 
+href="manualse55.html#tailmanualse55.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse56.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">8.2    </span> <a 
+ id="x73-1200008.2"></a>The Expression Workspace</h3>
+<a 
+ id="dx73-120001"></a>
+<!--l. 75--><p class="noindent" >Several mechanisms are available for saving and retrieving previously evaluated
+expressions. The simplest of these refers to the last algebraic expression simpliﬁed.
+When an assignment of an algebraic expression is made, or an expression is evaluated at
+the top level, (i.e., not inside a compound statement or procedure) the results of the
+evaluation are automatically saved in a variable <span 
+class="pcrr8t-x-x-109">ws </span>that we shall refer to as the
+workspace. (More precisely, the expression is assigned to the variable <span 
+class="pcrr8t-x-x-109">ws </span>that is then
+available for further manipulation.)
+</p><!--l. 84--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Example:</span>
+</p><!--l. 86--><p class="noindent" >If we evaluate the expression <span 
+class="pcrr8t-x-x-109">(x+y)^2 </span>at the top level and next wish to diﬀerentiate it
+with respect to <span 
+class="pcrr8t-x-x-109">y</span>, we can simply say
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-211">
+        df(ws,y);
+</div>
+<!--l. 91--><p class="nopar" > to get the desired answer.
+</p><!--l. 94--><p class="noindent" ><a 
+ id="command:SAVEAS"></a> If the user wishes to assign the workspace to a variable or expression for later use, the
+<span 
+class="pcrr8t-x-x-109">saveas</span><a 
+ id="dx73-120002"></a><a 
+ id="dx73-120003"></a>statement can be used. It has the syntax
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">saveas</span> <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">expression</span><span 
+class="cmsy-10x-x-109">⟩</span></div>
+<!--l. 102--><p class="noindent" >For example, after the diﬀerentiation in the last example, the workspace holds the
+expression <span 
+class="pcrr8t-x-x-109">2*x+2*y</span>. If we wish to assign this to the variable <span 
+class="pcrr8t-x-x-109">z </span>we can now
+say
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-212">
+        saveas z;
+</div>
+<!--l. 107--><p class="nopar" > If the user wishes to save the expression in a form that allows him to use some of its
+variables as arbitrary parameters, the <span 
+class="pcrr8t-x-x-109">for all </span>command can be used.
+</p><!--l. 112--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Example:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-213">
+        for all x saveas h(x);
+</div>
+<!--l. 115--><p class="nopar" >
+</p><!--l. 117--><p class="noindent" >with the above expression would mean that <span 
+class="pcrr8t-x-x-109">h(z) </span>evaluates to <span 
+class="pcrr8t-x-x-109">2*y+2*z</span>.
+</p><!--l. 120--><p class="noindent" >A further method for referencing more than the last expression is described in chapter <a 
+href="manualch13.html#x114-21800013">13<!--tex4ht:ref: interactive --></a>
+on interactive use of REDUCE.
+                                                                     
+
+                                                                     
+</p><!--l. 124--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch8.html#manualse56.html" >Up</a></td><td class="clinks"><a 
+href="manualse57.html" >Next</a></td><td class="clinks"><a 
+href="manualse55.html" >Prev</a></td><td class="clinks"><a 
+href="manualse55.html#tailmanualse55.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse56.html" >Front</a></td></tr></table><a 
+ id="tailmanualse56.html"></a> </p> 
+</body> 
+</html>

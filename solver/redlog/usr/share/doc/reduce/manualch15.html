@@ -1,0 +1,123 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>15 Procedures</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manual.html#manualch15.html" >Up</a></td><td class="clinks"><a 
+href="manualch16.html" >Next</a></td><td class="clinks"><a 
+href="manualch14.html" >Prev</a></td><td class="clinks"><a 
+href="manualch14.html#tailmanualch14.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualch15.html">Tail</a></td></tr></table><h2 class="ChapterHead"> 15 <a 
+ id="x126-23700015"></a>Procedures</h2>
+<a 
+ id="dx126-237001"></a>
+<!--l. 2--><p class="noindent" ><a 
+ id="command:PROCEDURE"></a>
+</p><!--l. 4--><p class="noindent" >It is often useful to name a statement for repeated use in calculations with varying
+parameters, or to deﬁne a complete evaluation procedure for an operator. REDUCE
+oﬀers a procedural declaration for this purpose. Its general syntax is:
+  </p><div class="syntax">
+   [<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">procedural type</span><span 
+class="cmsy-10x-x-109">⟩</span>]  <span 
+class="pcrr8t-x-x-109">procedure </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">name</span><span 
+class="cmsy-10x-x-109">⟩</span>[<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">varlist</span><span 
+class="cmsy-10x-x-109">⟩</span>]<span 
+class="pcrr8t-x-x-109">;</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">statement</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">;</span></div>
+<!--l. 12--><p class="noindent" >where
+  </p><div class="syntax">
+   <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">varlist</span><span 
+class="cmsy-10x-x-109">⟩</span> <span 
+class="cmmi-10x-x-109">→</span> <span 
+class="pcrr8t-x-x-109">(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">variable</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span>…<span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">variable</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">)</span></div>
+<!--l. 16--><p class="noindent" >This will be explained more fully in the following sections.
+</p><!--l. 18--><p class="noindent" >In the algebraic mode of REDUCE the <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">procedural type</span><span 
+class="cmsy-10x-x-109">⟩ </span>can be omitted, since the
+default is <span 
+class="pcrr8t-x-x-109">algebraic</span>. Procedures of type <span 
+class="pcrr8t-x-x-109">integer </span>or <span 
+class="pcrr8t-x-x-109">real </span>may also be used. In the
+former case, the system checks that the value of the procedure is an integer. At present,
+such checking is not done for a real procedure, although this will change in the future
+when a more complete type checking mechanism is installed. Users should
+therefore only use these types when appropriate. An empty variable list may also be
+omitted.
+</p><!--l. 27--><p class="noindent" >All user-deﬁned procedures are automatically declared to be operators.
+</p><!--l. 29--><p class="noindent" >In order to allow users relatively easy access to the whole REDUCE source program,
+system procedures are not protected against user redeﬁnition. If a procedure is redeﬁned,
+a message
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-437">
+        *** &#x003C;procedure name&#x003E; redefined
+</div>
+<!--l. 34--><p class="nopar" > is printed. If this occurs, and the user is not redeﬁning his own procedure, he is well
+advised to rename it, and possibly start over (because he has <span 
+class="ptmri8t-x-x-109">already </span>redeﬁned
+some internal procedure whose correct functioning may be required for his
+job!)
+</p><!--l. 40--><p class="noindent" >All required procedures should be deﬁned at the top level, since they have global scope
+throughout a program. In particular, an attempt to deﬁne a procedure within a procedure
+will cause an error to occur.
+</p>
+<div class="sectionTOCS">
+ <span class="sectionToc" >15.1 <a 
+href="manualse99.html#x127-23800015.1">Procedure Heading</a></span>
+<br /> <span class="sectionToc" >15.2 <a 
+href="manualse100.html#x128-23900015.2">Procedure Body</a></span>
+<br /> <span class="sectionToc" >15.3 <a 
+href="manualse101.html#x129-24000015.3">Matrix- and List-valued Procedures</a></span>
+<br /> <span class="sectionToc" >15.4 <a 
+href="manualse102.html#x130-24100015.4">Using LET Inside Procedures</a></span>
+<br /> <span class="sectionToc" >15.5 <a 
+href="manualse103.html#x131-24200015.5">LET Rules as Procedures</a></span>
+<br /> <span class="sectionToc" >15.6 <a 
+href="manualse104.html#x132-24300015.6">REMEMBER Statement</a></span>
+</div>
+
+
+
+
+
+                                                                     
+
+                                                                     
+<table cellspacing="5"><tr><td class="clinks"><a 
+href="manual.html#manualch15.html" >Up</a></td><td class="clinks"><a 
+href="manualch16.html" >Next</a></td><td class="clinks"><a 
+href="manualch14.html" >Prev</a></td><td class="clinks"><a 
+href="manualch14.html#tailmanualch14.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualch15.html" >Front</a></td></tr></table><a 
+ id="tailmanualch15.html"></a>  
+</body> 
+</html>

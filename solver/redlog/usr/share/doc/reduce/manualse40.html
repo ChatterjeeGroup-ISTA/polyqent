@@ -1,0 +1,130 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>The Pochhammer Notation</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse40.html" >Up</a></td><td class="clinks"><a 
+href="manualse41.html" >Next</a></td><td class="clinks"><a 
+href="manualse39.html" >Prev</a></td><td class="clinks"><a 
+href="manualse39.html#tailmanualse39.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse40.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">7.13    </span> <a 
+ id="x51-960007.13"></a>The Pochhammer Notation</h3>
+<a 
+ id="dx51-96001"></a>
+<a 
+ id="dx51-96002"></a>
+<a 
+ id="dx51-96003"></a>
+<!--l. 1791--><p class="noindent" ><a 
+ id="POCH"></a> <a 
+ id="operator:POCHHAMMER"></a> The Pochhammer notation <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a</span><span 
+class="cmr-10x-x-109">)</span><sub><span 
+class="cmmi-8">k</span></sub> (also called Pochhammer’s symbol) is supported by the
+binary operator <span 
+class="pcrr8t-x-x-109">Pochhammer(a,k)</span>. For a non-negative integer <span 
+class="cmmi-10x-x-109">k</span>, it is deﬁned as
+(<a 
+href="http://dlmf.nist.gov/5.2.iii" class="url" ><span 
+class="pcrr8t-x-x-109">http://dlmf.nist.gov/5.2.iii</span></a>)
+</p><table 
+class="align-star">
+                 <tr><td 
+class="align-odd"><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a</span><span 
+class="cmr-10x-x-109">)</span><sub><span 
+class="cmr-8">0</span></sub></td>                 <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= 1</span><span 
+class="cmmi-10x-x-109">,</span></td>                                           <td 
+class="align-label"></td>                 <td 
+class="align-label">
+                 </td></tr><tr><td 
+class="align-odd"><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a</span><span 
+class="cmr-10x-x-109">)</span><sub><span 
+class="cmmi-8">k</span></sub></td>                 <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">a</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a </span><span 
+class="cmr-10x-x-109">+ 1)(</span><span 
+class="cmmi-10x-x-109">a </span><span 
+class="cmr-10x-x-109">+ 2)</span><img 
+src="manual41x.png" alt="⋅⋅⋅"  class="@cdots"  /><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">k </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1)</span><span 
+class="cmmi-10x-x-109">.</span></td>                 <td 
+class="align-label"></td>                 <td 
+class="align-label"></td></tr></table>
+<!--l. 1802--><p class="noindent" >For <span 
+class="cmmi-10x-x-109">a</span><span 
+class="cmmi-10x-x-109">≠</span><span 
+class="cmr-10x-x-109">0</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">3</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span>, this is equivalent to
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                           <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a</span><span 
+class="cmr-10x-x-109">)</span><sub><span 
+class="cmmi-8">k</span></sub> <span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual42x.png" alt="Γ (a+ k )
+-Γ-(a)--"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 1803--><p class="nopar" >
+When <span 
+class="cmmi-10x-x-109">n </span>is integral, the deﬁning product is expanded (assuming the switch <span 
+class="pcrr8t-x-x-109">exp </span>is on).
+With <span 
+class="pcrr8t-x-x-109">rounded </span>oﬀ, this expression is evaluated numerically if <span 
+class="cmmi-10x-x-109">a </span>is numerical and <span 
+class="cmmi-10x-x-109">k </span>is
+integral, and otherwise may be simpliﬁed where appropriate. The simpliﬁcation rules are
+based upon algorithms supplied by Wolfram Koepf <span class="cite">[<a 
+href="manualap2.html#XKoepf:92">Koe92</a>]</span>.
+</p><!--l. 1810--><p class="noindent" >The Pochhammer symbol is used quite extensively in the simpliﬁcation and numerical
+evaluation of <a 
+href="manualse179.html#SPECFNS">special functions</a>.
+                                                                     
+
+                                                                     
+</p><!--l. 1813--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse40.html" >Up</a></td><td class="clinks"><a 
+href="manualse41.html" >Next</a></td><td class="clinks"><a 
+href="manualse39.html" >Prev</a></td><td class="clinks"><a 
+href="manualse39.html#tailmanualse39.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse40.html" >Front</a></td></tr></table><a 
+ id="tailmanualse40.html"></a> </p> 
+</body> 
+</html>

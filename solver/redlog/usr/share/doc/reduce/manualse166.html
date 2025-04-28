@@ -1,0 +1,527 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>PM: A REDUCE Pattern Matcher</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse166.html" >Up</a></td><td class="clinks"><a 
+href="manualse167.html" >Next</a></td><td class="clinks"><a 
+href="manualse165.html" >Prev</a></td><td class="clinks"><a 
+href="manualse165.html#tailmanualse165.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse166.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.41    </span> <a 
+ id="x249-107100020.41"></a>PM: A REDUCE Pattern Matcher</h3>
+<a 
+ id="dx249-1071001"></a>
+<a 
+ id="dx249-1071002"></a>
+<!--l. 845--><p class="noindent" >PM is a general pattern matcher similar in style to those found in systems such as
+SMP and Mathematica, and is based on the pattern matcher described in Kevin
+McIsaac, “Pattern Matching Algebraic Identities”, SIGSAM Bulletin, 19 (1985),
+4-13.
+</p><!--l. 850--><p class="noindent" >Author: Kevin McIsaac.
+</p><!--l. 1--><p class="noindent" >PM is a general pattern matcher similar in style to those found in systems such as SMP
+and Mathematica, and is based on the pattern matcher described in <span class="cite">[<a 
+href="manualap2.html#XMcIsaac:85">McI85</a>]</span>. The
+following is a description of its structure.
+</p><!--l. 5--><p class="noindent" >A <span 
+class="ptmri8t-x-x-109">template </span>is any expression composed of literal elements, e.g. <span 
+class="pcrr8t-x-x-109">5</span>, <span 
+class="pcrr8t-x-x-109">a</span>, or <span 
+class="pcrr8t-x-x-109">a+1</span>, and
+specially-denoted pattern variables, e.g. <span 
+class="pcrr8t-x-x-109">?a </span>or <span 
+class="pcrr8t-x-x-109">??b</span>. Atoms beginning with <span 
+class="pcrr8t-x-x-109">? </span>are called
+<span 
+class="ptmri8t-x-x-109">generic variables </span>and match any expression.
+</p><!--l. 10--><p class="noindent" ><a 
+ id="reserved:repop"></a> <a 
+ id="reserved:repdop"></a> Atoms beginning with <span 
+class="pcrr8t-x-x-109">?? </span>are called <span 
+class="ptmri8t-x-x-109">multi-generic variables </span>and match any expression
+or any sequence of expressions including the null or empty sequence. A sequence is an
+expression of the form <span 
+class="pcrr8t-x-x-109">[a1,a2,...]</span>. When placed in a function argument list the
+brackets are removed, i.e. <span 
+class="pcrr8t-x-x-109">f([a,1]) -&#x003E; f(a,1) </span>and <span 
+class="pcrr8t-x-x-109">f(a,[1,2],b) -&#x003E;</span>
+<span 
+class="pcrr8t-x-x-109">f(a,1,2,b)</span>.
+</p><!--l. 18--><p class="noindent" >A template is said to match an expression if the template is literally equal to the
+expression, or if by replacing any of the generic or multi-generic symbols occurring in
+the template, the template can be made to be literally equal to the expression. These
+replacements are called the <span 
+class="ptmri8t-x-x-109">bindings </span>for the generic variables. A replacement is an
+expression of the form <span 
+class="pcrr8t-x-x-109">exp1 -&#x003E; exp2</span>, which means <span 
+class="pcrr8t-x-x-109">exp1 </span>is replaced by
+<span 
+class="pcrr8t-x-x-109">exp2</span>, or <span 
+class="pcrr8t-x-x-109">exp1 –&#x003E; exp2</span>, which is the same except <span 
+class="pcrr8t-x-x-109">exp2 </span>is not simpliﬁed
+until after the substitution for <span 
+class="pcrr8t-x-x-109">exp1 </span>is made. If the expression has any of the
+properties associativity, commutativity, or an identity element, they are used to
+determine if the expressions match. If an attempt to match the template to the
+expression fails the matcher backtracks, unbinding generic variables, until it reaches
+a place where it can make a diﬀerent choice. It then proceeds along the new
+branch.
+</p><!--l. 32--><p class="noindent" >The current matcher proceeds from left to right in a depth-ﬁrst search of the template
+expression tree. Rearrangements of the expression are generated when the match fails
+and the matcher backtracks.
+                                                                     
+
+                                                                     
+</p><!--l. 36--><p class="noindent" >The matcher also supports <span 
+class="ptmri8t-x-x-109">semantic </span>matching. Brieﬂy, if a subtemplate does not match
+the corresponding subexpression because they have diﬀerent structures, then the
+two are equated and the matcher continues matching the rest of the expression
+until all the generic variables in the subexpression are bound. The equality is
+then checked. This is controlled by the switch <span 
+class="pcrr8t-x-x-109">semantic</span>. By default it is
+<span 
+class="pcrr8t-x-x-109">on</span>.
+</p><!--l. 43--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.41.1    </span> <a 
+ id="x249-107200020.41.1"></a><span 
+class="pcrr8t-x-x-109">M(exp,temp)</span></h4>
+<!--l. 45--><p class="noindent" >The template <span 
+class="pcrr8t-x-x-109">temp </span>is matched against the expression <span 
+class="pcrr8t-x-x-109">exp</span>. If the template is
+literally equal to the expression <span 
+class="pcrr8t-x-x-109">T </span>is returned. If the template is literally equal
+to the expression after replacing the generic variables by their bindings then
+the set of bindings is returned as a set of replacements. Otherwise <span 
+class="pcrr8t-x-x-109">0 </span>(<span 
+class="pcrr8t-x-x-109">nil</span>) is
+returned.
+</p><!--l. 51--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x249-107300020.41.1"></a>Examples:</h5>
+<!--l. 53--><p class="noindent" >A “literal” template:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1304">
+        m(f(a), f(a));
+ <br />        t
+</div>
+<!--l. 57--><p class="nopar" > Not literally equal:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1305">
+        m(f(a), f(b));
+ <br />        0
+</div>
+<!--l. 62--><p class="nopar" > Nested operators:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1306">
+        m(f(a,h(b)), f(a,h(b)));
+ <br />        t
+</div>
+<!--l. 67--><p class="nopar" > “Generic” templates:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1307">
+        m(f(a,b), f(a,?a));
+ <br />        {?a -&#x003E; b}
+ <br />        m(f(a,b), f(?a,?b));
+ <br />        {?b -&#x003E; b, ?a -&#x003E; a}
+</div>
+<!--l. 74--><p class="nopar" > The multi-generic symbol <span 
+class="pcrr8t-x-x-109">??a </span>matches the “rest” of the arguments:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1308">
+        m(f(a,b), f(??a));
+ <br />        {??a -&#x003E; {[a, b]}
+</div>
+<!--l. 79--><p class="nopar" > but the generic symbol <span 
+class="pcrr8t-x-x-109">?a </span>does not:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1309">
+        m(f(a,b), f(?a));
+ <br />        0
+</div>
+<!--l. 84--><p class="nopar" > Flag <span 
+class="cmmi-10x-x-109">h </span>as “associative”:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1310">
+        flag(’(h), ’assoc);
+</div>
+<!--l. 88--><p class="nopar" > Associativity is used to group terms together:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1311">
+        m(h(a,b,d,e), h(?a,d,?b));
+ <br />        {?b -&#x003E; e, ?a -&#x003E; h(a,b)}
+</div>
+<!--l. 93--><p class="nopar" > “plus” is a symmetric function:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1312">
+        m(a+b+c, c+?a+?b);
+ <br />        {?b -&#x003E; a, ?a -&#x003E; b}
+</div>
+<!--l. 98--><p class="nopar" > and it is also associative
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1313">
+        m(a+b+c, b+?a);
+ <br />        {?a -&#x003E; c + a}
+</div>
+<!--l. 103--><p class="nopar" > Note that the eﬀect of using a multi-generic symbol is diﬀerent:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1314">
+        m(a+b+c,b+??c);
+ <br />        {??c -&#x003E; [c,a]}
+</div>
+<!--l. 108--><p class="nopar" >
+</p><!--l. 112--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.41.2    </span> <a 
+ id="x249-107400020.41.2"></a>temp _= logical_exp</h4>
+<!--l. 113--><p class="noindent" ><a 
+ id="reserved:suchthatop"></a>
+</p><!--l. 115--><p class="noindent" >A template may be qualiﬁed by the use of the conditional operator <span 
+class="pcrr8t-x-x-109">_=</span>, <span 
+class="pcrr8t-x-x-109">such!-that</span>.
+When a <span 
+class="pcrr8t-x-x-109">such-that </span>condition is encountered in a template, it is held until all generic
+variables appearing in <span 
+class="pcrr8t-x-x-109">logical_exp </span>are bound.
+</p><!--l. 119--><p class="noindent" >On the binding of the last generic variable, <span 
+class="pcrr8t-x-x-109">logical_exp </span>is simpliﬁed and if the result
+is not <span 
+class="pcrr8t-x-x-109">T </span>the condition fails and the pattern matcher backtracks. When the template has
+been fully parsed any remaining held <span 
+class="pcrr8t-x-x-109">such-that </span>conditions are evaluated and
+compared to <span 
+class="pcrr8t-x-x-109">T</span>.
+</p><!--l. 124--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x249-107500020.41.2"></a>Examples:</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-1315">
+        m(f(a,b), f(?a,?b_=(?a=?b)));
+ <br />        0
+ <br />        m(f(a,a), f(?a,?b_=(?a=?b)));
+ <br />        {?b -&#x003E; a, ?a -&#x003E; a}
+</div>
+<!--l. 131--><p class="nopar" > Note that <span 
+class="pcrr8t-x-x-109">f(?a,?b_=(?a=?b)) </span>is the same as <span 
+class="pcrr8t-x-x-109">f(?a,?a)</span>.
+</p><!--l. 135--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.41.3    </span> <a 
+ id="x249-107600020.41.3"></a>S(exp,{temp1 <span 
+class="cmsy-10x-x-109">→ </span>sub1, temp2 <span 
+class="cmsy-10x-x-109">→ </span>sub2, …}, rept, depth)</h4>
+<!--l. 137--><p class="noindent" >Substitute the set of replacements into <span 
+class="pcrr8t-x-x-109">exp</span>, re-substituting a maximum of <span 
+class="pcrr8t-x-x-109">rept </span>times
+and to a maximum depth <span 
+class="pcrr8t-x-x-109">depth</span>. <span 
+class="pcrr8t-x-x-109">rept </span>and <span 
+class="pcrr8t-x-x-109">depth </span>have the default values of 1 and <span 
+class="cmsy-10x-x-109">∞</span>
+respectively. Essentially, <span 
+class="pcrr8t-x-x-109">S </span>is a breadth-ﬁrst search-and-replace. (There is also a
+depth-ﬁrst version, <span 
+class="pcrr8t-x-x-109">Sd(...)</span>.) Each template is matched against <span 
+class="pcrr8t-x-x-109">exp </span>until a successful
+match occurs.
+</p><!--l. 144--><p class="noindent" >Any replacements for generic variables are applied to the r.h.s. of that replacement and
+<span 
+class="pcrr8t-x-x-109">exp </span>is replaced by the r.h.s. The substitution process is restarted on the new expression
+starting with the ﬁrst replacement. If none of the templates match <span 
+class="pcrr8t-x-x-109">exp </span>then the ﬁrst
+replacement is tried against each sub-expression of <span 
+class="pcrr8t-x-x-109">exp</span>. If a matching template is
+found then the sub-expression is replaced and process continues with the next
+sub-expression.
+</p><!--l. 151--><p class="noindent" >When all sub-expressions have been examined, if a match was found, the expression is
+evaluated and the process is restarted on the sub-expressions of the resulting expression,
+starting with the ﬁrst replacement. When all sub-expressions have been examined and no
+match found the sub-expressions are reexamined using the next replacement. Finally
+when this has been done for all replacements and no match found then the process
+recures on each sub-expression. The process is terminated after <span 
+class="pcrr8t-x-x-109">rept </span>replacements or
+when the expression no longer changes.
+</p><!--l. 160--><p class="noindent" >The command
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1316">
+        Si(exp, {temp1 -&#x003E; sub1, temp2 -&#x003E; sub2, ...}, depth)
+</div>
+<!--l. 163--><p class="nopar" > means “substitute inﬁnitely many times until expression stops changing”. It is
+short-hand for <span 
+class="pcrr8t-x-x-109">S(exp,{temp1 -&#x003E; sub1, temp2 -&#x003E; sub2,...},Inf,</span>
+<span 
+class="pcrr8t-x-x-109">depth)</span>.
+</p><!--l. 168--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x249-107700020.41.3"></a>Examples:</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-1317">
+        s(f(a,b), f(a,?b) -&#x003E; ?b\^{}2);
+ <br />        2
+ <br />        b
+ <br />        s(a+b, a+b -&#x003E; a{*}b);
+ <br />        b*a
+</div>
+<!--l. 176--><p class="nopar" > “Associativity” is used to group <span 
+class="cmmi-10x-x-109">a </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">b </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">c </span>to <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">b</span><span 
+class="cmr-10x-x-109">) + </span><span 
+class="cmmi-10x-x-109">c</span>:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1318">
+        s(a+b+c, a+b -&#x003E; a*b);
+ <br />        b*a + c
+</div>
+<!--l. 181--><p class="nopar" > The next three examples use a rule set that deﬁnes the factorial function. Substitute
+once:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1319">
+        s(nfac(3), {nfac(0) -&#x003E; 1, nfac(?x) -&#x003E; ?x*nfac(?x-1)});
+ <br />        3*nfac(2)
+</div>
+<!--l. 187--><p class="nopar" > Substitute twice:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1320">
+        s(nfac(3), {nfac(0) -&#x003E; 1, nfac(?x) -&#x003E; ?x*nfac(?x-1)}, 2);
+ <br />        6*nfac(1)
+</div>
+<!--l. 192--><p class="nopar" > Substitute until expression stops changing:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1321">
+        si(nfac(3), {nfac(0) -&#x003E; 1, nfac(?x) -&#x003E; ?x{*}nfac(?x-1)});
+ <br />        6
+</div>
+<!--l. 197--><p class="nopar" > Only substitute at the top level:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1322">
+        s(a+b+f(a+b), a+b -&#x003E; a*b, inf, 0);
+ <br />        f(b+a) + b*a
+</div>
+<!--l. 202--><p class="nopar" >
+</p><!--l. 206--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.41.4    </span> <a 
+ id="x249-107800020.41.4"></a>temp :- exp and temp ::- exp</h4>
+<!--l. 207--><p class="noindent" ><a 
+ id="reserved:rsetop"></a> <a 
+ id="reserved:rsetdop"></a>
+</p><!--l. 210--><p class="noindent" >If during simpliﬁcation of an expression, <span 
+class="pcrr8t-x-x-109">temp </span>matches some sub-expression, then that
+sub-expression is replaced by <span 
+class="pcrr8t-x-x-109">exp</span>. If there is a choice of templates to apply, the least
+general is used.
+</p><!--l. 214--><p class="noindent" >If an old rule exists with the same template, then the old rule is replaced by the new rule.
+If <span 
+class="pcrr8t-x-x-109">exp </span>is <span 
+class="pcrr8t-x-x-109">nil </span>the rule is retracted.
+</p><!--l. 217--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">temp ::- exp </span>is the same as <span 
+class="pcrr8t-x-x-109">temp :- exp</span>, but the l.h.s. is not simpliﬁed until the
+replacement is made.
+</p><!--l. 220--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x249-107900020.41.4"></a>Examples:</h5>
+<!--l. 222--><p class="noindent" >Deﬁne the factorial function of a natural number as a recursive function and a
+termination condition. For all other values write it as a gamma function. Note that the
+order of deﬁnition is not important, as the rules are re-ordered so that the most speciﬁc
+rule is tried ﬁrst. Note the use of <span 
+class="pcrr8t-x-x-109">::- </span>instead of <span 
+class="pcrr8t-x-x-109">:- </span>to stop simpliﬁcation of the l.h.s.
+<span 
+class="pcrr8t-x-x-109">hold </span>stops its arguments from being simpliﬁed.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1323">
+        fac(?x _= Natp(?x)) ::- ?x*fac(?x-1);
+ <br />        hold(fac(?X-1)*?X)
+ <br />        fac(0) :- 1;
+ <br />        1
+ <br />        fac(?x) :- Gamma(?x+1);
+ <br />        gamma(?X + 1)
+ <br />        fac(3);
+ <br />        6
+ <br />        fac(3/2);
+ <br />        gamma(5/2)
+</div>
+<!--l. 239--><p class="nopar" >
+</p><!--l. 243--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.41.5    </span> <a 
+ id="x249-108000020.41.5"></a>Arep({rep1,rep2,…})</h4>
+<!--l. 245--><p class="noindent" >In future simpliﬁcations automatically apply replacements <span 
+class="pcrr8t-x-x-109">rep1, rep2, ... </span>until
+the rules are retracted. In eﬀect, this replaces the operator <span 
+class="pcrr8t-x-x-109">-&#x003E; </span>by <span 
+class="pcrr8t-x-x-109">:- </span>in the set of
+replacements <span 
+class="pcrr8t-x-x-109">{rep1, rep2, ...}</span>.
+</p><!--l. 251--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.41.6    </span> <a 
+ id="x249-108100020.41.6"></a>Drep({rep1,rep2,..})</h4>
+<!--l. 253--><p class="noindent" >Delete the rules <span 
+class="pcrr8t-x-x-109">rep1, rep2, ...</span>.
+</p><!--l. 255--><p class="noindent" >As we said earlier, the matcher has been constructed along the lines of the pattern
+matcher described in McIsaac with the addition of such-that conditions and “semantic
+matching” as described in Grief. To make a template eﬃcient, some consideration
+should be given to the structure of the template and the position of such-that
+statements. In general the template should be constructed so that failure to match
+is recognized as early as possible. The multi-generic symbol should be used
+whenever appropriate, particularly with symmetric functions. For further details see
+                                                                     
+
+                                                                     
+McIsaac.
+</p><!--l. 264--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x249-108200020.41.6"></a>Examples:</h5>
+<!--l. 266--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">f(?a,?a,?b) </span>is better than <span 
+class="pcrr8t-x-x-109">f(?a,?b,?c_=(?a=?b))</span>. <span 
+class="pcrr8t-x-x-109">?a+??b </span>is better than
+<span 
+class="pcrr8t-x-x-109">?a+?b+?c...</span>.
+</p><!--l. 269--><p class="noindent" >The template <span 
+class="pcrr8t-x-x-109">f(?a+?b,?a,?b)</span>, matched against <span 
+class="pcrr8t-x-x-109">f(3,2,1) </span>is matched as
+<span 
+class="pcrr8t-x-x-109">f(?e_=(?e=?a+?b),?a,?b) </span>when semantic matching is allowed.
+</p><!--l. 273--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.41.7    </span> <a 
+ id="x249-108300020.41.7"></a>Switches</h4>
+     <dl class="description"><dt class="description">
+<span 
+class="pcrr8t-x-x-109">trpm</span> </dt><dd 
+class="description"><a 
+ id="dx249-1083001"></a><a 
+ id="dx249-1083002"></a><a 
+ id="dx249-1083003"></a><a 
+ id="switch:TRPM"></a>Produces a trace of the rules applied during a substitution. This is useful to
+     see how the pattern matcher works, or to understand an unexpected result.</dd></dl>
+<!--l. 283--><p class="noindent" >In general usage the following switches need not be considered:
+     </p><dl class="description"><dt class="description">
+<span 
+class="pcrr8t-x-x-109">semantic</span> </dt><dd 
+class="description"><a 
+ id="dx249-1083004"></a><a 
+ id="dx249-1083005"></a><a 
+ id="dx249-1083006"></a><a 
+ id="switch:SEMANTIC"></a>Allow   semantic   matches,   e.g.   <span 
+class="pcrr8t-x-x-109">f(?a+?b,?a,?b) </span>will   match
+     <span 
+class="pcrr8t-x-x-109">f(3,2,1)</span>, even though the matcher works from left to right.
+     </dd><dt class="description">
+<span 
+class="pcrr8t-x-x-109">sym!-assoc</span> </dt><dd 
+class="description"><a 
+ id="dx249-1083007"></a><a 
+ id="dx249-1083008"></a><a 
+ id="dx249-1083009"></a><a 
+ id="switch:SYM!-ASSOC"></a>Limits the search space of symmetric associative functions when the
+     template contains multi-generic symbols so that generic symbols will not function.
+     For example <span 
+class="pcrr8t-x-x-109">(a+b+c,?a+??b) </span>will return
+                                                                     
+
+                                                                     
+     <div class="verbatim" id="verbatim-1324">
+             {?a -&#x003E; a, ??b -&#x003E; [b,c]} or
+      <br />        {?a -&#x003E; b, ??b -&#x003E; [a,c]} or
+      <br />        {?a -&#x003E; c, ??b -&#x003E; [a,b]}
+      <br />      
+</div>
+     <!--l. 301--><p class="nopar" > but not <span 
+class="pcrr8t-x-x-109">{?a -&#x003E; a+b, ??b -&#x003E; c}</span>, etc. No sane template should require these
+     types of matches. However they can be made available by turning the switch
+     oﬀ.</p></dd></dl>
+<!--l. 854--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 857--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse166.html" >Up</a></td><td class="clinks"><a 
+href="manualse167.html" >Next</a></td><td class="clinks"><a 
+href="manualse165.html" >Prev</a></td><td class="clinks"><a 
+href="manualse165.html#tailmanualse165.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse166.html" >Front</a></td></tr></table><a 
+ id="tailmanualse166.html"></a>  </p> 
+</body> 
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Interactive Editing: ed, editdef</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch13.html#manualse91.html" >Up</a></td><td class="clinks"><a 
+href="manualse92.html" >Next</a></td><td class="clinks"><a 
+href="manualse90.html" >Prev</a></td><td class="clinks"><a 
+href="manualse90.html#tailmanualse90.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse91.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">13.3    </span> <a 
+ id="x117-22100013.3"></a>Interactive Editing: <span 
+class="pcrr8t-">ed</span>, <span 
+class="pcrr8t-">editdef</span></h3>
+<!--l. 138--><p class="noindent" ><a 
+ id="command:ED"></a> It is possible when working interactively to edit any REDUCE input that comes from
+your terminal, and also some user-deﬁned procedure deﬁnitions. At the top level, you can
+access any previous command string by the command <span 
+class="pcrr8t-x-x-109">ed(</span><span 
+class="cmmi-10x-x-109">n</span><span 
+class="pcrr8t-x-x-109">)</span>,<a 
+ id="dx117-221001"></a> <a 
+ id="dx117-221002"></a>where <span 
+class="cmmi-10x-x-109">n </span>is the desired
+command number as prompted by the system in interactive mode. The command <span 
+class="pcrr8t-x-x-109">ed</span>
+(with no argument) accesses the previous command.
+</p><!--l. 148--><p class="noindent" >After <span 
+class="pcrr8t-x-x-109">ed </span>has been called, you can now edit the displayed string using a string editor with
+the following commands:
+</p>
+<div class="tabular"> <table id="TBL-27" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-27-1g"><col 
+id="TBL-27-1" /><col 
+id="TBL-27-2" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-27-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-27-1-1"  
+class="td01">        <span 
+class="pcrr8t-x-x-109">b            </span></td><td  style="white-space:normal; text-align:left;" id="TBL-27-1-2"  
+class="td11"> <!--l. 152--><p class="noindent" >move pointer to beginning                             </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-27-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-27-2-1"  
+class="td01">        <span 
+class="pcrr8t-x-x-109">c</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">character</span><span 
+class="cmsy-10x-x-109">⟩   </span></td><td  style="white-space:normal; text-align:left;" id="TBL-27-2-2"  
+class="td11"> <!--l. 153--><p class="noindent" >replace next character by <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">character</span><span 
+class="cmsy-10x-x-109">⟩</span>    </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-27-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-27-3-1"  
+class="td01">        <span 
+class="pcrr8t-x-x-109">d            </span></td><td  style="white-space:normal; text-align:left;" id="TBL-27-3-2"  
+class="td11"> <!--l. 154--><p class="noindent" >delete next character                                      </p></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-27-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-27-4-1"  
+class="td01">  <span 
+class="pcrr8t-x-x-109">e </span></td><td  style="white-space:normal; text-align:left;" id="TBL-27-4-2"  
+class="td11"> <!--l. 155--><p class="noindent" >end editing and reread text</p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-27-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-27-5-1"  
+class="td01">        <span 
+class="pcrr8t-x-x-109">f</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">character</span><span 
+class="cmsy-10x-x-109">⟩   </span></td><td  style="white-space:normal; text-align:left;" id="TBL-27-5-2"  
+class="td11"> <!--l. 156--><p class="noindent" >move pointer to next occurrence of <br 
+class="newline" /><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">character</span><span 
+class="cmsy-10x-x-109">⟩</span>                 </p></td>
+</tr><tr 
+class="vspace" style="font-size:1.7pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-27-6-"><td  style="white-space:nowrap; text-align:left;" id="TBL-27-6-1"  
+class="td01">        <span 
+class="pcrr8t-x-x-109">i</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">string</span><span 
+class="cmsy-10x-x-109">⟩⟨</span><span 
+class="ptmri8t-x-x-109">escape</span><span 
+class="cmsy-10x-x-109">⟩ </span></td><td  style="white-space:normal; text-align:left;" id="TBL-27-6-2"  
+class="td11"> <!--l. 159--><p class="noindent" >insert <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">string</span><span 
+class="cmsy-10x-x-109">⟩ </span>in front of pointer                   </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-27-7-"><td  style="white-space:nowrap; text-align:left;" id="TBL-27-7-1"  
+class="td01">        <span 
+class="pcrr8t-x-x-109">k</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">character</span><span 
+class="cmsy-10x-x-109">⟩   </span></td><td  style="white-space:normal; text-align:left;" id="TBL-27-7-2"  
+class="td11"> <!--l. 160--><p class="noindent" >delete all characters until <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">character</span><span 
+class="cmsy-10x-x-109">⟩</span>    </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-27-8-"><td  style="white-space:nowrap; text-align:left;" id="TBL-27-8-1"  
+class="td01">        <span 
+class="pcrr8t-x-x-109">p            </span></td><td  style="white-space:normal; text-align:left;" id="TBL-27-8-2"  
+class="td11"> <!--l. 162--><p class="noindent" >print string from current pointer                    </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-27-9-"><td  style="white-space:nowrap; text-align:left;" id="TBL-27-9-1"  
+class="td01">        <span 
+class="pcrr8t-x-x-109">q            </span></td><td  style="white-space:normal; text-align:left;" id="TBL-27-9-2"  
+class="td11"> <!--l. 163--><p class="noindent" >give up with error exit                                   </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-27-10-"><td  style="white-space:nowrap; text-align:left;" id="TBL-27-10-1"  
+class="td01">        <span 
+class="pcrr8t-x-x-109">s</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">string</span><span 
+class="cmsy-10x-x-109">⟩⟨</span><span 
+class="ptmri8t-x-x-109">escape</span><span 
+class="cmsy-10x-x-109">⟩ </span></td><td  style="white-space:normal; text-align:left;" id="TBL-27-10-2"  
+class="td11"> <!--l. 165--><p class="noindent" >search for ﬁrst occurrence of <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">string</span><span 
+class="cmsy-10x-x-109">⟩</span>, <br 
+class="newline" />positioning pointer just before it                   </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-27-11-"><td  style="white-space:nowrap; text-align:left;" id="TBL-27-11-1"  
+class="td01">        <span 
+class="pcrr8t-x-x-109">space </span>or <span 
+class="pcrr8t-x-x-109">x     </span></td><td  style="white-space:normal; text-align:left;" id="TBL-27-11-2"  
+class="td11"> <!--l. 167--><p class="noindent" >move pointer right one character.                  </p></td>
+</tr></table></div>
+<!--l. 171--><p class="noindent" >The above table can be displayed online by typing a question mark followed by a
+carriage return to the editor. The editor prompts with an angle bracket. Commands can be
+combined on a single line, and all command sequences must be followed by a carriage
+return to become eﬀective.
+</p><!--l. 176--><p class="noindent" >Thus, to change the command <span 
+class="pcrr8t-x-x-109">x := a+1; </span>to <span 
+class="pcrr8t-x-x-109">x := a+2</span>; and cause it to be executed,
+the following edit command sequence could be used:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-423">
+        f1c2e&#x003C;return&#x003E;
+</div>
+<!--l. 180--><p class="nopar" > <a 
+ id="command:EDITDEF"></a> You can also use the interactive editor to edit a user-deﬁned procedure that has not been
+compiled. To do this, use: <a 
+ id="dx117-221003"></a>
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">editdef </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">id</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">;</span></div>
+<!--l. 188--><p class="noindent" >where <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">id</span><span 
+class="cmsy-10x-x-109">⟩ </span>is the name of the procedure. The procedure deﬁnition will then be
+displayed in editing mode, and may then be edited and redeﬁned on exiting from the
+editor.
+</p><!--l. 192--><p class="noindent" >Some versions of REDUCE include input editing that uses the capabilities of modern
+window systems. Please consult your system dependent documentation to see if this is
+possible. Such editing techniques are usually much easier to use then <span 
+class="pcrr8t-x-x-109">ed </span>or
+<span 
+class="pcrr8t-x-x-109">editdef</span>.
+                                                                     
+
+                                                                     
+</p><!--l. 198--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch13.html#manualse91.html" >Up</a></td><td class="clinks"><a 
+href="manualse92.html" >Next</a></td><td class="clinks"><a 
+href="manualse90.html" >Prev</a></td><td class="clinks"><a 
+href="manualse90.html#tailmanualse90.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse91.html" >Front</a></td></tr></table><a 
+ id="tailmanualse91.html"></a> </p> 
+</body> 
+</html>

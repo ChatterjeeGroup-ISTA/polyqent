@@ -1,0 +1,92 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Declaring New Preﬁx Operators</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse52.html" >Up</a></td><td class="clinks"><a 
+href="manualse53.html" >Next</a></td><td class="clinks"><a 
+href="manualse51.html" >Prev</a></td><td class="clinks"><a 
+href="manualse51.html#tailmanualse51.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse52.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">7.25    </span> <a 
+ id="x68-1150007.25"></a>Declaring New Preﬁx Operators</h3>
+<!--l. 157--><p class="noindent" ><a 
+ id="command:OPERATOR"></a>
+</p><!--l. 159--><p class="noindent" >The user may add new preﬁx<a 
+ id="dx68-115001"></a> operators to the system by using the declaration
+<span 
+class="pcrr8t-x-x-109">operator</span><a 
+ id="dx68-115002"></a><a 
+ id="dx68-115003"></a>. For example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-201">
+        operator h,g1,arctan;
+</div>
+<!--l. 164--><p class="nopar" > adds the preﬁx operators <span 
+class="pcrr8t-x-x-109">h</span>, <span 
+class="pcrr8t-x-x-109">g1 </span>and <span 
+class="pcrr8t-x-x-109">arctan </span>to the system.
+</p><!--l. 167--><p class="noindent" >This allows symbols like <span 
+class="pcrr8t-x-x-109">h(w), h(x,y,z), g1(p+q), arctan(u/v) </span>to be
+used in expressions, but no meaning or properties of the operator are implied. The
+same operator symbol can be used equally well as a 0-, 1-, 2-, 3-, etc.-place
+operator.
+</p><!--l. 172--><p class="noindent" >To give a meaning to an operator symbol, or express some of its properties, <span 
+class="pcrr8t-x-x-109">let</span><a 
+ id="dx68-115004"></a>
+statements can be used, or the operator can be given a deﬁnition as a procedure.
+</p><!--l. 176--><p class="noindent" >If the user forgets to declare an identiﬁer as an operator, the system will prompt the user
+to do so in interactive mode, or do it automatically in non-interactive mode. A diagnostic
+message will also be printed if an identiﬁer is declared <span 
+class="pcrr8t-x-x-109">operator </span>more than
+once.
+</p><!--l. 181--><p class="noindent" >Operators once declared are global in scope, and so can then be referenced anywhere in
+the program. In other words, a declaration within a block (or a procedure) does not limit
+the scope of the operator to that block, nor does the operator go away on exiting the
+block (use <span 
+class="pcrr8t-x-x-109">clear </span>instead for this purpose).
+</p><!--l. 187--><p class="noindent" ><a 
+ id="command:PRINT_INDEXED"></a><a 
+ id="command:PRINT_NOINDEXED"></a>
+</p><!--l. 189--><p class="noindent" >An operator declared <span 
+class="pcrr8t-x-x-109">print_indexed</span><a 
+ id="dx68-115005"></a><a 
+ id="dx68-115006"></a> has its arguments displayed as indices,
+e.g. after <span 
+class="pcrr8t-x-x-109">print_indexed</span><span 
+class="pcrr8t-x-x-109"> a; </span>the operator value <span 
+class="pcrr8t-x-x-109">a(i,2) </span>is displayed as <img 
+src="manual48x.png" alt="a
+ i,2  "  class="math"  />. You
+can declare several operators together to be indexed, e.g.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-202">
+        print_indexed b, c;
+</div>
+<!--l. 197--><p class="nopar" > and remove indexed declarations using <span 
+class="pcrr8t-x-x-109">print_noindexed</span><a 
+ id="dx68-115007"></a><a 
+ id="dx68-115008"></a>.
+                                                                     
+
+                                                                     
+</p><!--l. 202--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse52.html" >Up</a></td><td class="clinks"><a 
+href="manualse53.html" >Next</a></td><td class="clinks"><a 
+href="manualse51.html" >Prev</a></td><td class="clinks"><a 
+href="manualse51.html#tailmanualse51.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse52.html" >Front</a></td></tr></table><a 
+ id="tailmanualse52.html"></a> </p> 
+</body> 
+</html>

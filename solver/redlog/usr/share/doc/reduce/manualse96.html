@@ -1,0 +1,358 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Operators with Matrix Arguments</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch14.html#manualse96.html" >Up</a></td><td class="clinks"><a 
+href="manualse97.html" >Next</a></td><td class="clinks"><a 
+href="manualse95.html" >Prev</a></td><td class="clinks"><a 
+href="manualse95.html#tailmanualse95.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse96.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">14.4    </span> <a 
+ id="x123-22700014.4"></a>Operators with Matrix Arguments</h3>
+<!--l. 98--><p class="noindent" >The operator <span 
+class="pcrr8t-x-x-109">length</span><a 
+ id="dx123-227001"></a> applied to a matrix returns a list of the number of rows and
+columns in the matrix. Other operators useful in matrix calculations are deﬁned in the
+following subsections. Attention is also drawn to the LINALG (section <a 
+href="manualse157.html#x225-91000020.32">20.32<!--tex4ht:ref: LINALG --></a>) and
+NORMFORM (section <a 
+href="manualse162.html#x240-102300020.37">20.37<!--tex4ht:ref: NORMFORM --></a>) packages.
+</p><!--l. 105--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">14.4.1    </span> <a 
+ id="x123-22800014.4.1"></a>DET Operator</h4>
+<a 
+ id="dx123-228001"></a>
+<!--l. 106--><p class="noindent" ><a 
+ id="operator:DET"></a> Syntax:
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">det(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exprn:matrix_expression</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">) </span>: <span 
+class="ptmri8t-x-x-109">algebraic </span>.</div>
+<!--l. 112--><p class="noindent" >The operator <span 
+class="pcrr8t-x-x-109">det </span>is used to represent the determinant of a square matrix expression.
+E.g.,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-427">
+        det(y^2)
+</div>
+<!--l. 116--><p class="nopar" > is a scalar expression whose value is the determinant of the square of the matrix <span 
+class="pcrr8t-x-x-109">Y</span>,
+and
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-428">
+        det mat((a,b,c),(d,e,f),(g,h,j));
+</div>
+<!--l. 121--><p class="nopar" > is a scalar expression whose value is the determinant of the matrix
+</p>
+<table 
+class="equation-star"><tr><td>
+                            <img 
+src="manual58x.png" alt="(  a  b  c )
+(          )
+   d  e  f
+   g  h  j"  class="left" align="middle" />
+</td></tr></table>
+<!--l. 124--><p class="nopar" >
+</p><!--l. 126--><p class="noindent" >Determinant expressions have the <span 
+class="ptmri8t-x-x-109">instant evaluation </span>property. <a 
+ id="dx123-228002"></a>In other words, the
+statement
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-429">
+        let det mat((a,b),(c,d)) = 2;
+</div>
+<!--l. 130--><p class="nopar" > sets the <span 
+class="ptmri8t-x-x-109">value </span>of the determinant to 2, and does not set up a rule for the determinant
+itself.
+</p><!--l. 134--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">14.4.2    </span> <a 
+ id="x123-22900014.4.2"></a>MATEIGEN Operator</h4>
+<a 
+ id="dx123-229001"></a>
+<!--l. 135--><p class="noindent" ><a 
+ id="operator:MATEIGEN"></a> Syntax:
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">mateigen(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exprn:matrix_expression,id</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">) </span>: <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">list</span><span 
+class="cmsy-10x-x-109">⟩ </span>.</div>
+<!--l. 141--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">mateigen </span>calculates the eigenvalue equation and the corresponding eigenvectors of a
+matrix, using the variable <span 
+class="pcrr8t-x-x-109">id </span>to denote the eigenvalue. A square free decomposition
+of the characteristic polynomial is carried out. The result is a list of lists of 3
+elements, where the ﬁrst element is a square free factor of the characteristic
+polynomial, the second its multiplicity and the third the corresponding eigenvector
+(as an <span 
+class="cmmi-10x-x-109">n </span>by 1 matrix). If the square free decomposition was successful, the
+product of the ﬁrst elements in the lists is the minimal polynomial. In the case
+of degeneracy, several eigenvectors can exist for the same eigenvalue, which
+manifests itself in the appearance of more than one arbitrary variable in the
+eigenvector. To extract the various parts of the result use the operations deﬁned on
+lists.
+</p><!--l. 154--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Example: </span>The command
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-430">
+        mateigen(mat((2,-1,1),(0,1,1),(-1,1,1)),eta);
+</div>
+<!--l. 158--><p class="nopar" > gives the output
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-431">
+        {{eta - 1,2,
+ <br />
+ <br />          [arbcomplex(1)]
+ <br />          [             ]
+ <br />          [arbcomplex(1)]
+ <br />          [             ]
+ <br />          [      0      ]
+ <br />
+ <br />          },
+ <br />
+ <br />         {eta - 2,1,
+ <br />
+ <br />          [      0      ]
+ <br />          [             ]
+ <br />          [arbcomplex(2)]
+ <br />          [             ]
+ <br />          [arbcomplex(2)]
+ <br />
+ <br />          }}
+</div>
+<!--l. 180--><p class="nopar" >
+</p><!--l. 182--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">14.4.3    </span> <a 
+ id="x123-23000014.4.3"></a>TP Operator</h4>
+<a 
+ id="dx123-230001"></a>
+<!--l. 183--><p class="noindent" ><a 
+ id="operator:TP"></a> Syntax:
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">tp(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exprn:matrix_expression</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">) </span>: <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">matrix</span><span 
+class="cmsy-10x-x-109">⟩ </span>.</div>
+<!--l. 189--><p class="noindent" >This operator takes a single matrix argument and returns its transpose.
+                                                                     
+
+                                                                     
+</p><!--l. 191--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">14.4.4    </span> <a 
+ id="x123-23100014.4.4"></a>Trace Operator</h4>
+<a 
+ id="dx123-231001"></a>
+<!--l. 192--><p class="noindent" ><a 
+ id="operator:TRACE"></a> Syntax:
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">trace(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exprn:matrix_expression</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">) </span>: <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">algebraic</span><span 
+class="cmsy-10x-x-109">⟩</span>.</div>
+<!--l. 197--><p class="noindent" >The operator <span 
+class="pcrr8t-x-x-109">trace </span>is used to represent the trace of a square matrix.
+</p><!--l. 199--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">14.4.5    </span> <a 
+ id="x123-23200014.4.5"></a>Matrix Cofactors</h4>
+<a 
+ id="dx123-232001"></a>
+<!--l. 200--><p class="noindent" ><a 
+ id="operator:COFACTOR"></a> Syntax:
+  </p><div class="syntax">
+     <span 
+class="pcrr8t-x-x-109">cofactor(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exprn:matrix_expression</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">row:integer</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">column:integer</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">) </span>:
+  algebraic</div>
+<!--l. 207--><p class="noindent" >The operator <span 
+class="pcrr8t-x-x-109">cofactor </span>returns the cofactor of the element in row <span 
+class="pcrr8t-x-x-109">row </span>and column
+<span 
+class="pcrr8t-x-x-109">column </span>of the matrix <span 
+class="pcrr8t-x-x-109">matrix</span>. Errors occur if <span 
+class="pcrr8t-x-x-109">row </span>or <span 
+class="pcrr8t-x-x-109">column </span>do not simplify to
+integer expressions or if <span 
+class="pcrr8t-x-x-109">matrix </span>is not square.
+</p><!--l. 212--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">14.4.6    </span> <a 
+ id="x123-23300014.4.6"></a>NULLSPACE Operator</h4>
+<a 
+ id="dx123-233001"></a>
+<!--l. 213--><p class="noindent" ><a 
+ id="operator:NULLSPACE"></a> Syntax:
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">nullspace(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exprn:matrix_expression</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">) </span>: <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">list</span><span 
+class="cmsy-10x-x-109">⟩</span></div>
+<!--l. 218--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">nullspace </span>calculates for a matrix <span 
+class="cmmi-10x-x-109">A </span>a list of linear independent vectors (a basis)
+whose linear combinations satisfy the equation <span 
+class="cmmi-10x-x-109">Ax </span><span 
+class="cmr-10x-x-109">= 0</span>. The basis is provided in a form
+such that as many upper components as possible are isolated.
+                                                                     
+
+                                                                     
+</p><!--l. 223--><p class="noindent" >Note that with <span 
+class="pcrr8t-x-x-109">b := nullspace a </span>the expression <span 
+class="pcrr8t-x-x-109">length b </span>is the <span 
+class="ptmri8t-x-x-109">nullity </span>of A, and
+that <span 
+class="pcrr8t-x-x-109">second length a - length b </span>calculates the <span 
+class="ptmri8t-x-x-109">rank </span>of A. The rank of a
+matrix expression can also be found more directly by the <span 
+class="pcrr8t-x-x-109">rank </span>operator described
+below.
+</p><!--l. 228--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Example: </span>The command
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-432">
+        nullspace mat((1,2,3,4),(5,6,7,8));
+</div>
+<!--l. 231--><p class="nopar" > gives the output
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-433">
+        {
+ <br />         [ 1  ]
+ <br />         [    ]
+ <br />         [ 0  ]
+ <br />         [    ]
+ <br />         [ - 3]
+ <br />         [    ]
+ <br />         [ 2  ]
+ <br />         ,
+ <br />         [ 0  ]
+ <br />         [    ]
+ <br />         [ 1  ]
+ <br />         [    ]
+ <br />         [ - 2]
+ <br />         [    ]
+ <br />         [ 1  ]
+ <br />         }
+</div>
+<!--l. 252--><p class="nopar" >
+</p><!--l. 254--><p class="noindent" >In addition to the REDUCE matrix form, <span 
+class="pcrr8t-x-x-109">nullspace </span>accepts as input a matrix given as
+a list of lists, that is interpreted as a row matrix. If that form of input is chosen, the
+vectors in the result will be represented by lists as well. This additional input syntax
+facilitates the use of <span 
+class="pcrr8t-x-x-109">nullspace </span>in applications diﬀerent from classical linear
+algebra.
+</p><!--l. 261--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">14.4.7    </span> <a 
+ id="x123-23400014.4.7"></a>RANK Operator</h4>
+<a 
+ id="dx123-234001"></a>
+<!--l. 262--><p class="noindent" ><a 
+ id="operator:RANK"></a>
+                                                                     
+
+                                                                     
+</p><!--l. 264--><p class="noindent" >Syntax:
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">rank(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exprn:matrix_expression</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">) </span>: <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">integer</span><span 
+class="cmsy-10x-x-109">⟩ </span>.</div>
+<!--l. 268--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">rank </span>calculates the rank of its argument, that, like <span 
+class="pcrr8t-x-x-109">nullspace </span>can either be a standard
+matrix expression, or a list of lists, that can be interpreted either as a row matrix or a set
+of equations.
+</p><!--l. 272--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">Example:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-434">
+        rank mat((a,b,c),(d,e,f));
+</div>
+<!--l. 275--><p class="nopar" > returns the value 2.
+                                                                     
+
+                                                                     
+</p><!--l. 278--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch14.html#manualse96.html" >Up</a></td><td class="clinks"><a 
+href="manualse97.html" >Next</a></td><td class="clinks"><a 
+href="manualse95.html" >Prev</a></td><td class="clinks"><a 
+href="manualse95.html#tailmanualse95.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse96.html" >Front</a></td></tr></table><a 
+ id="tailmanualse96.html"></a>  </p> 
+</body> 
+</html>

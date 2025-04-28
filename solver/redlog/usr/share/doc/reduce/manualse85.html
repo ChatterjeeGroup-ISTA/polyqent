@@ -1,0 +1,83 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>OUT Command</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch12.html#manualse85.html" >Up</a></td><td class="clinks"><a 
+href="manualse86.html" >Next</a></td><td class="clinks"><a 
+href="manualse84.html" >Prev</a></td><td class="clinks"><a 
+href="manualse84.html#tailmanualse84.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse85.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">12.3    </span> <a 
+ id="x109-21400012.3"></a>OUT Command</h3>
+<a 
+ id="dx109-214001"></a>
+<!--l. 64--><p class="noindent" ><a 
+ id="command:OUT"></a> This command takes a single ﬁle name as argument, and directs output to that ﬁle
+from then on, until another <span 
+class="pcrr8t-x-x-109">out </span>changes the output ﬁle, or <span 
+class="pcrr8t-x-x-109">shut </span>closes it.
+Output can go to only one ﬁle at a time, although many can be open. If the
+ﬁle has previously been used for output during the current job, and not <span 
+class="pcrr8t-x-x-109">shut</span>,
+the new output is appended to the end of the ﬁle. Any existing ﬁle is erased
+before its ﬁrst use for output in a job, or if it had been <span 
+class="pcrr8t-x-x-109">shut </span>before the new
+<span 
+class="pcrr8t-x-x-109">out</span>.
+</p><!--l. 74--><p class="noindent" >To output on the terminal without closing the output ﬁle, the reserved ﬁle name <span 
+class="pcrr8t-x-x-109">t </span>(for
+terminal) may be used. For example, <span 
+class="pcrr8t-x-x-109">out ofile; </span>will direct output to the ﬁle <span 
+class="pcrr8t-x-x-109">ofile</span>
+and <span 
+class="pcrr8t-x-x-109">out t; </span>will direct output to the user’s terminal.
+</p><!--l. 79--><p class="noindent" >The output sent to the ﬁle will be in the same form that it would have on the terminal. In
+particular <span 
+class="pcrr8t-x-x-109">x^2 </span>would appear on two lines, an <span 
+class="pcrr8t-x-x-109">x </span>on the lower line and a 2 on the line
+above. If the purpose of the output ﬁle is to save results to be read in later, this is not an
+appropriate form. We ﬁrst must turn oﬀ the <span 
+class="pcrr8t-x-x-109">nat </span>switch that speciﬁes that output should
+be in standard mathematical notation.
+</p><!--l. 87--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Example: </span>To create a ﬁle <span 
+class="pcrr8t-x-x-109">abcd </span>from which it will be possible to read – using <span 
+class="pcrr8t-x-x-109">in </span>– the
+value of the expression <span 
+class="pcrr8t-x-x-109">xyz</span>:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-417">
+ off echo$      % needed if your input is from a file.
+ <br /> off nat$       % output in IN-readable form. Each
+ <br />                % expression printed will end with a $ .
+ <br /> out abcd$      % output to new file
+ <br /> linelength 72$ % for systems with fixed input
+ <br />                % line length.
+ <br /> xyz:=xyz;      % will output &#x0022;xyz := &#x0022; followed by
+ <br />                % the value of xyz
+ <br /> write &#x0022;;end&#x0022;$  % standard for ending files for in
+ <br /> shut abcd$     % save abcd, return to terminal output
+ <br /> on nat$                % restore usual output form
+</div>
+<!--l. 101--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p><!--l. 103--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch12.html#manualse85.html" >Up</a></td><td class="clinks"><a 
+href="manualse86.html" >Next</a></td><td class="clinks"><a 
+href="manualse84.html" >Prev</a></td><td class="clinks"><a 
+href="manualse84.html#tailmanualse84.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse85.html" >Front</a></td></tr></table><a 
+ id="tailmanualse85.html"></a> </p> 
+</body> 
+</html>

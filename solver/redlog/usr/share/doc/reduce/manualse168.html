@@ -1,0 +1,4190 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>QSUM: Indeﬁnite and Deﬁnite Summation of q-Hypergeometric Terms</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse168.html" >Up</a></td><td class="clinks"><a 
+href="manualse169.html" >Next</a></td><td class="clinks"><a 
+href="manualse167.html" >Prev</a></td><td class="clinks"><a 
+href="manualse167.html#tailmanualse167.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse168.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.43    </span> <a 
+ id="x251-108500020.43"></a>QSUM: Indeﬁnite and Deﬁnite Summation of
+<span 
+class="ptmro8t-x-x-109">q</span>-Hypergeometric Terms</h3>
+<a 
+ id="dx251-1085001"></a>
+<a 
+ id="dx251-1085002"></a>
+<!--l. 905--><p class="noindent" >Authors: Harald Böing and Wolfram Koepf
+<a 
+ id="dx251-1085003"></a>
+<a 
+ id="dx251-1085004"></a>
+<a 
+ id="dx251-1085005"></a>
+<a 
+ id="dx251-1085006"></a>
+</p><!--l. 11--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.43.1    </span> <a 
+ id="x251-108600020.43.1"></a>Introduction</h4>
+<!--l. 41--><p class="noindent" >This package is an implementation of the <span 
+class="cmmi-10x-x-109">q</span>-analogues of Gosper’s and
+Zeilberger’s<span class="footnote-mark"><a 
+href="manual252.html#fn42x20"><sup class="textsuperscript">42</sup></a></span><a 
+ id="x251-1086001f42"></a> 
+algorithm for indeﬁnite, and deﬁnite summation of <span 
+class="cmmi-10x-x-109">q</span>-hypergeometric terms,
+respectively.
+</p><!--l. 52--><p class="noindent" >An expression <span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span></sub> is called a <span 
+class="cmmi-10x-x-109">q</span><span 
+class="ptmro8t-x-x-109">-hypergeometric term</span>, if <span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span></sub><span 
+class="cmmi-10x-x-109">∕a</span><sub><span 
+class="cmmi-8">k</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sub> is a rational function
+with respect to <span 
+class="cmmi-10x-x-109">q</span><sup><span 
+class="cmmi-8">k</span></sup>. Most <span 
+class="cmmi-10x-x-109">q</span>-terms are based on the <span 
+class="cmmi-10x-x-109">q</span><span 
+class="ptmro8t-x-x-109">-shifted factorial </span>or <span 
+class="ptmro8t-x-x-109">qpochhammer</span>.
+Other typical <span 
+class="cmmi-10x-x-109">q</span>-hypergeometric terms are ratios of products of powers, <span 
+class="cmmi-10x-x-109">q</span>-factorials,
+<span 
+class="cmmi-10x-x-109">q</span>-binomial coeﬃcients, and <span 
+class="cmmi-10x-x-109">q</span>-shifted factorials that are integer-linear in their
+arguments.
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.43.2    </span> <a 
+ id="x251-108700020.43.2"></a>Elementary <span 
+class="ptmro8t-x-x-109">q</span>-Functions</h4>
+                                                                     
+
+                                                                     
+<a 
+ id="dx251-1087001"></a>
+<a 
+ id="dx251-1087002"></a>
+<a 
+ id="dx251-1087003"></a>
+<a 
+ id="dx251-1087004"></a>
+<!--l. 67--><p class="noindent" >Our package supports the input of the following elementary <span 
+class="cmmi-10x-x-109">q</span>-functions: </p>
+     <ul class="itemize1">
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">qpochhammer(a,q,infinity)</span>
+     <table 
+class="equation-star"><tr><td>
+                       <img 
+src="manual504x.png" alt="(a;q)"  class="left" align="middle" /><sub><span 
+class="cmsy-8">∞</span></sub> <span 
+class="cmr-10x-x-109">:=</span> <span 
+class="cmex-10x-x-109">∏</span>
+  <sub><span 
+class="cmmi-8">j</span><span 
+class="cmr-8">=0</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><img 
+src="manual505x.png" alt="(       )
+ 1 − aqj"  class="left" align="middle" />
+     </td></tr></table>
+     <!--l. 73--><p class="nopar" >
+     </p></li>
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">qpochhammer(a,q,k)</span>
+     <table 
+class="equation-star"><tr><td>
+                <img 
+src="manual506x.png" alt="(a;q)"  class="left" align="middle" /><sub><span 
+class="cmmi-8">k</span></sub> <span 
+class="cmr-10x-x-109">:= </span><img 
+src="manual507x.png" alt="(    ∏k −1(      j)
+|{      j=0  1 − aq       if k &#x003E; 0
+|  ∏    (  1     )      if k = 0
+(    kj=1 1 − aq−j −1    if k &#x003C; 0"  class="left" align="middle" />
+     </td></tr></table>
+     <!--l. 81--><p class="nopar" >
+                                                                     
+
+                                                                     
+     </p></li>
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">qbrackets(k,q)</span>
+     <table 
+class="equation-star"><tr><td>
+                              <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">q,k</span><span 
+class="cmr-10x-x-109">] :=</span> <img 
+src="manual508x.png" alt=" k
+q--−-1
+ q − 1"  class="frac" align="middle" />
+     </td></tr></table>
+     <!--l. 83--><p class="nopar" >
+     </p></li>
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">qfactorial(k,q)</span>
+     <table 
+class="equation-star"><tr><td>
+                              <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">k</span><span 
+class="cmr-10x-x-109">]</span><sub><span 
+class="cmmi-8">q</span></sub><span 
+class="cmr-10x-x-109">! :=</span> <img 
+src="manual509x.png" alt=" (q;q)
+-----kk-
+(1−  q)"  class="frac" align="middle" />
+     </td></tr></table>
+     <!--l. 85--><p class="nopar" >
+     </p></li>
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">qbinomial(n,k,q)</span>
+     <table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                         <img 
+src="manual510x.png" alt="(n )
+  k"  /><sub><span 
+class="cmmi-8">q</span></sub> <span 
+class="cmr-10x-x-109">:=</span> <img 
+src="manual511x.png" alt="     (q;q)n
+(q;q)-⋅(q;q)---
+     k      n−k"  class="frac" align="middle" />
+     </td></tr></table>
+     <!--l. 88--><p class="nopar" >
+     </p></li></ul>
+<a 
+ id="dx251-1087005"></a>
+<a 
+ id="dx251-1087006"></a>
+<!--l. 93--><p class="noindent" >Furthermore it is possible to use an abbreviation for the <span 
+class="ptmro8t-x-x-109">generalized </span><span 
+class="cmmi-10x-x-109">q</span><span 
+class="ptmro8t-x-x-109">-hypergeometric</span>
+<span 
+class="ptmro8t-x-x-109">series </span>(<span 
+class="ptmro8t-x-x-109">basic generalized hypergeometric series</span>, see e. g. <span class="cite">[<a 
+href="manualap2.html#XGasperRahman:90">GR90</a>]</span>, Chapter 1) which is
+deﬁned as: </p><table 
+class="multline"><tr><td><img 
+src="manual512x.png" alt="   [              |   ]
+ ϕ   a1,a2,...,ar ||q,z :=
+r s   b1,b2,...,bs |
+                       ∞∑                     k   [       k ]1+s− r
+                          (a1,a2,...,ar;q)k--z---- (− 1)kq(2)
+                       k=0 (b1,b2,...,bs;q)k (q;q)k
+"  /></td><td class="equation-label"><br />(20.87)<br /></td></tr></table>where <img 
+src="manual513x.png" alt="(a1,a2,...,ar;q)"  class="left" align="middle" /><sub><span 
+class="cmmi-8">k</span></sub> is a short form to write the product <span 
+class="cmex-10x-x-109">∏</span>
+  <sub><span 
+class="cmmi-8">j</span><span 
+class="cmr-8">=1</span></sub><sup><span 
+class="cmmi-8">r</span></sup><img 
+src="manual514x.png" alt="(aj;q)"  class="left" align="middle" /><sub><span 
+class="cmmi-8">k</span></sub>.
+An <sub><span 
+class="cmmi-8">r</span></sub><span 
+class="cmmi-10x-x-109">ϕ</span><sub><span 
+class="cmmi-8">s</span></sub> series terminates if one of its numerator parameters is of the form <span 
+class="cmmi-10x-x-109">q</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmmi-8">n</span></sup> with
+<span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmsy-10x-x-109">∈ </span><span 
+class="msbm-10x-x-109">ℕ</span>. The additional factor <img 
+src="manual515x.png" alt="[         ]
+ (− 1)kq(k2)"  class="left" align="middle" /><sup><span 
+class="cmr-8">1+</span><span 
+class="cmmi-8">s</span><span 
+class="cmsy-8">−</span><span 
+class="cmmi-8">r</span></sup> (which does not occur in the
+corresponding deﬁnition of the <span 
+class="ptmro8t-x-x-109">generalized hypergeometric function</span>) is due to a
+<span 
+class="ptmro8t-x-x-109">conﬂuence process</span>. With this factor one gets the simple formula:
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+   <span 
+class="cmr-10x-x-109">lim</span><sub><span 
+class="cmmi-8">a</span><sub><span 
+class="cmmi-6">r</span></sub><span 
+class="cmsy-8">→∞</span></sub><sub><span 
+class="cmmi-8">r</span></sub><span 
+class="cmmi-10x-x-109">ϕ</span><sub><span 
+class="cmmi-8">s</span></sub><img 
+src="manual516x.png" alt="[ a1,a2,...,ar ||   ]
+   b,b ,...,b  ||q,z
+   1  2      s"  class="left" align="middle" /> <span 
+class="cmr-10x-x-109">=</span> <sub><span 
+class="cmmi-8">r</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">ϕ</span><sub><span 
+class="cmmi-8">s</span></sub><img 
+src="manual517x.png" alt="[ a1,a2,...,ar−1 ||   ]
+    b,b ,...,b   ||q,z
+     1 2      s"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 116--><p class="nopar" >
+Another variation is the <span 
+class="ptmro8t-x-x-109">bilateral basic hypergeometric series </span>(see e. g. <span class="cite">[<a 
+href="manualap2.html#XGasperRahman:90">GR90</a>]</span>, Chapter
+5) that is deﬁned as
+</p>
+<table 
+class="equation-star"><tr><td>
+<sub><span 
+class="cmmi-8">r</span></sub><span 
+class="cmmi-10x-x-109">ψ</span><sub><span 
+class="cmmi-8">s</span></sub><img 
+src="manual518x.png" alt="[              ||   ]
+  a1,a2,...,ar |q,z
+  b1,b2,...,bs  |"  class="left" align="middle" /> <span 
+class="cmr-10x-x-109">:=</span> <span 
+class="cmex-10x-x-109">∑</span>
+  <sub><span 
+class="cmmi-8">k</span><span 
+class="cmr-8">=</span><span 
+class="cmsy-8">−∞</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><img 
+src="manual519x.png" alt="(a1,a2,...,ar;q)k
+ (b1,b2,...,bs;q)k"  class="frac" align="middle" /><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">z</span><sup><span 
+class="cmmi-8">k</span></sup><span style="margin-left:0.3em" class="thinspace"></span><img 
+src="manual520x.png" alt="[         ]
+ (− 1)kq(k2)"  class="left" align="middle" /><sup><span 
+class="cmmi-8">s</span><span 
+class="cmsy-8">−</span><span 
+class="cmmi-8">r</span></sup><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 124--><p class="nopar" >
+The <span 
+class="ptmro8t-x-x-109">summands </span>of those generalized <span 
+class="cmmi-10x-x-109">q</span>-hypergeometric series may be entered by
+</p>
+     <ul class="itemize1">
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">qphihyperterm(a1,a2,...,a3,b1,b2,...,b3,q,z,k) </span>and
+     </li>
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">qpsihyperterm(a1,a2,...,a3,b1,b2,...,b3,q,z,k)</span></li></ul>
+<!--l. 132--><p class="noindent" >respectively.
+</p><!--l. 136--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.43.3    </span> <a 
+ id="x251-108800020.43.3"></a><span 
+class="ptmro8t-x-x-109">q</span>-Gosper Algorithm</h4>
+<!--l. 139--><p class="noindent" >The <span 
+class="cmmi-10x-x-109">q</span>-Gosper algorithm<span class="cite">[<a 
+href="manualap2.html#XKoornwinder:93">Koo93</a>]</span> is a <span 
+class="ptmro8t-x-x-109">decision procedure</span>, that decides by algebraic
+calculations whether or not a given <span 
+class="cmmi-10x-x-109">q</span>-hypergeometric term <span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span></sub> has a <span 
+class="cmmi-10x-x-109">q</span>-hypergeometric
+term antidiﬀerence <span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmmi-8">k</span></sub>, i. e. <span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmmi-8">k</span></sub> <span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmmi-8">k</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sub> with <span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmmi-8">k</span></sub><span 
+class="cmmi-10x-x-109">∕g</span><sub><span 
+class="cmmi-8">k</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sub> rational in <span 
+class="cmmi-10x-x-109">q</span><sup><span 
+class="cmmi-8">k</span></sup>. The ratio <span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmmi-8">k</span></sub><span 
+class="cmmi-10x-x-109">∕a</span><sub><span 
+class="cmmi-8">k</span></sub>
+                                                                     
+
+                                                                     
+is also rational in <span 
+class="cmmi-10x-x-109">q</span><sup><span 
+class="cmmi-8">k</span></sup> — an important fact which makes the <span 
+class="ptmro8t-x-x-109">rational certiﬁcation </span>(see
+§ <a 
+href="#x251-108900020.43.4">20.43.4<!--tex4ht:ref: qzeilberger --></a>) of Zeilberger’s algorithm possible. If the procedure is successful it returns <span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmmi-8">k</span></sub>,
+in which case we call <span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span></sub> <span 
+class="cmmi-10x-x-109">q</span><span 
+class="ptmro8t-x-x-109">-Gosper-summable</span>. Otherwise <span 
+class="ptmro8t-x-x-109">no </span><span 
+class="cmmi-10x-x-109">q</span><span 
+class="ptmro8t-x-x-109">-hypergeometric</span>
+<span 
+class="ptmro8t-x-x-109">antidiﬀerence exists</span>. Therefore if the <span 
+class="cmmi-10x-x-109">q</span>-Gosper algorithm does not return a
+<span 
+class="cmmi-10x-x-109">q</span>-hypergeometric antidiﬀerence, it has <span 
+class="ptmro8t-x-x-109">proved  </span>that no such solution exists, an
+information that may be quite useful and important.
+</p><!--l. 154--><p class="noindent" >Any antidiﬀerence is uniquely determined up to a constant, and is denoted by
+</p>
+<table 
+class="equation-star"><tr><td>
+                            <span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmmi-8">k</span></sub> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∑</span>
+   <span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span></sub><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">δ</span><sub><span 
+class="cmmi-8">k</span></sub><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 159--><p class="nopar" >
+Finding <span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmmi-8">k</span></sub> given <span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span></sub> is called <span 
+class="ptmro8t-x-x-109">indeﬁnite summation</span>. The antidiﬀerence operator <span 
+class="cmr-10x-x-109">Σ </span>is the
+inverse of the downward diﬀerence operator <span 
+class="cmsy-10x-x-109">∇</span><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span></sub> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sub>. There is an
+analogous summation theory corresponding to the upward diﬀerence operator
+<span 
+class="cmr-10x-x-109">Δ</span><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span><span 
+class="cmr-8">+1</span></sub> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span></sub>.
+</p><!--l. 166--><p class="noindent" >In case, an antidiﬀerence <span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmmi-8">k</span></sub> of <span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span></sub> is known, any sum <span 
+class="cmex-10x-x-109">∑</span>
+  <sub><span 
+class="cmmi-8">k</span><span 
+class="cmr-8">=</span><span 
+class="cmmi-8">m</span></sub><sup><span 
+class="cmmi-8">n</span></sup><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span></sub> can be easily
+calculated by an evaluation of <span 
+class="cmmi-10x-x-109">g </span>at the boundary points like in the integration
+case:
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                       <span 
+class="cmex-10x-x-109">∑</span>
+                          <sub><span 
+class="cmmi-8">k</span><span 
+class="cmr-8">=</span><span 
+class="cmmi-8">m</span></sub><sup><span 
+class="cmmi-8">n</span></sup><span 
+class="cmmi-10x-x-109">a</span><sub>
+<span 
+class="cmmi-8">k</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmmi-8">m</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sub>
+</td></tr></table>
+<!--l. 171--><p class="nopar" >
+</p><!--l. 176--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.43.4    </span> <a 
+ id="x251-108900020.43.4"></a><span 
+class="ptmro8t-x-x-109">q</span>-Zeilberger Algorithm</h4>
+<!--l. 179--><p class="noindent" >The <span 
+class="cmmi-10x-x-109">q</span>-Zeilberger algorithm <span class="cite">[<a 
+href="manualap2.html#XKoornwinder:93">Koo93</a>]</span> deals with the <span 
+class="ptmro8t-x-x-109">deﬁnite summation </span>of <span 
+class="cmmi-10x-x-109">q</span>-hypergeometric
+terms <span 
+class="cmr-10x-x-109">f(</span><span 
+class="cmmi-10x-x-109">n,k</span><span 
+class="cmr-10x-x-109">) </span>wrt. <span 
+class="cmmi-10x-x-109">n </span>and <span 
+class="cmmi-10x-x-109">k</span>:
+</p>
+<table 
+class="equation-star"><tr><td>
+                       <span 
+class="cmr-10x-x-109">s(</span><span 
+class="cmmi-10x-x-109">n</span><span 
+class="cmr-10x-x-109">) :=</span> <span 
+class="cmex-10x-x-109">∑</span>
+  <sub><span 
+class="cmmi-8">k</span><span 
+class="cmr-8">=</span><span 
+class="cmsy-8">−∞</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><span 
+class="cmr-10x-x-109">f(</span><span 
+class="cmmi-10x-x-109">n,k</span><span 
+class="cmr-10x-x-109">)</span>
+</td></tr></table>
+<!--l. 184--><p class="nopar" >
+Zeilberger’s idea is to use Gosper’s algorithm to ﬁnd an inhomogeneous recurrence
+equation with polynomial coeﬃcients for <span 
+class="cmr-10x-x-109">f(</span><span 
+class="cmmi-10x-x-109">n,k</span><span 
+class="cmr-10x-x-109">) </span>of the form
+</p>
+<table 
+class="equation"><tr><td><a 
+ id="x251-1089001r88"></a>
+<center class="math-display" >
+<img 
+src="manual521x.png" alt="∑J
+   σj(n )⋅f(n + j,k) = g(k)− g(k − 1),
+j=0
+" class="math-display"  /></center></td><td class="equation-label">(20.88)</td></tr></table>
+<!--l. 191--><p class="nopar" >
+where <span 
+class="cmr-10x-x-109">g(</span><span 
+class="cmmi-10x-x-109">k</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">∕</span><span 
+class="cmr-10x-x-109">f(</span><span 
+class="cmmi-10x-x-109">k</span><span 
+class="cmr-10x-x-109">) </span>is rational in <span 
+class="cmmi-10x-x-109">q</span><sup><span 
+class="cmmi-8">k</span></sup> and <span 
+class="cmmi-10x-x-109">q</span><sup><span 
+class="cmmi-8">n</span></sup>. Assuming ﬁnite support of <span 
+class="cmr-10x-x-109">f(</span><span 
+class="cmmi-10x-x-109">n,k</span><span 
+class="cmr-10x-x-109">) </span>wrt. <span 
+class="cmmi-10x-x-109">k </span>(i. e.
+<span 
+class="cmr-10x-x-109">f(</span><span 
+class="cmmi-10x-x-109">n,k</span><span 
+class="cmr-10x-x-109">) = 0 </span>for any <span 
+class="cmmi-10x-x-109">n </span>and all suﬃciently large <span 
+class="cmmi-10x-x-109">k</span>) we can sum equation (<a 
+href="#x251-1089001r88">20.88<!--tex4ht:ref: eq:f_n_k-recursion --></a>) over all
+<span 
+class="cmmi-10x-x-109">k </span><span 
+class="cmsy-10x-x-109">∈ </span><span 
+class="msbm-10x-x-109">ℤ</span>. Thus we receive a homogeneous recurrence equation with polynomial coeﬃcients
+(called <span 
+class="ptmro8t-x-x-109">holonomic equation</span>) for <span 
+class="cmr-10x-x-109">s(</span><span 
+class="cmmi-10x-x-109">n</span><span 
+class="cmr-10x-x-109">)</span>:
+</p>
+<table 
+class="equation"><tr><td><a 
+ id="x251-1089002r89"></a>
+<center class="math-display" >
+<img 
+src="manual522x.png" alt="∑J
+   σj(n)⋅s(n + j) = 0
+j=0
+" class="math-display"  /></center></td><td class="equation-label">(20.89)</td></tr></table>
+<!--l. 200--><p class="nopar" >
+At this stage the implementation assumes that the summation bounds are inﬁnite and the
+input term has ﬁnite support wrt. <span 
+class="cmmi-10x-x-109">k</span>. If those input requirements are not fulﬁlled the
+resulting recursion is probably not valid. Thus we strongly advise the user to check those
+requirements.
+</p><!--l. 208--><p class="noindent" >Despite this restriction you may still be able to get valuable information by the program:
+On request it returns the left hand side of the recurrence equation (<a 
+href="#x251-1089002r89">20.89<!--tex4ht:ref: holonomic_recurrence --></a>) <span 
+class="ptmro8t-x-x-109">and </span>the
+antidiﬀerence <span 
+class="cmr-10x-x-109">g(</span><span 
+class="cmmi-10x-x-109">k</span><span 
+class="cmr-10x-x-109">) </span>of equation (<a 
+href="#x251-1089001r88">20.88<!--tex4ht:ref: eq:f_n_k-recursion --></a>).
+</p><!--l. 214--><p class="noindent" >Once you have the certiﬁcate <span 
+class="cmr-10x-x-109">g(</span><span 
+class="cmmi-10x-x-109">k</span><span 
+class="cmr-10x-x-109">) </span>it is trivial (at least theoretically) to prove equation
+(<a 
+href="#x251-1089002r89">20.89<!--tex4ht:ref: holonomic_recurrence --></a>) as long as the input requirements are fulﬁlled. Let’s assume somone gives us
+equation (<a 
+href="#x251-1089001r88">20.88<!--tex4ht:ref: eq:f_n_k-recursion --></a>). If we divide it by <span 
+class="cmr-10x-x-109">f(</span><span 
+class="cmmi-10x-x-109">n,k</span><span 
+class="cmr-10x-x-109">) </span>we get a rational identity (in <span 
+class="cmmi-10x-x-109">q</span><sup><span 
+class="cmmi-8">n</span></sup> and <span 
+class="cmmi-10x-x-109">q</span><sup><span 
+class="cmmi-8">k</span></sup>) —due
+to the fact that <span 
+class="cmr-10x-x-109">g(</span><span 
+class="cmmi-10x-x-109">k</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">∕</span><span 
+class="cmr-10x-x-109">f(</span><span 
+class="cmmi-10x-x-109">n,k</span><span 
+class="cmr-10x-x-109">) </span>is rational in <span 
+class="cmmi-10x-x-109">q</span><sup><span 
+class="cmmi-8">n</span></sup> and <span 
+class="cmmi-10x-x-109">q</span><sup><span 
+class="cmmi-8">k</span></sup>. Once we conﬁrmed this identity we
+sum equation (<a 
+href="#x251-1089001r88">20.88<!--tex4ht:ref: eq:f_n_k-recursion --></a>) over <span 
+class="cmmi-10x-x-109">k </span><span 
+class="cmsy-10x-x-109">∈ </span><span 
+class="msbm-10x-x-109">ℤ</span>:
+</p>
+<table 
+class="equation"><tr><td><a 
+ id="x251-1089003r90"></a>
+                                                                     
+
+                                                                     
+<center class="math-display" >
+<img 
+src="manual523x.png" alt="    J
+∑  ∑                     ∑
+       σj(n )⋅f(n+ j,k) =    (g(k)− g(k − 1)),
+k∈ℤj=0                   k∈ℤ
+" class="math-display"  /></center></td><td class="equation-label">(20.90)</td></tr></table>
+<!--l. 225--><p class="nopar" >
+Again we exploit the fact that <span 
+class="cmr-10x-x-109">g(</span><span 
+class="cmmi-10x-x-109">k</span><span 
+class="cmr-10x-x-109">) </span>is a rational multiple of <span 
+class="cmr-10x-x-109">f(</span><span 
+class="cmmi-10x-x-109">n,k</span><span 
+class="cmr-10x-x-109">) </span>and thus <span 
+class="cmr-10x-x-109">g(</span><span 
+class="cmmi-10x-x-109">k</span><span 
+class="cmr-10x-x-109">) </span>has
+<span 
+class="ptmro8t-x-x-109">ﬁnite support </span>which makes the telescoping sum on the right hand side vanish. If we
+exchange the order of summation we get equation (<a 
+href="#x251-1089002r89">20.89<!--tex4ht:ref: holonomic_recurrence --></a>) which ﬁnishes the
+proof.
+</p><!--l. 233--><p class="noindent" >Note that we may relax the requirements for <span 
+class="cmr-10x-x-109">f(</span><span 
+class="cmmi-10x-x-109">n,k</span><span 
+class="cmr-10x-x-109">)</span>: An inﬁnite support is possible as
+long as <span 
+class="cmr-10x-x-109">lim</span><sub><span 
+class="cmmi-8">k</span><span 
+class="cmsy-8">→∞</span></sub><span 
+class="cmr-10x-x-109">g(</span><span 
+class="cmmi-10x-x-109">k</span><span 
+class="cmr-10x-x-109">)</span> <span 
+class="cmr-10x-x-109">= 0</span>. (This is certainly true if <span 
+class="cmr-10x-x-109">lim</span><sub><span 
+class="cmmi-8">k</span><span 
+class="cmsy-8">→∞</span></sub><span 
+class="cmr-10x-x-109">p(</span><span 
+class="cmmi-10x-x-109">k</span><span 
+class="cmr-10x-x-109">)</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmr-10x-x-109">f(</span><span 
+class="cmmi-10x-x-109">k</span><span 
+class="cmr-10x-x-109">)</span> <span 
+class="cmr-10x-x-109">= 0 </span>for all
+polynomials <span 
+class="cmr-10x-x-109">p(</span><span 
+class="cmmi-10x-x-109">k</span><span 
+class="cmr-10x-x-109">)</span>.)
+</p><!--l. 240--><p class="noindent" >For a quite general class of <span 
+class="cmmi-10x-x-109">q</span>-hypergeometric terms (<span 
+class="ptmro8t-x-x-109">proper q-hypergeometric terms</span>) the
+<span 
+class="cmmi-10x-x-109">q</span>-Zeilberger algorithm always ﬁnds a recurrence equation, not necessarily of
+lowest order though. Unlike Zeilberger’s original algorithm its <span 
+class="cmmi-10x-x-109">q</span>-analogue more
+often fails to determine the recursion of lowest possible order, however (see
+<span class="cite">[<a 
+href="manualap2.html#XPauleRiese:95">PR95</a>]</span>).
+</p><!--l. 247--><p class="noindent" >If the resulting recurrence equation is of ﬁrst order
+</p>
+<table 
+class="equation-star"><tr><td>
+                     <span 
+class="cmr-10x-x-109">a(</span><span 
+class="cmmi-10x-x-109">n</span><span 
+class="cmr-10x-x-109">)</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmr-10x-x-109">s(</span><span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1) + b(</span><span 
+class="cmmi-10x-x-109">n</span><span 
+class="cmr-10x-x-109">)</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmr-10x-x-109">s(</span><span 
+class="cmmi-10x-x-109">n</span><span 
+class="cmr-10x-x-109">) = 0</span><span 
+class="cmmi-10x-x-109">,</span>
+</td></tr></table>
+<!--l. 251--><p class="nopar" >
+<span 
+class="cmr-10x-x-109">s(</span><span 
+class="cmmi-10x-x-109">n</span><span 
+class="cmr-10x-x-109">) </span>turns out to be a <span 
+class="cmmi-10x-x-109">q</span>-hypergeometric term (as a and b are polynomials in <span 
+class="cmmi-10x-x-109">q</span><sup><span 
+class="cmmi-8">n</span></sup>), and
+a <span 
+class="cmmi-10x-x-109">q</span>-hypergeometric solution can be easily established using a suitable initial
+                                                                     
+
+                                                                     
+value.
+</p><!--l. 257--><p class="noindent" >If the resulting recurrence equation has order larger than one, this information can be
+used for identiﬁcation purposes: Any other expression satisfying the same recurrence
+equation, and the same initial values, represents the same function.
+</p><!--l. 262--><p class="noindent" >Our implementation is mainly based on <span class="cite">[<a 
+href="manualap2.html#XKoornwinder:93">Koo93</a>]</span> and on the hypergeometric analogue
+described in <span class="cite">[<a 
+href="manualap2.html#XKoepf:95e">Koe95a</a>]</span>. More examples can be found in <span class="cite">[<a 
+href="manualap2.html#XGasperRahman:90">GR90</a>]</span>, <span class="cite">[<a 
+href="manualap2.html#XGasper:95">Gas95</a>]</span>, some of which
+are contained in the test ﬁle <span 
+class="pcrr8t-x-x-109">qsum.tst</span>.
+</p><!--l. 270--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.43.5    </span> <a 
+ id="x251-109000020.43.5"></a>REDUCE operator <span 
+class="pcrr8t-x-x-109">qgosper</span></h4>
+<a 
+ id="dx251-1090001"></a>
+<!--l. 274--><p class="noindent" >The <span 
+class="pcrr8t-x-x-109">qgosper </span>operator is an implementation of the <span 
+class="cmmi-10x-x-109">q</span>-Gosper algorithm. </p>
+     <ul class="itemize1">
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">qgosper(a,q,k) </span>determines  a  <span 
+class="cmmi-10x-x-109">q</span>-hypergeometric  antidiﬀerence.  (By
+     default  it  returns  a  <span 
+class="ptmro8t-x-x-109">downward  </span>antidiﬀerence,  which  may  be  changed  by
+     the switch <span 
+class="pcrr8t-x-x-109">qgosper_down</span>; see also <a 
+ id="dx251-1090002"></a><a 
+ id="dx251-1090003"></a><a 
+ id="dx251-1090004"></a> § <a 
+href="#x251-109300020.43.8">20.43.8<!--tex4ht:ref: switches --></a>.) If it does not return a
+     <span 
+class="ptmro8t-x-x-109">q</span>-hypergeometric antidiﬀerence, then such an antidiﬀerence does not exist.
+     </li>
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">qgosper(a,q,k,m,n) </span>determines  a  closed  formula  for  the  deﬁnite
+     sum <span 
+class="cmex-10x-x-109">∑</span>
+  <sub><span 
+class="cmmi-8">k</span><span 
+class="cmr-8">=</span><span 
+class="cmmi-8">m</span></sub><sup><span 
+class="cmmi-8">n</span></sup><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span></sub> using the <span 
+class="cmmi-10x-x-109">q</span>-analogue of Gosper’s algorithm. This is only
+     successful if <span 
+class="ptmro8t-x-x-109">q</span>-Gosper’s algorithm applies.</li></ul>
+<!--l. 291--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Examples</span>: The following two examples can be found in <span class="cite">[<a 
+href="manualap2.html#XGasperRahman:90">GR90</a>]</span> ((II.3) and
+(2.3.4)).
+</p>
+<div class="alltt">
+<div class="obeylines-v">
+<span 
+class="pcrr8t-">1:</span><span 
+class="pcrr8t-"> qgosper(qpochhammer(a,q,k)*q^k/qpochhammer(q,q,k),q,k);</span>
+<br />
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> k</span>
+<br /><span 
+class="pcrr8t-"> (q</span><span 
+class="pcrr8t-"> *a</span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> 1)*qpochhammer(a,q,k)</span>
+<br /><span 
+class="pcrr8t-">-------------------------------</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> (a</span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> 1)*qpochhammer(q,q,k)</span>
+<br />
+<br /><span 
+class="pcrr8t-">2:</span><span 
+class="pcrr8t-"> qgosper(qpochhammer(a,q,k)*qpochhammer(a*q^2,q^2,k)*</span>
+                                                                     
+
+                                                                     
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> qpochhammer(q^(-n),q,k)*q^(n*k)/(qpochhammer(a,q^2,k)*</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> qpochhammer(a*q^(n+1),q,k)*qpochhammer(q,q,k)),q,k);</span>
+<br />
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> k*n</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> k</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> k</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> n</span>
+<br /><span 
+class="pcrr8t-">(</span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> q</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> *(q</span><span 
+class="pcrr8t-"> *a</span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> 1)*(q</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> q</span><span 
+class="pcrr8t-"> )</span>
+<br />
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> 1</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> 2</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> 2</span>
+<br /><span 
+class="pcrr8t-"> *qpochhammer(----,q,k)*qpochhammer(a*q</span><span 
+class="pcrr8t-"> ,q</span><span 
+class="pcrr8t-"> ,k)</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> n</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> q</span>
+<br />
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> 2*k</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> n</span>
+<br /><span 
+class="pcrr8t-"> *qpochhammer(a,q,k))/((q</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> *a</span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> 1)*(q</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> 1)</span>
+<br />
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> n</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> 2</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> *qpochhammer(q</span><span 
+class="pcrr8t-"> *a*q,q,k)*qpochhammer(a,q</span><span 
+class="pcrr8t-"> ,k)</span>
+<br />
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> *qpochhammer(q,q,k))</span>
+</div>
+</div>
+<!--l. 321--><p class="noindent" >
+</p><!--l. 323--><p class="noindent" >Here are some other simple examples: </p><div class="alltt">
+<div class="obeylines-v">
+<span 
+class="pcrr8t-">3:</span><span 
+class="pcrr8t-"> qgosper(qpochhammer(q^(-n),q,k)*z^k</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> /qpochhammer(q,q,k),q,k);</span>
+<br />
+<br /><span 
+class="pcrr8t-">*****</span><span 
+class="pcrr8t-"> No</span><span 
+class="pcrr8t-"> q-hypergeometric</span><span 
+class="pcrr8t-"> antidifference</span><span 
+class="pcrr8t-"> exists.</span>
+<br />
+<br /><span 
+class="pcrr8t-">4:</span><span 
+class="pcrr8t-"> off</span><span 
+class="pcrr8t-"> qgosper_down;</span>
+<br />
+<br /><span 
+class="pcrr8t-">5:</span><span 
+class="pcrr8t-"> qgosper(q^k*qbrackets(k,q),q,k);</span>
+<br />
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> k</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> k</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> q</span><span 
+class="pcrr8t-"> *(q</span><span 
+class="pcrr8t-"> +</span><span 
+class="pcrr8t-"> 1</span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> q</span><span 
+class="pcrr8t-"> )*qbrackets(k,q)</span>
+<br /><span 
+class="pcrr8t-">-----------------------------------</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> k</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> (q</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> 1)*(q</span><span 
+class="pcrr8t-"> +</span><span 
+class="pcrr8t-"> 1)*(q</span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> 1)</span>
+<br />
+<br /><span 
+class="pcrr8t-">6:</span><span 
+class="pcrr8t-"> on</span><span 
+class="pcrr8t-"> qgosper_down;</span>
+<br />
+<br /><span 
+class="pcrr8t-">7:</span><span 
+class="pcrr8t-"> qgosper(q^k,q,k,0,n);</span>
+<br />
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> n</span>
+<br /><span 
+class="pcrr8t-"> q</span><span 
+class="pcrr8t-"> *q</span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> 1</span>
+                                                                     
+
+                                                                     
+<br /><span 
+class="pcrr8t-">----------</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> q</span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> 1</span>
+</div>
+</div>
+<!--l. 348--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.43.6    </span> <a 
+ id="x251-109100020.43.6"></a>REDUCE operator <span 
+class="pcrr8t-x-x-109">qsumrecursion</span></h4>
+<a 
+ id="dx251-1091001"></a>
+<!--l. 356--><p class="noindent" >The <span 
+class="pcrr8t-x-x-109">qsumrecursion </span>operator is an implementation of the <span 
+class="cmmi-10x-x-109">q</span>-Zeilberger algorithm. It
+tries to determine a homogeneous recurrence equation for <span 
+class="cmr-10x-x-109">s</span><span 
+class="cmmi-10x-x-109">umm</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n</span><span 
+class="cmr-10x-x-109">) </span>wrt. <span 
+class="cmmi-10x-x-109">n </span>with
+polynomial coeﬃcients (in <span 
+class="cmmi-10x-x-109">n</span>), where
+</p>
+<table 
+class="equation-star"><tr><td>
+                    <span 
+class="cmr-10x-x-109">s</span><span 
+class="cmmi-10x-x-109">umm</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n</span><span 
+class="cmr-10x-x-109">) :=</span> <span 
+class="cmex-10x-x-109">∑</span>
+  <sub><span 
+class="cmmi-8">k</span><span 
+class="cmr-8">=</span><span 
+class="cmsy-8">−∞</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><span 
+class="cmr-10x-x-109">f(</span><span 
+class="cmmi-10x-x-109">n,k</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 363--><p class="nopar" >
+If successful the left hand side of the recurrence equation (<a 
+href="#x251-1089002r89">20.89<!--tex4ht:ref: holonomic_recurrence --></a>) is returned.
+</p><!--l. 368--><p class="noindent" >There are three diﬀerent ways to pass a summand <span 
+class="cmr-10x-x-109">f(</span><span 
+class="cmmi-10x-x-109">n,k</span><span 
+class="cmr-10x-x-109">) </span>to <span 
+class="pcrr8t-x-x-109">qsumrecursion</span>:
+</p>
+     <ul class="itemize1">
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">qsumrecursion(f,q,k,n)</span>, where <span 
+class="pcrr8t-x-x-109">f </span>is a <span 
+class="cmmi-10x-x-109">q</span>-hypergeometric term wrt.
+     <span 
+class="pcrr8t-x-x-109">k </span>and <span 
+class="pcrr8t-x-x-109">n</span>, <span 
+class="pcrr8t-x-x-109">k </span>is the summation variable and <span 
+class="pcrr8t-x-x-109">n </span>the recursion variable, <span 
+class="pcrr8t-x-x-109">q </span>is a
+     symbol.
+     </li>
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">qsumrecursion(upper,lower,q,z,n) </span>is a shortcut for <br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">qsumrecursion(qphihyperterm(upper,lower,q,z,k),</span><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109">               q,k,n)</span>
+                                                                     
+
+                                                                     
+     </li>
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">qsumrecursion(f,upper,lower,q,z,n) </span>is a similar shortcut for<br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">qsumrecursion(f*qphihyperterm(upper,lower,q,z,k),</span><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109">               q,k,n)</span>,</li></ul>
+<!--l. 385--><p class="noindent" >i. e. <span 
+class="pcrr8t-x-x-109">upper </span>and <span 
+class="pcrr8t-x-x-109">lower </span>are lists of upper and lower parameters of the generalized
+<span 
+class="cmmi-10x-x-109">q</span>-hypergeometric function. The third form is handy if you have any additional
+factors.
+</p><!--l. 389--><p class="noindent" >For all three instances the following variations are allowed: </p>
+     <ul class="itemize1">
+     <li class="itemize">If for some reason the recursion order is known in advance you can specify
+     it  as  an  additional  (<span 
+class="ptmro8t-x-x-109">optional </span>)  argument  at  the  very  end  of  the  parameter
+     sequence.  There  are  two  ways.  If  you  just  specify  a  positive  integer,
+     <span 
+class="pcrr8t-x-x-109">qsumrecursion </span>looks only for a recurrence equation of this order. You
+     can also specify a range by a list of two positive integers, i. e. the ﬁrst one
+     specifying the lowest and the second one the highest order.
+     <!--l. 400--><p class="noindent" >By default <span 
+class="pcrr8t-x-x-109">qsumrecursion </span>will search for recurrences of order from 1
+     to 5. (The global variable <span 
+class="pcrr8t-x-x-109">qsumrecursion_recrange!* </span>controls this
+     behavior, see § <a 
+href="#x251-109300020.43.8">20.43.8<!--tex4ht:ref: switches --></a>.)
+     </p></li>
+     <li class="itemize">Usually <span 
+class="pcrr8t-x-x-109">qsumrecursion </span>uses <span 
+class="pcrr8t-x-x-109">summ </span>as a name for the <span 
+class="cmr-10x-x-109">summ</span>-function
+     deﬁned  above.  If  you  want  to  use  another  operator,  say  e. g.  <span 
+class="pcrr8t-x-x-109">s</span>,  then  the
+     following syntax applies: <span 
+class="pcrr8t-x-x-109">qsumrecursion(f,q,k,s(n))</span></li></ul>
+<!--l. 410--><p class="noindent" >As a ﬁrst example we want to consider the <span 
+class="ptmro8t-x-x-109">q-binomial theorem</span>:
+</p>
+<table 
+class="equation-star"><tr><td>
+                     <span 
+class="cmex-10x-x-109">∑</span>
+                        <sub><span 
+class="cmmi-8">k</span><span 
+class="cmr-8">=0</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><img 
+src="manual524x.png" alt="(a;q)k
+(q;q)k"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">z</span><sup><span 
+class="cmmi-8">k</span></sup> <span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual525x.png" alt="(az;q)∞-
+ (z;q)∞"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">,</span>
+</td></tr></table>
+                                                                     
+
+                                                                     
+<!--l. 414--><p class="nopar" >
+provided that <span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmmi-10x-x-109">q</span><span 
+class="cmsy-10x-x-109">| </span><span 
+class="cmmi-10x-x-109">&#x003C; </span><span 
+class="cmr-10x-x-109">1</span>. It is the <span 
+class="cmmi-10x-x-109">q</span>-analogue of the binomial theorem in the sense
+that
+</p>
+<table 
+class="equation-star"><tr><td>
+       <span 
+class="cmr-10x-x-109">lim</span><sub><span 
+class="cmmi-8">q</span><span 
+class="cmsy-8">→</span><span 
+class="cmr-8">1</span><sup><span 
+class="cmsy-6">−</span></sup></sub><span 
+class="cmex-10x-x-109">∑</span>
+                  <sub><span 
+class="cmmi-8">k</span><span 
+class="cmr-8">=0</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><img 
+src="manual526x.png" alt="(qa;q)k-
+(q;q)k"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">z</span><sup><span 
+class="cmmi-8">k</span></sup> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∑</span>
+  <sub><span 
+class="cmmi-8">k</span><span 
+class="cmr-8">=0</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><img 
+src="manual527x.png" alt="(a-)k-
+ k!"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">z</span><sup><span 
+class="cmmi-8">k</span></sup> <span 
+class="cmr-10x-x-109">= (1 </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmmi-8">a</span></sup><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 421--><p class="nopar" >
+For <span 
+class="cmmi-10x-x-109">a </span><span 
+class="cmr-10x-x-109">:= </span><span 
+class="cmmi-10x-x-109">q</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmmi-8">n</span></sup> with <span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmsy-10x-x-109">∈ </span><span 
+class="msbm-10x-x-109">ℕ </span>our implementation gets: </p><div class="alltt">
+<div class="obeylines-v">
+<span 
+class="pcrr8t-">8:</span><span 
+class="pcrr8t-"> qsumrecursion(qpochhammer(q^(-n),q,k)*z^k/</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> qpochhammer(q,q,k),q,k,n);</span>
+<br />
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> n</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> n</span>
+<br /><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> ((q</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> z)*summ(n</span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> 1)</span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> q</span><span 
+class="pcrr8t-"> *summ(n))</span>
+</div>
+</div>
+<!--l. 429--><p class="noindent" >
+Notice that the input requirements are fulﬁlled. For <span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmsy-10x-x-109">∈ </span><span 
+class="msbm-10x-x-109">ℕ </span>the summand is zero for all
+<span 
+class="cmmi-10x-x-109">k &#x003E; n </span>as <img 
+src="manual528x.png" alt=" − n
+(q   ;q)"  class="left" align="middle" /><sub><span 
+class="cmmi-8">k</span></sub> <span 
+class="cmr-10x-x-109">= 0 </span>and the <img 
+src="manual529x.png" alt="(q;q)"  class="left" align="middle" /><sub><span 
+class="cmmi-8">k</span></sub>-term in the denominator makes the summand
+vanish for all <span 
+class="cmmi-10x-x-109">k &#x003C; </span><span 
+class="cmr-10x-x-109">0</span>.
+<a 
+ id="dx251-1091002"></a>
+<a 
+ id="dx251-1091003"></a>
+<a 
+ id="dx251-1091004"></a>
+</p><!--l. 437--><p class="noindent" >With the switch <span 
+class="pcrr8t-x-x-109">qsumrecursion_certificate </span>it is possible to get the
+antidiﬀerence <span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmmi-8">k</span></sub> described above. When switched on, <span 
+class="pcrr8t-x-x-109">qsumrecursion </span>returns a list
+with ﬁve entries, see § <a 
+href="#x251-109300020.43.8">20.43.8<!--tex4ht:ref: switches --></a>. For the last example we get:
+</p>
+<div class="alltt">
+                                                                     
+
+                                                                     
+<div class="obeylines-v">
+<span 
+class="pcrr8t-">9:</span><span 
+class="pcrr8t-"> on</span><span 
+class="pcrr8t-"> qsumrecursion_certificate;</span>
+<br />
+<br /><span 
+class="pcrr8t-">10:</span><span 
+class="pcrr8t-"> proof:=</span><span 
+class="pcrr8t-"> qsumrecursion(qpochhammer(q^(-n),q,k)*z^k/</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> qpochhammer(q,q,k),q,k,n);</span>
+<br />
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> n</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> n</span>
+<br /><span 
+class="pcrr8t-">proof</span><span 
+class="pcrr8t-"> :=</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> ((q</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> z)*summ(n</span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> 1)</span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> q</span><span 
+class="pcrr8t-"> *summ(n)),</span>
+<br />
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> k</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> n</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> (q</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> q</span><span 
+class="pcrr8t-"> )*z</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> ----------------,</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> n</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> q</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> 1</span>
+<br />
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> k</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> 1</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> z</span><span 
+class="pcrr8t-"> *qpochhammer(----,q,k)</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> n</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> q</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> --------------------------,</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> qpochhammer(q,q,k)</span>
+<br />
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> k,</span>
+<br />
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> downward_antidifference</span>
+<br />
+<br /><span 
+class="pcrr8t-">11:</span><span 
+class="pcrr8t-"> off</span><span 
+class="pcrr8t-"> qsumrecursion_certificate;</span>
+</div>
+</div>
+<!--l. 470--><p class="noindent" >
+ Let’s deﬁne the list entries as <span 
+class="pcrr8t-x-x-109">{rec,cert,f,k,dir}</span>. If you substitute
+<span 
+class="cmr-10x-x-109">s</span><span 
+class="cmmi-10x-x-109">umm</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">j</span><span 
+class="cmr-10x-x-109">) </span>by <span 
+class="cmr-10x-x-109">f(</span><span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">j,k</span><span 
+class="cmr-10x-x-109">) </span>in <span 
+class="pcrr8t-x-x-109">rec </span>then you obtain the left hand side of equation
+(<a 
+href="#x251-1089001r88">20.88<!--tex4ht:ref: eq:f_n_k-recursion --></a>), where <span 
+class="pcrr8t-x-x-109">f </span>is the input summand. The function <span 
+class="cmr-10x-x-109">g(</span><span 
+class="cmmi-10x-x-109">k</span><span 
+class="cmr-10x-x-109">) :=</span> <span 
+class="pcrr8t-x-x-109">f*cert</span> is the
+corresponding antidiﬀerence, where <span 
+class="pcrr8t-x-x-109">dir </span>states which sort of antidiﬀerence was
+calculated <span 
+class="pcrr8t-x-x-109">downward_antidifference </span>or <span 
+class="pcrr8t-x-x-109">upward_antidifference</span>, see also
+§ <a 
+href="#x251-109300020.43.8">20.43.8<!--tex4ht:ref: switches --></a>. Those informations enable you to prove the recurrence equation for the sum
+or supply you with the necessary informations to determine an inhomogeneous
+recurrence equation for a sum with nonnatural bounds.
+<a 
+ id="dx251-1091005"></a>
+</p><!--l. 486--><p class="noindent" >For our last example we can now calculate both sides of equation (<a 
+href="#x251-1089001r88">20.88<!--tex4ht:ref: eq:f_n_k-recursion --></a>):
+</p>
+<div class="alltt">
+                                                                     
+
+                                                                     
+<div class="obeylines-v">
+<span 
+class="pcrr8t-">12:</span><span 
+class="pcrr8t-"> lhside:=</span><span 
+class="pcrr8t-"> qsimpcomb(sub(summ(n)=part(proof,3),</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> summ(n-1)=sub(n=n-1,part(proof,3)),part(proof,1)));</span>
+<br />
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> k</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> k</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> n</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> n</span>
+<br /><span 
+class="pcrr8t-">lhside</span><span 
+class="pcrr8t-"> :=</span><span 
+class="pcrr8t-"> (z</span><span 
+class="pcrr8t-"> *(q</span><span 
+class="pcrr8t-"> *(q</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> z)</span><span 
+class="pcrr8t-"> +</span><span 
+class="pcrr8t-"> q</span><span 
+class="pcrr8t-"> *(z</span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> 1))</span>
+<br />
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> 1</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> n</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> *qpochhammer(----,q,k))/((q</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> 1)</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> n</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> q</span>
+<br />
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> *qpochhammer(q,q,k))</span>
+<br />
+<br /><span 
+class="pcrr8t-">13:</span><span 
+class="pcrr8t-"> rhside:=</span><span 
+class="pcrr8t-"> qsimpcomb((part(proof,2)*part(proof,3)-</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> sub(k=k-1,part(proof,2)*part(proof,3))));</span>
+<br />
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> k</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> k</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> n</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> n</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> k</span>
+<br /><span 
+class="pcrr8t-">rhside</span><span 
+class="pcrr8t-"> :=</span><span 
+class="pcrr8t-"> (</span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> z</span><span 
+class="pcrr8t-"> *((q</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> q</span><span 
+class="pcrr8t-"> )*z</span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> q</span><span 
+class="pcrr8t-"> *(q</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> 1))</span>
+<br />
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> 1</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> n</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> *qpochhammer(----,q,k))/((q</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> 1)</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> n</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> q</span>
+<br />
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> *qpochhammer(q,q,k))</span>
+<br />
+<br /><span 
+class="pcrr8t-">14:</span><span 
+class="pcrr8t-"> qsimpcomb((rhside-lhside)/part(proof,3));</span>
+<br />
+<br /><span 
+class="pcrr8t-">0</span>
+</div>
+</div>
+<!--l. 519--><p class="noindent" >
+ Thus we have proved the validity of the recurrence equation.
+</p><!--l. 524--><p class="noindent" >As some other examples we want to consider some generalizations of orthogonal
+polynomials from the Askey–Wilson–scheme <span class="cite">[<a 
+href="manualap2.html#XKoekoekSwarttouw:94">KS94</a>]</span>: The <span 
+class="cmmi-10x-x-109">q</span>-Laguerre (3.21), <span 
+class="cmmi-10x-x-109">q</span>-Charlier
+(3.23) and the continuous <span 
+class="cmmi-10x-x-109">q</span>-Jacobi (3.10) polynomials.
+</p>
+<div class="alltt">
+<div class="obeylines-v">
+<span 
+class="pcrr8t-">15:</span><span 
+class="pcrr8t-"> operator</span><span 
+class="pcrr8t-"> qlaguerre,qcharlier;</span>
+<br />
+<br /><span 
+class="pcrr8t-">16:</span><span 
+class="pcrr8t-"> qsumrecursion(qpochhammer(q^(alpha+1),q,n)/</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> qpochhammer(q,q,n),</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> {q^(-n)},</span><span 
+class="pcrr8t-"> {q^(alpha+1)},</span><span 
+class="pcrr8t-"> q,</span><span 
+class="pcrr8t-"> -x*q^(n+alpha+1),</span>
+                                                                     
+
+                                                                     
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> qlaguerre(n));</span>
+<br />
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> n</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> alpha</span><span 
+class="pcrr8t-"> +</span><span 
+class="pcrr8t-"> n</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> n</span>
+<br /><span 
+class="pcrr8t-">((q</span><span 
+class="pcrr8t-"> +</span><span 
+class="pcrr8t-"> 1</span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> q</span><span 
+class="pcrr8t-"> )*q</span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> q</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> *(q</span><span 
+class="pcrr8t-"> *x</span><span 
+class="pcrr8t-"> +</span><span 
+class="pcrr8t-"> q))</span>
+<br />
+<br /><span 
+class="pcrr8t-">*qlaguerre(n</span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> 1)</span><span 
+class="pcrr8t-"> +</span><span 
+class="pcrr8t-"> (</span>
+<br />
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> alpha</span><span 
+class="pcrr8t-"> +</span><span 
+class="pcrr8t-"> n</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> (q</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> q)*qlaguerre(n</span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> 2)</span>
+<br />
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> n</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> +</span><span 
+class="pcrr8t-"> (q</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> 1)*qlaguerre(n))*q</span>
+<br />
+<br /><span 
+class="pcrr8t-">17:</span><span 
+class="pcrr8t-"> qsumrecursion({q^(-n),q^(-x)},{0},q,-q^(n+1)/a,</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> qcharlier(n));</span>
+<br />
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> x</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> n</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> n</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> 2*n</span>
+<br /><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> ((q</span><span 
+class="pcrr8t-"> *((q</span><span 
+class="pcrr8t-"> +</span><span 
+class="pcrr8t-"> 1</span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> q</span><span 
+class="pcrr8t-"> )*a</span><span 
+class="pcrr8t-"> +</span><span 
+class="pcrr8t-"> q</span><span 
+class="pcrr8t-"> )*q</span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> q</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> )</span>
+<br />
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> x</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> *qcharlier(n</span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> 1)</span><span 
+class="pcrr8t-"> +</span><span 
+class="pcrr8t-"> q</span><span 
+class="pcrr8t-"> *(</span>
+<br />
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> n</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> n</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> (q</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> +</span><span 
+class="pcrr8t-"> a*q)*(q</span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> q)*qcharlier(n</span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> 2)</span>
+<br />
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> -</span><span 
+class="pcrr8t-"> qcharlier(n)*a*q))</span>
+<br />
+<br /><span 
+class="pcrr8t-">18:</span><span 
+class="pcrr8t-"> on</span><span 
+class="pcrr8t-"> qsum_nullspace;</span>
+<br />
+<br /><span 
+class="pcrr8t-">19:</span><span 
+class="pcrr8t-"> term:=</span><span 
+class="pcrr8t-"> qpochhammer(q^(alpha+1),q,n)/qpochhammer(q,q,n)*</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> qphihyperterm({q^(-n),q^(n+alpha+beta+1),</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> q^(alpha/2+1/4)*exp(I*theta),</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> q^(alpha/2+1/4)*exp(-I*theta)},</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> {q^(alpha+1),</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> -q^((alpha+beta+1)/2),</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> -q^((alpha+beta+2)/2)},</span>
+<br /><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> </span><span 
+class="pcrr8t-"> q,q,k)$</span>
+<br />
+<br /><span 
+class="pcrr8t-">20:</span><span 
+class="pcrr8t-"> qsumrecursion(term,q,k,n,2);</span>
+</div>
+</div>
+<!--l. 576--><p class="noindent" >
+</p><div class="alltt">
+<div class="obeylines-v">
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> n</span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> i*theta</span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> alpha</span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> beta</span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> n</span>
+                                                                     
+
+                                                                     
+<br /><span 
+class="pcrr8t-x-x-90"> -</span><span 
+class="pcrr8t-x-x-90"> ((q</span><span 
+class="pcrr8t-x-x-90"> *e</span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> *(q</span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> *(q</span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> *(q</span><span 
+class="pcrr8t-x-x-90"> *(q</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> 1)</span><span 
+class="pcrr8t-x-x-90"> -</span><span 
+class="pcrr8t-x-x-90"> q)</span>
+<br />
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> alpha</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> beta</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> n</span>
+<br />
+<br />
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> n</span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> beta</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> n</span>
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> *(q</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> 1</span><span 
+class="pcrr8t-x-x-90"> -</span><span 
+class="pcrr8t-x-x-90"> q</span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> -</span><span 
+class="pcrr8t-x-x-90"> q</span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> ))</span><span 
+class="pcrr8t-x-x-90"> -</span>
+<br />
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> (alpha</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> beta)/2</span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> alpha</span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> n</span>
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> q</span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> *(q</span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> *(q</span><span 
+class="pcrr8t-x-x-90"> *(q</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> 1)</span><span 
+class="pcrr8t-x-x-90"> -</span><span 
+class="pcrr8t-x-x-90"> q</span>
+<br />
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> beta</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> n</span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> n</span>
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> q</span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> *(q</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> 1</span><span 
+class="pcrr8t-x-x-90"> -</span><span 
+class="pcrr8t-x-x-90"> q</span><span 
+class="pcrr8t-x-x-90"> ))</span>
+<br />
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> 2*alpha</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> beta</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> 2*n</span>
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> -</span><span 
+class="pcrr8t-x-x-90"> (q</span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> q)))</span>
+<br />
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> (2*alpha</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> 1)/4</span>
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> *(sqrt(q)</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> q)</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> q</span>
+<br />
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> 2*i*theta</span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> alpha</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> beta</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> 2*n</span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> 2</span>
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> *(e</span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> 1)*(q</span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> -</span><span 
+class="pcrr8t-x-x-90"> q</span><span 
+class="pcrr8t-x-x-90"> )</span>
+<br />
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> alpha</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> beta</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> 2*n</span>
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> *(q</span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> -</span><span 
+class="pcrr8t-x-x-90"> 1))</span>
+<br />
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> alpha</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> beta</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> 2*n</span>
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> *(q</span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> -</span><span 
+class="pcrr8t-x-x-90"> q)*summ(n</span><span 
+class="pcrr8t-x-x-90"> -</span><span 
+class="pcrr8t-x-x-90"> 1)</span><span 
+class="pcrr8t-x-x-90"> -</span>
+<br />
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> i*theta</span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> (alpha</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> beta</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> 2*n)/2</span>
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> e</span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> *((q</span>
+<br />
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> (alpha</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> beta</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> 2*n)/2</span>
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> *(q</span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> q)</span>
+<br />
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> (alpha</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> beta</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> 2*n)/2</span>
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> *(q</span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> -</span><span 
+class="pcrr8t-x-x-90"> q)</span>
+<br />
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> *(sqrt(q)</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> q)</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> (</span>
+<br />
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> (2*alpha</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> 2*beta</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> 4*n</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> 1)/2</span>
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> q</span>
+<br />
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> alpha</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> beta</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> 2*n</span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> 2</span>
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> q)*(q</span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> -</span><span 
+class="pcrr8t-x-x-90"> q</span><span 
+class="pcrr8t-x-x-90"> )</span>
+<br />
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> alpha</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> beta</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> n</span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> n</span>
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> )*(q</span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> -</span><span 
+class="pcrr8t-x-x-90"> 1)*(q</span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> -</span><span 
+class="pcrr8t-x-x-90"> 1)</span>
+<br />
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> alpha</span>
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> *summ(n)</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> (q</span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> *(sqrt(q)*q</span>
+<br />
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> alpha</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> beta</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> 2*n</span>
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> q</span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> )</span><span 
+class="pcrr8t-x-x-90"> +</span>
+                                                                     
+
+                                                                     
+<br />
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> (3*alpha</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> beta</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> 2*n)/2</span>
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> q</span>
+<br />
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> *(sqrt(q)</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> q))</span>
+<br />
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> alpha</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> beta</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> 2*n</span>
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> *(q</span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> -</span><span 
+class="pcrr8t-x-x-90"> 1)</span>
+<br />
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> alpha</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> n</span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> beta</span><span 
+class="pcrr8t-x-x-90"> +</span><span 
+class="pcrr8t-x-x-90"> n</span>
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> *(q</span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> -</span><span 
+class="pcrr8t-x-x-90"> q)*(q</span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> -</span><span 
+class="pcrr8t-x-x-90"> q)</span>
+<br />
+<br /><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> </span><span 
+class="pcrr8t-x-x-90"> *summ(n</span><span 
+class="pcrr8t-x-x-90"> -</span><span 
+class="pcrr8t-x-x-90"> 2)))</span>
+<br />
+<br /><span 
+class="pcrr8t-x-x-90">21:</span><span 
+class="pcrr8t-x-x-90"> off</span><span 
+class="pcrr8t-x-x-90"> qsum_nullspace;</span>
+</div>
+</div>
+<!--l. 652--><p class="noindent" >The setting of <span 
+class="pcrr8t-x-x-109">qsum_nullspace</span><a 
+ id="dx251-1091006"></a><a 
+ id="dx251-1091007"></a><a 
+ id="dx251-1091008"></a> (see <span class="cite">[<a 
+href="manualap2.html#XPauleRiese:95">PR95</a>]</span> and § <a 
+href="#x251-109300020.43.8">20.43.8<!--tex4ht:ref: switches --></a>) results in a faster
+calculation of the recurrence equation for this example.
+</p><!--l. 661--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.43.7    </span> <a 
+ id="x251-109200020.43.7"></a>Simpliﬁcation Operators</h4>
+<a 
+ id="dx251-1092001"></a>
+<a 
+ id="dx251-1092002"></a>
+<a 
+ id="dx251-1092003"></a>
+<a 
+ id="dx251-1092004"></a>
+<!--l. 668--><p class="noindent" >An essential step in the algorithms introduced above is to decide whether a term <span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span></sub> is
+<span 
+class="cmmi-10x-x-109">q</span>-hypergeometric, i. e. if the ratio <span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span></sub><span 
+class="cmmi-10x-x-109">∕a</span><sub><span 
+class="cmmi-8">k</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sub> is rational in <span 
+class="cmmi-10x-x-109">q</span><sup><span 
+class="cmmi-8">k</span></sup>.
+</p><!--l. 672--><p class="noindent" >The procedure <span 
+class="pcrr8t-x-x-109">qsimpcomb </span>provides this facility. It tries to simplify all exponential
+expressions in the given term and applies some transformation rules to the known
+elementary <span 
+class="cmmi-10x-x-109">q</span>-functions as <span 
+class="pcrr8t-x-x-109">qpochhammer</span>, <span 
+class="pcrr8t-x-x-109">qbrackets</span>, <span 
+class="pcrr8t-x-x-109">qbinomial </span>and
+<span 
+class="pcrr8t-x-x-109">qfactorial</span>. Note that the procedure may fail to completely simplify some
+expressions. This is due to the fact that the procedure was designed to simplify ratios of
+<span 
+class="cmmi-10x-x-109">q</span>-hypergeometric terms in the form <span 
+class="cmr-10x-x-109">f(</span><span 
+class="cmmi-10x-x-109">k</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">∕</span><span 
+class="cmr-10x-x-109">f(</span><span 
+class="cmmi-10x-x-109">k </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1) </span>and not arbitrary <span 
+class="cmmi-10x-x-109">q</span>-hypergeometric
+terms.
+</p><!--l. 682--><p class="noindent" >E. g. an expression like <img 
+src="manual530x.png" alt="(a;q)"  class="left" align="middle" /><sub><span 
+class="cmsy-8">−</span><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmsy-10x-x-109">⋅</span><img 
+src="manual531x.png" alt="(a∕qn;q)"  class="left" align="middle" /><sub><span 
+class="cmmi-8">n</span></sub> is not recognized as 1, despite the
+transformation formula
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                        <img 
+src="manual532x.png" alt="(a;q)"  class="left" align="middle" /><sub><span 
+class="cmsy-8">−</span><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual533x.png" alt="----1----
+(a∕qn;q)
+        n"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">,</span>
+</td></tr></table>
+<!--l. 685--><p class="nopar" >
+which is valid for <span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmsy-10x-x-109">∈ </span><span 
+class="msbm-10x-x-109">ℕ</span>.
+</p><!--l. 688--><p class="noindent" >Note that due to necessary simpliﬁcation of powers, the switch <span 
+class="pcrr8t-x-x-109">precise </span>is (locally)
+turned oﬀ in <span 
+class="pcrr8t-x-x-109">qsimpcomb</span>. This might produce wrong results if the input term contains
+e. g. complex variables.
+</p><!--l. 693--><p class="noindent" >The following synomyms may be used: </p>
+     <ul class="itemize1">
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">up_qratio(f,k) </span>or <span 
+class="pcrr8t-x-x-109">qratio(f,k) </span>for <br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">qsimpcomb(sub(k=k+1,f)/f) </span>and
+     </li>
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">down_qratio(f,k) </span>for <span 
+class="pcrr8t-x-x-109">qsimpcomp(f/sub(k=k-1,f))</span>.</li></ul>
+<!--l. 702--><p class="noindent" >
+</p>
+                                                                     
+
+                                                                     
+<h4 class="subsectionHead"><span class="titlemark">20.43.8    </span> <a 
+ id="x251-109300020.43.8"></a>Global Variables and Switches</h4>
+<a 
+ id="dx251-1093001"></a>
+<a 
+ id="dx251-1093002"></a>
+<a 
+ id="dx251-1093003"></a>
+<a 
+ id="dx251-1093004"></a>
+<a 
+ id="dx251-1093005"></a>
+<a 
+ id="dx251-1093006"></a>
+<a 
+ id="dx251-1093007"></a>
+<a 
+ id="dx251-1093008"></a>
+<a 
+ id="dx251-1093009"></a>
+<a 
+ id="dx251-1093010"></a>
+<a 
+ id="dx251-1093011"></a>
+<a 
+ id="dx251-1093012"></a>
+<a 
+ id="dx251-1093013"></a>
+<a 
+ id="dx251-1093014"></a>
+<a 
+ id="dx251-1093015"></a>
+<a 
+ id="dx251-1093016"></a>
+<a 
+ id="dx251-1093017"></a>
+<a 
+ id="dx251-1093018"></a>
+<a 
+ id="dx251-1093019"></a>
+<a 
+ id="dx251-1093020"></a>
+<a 
+ id="dx251-1093021"></a>
+<a 
+ id="dx251-1093022"></a>
+<a 
+ id="dx251-1093023"></a>
+<!--l. 713--><p class="noindent" >The following switches can be used in connection with the <span 
+class="pcrr8t-x-x-109">QSUM </span>package:
+</p>
+     <ul class="itemize1">
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">qsum_trace</span>, default setting is oﬀ. If it is turned on some intermediate
+     results are printed.
+     </li>
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">qgosper_down</span>,  default  setting  is  on.  It  determines  whether  <span 
+class="pcrr8t-x-x-109">qgosper</span>
+     returns a downward or an upward antidiﬀerence <span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmmi-8">k</span></sub> for the input term <span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span></sub>,
+     i. e. <span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmmi-8">k</span></sub> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmmi-8">k</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sub> or <span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmmi-8">k</span><span 
+class="cmr-8">+1</span></sub> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmmi-8">k</span></sub> respectively.
+     </li>
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">qsumrecursion_down</span>,  default  setting  is  on.  If  it  is  switched  on  a
+     downward  recurrence  equation  will  be  returned  by  <span 
+class="pcrr8t-x-x-109">qsumrecursion</span>.
+     Switching it oﬀ leads to an upward recurrence equation.
+     </li>
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">qsum_nullspace</span>,  default  setting  is  oﬀ.  The  antidiﬀerence  <span 
+class="cmr-10x-x-109">g(</span><span 
+class="cmmi-10x-x-109">k</span><span 
+class="cmr-10x-x-109">)  </span>is
+     always  a  rational  multiple  (in  <span 
+class="cmmi-10x-x-109">q</span><sup><span 
+class="cmmi-8">k</span></sup>)  of  the  input  term  <span 
+class="cmr-10x-x-109">f(</span><span 
+class="cmmi-10x-x-109">k</span><span 
+class="cmr-10x-x-109">)</span>.  <span 
+class="pcrr8t-x-x-109">qgosper </span>and
+                                                                     
+
+                                                                     
+     <span 
+class="pcrr8t-x-x-109">qsumrecursion </span>determine this certiﬁcate, which requires solving a set of
+     linear equations. If the switch <span 
+class="pcrr8t-x-x-109">qsum_nullspace </span>is turned on a modiﬁed
+     nullspace-algorithm  will  be  used  for  solving  those  equations.  In  general
+     this  method  is  slower.  However  if  the  resulting  recurrence  equation  is
+     quite complicated it might help to switch on <span 
+class="pcrr8t-x-x-109">qsum_nullspace</span>. See also
+     <span class="cite">[<a 
+href="manualap2.html#XKnuth:TAoCP2">Knu81</a>]</span> and <span class="cite">[<a 
+href="manualap2.html#XPauleRiese:95">PR95</a>]</span>.
+     </li>
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">qgosper_specialsol</span>,  default  setting  is  on.  The  antidiﬀerence  <span 
+class="cmr-10x-x-109">g(</span><span 
+class="cmmi-10x-x-109">k</span><span 
+class="cmr-10x-x-109">)</span>
+     which  is  determined  by  <span 
+class="pcrr8t-x-x-109">qgosper </span>might  not  be  unique.  If  this  switch  is
+     turned  on,  just  one  special  solution  is  returned.  If  you  want  to  see  all
+     solutions, you should turn the switch oﬀ.
+     </li>
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">qsumrecursion_exp</span>, default setting is oﬀ. This switch determines if the
+     coeﬃcients of the resulting recurrence equation should be factored. Turning
+     it  oﬀ  might  speed  up  the  calculation  (if  factoring  is  complicated).  Note
+     that  when  turning  on  <span 
+class="pcrr8t-x-x-109">qsum_nullspace </span>usually  no  speedup  occurs  by
+     switching <span 
+class="pcrr8t-x-x-109">qsumrecursion_exp </span>on.
+     </li>
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">qsumrecursion_certificate</span>, default oﬀ. As Zeilberger’s algorithm
+     delivers  a  recurrence  equation  for  a  <span 
+class="cmmi-10x-x-109">q</span>-hypergeometric  term  <span 
+class="cmr-10x-x-109">f(</span><span 
+class="cmmi-10x-x-109">n,k</span><span 
+class="cmr-10x-x-109">)</span>,  see
+     equation (<a 
+href="#x251-1089001r88">20.88<!--tex4ht:ref: eq:f_n_k-recursion --></a>), this switch is used to get all necessary informations for
+     proving this recurrence equation.
+     <!--l. 756--><p class="noindent" >If it is set on, instead of simply returning the resulting recurrence equation
+     (for  the  sum)—if  one  exists—calling  <span 
+class="pcrr8t-x-x-109">qsumrecursion </span>returns  a  list
+     <span 
+class="pcrr8t-x-x-109">{rec,cert,f,k,dir} </span>with  ﬁve  items:  The  ﬁrst  entry  contains  the
+     recurrence equation, while the other items enable you to prove the recurrence
+     a posteriori by rational arithmetic.
+     </p><!--l. 764--><p class="noindent" >If we denote by <span 
+class="pcrr8t-x-x-109">r </span>the recurrence <span 
+class="pcrr8t-x-x-109">rec </span>where we substituted the <span 
+class="pcrr8t-x-x-109">summ</span>-function by
+     the input term <br 
+class="newline" />textttf (with the corresponding shifts in <span 
+class="pcrr8t-x-x-109">n</span>) then the following equation is
+     valid:
+</p>
+     <table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                  <span 
+class="pcrr8t-x-x-109">r = cert*f - sub(k=k-1,cert*f)</span>
+     </td></tr></table>
+     <!--l. 768--><p class="nopar" >
+     if <span 
+class="pcrr8t-x-x-109">dir=downward_antidifference </span>or
+</p>
+     <table 
+class="equation-star"><tr><td>
+                  <span 
+class="pcrr8t-x-x-109">r = sub(k=k+1,cert*f) - cert*f</span>
+     </td></tr></table>
+     <!--l. 771--><p class="nopar" >
+     if <span 
+class="pcrr8t-x-x-109">dir=upward_antidifference</span>.</p></li></ul>
+<!--l. 775--><p class="noindent" >The global variable <span 
+class="pcrr8t-x-x-109">qsumrecursion_recrange!* </span>controls for which recursion
+orders the procedure <span 
+class="pcrr8t-x-x-109">qsumrecursion </span>looks. It has to be a list with two entries, the
+ﬁrst one representing the lowest and the second one the highest order of a recursion to
+search for. By default it is set to <span 
+class="pcrr8t-x-x-109">{1,5}</span>.
+</p><!--l. 783--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.43.9    </span> <a 
+ id="x251-109400020.43.9"></a>Messages</h4>
+<!--l. 785--><p class="noindent" >The following messages may occur: </p>
+  <ul class="itemize1">
+  <li class="itemize">If your call to <span 
+class="pcrr8t-x-x-109">qgosper </span>or <span 
+class="pcrr8t-x-x-109">qsumrecursion </span>reveals some incorrect syntax,
+  e. g. wrong number of arguments or wrong type you may receive the following
+  messages:
+                                                                     
+
+                                                                     
+  <div class="verbatim" id="verbatim-1328">
+  ***** Wrong number of arguments.
+</div>
+  <!--l. 791--><p class="nopar" > or
+                                                                     
+
+                                                                     
+</p>
+  <div class="verbatim" id="verbatim-1329">
+  ***** Wrong type of arguments.
+</div>
+  <!--l. 793--><p class="nopar" >
+  </p></li>
+  <li class="itemize">If you call <span 
+class="pcrr8t-x-x-109">qgosper </span>with a summand term that is free of the summation variable you
+  get
+                                                                     
+
+                                                                     
+  <div class="verbatim" id="verbatim-1330">
+  WARNING: Summand is independent of summation variable.
+   <br />***** No q-hypergeometric antidifference exists.
+</div>
+  <!--l. 800--><p class="nopar" >
+  </p></li>
+  <li class="itemize">If <span 
+class="pcrr8t-x-x-109">qgosper </span>ﬁnds no antidiﬀerence it returns:
+                                                                     
+
+                                                                     
+  <div class="verbatim" id="verbatim-1331">
+  ***** No q-hypergeometric antidifference exists.
+</div>
+  <!--l. 811--><p class="nopar" >
+  </p></li>
+  <li class="itemize">If <span 
+class="pcrr8t-x-x-109">qsumrecursion </span>ﬁnds no recursion in the speciﬁed range it returns:
+                                                                     
+
+                                                                     
+  <div class="verbatim" id="verbatim-1332">
+  ***** Found no recursion. Use higher order.
+</div>
+  <!--l. 815--><p class="nopar" > (If you do not pass a range as an argument to <span 
+class="pcrr8t-x-x-109">qsumrecursion </span>the default range in
+  <span 
+class="pcrr8t-x-x-109">qsumrecursion_recrange!* </span>will be used.)
+  </p></li>
+  <li class="itemize">If the input term passed to <span 
+class="pcrr8t-x-x-109">qgosper </span>(<span 
+class="pcrr8t-x-x-109">qsumrecursion</span>) is not <span 
+class="cmmi-10x-x-109">q</span>-hypergeometric
+  wrt. the summation variable — say <span 
+class="cmmi-10x-x-109">k </span>— (and the recursion variable) then you
+  get
+                                                                     
+
+                                                                     
+  <div class="verbatim" id="verbatim-1333">
+  ***** Input term is probably not q-hypergeometric.
+</div>
+  <!--l. 825--><p class="nopar" > With all the examples we tested, our procedures decided properly whether the input
+  term was <span 
+class="cmmi-10x-x-109">q</span>-hypergeometric or not. However, we cannot guarantee in general that
+  <span 
+class="pcrr8t-x-x-109">qsimpcomb </span><span 
+class="ptmri8t-x-x-109">always </span>returns an expression that <span 
+class="ptmri8t-x-x-109">looks </span>rational in <span 
+class="cmmi-10x-x-109">q</span><sup><span 
+class="cmmi-8">k</span></sup> if it actually
+  is.
+  </p></li>
+  <li class="itemize">If the global variable <span 
+class="pcrr8t-x-x-109">qsumrecursion_recrange!* </span>was assigned an invalid
+  value:
+                                                                     
+
+                                                                     
+  <div class="verbatim" id="verbatim-1334">
+  Global variable qsumrecursion_recrange!* must be a list
+   <br />of two positive integers: {lo,hi} with lo&#x003C;=hi.
+   <br />***** Invalid value of qsumrecursion_recrange!*
+</div>
+  <!--l. 837--><p class="nopar" ></p></li></ul>
+<!--l. 909--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 911--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse168.html" >Up</a></td><td class="clinks"><a 
+href="manualse169.html" >Next</a></td><td class="clinks"><a 
+href="manualse167.html" >Prev</a></td><td class="clinks"><a 
+href="manualse167.html#tailmanualse167.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse168.html" >Front</a></td></tr></table><a 
+ id="tailmanualse168.html"></a>  </p> 
+</body> 
+</html>

@@ -1,0 +1,2340 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>ZEILBERG: Indeﬁnite and Deﬁnite Summation</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse190.html" >Up</a></td><td class="clinks"><a 
+href="manualse191.html" >Next</a></td><td class="clinks"><a 
+href="manualse189.html" >Prev</a></td><td class="clinks"><a 
+href="manualse189.html#tailmanualse189.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse190.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.65    </span> <a 
+ id="x282-130500020.65"></a>ZEILBERG: Indeﬁnite and Deﬁnite Summation</h3>
+<a 
+ id="dx282-1305001"></a>
+<a 
+ id="dx282-1305002"></a>
+<!--l. 1411--><p class="noindent" >This package is a careful implementation of the Gosper and Zeilberger algorithms for
+indeﬁnite and deﬁnite summation of hypergeometric terms, respectively. Extensions of
+these algorithms are also included that are valid for ratios of products of powers,
+factorials, <span 
+class="cmr-10x-x-109">Γ </span>function terms, binomial coeﬃcients, and shifted factorials that are
+rational-linear in their arguments.
+</p><!--l. 1418--><p class="noindent" >Authors: Gregor Stölting and Wolfram Koepf.
+</p><!--l. 2--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.65.1    </span> <a 
+ id="x282-130600020.65.1"></a>Introduction</h4>
+<!--l. 18--><p class="noindent" >This package is a careful implementation of the
+Gosper<span class="footnote-mark"><a 
+href="manual283.html#fn51x20"><sup class="textsuperscript">51</sup></a></span><a 
+ id="x282-1306001f51"></a> 
+and Zeilberger algorithms for indeﬁnite, and deﬁnite summation of hypergeometric
+terms, respectively. Further, extensions of these algorithms given by the ﬁrst author are
+covered. An expression <span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span></sub> is called a <span 
+class="ptmro8t-x-x-109">hypergeometric term </span>(or <span 
+class="ptmro8t-x-x-109">closed form</span>), if
+<span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span></sub><span 
+class="cmmi-10x-x-109">∕a</span><sub><span 
+class="cmmi-8">k</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sub> is a rational function with respect to <span 
+class="cmmi-10x-x-109">k</span>. Typical hypergeometric terms are
+ratios of products of powers, factorials, <span 
+class="cmr-10x-x-109">Γ </span>function terms, binomial coeﬃcients,
+and shifted factorials (Pochhammer symbols) that are integer-linear in their
+arguments.
+</p><!--l. 30--><p class="noindent" >The extensions of Gosper’s and Zeilberger’s algorithm mentioned in particular are valid
+for ratios of products of powers, factorials, <span 
+class="cmr-10x-x-109">Γ </span>function terms, binomial coeﬃcients, and
+shifted factorials that are rational-linear in their arguments.
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.65.2    </span> <a 
+ id="x282-130700020.65.2"></a>Gosper Algorithm</h4>
+                                                                     
+
+                                                                     
+<!--l. 37--><p class="noindent" >The Gosper algorithm <span class="cite">[<a 
+href="manualap2.html#XGosper:78">Gos78</a>]</span> is a <span 
+class="ptmro8t-x-x-109">decision procedure</span>, that decides by algebraic
+calculations whether or not a given hypergeometric term <span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span></sub> has a hypergeometric term
+antidiﬀerence <span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmmi-8">k</span></sub>, i.e. <span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmmi-8">k</span></sub> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmmi-8">k</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span></sub> with rational <span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmmi-8">k</span></sub><span 
+class="cmmi-10x-x-109">∕g</span><sub><span 
+class="cmmi-8">k</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sub>, and returns <span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmmi-8">k</span></sub> if the
+procedure is successful, in which case we call <span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span></sub> <span 
+class="ptmro8t-x-x-109">Gosper-summable</span>. Otherwise <span 
+class="ptmro8t-x-x-109">no</span>
+<span 
+class="ptmro8t-x-x-109">hypergeometric term antidiﬀerence exists</span>. Therefore if the Gosper algorithm does not
+return a closed form solution, it has <span 
+class="ptmro8t-x-x-109">proved  </span>that no such solution exists, an
+information that may be quite useful and important. The Gosper algorithm is the
+discrete analogue of the Risch algorithm for integration in terms of elementary
+functions.
+</p><!--l. 50--><p class="noindent" >Any antidiﬀerence is uniquely determined up to a constant, and is denoted by
+</p>
+<table 
+class="equation-star"><tr><td>
+                            <span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmmi-8">k</span></sub> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∑</span>
+   <sub><span 
+class="cmmi-8">k</span></sub><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span></sub><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 55--><p class="nopar" >
+Finding <span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmmi-8">k</span></sub> given <span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span></sub> is called <span 
+class="ptmro8t-x-x-109">indeﬁnite summation</span>. The antidiﬀerence operator <span 
+class="cmr-10x-x-109">Σ </span>is the
+inverse of the downward diﬀerence operator <span 
+class="cmsy-10x-x-109">∇</span><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span></sub> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sub>. There is an
+analogous summation theory corresponding to the upward diﬀerence operator
+<span 
+class="cmr-10x-x-109">Δ</span><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span><span 
+class="cmr-8">+1</span></sub> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span></sub>.
+</p><!--l. 62--><p class="noindent" >In case, an antidiﬀerence <span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmmi-8">k</span></sub> of <span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span></sub> is known, any sum
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                       <span 
+class="cmex-10x-x-109">∑</span>
+                          <sub><span 
+class="cmmi-8">k</span><span 
+class="cmr-8">=</span><span 
+class="cmmi-8">m</span></sub><sup><span 
+class="cmmi-8">n</span></sup><span 
+class="cmmi-10x-x-109">a</span><sub>
+<span 
+class="cmmi-8">k</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmmi-8">m</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sub>
+</td></tr></table>
+<!--l. 65--><p class="nopar" >
+can be easily calculated by an evaluation of <span 
+class="cmmi-10x-x-109">g </span>at the boundary points like in the
+integration case. Note, however, that the sum
+</p>
+<table 
+class="equation"><tr><td><a 
+ id="x282-1307001r93"></a>
+<center class="math-display" >
+<img 
+src="manual776x.png" alt=" n  ( )
+∑    n
+     k
+k=0
+" class="math-display"  /></center></td><td class="equation-label">(20.93)</td></tr></table>
+<!--l. 71--><p class="nopar" >
+e. g. is not of this type since the summand <img 
+src="manual777x.png" alt="( )
+ nk"  /> depends on the upper boundary point <span 
+class="cmmi-10x-x-109">n</span>
+explicitly. This is an example of a deﬁnite sum that we consider in the next
+section.
+</p><!--l. 77--><p class="noindent" >Our package supports the input of powers (<span 
+class="pcrr8t-x-x-109">a^k</span>), factorials (<span 
+class="pcrr8t-x-x-109">factorial(k)</span>), <span 
+class="cmr-10x-x-109">Γ</span>
+function terms (<span 
+class="pcrr8t-x-x-109">gamma(a)</span>), binomial coeﬃcients (<span 
+class="pcrr8t-x-x-109">Binomial(n,k)</span>), shifted
+factorials (<span 
+class="pcrr8t-x-x-109">Pochhammer(a,k)</span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">a</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a </span><span 
+class="cmr-10x-x-109">+ 1)</span><img 
+src="manual778x.png" alt="⋅⋅⋅"  class="@cdots"  /><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">k </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1) = Γ(</span><span 
+class="cmmi-10x-x-109">a </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">k</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">∕</span><span 
+class="cmr-10x-x-109">Γ(</span><span 
+class="cmmi-10x-x-109">a</span><span 
+class="cmr-10x-x-109">)</span>),
+and partially products (<span 
+class="pcrr8t-x-x-109">prod(f,k,k1,k2)</span>). It takes care of the necessary
+simpliﬁcations, and therefore provides you with the solution of the decision problem as
+long as the memory or time requirements are not too high for the computer
+used.
+</p><!--l. 88--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.65.3    </span> <a 
+ id="x282-130800020.65.3"></a>Zeilberger Algorithm</h4>
+<!--l. 90--><p class="noindent" >The (fast) Zeilberger algorithm <span class="cite">[<a 
+href="manualap2.html#XZeilberger:90">Zei90</a>]</span>–<span class="cite">[<a 
+href="manualap2.html#XZeilberger:91">Zei91</a>]</span> deals with the <span 
+class="ptmro8t-x-x-109">deﬁnite summation </span>of
+hypergeometric terms. Zeilberger’s paradigm is to ﬁnd (and return) a linear
+homogeneous recurrence equation with polynomial coeﬃcients (called <span 
+class="ptmro8t-x-x-109">holonomic</span>
+                                                                     
+
+                                                                     
+<span 
+class="ptmro8t-x-x-109">equation</span>) for an <span 
+class="ptmro8t-x-x-109">inﬁnite sum</span>
+</p>
+<table 
+class="equation-star"><tr><td>
+                      <span 
+class="cmmi-10x-x-109">s</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n</span><span 
+class="cmr-10x-x-109">) =</span> <span 
+class="cmex-10x-x-109">∑</span>
+  <sub><span 
+class="cmmi-8">k</span><span 
+class="cmr-8">=</span><span 
+class="cmsy-8">−∞</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n,k</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,</span>
+</td></tr></table>
+<!--l. 98--><p class="nopar" >
+the summation to be understood over all integers <span 
+class="cmmi-10x-x-109">k</span>, if <span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n,k</span><span 
+class="cmr-10x-x-109">) </span>is a hypergeometric term
+with respect to both <span 
+class="cmmi-10x-x-109">k </span>and <span 
+class="cmmi-10x-x-109">n</span>. The existence of a holonomic recurrence equation for <span 
+class="cmmi-10x-x-109">s</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n</span><span 
+class="cmr-10x-x-109">)</span>
+is then generally guaranteed.
+</p><!--l. 104--><p class="noindent" >If one is lucky, and the resulting recurrence equation is of ﬁrst order
+</p>
+<table 
+class="equation-star"><tr><td>
+            <span 
+class="cmmi-10x-x-109">p</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n</span><span 
+class="cmr-10x-x-109">)</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">s</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1) + </span><span 
+class="cmmi-10x-x-109">q</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n</span><span 
+class="cmr-10x-x-109">)</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">s</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n</span><span 
+class="cmr-10x-x-109">) = 0      (</span><span 
+class="cmmi-10x-x-109">p,q</span>polynomials<span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,</span>
+</td></tr></table>
+<!--l. 109--><p class="nopar" >
+<span 
+class="cmmi-10x-x-109">s</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n</span><span 
+class="cmr-10x-x-109">) </span>turns out to be a hypergeometric term, and a closed form solution can be easily
+established using a suitable initial value, and is represented by a ratio of Pochhammer or
+<span 
+class="cmr-10x-x-109">Γ </span>function terms if the polynomials <span 
+class="cmmi-10x-x-109">p</span>, and <span 
+class="cmmi-10x-x-109">q </span>can be factored.
+</p><!--l. 115--><p class="noindent" >Zeilberger’s algorithm does not guarantee to ﬁnd the holonomic equation of lowest order,
+but often it does.
+                                                                     
+
+                                                                     
+</p><!--l. 118--><p class="noindent" >If the resulting recurrence equation has order larger than one, this information can be
+used for identiﬁcation purposes: Any other expression satisfying the same recurrence
+equation, and the same initial values, represents the same function.
+</p><!--l. 123--><p class="noindent" >Note that a <span 
+class="ptmro8t-x-x-109">deﬁnite sum</span> <span 
+class="cmex-10x-x-109">∑</span>
+  <sub><span 
+class="cmmi-8">k</span><span 
+class="cmr-8">=</span><span 
+class="cmmi-8">m</span><sub><span 
+class="cmr-6">1</span></sub></sub><sup><span 
+class="cmmi-8">m</span><sub><span 
+class="cmr-6">2</span></sub></sup><span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n,k</span><span 
+class="cmr-10x-x-109">) </span>is an inﬁnite sum if <span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n,k</span><span 
+class="cmr-10x-x-109">) = 0 </span>for
+<span 
+class="cmmi-10x-x-109">k &#x003C; m</span><sub><span 
+class="cmr-8">1</span></sub> and <span 
+class="cmmi-10x-x-109">k &#x003E; m</span><sub><span 
+class="cmr-8">2</span></sub>. This is often the case, an example of which is the sum
+(<a 
+href="#x282-1307001r93">20.93<!--tex4ht:ref: eq:nchoosek --></a>) considered above, for which the hypergeometric recurrence equation
+<span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">s</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n</span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1) </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmmi-10x-x-109">s</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n</span><span 
+class="cmr-10x-x-109">) = 0 </span>is generated by Zeilberger’s algorithm, leading to the closed form
+solution <span 
+class="cmmi-10x-x-109">s</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n</span><span 
+class="cmr-10x-x-109">) = 2</span><sup><span 
+class="cmmi-8">n</span></sup>.
+</p><!--l. 130--><p class="noindent" >Deﬁnite summation is trivial if the corresponding indeﬁnite sum is Gosper-summable
+analogously to the fact that deﬁnite integration is trivial as soon as an elementary
+antiderivative is known. If this is not the case, the situation is much more diﬃcult, and it
+is therefore quite remarkable and non-obvious that Zeilberger’s method is just a clever
+application of Gosper’s algorithm.
+</p><!--l. 137--><p class="noindent" >Our implementation is mainly based on <span class="cite">[<a 
+href="manualap2.html#XKoornwinder:93">Koo93</a>]</span> and <span class="cite">[<a 
+href="manualap2.html#XKoepf:94b">Koe94b</a>]</span>. More examples can be
+found in <span class="cite">[<a 
+href="manualap2.html#XPauleSchorn:95">PS95</a>]</span>, <span class="cite">[<a 
+href="manualap2.html#XStrehl:93">Str93</a>]</span>, <span class="cite">[<a 
+href="manualap2.html#XWilf:90">Wil90</a>]</span>, and <span class="cite">[<a 
+href="manualap2.html#XWilf:93">Wil93</a>]</span> many of which are contained in the test
+ﬁle <span 
+class="pcrr8t-x-x-109">zeilberg.tst</span>.
+</p><!--l. 142--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.65.4    </span> <a 
+ id="x282-130900020.65.4"></a>REDUCE operator <span 
+class="pcrr8t-x-x-109">GOSPER</span></h4>
+<!--l. 154--><p class="noindent" ><a 
+ id="operator:GOSPER"></a> The <span 
+class="pcrr8t-x-x-109">gosper </span>operator<a 
+ id="dx282-1309001"></a> is an implementation of the Gosper algorithm. </p>
+     <ul class="itemize1">
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">gosper(a,k) </span>determines a closed form antidiﬀerence. If it does not return
+     a closed form solution, then a closed form solution does not exist.
+     </li>
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">gosper(a,k,m,n) </span>determines
+     <table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                                <span 
+class="cmex-10x-x-109">∑</span>
+                                   <sub><span 
+class="cmmi-8">k</span><span 
+class="cmr-8">=</span><span 
+class="cmmi-8">m</span></sub><sup><span 
+class="cmmi-8">n</span></sup><span 
+class="cmmi-10x-x-109">a</span><sub>
+<span 
+class="cmmi-8">k</span></sub>
+     </td></tr></table>
+     <!--l. 165--><p class="nopar" >
+     using  Gosper’s  algorithm.  This  is  only  successful  if  Gosper’s  algorithm
+     applies.</p></li></ul>
+<!--l. 169--><p class="noindent" >Example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1443">
+2: gosper((-1)^(k+1)*(4*k+1)*factorial(2*k)/
+ <br />   (factorial(k)*4^k*(2*k-1)*factorial(k+1)),k);
+ <br />
+ <br />              k
+ <br />      - ( - 1) *factorial(2*k)
+ <br />------------------------------------
+ <br />  2*k
+ <br /> 2   *factorial(k + 1)*factorial(k)
+</div>
+<!--l. 181--><p class="nopar" > This solves a problem given in SIAM Review (<span class="cite">[<a 
+href="manualap2.html#XOverhauserKim:94">OK94</a>]</span>, Problem 94–2) where it was
+asked to determine the inﬁnite sum
+</p>
+<table 
+class="equation-star"><tr><td>
+     <span 
+class="cmmi-10x-x-109">S </span><span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmr-10x-x-109">lim</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">→∞</span></sub><span 
+class="cmmi-10x-x-109">S</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmmi-10x-x-109">,        S</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∑</span>
+  <sub><span 
+class="cmmi-8">k</span><span 
+class="cmr-8">=1</span></sub><sup><span 
+class="cmmi-8">n</span></sup><img 
+src="manual779x.png" alt="(−-1)k+1(4k +-1)(2k-−-1)!!-
+   2k(2k − 1)(k + 1)!"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">,</span>
+</td></tr></table>
+<!--l. 192--><p class="nopar" >
+(<span 
+class="cmr-10x-x-109">(2</span><span 
+class="cmmi-10x-x-109">k </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1)!! = 1 </span><span 
+class="cmsy-10x-x-109">⋅ </span><span 
+class="cmr-10x-x-109">3</span><img 
+src="manual780x.png" alt="⋅⋅⋅"  class="@cdots"  /><span 
+class="cmr-10x-x-109">(2</span><span 
+class="cmmi-10x-x-109">k </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1) =</span> <img 
+src="manual781x.png" alt="(22kk)k!!"  class="frac" align="middle" />). The above calculation shows that the summand
+is Gosper-summable, and the limit <span 
+class="cmmi-10x-x-109">S </span><span 
+class="cmr-10x-x-109">= 1 </span>is easily established using Stirling’s
+formula.
+</p><!--l. 197--><p class="noindent" >The implementation solves further deep and diﬃcult problems some examples of which
+are:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1444">
+3:  gosper(sub(n=n+1,binomial(n,k)^2/binomial(2*n,n))-
+ <br />    binomial(n,k)^2/binomial(2*n,n),k);
+ <br />
+ <br />                   2
+ <br />((binomial(n + 1,k) *binomial(2*n,n)
+ <br />
+ <br />                                            2
+ <br />   - binomial(2*(n + 1),n + 1)*binomial(n,k) )
+ <br />
+ <br />                             2
+ <br /> *(2*k - 3*n - 1)*(k - n - 1) )/((
+ <br />
+ <br />      2*(2*(n + 1) - k)*(2*n + 1)*k
+ <br />
+ <br />                          2
+ <br />       - (3*n + 1)*(n + 1) )
+ <br />
+ <br />   *binomial(2*(n + 1),n + 1)*binomial(2*n,n))
+ <br />
+ <br />4: gosper(binomial(k,n),k);
+ <br />
+ <br /> (k + 1)*binomial(k,n)
+ <br />-----------------------
+ <br />         n + 1
+ <br />
+ <br />5: gosper((-25+15*k+18*k^2-2*k^3-k^4)/
+ <br />   (-23+479*k+613*k^2+137*k^3+53*k^4+5*k^5+k^6),k);
+ <br />
+ <br />          2
+ <br />    - (2*k  - 15*k + 8)*k
+ <br />----------------------------
+ <br />      3      2
+ <br /> 23*(k  + 4*k  + 27*k + 23)
+</div>
+<!--l. 235--><p class="nopar" > The Gosper algorithm is not capable to give antidiﬀerences depending on the harmonic
+numbers
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                           <span 
+class="cmmi-10x-x-109">H</span><sub><span 
+class="cmmi-8">k</span></sub> <span 
+class="cmr-10x-x-109">:=</span> <span 
+class="cmex-10x-x-109">∑</span>
+  <sub><span 
+class="cmmi-8">j</span><span 
+class="cmr-8">=1</span></sub><sup><span 
+class="cmmi-8">k</span></sup><img 
+src="manual782x.png" alt="1-
+ j"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">,</span>
+</td></tr></table>
+<!--l. 242--><p class="nopar" >
+e. g. <span 
+class="cmex-10x-x-109">∑</span>
+  <sub><span 
+class="cmmi-8">k</span></sub><span 
+class="cmmi-10x-x-109">H</span><sub><span 
+class="cmmi-8">k</span></sub> <span 
+class="cmr-10x-x-109">= (</span><span 
+class="cmmi-10x-x-109">k </span><span 
+class="cmr-10x-x-109">+ 1)(</span><span 
+class="cmmi-10x-x-109">H</span><sub><span 
+class="cmmi-8">k</span><span 
+class="cmr-8">+1</span></sub> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1)</span>, but, is able to give a proof, instead, for the fact that
+<span 
+class="cmmi-10x-x-109">H</span><sub><span 
+class="cmmi-8">k</span></sub> does not possess a closed form evaluation:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1445">
+6: gosper(1/k,k);
+ <br />
+ <br />***** Gosper algorithm: no closed form solution exists
+</div>
+<!--l. 251--><p class="nopar" > The following code gives the solution to a summation problem proposed in Gosper’s
+original paper <span class="cite">[<a 
+href="manualap2.html#XGosper:78">Gos78</a>]</span>. Let
+</p>
+<table 
+class="equation-star"><tr><td>
+    <span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmmi-8">k</span></sub> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∏</span>
+  <sub><span 
+class="cmmi-8">j</span><span 
+class="cmr-8">=1</span></sub><sup><span 
+class="cmmi-8">k</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">b</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">j </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">c</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">j</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmr-10x-x-109">)</span>      and        <span 
+class="cmmi-10x-x-109">g</span><sub>
+<span 
+class="cmmi-8">k</span></sub> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∏</span>
+  <sub><span 
+class="cmmi-8">j</span><span 
+class="cmr-8">=1</span></sub><sup><span 
+class="cmmi-8">k</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">e </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">b</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">j </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">c</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">j</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 260--><p class="nopar" >
+Then a closed form solution for
+</p>
+<table 
+class="equation-star"><tr><td>
+                              <span 
+class="cmex-10x-x-109">∑</span>
+                                 <sub><span 
+class="cmmi-8">k</span></sub><img 
+src="manual783x.png" alt="fk−1-
+ gk"  class="frac" align="middle" />
+</td></tr></table>
+                                                                     
+
+                                                                     
+<!--l. 264--><p class="nopar" >
+is found by the deﬁnitions
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1446">
+7: operator ff,gg$
+ <br />
+ <br />8: let {ff(~k+~m) =&#x003E; ff(k+m-1)*(c*(k+m)^2+b*(k+m)+a)
+ <br />        when (fixp(m) and m&#x003E;0),
+ <br />   ff(~k+~m) =&#x003E; ff(k+m+1)/(c*(k+m+1)^2+b*(k+m+1)+a)
+ <br />        when (fixp(m) and m&#x003C;0)}$
+ <br />
+ <br />9: let {gg(~k+~m) =&#x003E; gg(k+m-1)*(c*(k+m)^2+b*(k+m)+e)
+ <br />        when (fixp(m) and m&#x003E;0),
+ <br />   gg(~k+~m) =&#x003E; gg(k+m+1)/(c*(k+m+1)^2+b*(k+m+1)+e)
+ <br />        when (fixp(m) and m&#x003C;0)}$
+</div>
+<!--l. 280--><p class="nopar" > and the calculation
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1447">
+10: gosper(ff(k-1)/gg(k),k);
+ <br />
+ <br />     ff(k)
+ <br />---------------
+ <br /> (a - e)*gg(k)
+ <br />
+ <br />11: clear ff,gg$
+</div>
+<!--l. 293--><p class="nopar" > Similarly closed form solutions of <span 
+class="cmex-10x-x-109">∑</span>
+  <sub><span 
+class="cmmi-8">k</span></sub><img 
+src="manual784x.png" alt="fk−m-
+  gk"  class="frac" align="middle" /> for positive integers <span 
+class="cmmi-10x-x-109">m </span>can be obtained, as
+well as of <span 
+class="cmex-10x-x-109">∑</span>
+  <sub><span 
+class="cmmi-8">k</span></sub><img 
+src="manual785x.png" alt="fk−g1-
+ k"  class="frac" align="middle" /> for
+</p>
+<table 
+class="equation-star"><tr><td>
+<span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmmi-8">k</span></sub> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∏</span>
+  <sub><span 
+class="cmmi-8">j</span><span 
+class="cmr-8">=1</span></sub><sup><span 
+class="cmmi-8">k</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a</span><span 
+class="cmr-10x-x-109">+</span><span 
+class="cmmi-10x-x-109">b</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">j </span><span 
+class="cmr-10x-x-109">+</span><span 
+class="cmmi-10x-x-109">c</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">j</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">+</span><span 
+class="cmmi-10x-x-109">d</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">j</span><sup><span 
+class="cmr-8">3</span></sup><span 
+class="cmr-10x-x-109">)</span>      and        <span 
+class="cmmi-10x-x-109">g</span><sub>
+<span 
+class="cmmi-8">k</span></sub> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∏</span>
+  <sub><span 
+class="cmmi-8">j</span><span 
+class="cmr-8">=1</span></sub><sup><span 
+class="cmmi-8">k</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">e</span><span 
+class="cmr-10x-x-109">+</span><span 
+class="cmmi-10x-x-109">b</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">j </span><span 
+class="cmr-10x-x-109">+</span><span 
+class="cmmi-10x-x-109">c</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">j</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">+</span><span 
+class="cmmi-10x-x-109">d</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">j</span><sup><span 
+class="cmr-8">3</span></sup><span 
+class="cmr-10x-x-109">)</span>
+</td></tr></table>
+<!--l. 302--><p class="nopar" >
+and for analogous expressions of higher degree polynomials.
+</p><!--l. 305--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.65.5    </span> <a 
+ id="x282-131000020.65.5"></a>REDUCE operator <span 
+class="pcrr8t-x-x-109">EXTENDED_GOSPER</span></h4>
+<a 
+ id="dx282-1310001"></a>
+<!--l. 307--><p class="noindent" ><a 
+ id="operator:EXTENDED_GOSPER"></a> The <span 
+class="pcrr8t-x-x-109">extended_gosper </span>operator is an implementation of an extended version of
+Gosper’s algorithm given by Koepf <span class="cite">[<a 
+href="manualap2.html#XKoepf:94b">Koe94b</a>]</span>. </p>
+                                                                     
+
+                                                                     
+     <ul class="itemize1">
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">extended_gosper(a,k) </span>determines an antidiﬀerence <span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmmi-8">k</span></sub> of <span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span></sub> whenever
+     there is a number <span 
+class="cmmi-10x-x-109">m </span>such that <span 
+class="cmmi-10x-x-109">h</span><sub><span 
+class="cmmi-8">k</span></sub> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">h</span><sub><span 
+class="cmmi-8">k</span><span 
+class="cmsy-8">−</span><span 
+class="cmmi-8">m</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span></sub>, and <span 
+class="cmmi-10x-x-109">h</span><sub><span 
+class="cmmi-8">k</span></sub> is an <span 
+class="cmmi-10x-x-109">m</span><span 
+class="ptmro8t-x-x-109">-fold</span>
+     <span 
+class="ptmro8t-x-x-109">hypergeometric term</span>, i.e.
+     <table 
+class="equation-star"><tr><td>
+                <span 
+class="cmmi-10x-x-109">h</span><sub><span 
+class="cmmi-8">k</span></sub><span 
+class="cmmi-10x-x-109">∕h</span><sub><span 
+class="cmmi-8">k</span><span 
+class="cmsy-8">−</span><span 
+class="cmmi-8">m</span></sub>   is a rational function with respect to <span 
+class="cmmi-10x-x-109">k</span>.
+     </td></tr></table>
+     <!--l. 317--><p class="nopar" >
+     If it does not return a solution, then such a solution does not exist.
+     </p></li>
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">extended_gosper(a,k,m) </span>determines an <span 
+class="cmmi-10x-x-109">m</span><span 
+class="ptmro8t-x-x-109">-fold antidiﬀerence </span><span 
+class="cmmi-10x-x-109">h</span><sub><span 
+class="cmmi-8">k</span></sub> of
+     <span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span></sub>, i.e. <span 
+class="cmmi-10x-x-109">h</span><sub><span 
+class="cmmi-8">k</span></sub> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">h</span><sub><span 
+class="cmmi-8">k</span><span 
+class="cmsy-8">−</span><span 
+class="cmmi-8">m</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span></sub>, if it is an <span 
+class="cmmi-10x-x-109">m</span>-fold hypergeometric term.</li></ul>
+<!--l. 324--><p class="noindent" >Examples:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1448">
+12: extended_gosper(binomial(k/2,n),k);
+ <br />
+ <br />                   k                         k - 1
+ <br /> (k + 2)*binomial(---,n) + (k + 1)*binomial(-------,n)
+ <br />                   2                           2
+ <br />-------------------------------------------------------
+ <br />                       2*(n + 1)
+ <br />
+ <br />13: extended_gosper(k*factorial(k/7),k,7);
+ <br />
+ <br />                   k
+ <br />(k + 7)*factorial(---)
+ <br />                   7
+</div>
+<!--l. 341--><p class="nopar" >
+</p><!--l. 344--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.65.6    </span> <a 
+ id="x282-131100020.65.6"></a>REDUCE operator <span 
+class="pcrr8t-x-x-109">SUMRECURSION</span></h4>
+<a 
+ id="dx282-1311001"></a>
+<!--l. 346--><p class="noindent" ><a 
+ id="operator:SUMRECURSION"></a>
+</p><!--l. 348--><p class="noindent" >The <span 
+class="pcrr8t-x-x-109">sumrecursion </span>operator is an implementation of the (fast) Zeilberger algorithm.
+</p>
+     <ul class="itemize1">
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">sumrecursion(f,k,n) </span>determines a holonomic recurrence equation
+     for
+     <table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                       <span 
+class="pcrr8t-x-x-109">summ(n)</span> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∑</span>
+  <sub><span 
+class="cmmi-8">k</span><span 
+class="cmr-8">=</span><span 
+class="cmsy-8">−∞</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n,k</span><span 
+class="cmr-10x-x-109">)</span>
+     </td></tr></table>
+     <!--l. 356--><p class="nopar" >
+     with respect to <span 
+class="cmmi-10x-x-109">n</span>, applying <span 
+class="pcrr8t-x-x-109">extended_sumrecursion </span>if necessary, see
+     § <a 
+href="#x282-131200020.65.7">20.65.7<!--tex4ht:ref: sec:EXTENDED_SUMRECURSION --></a>. The resulting expression equals zero.
+     </p></li>
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">sumrecursion(f,k,n,j)                        </span>searches
+     for a holonomic recurrence equation of order <span 
+class="cmmi-10x-x-109">j</span>. This operator does not use
+     <span 
+class="pcrr8t-x-x-109">extended_sumrecursion </span>automatically. Note that if <span 
+class="cmmi-10x-x-109">j </span>is too large, the
+     recurrence equation may not be unique, and only one particular solution is
+     returned.</li></ul>
+<!--l. 368--><p class="noindent" >A  simple  example  deals  with  Equation
+(<a 
+href="#x282-1307001r93">20.93<!--tex4ht:ref: eq:nchoosek --></a>)<span class="footnote-mark"><a 
+href="manual284.html#fn52x20"><sup class="textsuperscript">52</sup></a></span><a 
+ id="x282-1311002f52"></a> 
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1449">
+14: sumrecursion(binomial(n,k),k,n);
+ <br />
+ <br />2*summ(n - 1) - summ(n)
+</div>
+<!--l. 377--><p class="nopar" > The whole <span 
+class="ptmro8t-x-x-109">hypergeometric database </span>of the <span 
+class="ptmro8t-x-x-109">Vandermonde, Gauß, Kummer, Saalsch</span><span 
+class="ptmro8t-x-x-109">ü</span><span 
+class="ptmro8t-x-x-109">tz,</span>
+<span 
+class="ptmro8t-x-x-109">Dixon, Clausen </span>and <span 
+class="ptmro8t-x-x-109">Dougall identities </span>(see <span class="cite">[<a 
+href="manualap2.html#XWilf:93">Wil93</a>]</span>), and many more identities (see
+e. g. <span class="cite">[<a 
+href="manualap2.html#XKoepf:94b">Koe94b</a>]</span>), can be obtained using <span 
+class="pcrr8t-x-x-109">sumrecursion</span>. As examples, we consider the
+diﬃcult cases of Clausen and Dougall:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1450">
+15: summand:=factorial(a+k-1)*factorial(b+k-1)/
+ <br />      (factorial(k)*factorial(-1/2+a+b+k))
+ <br />     *factorial(a+n-k-1)*factorial(b+n-k-1)/
+ <br />      (factorial(n-k)*factorial(-1/2+a+b+n-k))$
+ <br />
+ <br />16: sumrecursion(summand,k,n);
+ <br />
+ <br />(2*a + 2*b + 2*n - 1)*(2*a + 2*b + n - 1)*summ(n)*n
+ <br />
+ <br /> - 2*(2*a + n - 1)*(a + b + n - 1)*(2*b + n - 1)*summ(n - 1)
+ <br />
+ <br />17: summand:=pochhammer(d,k)*pochhammer(1+d/2,k)*
+ <br />     pochhammer(d+b-a,k)*pochhammer(d+c-a,k)*
+ <br />     pochhammer(1+a-b-c,k)*pochhammer(n+a,k)*
+ <br />     pochhammer(-n,k)/(factorial(k)*pochhammer(d/2,k)*
+ <br />     pochhammer(1+a-b,k)*pochhammer(1+a-c,k)*
+ <br />     pochhammer(b+c+d-a,k)*pochhammer(1+d-a-n,k)*
+ <br />     pochhammer(1+d+n,k))$
+ <br />
+ <br />18: sumrecursion(summand,k,n);
+ <br />
+ <br />
+ <br /> - (n - 1 + d + c + b - a)*(n - 1 - d + a)
+ <br />
+ <br />*(b - n - a)*(c - n - a)*summ(n) -
+ <br />
+ <br />(d - n + c + b - 2*a)*(n - 1 + b)*(n - 1 + c)
+ <br />
+ <br />*(d + n)*summ(n - 1)
+</div>
+<!--l. 416--><p class="nopar" > corresponding to the statements
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+    <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmmi-10x-x-109">F</span><sub><span 
+class="cmr-8">3</span></sub><img 
+src="manual786x.png" alt="                                 |
+(      a,b,1∕2− a − b− n,− n     | )
+                                 ||1
+   1∕2 + a+ b,1 − a− n, 1− b − n |"  class="left" align="middle" /> <span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual787x.png" alt="(2a )(a + b) (2b)
+---n-------n---n-
+(2a + 2b)n(a)n(b)n"  class="frac" align="middle" />
+</td></tr></table>
+<!--l. 429--><p class="nopar" >
+and
+</p>
+<table 
+class="equation-star"><tr><td>
+ <sub><span 
+class="cmr-8">7</span></sub><span 
+class="cmmi-10x-x-109">F</span><sub><span 
+class="cmr-8">6</span></sub><img 
+src="manual788x.png" alt="(                                                           | )
+      d,1+  d∕2,d+ b − a,d+ c − a,1+ a − b−  c,n + a,− n     ||
+  d∕2,1 + a − b,1 + a − c,b+ c+ d − a,1 + d− a − n,1 + d+ n  ||1"  class="left" align="middle" />
+</td></tr></table>
+<!--l. 439--><p class="nopar" >
+</p>
+<table 
+class="equation-star"><tr><td>
+           <span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual789x.png" alt="     (d+ 1)n(b)n(c)n(1 + 2a−  b− c− d )n
+--------------------------------------------
+(a− d)n(1 + a− b)n(1 + a− c)n(b+ c + d− a)n"  class="frac" align="middle" />
+</td></tr></table>
+<!--l. 443--><p class="nopar" >
+(compare next section), respectively.
+</p><!--l. 446--><p class="noindent" >Other applications of the Zeilberger algorithm are connected with the veriﬁcation of
+identities. To prove the identity
+                                                                     
+
+                                                                     
+</p>
+<table 
+class="equation-star"><tr><td>
+                 <span 
+class="cmex-10x-x-109">∑</span>
+                    <sub><span 
+class="cmmi-8">k</span><span 
+class="cmr-8">=0</span></sub><sup><span 
+class="cmmi-8">n</span></sup><img 
+src="manual790x.png" alt="(n )
+
+  k"  /><sup><span 
+class="cmr-8">3</span></sup> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∑</span>
+  <sub><span 
+class="cmmi-8">k</span><span 
+class="cmr-8">=0</span></sub><sup><span 
+class="cmmi-8">n</span></sup><img 
+src="manual791x.png" alt="(n )
+
+  k"  /><sup><span 
+class="cmr-8">2</span></sup><img 
+src="manual792x.png" alt="(2k)
+
+  n"  /><span 
+class="cmmi-10x-x-109">,</span>
+</td></tr></table>
+<!--l. 455--><p class="nopar" >
+e. g., we may prove that both sums satisfy the same recurrence equation
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1451">
+19: sumrecursion(binomial(n,k)^3,k,n);
+ <br />
+ <br />
+ <br />         2                        2
+ <br />8*(n - 1) *summ(n - 2) - summ(n)*n
+ <br />
+ <br />       2
+ <br /> + (7*n  - 7*n + 2)*summ(n - 1)
+ <br />
+ <br />20: sumrecursion(binomial(n,k)^2*binomial(2*k,n),k,n);
+ <br />
+ <br />
+ <br />         2                        2
+ <br />8*(n - 1) *summ(n - 2) - summ(n)*n
+ <br />
+ <br />       2
+ <br /> + (7*n  - 7*n + 2)*summ(n - 1)
+ <br />
+</div>
+<!--l. 478--><p class="nopar" > and ﬁnally check the initial conditions:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1452">
+21: sub(n=0,k=0,binomial(n,k)^3);
+ <br />
+ <br />1
+ <br />
+ <br />22: sub(n=0,k=0,binomial(n,k)^2*binomial(2*k,n));
+ <br />
+ <br />1
+ <br />
+ <br />23: sub(n=1,k=0,binomial(n,k)^3)
+ <br />    +sub(n=1,k=1,binomial(n,k)^3);
+ <br />
+ <br />2
+ <br />
+ <br />24: sub(n=1,k=0,binomial(n,k)^2*binomial(2*k,n))+
+ <br />    sub(n=1,k=1,binomial(n,k)^2*binomial(2*k,n));
+ <br />
+ <br />2
+</div>
+<!--l. 501--><p class="nopar" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.65.7    </span> <a 
+ id="x282-131200020.65.7"></a>REDUCE operator <span 
+class="pcrr8t-x-x-109">EXTENDED_SUMRECURSION</span></h4>
+<a 
+ id="dx282-1312001"></a>
+<!--l. 507--><p class="noindent" ><a 
+ id="operator:EXTENDED_SUMRECURSION"></a>
+</p><!--l. 509--><p class="noindent" >The <span 
+class="pcrr8t-x-x-109">extended_sumrecursion </span>operator is an implementation of an extension of the
+(fast) Zeilberger algorithm given by Koepf <span class="cite">[<a 
+href="manualap2.html#XKoepf:94b">Koe94b</a>]</span>. </p>
+     <ul class="itemize1">
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">extended_sumrecursion(f,k,n,m,l) </span>determines a holonomic
+     recurrence equation for <span 
+class="pcrr8t-x-x-109">summ(n)</span> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∑</span>
+  <sub><span 
+class="cmmi-8">k</span><span 
+class="cmr-8">=</span><span 
+class="cmsy-8">−∞</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n,k</span><span 
+class="cmr-10x-x-109">) </span>with respect to <span 
+class="cmmi-10x-x-109">n </span>if
+     <span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n,k</span><span 
+class="cmr-10x-x-109">) </span>is an <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">m,l</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="ptmro8t-x-x-109">-fold hypergeometric term </span>with respect to <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n,k</span><span 
+class="cmr-10x-x-109">)</span>,
+     i.e.
+     <table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                      <img 
+src="manual793x.png" alt="  F (n,k)
+F-(n-−-m,-k)"  class="frac" align="middle" />  and  <img 
+src="manual794x.png" alt=" F (n,k)
+F(n,k-−-l)"  class="frac" align="middle" />
+     </td></tr></table>
+     <!--l. 524--><p class="nopar" >
+     are rational functions with respect to both <span 
+class="cmmi-10x-x-109">n </span>and <span 
+class="cmmi-10x-x-109">k</span>. The resulting expression
+     equals zero.
+     </p></li>
+     <li class="itemize">Internally,  <span 
+class="pcrr8t-x-x-109">sumrecursion(f,k,n) </span>calls  (with  suitable  values  <span 
+class="cmmi-10x-x-109">m </span>and
+     <span 
+class="cmmi-10x-x-109">l</span>) <span 
+class="pcrr8t-x-x-109">extended_sumrecursion(f,k,n,m,l) </span>and covers therefore the
+     extended algorithm completely.</li></ul>
+<!--l. 534--><p class="noindent" >Examples:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1453">
+25: extended_sumrecursion(binomial(n,k)*binomial(k/2,n),
+ <br />                          k,n,1,2);
+ <br />
+ <br />summ(n - 1) + 2*summ(n)
+</div>
+<!--l. 542--><p class="nopar" > which can be obtained automatically by
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1454">
+26: sumrecursion(binomial(n,k)*binomial(k/2,n),k,n);
+ <br />
+ <br />summ(n - 1) + 2*summ(n)
+</div>
+<!--l. 550--><p class="nopar" > Similarly, we get
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1455">
+27: extended_sumrecursion(binomial(n/2,k),k,n,2,1);
+ <br />
+ <br />2*summ(n - 2) - summ(n)
+ <br />
+ <br />28: sumrecursion(binomial(n/2,k),k,n);
+ <br />
+ <br />2*summ(n - 2) - summ(n)
+ <br />
+ <br />29: sumrecursion(hyperterm({a,b,a+1/2-b,1+2*a/3,-n},
+ <br />    {2*a+1-2*b,2*b,2/3*a,1+a+n/2},4,k)/(factorial(n)*2^(-n)/
+ <br />    factorial(n/2))/
+ <br />     hyperterm({a+1,1},{a-b+1,b+1/2},1,n/2),k,n);
+ <br />
+ <br />summ(n - 2) - summ(n)
+</div>
+<!--l. 569--><p class="nopar" > In the last example, the progam chooses <span 
+class="cmmi-10x-x-109">m </span><span 
+class="cmr-10x-x-109">= 2</span>, and <span 
+class="cmmi-10x-x-109">l </span><span 
+class="cmr-10x-x-109">= 1 </span>to derive the resulting
+recurrence equation (see <span class="cite">[<a 
+href="manualap2.html#XKoepf:94b">Koe94b</a>]</span>, Table 3, (1.3)).
+</p><!--l. 575--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.65.8    </span> <a 
+ id="x282-131300020.65.8"></a>REDUCE operator <span 
+class="pcrr8t-x-x-109">HYPERRECURSION</span></h4>
+<a 
+ id="dx282-1313001"></a>
+<a 
+ id="dx282-1313002"></a>
+<!--l. 577--><p class="noindent" ><a 
+ id="operator:HYPERRECURSION"></a> <a 
+ id="operator:HYPERTERM"></a>
+</p><!--l. 580--><p class="noindent" >Sums to which the Zeilberger algorithm applies, in general are special cases of the
+<span 
+class="ptmro8t-x-x-109">generalized hypergeometric function</span>
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+    <sub><span 
+class="cmmi-8">p</span></sub><span 
+class="cmmi-10x-x-109">F</span><sub><span 
+class="cmmi-8">q</span></sub><img 
+src="manual795x.png" alt="( a1,  a2, ⋅⋅⋅,  ap || )
+   b,  b , ⋅⋅⋅,  b  ||x
+   1    2         q"  class="left" align="middle" /> <span 
+class="cmr-10x-x-109">:=</span> <span 
+class="cmex-10x-x-109">∑</span>
+  <sub><span 
+class="cmmi-8">k</span><span 
+class="cmr-8">=0</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><img 
+src="manual796x.png" alt=" (a1)k ⋅(a2)k ⋅⋅⋅(ap)k
+(b-)-⋅(b-)-⋅⋅⋅(b-)-k!
+  1 k   2k     q k"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">k</span></sup>
+</td></tr></table>
+<!--l. 592--><p class="nopar" >
+with upper parameters <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,a</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,a</span><sub><span 
+class="cmmi-8">p</span></sub><span 
+class="cmsy-10x-x-109">}</span>, and lower parameters <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">b</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,b</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,b</span><sub><span 
+class="cmmi-8">q</span></sub><span 
+class="cmsy-10x-x-109">}</span>. If a recursion
+for a generalized hypergeometric function is to be established, you can use the following
+REDUCE operator: </p>
+     <ul class="itemize1">
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">hyperrecursion(upper,lower,x,n) </span>determines    a    holonomic
+     recurrence equation with respect to <span 
+class="cmmi-10x-x-109">n </span>for <sub><span 
+class="cmmi-8">p</span></sub><span 
+class="cmmi-10x-x-109">F</span><sub><span 
+class="cmmi-8">q</span></sub><img 
+src="manual797x.png" alt="(                   | )
+  a1,  a2, ⋅⋅⋅,  ap ||
+  b1,  b2, ⋅⋅⋅,  bq |x"  class="left" align="middle" />,
+     where <span 
+class="pcrr8t-x-x-109">upper</span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,a</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,a</span><sub><span 
+class="cmmi-8">p</span></sub><span 
+class="cmsy-10x-x-109">} </span>is the list of upper parameters, and <span 
+class="pcrr8t-x-x-109">lower</span><span 
+class="cmr-10x-x-109">=</span>
+     <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">b</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,b</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,b</span><sub><span 
+class="cmmi-8">q</span></sub><span 
+class="cmsy-10x-x-109">} </span>is the list of lower parameters depending on <span 
+class="cmmi-10x-x-109">n</span>. If Zeilberger’s
+     algorithm  does  not  apply,  <span 
+class="pcrr8t-x-x-109">extended_sumrecursion </span>of  § <a 
+href="#x282-131200020.65.7">20.65.7<!--tex4ht:ref: sec:EXTENDED_SUMRECURSION --></a>  is
+     used.
+     </li>
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">hyperrecursion(upper,lower,x,n,j) </span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">j </span><span 
+class="cmsy-10x-x-109">∈ </span><span 
+class="msbm-10x-x-109">ℕ</span><span 
+class="cmr-10x-x-109">) </span>searches only for
+     a  holonomic  recurrence  equation  of  order  <span 
+class="cmmi-10x-x-109">j</span>.  This  operator  does  not  use
+     <span 
+class="pcrr8t-x-x-109">extended_sumrecursion </span>automatically.</li></ul>
+<!--l. 616--><p class="noindent" >Therefore
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1456">
+30: hyperrecursion({-n,b},{c},1,n);
+ <br />
+ <br />(b - c - n + 1)*summ(n - 1) + (c + n - 1)*summ(n)
+</div>
+<!--l. 623--><p class="nopar" > establishes the Vandermonde identity
+</p>
+<table 
+class="equation-star"><tr><td>
+                     <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">F</span><sub><span 
+class="cmr-8">1</span></sub><img 
+src="manual798x.png" alt="(       | )
+   − n, b||
+     c  ||1"  class="left" align="middle" /> <span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual799x.png" alt="(c− b)n
+--(c)---
+    n"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">,</span>
+</td></tr></table>
+<!--l. 636--><p class="nopar" >
+whereas
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1457">
+31: hyperrecursion({d,1+d/2,d+b-a,d+c-a,1+a-b-c,n+a,-n},
+ <br />              {d/2,1+a-b,1+a-c,b+c+d-a,1+d-a-n,1+d+n},1,n);
+ <br />
+ <br /> - (n - 1 + d + c + b - a)*(n - 1 - d + a)
+ <br />
+ <br />*(b - n - a)*(c - n - a)*summ(n) -
+ <br />
+ <br />(d - n + c + b - 2*a)*(n - 1 + b)*(n - 1 + c)
+ <br />
+ <br />*(d + n)*summ(n - 1)
+</div>
+<!--l. 651--><p class="nopar" > proves Dougall’s identity, again.
+</p><!--l. 655--><p class="noindent" >If a hypergeometric expression is given in hypergeometric notation, then the use of
+<span 
+class="pcrr8t-x-x-109">hyperrecursion </span>is more natural than the use of <span 
+class="pcrr8t-x-x-109">sumrecursion</span>.
+</p><!--l. 659--><p class="noindent" >Moreover you may use the REDUCE operator </p>
+     <ul class="itemize1">
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">hyperterm(upper,lower,x,k) </span>that yields the hypergeometric
+     term
+     <table 
+class="equation-star"><tr><td>
+                          <img 
+src="manual800x.png" alt="-(a1)k-⋅(a2)k⋅⋅⋅(ap-)k-
+(b1)k ⋅(b2)k⋅⋅⋅(bq)kk!"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">k</span></sup>
+     </td></tr></table>
+     <!--l. 667--><p class="nopar" >
+     with  upper  parameters  <span 
+class="pcrr8t-x-x-109">upper</span><span 
+class="cmr-10x-x-109">=  </span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,a</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,a</span><sub><span 
+class="cmmi-8">p</span></sub><span 
+class="cmsy-10x-x-109">}</span>,  and  lower  parameters
+     <span 
+class="pcrr8t-x-x-109">lower</span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">b</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,b</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,b</span><sub><span 
+class="cmmi-8">q</span></sub><span 
+class="cmsy-10x-x-109">}</span></p></li></ul>
+<!--l. 671--><p class="noindent" >in connection with hypergeometric terms.
+                                                                     
+
+                                                                     
+</p><!--l. 673--><p class="noindent" >The operator <span 
+class="pcrr8t-x-x-109">sumrecursion </span>can also be used to obtain three-term recurrence
+equations for systems of orthogonal polynomials with the aid of known hypergeometric
+representations. By (<span class="cite">[<a 
+href="manualap2.html#XNikiforovUvarovSuslov:91">NUS91</a>]</span>, (2.7.11a)), the discrete Krawtchouk polynomials
+<span 
+class="cmmi-10x-x-109">k</span><sub><span 
+class="cmmi-8">n</span></sub><sup><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">p</span><span 
+class="cmr-8">)</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x,N</span><span 
+class="cmr-10x-x-109">) </span>have the hypergeometric representation
+</p>
+<table 
+class="equation-star"><tr><td>
+            <span 
+class="cmmi-10x-x-109">k</span><sub><span 
+class="cmmi-8">n</span></sub><sup><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">p</span><span 
+class="cmr-8">)</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x,N</span><span 
+class="cmr-10x-x-109">) = (</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1)</span><sup><span 
+class="cmmi-8">n</span></sup><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">p</span><sup><span 
+class="cmmi-8">n</span></sup><span style="margin-left:0.3em" class="thinspace"></span><img 
+src="manual801x.png" alt="(N  )
+
+  n"  /><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">F</span><sub><span 
+class="cmr-8">1</span></sub><img 
+src="manual802x.png" alt="(          |  )
+   − n, − x ||1
+           ||--
+     − N    p"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">,</span>
+</td></tr></table>
+<!--l. 689--><p class="nopar" >
+and therefore we declare
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1458">
+32: krawtchoukterm:=
+ <br />    (-1)^n*p^n*binomial(NN,n)*hyperterm({-n,-x},{-NN},1/p,k)$
+</div>
+<!--l. 696--><p class="nopar" > and get the three three-term recurrence equations
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1459">
+33: sumrecursion(krawtchoukterm,k,n);
+ <br />
+ <br />((2*p - 1)*n - nn*p - 2*p + x + 1)*summ(n - 1)
+ <br />
+ <br /> - (n - nn - 2)*(p - 1)*summ(n - 2)*p - summ(n)*n
+ <br />
+ <br />34: sumrecursion(krawtchoukterm,k,x);
+ <br />
+ <br />(2*(x - 1)*p + n - nn*p - x + 1)*summ(x - 1)
+ <br />
+ <br /> - ((x - 1) - nn)*summ(x)*p - (p - 1)*(x - 1)*summ(x - 2)
+ <br />
+ <br />35: sumrecursion(krawtchoukterm,k,NN);
+ <br />
+ <br />(x + 1 + n + (p - 2)*nn)*summ(nn - 1) - (
+ <br />
+ <br />   (x + 1 - nn)*summ(nn - 2)
+ <br />
+ <br />    - (n - nn)*(p - 1)*summ(nn))
+</div>
+<!--l. 721--><p class="nopar" > with respect to the parameters <span 
+class="cmmi-10x-x-109">n</span>, <span 
+class="cmmi-10x-x-109">x</span>, and <span 
+class="cmmi-10x-x-109">N </span>respectively.
+</p><!--l. 725--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.65.9    </span> <a 
+ id="x282-131400020.65.9"></a>REDUCE operator <span 
+class="pcrr8t-x-x-109">HYPERSUM</span></h4>
+<a 
+ id="dx282-1314001"></a>
+<!--l. 727--><p class="noindent" ><a 
+ id="operator:HYPERSUM"></a>
+</p><!--l. 729--><p class="noindent" >With the operator <span 
+class="pcrr8t-x-x-109">hypersum</span>, hypergeometric sums are directly evaluated in closed
+form whenever the extended Zeilberger algorithm leads to a recurrence equation
+containing only two terms: </p>
+     <ul class="itemize1">
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">hypersum(upper,lower,x,n)    </span>determines           a           closed
+     form  representation  for  <sub><span 
+class="cmmi-8">p</span></sub><span 
+class="cmmi-10x-x-109">F</span><sub><span 
+class="cmmi-8">q</span></sub><img 
+src="manual803x.png" alt="(  a1, a2,  ⋅⋅⋅,  ap || )
+   b , b ,  ⋅⋅⋅,  b  ||x
+    1   2         q"  class="left" align="middle" />,  where  <span 
+class="pcrr8t-x-x-109">upper</span><span 
+class="cmr-10x-x-109">=</span>
+     <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,a</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,a</span><sub><span 
+class="cmmi-8">p</span></sub><span 
+class="cmsy-10x-x-109">} </span>is the list of upper parameters, and <span 
+class="pcrr8t-x-x-109">lower</span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">b</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,b</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,b</span><sub><span 
+class="cmmi-8">q</span></sub><span 
+class="cmsy-10x-x-109">}</span>
+     is  the  list  of  lower  parameters  depending  on  <span 
+class="cmmi-10x-x-109">n</span>.  The  result  is  given  as  a
+                                                                     
+
+                                                                     
+     hypergeometric term with respect to <span 
+class="cmmi-10x-x-109">n</span>.
+     <!--l. 747--><p class="noindent" >If the result is a list of length <span 
+class="cmmi-10x-x-109">m</span>, we call it <span 
+class="cmmi-10x-x-109">m</span>-<span 
+class="ptmro8t-x-x-109">fold symmetric</span>, which is to be
+     interpreted as follows: Its <span 
+class="cmmi-10x-x-109">j</span><sup><span 
+class="cmmi-8">th</span></sup> part is the solution valid for all <span 
+class="cmmi-10x-x-109">n </span>of the form
+     <span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">mk </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">j </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1(</span><span 
+class="cmmi-10x-x-109">k </span><span 
+class="cmsy-10x-x-109">∈ </span><span 
+class="msbm-10x-x-109">ℕ</span><sub><span 
+class="cmr-8">0</span></sub><span 
+class="cmr-10x-x-109">)</span>. In particular, if the resulting list contains two
+     terms, then the ﬁrst part is the solution for even <span 
+class="cmmi-10x-x-109">n</span>, and the second part is the
+     solution for odd <span 
+class="cmmi-10x-x-109">n</span>.</p></li></ul>
+<!--l. 755--><p class="noindent" >Examples <span class="cite">[<a 
+href="manualap2.html#XKoepf:94b">Koe94b</a>]</span>:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1460">
+36: hypersum({a,1+a/2,c,d,-n},{a/2,1+a-c,1+a-d,1+a+n},1,n);
+ <br />
+ <br /> pochhammer(a - c - d + 1,n)*pochhammer(a + 1,n)
+ <br />-------------------------------------------------
+ <br /> pochhammer(a - c + 1,n)*pochhammer(a - d + 1,n)
+ <br />
+ <br />37: hypersum({a,1+a/2,d,-n},{a/2,1+a-d,1+a+n},-1,n);
+ <br />
+ <br />  pochhammer(a + 1,n)
+ <br />-------------------------
+ <br /> pochhammer(a - d + 1,n)
+</div>
+<!--l. 770--><p class="nopar" > Note that the operator <span 
+class="pcrr8t-x-x-109">togamma </span>converts expressions given in factorial-<span 
+class="cmr-10x-x-109">Γ</span>-binomial-Pochhammer
+notation into a pure <span 
+class="cmr-10x-x-109">Γ </span>function representation:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1461">
+38: togamma(ws);
+ <br />
+ <br /> gamma(a - d + 1)*gamma(a + n + 1)
+ <br />-----------------------------------
+ <br /> gamma(a - d + n + 1)*gamma(a + 1)
+</div>
+<!--l. 783--><p class="nopar" > Here are some <span 
+class="cmmi-10x-x-109">m</span>-fold symmetric results:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1462">
+39: hypersum({-n,-n,-n},{1,1},1,n);
+ <br />
+ <br />         n/2             2   n               1   n
+ <br />  ( - 27)   *pochhammer(---,---)*pochhammer(---,---)
+ <br />                         3   2               3   2
+ <br />{----------------------------------------------------,
+ <br />                              n  2
+ <br />                   factorial(---)
+ <br />                              2
+ <br /> 0}
+ <br />
+ <br />40: hypersum({-n,n+3*a,a},{3*a/2,(3*a+1)/2},3/4,n);
+ <br />
+ <br />                    2   n               1   n
+ <br />        pochhammer(---,---)*pochhammer(---,---)
+ <br />                    3   3               3   3
+ <br />{-----------------------------------------------------,
+ <br />              3*a + 2   n               3*a + 1   n
+ <br />  pochhammer(---------,---)*pochhammer(---------,---)
+ <br />                 3      3                  3      3
+ <br /> 0,
+ <br />
+ <br /> 0}
+</div>
+<!--l. 812--><p class="nopar" > These results correspond to the formulas (compare <span class="cite">[<a 
+href="manualap2.html#XKoepf:94b">Koe94b</a>]</span>)
+</p>
+<table 
+class="equation-star"><tr><td>
+   <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmmi-10x-x-109">F</span><sub><span 
+class="cmr-8">2</span></sub><img 
+src="manual804x.png" alt="              |
+(  − n,− n, − n | )
+              ||1
+       1,1    |"  class="left" align="middle" /> <span 
+class="cmr-10x-x-109">= </span><img 
+src="manual805x.png" alt="(
+{             0              if nodd
+   (1∕3)n∕2(2∕3)n∕2      n∕2
+(       (n ∕2)!2    (− 27)    otherwise"  class="left" align="middle" />
+</td></tr></table>
+                                                                     
+
+                                                                     
+<!--l. 827--><p class="nopar" >
+and </p><table 
+class="multline-star"><tr><td><img 
+src="manual806x.png" alt="   (   − n,n + 3a,a   || )
+3F2                   ||3-
+      3a∕2,(3a + 1)∕2 |4
+                     (             0             if n ⁄= 0 (mod 3)
+                     {      (1∕3)  (2∕3)
+                   = (  ---------n∕3-----n∕3----     otherwise
+                        (a + 1∕3)n∕3(a + 2∕3)n∕3
+"  /></td></tr></table>
+<!--l. 844--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.65.10    </span> <a 
+ id="x282-131500020.65.10"></a>REDUCE operator <span 
+class="pcrr8t-x-x-109">SUMTOHYPER</span></h4>
+<a 
+ id="dx282-1315001"></a>
+<!--l. 846--><p class="noindent" ><a 
+ id="operator:SUMTOHYPER"></a>
+</p><!--l. 848--><p class="noindent" >With the operator <span 
+class="pcrr8t-x-x-109">sumtohyper</span>, sums given in factorial-<span 
+class="cmr-10x-x-109">Γ</span>-binomial-Pochhammer
+notation are converted into hypergeometric notation.<br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">sumtohyper(f,k) </span>determines the hypergeometric representation of <span 
+class="cmex-10x-x-109">∑</span>
+  <sub><span 
+class="cmmi-8">k</span><span 
+class="cmr-8">=</span><span 
+class="cmsy-8">−∞</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmmi-8">k</span></sub>,
+i.e. its output is <span 
+class="pcrr8t-x-x-109">c*hypergeometric(upper,lower,x)</span>, corresponding to the
+representation
+</p>
+<table 
+class="equation-star"><tr><td>
+           <span 
+class="cmex-10x-x-109">∑</span>
+              <sub><span 
+class="cmmi-8">k</span><span 
+class="cmr-8">=</span><span 
+class="cmsy-8">−∞</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><span 
+class="cmmi-10x-x-109">f</span><sub>
+<span 
+class="cmmi-8">k</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">c </span><span 
+class="cmsy-10x-x-109">⋅</span><sub><span 
+class="cmmi-8">p</span></sub><span 
+class="cmmi-10x-x-109">F</span><sub><span 
+class="cmmi-8">q</span></sub><img 
+src="manual807x.png" alt="(                   || )
+   a1, a2,  ⋅⋅⋅,  ap |x
+   b1, b2,  ⋅⋅⋅,  bq |"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">,</span>
+</td></tr></table>
+<!--l. 864--><p class="nopar" >
+where <span 
+class="pcrr8t-x-x-109">upper</span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,a</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,a</span><sub><span 
+class="cmmi-8">p</span></sub><span 
+class="cmsy-10x-x-109">} </span>and <span 
+class="pcrr8t-x-x-109">lower</span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">b</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,b</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,b</span><sub><span 
+class="cmmi-8">q</span></sub><span 
+class="cmsy-10x-x-109">} </span>are the lists of upper and
+lower parameters. <br 
+class="newline" />Examples:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1463">
+41: sumtohyper(binomial(n,k)^3,k);
+ <br />
+ <br />hypergeometric({ - n, - n, - n},{1,1},-1)
+ <br />
+ <br />42: sumtohyper(binomial(n,k)/2^n
+ <br />               -sub(n=n-1,binomial(n,k)/2^n),k);
+ <br />
+ <br />                 - n + 2           - n
+ <br />  - hypergeom({----------, - n},{------},-1)
+ <br />                   2               2
+ <br />---------------------------------------------
+ <br />                      n
+ <br />                     2
+</div>
+<!--l. 886--><p class="nopar" >
+</p><!--l. 890--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.65.11    </span> <a 
+ id="x282-131600020.65.11"></a>Simpliﬁcation Operators</h4>
+<a 
+ id="dx282-1316001"></a>
+<a 
+ id="dx282-1316002"></a>
+<a 
+ id="dx282-1316003"></a>
+<a 
+ id="dx282-1316004"></a>
+<a 
+ id="dx282-1316005"></a>
+<!--l. 896--><p class="noindent" ><a 
+ id="operator:SIMPLIFY_GAMMA"></a> <a 
+ id="operator:SIMPLIFY_GAMMA2"></a> <a 
+ id="operator:SIMPLIFY_GAMMAN"></a> <a 
+ id="operator:SIMPLIFY_COMBINATORIAL"></a>
+</p><!--l. 901--><p class="noindent" >For the decision that an expression <span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span></sub> is a hypergeometric term, it is necessary to ﬁnd out
+whether or not <span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span></sub><span 
+class="cmmi-10x-x-109">∕a</span><sub><span 
+class="cmmi-8">k</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sub> is a rational function with respect to <span 
+class="cmmi-10x-x-109">k</span>. For the purpose to decide
+whether or not an expression involving powers, factorials, <span 
+class="cmr-10x-x-109">Γ </span>function terms, binomial
+coeﬃcients, and Pochhammer symbols is a hypergeometric term, the following
+simpliﬁcation operators can be used: </p>
+     <ul class="itemize1">
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">simplify_gamma(f) </span>simpliﬁes an expression <span 
+class="pcrr8t-x-x-109">f </span>involving only rational,
+     powers  and  <span 
+class="cmr-10x-x-109">Γ </span>function  terms  according  to  a  recursive  application  of  the
+     simpliﬁcation  rule  <span 
+class="cmr-10x-x-109">Γ(</span><span 
+class="cmmi-10x-x-109">a </span><span 
+class="cmr-10x-x-109">+ 1)  =  </span><span 
+class="cmmi-10x-x-109">a</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmr-10x-x-109">Γ(</span><span 
+class="cmmi-10x-x-109">a</span><span 
+class="cmr-10x-x-109">) </span>to  the  expression  tree.  Since  all
+     <span 
+class="cmr-10x-x-109">Γ </span>arguments with integer diﬀerence are transformed, this gives a decision
+     procedure for rationality for integer-linear <span 
+class="cmr-10x-x-109">Γ </span>term product ratios.
+                                                                     
+
+                                                                     
+     </li>
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">simplify_combinatorial(f) </span>simpliﬁes  an  expression  <span 
+class="pcrr8t-x-x-109">f </span>involving
+     powers, factorials, <span 
+class="cmr-10x-x-109">Γ </span>function terms, binomial coeﬃcients, and Pochhammer
+     symbols  by  converting  factorials,  binomial  coeﬃcients,  and  Pochhammer
+     symbols  into  <span 
+class="cmr-10x-x-109">Γ </span>function  terms,  and  applying  <span 
+class="pcrr8t-x-x-109">simplify_gamma </span>to  its
+     result. If the output is not rational, it is given in terms of <span 
+class="cmr-10x-x-109">Γ </span>functions. If you
+     prefer factorials you may use
+     </li>
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">gammatofactorial </span>(rule)  converting  <span 
+class="cmr-10x-x-109">Γ </span>function  terms  into  factorials
+     using <span 
+class="cmr-10x-x-109">Γ(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmsy-10x-x-109">→ </span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1)!</span>.
+     </li>
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">simplify_gamma2(f) </span>uses the duplication formula of the <span 
+class="cmr-10x-x-109">Γ </span>function to
+     simplify <span 
+class="cmmi-10x-x-109">f</span>.
+     </li>
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">simplify_gamman(f,n) </span>uses  the  multiplication  formula  of  the  <span 
+class="cmr-10x-x-109">Γ</span>
+     function to simplify <span 
+class="cmmi-10x-x-109">f</span>.</li></ul>
+<!--l. 935--><p class="noindent" >The use of <span 
+class="pcrr8t-x-x-109">simplify_combinatorial(f) </span>is a safe way to decide the rationality
+for any ratio of products of powers, factorials, <span 
+class="cmr-10x-x-109">Γ </span>function terms, binomial coeﬃcients,
+and Pochhammer symbols.
+</p><!--l. 939--><p class="noindent" >Example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1464">
+43: simplify_combinatorial(sub(k=k+1,krawtchoukterm)/
+ <br />                           krawtchoukterm);
+ <br />
+ <br />  (k - n)*(k - x)
+ <br />--------------------
+ <br /> (k - nn)*(k + 1)*p
+</div>
+<!--l. 949--><p class="nopar" > From this calculation, we see again that the upper parameters of the hypergeometric
+representation of the Krawtchouk polynomials are given by <span 
+class="cmsy-10x-x-109">{−</span><span 
+class="cmmi-10x-x-109">n,</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmsy-10x-x-109">}</span>, its lower
+parameter is <span 
+class="cmsy-10x-x-109">{−</span><span 
+class="cmmi-10x-x-109">N</span><span 
+class="cmsy-10x-x-109">}</span>, and the argument of the hypergeometric function is <span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">∕p</span>.
+</p><!--l. 956--><p class="noindent" >Other examples are
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1465">
+44: simplify_combinatorial(binomial(n,k)/binomial(2*n,k-1));
+ <br />
+ <br />  gamma( - (k - 2*n - 2))*gamma(n + 1)
+ <br />----------------------------------------
+ <br /> gamma( - (k - n - 1))*gamma(2*n + 1)*k
+ <br />
+ <br />45: ws where gammatofactorial;
+ <br />
+ <br /> factorial( - k + 2*n + 1)*factorial(n)
+ <br />----------------------------------------
+ <br />  factorial( - k + n)*factorial(2*n)*k
+ <br />
+ <br />46: simplify_gamma2(gamma(2*n)/gamma(n));
+ <br />
+ <br />  2*n        2*n + 1
+ <br /> 2   *gamma(---------)
+ <br />                2
+ <br />-----------------------
+ <br />      2*sqrt(pi)
+ <br />
+ <br />47: simplify_gamman(gamma(3*n)/gamma(n),3);
+ <br />
+ <br />  3*n        3*n + 2          3*n + 1
+ <br /> 3   *gamma(---------)*gamma(---------)
+ <br />                3                3
+ <br />----------------------------------------
+ <br />              2*sqrt(3)*pi
+</div>
+<!--l. 987--><p class="nopar" >
+</p><!--l. 990--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.65.12    </span> <a 
+ id="x282-131700020.65.12"></a>Tracing</h4>
+<a 
+ id="dx282-1317001"></a>
+<a 
+ id="dx282-1317002"></a>
+<a 
+ id="dx282-1317003"></a>
+<!--l. 992--><p class="noindent" ><a 
+ id="switch:ZB_TRACE"></a>
+</p><!--l. 994--><p class="noindent" >If you set
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1466">
+48: on zb_trace;
+</div>
+<!--l. 998--><p class="nopar" > tracing is enabled, and you get intermediate results, see <span class="cite">[<a 
+href="manualap2.html#XKoepf:94b">Koe94b</a>]</span>.
+</p><!--l. 1002--><p class="noindent" >Example for the Gosper algorithm:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1467">
+49: gosper(pochhammer(k-n,n),k);
+ <br />
+ <br />                 k - 1
+ <br />a(k)/a(k-1):= -----------
+ <br />               k - n - 1
+ <br />
+ <br />Gosper algorithm applicable
+ <br />
+ <br />p:= 1
+ <br />
+ <br />q:= k - 1
+ <br />
+ <br />r:= k - n - 1
+ <br />
+ <br />degreebound := 0
+ <br />
+ <br />       1
+ <br />f:= -------
+ <br />     n + 1
+ <br />
+ <br />Gosper algorithm successful
+ <br />
+ <br /> pochhammer(k - n,n)*k
+ <br />-----------------------
+ <br />         n + 1
+</div>
+<!--l. 1031--><p class="nopar" > Example for the Zeilberger algorithm:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1468">
+50: sumrecursion(binomial(n,k)^2,k,n);
+ <br />
+ <br />                       2
+ <br />                      n
+ <br />F(n,k)/F(n-1,k):= ----------
+ <br />                          2
+ <br />                   (k - n)
+ <br />
+ <br />                              2
+ <br />                   (k - n - 1)
+ <br />F(n,k)/F(n,k-1):= --------------
+ <br />                         2
+ <br />                        k
+ <br />
+ <br />Zeilberger algorithm applicable
+ <br />
+ <br />applying Zeilberger algorithm for order:= 1
+ <br />
+ <br />                 2                                    2    2
+ <br />p:= zb_sigma(1)*k  - 2*zb_sigma(1)*k*n + zb_sigma(1)*n  + n
+ <br />
+ <br />     2                  2
+ <br />q:= k  - 2*k*n - 2*k + n  + 2*n + 1
+ <br />
+ <br />     2
+ <br />r:= k
+ <br />
+ <br />degreebound := 1
+ <br />
+ <br />     2*k - 3*n + 2
+ <br />f:= ---------------
+ <br />           n
+ <br />
+ <br />           2        2        2              3      2
+ <br />      - 4*k *n + 2*k  + 8*k*n  - 4*k*n - 3*n  + 2*n
+ <br />p:= -------------------------------------------------
+ <br />                            n
+ <br />
+ <br />Zeilberger algorithm successful
+ <br />
+ <br />4*summ(n - 1)*n - 2*summ(n - 1) - summ(n)*n
+ <br />
+ <br />51: off zb_trace;
+                                                                     
+
+                                                                     
+</div>
+<!--l. 1079--><p class="nopar" >
+</p><!--l. 1082--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.65.13    </span> <a 
+ id="x282-131800020.65.13"></a>Global Variables and Switches</h4>
+<a 
+ id="dx282-1318001"></a>
+<a 
+ id="dx282-1318002"></a>
+<a 
+ id="dx282-1318003"></a>
+<a 
+ id="dx282-1318004"></a>
+<a 
+ id="dx282-1318005"></a>
+<a 
+ id="dx282-1318006"></a>
+<a 
+ id="dx282-1318007"></a>
+<a 
+ id="dx282-1318008"></a>
+<a 
+ id="dx282-1318009"></a>
+<a 
+ id="dx282-1318010"></a>
+<a 
+ id="dx282-1318011"></a>
+<a 
+ id="dx282-1318012"></a>
+<a 
+ id="dx282-1318013"></a>
+<a 
+ id="dx282-1318014"></a>
+<a 
+ id="dx282-1318015"></a>
+<!--l. 1092--><p class="noindent" ><a 
+ id="reserved:ZB_DIRECTION"></a> <a 
+ id="reserved:ZB_ORDER"></a> <a 
+ id="reserved:GOSPER_REPRESENTATION"></a> <a 
+ id="reserved:ZEILBERGER_REPRESENTATION"></a> <a 
+ id="reserved:ZB_F"></a> <a 
+ id="reserved:ZB_SIGMA"></a> <a 
+ id="switch:ZB_FACTOR"></a> <a 
+ id="switch:ZB_PROOF"></a>
+</p><!--l. 1101--><p class="noindent" >The following global variables and switches can be used in connection with the
+<span 
+class="ptmrc8t-x-x-109">ZEILBERG </span>package: </p>
+     <ul class="itemize1">
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">zb_trace</span>, switch; default setting <span 
+class="pcrr8t-x-x-109">off</span>. Turns tracing on and oﬀ.
+     </li>
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">zb_direction</span>, variable; settings: <span 
+class="pcrr8t-x-x-109">down</span>, <span 
+class="pcrr8t-x-x-109">up</span>; default setting <span 
+class="pcrr8t-x-x-109">down</span>.
+     <!--l. 1111--><p class="noindent" >In the case of the Gosper algorithm, either a downward or a forward antidiﬀerence
+     is calculated, i.e., <span 
+class="pcrr8t-x-x-109">gosper </span>ﬁnds <span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmmi-8">k</span></sub> with either
+</p>
+     <table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                  <span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmmi-8">k</span></sub> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmmi-8">k</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sub>        or        <span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmmi-8">k</span><span 
+class="cmr-8">+1</span></sub> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmmi-8">k</span></sub><span 
+class="cmmi-10x-x-109">,</span>
+     </td></tr></table>
+     <!--l. 1117--><p class="nopar" >
+     respectively.
+     </p><!--l. 1120--><p class="noindent" >In  the  case  of  the  Zeilberger  algorithm,  either  a  downward  or  an  upward
+     recurrence equation is returned. Example:
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-1469">
+     52: zb_direction:=up$
+      <br />
+      <br />53: sumrecursion(binomial(n,k)^2,k,n);
+      <br />
+      <br />summ(n + 1)*n + summ(n + 1) - 4*summ(n)*n - 2*summ(n)
+      <br />
+      <br />54: zb_direction:=down$
+</div>
+     <!--l. 1132--><p class="nopar" >
+     </p></li>
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">zb_order</span>, variable; settings: any nonnegative integer; default setting <span 
+class="pcrr8t-x-x-109">5</span>.
+     Gives the maximal order for the recurrence equation that <span 
+class="pcrr8t-x-x-109">sumrecursion</span>
+     searches for.
+     </li>
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">zb_factor</span>,  switch;  default  setting  <span 
+class="pcrr8t-x-x-109">on</span>.  If  <span 
+class="pcrr8t-x-x-109">off</span>,  the  factorization  of  the
+     output usually producing nicer results is suppressed.
+     </li>
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">zb_proof</span>, switch; default setting <span 
+class="pcrr8t-x-x-109">off</span>. If <span 
+class="pcrr8t-x-x-109">on</span>, then several intermediate
+     results are stored in global variables:
+     </li>
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">gosper_representation</span>, variable; default setting <span 
+class="pcrr8t-x-x-109">nil</span>.
+     <!--l. 1149--><p class="noindent" >If a <span 
+class="pcrr8t-x-x-109">gosper </span>command is issued, and if the Gosper algorithm is applicable, then
+     the variable <span 
+class="pcrr8t-x-x-109">gosper_representation </span>is set to the list of polynomials (with
+     respect to <span 
+class="cmmi-10x-x-109">k</span>) <span 
+class="pcrr8t-x-x-109">{p,q,r,f} </span>corresponding to the representation
+</p>
+     <table 
+class="equation-star"><tr><td>
+                   <img 
+src="manual808x.png" alt="-ak--
+ak−1"  class="frac" align="middle" /> <span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual809x.png" alt="-pk--
+pk−1"  class="frac" align="middle" /><span style="margin-left:0.3em" class="thinspace"></span><img 
+src="manual810x.png" alt="qk
+rk"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">,        g</span><sub><span 
+class="cmmi-8">k</span></sub> <span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual811x.png" alt="qk+1
+ pk"  class="frac" align="middle" /><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmmi-8">k</span></sub><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span></sub><span 
+class="cmmi-10x-x-109">,</span>
+     </td></tr></table>
+                                                                     
+
+                                                                     
+     <!--l. 1159--><p class="nopar" >
+     see <span class="cite">[<a 
+href="manualap2.html#XGosper:78">Gos78</a>]</span>. Examples:
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-1470">
+     55: on zb_proof;
+      <br />
+      <br />56: gosper(k*factorial(k),k);
+      <br />
+      <br />(k + 1)*factorial(k)
+      <br />
+      <br />57: gosper_representation;
+      <br />
+      <br />{k,k,1,1}
+      <br />
+      <br />58: gosper(
+      <br />       1/(k+1)*binomial(2*k,k)/(n-k+1)
+      <br />         *binomial(2*n-2*k,n-k),k);
+      <br />
+      <br />((2*k - n + 1)*(2*k + 1)
+      <br />
+      <br /> *binomial( - 2*(k - n), - (k - n))
+      <br />
+      <br /> *binomial(2*k,k))/((k + 1)*(n + 2)*(n + 1))
+      <br />
+      <br />59: gosper_representation;
+      <br />
+      <br />{1,
+      <br />
+      <br /> (2*k - 1)*(k - n - 2),
+      <br />
+      <br /> (2*k - 2*n - 1)*(k + 1),
+      <br />
+      <br />   - (2*k - n + 1)
+      <br /> ------------------}
+      <br />  (n + 2)*(n + 1)
+</div>
+     <!--l. 1195--><p class="nopar" >
+     </p></li>
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">zeilberger_representation</span>, variable; default setting <span 
+class="pcrr8t-x-x-109">nil</span>.
+     <!--l. 1200--><p class="noindent" >If a <span 
+class="pcrr8t-x-x-109">sumrecursion </span>command is issued, and if the Zeilberger algorithm is
+     successful, then the variable <span 
+class="pcrr8t-x-x-109">zeilberger_representation </span>is set to
+     the ﬁnal Gosper representation used, see <span class="cite">[<a 
+href="manualap2.html#XKoornwinder:93">Koo93</a>]</span>.
+     </p></li>
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">zb_f</span>, internal operator, do not use.
+                                                                     
+
+                                                                     
+     </li>
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">zb_sigma</span>, internal operator, do not use.</li></ul>
+<!--l. 1210--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.65.14    </span> <a 
+ id="x282-131900020.65.14"></a>Messages</h4>
+<!--l. 1212--><p class="noindent" >The following messages may occur: </p>
+     <ul class="itemize1">
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">*****</span><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">Gosper algorithm:</span><span 
+class="pcrr8t-x-x-109"> no closed form solution exists</span>
+     <!--l. 1218--><p class="noindent" >Example input:
+     </p><!--l. 1220--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">gosper(factorial(k),k)</span>.
+     </p></li>
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">***** Gosper algorithm not applicable</span>
+     <!--l. 1224--><p class="noindent" >Example input:
+     </p><!--l. 1226--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">gosper(factorial(k/2),k)</span>.
+     </p><!--l. 1228--><p class="noindent" >The term ratio <span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">k</span></sub><span 
+class="cmmi-10x-x-109">∕a</span><sub><span 
+class="cmmi-8">k</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sub> is not rational.
+     </p></li>
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">***** illegal number of arguments</span>
+     <!--l. 1232--><p class="noindent" >Example input:
+     </p><!--l. 1234--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">gosper(k)</span>.
+     </p></li>
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">***** Zeilberger algorithm fails.</span><span 
+class="pcrr8t-x-x-109"> Enlarge zb_order</span>
+     <!--l. 1238--><p class="noindent" >Example input:
+     </p><!--l. 1240--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">sumrecursion(binomial(n,k)*binomial(6*k,n),k,n)</span>
+     </p><!--l. 1242--><p class="noindent" >For this example a setting <span 
+class="pcrr8t-x-x-109">zb_order:=6 </span>is needed.
+     </p></li>
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">***** Zeilberger algorithm not applicable</span>
+     <!--l. 1246--><p class="noindent" >Example input:
+     </p><!--l. 1248--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">sumrecursion(binomial(n/2,k),k,n)</span>
+     </p><!--l. 1250--><p class="noindent" >One of the term ratios <span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n,k</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">∕f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,k</span><span 
+class="cmr-10x-x-109">) </span>or <span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n,k</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">∕f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n,k </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1) </span>is not
+     rational.
+                                                                     
+
+                                                                     
+     </p></li>
+     <li class="itemize"><span 
+class="pcrr8t-x-x-109">***** SOLVE given inconsistent equations</span>
+     <!--l. 1255--><p class="noindent" >You can ignore this message that occurs with Version 3.5.</p></li></ul>
+<!--l. 1422--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 1424--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse190.html" >Up</a></td><td class="clinks"><a 
+href="manualse191.html" >Next</a></td><td class="clinks"><a 
+href="manualse189.html" >Prev</a></td><td class="clinks"><a 
+href="manualse189.html#tailmanualse189.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse190.html" >Front</a></td></tr></table><a 
+ id="tailmanualse190.html"></a>  </p> 
+</body> 
+</html>

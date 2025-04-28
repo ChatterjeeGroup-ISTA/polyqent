@@ -1,0 +1,110 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>PF Operator</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse41.html" >Up</a></td><td class="clinks"><a 
+href="manualse42.html" >Next</a></td><td class="clinks"><a 
+href="manualse40.html" >Prev</a></td><td class="clinks"><a 
+href="manualse40.html#tailmanualse40.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse41.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">7.14    </span> <a 
+ id="x52-970007.14"></a>PF Operator</h3>
+<a 
+ id="dx52-97001"></a>
+<!--l. 1814--><p class="noindent" ><a 
+ id="operator:PF"></a>
+<a 
+ id="dx52-97002"></a>
+<a 
+ id="dx52-97003"></a>
+<a 
+ id="dx52-97004"></a>
+</p><!--l. 1817--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">pf(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="pcrro8t-x-x-109">exp</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="pcrro8t-x-x-109">var</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">) </span>transforms the expression <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exp</span><span 
+class="cmsy-10x-x-109">⟩ </span>into a list of partial fractions
+with respect to the main variable, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">var</span><span 
+class="cmsy-10x-x-109">⟩</span>. <span 
+class="pcrr8t-x-x-109">pf </span>does a complete partial fraction
+decomposition, and as the algorithms used are fairly unsophisticated (factorization and
+the extended Euclidean algorithm), the code may be unacceptably slow in complicated
+cases.
+</p><!--l. 1824--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Example: </span>Given <span 
+class="pcrr8t-x-x-109">2/((x+1)^2*(x+2)) </span>in the workspace, <span 
+class="pcrr8t-x-x-109">pf(ws,x); </span>gives the
+result
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-165">
+            2      - 2         2
+ <br />        {-------,-------,--------------} .
+ <br />          x + 2   x + 1    2
+ <br />                          x  + 2*x + 1
+</div>
+<!--l. 1833--><p class="nopar" >
+</p><!--l. 1836--><p class="noindent" >If you want the denominators in factored form, set the switch <span 
+class="pcrr8t-x-x-109">exp </span>to oﬀ. Thus, with
+<span 
+class="pcrr8t-x-x-109">2/((x+1)^2*(x+2)) </span>in the workspace, the input <span 
+class="pcrr8t-x-x-109">off exp; pf(ws,x); </span>gives
+the result
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-166">
+            2      - 2       2
+ <br />        {-------,-------,----------} .
+ <br />          x + 2   x + 1          2
+ <br />                          (x + 1)
+</div>
+<!--l. 1844--><p class="nopar" >
+</p><!--l. 1846--><p class="noindent" >To recombine the terms, <span 
+class="pcrr8t-x-x-109">for each</span>… <span 
+class="pcrr8t-x-x-109">sum </span>can be used. So with the above list in the
+workspace, <span 
+class="pcrr8t-x-x-109">for each j in ws sum j; </span>returns the result
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-167">
+             2
+ <br />     ------------------
+ <br />                     2
+ <br />      (x + 2)*(x + 1)
+</div>
+<!--l. 1854--><p class="nopar" >
+</p><!--l. 1856--><p class="noindent" >Alternatively, one can use the operations on lists to extract any desired term.
+                                                                     
+
+                                                                     
+</p><!--l. 1860--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse41.html" >Up</a></td><td class="clinks"><a 
+href="manualse42.html" >Next</a></td><td class="clinks"><a 
+href="manualse40.html" >Prev</a></td><td class="clinks"><a 
+href="manualse40.html#tailmanualse40.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse41.html" >Front</a></td></tr></table><a 
+ id="tailmanualse41.html"></a> </p> 
+</body> 
+</html>

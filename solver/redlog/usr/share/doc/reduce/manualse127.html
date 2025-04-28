@@ -1,0 +1,2422 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>ASSIST: Useful Utilities for Various Applications</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse127.html" >Up</a></td><td class="clinks"><a 
+href="manualse128.html" >Next</a></td><td class="clinks"><a 
+href="manualse126.html" >Prev</a></td><td class="clinks"><a 
+href="manualse126.html#tailmanualse126.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse127.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.2    </span> <a 
+ id="x169-39900020.2"></a>ASSIST: Useful Utilities for Various Applications</h3>
+<a 
+ id="dx169-399001"></a>
+<a 
+ id="dx169-399002"></a>
+<!--l. 108--><p class="noindent" ><a 
+ id="ASSIST"></a>
+</p><!--l. 110--><p class="noindent" >ASSIST contains a large number of additional general purpose functions that allow a
+user to better adapt REDUCE to various calculational strategies and to make the
+programming task more straightforward and more eﬃcient.
+</p><!--l. 115--><p class="noindent" >Author: Hubert Caprasse.
+<a 
+ id="dx169-399003"></a>
+<a 
+ id="dx169-399004"></a>
+</p><!--l. 6--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.2.1    </span> <a 
+ id="x169-40000020.2.1"></a>Introduction</h4>
+<!--l. 7--><p class="noindent" >The package <span 
+class="ptmrc8t-x-x-109">ASSIST </span>contains an appreciable number of additional general purpose
+operators which allow one to better adapt REDUCE to various calculational strategies,
+to make the programming task more straightforward and, sometimes, more
+eﬃcient.
+</p><!--l. 13--><p class="noindent" >In contrast with all other packages, <span 
+class="ptmrc8t-x-x-109">ASSIST </span>does not aim to provide either a new facility
+to compute a deﬁnite class of mathematical objects or to extend the base of
+mathematical knowledge of REDUCE. The operators it contains should be useful
+independently of the nature of the application which is considered. They were
+initially written while applying REDUCE to speciﬁc problems in theoretical
+physics. Most of them were designed in such a way that their applicability range is
+broad. Though it was not the primary goal, eﬃciency has been sought whenever
+possible.
+</p><!--l. 23--><p class="noindent" >The source code in <span 
+class="ptmrc8t-x-x-109">ASSIST </span>contains many comments concerning the meaning and use
+of the supplementary operators available in the algebraic mode. These comments,
+hopefully, make the code transparent and allow a thorough exploitation of the package.
+The present documentation contains a non-technical description of it and describes the
+various new facilities it provides.
+                                                                     
+
+                                                                     
+</p><!--l. 30--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.2.2    </span> <a 
+ id="x169-40100020.2.2"></a>Survey of the Available New Facilities</h4>
+<!--l. 31--><p class="noindent" >An elementary help facility is available, independent of the help facility of REDUCE
+itself. It includes two operators:
+<a 
+ id="dx169-401001"></a>
+<a 
+ id="dx169-401002"></a>
+</p><!--l. 36--><p class="noindent" ><a 
+ id="operator:ASSIST"></a> <a 
+ id="operator:ASSISTHELP"></a> <span 
+class="pcrr8t-x-x-109">assist </span>is a operator which takes no argument. If entered, it returns the informations
+required for a proper use of <span 
+class="pcrr8t-x-x-109">assisthelp</span>.<br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">assisthelp </span>takes one argument. </p>
+     <ul class="itemize1">
+     <li class="itemize">If the argument is the identiﬁer <span 
+class="pcrr8t-x-x-109">assist</span>, the operator returns the information
+     necessary to retrieve the names of all the available operators.
+     </li>
+     <li class="itemize">If  the  argument  is  an  integer  equal  to  one  of  the  section  numbers  of  the
+     present documentation. The names of the operators described in that section
+     are obtained.<br 
+class="newline" />There is, presently, no possibility to retrieve the number and the type of the
+     arguments of a given operator.</li></ul>
+<!--l. 51--><p class="noindent" >The package contains several modules. Their content reﬂects closely the various
+categories of facilities listed below. Some operators do already exist inside the Core of
+REDUCE. However, their range of applicability is <span 
+class="ptmri8t-x-x-109">extended</span>.
+</p>
+     <ul class="itemize1">
+     <li class="itemize">Control of Switches:
+          <div class="quote">
+          <!--l. 59--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">switchesswitchorg</span></p></div>
+     </li>
+     <li class="itemize">Operations on Lists and Bags:
+          <div class="quote">
+          <!--l. 63--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">mklistkernlistalgnlistlength</span><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">positionfrequencysequencessplit</span><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">insertinsert_keep_ordermerge_list</span><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">firstsecondthirdrestreverselast</span><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">belastcons(.)appendappendn</span><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">removedeletedelete_alldelpair</span><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">memberelmultpairdepthmkdepth_one</span><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">repfirstreprestasfirstaslastasrest</span><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">asflistasslistrestaslistsubstitute</span><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">bagpropputbagclearbagbagpbaglistp</span><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">alistpabaglistplistbag</span></p></div>
+     </li>
+     <li class="itemize">Operations on Sets:
+          <div class="quote">
+          <!--l. 77--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">mksetsetpunionintersectdiffsetsymdiff</span></p></div>
+     </li>
+     <li class="itemize">General Purpose Utility Functions:
+          <div class="quote">
+          <!--l. 82--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">list_to_ids   mkidn   mkidnew   dellastdigit</span>
+          <span 
+class="pcrr8t-x-x-109">detidnum</span><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">oddpfollowline ==randomlistmkrandtabl</span><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">permutationscyclicpermlistperm_to_num</span><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">num_to_permcombnumcombinationssymmetrize</span><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">remsym sortnumlist sortlist algsort extremum</span>
+          <span 
+class="pcrr8t-x-x-109">gcdnl</span><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">depatomfuncvarimplicitexplicitremnoncom</span><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">korderlistsimplifycheckproplistextractlist</span></p></div>
+     </li>
+     <li class="itemize">Properties and Flags:
+          <div class="quote">
+          <!--l. 92--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">putflagputpropdisplaypropdisplayflag</span><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">clearflagclearprop</span></p></div>
+     </li>
+     <li class="itemize">Control Statements, Control of Environment:
+          <div class="quote">
+          <!--l. 97--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">nordpdepvarpalatompalkernpprecp</span><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">showsuppressclearopclearfunctions</span></p></div>
+                                                                     
+
+                                                                     
+     </li>
+     <li class="itemize">Handling of Polynomials:
+          <div class="quote">
+          <!--l. 102--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">alg_to_symbsymb_to_alg</span><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">distributeleadtermredexprmonom</span><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">lowestdegdivpolsplittermssplitplusminus</span></p></div>
+     </li>
+     <li class="itemize">Handling of Transcendental Functions:
+          <div class="quote">
+          <!--l. 109--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">trigexpandhypexpandtrigreducehypreduce</span></p></div>
+     </li>
+     <li class="itemize">Coercion from Lists to Arrays and converse:
+          <div class="quote">
+          <!--l. 113--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">list_to_arrayarray_to_list</span></p></div>
+     </li>
+     <li class="itemize">Handling of n-dimensional Vectors:
+          <div class="quote">
+          <!--l. 117--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">sumvectminvect scalvectcrossvectmpvect</span></p></div>
+     </li>
+     <li class="itemize">Handling of Grassmann Operators:
+          <div class="quote">
+          <!--l. 121--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">putgrassremgrassgrasspgrassparity</span><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">ghostfactor</span></p></div>
+     </li>
+     <li class="itemize">Handling of Matrices:
+          <div class="quote">
+          <!--l. 126--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">unitmatmkidmbaglmatcoercemat</span><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">submatmatsubrmatsubcrmatextrrmatextc</span><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">hconcmatvconcmattpmathermat</span><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">seteltmatgeteltmat</span></p></div>
+                                                                     
+
+                                                                     
+     </li>
+     <li class="itemize">Control of the HEPHYS package:
+          <div class="quote">
+          <!--l. 133--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">remvectorremindexmkgam</span></p></div>
+     </li></ul>
+<!--l. 136--><p class="noindent" >In the following all these operators are described.
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.2.3    </span> <a 
+ id="x169-40200020.2.3"></a>Control of Switches</h4>
+<a 
+ id="dx169-402001"></a>
+<a 
+ id="dx169-402002"></a>
+<!--l. 140--><p class="noindent" ><a 
+ id="operator:SWITCHES"></a> <a 
+ id="operator:SWITCHORG"></a> The two available operators i.e. <span 
+class="pcrr8t-x-x-109">switches</span>, <span 
+class="pcrr8t-x-x-109">switchorg </span>have no argument and are
+called as if they were mere identiﬁers.
+</p><!--l. 145--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">switches </span>displays the actual status of the most frequently used switches when
+manipulating rational operators. The chosen switches are
+     </p><div class="quote">
+     <!--l. 148--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">exp</span>, <span 
+class="pcrr8t-x-x-109">allfac</span>, <span 
+class="pcrr8t-x-x-109">ezgcd</span>, <span 
+class="pcrr8t-x-x-109">gcd</span>, <span 
+class="pcrr8t-x-x-109">mcd</span>, <span 
+class="pcrr8t-x-x-109">lcm</span>, <span 
+class="pcrr8t-x-x-109">div</span>, <span 
+class="pcrr8t-x-x-109">rat</span>, <br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">intstr</span>, <span 
+class="pcrr8t-x-x-109">rational</span>, <span 
+class="pcrr8t-x-x-109">precise</span>, <span 
+class="pcrr8t-x-x-109">reduced</span>, <span 
+class="pcrr8t-x-x-109">rationalize</span>, <br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">combineexpt</span>, <span 
+class="pcrr8t-x-x-109">complex</span>, <span 
+class="pcrr8t-x-x-109">revpri</span>, <span 
+class="pcrr8t-x-x-109">distribute</span>.</p></div>
+<!--l. 153--><p class="noindent" >The selection is somewhat arbitrary but it may be changed in a trivial fashion by the
+user.
+<a 
+ id="dx169-402003"></a>
+<a 
+ id="dx169-402004"></a>
+<a 
+ id="dx169-402005"></a>
+</p><!--l. 157--><p class="noindent" ><a 
+ id="switch:DISTRIBUTE"></a> The new switch <span 
+class="pcrr8t-x-x-109">distribute </span>allows one to put polynomials in a distributed form (see
+the description below of the new operators for manipulating them).
+</p><!--l. 162--><p class="noindent" >Most of the symbolic variables <span 
+class="pcrr8t-x-x-109">!*exp</span>, <span 
+class="pcrr8t-x-x-109">!*div</span>, … which have either the value <span 
+class="pcrr8t-x-x-109">t </span>or the
+value <span 
+class="pcrr8t-x-x-109">nil </span>are made available in the algebraic mode so that it becomes possible to write
+conditional statements of the kind
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-650">
+        if !*exp then do ......
+ <br />
+ <br />        if !*gcd then off gcd;
+</div>
+<!--l. 170--><p class="nopar" > <span 
+class="pcrr8t-x-x-109">SWITCHORG </span>resets the switches enumerated above to the status they had when <span 
+class="ptmb8t-x-x-109">starting</span>
+REDUCE.
+</p><!--l. 174--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.2.4    </span> <a 
+ id="x169-40300020.2.4"></a>Manipulation of the List Structure</h4>
+<!--l. 176--><p class="noindent" >Additional operators for list manipulations are provided and some already deﬁned
+operators in the kernel of REDUCE are modiﬁed to properly generalize them to the
+available new structure <span 
+class="pcrr8t-x-x-109">bag</span>. </p>
+     <ul class="itemize1">
+     <li class="itemize"><a 
+ id="dx169-403001"></a> <a 
+ id="operator:MKLIST"></a>Generation of a list of length n with all its elements initialized to 0 and
+     possibility to append to a list <span 
+class="cmmi-10x-x-109">l </span>a certain number of zero’s to make it of length
+     <span 
+class="cmmi-10x-x-109">n</span>:
+                                                                     
+
+                                                                     
+     <div class="verbatim" id="verbatim-651">
+         mklist n ;    n is an integer
+      <br />
+      <br />    mklist(l,n);    l is List-like, n is an integer
+</div>
+     <!--l. 190--><p class="nopar" >
+     </p></li>
+     <li class="itemize"><a 
+ id="dx169-403002"></a><a 
+ id="operator:SEQUENCES"></a>Generation of a list of sublists of length n containing p elements equal to 0 and q
+     elements equal to 1 such that
+     <table 
+class="equation-star"><tr><td>
+                                <span 
+class="cmmi-10x-x-109">p </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">q </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">n.</span>
+     </td></tr></table>
+     <!--l. 196--><p class="nopar" >
+     The operator <span 
+class="pcrr8t-x-x-109">sequences </span>works both in algebraic and symbolic modes. Here is
+     an example in the algebraic mode:
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-652">
+         sequences 2 ; ==&#x003E; {{0,0},{0,1},{1,0},{1,1}}
+</div>
+     <!--l. 201--><p class="nopar" ><a 
+ id="dx169-403003"></a><a 
+ id="operator:SPLIT"></a>An arbitrary splitting of a list can be done. The operator <span 
+class="pcrr8t-x-x-109">split </span>generates a list
+     which contains the splitted parts of the original list.
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-653">
+         split({a,b,c,d},{1,1,2}) ==&#x003E; {{a},{b},{c,d}}
+</div>
+     <!--l. 208--><p class="nopar" ><a 
+ id="dx169-403004"></a><a 
+ id="operator:ALGNLIST"></a>The operator <span 
+class="pcrr8t-x-x-109">algnlist </span>constructs a list which contains n copies of a list bound
+     to its ﬁrst argument.
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-654">
+         algnlist({a,b,c,d},2); ==&#x003E; {{a,b,c,d},{a,b,c,d}}
+</div>
+     <!--l. 215--><p class="nopar" ><a 
+ id="dx169-403005"></a><a 
+ id="operator:KERNLIST"></a>The operator <span 
+class="pcrr8t-x-x-109">kernlist </span>transforms any preﬁx of a kernel into the <span 
+class="pcrr8t-x-x-109">list </span>preﬁx.
+     The output list is a copy:
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-655">
+         kernlist (&#x003C;kernel&#x003E;); ==&#x003E; {&#x003C;kernel arguments&#x003E;}
+</div>
+     <!--l. 222--><p class="nopar" >
+     </p></li>
+     <li class="itemize"><a 
+ id="dx169-403006"></a><a 
+ id="dx169-403007"></a><a 
+ id="dx169-403008"></a><a 
+ id="dx169-403009"></a><a 
+ id="operator:DELETE"></a><a 
+ id="operator:DELETE_ALL"></a><a 
+ id="operator:DELPAIR"></a><a 
+ id="operator:REMOVE"></a> Four operators to delete elements are <span 
+class="pcrr8t-x-x-109">delete</span>, <span 
+class="pcrr8t-x-x-109">remove</span>, <span 
+class="pcrr8t-x-x-109">delete_all </span>and
+     <span 
+class="pcrr8t-x-x-109">delpair</span>. The ﬁrst two act as in symbolic mode, and the third eliminates from a
+     given list <span 
+class="ptmri8t-x-x-109">all </span>elements equal to its ﬁrst argument. The fourth acts on a list of pairs
+     and eliminates from it the <span 
+class="ptmri8t-x-x-109">ﬁrst </span>pair whose ﬁrst element is equal to its ﬁrst argument
+     :
+                                                                     
+
+                                                                     
+     <div class="verbatim" id="verbatim-656">
+         delete(x,{a,b,x,f,x}); ==&#x003E; {a,b,f,x}
+      <br />
+      <br />    remove({a,b,x,f,x},3); ==&#x003E; {a,b,f,x}
+      <br />
+      <br />    delete_all(x,{a,b,x,f,x}); ==&#x003E; {a,b,f}
+      <br />
+      <br />    delpair(a,{{a,1},{b,2},{c,3}}; ==&#x003E; {{b,2},{c,3}}
+</div>
+     <!--l. 246--><p class="nopar" >
+     </p></li>
+     <li class="itemize"><a 
+ id="dx169-403010"></a><a 
+ id="dx169-403011"></a><a 
+ id="operator:ELMULT"></a><a 
+ id="operator:FREQUENCY"></a> The operator <span 
+class="pcrr8t-x-x-109">elmult </span>returns an <span 
+class="ptmri8t-x-x-109">integer </span>which is the <span 
+class="ptmri8t-x-x-109">multiplicity </span>of its ﬁrst
+     argument inside the list which is its second argument. The operator <span 
+class="pcrr8t-x-x-109">frequency</span>
+     gives a list of pairs whose second element indicates the number of times the ﬁrst
+     element appears inside the original list:
+                                                                     
+
+                                                                     
+     <div class="verbatim" id="verbatim-657">
+         elmult(x,{a,b,x,f,x}) ==&#x003E; 2
+      <br />
+      <br />    frequency({a,b,c,a}); ==&#x003E; {{a,2},{b,1},{c,1}}
+</div>
+     <!--l. 262--><p class="nopar" >
+     </p></li>
+     <li class="itemize"><a 
+ id="dx169-403012"></a><a 
+ id="dx169-403013"></a><a 
+ id="dx169-403014"></a><a 
+ id="operator:INSERT"></a><a 
+ id="operator:INSERT_KEEP_ORDER"></a><a 
+ id="operator:MERGE_LIST"></a> The operator <span 
+class="pcrr8t-x-x-109">insert </span>allows one to insert a given object into a list at the
+     desired position.
+     <!--l. 273--><p class="noindent" >The operators <span 
+class="pcrr8t-x-x-109">insert_keep_order </span>and <span 
+class="pcrr8t-x-x-109">merge_list </span>allow one to keep a
+     given ordering when inserting one element inside a list or when merging two lists.
+     Both have 3 arguments. The last one is the name of a binary boolean ordering
+     function:
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-658">
+         ll:={1,2,3}$
+      <br />
+      <br />    insert(x,ll,3); ==&#x003E; {1,2,x,3}
+      <br />
+      <br />    insert_keep_order(5,ll,lessp); ==&#x003E; {1,2,3,5}
+      <br />
+      <br />    merge_list(ll,ll,lessp); ==&#x003E; {1,1,2,2,3,3}
+</div>
+     <!--l. 285--><p class="nopar" > Notice that <span 
+class="pcrr8t-x-x-109">merge_list </span>will act correctly only if the two lists are well ordered
+     themselves.
+     </p></li>
+     <li class="itemize">Algebraic lists can be read from right to left or left to right. They <span 
+class="ptmri8t-x-x-109">look</span>
+     symmetrical. One would like to dispose of manipulation functions which reﬂect
+     this. <a 
+ id="dx169-403015"></a> <a 
+ id="dx169-403016"></a> <a 
+ id="dx169-403017"></a> <a 
+ id="dx169-403018"></a> <a 
+ id="operator:LAST"></a> <a 
+ id="operator:BELAST"></a> So, to the already deﬁned functions <span 
+class="pcrr8t-x-x-109">first </span>and <span 
+class="pcrr8t-x-x-109">rest </span>are added the
+     functions <span 
+class="pcrr8t-x-x-109">last </span>and <span 
+class="pcrr8t-x-x-109">belast</span>. <span 
+class="pcrr8t-x-x-109">last </span>gives the last element of the list while
+     <span 
+class="pcrr8t-x-x-109">belast </span>gives the list <span 
+class="ptmri8t-x-x-109">without </span>its last element. <br 
+class="newline" />Various additional functions are provided. They are: <a 
+ id="dx169-403019"></a> <a 
+ id="dx169-403020"></a> <a 
+ id="dx169-403021"></a> <a 
+ id="dx169-403022"></a> <a 
+ id="dx169-403023"></a> <a 
+ id="dx169-403024"></a> <a 
+ id="dx169-403025"></a> <a 
+ id="operator:POSITION"></a> <a 
+ id="operator:DEPTH"></a> <a 
+ id="operator:MKDEPTH_ONE"></a> <a 
+ id="operator:PAIR"></a> <a 
+ id="operator:APPENDN"></a> <a 
+ id="operator:REPFIRST"></a> <a 
+ id="operator:REPREST"></a>
+          <div class="quote">
+          <!--l. 318--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">. </span>(“<span 
+class="pcrr8t-x-x-109">dot</span>”), <span 
+class="pcrr8t-x-x-109">position</span>, <span 
+class="pcrr8t-x-x-109">depth</span>, <span 
+class="pcrr8t-x-x-109">mkdepth_one</span>, <br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">pair</span>, <span 
+class="pcrr8t-x-x-109">appendn</span>, <span 
+class="pcrr8t-x-x-109">repfirst</span>, <span 
+class="pcrr8t-x-x-109">represt</span></p></div>
+     <!--l. 321--><p class="noindent" >The token “dot” needs a special comment. It corresponds to several diﬀerent
+     operations.
+          </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+       1. </dt><dd 
+class="enumerate-enumitem">If one applies it on the left of a list, it acts as the <span 
+class="pcrr8t-x-x-109">cons </span>inﬁx operator. Note
+          however that blank spaces are required around the dot:
+                                                                     
+
+                                                                     
+          <div class="verbatim" id="verbatim-659">
+              4 . {a,b}; ==&#x003E; {4,a,b}
+</div>
+          <!--l. 328--><p class="nopar" >
+          </p></dd><dt class="enumerate-enumitem">
+       2. </dt><dd 
+class="enumerate-enumitem">If one applies it on the right of a list, it has the same eﬀect as the <span 
+class="pcrr8t-x-x-109">part</span>
+          operator:
+                                                                     
+
+                                                                     
+          <div class="verbatim" id="verbatim-660">
+              {a,b,c}.2; ==&#x003E; b
+</div>
+          <!--l. 333--><p class="nopar" >
+          </p></dd><dt class="enumerate-enumitem">
+       3. </dt><dd 
+class="enumerate-enumitem">If one applies it to a 4-dimensional vectors, it acts as in the HEPHYS
+          package.</dd></dl>
+     <!--l. 337--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">position </span>returns the <span 
+class="ptmri8t-x-x-109">position </span>of the ﬁrst occurrence of x in a list or a message if
+     x is not present in it.
+     </p><!--l. 340--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">depth </span>returns an <span 
+class="ptmri8t-x-x-109">integer </span>equal to the number of levels where a list is found if and
+     only if this number is the <span 
+class="ptmri8t-x-x-109">same </span>for each element of the list otherwise it returns a
+     message telling the user that the list is of <span 
+class="ptmri8t-x-x-109">unequal depth</span>. The function
+     <span 
+class="pcrr8t-x-x-109">mkdepth_one </span>allows to transform any list into a list of depth equal to
+     1.
+     </p><!--l. 346--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">pair </span>has two arguments which must be lists. It returns a list whose elements are
+     <span 
+class="ptmri8t-x-x-109">lists of two elements. </span>The <span 
+class="cmmi-10x-x-109">n</span><sup><span 
+class="cmmi-8">th</span></sup> sublist contains the <span 
+class="cmmi-10x-x-109">n</span><sup><span 
+class="cmmi-8">th</span></sup> element of the ﬁrst list
+     and the <span 
+class="cmmi-10x-x-109">n</span><sup><span 
+class="cmmi-8">th</span></sup> element of the second list. These types of lists are called
+     <span 
+class="ptmri8t-x-x-109">association lists </span>or short <span 
+class="ptmri8t-x-x-109">alists </span>in the following. To test for these type of
+     lists a boolean function <span 
+class="pcrr8t-x-x-109">abaglistp </span>is provided. It will be discussed
+     below.<br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">appendn </span>has <span 
+class="ptmri8t-x-x-109">any </span>ﬁxed number of lists as arguments. It generalizes the already
+     existing function <span 
+class="pcrr8t-x-x-109">append </span>which accepts only two lists as arguments. It may also
+     be used for arbitrary kernels but, in that case, it is important to notice that <span 
+class="ptmri8t-x-x-109">the</span>
+     <span 
+class="ptmri8t-x-x-109">concatenated object is always a list</span>.<br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">repfirst </span>has two arguments. The ﬁrst one is any object, the second one is a list.
+     It replaces the ﬁrst element of the list by the object. It works like the
+     symbolic mode (lisp) function <span 
+class="pcrr8t-x-x-109">rplaca </span>except that the original list is not
+     destroyed.<a 
+ id="dx169-403029"></a><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">represt </span>has also two arguments. It replaces the rest of the list by its ﬁrst
+     argument and returns the new list <span 
+class="ptmri8t-x-x-109">without destroying </span>the original list. It
+     is analogous to the symbolic mode (lisp) function <span 
+class="pcrr8t-x-x-109">rplacd</span>. <a 
+ id="dx169-403030"></a> Here are
+     examples:
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-661">
+         ll:={{a,b}}$
+      <br />    ll1:=ll.1; ==&#x003E; {a,b}
+      <br />    ll.0; ==&#x003E; list
+      <br />    0 . ll; ==&#x003E; {0,{a,b}}
+      <br />
+      <br />    depth ll; ==&#x003E; 2
+      <br />
+      <br />    pair(ll1,ll1); ==&#x003E; {{a,a},{b,b}}
+      <br />
+      <br />    repfirst{new,ll); ==&#x003E; {new}
+      <br />
+      <br />    ll3:=appendn(ll1,ll1,ll1); ==&#x003E; {a,b,a,b,a,b}
+      <br />
+      <br />    position(b,ll3); ==&#x003E; 2
+      <br />
+      <br />    represt(new,ll3); ==&#x003E; {a,new}
+</div>
+     <!--l. 384--><p class="nopar" >
+     </p></li>
+     <li class="itemize"><a 
+ id="dx169-403031"></a><a 
+ id="dx169-403032"></a><a 
+ id="dx169-403033"></a><a 
+ id="dx169-403034"></a><a 
+ id="dx169-403035"></a><a 
+ id="dx169-403036"></a><a 
+ id="operator:ASFIRST"></a><a 
+ id="operator:ASLAST"></a><a 
+ id="operator:ASREST"></a><a 
+ id="operator:ASFLIST"></a><a 
+ id="operator:ASSLIST"></a><a 
+ id="operator:RESTASLIST"></a> The functions <span 
+class="pcrr8t-x-x-109">asfirst</span>, <span 
+class="pcrr8t-x-x-109">aslast</span>, <span 
+class="pcrr8t-x-x-109">asrest</span>, <span 
+class="pcrr8t-x-x-109">asflist</span>, <span 
+class="pcrr8t-x-x-109">asslist</span>, and
+     <span 
+class="pcrr8t-x-x-109">restaslist </span>act on alists or on lists of lists of well deﬁned depths and have two
+     arguments. The ﬁrst is the key object which one seeks to associate in
+     some way with an element of the association list which is the second
+     argument.<br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">asfirst </span>returns the pair whose ﬁrst element is equal to the ﬁrst argument.<br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">aslast </span>returns the pair whose last element is equal to the ﬁrst argument.<br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">asrest </span>needs a <span 
+class="ptmri8t-x-x-109">list </span>as its ﬁrst argument. The function seeks the ﬁrst sublist of a
+     list of lists (which is its second argument) equal to its ﬁrst argument and returns
+     it.<br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">restaslist </span>has a <span 
+class="ptmri8t-x-x-109">list of keys </span>as its ﬁrst argument. It returns the collection of
+     pairs which meet the criterium of <span 
+class="pcrr8t-x-x-109">asrest</span>.<br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">asflist </span>returns a list containing <span 
+class="ptmri8t-x-x-109">all pairs </span>which satisfy the criteria of the
+     function <span 
+class="pcrr8t-x-x-109">asfirst</span>. So the output is also an association list.<br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">asslist </span>returns a list which contains <span 
+class="ptmri8t-x-x-109">all pairs </span>which have their second element
+     equal to the ﬁrst argument.<br 
+class="newline" />Here are a few examples:
+                                                                     
+
+                                                                     
+     <div class="verbatim" id="verbatim-662">
+         lp:={{a,1},{b,2},{c,3}}$
+      <br />
+      <br />    asfirst(a,lp); ==&#x003E; {a,1}
+      <br />
+      <br />    aslast(1,lp); ==&#x003E; {a,1}
+      <br />
+      <br />    asrest({1},lp); ==&#x003E; {a,1}
+      <br />
+      <br />    restaslist({a,b},lp); ==&#x003E; {{1},{2}}
+      <br />
+      <br />    lpp:=append(lp,lp)$
+      <br />
+      <br />    asflist(a,lpp); ==&#x003E; {{a,1},{a,1}}
+      <br />
+      <br />    asslist(1,lpp); ==&#x003E; {{a,1},{a,1}}
+</div>
+     <!--l. 434--><p class="nopar" >
+     </p></li>
+     <li class="itemize"><a 
+ id="dx169-403037"></a><a 
+ id="operator:SUBSTITUTE"></a> The function <span 
+class="pcrr8t-x-x-109">substitute </span>has three arguments. The ﬁrst is the object to be
+     substituted, the second is the object which must be replaced by the ﬁrst, and
+     the third is the list in which the substitution must be made. Substitution
+     is made to all levels. It is a more elementary function than <span 
+class="pcrr8t-x-x-109">sub </span>but its
+     capabilities are less. When dealing with algebraic quantities, it is important to
+     make sure that <span 
+class="ptmri8t-x-x-109">all </span>objects involved in the function have either the preﬁx
+     lisp or the standard quotient representation otherwise it will not properly
+     work.</li></ul>
+<!--l. 448--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.2.5    </span> <a 
+ id="x169-40400020.2.5"></a> The Bag Structure and its Associated Functions</h4>
+<!--l. 449--><p class="noindent" >The list structure of REDUCE is very convenient for manipulating groups of objects
+which are, a priori, unknown. This structure is endowed with other properties such as
+“mapping” i.e. the fact that if <span 
+class="pcrr8t-x-x-109">op </span>is an operator one gets, by default,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-663">
+    op({x,y}); ==&#x003E; {op(x),op(y)}
+</div>
+<!--l. 455--><p class="nopar" > It is not permitted to submit lists to the operations valid on rings so that, for example,
+lists cannot be indeterminates of polynomials.<br 
+class="newline" />Very frequently too, procedure arguments cannot be lists. At the other extreme, so to say,
+one has the kernel<a 
+ id="dx169-404001"></a> structure associated with the algebraic declaration <span 
+class="pcrr8t-x-x-109">operator </span>. This
+structure behaves as an “unbreakable” one and, for that reason, behaves like an
+ordinary identiﬁer. It may generally be bound to all non-numeric procedure
+parameters and it may appear as an ordinary indeterminate inside polynomials.
+<br 
+class="newline" />The <span 
+class="pcrr8t-x-x-109">BAG </span>structure is intermediate between a list and an operator. From the operator it
+borrows the property of being a kernel and, therefore, may be an indeterminate of a
+polynomial. From the list structure it borrows the property of being a <span 
+class="ptmri8t-x-x-109">composite</span>
+object.
+</p><!--l. 472--><p class="noindent" ><span class="underline"><span 
+class="ptmb8t-x-x-109">Deﬁnition</span>:</span>
+</p><!--l. 474--><p class="noindent" >A bag is an object endowed with the following properties:
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   1. </dt><dd 
+class="enumerate-enumitem">It is a kernel, i.e. it is composed of an atomic preﬁx (its envelope) and its
+     content (miscellaneous objects).
+     </dd><dt class="enumerate-enumitem">
+   2. </dt><dd 
+class="enumerate-enumitem">Its content may be handled in an analogous way as the content of a list. The
+     important diﬀerence is that during these manipulations the name of the bag
+     is <span 
+class="ptmri8t-x-x-109">kept</span>.
+     </dd><dt class="enumerate-enumitem">
+   3. </dt><dd 
+class="enumerate-enumitem">Properties may be given to the envelope. For instance, one may declare it
+     <span 
+class="pcrr8t-x-x-109">noncom </span>or <span 
+class="pcrr8t-x-x-109">symmetric</span>, etc.</dd></dl>
+<!--l. 486--><p class="noindent" ><span class="underline"><span 
+class="ptmb8t-x-x-109">Available Functions</span>:</span>
+</p>
+     <ul class="itemize1">
+     <li class="itemize">A default bag envelope <br 
+class="newline" />textttbag is deﬁned.<a 
+ id="dx169-404005"></a> <a 
+ id="reserved:BAG"></a> It is a reserved identiﬁer. <a 
+ id="dx169-404006"></a> <a 
+ id="dx169-404007"></a> <a 
+ id="dx169-404008"></a> <a 
+ id="operator:PUTBAG"></a> <a 
+ id="operator:CLEARBAG"></a> <a 
+ id="operator:BAGP"></a> An identiﬁer other than <span 
+class="pcrr8t-x-x-109">list </span>or
+                                                                     
+
+                                                                     
+     one which is already associated with a boolean function may be deﬁned as a bag
+     envelope through the command <span 
+class="pcrr8t-x-x-109">putbag</span>. In particular, any operator may also be
+     declared to be a bag. <span 
+class="ptmb8t-x-x-109">When and only when </span>the identiﬁer is not an already deﬁned
+     function then <span 
+class="pcrr8t-x-x-109">putbag </span>set for it the property of an <span 
+class="ptmri8t-x-x-109">operator preﬁx</span>. The
+     command:
+                                                                     
+
+                                                                     
+     <div class="verbatim" id="verbatim-664">
+         putbag id1,id2,....idn;
+</div>
+     <!--l. 506--><p class="nopar" > declares <span 
+class="pcrr8t-x-x-109">id1</span>,…,<span 
+class="pcrr8t-x-x-109">idn </span>as bag envelopes. Analogously, the command
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-665">
+         clearbag id1,...idn;
+</div>
+     <!--l. 511--><p class="nopar" > eliminates the bag property on <span 
+class="pcrr8t-x-x-109">id1</span>,…,<span 
+class="pcrr8t-x-x-109">idn</span>.
+     </p></li>
+     <li class="itemize">The boolean operator <span 
+class="pcrr8t-x-x-109">bagp </span>detects the bag property. Here is an example:
+                                                                     
+
+                                                                     
+     <div class="verbatim" id="verbatim-666">
+         aa:=bag(x,y,z)$
+      <br />
+      <br />    if bagp aa then &#x0022;ok&#x0022;; ==&#x003E; ok
+</div>
+     <!--l. 519--><p class="nopar" >
+     </p></li>
+     <li class="itemize">The functions listed below may act both on lists or bags. Moreover, functions
+     subsequently deﬁned for <span 
+class="ptmri8t-x-x-109">sets</span>SETS also work for a bag when its content is a set.
+     Here is a list of the main ones:
+     <!--l. 525--><p class="noindent" >
+          </p><div class="quote">
+          <!--l. 526--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">FIRST</span>,  <span 
+class="pcrr8t-x-x-109">second</span>,  <span 
+class="pcrr8t-x-x-109">last</span>,  <span 
+class="pcrr8t-x-x-109">rest</span>,  <span 
+class="pcrr8t-x-x-109">belast</span>,  <span 
+class="pcrr8t-x-x-109">depth</span>,  <span 
+class="pcrr8t-x-x-109">length</span>,
+          <span 
+class="pcrr8t-x-x-109">reverse</span>,<br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">member</span>, <span 
+class="pcrr8t-x-x-109">append</span>, <span 
+class="pcrr8t-x-x-109">. </span>(“<span 
+class="pcrr8t-x-x-109">dot</span>”), <span 
+class="pcrr8t-x-x-109">repfirst</span>, <span 
+class="pcrr8t-x-x-109">represt</span>, …</p></div>
+     <!--l. 530--><p class="noindent" >However, since they keep track of the envelope, they act somewhat diﬀerently.
+     Remember that </p>
+     <div class="center" 
+>
+<!--l. 533--><p class="noindent" >
+</p><!--l. 534--><p class="noindent" >the <span 
+class="ptmri8t-x-x-109">name </span>of the <span 
+class="ptmri8t-x-x-109">envelope </span>is <span 
+class="ptmri8t-x-x-109">kept </span>by the operators<br />
+<span 
+class="pcrr8t-x-x-109">first</span>, <span 
+class="pcrr8t-x-x-109">second </span>and <span 
+class="pcrr8t-x-x-109">last</span>.</p></div>
+     <!--l. 537--><p class="noindent" >Here are a few examples (more examples are given inside the test ﬁle):
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-667">
+         putbag op; ==&#x003E; t
+      <br />
+      <br />    aa:=op(x,y,z)$
+      <br />
+      <br />    first op(x,y,z); ==&#x003E; op(x)
+      <br />
+      <br />    rest op(x,y,z); ==&#x003E; op(y,z)
+      <br />
+      <br />    belast op(x,y,z); ==&#x003E; op(x,y)
+      <br />
+      <br />    append(aa,aa); ==&#x003E; op(x,y,z,x,y,z)
+      <br />
+      <br />    appendn(aa,aa,aa); ==&#x003E; {x,y,z,x,y,z,x,y,z}
+      <br />
+      <br />    length aa; ==&#x003E; 3
+      <br />
+      <br />    depth aa; ==&#x003E; 1
+      <br />
+      <br />    member(y,aa); ==&#x003E; op(y,z)
+</div>
+     <!--l. 559--><p class="nopar" > When “appending” two bags with <span 
+class="ptmri8t-x-x-109">diﬀerent </span>envelopes, the resulting bag gets the
+     name of the one bound to the ﬁrst parameter of <span 
+class="pcrr8t-x-x-109">append</span>. When <span 
+class="pcrr8t-x-x-109">appendn </span>is used,
+     the output is always a list.<br 
+class="newline" />The function <span 
+class="pcrr8t-x-x-109">length </span>gives the number of objects contained in the bag.
+     </p></li>
+     <li class="itemize"><a 
+ id="dx169-404009"></a> <a 
+ id="operator:LISTBAG"></a> The connection between the list and the bag structures is made easy thanks to
+     <span 
+class="pcrr8t-x-x-109">kernlist </span>which transforms a bag into a list and thanks to the coercion function
+     <span 
+class="pcrr8t-x-x-109">listbag </span>which transforms a list into a bag. This function has 2 arguments and is
+     used as follows:
+       <div class="syntax">
+        <span 
+class="pcrr8t-x-x-109">listbag</span>(<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">list</span><span 
+class="cmsy-10x-x-109">⟩</span>,<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">id</span><span 
+class="cmsy-10x-x-109">⟩</span>); ==&#x003E; <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">id</span><span 
+class="cmsy-10x-x-109">⟩</span>(<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">arg_list</span><span 
+class="cmsy-10x-x-109">⟩</span>)</div>
+     <!--l. 576--><p class="noindent" >The identiﬁer <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">id</span><span 
+class="cmsy-10x-x-109">⟩</span>, if allowed, is automatically declared as a bag envelope or an
+     error message is generated.<br 
+class="newline" /> <a 
+ id="dx169-404010"></a> <a 
+ id="dx169-404011"></a> <a 
+ id="operator:BAGLISTP"></a> <a 
+ id="operator:ABAGLISTP"></a> Finally, two boolean functions which work both for bags and lists are
+     provided. They are <span 
+class="pcrr8t-x-x-109">baglistp </span>and <span 
+class="pcrr8t-x-x-109">abaglistp</span>. They return t or nil (in a
+     conditional statement) if their argument is a bag or a list for the ﬁrst one, or if
+                                                                     
+
+                                                                     
+     their argument is a list of sublists or a bag containing bags for the second
+     one.</p></li></ul>
+<!--l. 588--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.2.6    </span> <a 
+ id="x169-40500020.2.6"></a>Sets and their Manipulation Functions</h4>
+<!--l. 589--><p class="noindent" >Functions for sets exist at the level of symbolic mode. The package makes them available
+in algebraic mode but also <span 
+class="ptmri8t-x-x-109">generalizes </span>them so that they can be applied to bag-like
+objects as well. </p>
+     <ul class="itemize1">
+     <li class="itemize"><a 
+ id="dx169-405001"></a> <a 
+ id="operator:MKSET"></a> The constructor <span 
+class="pcrr8t-x-x-109">mkset </span>transforms a list or bag into a set by eliminating
+     duplicates.
+                                                                     
+
+                                                                     
+     <div class="verbatim" id="verbatim-668">
+             mkset({1,a,a}); ==&#x003E; {1,a}
+      <br />        mkset bag(1,a,1,a); ==&#x003E; bag(1,a)
+</div>
+     <!--l. 601--><p class="nopar" ><a 
+ id="dx169-405002"></a><a 
+ id="operator:SETP"></a><span 
+class="pcrr8t-x-x-109">setp </span>is a boolean function which recognizes set–like objects.
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-669">
+             if setp {1,2,3} then ... ;
+</div>
+     <!--l. 607--><p class="nopar" >
+     </p></li>
+     <li class="itemize"><a 
+ id="dx169-405003"></a><a 
+ id="dx169-405004"></a><a 
+ id="dx169-405005"></a><a 
+ id="dx169-405006"></a><a 
+ id="operator:UNION"></a><a 
+ id="operator:INTERSECT"></a><a 
+ id="operator:DIFFSET"></a><a 
+ id="operator:SYMDIFF"></a> The available functions are
+     <div class="center" 
+>
+<!--l. 618--><p class="noindent" >
+</p><!--l. 619--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">union</span>, <span 
+class="pcrr8t-x-x-109">intersect</span>, <span 
+class="pcrr8t-x-x-109">diffset</span>, <span 
+class="pcrr8t-x-x-109">symdiff</span>.</p></div>
+     <!--l. 621--><p class="noindent" >They have two arguments which must be sets otherwise an error message is issued.
+     Their meaning is transparent from their name. They respectively give the
+     union, the intersection, the diﬀerence and the symmetric diﬀerence of two
+     sets.</p></li></ul>
+<!--l. 627--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.2.7    </span> <a 
+ id="x169-40600020.2.7"></a>General Purpose Utility Functions</h4>
+<!--l. 628--><p class="noindent" >Functions in this sections have various purposes. They have all been used many times in
+applications in some form or another. The form given to them in this package is adjusted
+to maximize their range of applications. </p>
+     <ul class="itemize1">
+     <li class="itemize"><a 
+ id="dx169-406001"></a>   <a 
+ id="dx169-406002"></a>   <a 
+ id="dx169-406003"></a>   <a 
+ id="dx169-406004"></a>   <a 
+ id="operator:MKIDNEW"></a>   <a 
+ id="operator:DELLASTDIGIT"></a>   <a 
+ id="operator:DETIDNUM"></a>   <a 
+ id="operator:LIST_TO_IDS"></a>   The   operators   <span 
+class="pcrr8t-x-x-109">mkidnew</span>,   <span 
+class="pcrr8t-x-x-109">dellastdigit</span>,   <span 
+class="pcrr8t-x-x-109">detidnum</span>,
+     <span 
+class="pcrr8t-x-x-109">list_to_ids </span>handle identiﬁers.
+     <!--l. 644--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">mkidnew </span>has either 0 or 1 argument. It generates an identiﬁer which has not yet
+     been used before.
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-670">
+             mkidnew(); ==&#x003E; g0001
+      <br />
+      <br />        mkidnew(a); ==&#x003E; ag0002
+</div>
+     <!--l. 650--><p class="nopar" ><span 
+class="pcrr8t-x-x-109">dellastdigit </span>takes an integer as argument and strips from it its last
+     digit.
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-671">
+         dellastdigit 45; ==&#x003E; 4
+</div>
+     <!--l. 655--><p class="nopar" ><span 
+class="pcrr8t-x-x-109">detidnum </span>deletes the last digit from an identiﬁer. It is a very convenient
+     function when one wants to make a do loop starting from a set of indices
+     <span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,a</span><sub><span 
+class="cmmi-8">n</span></sub>.
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-672">
+         detidnum a23; ==&#x003E; 23
+</div>
+     <!--l. 661--><p class="nopar" >
+     </p><!--l. 663--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">list_to_ids </span>generalizes the function <span 
+class="pcrr8t-x-x-109">mkid </span>to a list of atoms. It creates and
+     intern an identiﬁer from the concatenation of the atoms. The ﬁrst atom cannot be
+     an integer.
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-673">
+         list_to_ids {a,1,id,10}; ==&#x003E; a1id10
+</div>
+     <!--l. 668--><p class="nopar" ><a 
+ id="dx169-406005"></a><a 
+ id="operator:ODDP"></a> The boolean operator <span 
+class="pcrr8t-x-x-109">oddp </span>detects odd integers.
+<a 
+ id="dx169-406006"></a>
+     </p><!--l. 674--><p class="noindent" ><a 
+ id="operator:FOLLOWLINE"></a> The function <span 
+class="pcrr8t-x-x-109">followline </span>is convenient when using the function <span 
+class="pcrr8t-x-x-109">prin2</span><a 
+ id="dx169-406007"></a>. It
+     allows one to format output text in a much more ﬂexible way than with the <span 
+class="pcrr8t-x-x-109">write</span>
+     statement<a 
+ id="dx169-406008"></a>. <br 
+class="newline" />Try the following examples :
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-674">
+         &#x003C;&#x003C;prin2 2; prin2 5&#x003E;&#x003E;$ ==&#x003E; ?
+      <br />
+      <br />    &#x003C;&#x003C;prin2 2; followline(5); prin2 5;&#x003E;&#x003E;; ==&#x003E; ?
+</div>
+     <!--l. 683--><p class="nopar" ><a 
+ id="dx169-406009"></a><a 
+ id="reserved:setvalueop"></a> The inﬁx operator <span 
+class="pcrr8t-x-x-109">== </span>is a short and convenient notation for the <span 
+class="pcrr8t-x-x-109">set</span>
+     function. In fact it is a <span 
+class="ptmri8t-x-x-109">generalization </span>of it to allow one to deal also with
+     kernels:
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-675">
+         operator op;
+      <br />
+      <br />    op(x):=abs(x)$
+      <br />
+      <br />    op(x) == x; ==&#x003E; x
+      <br />
+      <br />    op(x); ==&#x003E; x
+      <br />
+      <br />    abs(x); ==&#x003E; x
+</div>
+     <!--l. 699--><p class="nopar" ><a 
+ id="dx169-406010"></a><a 
+ id="operator:RANDOMLIST"></a> The function <span 
+class="pcrr8t-x-x-109">randomlist </span>generates a list of random numbers. It takes
+     two arguments which are both integers. The ﬁrst one indicates the range
+     inside which the random numbers are chosen. The second one indicates
+     how many numbers are to be generated. Its output is the list of generated
+     numbers.
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-676">
+         randomlist(10,5); ==&#x003E; {2,1,3,9,6}
+</div>
+     <!--l. 709--><p class="nopar" ><a 
+ id="dx169-406011"></a><a 
+ id="operator:MKRANDTABL"></a><span 
+class="pcrr8t-x-x-109">mkrandtabl </span>generates a table of random numbers. This table is either a one or
+     two dimensional array. The base of random numbers may be either an integer or a
+     decimal number. In this last case, to work properly, the switch <span 
+class="pcrr8t-x-x-109">rounded </span>must be
+     ON. It has three arguments. The ﬁrst is either a one integer or a two integer list.
+     The second is the base chosen to generate the random numbers. The third is the
+     chosen name for the generated array. In the example below a two-dimensional
+     table of random integers is generated as array elements of the identiﬁer
+     <span 
+class="pcrr8t-x-x-109">a</span>r.
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-677">
+         mkrandtabl({3,4},10,ar); ==&#x003E;
+      <br />
+      <br />           *** array ar redefined
+      <br />
+      <br />                 {3,4}
+</div>
+     <!--l. 726--><p class="nopar" > The output is the dimension of the constructed array.
+<a 
+ id="dx169-406012"></a>
+<a 
+ id="dx169-406013"></a>
+     </p><!--l. 731--><p class="noindent" ><a 
+ id="operator:PERMUTATIONS"></a> <a 
+ id="operator:CYCLICPERMLIST"></a> <span 
+class="pcrr8t-x-x-109">permutations </span>gives the list of permutations of <span 
+class="cmmi-10x-x-109">n </span>objects. Each permutation is
+     itself a list. <span 
+class="pcrr8t-x-x-109">cyclicpermlist </span>gives the list of <span 
+class="ptmri8t-x-x-109">cyclic </span>permutations. For both
+     functions, the argument may also be a <span 
+class="pcrr8t-x-x-109">bag</span>.
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-678">
+         permutations {1,2} ==&#x003E; {{1,2},{2,1}}
+      <br />
+      <br />    cyclicpermlist {1,2,3} ==&#x003E;
+      <br />
+      <br />            {{1,2,3},{2,3,1},{3,1,2}}
+</div>
+     <!--l. 743--><p class="nopar" ><a 
+ id="dx169-406014"></a><a 
+ id="dx169-406015"></a><a 
+ id="operator:PERM_TO_NUM"></a><a 
+ id="operator:NUM_TO_PERM"></a><span 
+class="pcrr8t-x-x-109">perm_to_num </span>and <span 
+class="pcrr8t-x-x-109">num_to_perm </span>allow to associate to a given permutation
+     of n numbers or identiﬁers a number between <span 
+class="cmr-10x-x-109">0 </span>and <span 
+class="cmmi-10x-x-109">n</span><span 
+class="cmr-10x-x-109">! </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1</span>. The ﬁrst function has
+     the two permutated lists as its arguments and it returns an integer. The second one
+     has an integer as its ﬁrst argument and a list as its second argument. It returns the
+     list of permutated objects.
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-679">
+         perm_to_num({4,3,2,1},{1,2,3,4}) ==&#x003E; 23
+      <br />
+      <br />    num_to_perm(23,{1,2,3,4}); ==&#x003E; {4,3,2,1}
+</div>
+     <!--l. 758--><p class="nopar" ><a 
+ id="dx169-406016"></a><a 
+ id="operator:COMBNUM"></a><span 
+class="pcrr8t-x-x-109">combnum </span>gives the number of combinations of <span 
+class="cmmi-10x-x-109">n </span>objects taken <span 
+class="cmmi-10x-x-109">p </span>at a time. It has
+     the two integer arguments <span 
+class="cmmi-10x-x-109">n </span>and <span 
+class="cmmi-10x-x-109">p</span>.
+<a 
+ id="dx169-406017"></a>
+     </p><!--l. 765--><p class="noindent" ><a 
+ id="operator:COMBINATIONS"></a> <span 
+class="pcrr8t-x-x-109">combinations </span>gives a list of combinations on <span 
+class="cmmi-10x-x-109">n </span>objects taken <span 
+class="cmmi-10x-x-109">p </span>at a time. It
+     has two arguments. The ﬁrst one is a list (or a bag) and the second one is the
+     integer <span 
+class="cmmi-10x-x-109">p</span>.
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-680">
+         combinations({1,2,3},2) ==&#x003E; {{2,3},{1,3},{1,2}}
+</div>
+     <!--l. 771--><p class="nopar" ><span 
+class="pcrr8t-x-x-109">remsym </span>is a command that suppresses the eﬀect of the REDUCE commands
+     <span 
+class="pcrr8t-x-x-109">symmetric </span>or <span 
+class="pcrr8t-x-x-109">antisymmetric </span>.
+<a 
+ id="dx169-406018"></a>
+     </p><!--l. 776--><p class="noindent" ><a 
+ id="operator:SYMMETRIZE"></a> <span 
+class="pcrr8t-x-x-109">symmetrize </span>is a powerful function which generates a symmetric expression. It
+     has 3 arguments. The ﬁrst is a list (or a list of lists) containing the expressions
+     which will appear as variables for a kernel. The second argument is the
+     kernel-name and the third is a permutation function which exists either in algebraic
+     or symbolic mode. This function may be constructed by the user. Within this
+     package the two functions <span 
+class="pcrr8t-x-x-109">permutations </span>and <span 
+class="pcrr8t-x-x-109">cyclicpermlist </span>may be
+     used. Examples:
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-681">
+         ll:={a,b,c}$
+      <br />
+      <br />    symmetrize(ll,op,cyclicpermlist); ==&#x003E;
+      <br />
+      <br />            op(a,b,c) + op(b,c,a) + op(c,a,b)
+      <br />
+      <br />    symmetrize(list ll,op,cyclicpermlist); ==&#x003E;
+      <br />
+      <br />            op({a,b,c}) + op({b,c,a}) + op({c,a,b})
+</div>
+     <!--l. 795--><p class="nopar" > Notice that, taking for the ﬁrst argument a list of lists gives rise to an expression
+     where each kernel has a <span 
+class="ptmri8t-x-x-109">list as argument</span>. Another peculiarity of this function is the
+     fact that, unless a pattern matching is made on the operator <span 
+class="pcrr8t-x-x-109">op</span>, it needs to be
+     reevaluated. This peculiarity is convenient when <span 
+class="pcrr8t-x-x-109">op </span>is an abstract operator if
+     one wants to control the subsequent simpliﬁcation process. Here is an
+     illustration:
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-682">
+         op(a,b,c):=a*b*c$
+      <br />
+      <br />    symmetrize(ll,op,cyclicpermlist); ==&#x003E;
+      <br />
+      <br />             op(a,b,c) + op(b,c,a) + op(c,a,b)
+      <br />
+      <br />    reval ws; ==&#x003E;
+      <br />
+      <br />             op(b,c,a) + op(c,a,b) + a*b*c
+      <br />
+      <br />    for all x let op(x,a,b)=sin(x*a*b);
+      <br />
+      <br />    symmetrize(ll,op,cyclicpermlist); ==&#x003E;
+      <br />
+      <br />              op(b,c,a) + sin(a*b*c) + op(a,b,c)
+</div>
+     <!--l. 818--><p class="nopar" ><a 
+ id="dx169-406019"></a><a 
+ id="dx169-406020"></a><a 
+ id="operator:SORTNUMLIST"></a><a 
+ id="operator:SORTLIST"></a> The functions <span 
+class="pcrr8t-x-x-109">sortnumlist </span>and <span 
+class="pcrr8t-x-x-109">sortlist </span>are functions which sort lists.
+     They use the <span 
+class="ptmri8t-x-x-109">bubblesort </span>and the <span 
+class="ptmri8t-x-x-109">quicksort </span>algorithms.
+     </p><!--l. 826--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">sortnumlist </span>takes as argument a list of numbers. It sorts it in increasing
+     order.
+     </p><!--l. 829--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">sortlist </span>is a generalization of the above function. It sorts the list according to
+     any well deﬁned ordering. Its ﬁrst argument is the list and its second argument is
+     the ordering function. The content of the list need not necessarily be numbers
+     but must be such that the ordering function has a meaning. <a 
+ id="dx169-406021"></a> <a 
+ id="dx169-406022"></a> <a 
+ id="operator:ALGSORT"></a> <span 
+class="pcrr8t-x-x-109">algsort</span>
+     exploits the PSL <span 
+class="pcrr8t-x-x-109">sort </span>function. It is intended to replace the two functions
+     above.
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-683">
+      l:={1,3,4,0}$  sortnumlist l; ==&#x003E; {0,1,3,4}
+      <br />
+      <br /> ll:={1,a,tt,z}$ sortlist(ll,ordp); ==&#x003E; {a,z,tt,1}
+      <br />
+      <br /> l:={-1,3,4,0}$  algsort(l,&#x003E;); ==&#x003E; {4,3,0,-1}
+</div>
+     <!--l. 846--><p class="nopar" > It is important to realise that using these functions for kernels or bags may be
+     dangerous since they are destructive. If it is necessary, it is recommended to ﬁrst
+     apply <span 
+class="pcrr8t-x-x-109">kernlist </span>to them to act on a copy.
+<a 
+ id="dx169-406023"></a>
+     </p><!--l. 852--><p class="noindent" ><a 
+ id="operator:EXTREMUM"></a> The function <span 
+class="pcrr8t-x-x-109">extremum </span>is a generalization of the already deﬁned functions <span 
+class="pcrr8t-x-x-109">min</span>,
+     <span 
+class="pcrr8t-x-x-109">max </span>to include general orderings. It is a 2 argument function. The ﬁrst is the list
+     and the second is the ordering function. With the list <span 
+class="pcrr8t-x-x-109">ll </span>deﬁned in the last
+     example, one gets
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-684">
+         extremum(ll,ordp); ==&#x003E; 1
+</div>
+     <!--l. 859--><p class="nopar" >
+<a 
+ id="dx169-406024"></a>
+     </p><!--l. 862--><p class="noindent" ><a 
+ id="operator:GCDNL"></a> <span 
+class="pcrr8t-x-x-109">GCDNL </span>takes a list of integers as argument and returns their gcd.
+     </p></li>
+     <li class="itemize">There are four functions to identify dependencies. <a 
+ id="dx169-406025"></a> <a 
+ id="operator:FUNCVAR"></a> <span 
+class="pcrr8t-x-x-109">funcvar </span>takes any
+     expression as argument and returns the set of variables on which it depends.
+     Constants are eliminated.
+                                                                     
+
+                                                                     
+     <div class="verbatim" id="verbatim-685">
+         funcvar(e+pi+sin(log(y)); ==&#x003E; {y}
+</div>
+     <!--l. 871--><p class="nopar" ><a 
+ id="dx169-406026"></a><a 
+ id="operator:DEPATOM"></a><span 
+class="pcrr8t-x-x-109">depatom </span>has an <span 
+class="ptmb8t-x-x-109">atom </span>as argument. It returns it if it is a number or if no
+     dependency has previously been declared. Otherwise, it returns the list of variables
+     which the previous <span 
+class="pcrr8t-x-x-109">DEPEND </span>declarations imply.
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-686">
+         depend a,x,y;
+      <br />
+      <br />    depatom a; ==&#x003E; {x,y}
+</div>
+     <!--l. 882--><p class="nopar" ><a 
+ id="dx169-406027"></a><a 
+ id="dx169-406028"></a><a 
+ id="operator:EXPLICIT"></a><a 
+ id="operator:IMPLICIT"></a> The operators <span 
+class="pcrr8t-x-x-109">explicit </span>and <span 
+class="pcrr8t-x-x-109">implicit </span>make explicit or implicit the
+     dependencies. This example shows how they work:
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-687">
+         depend a,x; depend x,y,z;
+      <br />
+      <br />    explicit a; ==&#x003E; a(x(y,z))
+      <br />
+      <br />    implicit ws; ==&#x003E; a
+</div>
+     <!--l. 895--><p class="nopar" > These are useful when one wants to trace the names of the independent variables
+     and (or) the nature of the dependencies.
+<a 
+ id="dx169-406029"></a>
+     </p><!--l. 901--><p class="noindent" ><a 
+ id="operator:KORDERLIST"></a> <span 
+class="pcrr8t-x-x-109">korderlist </span>is a zero argument function which displays the actual
+     ordering.
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-688">
+         korder x,y,z;
+      <br />
+      <br />    korderlist; ==&#x003E; (x,y,z)
+</div>
+     <!--l. 908--><p class="nopar" >
+     </p></li>
+     <li class="itemize"><a 
+ id="dx169-406030"></a><a 
+ id="command:REMNONCOM"></a><a 
+ id="dx169-406031"></a> A command <span 
+class="pcrr8t-x-x-109">remnoncom </span>to remove the non-commutativity of operators
+     previously declared non-commutative is available. Its use is like the one of the
+     command <span 
+class="pcrr8t-x-x-109">noncom</span>.
+     </li>
+     <li class="itemize">Filtering functions for lists.
+<a 
+ id="dx169-406032"></a>
+     <!--l. 921--><p class="noindent" ><a 
+ id="operator:CHECKPROPLIST"></a> <span 
+class="pcrr8t-x-x-109">checkproplist </span>is a boolean function which checks if the elements of a list
+     have a deﬁnite property. Its ﬁrst argument is the list, its second argument is
+     a boolean operator (<span 
+class="pcrr8t-x-x-109">fixp</span>, <span 
+class="pcrr8t-x-x-109">numberp</span>, …) or an ordering function (as
+     <span 
+class="pcrr8t-x-x-109">ordp</span>).
+<a 
+ id="dx169-406033"></a>
+     </p><!--l. 928--><p class="noindent" ><a 
+ id="operator:EXTRACTLIST"></a> <span 
+class="pcrr8t-x-x-109">extractlist </span>extracts from the list given as its ﬁrst argument the elements
+     which satisfy the boolean function given as its second argument. For
+     example:
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-689">
+         if checkproplist({1,2},fixp) then &#x0022;ok&#x0022;; ==&#x003E; ok
+      <br />
+      <br />    l:={1,a,b,&#x0022;st&#x0022;)$
+      <br />
+      <br />    extractlist(l,fixp); ==&#x003E; {1}
+      <br />
+      <br />    extractlist(l,stringp); ==&#x003E; {st}
+</div>
+     <!--l. 940--><p class="nopar" >
+     </p></li>
+     <li class="itemize">Coercion.
+<a 
+ id="dx169-406034"></a>
+<a 
+ id="dx169-406035"></a>
+     <!--l. 945--><p class="noindent" ><a 
+ id="operator:ARRAY_TO_LIST"></a> <a 
+ id="operator:LIST_TO_ARRAY"></a> Since lists and arrays have quite distinct behaviour and storage properties, it is
+     interesting to coerce lists into arrays and vice-versa in order to fully exploit
+     the advantages of both datatypes. The functions <span 
+class="pcrr8t-x-x-109">array_to_list </span>and
+     <span 
+class="pcrr8t-x-x-109">list_to_array </span>are provided to do that easily. The ﬁrst function has the
+     array identiﬁer as its unique argument. The second function has three
+     arguments. The ﬁrst is the list, the second is the dimension of the array
+     and the third is the identiﬁer which deﬁnes it. If the chosen dimension is
+     not compatible with the the list depth, an error message is issued. As an
+     illustration suppose that <span 
+class="cmmi-10x-x-109">ar </span>is an array whose components are 1,2,3,4.
+     then
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-690">
+         array_to_list ar; ==&#x003E; {1,2,3,4}
+      <br />
+      <br />    list_to_array({1,2,3,4},1,arr}; ==&#x003E;
+</div>
+     <!--l. 963--><p class="nopar" > generates the array <span 
+class="cmmi-10x-x-109">arr </span>with the components 1,2,3,4.
+     </p></li>
+     <li class="itemize">Control of the <span 
+class="ptmrc8t-x-x-109">HEPHYS </span>package.
+<a 
+ id="dx169-406036"></a>
+<a 
+ id="dx169-406037"></a>
+     <!--l. 969--><p class="noindent" ><a 
+ id="command:REMVECTOR"></a> <a 
+ id="command:REMINDEX"></a> The commands <span 
+class="pcrr8t-x-x-109">remvector </span>and <span 
+class="pcrr8t-x-x-109">remindex </span>remove the property of being a
+     4-vector or a 4-index respectively.
+<a 
+ id="dx169-406038"></a>
+     </p><!--l. 975--><p class="noindent" ><a 
+ id="operator:MKGAM"></a> The function <span 
+class="pcrr8t-x-x-109">mkgam </span>allows to assign to any identiﬁer the property of a Dirac
+     gamma matrix and, eventually, to suppress it. Its interest lies in the fact that, during
+     a calculation, it is often useful to transform a gamma matrix into an abstract
+     operator and vice-versa. Moreover, in many applications in basic physics, it is
+     interesting to use the identiﬁer <span 
+class="cmmi-10x-x-109">g </span>for other purposes. It takes two arguments. The
+     ﬁrst is the identiﬁer. The second must be chosen equal to <span 
+class="pcrr8t-x-x-109">t </span>if one wants to
+     transform it into a gamma matrix. Any other binding for this second argument
+     suppresses the property of being a gamma matrix the identiﬁer is supposed to
+     have.</p></li></ul>
+<!--l. 987--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.2.8    </span> <a 
+ id="x169-40700020.2.8"></a>Properties and Flags</h4>
+<!--l. 988--><p class="noindent" >In spite of the fact that many facets of the handling of property lists is easily accessible in
+algebraic mode, it is useful to provide analogous functions <span 
+class="ptmri8t-x-x-109">genuine </span>to the algebraic
+mode. The reason is that, altering property lists of objects, may easily destroy the
+integrity of the system. The functions, which are here described, <span 
+class="ptmri8t-x-x-109">do ignore </span>the property
+list and ﬂags already deﬁned by the system itself. They generate and track the <span 
+class="ptmri8t-x-x-109">addtional</span>
+<span 
+class="ptmri8t-x-x-109">properties and ﬂags </span>that the user issues using them. They oﬀer him the possibility to
+work on property lists so that he can design a programming style of the “conceptual”
+type. </p>
+                                                                     
+
+                                                                     
+     <ul class="itemize1">
+     <li class="itemize">We ﬁrst consider “ﬂags”. <br 
+class="newline" /><a 
+ id="dx169-407001"></a>  <a 
+ id="dx169-407002"></a>  <a 
+ id="dx169-407003"></a>  <a 
+ id="operator:PUTFLAG"></a>  <a 
+ id="operator:DISPLAYFLAG"></a>  <a 
+ id="operator:CLEARFLAG"></a>  To  a  given  identiﬁer,  one  may  associate  another  one  linked  to  it
+     “in the background”. The three functions <span 
+class="pcrr8t-x-x-109">putflag</span>, <span 
+class="pcrr8t-x-x-109">displayflag </span>and
+     <span 
+class="pcrr8t-x-x-109">clearflag </span>handle them.
+     <!--l. 1010--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">putflag </span>has 3 arguments. The ﬁrst one is the identiﬁer or a list of identiﬁers, the
+     second one is the name of the ﬂag, and the third one is <span 
+class="pcrr8t-x-x-109">t </span>(true) or 0 (zero). When
+     the third argument is <span 
+class="pcrr8t-x-x-109">t</span>, it creates the ﬂag, when it is 0 it destroys it. In
+     this last case, the function does return nil (not seen inside the algebraic
+     mode).
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-691">
+         putflag(z1,flag_name,t); ==&#x003E; flag_name
+      <br />
+      <br />    putflag({z1,z2},flag1_name,t); ==&#x003E; t
+      <br />
+      <br />    putflag(z2,flag1_name,0) ==&#x003E;
+</div>
+     <!--l. 1022--><p class="nopar" ><span 
+class="pcrr8t-x-x-109">displayflag </span>allows one to extract ﬂags. The previous actions give:
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-692">
+         displayflag z1; ==&#x003E;{flag_name,flag1_name}
+      <br />
+      <br />    displayflag z2 ; ==&#x003E; {}
+</div>
+     <!--l. 1028--><p class="nopar" ><span 
+class="pcrr8t-x-x-109">clearflag </span>is a command which clears <span 
+class="ptmri8t-x-x-109">all </span>ﬂags associated with the identiﬁers
+     <span 
+class="cmmi-10x-x-109">id</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,id</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmmi-10x-x-109">.</span>
+     </p></li>
+     <li class="itemize">Properties are handled by similar operators. <a 
+ id="dx169-407004"></a> <a 
+ id="operator:PUTPROP"></a> <span 
+class="pcrr8t-x-x-109">putprop </span>has four arguments. The
+     second argument is, here, the <span 
+class="ptmri8t-x-x-109">indicator </span>of the property. The third argument may be
+     <span 
+class="ptmri8t-x-x-109">any valid expression</span>. The fourth one is also t or 0.
+                                                                     
+
+                                                                     
+     <div class="verbatim" id="verbatim-693">
+         putprop(z1,property,x^2,t); ==&#x003E; z1
+</div>
+     <!--l. 1039--><p class="nopar" > In general, one enters
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-694">
+      putprop(list(idp1,idp2,..),&#x003C;propname&#x003E;,&#x003C;value&#x003E;,t);
+</div>
+     <!--l. 1043--><p class="nopar" ><a 
+ id="dx169-407005"></a><a 
+ id="operator:DISPLAYPROP"></a> To display a speciﬁc property, one uses <span 
+class="pcrr8t-x-x-109">displayprop </span>which takes two
+     arguments. The ﬁrst is the name of the identiﬁer, the second is the indicator of the
+     property.
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-695">
+                                                  2
+      <br />    displayprop(z1,property); ==&#x003E; {property,x  }
+</div>
+     <!--l. 1052--><p class="nopar" ><a 
+ id="dx169-407006"></a><a 
+ id="operator:CLEARPROP"></a> Finally, <span 
+class="pcrr8t-x-x-109">clearprop </span>is a nary commmand which clears <span 
+class="ptmri8t-x-x-109">all </span>properties of the
+     identiﬁers which appear as arguments.</p></li></ul>
+<!--l. 1058--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.2.9    </span> <a 
+ id="x169-40800020.2.9"></a>Control Functions</h4>
+<!--l. 1059--><p class="noindent" >Here we describe additional functions which improve user control on the environment.
+</p>
+     <ul class="itemize1">
+     <li class="itemize"><a 
+ id="dx169-408001"></a> <a 
+ id="dx169-408002"></a> <a 
+ id="dx169-408003"></a> <a 
+ id="operator:ALATOMP"></a> <a 
+ id="operator:ALKERNP"></a> <a 
+ id="operator:DEPVARP"></a> The ﬁrst set of functions is composed of unary and binary boolean functions.
+     They are:
+                                                                     
+
+                                                                     
+     <div class="verbatim" id="verbatim-696">
+          alatomp x;    x is anything.
+      <br />     alkernp x;    x is anything.
+      <br />     depvarp(x,v); x is anything.
+</div>
+     <!--l. 1075--><p class="nopar" > (<span 
+class="pcrr8t-x-x-109">v </span>is an atom or a kernel.) <span 
+class="pcrr8t-x-x-109">alatomp </span>has the value <span 
+class="pcrr8t-x-x-109">t </span>iﬀ <span 
+class="pcrr8t-x-x-109">x </span>is an integer or an
+     identiﬁer <span 
+class="ptmri8t-x-x-109">after </span>it has been evaluated down to the bottom.
+     </p><!--l. 1080--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">alkernp </span>has the value <span 
+class="pcrr8t-x-x-109">t </span>iﬀ <span 
+class="pcrr8t-x-x-109">x </span>is a kernel <span 
+class="ptmri8t-x-x-109">after </span>it has been evaluated down to the
+     bottom.
+     </p><!--l. 1083--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">depvarp </span>returns <span 
+class="pcrr8t-x-x-109">t </span>iﬀ the expression <span 
+class="pcrr8t-x-x-109">x </span>depends on <span 
+class="pcrr8t-x-x-109">v </span>at <span 
+class="ptmri8t-x-x-109">any level</span>.
+<a 
+ id="dx169-408004"></a>
+<a 
+ id="dx169-408005"></a>
+     </p><!--l. 1088--><p class="noindent" ><a 
+ id="operator:PRECP"></a> <a 
+ id="operator:NORDP"></a> The above functions together with <span 
+class="pcrr8t-x-x-109">precp </span>have been declared operator functions
+     to ease the veriﬁcation of their value.
+     </p><!--l. 1094--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">nordp </span>is equal to <span 
+class="pcrr8t-x-x-109">not ordp</span>.
+     </p></li>
+     <li class="itemize">The next functions allow one to <span 
+class="ptmri8t-x-x-109">analyze </span>and to <span 
+class="ptmri8t-x-x-109">clean </span>the environment of
+     REDUCE created by the user while working <span 
+class="ptmb8t-x-x-109">interactively</span>. Two functions are
+     provided:<br 
+class="newline" /><a 
+ id="dx169-408006"></a> <a 
+ id="dx169-408007"></a> <a 
+ id="operator:SHOW"></a> <a 
+ id="operator:SUPPRESS"></a> <span 
+class="pcrr8t-x-x-109">show </span>allows the user to get the various identiﬁers already assigned and to see
+     their type. <span 
+class="pcrr8t-x-x-109">suppress </span>selectively clears the used identiﬁers or clears them all.
+     It is to be stressed that identiﬁers assigned from the input of ﬁles are
+     <span 
+class="ptmri8t-x-x-109">ignored</span>. Both functions have one argument and the same options for this
+     argument:
+                                                                     
+
+                                                                     
+     <div class="verbatim" id="verbatim-697">
+         show (suppress) all
+      <br />    show (suppress) scalars
+      <br />    show (suppress) lists
+      <br />    show (suppress) saveids
+      <br />                (for saved expressions)
+      <br />    show (suppress) matrices
+      <br />    show (suppress) arrays
+      <br />    show (suppress) vectors
+      <br />                (contains vector, index and tvector)
+      <br />    show (suppress) forms
+</div>
+     <!--l. 1121--><p class="nopar" > The option <span 
+class="pcrr8t-x-x-109">all </span>is the most convenient for <span 
+class="pcrr8t-x-x-109">show </span>but, with it, it may takes some
+     time to get the answer after one has worked several hours. When entering
+     REDUCE the option <span 
+class="pcrr8t-x-x-109">all </span>for <span 
+class="pcrr8t-x-x-109">show </span>gives:
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-698">
+         show all; ==&#x003E;
+      <br />
+      <br />            scalars are: NIL
+      <br />            arrays are: NIL
+      <br />            lists are: NIL
+      <br />            matrices are: NIL
+      <br />            vectors are: NIL
+      <br />            forms are: NIL
+</div>
+     <!--l. 1135--><p class="nopar" > It is a convenient way to remind the various options. Here is an example which is
+     valid when one starts from a fresh environment:
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-699">
+         a:=b:=1$
+      <br />
+      <br />    show scalars; ==&#x003E;  scalars are: (a b)
+      <br />
+      <br />    suppress scalars; ==&#x003E; t
+      <br />
+      <br />    show scalars; ==&#x003E;  scalars are: nil
+</div>
+     <!--l. 1146--><p class="nopar" >
+     </p></li>
+     <li class="itemize">The <span 
+class="pcrr8t-x-x-109">clear </span>command <a 
+ id="dx169-408008"></a> of the system does not do a complete cleaning of operators
+     and functions. The following two commands do a more complete cleaning and,
+     also, automatically takes into account the <span 
+class="ptmri8t-x-x-109">user </span>ﬂag and properties that the
+     functions <span 
+class="pcrr8t-x-x-109">putflag </span>and <span 
+class="pcrr8t-x-x-109">putprop </span>may have introduced.
+<a 
+ id="dx169-408009"></a>
+<a 
+ id="dx169-408010"></a>
+     <!--l. 1156--><p class="noindent" ><a 
+ id="operator:CLEAROP"></a> <a 
+ id="operator:CLEARFUNCTIONS"></a> Their names are <span 
+class="pcrr8t-x-x-109">clearop </span>and <span 
+class="pcrr8t-x-x-109">clearfunctions</span>. <span 
+class="pcrr8t-x-x-109">clearop </span>takes one
+     operator as its argument.<br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">clearfunctions </span>is a nary command. If one issues
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-700">
+         clearfunctions a1,a2, ... , an $
+</div>
+     <!--l. 1163--><p class="nopar" > The functions with names <span 
+class="pcrr8t-x-x-109">a1</span>, <span 
+class="pcrr8t-x-x-109">a2</span>, …, <span 
+class="pcrr8t-x-x-109">an </span>are cleared. One should be careful when
+     using this facility since the only functions which cannot be erased are those which
+     are protected with the <span 
+class="pcrr8t-x-x-109">lose </span>ﬂag<a 
+ id="dx169-408011"></a>.</p></li></ul>
+<!--l. 1169--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.2.10    </span> <a 
+ id="x169-40900020.2.10"></a>Handling of Polynomials</h4>
+<!--l. 1170--><p class="noindent" >The module contains some utility functions to handle standard quotients and several new
+facilities to manipulate polynomials. </p>
+     <ul class="itemize1">
+     <li class="itemize"><a 
+ id="dx169-409001"></a> <a 
+ id="dx169-409002"></a> <a 
+ id="operator:ALG_TO_SYMB"></a> <a 
+ id="operator:SYMB_TO_ALG"></a> Two operators <span 
+class="pcrr8t-x-x-109">alg_to_symb </span>and <span 
+class="pcrr8t-x-x-109">symb_to_alg </span>allow one to change an
+     expression which is in the algebraic standard quotient form into a preﬁx lisp form
+     and vice-versa. This is done in such a way that the symbol <span 
+class="pcrr8t-x-x-109">list </span>which appears in
+     the algebraic mode disappears in the symbolic form (there it becomes a parenthesis
+     “()” ) and it is reintroduced in the translation from a symbolic preﬁx lisp
+     expression to an algebraic one. Here, is an example, showing how the wellknown
+     lisp function <span 
+class="pcrr8t-x-x-109">flattens </span>can be trivially transposed inside the algebraic
+     mode:
+                                                                     
+
+                                                                     
+     <div class="verbatim" id="verbatim-701">
+         algebraic procedure ecrase x;
+      <br />    lisp symb_to_alg
+      <br />       flattens1 alg_to_symb algebraic x;
+      <br />
+      <br />    symbolic procedure flattens1 x;
+      <br />    % ll; ==&#x003E; ((a b) ((c d) e))
+      <br />    % flattens1 ll; (a b c d e)
+      <br />      if atom x then list x else
+      <br />      if cdr x then
+      <br />          append(flattens1 car x, flattens1 cdr x)
+      <br />        else flattens1 car x;
+</div>
+     <!--l. 1199--><p class="nopar" > gives, for instance,
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-702">
+         ll:={a,{b,{c},d,e},{{{z}}}}$
+      <br />
+      <br />    ecrase ll; ==&#x003E; {a, b, c, d, e, z}
+</div>
+     <!--l. 1205--><p class="nopar" ><a 
+ id="dx169-409003"></a> The function <span 
+class="pcrr8t-x-x-109">mkdepth_one </span>described above implements that functionality.
+     </p></li>
+     <li class="itemize"><a 
+ id="dx169-409004"></a> <a 
+ id="dx169-409005"></a> <a 
+ id="operator:LEADTERM"></a> <a 
+ id="operator:REDEXPR"></a> <span 
+class="pcrr8t-x-x-109">leadterm </span>and <span 
+class="pcrr8t-x-x-109">redexpr </span>are the algebraic equivalent of the symbolic mode
+     functions <span 
+class="pcrr8t-x-x-109">lt </span>and <span 
+class="pcrr8t-x-x-109">red</span>. They give, respectively, the <span 
+class="ptmri8t-x-x-109">leading term </span>and the <span 
+class="ptmri8t-x-x-109">reductum</span>
+     of a polynomial. They also work for rational functions. Their interest lies in the
+     fact that they do not require one to extract the main variable. They work according
+     to the current ordering of the system:
+                                                                     
+
+                                                                     
+     <div class="verbatim" id="verbatim-703">
+         pol:=x++y+z$
+      <br />
+      <br />    leadterm pol; ==&#x003E; x
+      <br />
+      <br />    korder y,x,z;
+      <br />
+      <br />    leadterm pol; ==&#x003E; y
+      <br />
+      <br />    redexpr pol; ==&#x003E; x + z
+</div>
+     <!--l. 1229--><p class="nopar" > By default, the representation of multivariate polynomials is recursive. It is
+     justiﬁed since it is the one which takes the least memory. With such a
+     representation, the function <span 
+class="pcrr8t-x-x-109">leadterm </span>does not necessarily extract a true
+     monom. It extracts a monom in the leading indeterminate multiplied by a
+     polynomial in the other indeterminates. However, very often, one needs to
+     handle true monoms separately. In that case, one needs a polynomial in
+     <span 
+class="ptmri8t-x-x-109">distributive </span>form. Such a form is provided by the package <span 
+class="ptmrc8t-x-x-109">GROEBNER </span>(H.
+     Melenk et al.). The facility there is, however, much too involved in many
+     applications and the necessity to load the package makes it interesting to
+     construct an elementary facility to handle the distributive representation of
+     polynomials. A new switch has been created for that purpose. It is called
+     <span 
+class="pcrr8t-x-x-109">distribute </span>and a new function <span 
+class="pcrr8t-x-x-109">distribute </span>puts a polynomial in
+     distributive form. With that switch set to on, <span 
+class="pcrr8t-x-x-109">leadterm </span>returns true
+     monoms<a 
+ id="dx169-409006"></a><a 
+ id="dx169-409007"></a><a 
+ id="dx169-409008"></a>.
+<a 
+ id="dx169-409009"></a>
+     </p><!--l. 1247--><p class="noindent" ><a 
+ id="operator:MONOM"></a> <span 
+class="pcrr8t-x-x-109">monom </span>transforms a polynomial into a list of monoms. It works <span 
+class="ptmri8t-x-x-109">whatever the</span>
+     <span 
+class="ptmri8t-x-x-109">position of the switch </span><span 
+class="pcrr8t-x-x-109">distribute</span>.
+<a 
+ id="dx169-409010"></a>
+     </p><!--l. 1252--><p class="noindent" ><a 
+ id="operator:SPLITTERMS"></a> <span 
+class="pcrr8t-x-x-109">splitterms </span>is analoguous to <span 
+class="pcrr8t-x-x-109">monom </span>except that it gives a list of two lists. The
+     ﬁrst sublist contains the positive terms while the second sublist contains the
+     negative terms.
+<a 
+ id="dx169-409011"></a>
+     </p><!--l. 1258--><p class="noindent" ><a 
+ id="operator:SPLITPLUSMINUS"></a> <span 
+class="pcrr8t-x-x-109">splitplusminus </span>gives a list whose ﬁrst element is the positive part of the
+     polynomial and its second element is its negative part.
+     </p></li>
+     <li class="itemize"><a 
+ id="dx169-409012"></a> <a 
+ id="operator:LOWESTDEG"></a> <a 
+ id="dx169-409013"></a> <a 
+ id="operator:DIVPOL"></a> Two complementary operators <span 
+class="pcrr8t-x-x-109">lowestdeg </span>and <span 
+class="pcrr8t-x-x-109">divpol </span>are provided. The
+     ﬁrst takes a polynomial as its ﬁrst argument and the name of an indeterminate as its
+     second argument. It returns the <span 
+class="ptmri8t-x-x-109">lowest degree </span>in that indeterminate. The
+                                                                     
+
+                                                                     
+     second function takes two polynomials and returns both the quotient and its
+     remainder.</li></ul>
+<!--l. 1272--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.2.11    </span> <a 
+ id="x169-41000020.2.11"></a>Handling of Transcendental Functions</h4>
+<a 
+ id="dx169-410001"></a>
+<a 
+ id="dx169-410002"></a>
+<a 
+ id="dx169-410003"></a>
+<a 
+ id="dx169-410004"></a>
+<!--l. 1278--><p class="noindent" ><a 
+ id="operator:TRIGEXPAND"></a> <a 
+ id="operator:TRIGREDUCE"></a> <a 
+ id="operator:HYPEXPAND"></a> <a 
+ id="operator:HYPREDUCE"></a> The functions <span 
+class="pcrr8t-x-x-109">trigreduce </span>and <span 
+class="pcrr8t-x-x-109">trigexpand </span>and the equivalent ones for
+hyperbolic functions <span 
+class="pcrr8t-x-x-109">hypreduce </span>and <span 
+class="pcrr8t-x-x-109">hypexpand </span>make the transformations to
+multiple arguments and from multiple arguments to elementary arguments. Here is a
+simple example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-704">
+    aa:=sin(x+y)$
+ <br />
+ <br />    trigexpand aa; ==&#x003E; sin(x)*cos(y) + sin(y)*cos(x)
+ <br />
+ <br />    trigreduce ws; ==&#x003E; sin(y + x)
+</div>
+<!--l. 1292--><p class="nopar" > When a trigonometric or hyperbolic expression is symmetric with respect to the
+interchange of <span 
+class="pcrr8t-x-x-109">sin </span>(<span 
+class="pcrr8t-x-x-109">sinh</span>) and <span 
+class="pcrr8t-x-x-109">cos </span>(<span 
+class="pcrr8t-x-x-109">cosh</span>), the application of <span 
+class="pcrr8t-x-x-109">trigreduce</span>
+(<span 
+class="pcrr8t-x-x-109">hypreduce</span>) may often lead to great simpliﬁcations. However, if it is highly
+asymmetric, the repeated application of <span 
+class="pcrr8t-x-x-109">trigreduce </span>(<span 
+class="pcrr8t-x-x-109">hypreduce</span>) followed by the
+use of <span 
+class="pcrr8t-x-x-109">trigexpand </span>(<span 
+class="pcrr8t-x-x-109">hypexpand</span>) will lead to <span 
+class="ptmri8t-x-x-109">more </span>complicated but more symmetric
+expressions:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-705">
+    aa:=(sin(x)^2+cos(x)^2)^3$
+ <br />
+ <br />    trigreduce aa; ==&#x003E; 1
+</div>
+<!--l. 1304--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-706">
+    bb:=1+sin(x)^3$
+ <br />
+ <br />    trigreduce bb; ==&#x003E;
+ <br />
+ <br />            - sin(3*x) + 3*sin(x) + 4
+ <br />           ---------------------------
+ <br />                       4
+ <br />
+ <br />    trigexpand ws; ==&#x003E;
+ <br />
+ <br />            3                  2
+ <br />      sin(x)  - 3*sin(x)*cos(x)  + 3*sin(x) + 4
+ <br />     -------------------------------------------
+ <br />                         4
+</div>
+<!--l. 1320--><p class="nopar" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.2.12    </span> <a 
+ id="x169-41100020.2.12"></a>Handling of n-dimensional Vectors</h4>
+<!--l. 1334--><p class="noindent" >Explicit vectors in euclidean space may be represented by list-like or bag-like
+objects of depth 1. The components may be bags but may <span 
+class="ptmri8t-x-x-109">not </span>be lists. Functions
+are provided to do the sum, the diﬀerence and the scalar product. When the
+space-dimension is three there are also functions for the cross and mixed products. <a 
+ id="dx169-411001"></a> <a 
+ id="dx169-411002"></a> <a 
+ id="dx169-411003"></a> <a 
+ id="dx169-411004"></a> <a 
+ id="dx169-411005"></a> <a 
+ id="operator:SUMVECT"></a> <a 
+ id="operator:MINVECT"></a> <a 
+ id="operator:SCALVECT"></a> <a 
+ id="operator:CROSSVECT"></a> <a 
+ id="operator:MPVECT"></a>
+<span 
+class="pcrr8t-x-x-109">sumvect</span>, <span 
+class="pcrr8t-x-x-109">minvect</span>, <span 
+class="pcrr8t-x-x-109">scalvect</span>, and <span 
+class="pcrr8t-x-x-109">crossvect </span>have two arguments. <span 
+class="pcrr8t-x-x-109">mpvect</span>
+has three arguments. The following example is suﬃcient to explain how they
+work:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-707">
+   l:={1,2,3}$
+ <br />
+ <br />   ll:=list(a,b,c)$
+ <br />
+ <br />   sumvect(l,ll); ==&#x003E; {a + 1,b + 2,c + 3}
+ <br />
+ <br />   minvect(l,ll); ==&#x003E; { - a + 1, - b + 2, - c + 3}
+ <br />
+ <br />   scalvect(l,ll); ==&#x003E; a + 2*b + 3*c
+ <br />
+ <br />   crossvect(l,ll); ==&#x003E; { - 3*b + 2*c,
+ <br />                         3*a - c, - 2*a + b}
+ <br />
+ <br />   mpvect(l,ll,l); ==&#x003E; 0
+</div>
+<!--l. 1368--><p class="nopar" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.2.13    </span> <a 
+ id="x169-41200020.2.13"></a>Handling of Grassmann Operators</h4>
+<!--l. 1370--><p class="noindent" >Grassman variables are often used in physics. For them the multiplication operation is
+associative, distributive but anticommutative. The core of REDUCE does not provide it.
+However, implementing it in full generality would almost certainly decrease the overall
+eﬃciency of the system. This small module together with the declaration of
+antisymmetry for operators is enough to deal with most calculations. The reason
+is, that a product of similar anticommuting kernels can easily be transformed
+into an antisymmetric operator with as many indices as the number of these
+kernels. Moreover, one may also issue pattern matching rules to implement the
+anticommutativity of the product. The functions in this module represent the
+minimum functionality required to identify them and to handle their speciﬁc
+features.
+<a 
+ id="dx169-412001"></a>
+</p><!--l. 1385--><p class="noindent" ><a 
+ id="command:PUTGRASS"></a> <a 
+ id="dx169-412002"></a> <a 
+ id="command:REMGRASS"></a> <span 
+class="pcrr8t-x-x-109">putgrass </span>is a (nary) command which give identiﬁers the property of being the
+names of Grassmann kernels. <span 
+class="pcrr8t-x-x-109">remgrass </span>removes this property.
+<a 
+ id="dx169-412003"></a>
+                                                                     
+
+                                                                     
+</p><!--l. 1392--><p class="noindent" ><a 
+ id="operator:GRASSP"></a> <span 
+class="pcrr8t-x-x-109">grassp </span>is a boolean function which detects grassmann kernels.
+<a 
+ id="dx169-412004"></a>
+</p><!--l. 1396--><p class="noindent" ><a 
+ id="operator:GRASSPARITY"></a> <span 
+class="pcrr8t-x-x-109">GRASSPARITY </span>takes a monom as argument and gives its parity. If the monom is a
+simple grassmann kernel it returns 1.
+<a 
+ id="dx169-412005"></a>
+</p><!--l. 1401--><p class="noindent" ><a 
+ id="operator:GHOSTFACTOR"></a> <span 
+class="pcrr8t-x-x-109">GHOSTFACTOR </span>has two arguments. Each one is a monom. It is equal to
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-708">
+    (-1)**(grassparity u * grassparity v)
+</div>
+<!--l. 1405--><p class="nopar" > Here is an illustration to show how the above functions work:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-709">
+    putgrass eta; ==&#x003E; t
+ <br />
+ <br />    if grassp eta(1) then &#x0022;grassmann kernel&#x0022;; ==&#x003E;
+ <br />
+ <br />                    grassmann kernel
+ <br />
+ <br />    aa:=eta(1)*eta(2)-eta(2)*eta(1); ==&#x003E;
+ <br />
+ <br />            aa :=  - eta(2)*eta(1) + eta(1)*eta(2)
+ <br />
+ <br />    grassparity eta(1); ==&#x003E; 1
+ <br />
+ <br />    grassparity (eta(1)*eta(2)); ==&#x003E; 0
+ <br />
+ <br />    ghostfactor(eta(1),eta(2)); ==&#x003E; -1
+ <br />
+ <br />    grasskernel:=
+ <br />      {eta(~x)*eta(~y)
+ <br />           =&#x003E; -eta y * eta x when nordp(x,y),
+ <br />      (~x)*(~x) =&#x003E; 0 when grassp x};
+ <br />
+ <br />    exp:=eta(1)^2$
+ <br />
+ <br />    exp where grasskernel; ==&#x003E; 0
+ <br />
+ <br />    aa where grasskernel; ==&#x003E;  - 2*eta(2)*eta(1)
+</div>
+<!--l. 1434--><p class="nopar" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.2.14    </span> <a 
+ id="x169-41300020.2.14"></a>Handling of Matrices</h4>
+<!--l. 1436--><p class="noindent" >This module provides functions for handling matrices more comfortably. </p>
+     <ul class="itemize1">
+     <li class="itemize"><a 
+ id="dx169-413001"></a> <a 
+ id="command:UNITMAT"></a> Often, one needs to construct some unit matrix of a given dimension. This
+     construction is done by the system thanks to the command <span 
+class="pcrr8t-x-x-109">unitmat</span>. It takes any
+                                                                     
+
+                                                                     
+     number of arguments:
+                                                                     
+
+                                                                     
+     <div class="verbatim" id="verbatim-710">
+             unitmat m1(n1), m2(n2), .....mi(ni) ;
+</div>
+     <!--l. 1446--><p class="nopar" > where <span 
+class="pcrr8t-x-x-109">m1</span>, <span 
+class="pcrr8t-x-x-109">m2</span>,…,<span 
+class="pcrr8t-x-x-109">mi </span>are names of matrices and <span 
+class="pcrr8t-x-x-109">n1</span>, <span 
+class="pcrr8t-x-x-109">n2</span>,…,<span 
+class="pcrr8t-x-x-109">ni </span>are integers.
+<a 
+ id="dx169-413002"></a>
+     </p><!--l. 1451--><p class="noindent" ><a 
+ id="operator:MKIDM"></a> <span 
+class="pcrr8t-x-x-109">mkidm </span>is a generalization of <span 
+class="pcrr8t-x-x-109">mkid</span>. It allows one to connect two or
+     several matrices. If <span 
+class="pcrr8t-x-x-109">u </span>and <span 
+class="pcrr8t-x-x-109">u1 </span>are two matrices, one can go from one to the
+     other:
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-711">
+             matrix u(2,2);$  unitmat u1(2)$
+      <br />
+      <br />        u1; ==&#x003E;
+      <br />
+      <br />                [1  0]
+      <br />                [    ]
+      <br />                [0  1]
+      <br />
+      <br />        mkidm(u,1); ==&#x003E;
+      <br />
+      <br />                [1  0]
+      <br />                [    ]
+      <br />                [0  1]
+</div>
+     <!--l. 1469--><p class="nopar" > This operators allows one to make loops on matrices like in the following
+     illustration. If <span 
+class="pcrr8t-x-x-109">u</span>, <span 
+class="pcrr8t-x-x-109">u1</span>, <span 
+class="pcrr8t-x-x-109">u2</span>,…, <span 
+class="pcrr8t-x-x-109">u5 </span>are matrices:
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-712">
+             for i:=1:5 do u:=u-mkidm(u,i);
+</div>
+     <!--l. 1474--><p class="nopar" > can be issued.
+     </p></li>
+     <li class="itemize">The next functions map matrices on bag-like or list-like objects and conversely
+     they generate matrices from bags or lists.
+<a 
+ id="dx169-413003"></a>
+     <!--l. 1481--><p class="noindent" ><a 
+ id="operator:COERCEMAT"></a> <span 
+class="pcrr8t-x-x-109">coercemat </span>transforms the matrix <span 
+class="pcrr8t-x-x-109">u </span>into a list of lists. The entry is
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-713">
+             coercemat(u,id)
+</div>
+     <!--l. 1486--><p class="nopar" > where <span 
+class="pcrr8t-x-x-109">id </span>is equal to <span 
+class="pcrr8t-x-x-109">list</span>, otherwise it transforms it into a bag of bags whose
+     envelope is equal to <span 
+class="pcrr8t-x-x-109">id</span>.
+<a 
+ id="dx169-413004"></a>
+     </p><!--l. 1491--><p class="noindent" ><a 
+ id="operator:BAGLMAT"></a> <span 
+class="pcrr8t-x-x-109">baglmat </span>does the opposite job. The ﬁrst argument is the bag-like or
+     list-like object while the second argument is the matrix identiﬁer. The input
+     is
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-714">
+              baglmat(bgl,u)
+</div>
+     <!--l. 1497--><p class="nopar" ><span 
+class="pcrr8t-x-x-109">bgl </span>becomes the matrix <span 
+class="pcrr8t-x-x-109">u </span>. The transformation is not done if <span 
+class="pcrr8t-x-x-109">u </span>is already the
+     name of a previously deﬁned matrix. This is to avoid accidental redeﬁnition of that
+     matrix.
+     </p></li>
+     <li class="itemize"><a 
+ id="dx169-413005"></a> <a 
+ id="dx169-413006"></a> <a 
+ id="dx169-413007"></a> <a 
+ id="operator:SUBMAT"></a> <a 
+ id="operator:MATEXTR"></a> <a 
+ id="operator:MATEXTC"></a> The operators <span 
+class="pcrr8t-x-x-109">submat</span>, <span 
+class="pcrr8t-x-x-109">matextr</span>, and <span 
+class="pcrr8t-x-x-109">matextc </span>take parts of a given
+     matrix.
+     <!--l. 1511--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">submat </span>has three arguments. The entry is
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-715">
+              submat(u,nr,nc)
+</div>
+     <!--l. 1514--><p class="nopar" > The ﬁrst is the matrix name, and the other two are the row and column numbers. It
+     gives the submatrix obtained from <span 
+class="pcrr8t-x-x-109">u </span>by deleting the row <span 
+class="pcrr8t-x-x-109">nr </span>and the column
+     <span 
+class="pcrr8t-x-x-109">nc</span>. When one of them is equal to zero only column <span 
+class="pcrr8t-x-x-109">nc </span>or row <span 
+class="pcrr8t-x-x-109">nr </span>is
+     deleted.
+     </p><!--l. 1522--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">matextr </span>and <span 
+class="pcrr8t-x-x-109">matextc </span>extract a row or a column and place it into a list-like or
+     bag-like object. The entries are
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-716">
+             matextr(u,vn,nr)
+      <br />
+      <br />        matextc(u,vn,nc)
+</div>
+     <!--l. 1529--><p class="nopar" > where <span 
+class="pcrr8t-x-x-109">u </span>is the matrix, <span 
+class="pcrr8t-x-x-109">vn </span>is the “vector name”, <span 
+class="pcrr8t-x-x-109">nr </span>and <span 
+class="pcrr8t-x-x-109">nc </span>are integers. If <span 
+class="pcrr8t-x-x-109">vn </span>is
+     equal to <span 
+class="pcrr8t-x-x-109">list </span>the vector is returned as a list otherwise as a bag.
+     </p></li>
+     <li class="itemize"><a 
+ id="dx169-413008"></a> <a 
+ id="dx169-413009"></a> <a 
+ id="dx169-413010"></a> <a 
+ id="dx169-413011"></a> <a 
+ id="dx169-413012"></a> <a 
+ id="dx169-413013"></a> <a 
+ id="operator:MATSUBR"></a> <a 
+ id="operator:MATSUBC"></a> <a 
+ id="operator:HCONCMAT"></a> <a 
+ id="operator:VCONCMAT"></a> <a 
+ id="operator:TPMAT"></a> <a 
+ id="operator:HERMAT"></a> Functions which manipulate matrices. They are <span 
+class="pcrr8t-x-x-109">matsubr</span>, <span 
+class="pcrr8t-x-x-109">matsubc</span>,
+     <span 
+class="pcrr8t-x-x-109">hconcmat</span>, <span 
+class="pcrr8t-x-x-109">vconcmat</span>, <span 
+class="pcrr8t-x-x-109">tpmat</span>, and <span 
+class="pcrr8t-x-x-109">hermat</span>.
+     <!--l. 1549--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">matsubr </span>and <span 
+class="pcrr8t-x-x-109">matsubc </span>substitute rows and columns. They have three
+     arguments. Entries are:
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-717">
+             matsubr(u,bgl,nr)
+      <br />
+      <br />        matsubc(u,bgl,nc)
+</div>
+     <!--l. 1555--><p class="nopar" > The meaning of the variables <span 
+class="pcrr8t-x-x-109">u</span>, <span 
+class="pcrr8t-x-x-109">nr</span>, and <span 
+class="pcrr8t-x-x-109">nc </span>is the same as above while <span 
+class="pcrr8t-x-x-109">bgl </span>is a
+     list-like or bag-like vector. Its length should be compatible with the dimensions of
+     the matrix.
+     </p><!--l. 1560--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">hconcmat </span>and <span 
+class="pcrr8t-x-x-109">vconcmat </span>concatenate two matrices. The entries are
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-718">
+             hconcmat(u,v)
+      <br />
+      <br />        vconcmat(u,v)
+</div>
+     <!--l. 1565--><p class="nopar" > The ﬁrst function concatenates horizontally, the second one concatenates
+     vertically. The dimensions must match.
+     </p><!--l. 1569--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">tpmat </span>makes the tensor product of two matrices. It is also an <span 
+class="ptmri8t-x-x-109">inﬁx </span>operator. The
+     entry is
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-719">
+             tpmat(u,v) or u tpmat V
+</div>
+     <!--l. 1573--><p class="nopar" ><span 
+class="pcrr8t-x-x-109">hermat </span>takes the hermitian conjuguate of a matrix. The entry is
+                                                                     
+
+                                                                     
+</p>
+     <div class="verbatim" id="verbatim-720">
+              hermat(u,hu)
+</div>
+     <!--l. 1578--><p class="nopar" > where <br 
+class="newline" />textttu is the identiﬁer for the hermitian conjugate of matrix <span 
+class="pcrr8t-x-x-109">u</span>. It should be
+     <span 
+class="ptmri8t-x-x-109">unassigned </span>for this function to work successfully. This is done on purpose to
+     prevent accidental redeﬁnition of an already used identiﬁer.
+     </p></li>
+     <li class="itemize"><a 
+ id="dx169-413014"></a> <a 
+ id="dx169-413015"></a> <a 
+ id="operator:SETELMAT"></a> <a 
+ id="operator:GETELMAT"></a> <span 
+class="pcrr8t-x-x-109">setelmatgetelmat </span>are functions of two integers. The ﬁrst one resets the
+     element <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">i,j</span><span 
+class="cmr-10x-x-109">) </span>while the second one extracts an element identiﬁed by <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">i,j</span><span 
+class="cmr-10x-x-109">)</span>. They
+     may be useful when dealing with matrices <span 
+class="ptmri8t-x-x-109">inside procedures</span>.</li></ul>
+<!--l. 119--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 121--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse127.html" >Up</a></td><td class="clinks"><a 
+href="manualse128.html" >Next</a></td><td class="clinks"><a 
+href="manualse126.html" >Prev</a></td><td class="clinks"><a 
+href="manualse126.html#tailmanualse126.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse127.html" >Front</a></td></tr></table><a 
+ id="tailmanualse127.html"></a>  </p> 
+</body> 
+</html>

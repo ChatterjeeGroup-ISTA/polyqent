@@ -1,0 +1,1545 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Mathematical Functions</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse29.html" >Up</a></td><td class="clinks"><a 
+href="manualse30.html" >Next</a></td><td class="clinks"><a 
+href="manualse28.html" >Prev</a></td><td class="clinks"><a 
+href="manualse28.html#tailmanualse28.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse29.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">7.2    </span> <a 
+ id="x39-720007.2"></a>Mathematical Functions</h3>
+<!--l. 333--><p class="noindent" ><a 
+ id="operator:ACOS"></a> <a 
+ id="operator:ACOSD"></a> <a 
+ id="operator:ACOSH"></a> <a 
+ id="operator:ACOT"></a> <a 
+ id="operator:ACOTD"></a> <a 
+ id="operator:ACOTH"></a> <a 
+ id="operator:ACSC"></a> <a 
+ id="operator:ACSCD"></a> <a 
+ id="operator:ACSCH"></a> <a 
+ id="operator:ASEC"></a> <a 
+ id="operator:ASECD"></a> <a 
+ id="operator:ASECH"></a> <a 
+ id="operator:ASIN"></a> <a 
+ id="operator:ASIND"></a> <a 
+ id="operator:ASINH"></a> <a 
+ id="operator:ATAN"></a> <a 
+ id="operator:ATAND"></a> <a 
+ id="operator:ATANH"></a> <a 
+ id="operator:ATAN2"></a> <a 
+ id="operator:ATAN2D"></a> <a 
+ id="operator:COS"></a> <a 
+ id="operator:COSD"></a> <a 
+ id="operator:COSH"></a> <a 
+ id="operator:COT"></a> <a 
+ id="operator:COTD"></a> <a 
+ id="operator:COTH"></a> <a 
+ id="operator:CSC"></a> <a 
+ id="operator:CSCD"></a> <a 
+ id="operator:CSCH"></a> <a 
+ id="operator:EXP"></a> <a 
+ id="operator:HYPOT"></a> <a 
+ id="operator:LOG"></a> <a 
+ id="operator:LOGB"></a> <a 
+ id="operator:LOG10"></a> <a 
+ id="operator:SEC"></a> <a 
+ id="operator:SECD"></a> <a 
+ id="operator:SECH"></a> <a 
+ id="operator:SIN"></a> <a 
+ id="operator:SIND"></a> <a 
+ id="operator:SINH"></a> <a 
+ id="operator:SQRT"></a> <a 
+ id="operator:TAN"></a> <a 
+ id="operator:TAND"></a> <a 
+ id="operator:TANH"></a> <a 
+ id="operator:NORM"></a> <a 
+ id="operator:ARG"></a> <a 
+ id="operator:ARGD"></a> <a 
+ id="operator:LN"></a>
+</p><!--l. 382--><p class="noindent" >REDUCE knows that the following represent mathematical functions <a 
+ id="dx39-72001"></a>that can take
+arbitrary scalar expressions as their argument(s). <a 
+ id="dx39-72002"></a><a 
+ id="dx39-72003"></a><a 
+ id="dx39-72004"></a> <a 
+ id="dx39-72005"></a><a 
+ id="dx39-72006"></a><a 
+ id="dx39-72007"></a> <a 
+ id="dx39-72008"></a><a 
+ id="dx39-72009"></a><a 
+ id="dx39-72010"></a> <a 
+ id="dx39-72011"></a><a 
+ id="dx39-72012"></a><a 
+ id="dx39-72013"></a> <a 
+ id="dx39-72014"></a><a 
+ id="dx39-72015"></a><a 
+ id="dx39-72016"></a> <a 
+ id="dx39-72017"></a><a 
+ id="dx39-72018"></a><a 
+ id="dx39-72019"></a> <a 
+ id="dx39-72020"></a><a 
+ id="dx39-72021"></a> <a 
+ id="dx39-72022"></a><a 
+ id="dx39-72023"></a><a 
+ id="dx39-72024"></a> <a 
+ id="dx39-72025"></a><a 
+ id="dx39-72026"></a><a 
+ id="dx39-72027"></a> <a 
+ id="dx39-72028"></a><a 
+ id="dx39-72029"></a><a 
+ id="dx39-72030"></a> <a 
+ id="dx39-72031"></a><a 
+ id="dx39-72032"></a> <a 
+ id="dx39-72033"></a><a 
+ id="dx39-72034"></a><a 
+ id="dx39-72035"></a> <a 
+ id="dx39-72036"></a><a 
+ id="dx39-72037"></a><a 
+ id="dx39-72038"></a> <a 
+ id="dx39-72039"></a><a 
+ id="dx39-72040"></a><a 
+ id="dx39-72041"></a> <a 
+ id="dx39-72042"></a> <a 
+ id="dx39-72043"></a><a 
+ id="dx39-72044"></a><a 
+ id="dx39-72045"></a> <a 
+ id="dx39-72046"></a> <a 
+ id="dx39-72047"></a><a 
+ id="dx39-72048"></a> <a 
+ id="dx39-72049"></a>
+<a 
+ id="dx39-72050"></a>
+</p><!--l. 406--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">7.2.1    </span> <a 
+ id="x39-730007.2.1"></a>Elementary Functions</h4>
+<!--l. 407--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Trigonometric, hyperbolic and exponential functions:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-101">
+    sin cos tan cot csc sec sinh
+ <br />    cosh tanh coth csch sech exp
+</div>
+<!--l. 411--><p class="nopar" >
+</p><!--l. 413--><p class="noindent" >The trigonometric functions listed above take arguments given in radians; degree-based
+versions are described below.
+</p><!--l. 416--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Inverse trigonometric, hyperbolic and exponential functions:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-102">
+    asin acos atan acot acsc asec
+ <br />    asinh acosh atanh acoth acsch asech
+ <br />    log log10 logb
+</div>
+<!--l. 421--><p class="nopar" > where <span 
+class="pcrr8t-x-x-109">log </span>is the natural logarithm, <span 
+class="pcrr8t-x-x-109">log10 </span>is the logarithm to base 10, and <span 
+class="pcrr8t-x-x-109">logb </span>has
+two arguments of which the second is the logarithmic base. Note on the CSL GUI and
+other graphical interfaces the inverse trigonometric and hyperbolic functions are output
+as <span 
+class="cmr-10x-x-109">arcsin</span> etc.
+</p><!--l. 428--><p class="noindent" >REDUCE deﬁnes the identiﬁer <span 
+class="pcrr8t-x-x-109">ln </span>to be an abstract operator with no properties; see
+section <a 
+href="manualse7.html#x12-130002.7">2.7<!--tex4ht:ref: sec-operators --></a>. You can use it any way you want. One way to use the identiﬁer <span 
+class="pcrr8t-x-x-109">ln </span>to
+represent the natural logarithm (for input only) is to execute the <a 
+href="manualse26.html#command:DEFINE">command</a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-103">
+    define ln = log;
+</div>
+<!--l. 435--><p class="nopar" >
+</p><!--l. 437--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">The degree variants of the trigonometric functions and their inverses:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-104">
+    sind cosd tand cotd cscd secd
+ <br />    asind acosd atand acotd acscd asecd
+</div>
+<!--l. 441--><p class="nopar" > The names of the degree-based functions are those of the normal trig functions with the
+letter d appended, for example <span 
+class="pcrr8t-x-x-109">sind</span>, <span 
+class="pcrr8t-x-x-109">cosd </span>and <span 
+class="pcrr8t-x-x-109">tand </span>denote the sine, cosine and
+tangent repectively and their corresponding inverse functions are <span 
+class="pcrr8t-x-x-109">asind</span>, <span 
+class="pcrr8t-x-x-109">acosd </span>and
+<span 
+class="pcrr8t-x-x-109">atand</span>. The secant, cosecant and cotangent functions and their inverses are
+also supported and, indeed, are treated more as <span 
+class="ptmri8t-x-x-109">ﬁrst class </span>objects than their
+corresponding radian-based functions which are often converted to expressions
+involving sine and cosine by some of the standard REDUCE simpliﬁcations
+rules.
+</p><!--l. 452--><p class="noindent" >These degree-based functions are probably best regarded as functions deﬁned for
+<span 
+class="ptmri8t-x-x-109">real </span>values only, but complex arguments are supported for completeness. The
+numerical evaluation routines are fairly comprehensive for both real and complex
+arguments. However, few simpliﬁcations occur for trigd functions with complex
+arguments.
+</p><!--l. 458--><p class="noindent" >The range of the principal values returned by the inverse functions is consistent with
+those of the corresponding radian-valued functions. More precisely, for <span 
+class="pcrr8t-x-x-109">asind</span>, <span 
+class="pcrr8t-x-x-109">atand</span>
+and <span 
+class="pcrr8t-x-x-109">acscd </span>the (closure of the) range is <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">90</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">90] </span>whilst for <span 
+class="pcrr8t-x-x-109">acosd</span>, <span 
+class="pcrr8t-x-x-109">acotd </span>and <span 
+class="pcrr8t-x-x-109">asecd</span>
+the (closure of the) range is <span 
+class="cmr-10x-x-109">[0</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">180]</span>. In addition the operator <span 
+class="pcrr8t-x-x-109">atan2d </span>is the degree
+valued version of the two argument inverse tangent function which returns an angle in the
+half-open interval <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">180</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">180] </span>in the correct quadrant depending on the signs of
+its two arguments. For <span 
+class="cmmi-10x-x-109">x &#x003E; </span><span 
+class="cmr-10x-x-109">0</span>, <span 
+class="pcrr8t-x-x-109">atan2d(y, x) </span>returns the same numerical
+value as <span 
+class="pcrr8t-x-x-109">atand(y/x)</span>. If <span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">= 0 </span>then <span 
+class="cmsy-10x-x-109">±</span><span 
+class="cmr-10x-x-109">90 </span>is returned depending on the sign of
+<span 
+class="cmmi-10x-x-109">y</span>.
+</p><!--l. 470--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Miscellaneous functions:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-105">
+    sqrt  hypot  atan2
+ <br />    norm  arg    argd
+</div>
+<!--l. 474--><p class="nopar" > The function <span 
+class="pcrr8t-x-x-109">hypot </span>takes two arguments <span 
+class="cmmi-10x-x-109">x </span>and <span 
+class="cmmi-10x-x-109">y </span>and returns the value <img 
+src="manual12x.png" alt="  -------
+∘ x2 + y2"  class="sqrt"  /> but,
+when the switch <span 
+class="pcrr8t-x-x-109">rounded </span>is ON, problems with rounding and possible overﬂow for
+large numerical arguments are reduced.
+</p><!--l. 480--><p class="noindent" >The function <span 
+class="pcrr8t-x-x-109">atan2 </span>also takes two arguments <span 
+class="cmmi-10x-x-109">y </span>and <span 
+class="cmmi-10x-x-109">x </span>respectively and returns a value
+of <span 
+class="cmr-10x-x-109">arctan</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">y∕x</span><span 
+class="cmr-10x-x-109">) </span>in the range <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmmi-10x-x-109">π,π</span><span 
+class="cmr-10x-x-109">] </span>taking account of the signs of its two arguments and
+avoiding an error if <span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">= 0</span>.
+</p><!--l. 485--><p class="noindent" >The operator <span 
+class="pcrr8t-x-x-109">norm </span>returns the modulus (or absolute value or norm) of a complex
+number when the switches <span 
+class="pcrr8t-x-x-109">rounded </span>and <span 
+class="pcrr8t-x-x-109">complex </span>are on. When the switches
+<span 
+class="pcrr8t-x-x-109">rounded </span>and <span 
+class="pcrr8t-x-x-109">complex </span>are both <span 
+class="pcrr8t-x-x-109">on</span>, <span 
+class="pcrr8t-x-x-109">arg </span>will return the argument in radians of the
+complex number supplied as its parameter — supplying zero as the parameter causes an
+error to be raised. With a real numerical value as parameter, it returns <span 
+class="cmr-10x-x-109">0 </span>or <span 
+class="cmmi-10x-x-109">π </span>when the
+value is positive or negative respectively. <span 
+class="pcrr8t-x-x-109">argd </span>is similar to <span 
+class="pcrr8t-x-x-109">arg</span>, but returns the
+argument expressed in degrees. Currently these are <span 
+class="ptmri8t-x-x-109">purely numeric </span>operators; when
+<span 
+class="pcrr8t-x-x-109">rounded </span>is <span 
+class="pcrr8t-x-x-109">off </span>they basically return the input expression (perhaps with their
+parameter simpliﬁed). Example
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-106">
+1: on rounded;
+ <br />
+ <br />2: {argd(-5), argd(1+i)};
+ <br />
+ <br />{180.0,argd(i + 1)}
+ <br />
+ <br />3: on complex;
+ <br />
+ <br />*** Domain mode rounded changed to complex-rounded
+ <br />
+ <br />4: {argd(1+i), argd(-1-i)};
+ <br />
+ <br />{45.0, - 135.0}
+ <br />
+ <br />5: {arg(3+4i), norm(3+4i)};
+ <br />
+ <br />{0.927295218002,5.0}
+ <br />
+</div>
+<!--l. 509--><p class="nopar" >
+</p><!--l. 511--><p class="noindent" >REDUCE knows various elementary identities and properties of these functions. For
+example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-107">
+      cos(-x) = cos(x)        sin(-x) = -sin(x)
+ <br />      cos(n*pi) = (-1)^n      sin(n*pi) = 0
+ <br />      log(e) = 1              e^(i*pi/2) = i
+ <br />      log(1) = 0              e^(i*pi) = -1
+ <br />      log(e^x) = x            e^(3*i*pi/2) = -i
+ <br />      sin(asin(x) = x         atan(0) = 0
+ <br />      atan2(0, -1) = pi       atan2(1, 0) = pi/2
+</div>
+<!--l. 521--><p class="nopar" >
+</p><!--l. 523--><p class="noindent" >The derivatives of all the elementary functions except <span 
+class="pcrr8t-x-x-109">hypot </span>are also known to the
+system. Beside these identities, there are a lot of simpliﬁcations for elementary functions
+deﬁned in REDUCE as rulelists. In order to view these, the SHOWRULES operator can
+be used, e.g.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-108">
+      showrules tan;
+ <br />
+ <br />{tan(~n*arbint(~i)*pi + ~~x)
+ <br />
+ <br />  =&#x003E; tan(x) when fixp(n),
+ <br />
+ <br /> tan(~x) =&#x003E; trigquot(sin(x),cos(x))
+ <br />
+ <br />  when knowledge_about(sin,x,tan),
+ <br />
+ <br />      ~x + ~~k*pi
+ <br /> tan(-------------) =&#x003E;
+ <br />          ~~d
+ <br />
+ <br />         x                 k
+ <br />  - cot(--- + i*pi*impart(---))
+ <br />         d                 d
+ <br />
+ <br />                   k     1
+ <br />  when abs(repart(---))=---,
+ <br />                   d     2
+ <br />
+ <br />      ~~w + ~~k*pi
+ <br /> tan(--------------) =&#x003E;
+ <br />          ~~d
+ <br />
+ <br />      w      k                k
+ <br /> tan(--- + (--- - fix(repart(---)))*pi) when ((
+ <br />      d      d                d
+ <br />
+ <br /> ratnump(rp) and abs(rp)&#x003E;=1) where rp
+ <br />
+ <br />             k
+ <br />  =&#x003E; repart(---)),
+ <br />             d
+ <br />
+ <br /> tan(atan(~x)) =&#x003E; x,
+ <br />
+                                                                     
+
+                                                                     
+ <br />                             2
+ <br /> df(tan(~x),~x) =&#x003E; 1 + tan(x) }
+</div>
+<!--l. 569--><p class="nopar" > For further simpliﬁcation, especially of expressions involving trigonometric functions,
+see section <a 
+href="manualse61.html#x78-1480008.7">8.7<!--tex4ht:ref: sec:TRIGSIMP --></a>.
+</p><!--l. 573--><p class="noindent" >Functions not listed above may be deﬁned in the special functions package
+SPECFN.
+</p><!--l. 576--><p class="noindent" >The user can add further rules for the reduction of expressions involving these operators
+by using the <span 
+class="pcrr8t-x-x-109">let</span><a 
+ id="dx39-73001"></a> command.
+</p><!--l. 579--><p class="noindent" ><a 
+ id="switch:COMBINELOGS"></a> <a 
+ id="switch:EXPANDLOGS"></a> In many cases it is desirable to expand product arguments of logarithms, or collect a
+sum of logarithms into a single logarithm. Since these are inverse operations, it is not
+possible to provide rules for doing both at the same time and preserve the REDUCE
+concept of idempotent evaluation. As an alternative, REDUCE provides two
+switches <span 
+class="pcrr8t-x-x-109">expandlogs</span><a 
+ id="dx39-73002"></a><a 
+ id="dx39-73003"></a><a 
+ id="dx39-73004"></a> and <span 
+class="pcrr8t-x-x-109">combinelogs</span><a 
+ id="dx39-73005"></a><a 
+ id="dx39-73006"></a><a 
+ id="dx39-73007"></a> to carry out these operations.
+Both are oﬀ by default, and are subject to the value of the switch <span 
+class="pcrr8t-x-x-109">precise</span><a 
+ id="dx39-73008"></a><a 
+ id="dx39-73009"></a><a 
+ id="dx39-73010"></a>.
+This switch is on by default and prevents modiﬁcations that may be false in
+a complex domain. Thus to expand <span 
+class="pcrr8t-x-x-109">log(3*y) </span>into a sum of logs, one can
+say
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-109">
+        on expandlogs; log(3*y);
+</div>
+<!--l. 594--><p class="nopar" > whereas to expand <span 
+class="pcrr8t-x-x-109">log(x*y) </span>into a sum of logs, one needs to say
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-110">
+        off precise; on expandlogs; log(x*y);
+</div>
+<!--l. 598--><p class="nopar" > To combine this sum into a single log:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-111">
+        off precise; on combinelogs; log(x) + log(y);
+</div>
+<!--l. 602--><p class="nopar" >
+</p><!--l. 604--><p class="noindent" >These switches aﬀect the logarithmic functions <span 
+class="pcrr8t-x-x-109">log10 </span>(base 10) and <span 
+class="pcrr8t-x-x-109">logb </span>(arbitrary
+base) as well.
+</p><!--l. 607--><p class="noindent" >At the present time, it is possible to have both switches on at once, which could lead to
+inﬁnite recursion. However, an expression is switched from one form to the other in
+this case. Users should not rely on this behavior, since it may change in the
+future.
+</p><!--l. 612--><p class="noindent" ><a 
+ id="switch:COMBINEEXPT"></a> The current version of REDUCE does a poor job of simplifying surds. In particular,
+expressions involving the product of variables raised to non-integer powers do not
+usually have their powers combined internally, even though they are printed as if those
+powers were combined. For example, the expression
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-112">
+        x^(1/3)*x^(1/6);
+</div>
+<!--l. 620--><p class="nopar" > will print as
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-113">
+        sqrt(x)
+</div>
+<!--l. 624--><p class="nopar" > but will have an internal form containing the two exponentiated terms. If you now
+subtract <span 
+class="pcrr8t-x-x-109">sqrt(x) </span>from this expression, you will <span 
+class="ptmri8t-x-x-109">not </span>get zero. Instead, the confusing
+form
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-114">
+        sqrt(x) - sqrt(x)
+</div>
+<!--l. 630--><p class="nopar" > will result. To combine such exponentiated terms, the switch <span 
+class="pcrr8t-x-x-109">combineexpt</span><a 
+ id="dx39-73011"></a><a 
+ id="dx39-73012"></a><a 
+ id="dx39-73013"></a> should be
+turned on.
+</p><!--l. 634--><p class="noindent" >The square root function can be input using the name <span 
+class="pcrr8t-x-x-109">sqrt</span>, or the power operation
+<span 
+class="pcrr8t-x-x-109">^(1/2)</span>. On output, unsimpliﬁed square roots are normally represented by the operator
+<span 
+class="pcrr8t-x-x-109">sqrt </span>rather than a fractional power. With the default system switch settings, the
+argument of a square root is ﬁrst simpliﬁed, and any divisors of the expression that are
+perfect squares taken outside the square root argument. The remaining expression is left
+under the square root. Thus the expression
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-115">
+        sqrt(-8a^2*b)
+</div>
+<!--l. 648--><p class="nopar" > becomes
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-116">
+        2*a*sqrt(-2*b).
+</div>
+<!--l. 652--><p class="nopar" >
+</p><!--l. 660--><p class="noindent" ><a 
+ id="switch:PRECISE"></a> Note that such simpliﬁcations can cause trouble if <span 
+class="pcrr8t-x-x-109">A </span>is eventually given a value that is a
+negative number. If it is important that the positive property of the square root and higher
+even roots always be preserved, the switch <span 
+class="pcrr8t-x-x-109">precise</span><a 
+ id="dx39-73014"></a><a 
+ id="dx39-73015"></a><a 
+ id="dx39-73016"></a> should be set on (the default
+value). This causes any non-numerical factors taken out of surds to be represented by
+their absolute value form. With <span 
+class="pcrr8t-x-x-109">precise </span>on then, the above example would
+become
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-117">
+        2*abs(a)*sqrt(-2*b).
+</div>
+<!--l. 672--><p class="nopar" >
+</p><!--l. 674--><p class="noindent" ><a 
+ id="switch:PRECISE_COMPLEX"></a> However, this is incorrect in the complex domain, where <img 
+src="manual13x.png" alt="√ ---
+  x2"  class="sqrt"  /> is not identical to <span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmsy-10x-x-109">|</span>. To
+avoid the above simpliﬁcation, the switch <span 
+class="pcrr8t-x-x-109">precise_complex</span><a 
+ id="dx39-73017"></a><a 
+ id="dx39-73018"></a><a 
+ id="dx39-73019"></a> should be set on
+(default is oﬀ). For example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-118">
+on precise_complex; sqrt(-8a^2*b);
+</div>
+<!--l. 682--><p class="nopar" > yields the output
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-119">
+             2
+ <br />2*sqrt( - 2*a *b)
+</div>
+<!--l. 687--><p class="nopar" >
+</p><!--l. 689--><p class="noindent" >If the switch <span 
+class="pcrr8t-x-x-109">rounded</span><a 
+ id="dx39-73020"></a><a 
+ id="dx39-73021"></a><a 
+ id="dx39-73022"></a> is on, any of the elementary functions
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-120">
+    acos acosd acosh acot acotd acoth acsc acscd
+ <br />    acsch asec asecd asech asin asind asinh atan
+ <br />    atan2 atanh atan2 atan2d cos cosd cosh cot
+ <br />    cotd coth csc cscd csch exp hypot log logb
+ <br />    log10 sec secd sech sin sind sinh sqrt tan
+ <br />    tand tanh
+</div>
+<!--l. 698--><p class="nopar" > when given a numerical argument has its value calculated to the current degree of
+ﬂoating point precision. In addition, real (non-integer valued) powers of numbers will
+also be evaluated.
+</p><!--l. 703--><p class="noindent" >If the <span 
+class="pcrr8t-x-x-109">complex</span><a 
+ id="dx39-73023"></a><a 
+ id="dx39-73024"></a><a 
+ id="dx39-73025"></a> switch is turned on in addition to <span 
+class="pcrr8t-x-x-109">rounded</span>, these functions will also
+calculate a real or complex result, again to the current degree of ﬂoating point precision,
+if given complex arguments. For example, with <span 
+class="pcrr8t-x-x-109">on rounded,complex;</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-121">
+    2.3^(5.6i)  -&#x003E;  - 0.0480793490914 - 0.998843519372*i
+ <br />    cos(2+3i)   -&#x003E;  - 4.18962569097 - 9.10922789376*i
+</div>
+<!--l. 710--><p class="nopar" >
+</p><!--l. 712--><p class="noindent" >For <span 
+class="pcrr8t-x-x-109">log </span>and the inverse trigonometric and hyperbolic functions which are multi-valued,
+the principal value is returned. The branch cuts chosen (except for <span 
+class="pcrr8t-x-x-109">acot </span>and <span 
+class="pcrr8t-x-x-109">acotd</span>) are
+now those recommended by W. Kahan (<span class="cite">[<a 
+href="manualap2.html#XKahan1987BranchCF">Kah87</a>]</span>)
+</p><!--l. 717--><p class="noindent" >The exception for <span 
+class="pcrr8t-x-x-109">acot </span>and <span 
+class="pcrr8t-x-x-109">acotd </span>is necessary as elsewhere in REDUCE <span 
+class="cmr-10x-x-109">acot</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) </span>is
+taken to be <span 
+class="cmmi-10x-x-109">π </span><span 
+class="cmsy-10x-x-109">−</span> <span 
+class="cmr-10x-x-109">acot</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) </span>rather than <span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">acot</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)</span>, and <span 
+class="cmr-10x-x-109">acotd</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) = 180 </span><span 
+class="cmsy-10x-x-109">−</span> <span 
+class="cmr-10x-x-109">acotd</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)</span>. <a 
+ id="dx39-73026"></a>The
+branch cuts are:<br 
+class="newline" /><!--tex4ht:inline--></p><div class="tabular"> <table id="TBL-14" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-14-1g"><col 
+id="TBL-14-1" /><col 
+id="TBL-14-2" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-14-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-14-1-1"  
+class="td11"> <span 
+class="cmr-10x-x-109">log</span>, <span 
+class="cmr-10x-x-109">sqrt</span>:                            </td><td  style="white-space:nowrap; text-align:left;" id="TBL-14-1-2"  
+class="td11"> <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">r</span><span 
+class="cmsy-10x-x-109">∣</span><span 
+class="cmmi-10x-x-109">r </span><span 
+class="cmsy-10x-x-109">∈ </span><span 
+class="msbm-10x-x-109">ℝ </span><span 
+class="cmsy-10x-x-109">∧ </span><span 
+class="cmmi-10x-x-109">r &#x003C; </span><span 
+class="cmr-10x-x-109">0</span><span 
+class="cmsy-10x-x-109">}           </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-14-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-14-2-1"  
+class="td11"> <span 
+class="cmr-10x-x-109">asin</span>, <span 
+class="cmr-10x-x-109">asind</span>, <span 
+class="cmr-10x-x-109">acos</span>, <span 
+class="cmr-10x-x-109">acosd</span>:    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-14-2-2"  
+class="td11"> <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">r</span><span 
+class="cmsy-10x-x-109">∣</span><span 
+class="cmmi-10x-x-109">r </span><span 
+class="cmsy-10x-x-109">∈ </span><span 
+class="msbm-10x-x-109">ℝ </span><span 
+class="cmsy-10x-x-109">∧ </span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">r &#x003E; </span><span 
+class="cmr-10x-x-109">1 </span><span 
+class="cmsy-10x-x-109">∨ </span><span 
+class="cmmi-10x-x-109">r &#x003C; </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1)</span><span 
+class="cmsy-10x-x-109">}     </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-14-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-14-3-1"  
+class="td11"> <span 
+class="cmr-10x-x-109">acsc</span>, <span 
+class="cmr-10x-x-109">acscd</span>, <span 
+class="cmr-10x-x-109">asec</span>, <span 
+class="cmr-10x-x-109">asecd</span>:    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-14-3-2"  
+class="td11"> <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">r</span><span 
+class="cmsy-10x-x-109">∣</span><span 
+class="cmmi-10x-x-109">r </span><span 
+class="cmsy-10x-x-109">∈ </span><span 
+class="msbm-10x-x-109">ℝ </span><span 
+class="cmsy-10x-x-109">∧ </span><span 
+class="cmmi-10x-x-109">r</span><span 
+class="cmmi-10x-x-109">≠</span><span 
+class="cmr-10x-x-109">0 </span><span 
+class="cmsy-10x-x-109">∧ </span><span 
+class="cmmi-10x-x-109">r &#x003E; </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1 </span><span 
+class="cmsy-10x-x-109">∧ </span><span 
+class="cmmi-10x-x-109">r &#x003C; </span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmsy-10x-x-109">}  </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-14-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-14-4-1"  
+class="td11"> <span 
+class="cmr-10x-x-109">atan</span>, <span 
+class="cmr-10x-x-109">atand</span>, <span 
+class="cmr-10x-x-109">acot</span>, <span 
+class="cmr-10x-x-109">acotd</span>:  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-14-4-2"  
+class="td11"> <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">r </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">i</span><span 
+class="cmsy-10x-x-109">∣</span><span 
+class="cmmi-10x-x-109">r </span><span 
+class="cmsy-10x-x-109">∈ </span><span 
+class="msbm-10x-x-109">ℝ </span><span 
+class="cmsy-10x-x-109">∧ </span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">r &#x003E; </span><span 
+class="cmr-10x-x-109">1 </span><span 
+class="cmsy-10x-x-109">∨ </span><span 
+class="cmmi-10x-x-109">r &#x003C; </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1)</span><span 
+class="cmsy-10x-x-109">}   </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-14-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-14-5-1"  
+class="td11"> <span 
+class="cmr-10x-x-109">asinh</span>:                                  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-14-5-2"  
+class="td11"> <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">r </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">i</span><span 
+class="cmsy-10x-x-109">∣</span><span 
+class="cmmi-10x-x-109">r </span><span 
+class="cmsy-10x-x-109">∈ </span><span 
+class="msbm-10x-x-109">ℝ </span><span 
+class="cmsy-10x-x-109">∧ </span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">r </span><span 
+class="cmsy-10x-x-109">≥ </span><span 
+class="cmr-10x-x-109">1 </span><span 
+class="cmsy-10x-x-109">∨ </span><span 
+class="cmmi-10x-x-109">r </span><span 
+class="cmsy-10x-x-109">≤−</span><span 
+class="cmr-10x-x-109">1)</span><span 
+class="cmsy-10x-x-109">}   </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-14-6-"><td  style="white-space:nowrap; text-align:left;" id="TBL-14-6-1"  
+class="td11"> <span 
+class="cmr-10x-x-109">acsch</span>:                                  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-14-6-2"  
+class="td11"> <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">r </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">i</span><span 
+class="cmsy-10x-x-109">∣</span><span 
+class="cmmi-10x-x-109">r </span><span 
+class="cmsy-10x-x-109">∈ </span><span 
+class="msbm-10x-x-109">ℝ </span><span 
+class="cmsy-10x-x-109">∧ </span><span 
+class="cmmi-10x-x-109">r</span><span 
+class="cmmi-10x-x-109">≠</span><span 
+class="cmr-10x-x-109">0 </span><span 
+class="cmsy-10x-x-109">∧ </span><span 
+class="cmmi-10x-x-109">r </span><span 
+class="cmsy-10x-x-109">≥−</span><span 
+class="cmr-10x-x-109">1 </span><span 
+class="cmsy-10x-x-109">∧ </span><span 
+class="cmmi-10x-x-109">r </span><span 
+class="cmsy-10x-x-109">≤ </span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmsy-10x-x-109">} </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-14-7-"><td  style="white-space:nowrap; text-align:left;" id="TBL-14-7-1"  
+class="td11"> <span 
+class="cmr-10x-x-109">acosh</span>:                                 </td><td  style="white-space:nowrap; text-align:left;" id="TBL-14-7-2"  
+class="td11"> <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">r</span><span 
+class="cmsy-10x-x-109">∣</span><span 
+class="cmmi-10x-x-109">r </span><span 
+class="cmsy-10x-x-109">∈ </span><span 
+class="msbm-10x-x-109">ℝ </span><span 
+class="cmsy-10x-x-109">∧ </span><span 
+class="cmmi-10x-x-109">r &#x003C; </span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmsy-10x-x-109">}           </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-14-8-"><td  style="white-space:nowrap; text-align:left;" id="TBL-14-8-1"  
+class="td11"> <span 
+class="cmr-10x-x-109">asech</span>:                                  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-14-8-2"  
+class="td11"> <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">r</span><span 
+class="cmsy-10x-x-109">∣</span><span 
+class="cmmi-10x-x-109">r </span><span 
+class="cmsy-10x-x-109">∈ </span><span 
+class="msbm-10x-x-109">ℝ </span><span 
+class="cmsy-10x-x-109">∧ </span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">r &#x003E; </span><span 
+class="cmr-10x-x-109">1 </span><span 
+class="cmsy-10x-x-109">∨ </span><span 
+class="cmmi-10x-x-109">r &#x003C; </span><span 
+class="cmr-10x-x-109">0)</span><span 
+class="cmsy-10x-x-109">}      </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-14-9-"><td  style="white-space:nowrap; text-align:left;" id="TBL-14-9-1"  
+class="td11"> <span 
+class="cmr-10x-x-109">atanh</span>:                                 </td><td  style="white-space:nowrap; text-align:left;" id="TBL-14-9-2"  
+class="td11"> <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">r</span><span 
+class="cmsy-10x-x-109">∣</span><span 
+class="cmmi-10x-x-109">r </span><span 
+class="cmsy-10x-x-109">∈ </span><span 
+class="msbm-10x-x-109">ℝ </span><span 
+class="cmsy-10x-x-109">∧ </span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">r &#x003E; </span><span 
+class="cmr-10x-x-109">1 </span><span 
+class="cmsy-10x-x-109">∨ </span><span 
+class="cmmi-10x-x-109">r &#x003C; </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1)</span><span 
+class="cmsy-10x-x-109">}     </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-14-10-"><td  style="white-space:nowrap; text-align:left;" id="TBL-14-10-1"  
+class="td11"> <span 
+class="cmr-10x-x-109">acoth</span>:                                 </td><td  style="white-space:nowrap; text-align:left;" id="TBL-14-10-2"  
+class="td11"> <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">r</span><span 
+class="cmsy-10x-x-109">∣</span><span 
+class="cmmi-10x-x-109">r </span><span 
+class="cmsy-10x-x-109">∈ </span><span 
+class="msbm-10x-x-109">ℝ </span><span 
+class="cmsy-10x-x-109">∧ </span><span 
+class="cmmi-10x-x-109">r &#x003E; </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1 </span><span 
+class="cmsy-10x-x-109">∧ </span><span 
+class="cmmi-10x-x-109">r &#x003C; </span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmsy-10x-x-109">}      </span></td>
+</tr></table></div>
+<a 
+ id="dx39-73027"></a>
+<!--l. 740--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">7.2.2    </span> <a 
+ id="x39-740007.2.2"></a>Special Functions</h4>
+<!--l. 741--><p class="noindent" >The functions in this section are either built-in or are autoloading functions from the
+package <span 
+class="pcrr8t-x-x-109">SPECFN</span>. On the CSL GUI and other graphical interfaces many of the functions
+will be output in standard form; for example <span 
+class="pcrr8t-x-x-109">BesselJ(nu,x) </span>will be output as <span 
+class="cmmi-10x-x-109">J</span><sub><span 
+class="cmmi-8">ν</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span>
+and <span 
+class="pcrr8t-x-x-109">Fresnel_S(u) </span>as <span 
+class="cmr-10x-x-109">S(</span><span 
+class="cmmi-10x-x-109">u</span><span 
+class="cmr-10x-x-109">)</span>. For most of the non-unary special functions in this
+section (<span 
+class="pcrr8t-x-x-109">Lerch_Phi </span>is an exception), the last parameter is the ‘main’ variable and the
+earlier parameters are the order (or orders) usually rendered in the literature as subscipts
+and/or superscripts.
+</p><!--l. 750--><p class="noindent" >The information provided below is fairly rudimentary; more complete information may
+be found in the <a 
+href="manualse179.html#SPECFNS">SPECFN package</a>. <a 
+href="manualse179.html#SPECFNTAB1">Quick Reference Tables</a> are also available.
+                                                                     
+
+                                                                     
+<a 
+ id="dx39-74001"></a>
+<a 
+ id="dx39-74002"></a>
+<a 
+ id="dx39-74003"></a>
+<a 
+ id="dx39-74004"></a>
+<a 
+ id="dx39-74005"></a>
+<a 
+ id="dx39-74006"></a>
+<a 
+ id="dx39-74007"></a>
+<a 
+ id="dx39-74008"></a>
+<a 
+ id="dx39-74009"></a>
+<a 
+ id="dx39-74010"></a>
+</p><!--l. 758--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Integral Functions:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-122">
+    Ei Li Si Ci Shi Chi Erf Fresnel_S Fresnel_C
+</div>
+<!--l. 761--><p class="nopar" > All these functions are unary; the ﬁrst six are the exponential, logarithmic, sine
+and cosine integrals and their hyperbolic counterparts. <span 
+class="pcrr8t-x-x-109">Erf</span>, <span 
+class="pcrr8t-x-x-109">Fresnel_S </span>and
+<span 
+class="pcrr8t-x-x-109">Fresnel_C </span>are the error function and the Fresnel sine and cosine integrals
+respectively.
+<a 
+ id="dx39-74011"></a>
+<a 
+ id="dx39-74012"></a>
+<a 
+ id="dx39-74013"></a>
+<a 
+ id="dx39-74014"></a>
+<a 
+ id="dx39-74015"></a>
+<a 
+ id="dx39-74016"></a>
+<a 
+ id="dx39-74017"></a>
+<a 
+ id="dx39-74018"></a>
+<a 
+ id="dx39-74019"></a>
+</p><!--l. 771--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Beta, Gamma and Related Functions:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-123">
+    Beta ibeta Gamma igamma psi Polygamma
+</div>
+<!--l. 774--><p class="nopar" > The <span 
+class="pcrr8t-x-x-109">Gamma </span>function is unary whilst <span 
+class="pcrr8t-x-x-109">Beta </span>is binary. The binary function <span 
+class="pcrr8t-x-x-109">igamma </span>and
+ternary function <span 
+class="pcrr8t-x-x-109">ibeta </span>are the (normalised) incomplete Gamma and Beta functions
+respectively. The unary function <span 
+class="pcrr8t-x-x-109">psi </span>is sometimes known as the Digamma function and
+the binary function <span 
+class="pcrr8t-x-x-109">Polygamma </span>with integer ﬁrst parameter <span 
+class="cmmi-10x-x-109">n </span>is the <span 
+class="cmmi-10x-x-109">n</span>th derivative of
+the function <span 
+class="pcrr8t-x-x-109">psi</span>.
+<a 
+ id="dx39-74020"></a>
+<a 
+ id="dx39-74021"></a>
+<a 
+ id="dx39-74022"></a>
+<a 
+ id="dx39-74023"></a>
+<a 
+ id="dx39-74024"></a>
+<a 
+ id="dx39-74025"></a>
+<a 
+ id="dx39-74026"></a>
+<a 
+ id="dx39-74027"></a>
+</p><!--l. 785--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Bessel and Related Functions:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-124">
+    BesselJ BesselY BesselI BesselK Hankel1 Hankel2
+</div>
+<!--l. 788--><p class="nopar" > All of these functions are binary, their ﬁrst argument being the order of the
+function.
+</p><!--l. 792--><p class="noindent" >For the special functions below, a second <a 
+href="manualse179.html#SPECFNTAB2">Quick Reference Table</a> is available.
+<a 
+ id="dx39-74028"></a>
+<a 
+ id="dx39-74029"></a>
+<a 
+ id="dx39-74030"></a>
+<a 
+ id="dx39-74031"></a>
+<a 
+ id="dx39-74032"></a>
+</p><!--l. 798--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Airy Functions:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-125">
+    Airy_Ai Airy_Aiprime Airy_Bi Airy_Biprime
+</div>
+<!--l. 801--><p class="nopar" > These are all unary functions.
+<a 
+ id="dx39-74033"></a>
+<a 
+ id="dx39-74034"></a>
+<a 
+ id="dx39-74035"></a>
+<a 
+ id="dx39-74036"></a>
+<a 
+ id="dx39-74037"></a>
+<a 
+ id="dx39-74038"></a>
+<a 
+ id="dx39-74039"></a>
+<a 
+ id="dx39-74040"></a>
+<a 
+ id="dx39-74041"></a>
+<a 
+ id="dx39-74042"></a>
+<a 
+ id="dx39-74043"></a>
+<a 
+ id="dx39-74044"></a>
+</p><!--l. 809--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Kummer, Lommel, Struve and Whittaker Functions:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-126">
+    KummerM KummerU Lommel1 Lommel2
+ <br />    StruveH StruveL WhittakerM WhittakerW
+</div>
+<!--l. 813--><p class="nopar" > The Struve functions are both binary whilst the remaining ones are all ternary.
+<a 
+ id="dx39-74045"></a>
+<a 
+ id="dx39-74046"></a>
+<a 
+ id="dx39-74047"></a>
+<a 
+ id="dx39-74048"></a>
+</p><!--l. 818--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Riemann Zeta and Lambert’s W Function:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-127">
+    zeta  Lambert_W
+</div>
+<!--l. 821--><p class="nopar" > These are both unary functions.
+<a 
+ id="dx39-74049"></a>
+<a 
+ id="dx39-74050"></a>
+<a 
+ id="dx39-74051"></a>
+<a 
+ id="dx39-74052"></a>
+<a 
+ id="dx39-74053"></a>
+</p><!--l. 826--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Polylogarithms and Related Functions</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-128">
+    dilog Polylog Lerch_Phi
+</div>
+<!--l. 830--><p class="nopar" > These take one, two and three arguments respectively.
+<a 
+ id="dx39-74054"></a>
+<a 
+ id="dx39-74055"></a>
+<a 
+ id="dx39-74056"></a>
+</p><!--l. 835--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Associated Legendre functions:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-129">
+    SphericalHarmonicY SolidHarmonicY
+</div>
+<!--l. 838--><p class="nopar" > These functions take four and six arguments respectively.
+</p><!--l. 841--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">7.2.3    </span> <a 
+ id="x39-750007.2.3"></a>Polynomial Functions</h4>
+<a 
+ id="dx39-75001"></a>
+<!--l. 843--><p class="noindent" >The polynomial functions below are from the non-core package SPECFN and for the
+most part are not autoloading. This package needs to be loaded before they may be used
+with the command:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-130">
+    load_package specfn;
+</div>
+<!--l. 848--><p class="nopar" > The names of the REDUCE operators for the polynomial functions below are mostly
+built by adding a P to the name of the polynomial, e.g. <span 
+class="pcrr8t-x-x-109">EulerP </span>implements the Euler
+polynomials.
+</p><!--l. 853--><p class="noindent" >The information in this subsection is fairly rudimentary; more complete information may
+be found in the <a 
+href="manualse179.html#POLYFN">SPECFN package</a>.<br 
+class="newline" />A <a 
+href="manualse179.html#SPECFNTAB3">Quick Reference Table</a> is available for all the polynomial functions below.
+</p><!--l. 858--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Orthogonal Polynomials</span> <a 
+ id="dx39-75002"></a><a 
+ id="dx39-75003"></a><a 
+ id="dx39-75004"></a> <a 
+ id="dx39-75005"></a><a 
+ id="dx39-75006"></a> <a 
+ id="dx39-75007"></a><a 
+ id="dx39-75008"></a> <a 
+ id="dx39-75009"></a><a 
+ id="dx39-75010"></a> <a 
+ id="dx39-75011"></a><a 
+ id="dx39-75012"></a> <a 
+ id="dx39-75013"></a> <a 
+ id="dx39-75014"></a> <a 
+ id="dx39-75015"></a>
+</p><!--l. 868--><p class="noindent" >Some well-known orthogonal polynomials are available: </p>
+     <ul class="itemize1">
+     <li class="itemize">Hermite polynomials: (<span 
+class="pcrr8t-x-x-109">HermiteP</span>);
+     </li>
+     <li class="itemize">Chebyshev polynomials: (<span 
+class="pcrr8t-x-x-109">ChebyshevT</span>, <span 
+class="pcrr8t-x-x-109">ChebyshevU</span>);
+     </li>
+     <li class="itemize">Legendre polynomials: (<span 
+class="pcrr8t-x-x-109">LegendreP</span>);
+     </li>
+     <li class="itemize">Laguerre polynomials: (<span 
+class="pcrr8t-x-x-109">LaguerreP</span>);
+     </li>
+     <li class="itemize">Associated Legendre functions: (<span 
+class="pcrr8t-x-x-109">LegendreP</span>);
+     </li>
+     <li class="itemize">Generalised Laguerre (or Sonin) polynomials: (<span 
+class="pcrr8t-x-x-109">LaguerreP</span>);
+     </li>
+     <li class="itemize">Gegenbauer polynomials: (<span 
+class="pcrr8t-x-x-109">GegenbauerP</span>);
+     </li>
+     <li class="itemize">Jacobi polynomials: (<span 
+class="pcrr8t-x-x-109">JacobiP</span>).</li></ul>
+<!--l. 879--><p class="noindent" >The ﬁrst three of these functions are binary and the ﬁrst argument should be an integer
+specifying the order of the required polynomial. The functions <span 
+class="pcrr8t-x-x-109">LegendreP </span>and
+<span 
+class="pcrr8t-x-x-109">LaguerreP </span>may be used either as binary operators or ternary ones and represent the
+corresponding ‘basic’ and associated functions respectively. Finally the Gegenbauer
+polynomials are ternary whilst the Jacobi polynomials are quaternary.
+                                                                     
+
+                                                                     
+</p><!--l. 887--><p class="noindent" >Most deﬁnitions are equivalent to those in <span class="cite">[<a 
+href="manualap2.html#XAbramowitzStegun:72">AS72</a>]</span>, except for the ternary associated
+Legendre functions:
+</p>
+<table 
+class="equation-star"><tr><td>
+                <span 
+class="cmmi-10x-x-109">P</span><sub><span 
+class="cmmi-8">n</span></sub><sup><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">m</span><span 
+class="cmr-8">)</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) = (</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1)</span><sup><span 
+class="cmmi-8">m</span></sup><span 
+class="cmr-10x-x-109">(1 </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmr-10x-x-109">)</span><sup><span 
+class="cmmi-8">m∕</span><span 
+class="cmr-8">2</span></sup><img 
+src="manual14x.png" alt=" m
+d--Pn(x)
+  dxm"  class="frac" align="middle" /><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 889--><p class="nopar" >
+</p><!--l. 894--><p class="noindent" >These are sometimes mistakenly referred to as associated Legendre polynomials, but
+they are only polynomial when <span 
+class="cmmi-10x-x-109">m </span>is even.
+</p><!--l. 897--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Other Polynomial Functions</span> <a 
+ id="dx39-75016"></a><a 
+ id="dx39-75017"></a> <a 
+ id="dx39-75018"></a> <a 
+ id="operator:FIBONACCIP"></a>
+</p><!--l. 902--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Fibonacci Polynomials </span>are computed by the binary operator <span 
+class="pcrr8t-x-x-109">FibonacciP</span>, where
+<span 
+class="pcrr8t-x-x-109">FibonacciP(n,x) </span>returns the <span 
+class="cmmi-10x-x-109">n</span>th Fibonacci polynomial in the variable <span 
+class="cmmi-10x-x-109">x</span>. If <span 
+class="cmmi-10x-x-109">n </span>is an
+integer, it will be
+</p><!--l. 907--><p class="noindent" >evaluated using the recursive deﬁnition:
+</p>
+<table 
+class="equation-star"><tr><td>
+      <span 
+class="cmmi-10x-x-109">F</span><sub><span 
+class="cmr-8">0</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) = 0;      </span><span 
+class="cmmi-10x-x-109">F</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) = 1;      </span><span 
+class="cmmi-10x-x-109">F</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) = </span><span 
+class="cmmi-10x-x-109">xF</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) + </span><span 
+class="cmmi-10x-x-109">F</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">2</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+                                                                     
+
+                                                                     
+<!--l. 908--><p class="nopar" >
+<a 
+ id="dx39-75019"></a>
+<a 
+ id="dx39-75020"></a>
+</p><!--l. 911--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Euler Polynomials </span>are computed by the binary operator <span 
+class="pcrr8t-x-x-109">EulerP</span>, where
+<span 
+class="pcrr8t-x-x-109">EulerP(n,x) </span>returns the <span 
+class="cmmi-10x-x-109">n</span>th Euler polynomial in the variable <span 
+class="cmmi-10x-x-109">x</span>.
+<a 
+ id="dx39-75021"></a>
+<a 
+ id="dx39-75022"></a>
+</p><!--l. 916--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Bernoulli Polynomials </span>are computed by the binary operator <span 
+class="pcrr8t-x-x-109">BernoulliP</span>, where
+<span 
+class="pcrr8t-x-x-109">BernoulliP(n,x) </span>returns the <span 
+class="cmmi-10x-x-109">n</span>th Bernoulli polynomial in the variable
+<span 
+class="cmmi-10x-x-109">x</span>.
+</p><!--l. 920--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">7.2.4    </span> <a 
+ id="x39-760007.2.4"></a>Elliptic Functions and Integrals</h4>
+<!--l. 921--><p class="noindent" >All the functions documented in this subsection are autoloading functions from the
+package <span 
+class="pcrr8t-x-x-109">ELLIPFN</span>. On the CSL GUI and other graphical interfaces these functions
+will be output in standard mathematical form; for example <span 
+class="pcrr8t-x-x-109">jacobisn(x,k)</span>
+will be output as <span 
+class="cmr-10x-x-109">sn</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x,k</span><span 
+class="cmr-10x-x-109">) </span>and <span 
+class="pcrr8t-x-x-109">weierstrass(x,omega1,omega3) </span>as
+<span 
+class="cmmi-10x-x-109">℘</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x,ω</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,ω</span><sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmr-10x-x-109">)</span>.
+<a 
+ id="dx39-76001"></a>
+<a 
+ id="dx39-76002"></a>
+<a 
+ id="dx39-76003"></a>
+<a 
+ id="dx39-76004"></a>
+<a 
+ id="dx39-76005"></a>
+<a 
+ id="dx39-76006"></a>
+<a 
+ id="dx39-76007"></a>
+<a 
+ id="dx39-76008"></a>
+<a 
+ id="dx39-76009"></a>
+<a 
+ id="dx39-76010"></a>
+<a 
+ id="dx39-76011"></a>
+<a 
+ id="dx39-76012"></a>
+<a 
+ id="dx39-76013"></a>
+<a 
+ id="dx39-76014"></a>
+<a 
+ id="dx39-76015"></a>
+</p><!--l. 935--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Jacobi Elliptic Functions:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-131">
+    jacobisn jacobicn jacobidn
+</div>
+<!--l. 938--><p class="nopar" > and their three reciprocals
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-132">
+    jacobins jacobinc jacobind
+</div>
+<!--l. 942--><p class="nopar" > and six quotients
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-133">
+    jacobisc jacobisd jacobicd
+ <br />    jacobics jacobids jacobidc
+</div>
+<!--l. 947--><p class="nopar" > All are binary functions with the second argument being the modulus. The binary
+function <span 
+class="pcrr8t-x-x-109">jacobiam </span>is the amplitude.
+<a 
+ id="dx39-76016"></a>
+<a 
+ id="dx39-76017"></a>
+<a 
+ id="dx39-76018"></a>
+<a 
+ id="dx39-76019"></a>
+<a 
+ id="dx39-76020"></a>
+<a 
+ id="dx39-76021"></a>
+<a 
+ id="dx39-76022"></a>
+</p><!--l. 954--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Complete and Incomplete Elliptic Integrals of the First &#x0026; Second Kinds:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-134">
+    ellipticK ellipticE ellipticF
+ <br />    jacobiE jacobiZeta
+</div>
+<!--l. 958--><p class="nopar" > The function <span 
+class="pcrr8t-x-x-109">ellipticE </span>may take one or two arguments to denote the complete and
+Legendre’s form of the incomplete elliptic integrals of the second kind respectively. The
+complete integral of the ﬁrst kind <span 
+class="pcrr8t-x-x-109">ellipticK </span>is unary whilst <span 
+class="pcrr8t-x-x-109">ellipticF</span>, <span 
+class="pcrr8t-x-x-109">jacobiE</span>
+and <span 
+class="pcrr8t-x-x-109">jacobiZeta </span>are binary and represent the incomplete integral of the ﬁrst kind,
+Jacobi’s form of the incomplete elliptic integral of the second kind and Jacobi’s Zeta
+function respectively.
+<a 
+ id="dx39-76023"></a>
+<a 
+ id="dx39-76024"></a>
+<a 
+ id="dx39-76025"></a>
+<a 
+ id="dx39-76026"></a>
+<a 
+ id="dx39-76027"></a>
+</p><!--l. 970--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Jacobi’s Theta Functions:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-135">
+    elliptictheta1 elliptictheta2
+ <br />    elliptictheta3 elliptictheta4
+</div>
+<!--l. 974--><p class="nopar" > are all binary functions with the second argument being the ‘parameter’ <span 
+class="cmmi-10x-x-109">τ</span>, the nome <span 
+class="cmmi-10x-x-109">q</span>
+being given by <span 
+class="cmmi-10x-x-109">q </span><span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmr-10x-x-109">exp</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">iπτ</span><span 
+class="cmr-10x-x-109">)</span>
+<a 
+ id="dx39-76028"></a>
+<a 
+ id="dx39-76029"></a>
+<a 
+ id="dx39-76030"></a>
+<a 
+ id="dx39-76031"></a>
+<a 
+ id="dx39-76032"></a>
+<a 
+ id="dx39-76033"></a>
+<a 
+ id="dx39-76034"></a>
+<a 
+ id="dx39-76035"></a>
+</p><!--l. 983--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Weierstrassian Elliptic Functions:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-136">
+    weierstrass    weierstrassZeta
+ <br />    weierstrass_sigma  weierstrass_sigma1
+ <br />    weierstrass_sigma2   weierstrass_sigma3
+ <br />    weierstrass1   weierstrassZeta1
+</div>
+<!--l. 989--><p class="nopar" > are all ternary functions with the second and third arguments of the ﬁrst six functions
+being the the lattice period parameters <span 
+class="cmmi-10x-x-109">ω</span><sub><span 
+class="cmr-8">1</span></sub> and <span 
+class="cmmi-10x-x-109">ω</span><sub><span 
+class="cmr-8">3</span></sub>. The remaining two functions are
+alternative versions of the Weierstrass functions with the second and third arguments
+being the lattice invariants <span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmr-8">2</span></sub> and <span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmr-8">3</span></sub>.
+<a 
+ id="dx39-76036"></a>
+<a 
+ id="dx39-76037"></a>
+<a 
+ id="dx39-76038"></a>
+<a 
+ id="dx39-76039"></a>
+<a 
+ id="dx39-76040"></a>
+<a 
+ id="dx39-76041"></a>
+<a 
+ id="dx39-76042"></a>
+<a 
+ id="dx39-76043"></a>
+<a 
+ id="dx39-76044"></a>
+<a 
+ id="dx39-76045"></a>
+<a 
+ id="dx39-76046"></a>
+<a 
+ id="dx39-76047"></a>
+<a 
+ id="dx39-76048"></a>
+</p><!--l. 1001--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Inverse Elliptic Functions:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-137">
+    arcsn  arccn  arcdn   arcns  arcnc  arcnd
+ <br />    arcsc  arccs  arcsd   arcds  arccd  arcdc
+</div>
+<!--l. 1005--><p class="nopar" > These are all binary functions with the second argument being the modulus <span 
+class="cmmi-10x-x-109">k</span>. They are
+the inverses of the corresponding Jacobi elliptic functions <span 
+class="pcrr8t-x-x-109">jacobisn</span>, <span 
+class="pcrr8t-x-x-109">jacobicn</span>
+etc.(wrt their ﬁrst argument).
+</p><!--l. 1010--><p class="noindent" >For the elliptic functions above a <a 
+href="manualse144.html#ELLIPFNTAB">Quick Reference Table</a> is available.
+                                                                     
+
+                                                                     
+</p><!--l. 1013--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse29.html" >Up</a></td><td class="clinks"><a 
+href="manualse30.html" >Next</a></td><td class="clinks"><a 
+href="manualse28.html" >Prev</a></td><td class="clinks"><a 
+href="manualse28.html#tailmanualse28.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse29.html" >Front</a></td></tr></table><a 
+ id="tailmanualse29.html"></a>  </p> 
+</body> 
+</html>

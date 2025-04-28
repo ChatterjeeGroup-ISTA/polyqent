@@ -1,0 +1,98 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Mass Declarations</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch22.html#manualse207.html" >Up</a></td><td class="clinks"><a 
+href="manualse208.html" >Next</a></td><td class="clinks"><a 
+href="manualse206.html" >Prev</a></td><td class="clinks"><a 
+href="manualse206.html#tailmanualse206.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse207.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">22.5    </span> <a 
+ id="x303-135300022.5"></a>Mass Declarations</h3>
+<a 
+ id="dx303-1353001"></a>
+<!--l. 226--><p class="noindent" ><a 
+ id="command:MASS"></a> <a 
+ id="command:MSHELL"></a>
+</p><!--l. 229--><p class="noindent" >It is often necessary to put a particle “on the mass shell” in a calculation. This can, of
+course, be accomplished with a <span 
+class="pcrr8t-x-x-109">let </span>command such as
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1514">
+        let p.p= m^2;
+</div>
+<!--l. 234--><p class="nopar" > but an alternative method is provided by two commands <span 
+class="pcrr8t-x-x-109">mass </span>and <span 
+class="pcrr8t-x-x-109">mshell</span>.<a 
+ id="dx303-1353002"></a> <span 
+class="pcrr8t-x-x-109">mass</span>
+takes a list of equations of the form:
+  </p><div class="syntax">
+   <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">vector variable</span><span 
+class="cmsy-10x-x-109">⟩ </span><span 
+class="pcrr8t-x-x-109">= </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">scalar variable</span><span 
+class="cmsy-10x-x-109">⟩</span></div>
+<!--l. 241--><p class="noindent" >for example,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1515">
+        mass p1=m, q1=mu;
+</div>
+<!--l. 244--><p class="nopar" > The only eﬀect of this command is to associate the relevant scalar variable as a mass
+with the corresponding vector. If we now say
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">mshell </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">vector variable</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span>…<span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">vector variable</span><span 
+class="cmsy-10x-x-109">⟩⟨</span><span 
+class="ptmri8t-x-x-109">terminator</span><span 
+class="cmsy-10x-x-109">⟩</span></div>
+<!--l. 250--><p class="noindent" >and a mass has been associated with these arguments, a substitution of the form
+  </p><div class="syntax">
+   <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">vector variable</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">.</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">vector variable</span><span 
+class="cmsy-10x-x-109">⟩ </span><span 
+class="pcrr8t-x-x-109">= </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">mass</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">^</span>2</div>
+<!--l. 256--><p class="noindent" >is set up. An error results if the variable has no preassigned mass.
+                                                                     
+
+                                                                     
+</p><!--l. 258--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch22.html#manualse207.html" >Up</a></td><td class="clinks"><a 
+href="manualse208.html" >Next</a></td><td class="clinks"><a 
+href="manualse206.html" >Prev</a></td><td class="clinks"><a 
+href="manualse206.html#tailmanualse206.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse207.html" >Front</a></td></tr></table><a 
+ id="tailmanualse207.html"></a> </p> 
+</body> 
+</html>

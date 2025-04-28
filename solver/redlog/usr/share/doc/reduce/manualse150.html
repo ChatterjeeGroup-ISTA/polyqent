@@ -1,0 +1,4454 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>GROEBNER: A Grobner Basis Package</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse150.html" >Up</a></td><td class="clinks"><a 
+href="manualse151.html" >Next</a></td><td class="clinks"><a 
+href="manualse149.html" >Prev</a></td><td class="clinks"><a 
+href="manualse149.html#tailmanualse149.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse150.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.25    </span> <a 
+ id="x217-81300020.25"></a>GROEBNER: A Gröbner Basis Package</h3>
+<a 
+ id="dx217-813001"></a>
+<a 
+ id="dx217-813002"></a>
+<!--l. 515--><p class="noindent" ><span 
+class="ptmrc8t-x-x-109">G<span 
+class="small-caps">R</span><span 
+class="small-caps">O</span><span 
+class="small-caps">E</span><span 
+class="small-caps">B</span><span 
+class="small-caps">N</span><span 
+class="small-caps">E</span><span 
+class="small-caps">R</span> </span>is a package for the computation of Gröbner Bases using the Buchberger
+algorithm and related methods for polynomial ideals and modules. It can be used over a
+variety of diﬀerent coeﬃcient domains, and for diﬀerent variable and term
+orderings.
+</p><!--l. 521--><p class="noindent" >Gröbner Bases can be used for various purposes in commutative algebra, e.g. for
+elimination of variables,<a 
+ id="dx217-813003"></a> converting surd expressions to implicit polynomial form,
+computation of dimensions, solution of polynomial equation systems <a 
+ id="dx217-813004"></a>etc. The package is
+also used internally by the <span 
+class="pcrr8t-x-x-109">SOLVE</span><a 
+ id="dx217-813005"></a> operator.
+</p><!--l. 530--><p class="noindent" >Authors: Herbert Melenk, H.M. Möller and Winfried Neun.
+<a 
+ id="dx217-813006"></a>
+<a 
+ id="dx217-813007"></a>
+<a 
+ id="dx217-813008"></a>
+<a 
+ id="dx217-813009"></a>
+<a 
+ id="dx217-813010"></a>
+<a 
+ id="dx217-813011"></a>
+<a 
+ id="dx217-813012"></a>
+</p><!--l. 9--><p class="noindent" >Gröbner bases are a valuable tool for solving problems in connection with multivariate
+polynomials, such as solving systems of algebraic equations and analyzing polynomial
+ideals. For a deﬁnition of Gröbner bases, a survey of possible applications and further
+references, see <span class="cite">[<a 
+href="manualap2.html#XBuchberger:85">Buc85</a>]</span>. Examples are given in <span class="cite">[<a 
+href="manualap2.html#XBoege:86">BGK86</a>]</span>, in <span class="cite">[<a 
+href="manualap2.html#XBuchberger:88">Buc88</a>]</span> and also in the test
+ﬁle for this package.
+<a 
+ id="dx217-813013"></a>
+<a 
+ id="dx217-813014"></a>
+</p><!--l. 17--><p class="noindent" >The <span 
+class="ptmrc8t-x-x-109">G<span 
+class="small-caps">R</span><span 
+class="small-caps">O</span><span 
+class="small-caps">E</span><span 
+class="small-caps">B</span><span 
+class="small-caps">N</span><span 
+class="small-caps">E</span><span 
+class="small-caps">R</span> </span>package calculates Gröbner bases using the Buchberger algorithm. It
+can be used over a variety of diﬀerent coeﬃcient domains, and for diﬀerent variable and
+term orderings.
+</p><!--l. 21--><p class="noindent" >The current version of the package uses parts of a previous version, written by R.
+Gebauer, A.C. Hearn, H. Kredel and H. M. Möller. The algorithms implemented
+in the current version are documented in <span class="cite">[<a 
+href="manualap2.html#XFaugere:93">FGLM93</a>]</span>, <span class="cite">[<a 
+href="manualap2.html#XGebauer:88">GM88</a>]</span>, <span class="cite">[<a 
+href="manualap2.html#XKredel:88a">KW88</a>]</span> and
+<span class="cite">[<a 
+href="manualap2.html#XGiovini:91">GMN<sup><span 
+class="cmr-8">+</span></sup>91</a>]</span>. The operator <span 
+class="pcrr8t-x-x-109">saturation </span>has been implemented in July 2000 (Herbert
+Melenk).
+                                                                     
+
+                                                                     
+</p><!--l. 28--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.25.1    </span> <a 
+ id="x217-81400020.25.1"></a>Background</h4>
+<!--l. 30--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x217-81500020.25.1"></a>Variables, Domains and Polynomials</h5>
+<!--l. 32--><p class="noindent" >The various functions of the <span 
+class="ptmrc8t-x-x-109">G<span 
+class="small-caps">R</span><span 
+class="small-caps">O</span><span 
+class="small-caps">E</span><span 
+class="small-caps">B</span><span 
+class="small-caps">N</span><span 
+class="small-caps">E</span><span 
+class="small-caps">R</span> </span>package manipulate equations and/or
+polynomials; equations are internally transformed into polynomials by forming the
+diﬀerence of left-hand side and right-hand side, if equations are given.
+</p><!--l. 37--><p class="noindent" >All manipulations take place in a ring of polynomials in some variables <span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,xn </span>over a
+coeﬃcient domain <span 
+class="cmmi-10x-x-109">d</span>:
+</p>
+<table 
+class="equation-star"><tr><td>
+                             <span 
+class="cmmi-10x-x-109">d</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,xn</span><span 
+class="cmr-10x-x-109">]</span><span 
+class="cmmi-10x-x-109">,</span>
+</td></tr></table>
+<!--l. 39--><p class="nopar" >
+where <span 
+class="cmmi-10x-x-109">d </span>is a ﬁeld or at least a ring without zero divisors. The set of variables <span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,xn</span>
+can be given explicitly by the user or it is extracted automatically from the input
+expressions.
+</p><!--l. 45--><p class="noindent" >All REDUCE kernels can play the role of “variables” in this context; examples
+are
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1202">
+x y z22 sin(alpha) cos(alpha) c(1,2,3) c(1,3,2) farina4711
+</div>
+<!--l. 51--><p class="nopar" >
+</p><!--l. 54--><p class="noindent" >The domain <span 
+class="cmmi-10x-x-109">d </span>is the current REDUCE domain with those kernels adjoined that are not
+members of the list of variables. So the elements of <span 
+class="cmmi-10x-x-109">d </span>may be complicated polynomials
+themselves over kernels not in the list of variables; if, however, the variables are
+extracted automatically from the input expressions, <span 
+class="cmmi-10x-x-109">d </span>is identical with the current
+REDUCE domain. It is useful to regard kernels not being members of the list of variables
+as “parameters”, e.g. </p>
+<div class="center" 
+>
+<!--l. 61--><p class="noindent" >
+</p><!--l. 62--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">a * x + (a - b) * y**2</span><br />
+with “variables” {<span 
+class="cmmi-10x-x-109">x,y</span>}<br />
+and “parameters” <span 
+class="cmmi-10x-x-109">a </span>and <span 
+class="cmmi-10x-x-109">b</span>.</p></div>
+<!--l. 67--><p class="noindent" >The exponents of <span 
+class="ptmrc8t-x-x-109">G<span 
+class="small-caps">R</span><span 
+class="small-caps">O</span><span 
+class="small-caps">E</span><span 
+class="small-caps">B</span><span 
+class="small-caps">N</span><span 
+class="small-caps">E</span><span 
+class="small-caps">R</span> </span>variables must be positive integers.
+</p><!--l. 69--><p class="noindent" >A <span 
+class="ptmrc8t-x-x-109">G<span 
+class="small-caps">R</span><span 
+class="small-caps">O</span><span 
+class="small-caps">E</span><span 
+class="small-caps">B</span><span 
+class="small-caps">N</span><span 
+class="small-caps">E</span><span 
+class="small-caps">R</span> </span>variable may not occur as a parameter (or part of a parameter) of a
+coeﬃcient function. This condition is tested in the beginning of the <span 
+class="ptmrc8t-x-x-109">G<span 
+class="small-caps">R</span><span 
+class="small-caps">O</span><span 
+class="small-caps">E</span><span 
+class="small-caps">B</span><span 
+class="small-caps">N</span><span 
+class="small-caps">E</span><span 
+class="small-caps">R</span></span>
+calculation; if it is violated, an error message occurs (with the variable name), and the
+calculation is aborted. When the <span 
+class="ptmrc8t-x-x-109">G<span 
+class="small-caps">R</span><span 
+class="small-caps">O</span><span 
+class="small-caps">E</span><span 
+class="small-caps">B</span><span 
+class="small-caps">N</span><span 
+class="small-caps">E</span><span 
+class="small-caps">R</span> </span>package is called by <span 
+class="pcrr8t-x-x-109">solve</span>, the test is
+switched oﬀ internally.
+</p><!--l. 76--><p class="noindent" >The current version of the Buchberger algorithm has two internal modes, a ﬁeld mode
+and a ring mode. In the starting phase the algorithm analyzes the domain type; if it
+recognizes <span 
+class="cmmi-10x-x-109">d </span>as being a ring it uses the ring mode, otherwise the ﬁeld mode is needed.
+Normally ﬁeld calculations occur only if all coeﬃcients are numbers and if the current
+REDUCE domain is a ﬁeld (e.g. rational numbers, modular numbers modulo a
+prime). In general, the ring mode is faster. When no speciﬁc REDUCE domain is
+selected, the ring mode is used, even if the input formulas contain fractional
+coeﬃcients: they are multiplied by their common denominators so that they
+become integer polynomials. Zeroes of the denominators are included in the result
+list.
+                                                                     
+
+                                                                     
+</p><!--l. 89--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x217-81600020.25.1"></a>Term Ordering</h5>
+<!--l. 91--><p class="noindent" >In the theory of Gröbner bases, the terms of polynomials are considered as ordered.
+Several order modes are available in the current package, including the basic modes: <a 
+ id="dx217-816001"></a><a 
+ id="dx217-816002"></a> <a 
+ id="dx217-816003"></a><a 
+ id="dx217-816004"></a>
+<a 
+ id="dx217-816005"></a><a 
+ id="dx217-816006"></a>
+</p>
+<div class="center" 
+>
+<!--l. 98--><p class="noindent" >
+</p><!--l. 99--><p class="noindent" ><span 
+class="cmmi-10x-x-109">lex</span>, <span 
+class="cmmi-10x-x-109">gradlex</span>, <span 
+class="cmmi-10x-x-109">revgradlex</span></p></div>
+<!--l. 102--><p class="noindent" >All orderings are based on an ordering among the variables. For each pair of variables
+<span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a,b</span><span 
+class="cmr-10x-x-109">) </span>an order relation must be deﬁned, e.g. “<span 
+class="cmmi-10x-x-109">a </span><span 
+class="cmsy-10x-x-109">≫ </span><span 
+class="cmmi-10x-x-109">b</span>”. The greater sign <span 
+class="cmsy-10x-x-109">≫ </span>does not
+represent a numerical relation among the variables; it can be interpreted only in terms of
+formula representation: “<span 
+class="cmmi-10x-x-109">a</span>” will be placed in front of “<span 
+class="cmmi-10x-x-109">b</span>” or “<span 
+class="cmmi-10x-x-109">a</span>” is more complicated than
+“<span 
+class="cmmi-10x-x-109">b</span>”.
+</p><!--l. 109--><p class="noindent" >The sequence of variables constitutes this order base. So the notion of
+</p>
+<table 
+class="equation-star"><tr><td>
+                             <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,x</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">,x</span><span 
+class="cmr-10x-x-109">3</span><span 
+class="cmsy-10x-x-109">}</span>
+</td></tr></table>
+<!--l. 111--><p class="nopar" >
+</p><!--l. 113--><p class="noindent" >as a list of variables at the same time means
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                            <span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">1 </span><span 
+class="cmsy-10x-x-109">≫ </span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">2 </span><span 
+class="cmsy-10x-x-109">≫ </span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">3</span>
+</td></tr></table>
+<!--l. 114--><p class="nopar" >
+with respect to the term order.
+</p><!--l. 117--><p class="noindent" >If terms (products of powers of variables) are compared with <span 
+class="ptmri8t-x-x-109">lex</span>, that term is chosen
+which has a greater variable or a higher degree if the greatest variable is the ﬁrst in both.
+With <span 
+class="ptmri8t-x-x-109">gradlex </span>the sum of all exponents (the total degree) is compared ﬁrst, and if that
+does not lead to a decision, the <span 
+class="ptmri8t-x-x-109">lex </span>method is taken for the ﬁnal decision. The
+<span 
+class="ptmri8t-x-x-109">revgradlex </span>method also compares the total degree ﬁrst, but afterward it uses
+the <span 
+class="ptmri8t-x-x-109">lex </span>method in the reverse direction; this is the method originally used by
+Buchberger.
+<a 
+ id="x217-816007r1"></a>
+</p><!--l. 126--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Example 1 </span>with <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">x,y,z</span><span 
+class="cmsy-10x-x-109">}</span>: <a 
+ id="dx217-816008"></a>
+</p>
+<div class="center" 
+>
+<!--l. 128--><p class="noindent" >
+</p>
+<div class="tabular"> <table id="TBL-81" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-81-1g"><col 
+id="TBL-81-1" /><col 
+id="TBL-81-2" /><col 
+id="TBL-81-3" /><col 
+id="TBL-81-4" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-81-1-"><td colspan="2" style="white-space:nowrap; text-align:left;" id="TBL-81-1-1"  
+class="td01"> <div class="multicolumn"  style="white-space:nowrap; text-align:left;"><span 
+class="ptmb8t-x-x-109">lex:</span></div></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-81-2-"><td  style="white-space:nowrap; text-align:right;" id="TBL-81-2-1"  
+class="td01">  <span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">y </span><span 
+class="cmsy-10x-x-109">∗∗</span><span 
+class="cmr-10x-x-109">3  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-81-2-2"  
+class="td11"> <span 
+class="cmsy-10x-x-109">≫ </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-81-2-3"  
+class="td11"> <span 
+class="cmmi-10x-x-109">y </span><span 
+class="cmsy-10x-x-109">∗∗</span><span 
+class="cmr-10x-x-109">48            </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-81-2-4"  
+class="td11"> (heavier variable)                      </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-81-3-"><td  style="white-space:nowrap; text-align:right;" id="TBL-81-3-1"  
+class="td01"><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmsy-10x-x-109">∗∗</span><span 
+class="cmr-10x-x-109">4 </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">y </span><span 
+class="cmsy-10x-x-109">∗∗</span><span 
+class="cmr-10x-x-109">2  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-81-3-2"  
+class="td11"> <span 
+class="cmsy-10x-x-109">≫ </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-81-3-3"  
+class="td11"> <span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmsy-10x-x-109">∗∗</span><span 
+class="cmr-10x-x-109">3 </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">y </span><span 
+class="cmsy-10x-x-109">∗∗</span><span 
+class="cmr-10x-x-109">10  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-81-3-4"  
+class="td11"> (higher degree in 1st variable)  </td>
+</tr><tr 
+class="vspace" style="font-size:5.69054pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-81-4-"><td colspan="2" style="white-space:nowrap; text-align:left;" id="TBL-81-4-1"  
+class="td01"> <div class="multicolumn"  style="white-space:nowrap; text-align:left;"><span 
+class="ptmb8t-x-x-109">gradlex:</span></div>
+</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-81-5-"><td  style="white-space:nowrap; text-align:right;" id="TBL-81-5-1"  
+class="td01"><span 
+class="cmmi-10x-x-109">y </span><span 
+class="cmsy-10x-x-109">∗∗</span><span 
+class="cmr-10x-x-109">3 </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">z </span><span 
+class="cmsy-10x-x-109">∗∗</span><span 
+class="cmr-10x-x-109">4  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-81-5-2"  
+class="td11"> <span 
+class="cmsy-10x-x-109">≫ </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-81-5-3"  
+class="td11"> <span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmsy-10x-x-109">∗∗</span><span 
+class="cmr-10x-x-109">3 </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">y </span><span 
+class="cmsy-10x-x-109">∗∗</span><span 
+class="cmr-10x-x-109">3   </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-81-5-4"  
+class="td11"> (higher total degree)                  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-81-6-"><td  style="white-space:nowrap; text-align:right;" id="TBL-81-6-1"  
+class="td01">       <span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">z  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-81-6-2"  
+class="td11"> <span 
+class="cmsy-10x-x-109">≫ </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-81-6-3"  
+class="td11"> <span 
+class="cmmi-10x-x-109">y </span><span 
+class="cmsy-10x-x-109">∗∗</span><span 
+class="cmr-10x-x-109">2              </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-81-6-4"  
+class="td11"> (equal total degree)                   </td>
+</tr><tr 
+class="vspace" style="font-size:5.69054pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-81-7-"><td colspan="2" style="white-space:nowrap; text-align:left;" id="TBL-81-7-1"  
+class="td01"> <div class="multicolumn"  style="white-space:nowrap; text-align:left;"><span 
+class="ptmb8t-x-x-109">revgradlex:</span></div>
+</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-81-8-"><td  style="white-space:nowrap; text-align:right;" id="TBL-81-8-1"  
+class="td01"><span 
+class="cmmi-10x-x-109">y </span><span 
+class="cmsy-10x-x-109">∗∗</span><span 
+class="cmr-10x-x-109">3 </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">z </span><span 
+class="cmsy-10x-x-109">∗∗</span><span 
+class="cmr-10x-x-109">4  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-81-8-2"  
+class="td11"> <span 
+class="cmsy-10x-x-109">≫ </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-81-8-3"  
+class="td11"> <span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmsy-10x-x-109">∗∗</span><span 
+class="cmr-10x-x-109">3 </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">y </span><span 
+class="cmsy-10x-x-109">∗∗</span><span 
+class="cmr-10x-x-109">3   </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-81-8-4"  
+class="td11"> (higher total degree)                  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-81-9-"><td  style="white-space:nowrap; text-align:right;" id="TBL-81-9-1"  
+class="td01">       <span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">z  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-81-9-2"  
+class="td11"> <span 
+class="cmsy-10x-x-109">≪ </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-81-9-3"  
+class="td11"> <span 
+class="cmmi-10x-x-109">y </span><span 
+class="cmsy-10x-x-109">∗∗</span><span 
+class="cmr-10x-x-109">2              </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-81-9-4"  
+class="td11"> (equal total degree,                    </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-81-10-"><td  style="white-space:nowrap; text-align:right;" id="TBL-81-10-1"  
+class="td01">           </td><td  style="white-space:nowrap; text-align:left;" id="TBL-81-10-2"  
+class="td11">   </td><td  style="white-space:nowrap; text-align:left;" id="TBL-81-10-3"  
+class="td11">             </td><td  style="white-space:nowrap; text-align:left;" id="TBL-81-10-4"  
+class="td11"> so reverse order of lex)             </td>
+</tr></table></div></div>
+<!--l. 143--><p class="noindent" >The formal description of the term order modes is similar to <span class="cite">[<a 
+href="manualap2.html#XKredel:88">Kre88</a>]</span>; this description
+regards only the exponents of a term, which are written as vectors of integers with <span 
+class="cmr-10x-x-109">0 </span>for
+exponents of a variable which does not occur:
+</p>
+                                                                     
+
+                                                                     
+<table 
+class="equation-star"><tr><td>
+<div class="array"> <table id="TBL-82" class="array" 
+cellpadding="0" cellspacing="0"  
+><colgroup id="TBL-82-1g"><col 
+id="TBL-82-1" /></colgroup><tr  
+ style="vertical-align:baseline;"><td  style="white-space:nowrap; text-align:left;" 
+><div class="td11"> <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">e</span><span 
+class="cmr-10x-x-109">) = (</span><span 
+class="cmmi-10x-x-109">e</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,en</span><span 
+class="cmr-10x-x-109">)</span> representing <span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">1 </span><span 
+class="cmsy-10x-x-109">∗∗</span><span 
+class="cmmi-10x-x-109">e</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109"> x</span><span 
+class="cmr-10x-x-109">2 </span><span 
+class="cmsy-10x-x-109">∗∗</span><span 
+class="cmmi-10x-x-109">e</span><span 
+class="cmr-10x-x-109">2</span><img 
+src="manual264x.png" alt="⋅⋅⋅"  class="@cdots"  /><span 
+class="cmmi-10x-x-109">xn </span><span 
+class="cmsy-10x-x-109">∗∗</span><span 
+class="cmmi-10x-x-109">en. </span></div></td>
+</tr><tr  
+ style="vertical-align:baseline;"><td  style="white-space:nowrap; text-align:left;" 
+><div class="td11"> <span 
+class="cmr-10x-x-109">deg</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">e</span><span 
+class="cmr-10x-x-109">)</span> is the sum over all elements of <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">e</span><span 
+class="cmr-10x-x-109">)                           </span></div></td>
+</tr><tr  
+ style="vertical-align:baseline;"><td  style="white-space:nowrap; text-align:left;" 
+><div class="td11"> <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">e</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmsy-10x-x-109">≫ </span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">l</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">⇔</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">e</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">l</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmsy-10x-x-109">≫ </span><span 
+class="cmr-10x-x-109">(0) = (0</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">0)                               </span></div></td>
+</tr></table>                                                                     </div>
+</td></tr></table>
+<!--l. 154--><p class="nopar" >
+</p>
+<div class="center" 
+>
+<!--l. 155--><p class="noindent" >
+</p>
+<div class="tabular"> <table id="TBL-83" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-83-1g"><col 
+id="TBL-83-1" /><col 
+id="TBL-83-2" /><col 
+id="TBL-83-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-83-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-83-1-1"  
+class="td01"> <div class="multicolumn"  style="white-space:nowrap; text-align:left;"><span 
+class="ptmb8t-x-x-109">lex:</span></div></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-83-2-"><td  style="white-space:nowrap; text-align:right;" id="TBL-83-2-1"  
+class="td
+01"><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">e</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmmi-10x-x-109">&#x003E; lex &#x003E; </span><span 
+class="cmr-10x-x-109">(0)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-83-2-2"  
+class="td11"> <img 
+src="manual265x.png" alt="=⇒"  class="Longrightarrow"  /> </td><td  style="white-space:nowrap; text-align:left;" id="TBL-83-2-3"  
+class="td11"> <span 
+class="cmmi-10x-x-109">e</span><sub><span 
+class="cmmi-8">k</span></sub> <span 
+class="cmmi-10x-x-109">&#x003E; </span><span 
+class="cmr-10x-x-109">0</span> and <span 
+class="cmmi-10x-x-109">e</span><sub><span 
+class="cmmi-8">j</span></sub> <span 
+class="cmr-10x-x-109">= 0</span> for <span 
+class="cmmi-10x-x-109">j </span><span 
+class="cmr-10x-x-109">= 1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,k </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1  </span></td>
+</tr><tr 
+class="vspace" style="font-size:5.69054pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-83-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-83-3-1"  
+class="td01"> <div class="multicolumn"  style="white-space:nowrap; text-align:left;"><span 
+class="ptmb8t-x-x-109">gradlex:</span></div>
+</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-83-4-"><td  style="white-space:nowrap; text-align:right;" id="TBL-83-4-1"  
+class="td01"> <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">e</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmmi-10x-x-109">&#x003E; gl &#x003E; </span><span 
+class="cmr-10x-x-109">(0)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-83-4-2"  
+class="td11"> <img 
+src="manual266x.png" alt="=⇒"  class="Longrightarrow"  /> </td><td  style="white-space:nowrap; text-align:left;" id="TBL-83-4-3"  
+class="td11"> <span 
+class="cmr-10x-x-109">deg</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">e</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmmi-10x-x-109">&#x003E; </span><span 
+class="cmr-10x-x-109">0</span> or <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">e</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmmi-10x-x-109">&#x003E; lex &#x003E; </span><span 
+class="cmr-10x-x-109">(0)          </span></td>
+</tr><tr 
+class="vspace" style="font-size:5.69054pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-83-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-83-5-1"  
+class="td01"> <div class="multicolumn"  style="white-space:nowrap; text-align:left;"><span 
+class="ptmb8t-x-x-109">revgradlex:</span></div>
+</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-83-6-"><td  style="white-space:nowrap; text-align:right;" id="TBL-83-6-1"  
+class="td01"><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">e</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmmi-10x-x-109">&#x003E; rgl &#x003E; </span><span 
+class="cmr-10x-x-109">(0)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-83-6-2"  
+class="td11"> <img 
+src="manual267x.png" alt="=⇒"  class="Longrightarrow"  /> </td><td  style="white-space:nowrap; text-align:left;" id="TBL-83-6-3"  
+class="td11"> <span 
+class="cmr-10x-x-109">deg</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">e</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmmi-10x-x-109">&#x003E; </span><span 
+class="cmr-10x-x-109">0</span> or <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">e</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmmi-10x-x-109">&#x003C; lex &#x003C; </span><span 
+class="cmr-10x-x-109">(0)          </span></td>
+</tr></table></div></div>
+<!--l. 167--><p class="noindent" >Note that the <span 
+class="ptmri8t-x-x-109">lex </span>ordering is identical to the standard REDUCE kernel ordering, when
+<span 
+class="pcrr8t-x-x-109">korder </span>is set explicitly to the sequence of variables.
+<a 
+ id="dx217-816009"></a>
+<a 
+ id="dx217-816010"></a>
+</p><!--l. 172--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">lex </span>is the default term order mode in the <span 
+class="ptmrc8t-x-x-109">G<span 
+class="small-caps">R</span><span 
+class="small-caps">O</span><span 
+class="small-caps">E</span><span 
+class="small-caps">B</span><span 
+class="small-caps">N</span><span 
+class="small-caps">E</span><span 
+class="small-caps">R</span> </span>package.
+</p><!--l. 174--><p class="noindent" >It is beyond the scope of this manual to discuss the functionality of the term order modes.
+See <span class="cite">[<a 
+href="manualap2.html#XBuchberger:88">Buc88</a>]</span>.
+</p><!--l. 177--><p class="noindent" >The list of variables is declared as an optional parameter of the <span 
+class="pcrr8t-x-x-109">torder </span>statement (see
+below). If this declaration is missing or if the empty list has been used, the variables are
+extracted from the expressions automatically and the REDUCE system order deﬁnes
+their sequence; this can be inﬂuenced by setting an explicit order via the <span 
+class="pcrr8t-x-x-109">korder</span>
+statement.
+</p><!--l. 184--><p class="noindent" >The result of a Gröbner calculation is algebraically correct only with respect to the term
+order mode and the variable sequence which was in eﬀect during the calculation. This is
+                                                                     
+
+                                                                     
+important if several calls to the <span 
+class="ptmrc8t-x-x-109">G<span 
+class="small-caps">R</span><span 
+class="small-caps">O</span><span 
+class="small-caps">E</span><span 
+class="small-caps">B</span><span 
+class="small-caps">N</span><span 
+class="small-caps">E</span><span 
+class="small-caps">R</span> </span>package are done with the result of the ﬁrst
+being the input of the second call. Therefore we recommend that you declare the
+variable list and the order mode explicitly. Once declared it remains valid until
+you enter a new <span 
+class="ptmri8t-x-x-109">torder </span>statement. The operator <span 
+class="ptmri8t-x-x-109">gvars </span>helps you extract the
+variables from a given set of polynomials, if an automatic reordering has been
+selected.
+</p><!--l. 194--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x217-8170001"></a>The Buchberger Algorithm</h5>
+<a 
+ id="dx217-817001"></a>
+<!--l. 196--><p class="noindent" >The Buchberger algorithm of the package is based on <span 
+class="ptmrc8t-x-x-109">G<span 
+class="small-caps">E</span><span 
+class="small-caps">B</span><span 
+class="small-caps">A</span><span 
+class="small-caps">U</span><span 
+class="small-caps">E</span><span 
+class="small-caps">R</span>/M</span><span 
+class="ptmrc8t-x-x-109">ö</span><span 
+class="ptmrc8t-x-x-109"><span 
+class="small-caps">L</span><span 
+class="small-caps">L</span><span 
+class="small-caps">E</span><span 
+class="small-caps">R</span> </span><span class="cite">[<a 
+href="manualap2.html#XGebauer:88">GM88</a>]</span>.
+Extensions are documented in <span class="cite">[<a 
+href="manualap2.html#XMelenk:88">MMN88</a>]</span> and <span class="cite">[<a 
+href="manualap2.html#XGiovini:91">GMN<sup><span 
+class="cmr-8">+</span></sup>91</a>]</span>.
+</p><!--l. 200--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.25.2    </span> <a 
+ id="x217-81800020.25.2"></a>Loading of the Package</h4>
+<!--l. 201--><p class="noindent" >The following command loads the package into REDUCE (this syntax may vary
+according to the implementation): </p>
+<div class="center" 
+>
+<!--l. 203--><p class="noindent" >
+</p><!--l. 204--><p class="noindent" >load_package groebner;</p></div>
+<!--l. 207--><p class="noindent" >The package contains various operators, and switches for control over the reduction
+process. These are discussed in the following.
+</p><!--l. 210--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.25.3    </span> <a 
+ id="x217-81900020.25.3"></a>The Basic Operators</h4>
+<!--l. 212--><p class="noindent" >
+                                                                     
+
+                                                                     
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x217-82000020.25.3"></a>Term Ordering Mode</h5>
+<a 
+ id="dx217-820001"></a>
+     <dl class="description"><dt class="description">
+<span 
+class="pcrr8t-x-x-109">torder</span><span 
+class="ptmb8t-x-x-109">(</span><span 
+class="cmmi-10x-x-109">vl,m,</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,p</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmr-10x-x-109">]</span><span 
+class="ptmb8t-x-x-109">);</span> </dt><dd 
+class="description"><br 
+class="newline" /><a 
+ id="operator:TORDER"></a>  where  <span 
+class="cmmi-10x-x-109">vl </span>is  a  variable  list  (or  the  empty  list  if  no  variables  are  declared
+     explicitly), <span 
+class="cmmi-10x-x-109">m </span>is the name of a term ordering mode <span 
+class="ptmri8t-x-x-109">lex</span>, <span 
+class="ptmri8t-x-x-109">gradlex</span>, <span 
+class="ptmri8t-x-x-109">revgradlex</span>
+     (or another implemented mode) and <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,p</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmr-10x-x-109">] </span>are additional parameters for
+     the term ordering mode (not needed for the basic modes).
+     <!--l. 225--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">torder </span>sets variable set and the term ordering mode. The default mode
+     is  <span 
+class="ptmri8t-x-x-109">lex</span>.  The  previous  description  is  returned  as  a  list  with  corresponding
+     elements.  Such  a  list  can  alternatively  be  passed  as  sole  argument  to
+     <span 
+class="pcrr8t-x-x-109">torder</span>.
+     </p><!--l. 230--><p class="noindent" >If  the  variable  list  is  empty  or  if  the  <span 
+class="pcrr8t-x-x-109">torder </span>declaration  is  omitted,  the
+     automatic variable extraction is activated.
+<a 
+ id="dx217-820002"></a>
+     </p></dd><dt class="description">
+<span 
+class="pcrr8t-x-x-109">gvars</span><span 
+class="ptmb8t-x-x-109">(</span><span 
+class="ptmbi8t-x-x-109">{exp</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="ptmbi8t-x-x-109">, exp</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="ptmbi8t-x-x-109">,</span> <span 
+class="cmmi-10x-x-109">…</span><span 
+class="ptmbi8t-x-x-109">, exp</span><span 
+class="cmmi-10x-x-109">n</span><span 
+class="ptmbi8t-x-x-109">}</span><span 
+class="ptmb8t-x-x-109">);</span> </dt><dd 
+class="description"><br 
+class="newline" /><a 
+ id="operator:GVARS"></a> where <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">exp</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,exp</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,expn</span><span 
+class="cmsy-10x-x-109">} </span>is a list of expressions or equations.
+     <!--l. 239--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">gvars </span>extracts  from  the  expressions  <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">exp</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,exp</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,expn</span><span 
+class="cmsy-10x-x-109">} </span>the  kernels,
+     which can play the role of variables for a Gröbner calculation. This can be
+     used e.g. in a <span 
+class="pcrr8t-x-x-109">torder </span>declaration.</p></dd></dl>
+<!--l. 244--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x217-82100020.25.3"></a><span 
+class="ptmrc8t-x-x-109">G<span 
+class="small-caps">R</span><span 
+class="small-caps">O</span><span 
+class="small-caps">E</span><span 
+class="small-caps">B</span><span 
+class="small-caps">N</span><span 
+class="small-caps">E</span><span 
+class="small-caps">R</span></span>: Calculation of a Gröbner Basis</h5>
+<a 
+ id="dx217-821001"></a>
+     <dl class="description"><dt class="description">
+<span 
+class="pcrr8t-x-x-109">groebner</span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">exp</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,exp</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,expm</span><span 
+class="cmsy-10x-x-109">}</span><span 
+class="cmr-10x-x-109">;</span> </dt><dd 
+class="description"><br 
+class="newline" /><a 
+ id="operator:GROEBNER"></a> where <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">exp</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,exp</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,expm</span><span 
+class="cmsy-10x-x-109">} </span>is a list of expressions or equations.
+     <!--l. 252--><p class="noindent" ><span 
+class="ptmrc8t-x-x-109">G<span 
+class="small-caps">R</span><span 
+class="small-caps">O</span><span 
+class="small-caps">E</span><span 
+class="small-caps">B</span><span 
+class="small-caps">N</span><span 
+class="small-caps">E</span><span 
+class="small-caps">R</span> </span>calculates the Gröbner basis of the given set of expressions
+     with respect to the current <span 
+class="pcrr8t-x-x-109">torder </span>setting.
+                                                                     
+
+                                                                     
+     </p><!--l. 255--><p class="noindent" >The  Gröbner  basis  <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmsy-10x-x-109">} </span>means  that  the  ideal  generated  by  the  input
+     polynomials  is  the  whole  polynomial  ring,  or  equivalently,  that  the  input
+     polynomials have no zeroes in common.
+     </p><!--l. 259--><p class="noindent" >As a side eﬀect, the sequence of variables is stored as a REDUCE list in the shared
+     variable <a 
+ id="dx217-821002"></a> <a 
+ id="reserved:GVARSLAST"></a> </p>
+     <div class="center" 
+>
+<!--l. 263--><p class="noindent" >
+</p><!--l. 264--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">gvarslast</span>.</p></div>
+     <!--l. 267--><p class="noindent" >This is important if the variables are reordered because of optimization: you must
+     set them afterwards explicitly as the current variable sequence if you want to use
+     the Gröbner basis in the sequel, e.g. for a <span 
+class="pcrr8t-x-x-109">preduce </span>call. A basis has the property
+     “Gröbner” only with respect to the variable sequences which had been active
+     during its computation.</p></dd></dl>
+<a 
+ id="x217-821003r2"></a>
+<!--l. 274--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Example 2</span><a 
+ id="dx217-821004"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1203">
+   torder({},lex)$
+ <br />   groebner{3*x**2*y + 2*x*y + y + 9*x**2 + 5*x - 3,
+ <br />   2*x**3*y - x*y - y + 6*x**3 - 2*x**2 - 3*x + 3,
+ <br />   x**3*y + x**2*y + 3*x**3 + 2*x**2 };
+ <br />
+ <br />               2
+ <br />     {8*x - 2*y  + 5*y + 3,
+ <br />
+ <br />         3      2
+ <br />      2*y  - 3*y  - 16*y + 21}
+</div>
+<!--l. 286--><p class="nopar" >
+</p><!--l. 289--><p class="noindent" >This example used the default system variable ordering, which was <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">x,y</span><span 
+class="cmsy-10x-x-109">}</span>. With the
+other variable ordering, a diﬀerent basis results:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1204">
+   torder({y,x},lex)$
+ <br />   groebner{3*x**2*y + 2*x*y + y + 9*x**2 + 5*x - 3,
+ <br />   2*x**3*y - x*y - y + 6*x**3 - 2*x**2 - 3*x + 3,
+ <br />   x**3*y + x**2*y + 3*x**3 + 2*x**2 };
+ <br />
+ <br />               2
+ <br />     {2*y + 2*x  - 3*x - 6,
+ <br />
+ <br />         3      2
+ <br />      2*x  - 5*x  - 5*x}
+</div>
+<!--l. 303--><p class="nopar" >
+</p><!--l. 306--><p class="noindent" >Another basis yet again results with a diﬀerent term ordering:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1205">
+   torder({x,y},revgradlex)$
+ <br />   groebner{3*x**2*y + 2*x*y + y + 9*x**2 + 5*x - 3,
+ <br />   2*x**3*y - x*y - y + 6*x**3 - 2*x**2 - 3*x + 3,
+ <br />   x**3*y + x**2*y + 3*x**3 + 2*x**2 };
+ <br />
+ <br />    2
+ <br />{2*y  - 5*y - 8*x - 3,
+ <br />
+ <br /> y*x - y + x + 3,
+ <br />
+ <br />    2
+ <br /> 2*x  + 2*y - 3*x - 6}
+</div>
+<!--l. 320--><p class="nopar" >
+</p><!--l. 323--><p class="noindent" >The operation of <span 
+class="ptmrc8t-x-x-109">G<span 
+class="small-caps">R</span><span 
+class="small-caps">O</span><span 
+class="small-caps">E</span><span 
+class="small-caps">B</span><span 
+class="small-caps">N</span><span 
+class="small-caps">E</span><span 
+class="small-caps">R</span> </span>can be controlled by the following switches:
+<a 
+ id="dx217-821005"></a>
+<a 
+ id="dx217-821006"></a>
+<a 
+ id="dx217-821007"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="pcrr8t-x-x-109">groebopt </span><span 
+class="ptmb8t-x-x-109">–</span> </dt><dd 
+class="description"><a 
+ id="switch:GROEBOPT"></a> If set <span 
+class="pcrr8t-x-x-109">on</span>, the sequence of variables is optimized with respect to
+     execution speed; the algorithm involved is described in <span class="cite">[<a 
+href="manualap2.html#XBoege:86">BGK86</a>]</span>; note that
+     the ﬁnal list of variables is available in <a 
+ id="dx217-821008"></a> <span 
+class="pcrr8t-x-x-109">gvarslast</span>.
+     <!--l. 334--><p class="noindent" >An explicitly declared dependency supersedes the variable optimization. For
+     example </p>
+     <div class="center" 
+>
+<!--l. 335--><p class="noindent" >
+</p><!--l. 336--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">depend a, x, y;</span></p></div>
+     <!--l. 338--><p class="noindent" >guarantees that <span 
+class="pcrr8t-x-x-109">a </span>will be placed in front of <span 
+class="pcrr8t-x-x-109">x </span>and <span 
+class="pcrr8t-x-x-109">y</span>. So <span 
+class="pcrr8t-x-x-109">groebopt </span>can be used
+     even in cases where elimination of variables is desired.
+     </p><!--l. 341--><p class="noindent" >By default <span 
+class="pcrr8t-x-x-109">groebopt </span>is <span 
+class="pcrr8t-x-x-109">off</span>, conserving the original variable sequence.
+<a 
+ id="dx217-821009"></a>
+<a 
+ id="dx217-821010"></a>
+<a 
+ id="dx217-821011"></a>
+                                                                     
+
+                                                                     
+     </p></dd><dt class="description">
+<span 
+class="pcrr8t-x-x-109">groebfullreduction </span><span 
+class="ptmb8t-x-x-109">–</span> </dt><dd 
+class="description"><a 
+ id="switch:GROEBFULLREDUCTION"></a> If set <span 
+class="pcrr8t-x-x-109">off</span>, the reduction steps during the
+     <span 
+class="ptmrc8t-x-x-109">G<span 
+class="small-caps">R</span><span 
+class="small-caps">O</span><span 
+class="small-caps">E</span><span 
+class="small-caps">B</span><span 
+class="small-caps">N</span><span 
+class="small-caps">E</span><span 
+class="small-caps">R</span> </span>operation are limited to the pure head term reduction; subsequent
+     terms are reduced otherwise.
+     <!--l. 350--><p class="noindent" >By default <span 
+class="pcrr8t-x-x-109">groebfullreduction </span>is on.
+<a 
+ id="dx217-821012"></a>
+<a 
+ id="dx217-821013"></a>
+<a 
+ id="dx217-821014"></a>
+<a 
+ id="dx217-821015"></a>
+     </p></dd><dt class="description">
+<span 
+class="pcrr8t-x-x-109">gltbasis </span><span 
+class="ptmb8t-x-x-109">–</span> </dt><dd 
+class="description"><a 
+ id="reserved:GLTB"></a> <a 
+ id="switch:GLTBASIS"></a> If set on, the leading terms of the result basis are extracted. They are
+     collected in a basis of monomials, which is available as value of the global variable
+     with the name <span 
+class="pcrr8t-x-x-109">gltb</span>.
+     </dd><dt class="description">
+<span 
+class="pcrr8t-x-x-109">glterms </span><span 
+class="ptmb8t-x-x-109">–</span> </dt><dd 
+class="description"><a 
+ id="dx217-821016"></a><a 
+ id="dx217-821017"></a><a 
+ id="dx217-821018"></a> <a 
+ id="dx217-821019"></a> <a 
+ id="switch:GLTERMS"></a> <a 
+ id="reserved:GLTERMS"></a> If <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">exp</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,exp</span><sub><span 
+class="cmmi-8">m</span></sub><span 
+class="cmsy-10x-x-109">} </span>contain parameters (symbols which are not member
+     of the variable list), the shared variable <span 
+class="pcrr8t-x-x-109">glterms </span>contains a list of expression
+     which during the calculation were assumed to be nonzero. A Gröbner
+     basis is valid only under the assumption that all these expressions do not
+     vanish.
+     </dd></dl>
+<!--l. 374--><p class="noindent" >The following switches control the print output of <span 
+class="ptmrc8t-x-x-109">G<span 
+class="small-caps">R</span><span 
+class="small-caps">O</span><span 
+class="small-caps">E</span><span 
+class="small-caps">B</span><span 
+class="small-caps">N</span><span 
+class="small-caps">E</span><span 
+class="small-caps">R</span></span>; by default all these
+switches are set <span 
+class="pcrr8t-x-x-109">off </span>and nothing is printed.
+<a 
+ id="dx217-821020"></a>
+<a 
+ id="dx217-821021"></a>
+<a 
+ id="dx217-821022"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="pcrr8t-x-x-109">groebstat </span><span 
+class="ptmb8t-x-x-109">–</span> </dt><dd 
+class="description"><a 
+ id="switch:GROEBSTAT"></a> A summary of the computation is printed including the computing
+     time, the number of intermediate <span 
+class="cmmi-10x-x-109">h</span>–polynomials and the counters for the hits
+     of the criteria.
+<a 
+ id="dx217-821023"></a>
+<a 
+ id="dx217-821024"></a>
+<a 
+ id="dx217-821025"></a>
+     </dd><dt class="description">
+<span 
+class="pcrr8t-x-x-109">trgroeb </span><span 
+class="ptmb8t-x-x-109">–</span> </dt><dd 
+class="description"><a 
+ id="switch:TRGROEB"></a>   Includes   <span 
+class="pcrr8t-x-x-109">groebstat </span>and   the   printing   of   the   intermediate
+     <span 
+class="cmmi-10x-x-109">h</span>-polynomials.
+<a 
+ id="dx217-821026"></a>
+<a 
+ id="dx217-821027"></a>
+<a 
+ id="dx217-821028"></a>
+                                                                     
+
+                                                                     
+     </dd><dt class="description">
+<span 
+class="pcrr8t-x-x-109">trgroebs </span><span 
+class="ptmb8t-x-x-109">–</span> </dt><dd 
+class="description"><a 
+ id="switch:TRGROEBS"></a>    Includes    <span 
+class="pcrr8t-x-x-109">trgroeb  </span>and    the    printing    of    intermediate
+     <span 
+class="cmmi-10x-x-109">s</span>–polynomials.
+<a 
+ id="dx217-821029"></a>
+<a 
+ id="dx217-821030"></a>
+<a 
+ id="dx217-821031"></a>
+     </dd><dt class="description">
+<span 
+class="pcrr8t-x-x-109">trgroeb1 </span><span 
+class="ptmb8t-x-x-109">–</span> </dt><dd 
+class="description"><a 
+ id="switch:TRGROEB1"></a> The internal pairlist is printed when modiﬁed.</dd></dl>
+<!--l. 402--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x217-8220002"></a><span 
+class="pcrb8t-x-x-109">Gzerodim!?</span>: Test of <span 
+class="cmr-10x-x-109">dim</span> <span 
+class="cmr-10x-x-109">= 0</span></h5>
+<a 
+ id="dx217-822001"></a>
+     <dl class="description"><dt class="description">
+<span 
+class="pcrr8t-x-x-109">gzerodim!?</span><span 
+class="ptmbi8t-x-x-109">bas</span> </dt><dd 
+class="description"><br 
+class="newline" /><a 
+ id="operator:GZERODIM!?"></a> where <span 
+class="ptmri8t-x-x-109">bas </span>is a Gröbner basis in the current setting. The result is <span 
+class="pcrr8t-x-x-109">nil </span>if <span 
+class="ptmri8t-x-x-109">bas</span>
+     is the basis of an ideal of polynomials with more than ﬁnitely many common
+     zeros. If the ideal is zero dimensional, i. e. the polynomials of the ideal have
+     only ﬁnitely many zeros in common, the result is an integer <span 
+class="cmmi-10x-x-109">k </span>which is the
+     number of these common zeros (counted with multiplicities).</dd></dl>
+<!--l. 416--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x217-8230002"></a><span 
+class="pcrr8t-x-x-109">gdimension</span>, <span 
+class="pcrr8t-x-x-109">gindependent_sets</span>: compute dimension and independent
+variables</h5>
+<!--l. 417--><p class="noindent" >The following operators can be used to compute the dimension and the independent
+variable sets of an ideal which has the Gröbner basis <span 
+class="ptmri8t-x-x-109">bas </span>with arbitrary term
+order:
+<a 
+ id="dx217-823001"></a>
+<a 
+ id="dx217-823002"></a>
+<a 
+ id="dx217-823003"></a>
+<a 
+ id="dx217-823004"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="pcrr8t-x-x-109">gdimension bas</span> </dt><dd 
+class="description"><a 
+ id="operator:GDIMENSION"></a>
+                                                                     
+
+                                                                     
+     </dd><dt class="description">
+<span 
+class="pcrr8t-x-x-109">gindependent_sets bas</span> </dt><dd 
+class="description"><a 
+ id="operator:GINDEPENDENT_SETS"></a><span 
+class="pcrr8t-x-x-109">gindependent_sets </span>computes the maximal
+     left independent variable sets of the ideal, that are the variable sets which
+     play the role of free parameters in the current ideal basis. Each set is a list
+     which is a subset of the variable list. The result is a list of these sets. For
+     an ideal with dimension zero the list is empty. <span 
+class="pcrr8t-x-x-109">gdimension </span>computes the
+     dimension  of  the  ideal,  which  is  the  maximum  length  of  the  independent
+     sets.</dd></dl>
+<a 
+ id="dx217-823005"></a>
+<a 
+ id="dx217-823006"></a>
+<a 
+ id="dx217-823007"></a>
+<!--l. 438--><p class="noindent" >The switch <span 
+class="pcrr8t-x-x-109">groebopt </span>plays no role in the algorithms <span 
+class="pcrr8t-x-x-109">gdimension </span>and
+<span 
+class="pcrr8t-x-x-109">gindependent_sets</span>. It is set <span 
+class="pcrr8t-x-x-109">off </span>during the processing even if it is set <span 
+class="pcrr8t-x-x-109">on </span>before.
+Its state is saved during the processing.
+</p><!--l. 442--><p class="noindent" >The “Kredel-Weispfenning” algorithm is used (see <span class="cite">[<a 
+href="manualap2.html#XKredel:88a">KW88</a>]</span>, extended to general
+ordering in <span class="cite">[<a 
+href="manualap2.html#XBecker:93">BWK93</a>]</span>.
+</p><!--l. 445--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x217-8240002"></a>Conversion of a Gröbner Basis</h5>
+<!--l. 448--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x217-8250002"></a><span 
+class="pcrr8t-x-x-109">glexconvert</span>: Conversion of an Arbitrary Gröbner Basis of a Zero Dimensional
+Ideal into a Lexical One</h5>
+<a 
+ id="dx217-825001"></a>
+     <dl class="description"><dt class="description">
+<span 
+class="pcrr8t-x-x-109">glexconvert</span><img 
+src="manual268x.png" alt="({exp,...,expm }[,{var1 ...,varn }][,maxdeg  = mx ]"  class="left" align="middle" /> </dt><dd 
+class="description"><br 
+class="newline" /><a 
+ id="operator:GLEXCONVERT"></a> <img 
+src="manual269x.png" alt="[,newvars  = {nv1,...,nvk}])"  class="left" align="middle" /> <br 
+class="newline" />where  <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">exp</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,expm</span><span 
+class="cmsy-10x-x-109">} </span>is  a  Gröbner  basis  with  <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">var</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,varn</span><span 
+class="cmsy-10x-x-109">} </span>as
+     variables in the current term order mode, <span 
+class="cmmi-10x-x-109">mx </span>is an integer, and <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">nv</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,nvk</span><span 
+class="cmsy-10x-x-109">}</span>
+     is  a  subset  of  the  basis  variables.  For  this  operator  the  source  and  target
+     variable sets must be speciﬁed explicitly.</dd></dl>
+<!--l. 463--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">glexconvert </span>converts a basis of a zero-dimensional ideal (ﬁnite number of isolated
+                                                                     
+
+                                                                     
+solutions) from arbitrary ordering into a basis under <span 
+class="ptmri8t-x-x-109">lex </span>ordering. During the
+call of <span 
+class="pcrr8t-x-x-109">glexconvert </span>the original ordering of the input basis must be still
+active!
+</p><!--l. 468--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">newvars </span>deﬁnes the new variable sequence. If omitted, the original variable sequence is
+used. If only a subset of variables is speciﬁed here, the partial ideal basis is evaluated.
+For the calculation of a univariate polynomial, <span 
+class="ptmri8t-x-x-109">new-vars </span>should be a list with one
+element.
+</p><!--l. 474--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">maxdeg </span>is an upper limit for the degrees. The algorithm stops with an error message, if
+this limit is reached.
+</p><!--l. 477--><p class="noindent" >A warning occurs if the ideal is not zero dimensional.
+</p><!--l. 479--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">glexconvert </span>is an implementation of the FLGM algorithm by
+<span 
+class="ptmrc8t-x-x-109">F<span 
+class="small-caps">A</span><span 
+class="small-caps">U</span><span 
+class="small-caps">G</span></span><span 
+class="ptmrc8t-x-x-109">è</span><span 
+class="ptmrc8t-x-x-109"><span 
+class="small-caps">R</span><span 
+class="small-caps">E</span></span>, <span 
+class="ptmrc8t-x-x-109">G<span 
+class="small-caps">I</span><span 
+class="small-caps">A</span><span 
+class="small-caps">N</span><span 
+class="small-caps">N</span><span 
+class="small-caps">I</span></span>, <span 
+class="ptmrc8t-x-x-109">L<span 
+class="small-caps">A</span><span 
+class="small-caps">Z</span><span 
+class="small-caps">A</span><span 
+class="small-caps">R</span><span 
+class="small-caps">D</span> </span>and <span 
+class="ptmrc8t-x-x-109">M<span 
+class="small-caps">O</span><span 
+class="small-caps">R</span><span 
+class="small-caps">A</span> </span><span class="cite">[<a 
+href="manualap2.html#XFaugere:93">FGLM93</a>]</span>. Often, the calculation of
+a Gröbner basis with a graded ordering and subsequent conversion to <span 
+class="ptmri8t-x-x-109">lex </span>is
+faster than a direct <span 
+class="ptmri8t-x-x-109">lex </span>calculation. Additionally, <span 
+class="pcrr8t-x-x-109">glexconvert </span>can be used to
+transform a <span 
+class="ptmri8t-x-x-109">lex </span>basis into one with diﬀerent variable sequence, and it supports the
+calculation of a univariate polynomial. If the latter exists, the algorithm is even
+applicable in the non zero-dimensional case, if such a polynomial exists. If the
+polynomial does not exist, the algorithm computes until <span 
+class="pcrr8t-x-x-109">maxdeg </span>has been
+reached.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1206">
+  torder({{w,p,z,t,s,b},gradlex)
+ <br />
+ <br />  g  :=  groebner  { f1 := 45*p + 35*s -165*b -36,
+ <br />         35*p + 40*z + 25*t - 27*s, 15*w + 25*p*s +30*z
+ <br />        -18*t -165*b**2, -9*w + 15*p*t  + 20*z*s,
+ <br />        w*p + 2*z*t - 11*b**3, 99*w - 11*s*b +3*b**2,
+ <br />        b**2 + 33/50*b + 2673/10000};
+ <br />
+ <br />  g := {60000*w + 9500*b + 3969,
+ <br />
+ <br />      1800*p - 3100*b - 1377,
+ <br />
+ <br />      18000*z + 24500*b + 10287,
+ <br />
+ <br />      750*t - 1850*b + 81,
+ <br />
+ <br />      200*s - 500*b - 9,
+ <br />             2
+ <br />      10000*b  + 6600*b + 2673}
+ <br />
+ <br />   glexconvert(g,{w,p,z,t,s,b},maxdeg=5,newvars={w});
+ <br />
+ <br />               2
+ <br />    100000000*w  + 2780000*w + 416421
+ <br />
+ <br />   glexconvert(g,{w,p,z,t,s,b},maxdeg=5,newvars={p});
+ <br />
+ <br />          2
+ <br />    6000*p  - 2360*p + 3051
+</div>
+<!--l. 520--><p class="nopar" >
+</p><!--l. 523--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x217-8260002"></a><span 
+class="pcrr8t-x-x-109">groebner_walk</span>: Conversion of a (General) Total Degree Basis into a Lex
+                                                                     
+
+                                                                     
+One</h5>
+<!--l. 524--><p class="noindent" ><a 
+ id="operator:GROEBNER_WALK"></a> The algorithm <span 
+class="pcrr8t-x-x-109">groebner_walk </span>convertes from an arbitrary polynomial system a
+<span 
+class="ptmri8t-x-x-109">graduated </span>basis of the given variable sequence to a <span 
+class="ptmri8t-x-x-109">lex </span>one of the same sequence. The
+job is done by computing a sequence of Gröbner bases of correspondig monomial
+ideals, lifting the original system each time. The algorithm has been described (more
+generally) by <span class="cite">[<a 
+href="manualap2.html#XAmrheinGloorKuechlin:96a">AGK96a</a>]</span>,<span class="cite">[<a 
+href="manualap2.html#XAmrheinGloorKuechlin:96b">AGK96b</a>]</span>,<span class="cite">[<a 
+href="manualap2.html#XAmrheinGloor:98">AG98</a>]</span> and <span class="cite">[<a 
+href="manualap2.html#XCollart:97">CKM97</a>]</span>. <span 
+class="pcrr8t-x-x-109">groebner_walk </span>should
+be only called if the direct calculation of a <span 
+class="ptmri8t-x-x-109">lex </span>Gröbner base does not work. The
+computation of <span 
+class="pcrr8t-x-x-109">groebner_walk </span>includes some overhead (e. g. the computation
+divides polynomials). Normally <span 
+class="pcrr8t-x-x-109">torder </span>must be called before to deﬁne the
+variables and the variable sorting. The reordering of variables makes no sense
+with <span 
+class="pcrr8t-x-x-109">groebner_walk</span>; so do not call <span 
+class="pcrr8t-x-x-109">groebner_walk </span>with <span 
+class="pcrr8t-x-x-109">groebopt</span>
+on!
+<a 
+ id="dx217-826001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="pcrr8t-x-x-109">groebner_walk </span><span 
+class="cmmi-10x-x-109">g</span> </dt><dd 
+class="description"><br 
+class="newline" />where  <span 
+class="cmmi-10x-x-109">g </span>is  a  polynomial  ideal  basis  computed  under  <span 
+class="ptmri8t-x-x-109">gradlex  </span>or  under
+     <span 
+class="ptmri8t-x-x-109">weighted </span>with a one-element, non zero weight vector with only one element,
+     repeated for each variable. The result is a corresponding <span 
+class="ptmri8t-x-x-109">lex </span>basis (if that
+     is computable), independent of the degree of the ideal (even for non zero
+     degree ideals). The variabe <span 
+class="pcrr8t-x-x-109">gvarslast </span>is not set.<a 
+ id="dx217-826002"></a>variable</dd></dl>
+<!--l. 549--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x217-8270002"></a><span 
+class="pcrr8t-x-x-109">groebnerf</span>: Factorizing Gröbner Bases</h5>
+<!--l. 551--><p class="noindent" ><a 
+ id="operator:GROEBNERF"></a>
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x217-8280002"></a>Background</h5>
+<!--l. 553--><p class="noindent" >If Gröbner bases are computed in order to solve systems of equations or to ﬁnd the
+common roots of systems of polynomials, the factorizing version of the Buchberger
+algorithm can be used. The theoretical background is simple: if a polynomial <span 
+class="cmmi-10x-x-109">p </span>can be
+represented as a product of two (or more) polynomials, e.g. <span 
+class="cmmi-10x-x-109">h </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">f </span><span 
+class="cmsy-10x-x-109">∗</span><span 
+class="cmmi-10x-x-109">g</span>, then <span 
+class="cmmi-10x-x-109">h </span>vanishes if
+and only if one of the factors vanishes. So if during the calculation of a Gröbner basis <span 
+class="cmmi-10x-x-109">h</span>
+of the above form is detected, the whole problem can be split into two (or more)
+disjoint branches. Each of the branches is simpler than the complete problem; this
+                                                                     
+
+                                                                     
+saves computing time and space. The result of this type of computation is a
+list of (partial) Gröbner bases; the solution set of the original problem is the
+union of the solutions of the partial problems, ignoring the multiplicity of an
+individual solution. If a branch results in a basis <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmsy-10x-x-109">}</span>, then there is no common
+zero, i.e. no additional solution for the original problem, contributed by this
+branch.
+</p><!--l. 570--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x217-8290002"></a><span 
+class="pcrr8t-x-x-109">groebnerf </span>Call</h5>
+<a 
+ id="dx217-829001"></a>
+<!--l. 573--><p class="noindent" >The syntax of <span 
+class="pcrr8t-x-x-109">groebnerf </span>is the same as for <span 
+class="pcrr8t-x-x-109">groebner</span>.
+</p>
+<table 
+class="equation-star"><tr><td>
+          <span 
+class="pcrr8t-x-x-109">groebnerf</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">exp</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,exp</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,expm</span><span 
+class="cmsy-10x-x-109">}</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">{}</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">nz</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">nzk</span><span 
+class="cmsy-10x-x-109">}</span><span 
+class="cmr-10x-x-109">);</span>
+</td></tr></table>
+<!--l. 575--><p class="nopar" >
+where <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">exp</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,exp</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,expm</span><span 
+class="cmsy-10x-x-109">} </span>is a given list of expressions or equations, and
+<span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">nz</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">nzk</span><span 
+class="cmsy-10x-x-109">} </span>is an optional list of polynomials known to be non-zero.
+</p><!--l. 580--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">groebnerf </span>tries to separate polynomials into individual factors and to branch the
+computation in a recursive manner (factorization tree). The result is a list of partial
+Gröbner bases. If no factorization can be found or if all branches but one lead to the
+trivial basis <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmsy-10x-x-109">}</span>, the result has only one basis; nevertheless it is a list of lists of
+polynomials. If no solution is found, the result will be <span 
+class="cmsy-10x-x-109">{{</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmsy-10x-x-109">}}</span>. Multiplicities (one
+factor with a higher power, the same partial basis twice) are deleted as early as
+possible in order to speed up the calculation. The factorizing is controlled by some
+switches.
+</p><!--l. 590--><p class="noindent" >As a side eﬀect, the sequence of variables is stored as a REDUCE list in the shared
+variable </p>
+                                                                     
+
+                                                                     
+<div class="center" 
+>
+<!--l. 592--><p class="noindent" >
+</p><!--l. 593--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">gvarslast </span>.</p></div>
+<!--l. 595--><p class="noindent" >If <span 
+class="pcrr8t-x-x-109">gltbasis </span>is on, a corresponding list of leading term bases is also produced and is
+available in the variable <span 
+class="pcrr8t-x-x-109">gltb</span>.
+</p><!--l. 598--><p class="noindent" >The third parameter of <span 
+class="pcrr8t-x-x-109">groebnerf </span>allows one to declare some polynomials
+nonzero. If any of these is found in a branch of the calculation the branch is
+cancelled. This can be used to save a substantial amount of computing time. The
+second parameter must be included as an empty list if the third parameter is to be
+used.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1207">
+   torder({x,y},lex)$
+ <br />   groebnerf { 3*x**2*y + 2*x*y + y + 9*x**2 + 5*x = 3,
+ <br />               2*x**3*y - x*y - y + 6*x**3 - 2*x**2
+ <br />                 - 3*x = -3,
+ <br />                x**3*y + x**2*y + 3*x**3 + 2*x**2 };
+ <br />
+ <br />
+ <br />       {{y - 3,x},
+ <br />
+ <br />                      2
+ <br />    {2*y + 2*x - 1,2*x  - 5*x - 5}}
+</div>
+<!--l. 616--><p class="nopar" > It is obvious here that the solutions of the equations can be read oﬀ immediately.
+</p><!--l. 620--><p class="noindent" >All switches from <span 
+class="pcrr8t-x-x-109">groebner </span>are valid for <span 
+class="pcrr8t-x-x-109">groebnerf </span>as well: <a 
+ id="dx217-829002"></a><a 
+ id="dx217-829003"></a><a 
+ id="dx217-829004"></a> <a 
+ id="dx217-829005"></a><a 
+ id="dx217-829006"></a><a 
+ id="dx217-829007"></a> <a 
+ id="dx217-829008"></a><a 
+ id="dx217-829009"></a><a 
+ id="dx217-829010"></a> <a 
+ id="dx217-829011"></a><a 
+ id="dx217-829012"></a><a 
+ id="dx217-829013"></a> <a 
+ id="dx217-829014"></a><a 
+ id="dx217-829015"></a><a 
+ id="dx217-829016"></a> <a 
+ id="dx217-829017"></a><a 
+ id="dx217-829018"></a><a 
+ id="dx217-829019"></a> <a 
+ id="dx217-829020"></a><a 
+ id="dx217-829021"></a><a 
+ id="dx217-829022"></a> </p>
+<div class="center" 
+>
+<!--l. 628--><p class="noindent" >
+</p>
+<div class="tabular"> <table id="TBL-84" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-84-1g"><col 
+id="TBL-84-1" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-84-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-84-1-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">groebopt          </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-84-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-84-2-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">gltbasis           </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-84-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-84-3-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">groebfullreduction </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-84-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-84-4-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">groebstat          </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-84-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-84-5-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">trgroeb            </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-84-6-"><td  style="white-space:nowrap; text-align:left;" id="TBL-84-6-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">trgroebs           </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-84-7-"><td  style="white-space:nowrap; text-align:left;" id="TBL-84-7-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">rgroeb1            </span></td>
+</tr></table></div></div>
+<!--l. 640--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x217-8300002"></a>Additional switches for <span 
+class="pcrr8t-x-x-109">groebnerf</span>:</h5>
+<a 
+ id="dx217-830001"></a>
+<a 
+ id="dx217-830002"></a>
+<a 
+ id="dx217-830003"></a>
+                                                                     
+
+                                                                     
+     <dl class="description"><dt class="description">
+<span 
+class="pcrr8t-x-x-109">trgroebr </span><span 
+class="ptmb8t-x-x-109">–</span> </dt><dd 
+class="description"><a 
+ id="switch:TRGROEBR"></a> All intermediate partial basis are printed when detected.
+     <!--l. 648--><p class="noindent" >By default <span 
+class="pcrr8t-x-x-109">trgroebr </span>is oﬀ.</p></dd></dl>
+<!--l. 650--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">groebmonfacgroebresmaxgroebrestriction</span><br 
+class="newline" />       These variables are described in the following paragraphs.
+</p><!--l. 654--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x217-8310002"></a>Suppression of Monomial Factors</h5>
+<!--l. 655--><p class="noindent" >The factorization in <span 
+class="pcrr8t-x-x-109">groebnerf </span>is controlled by the following switches and variables.
+The variable <span 
+class="pcrr8t-x-x-109">groebmonfac </span>is connected to the handling of “monomial factors”. A
+monomial factor is a product of variable powers occurring as a factor, e.g. <span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmsy-10x-x-109">∗∗</span><span 
+class="cmr-10x-x-109">2 </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">y </span>in
+<span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmsy-10x-x-109">∗∗</span><span 
+class="cmr-10x-x-109">3 </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">y </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">2 </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmsy-10x-x-109">∗∗</span><span 
+class="cmr-10x-x-109">2 </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">y </span><span 
+class="cmsy-10x-x-109">∗∗</span><span 
+class="cmr-10x-x-109">2</span>. A monomial factor represents a solution of
+the type “<span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">= 0 </span>or <span 
+class="cmmi-10x-x-109">y </span><span 
+class="cmr-10x-x-109">= 0</span>” with a certain multiplicity. With <span 
+class="pcrr8t-x-x-109">groebnerf </span>the
+multiplicity of monomial factors is lowered to the value of the shared variable <a 
+ id="dx217-831001"></a> <a 
+ id="reserved:GROEBMONFAC"></a>
+</p>
+<div class="center" 
+>
+<!--l. 666--><p class="noindent" >
+</p><!--l. 667--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">groebmonfac</span></p></div>
+<!--l. 669--><p class="noindent" >which by default is 1 (= monomial factors remain present, but their multiplicity is
+brought down). With </p>
+<div class="center" 
+>
+<!--l. 671--><p class="noindent" >
+</p><!--l. 672--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">groebmonfac </span>:= 0</p></div>
+<!--l. 674--><p class="noindent" >the monomial factors are suppressed completely.
+</p><!--l. 676--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x217-8320002"></a>Limitation on the Number of Results</h5>
+                                                                     
+
+                                                                     
+<!--l. 677--><p class="noindent" >The shared variable <a 
+ id="dx217-832001"></a> <a 
+ id="reserved:GROEBRESMAX"></a> </p>
+<div class="center" 
+>
+<!--l. 680--><p class="noindent" >
+</p><!--l. 681--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">groebresmax</span></p></div>
+<!--l. 683--><p class="noindent" >controls the number of partial results. Its default value is 300. If <span 
+class="pcrr8t-x-x-109">groebresmax </span>partial
+results are calculated, the calculation is terminated. <span 
+class="pcrr8t-x-x-109">groebresmax </span>counts all branches,
+including those which are terminated (have been computed already), give no contribution
+to the result (partial basis 1), or which are uniﬁed in the result with other (partial) bases.
+So the resulting number may be much smaller. When the limit of <span 
+class="pcrr8t-x-x-109">groeresmax </span>is
+reached, a warning
+</p><!--l. 691--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">warning: GROEBRESMAX limit reached</span>
+</p><!--l. 693--><p class="noindent" >is issued; this warning in any case has to be taken as a serious one. For “normal”
+calculations the <span 
+class="pcrr8t-x-x-109">groebresmax </span>limit is not reached. <span 
+class="ptmri8t-x-x-109">var </span>is a shared variable (with an
+integer value); it can be set in the algebraic mode to a diﬀerent (positive integer)
+value.
+</p><!--l. 698--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x217-8330002"></a>Restriction of the Solution Space</h5>
+<!--l. 699--><p class="noindent" >In some applications only a subset of the complete solution set of a given set of equations
+is relevant, e.g. only nonnegative values or positive deﬁnite values for the variables. A
+signiﬁcant amount of computing time can be saved if nonrelevant computation branches
+can be terminated early.
+</p><!--l. 705--><p class="noindent" >Positivity: If a polynomial has no (strictly) positive zero, then every system containing it
+has no nonnegative or strictly positive solution. Therefore, the Buchberger algorithm
+tests the coeﬃcients of the polynomials for equal sign if requested. For example, in
+<span 
+class="cmr-10x-x-109">13 </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">+ 15 </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">y </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">z </span>can be zero with real nonnegative values for <span 
+class="cmmi-10x-x-109">x,y </span>and <span 
+class="cmmi-10x-x-109">z </span>only if
+<span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">= 0 </span>and <span 
+class="cmmi-10x-x-109">y </span><span 
+class="cmr-10x-x-109">= 0 </span>or <span 
+class="cmmi-10x-x-109">z </span><span 
+class="cmr-10x-x-109">= 0</span>; this is a sort of “factorization by restriction”. A
+polynomial <span 
+class="cmr-10x-x-109">13 </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">+ 15 </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">y </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">z </span><span 
+class="cmr-10x-x-109">+ 20 </span>never can vanish with nonnegative real variable
+values.
+</p><!--l. 714--><p class="noindent" >Zero point: If any polynomial in an ideal has an absolute term, the ideal cannot have the
+origin point as a common solution.
+</p><!--l. 717--><p class="noindent" >By setting the shared variable <a 
+ id="dx217-833001"></a> <a 
+ id="reserved:GROEBRESTRICTION"></a> </p>
+<div class="center" 
+>
+                                                                     
+
+                                                                     
+<!--l. 720--><p class="noindent" >
+</p><!--l. 720--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">groebrestriction</span></p></div>
+<!--l. 721--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">groebnerf </span>is informed of the type of restriction the user wants to impose on the
+solutions: </p>
+<div class="center" 
+>
+<!--l. 723--><p class="noindent" >
+</p>
+<div class="tabular"> <table id="TBL-85" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-85-1g"><col 
+id="TBL-85-1" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-85-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-85-1-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">groebrestiction:=nonnegative;                    </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-85-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-85-2-1"  
+class="td11">        only nonnegative real solutions are of interest                                      </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-85-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-85-3-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">groebrestriction:=positive;                      </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-85-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-85-4-1"  
+class="td11">       only nonnegative and nonzero solutions are of interest                         </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-85-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-85-5-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">groebrestriction:=zeropoint;                     </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-85-6-"><td  style="white-space:nowrap; text-align:left;" id="TBL-85-6-1"  
+class="td11">       only solution sets which contain the point <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmr-10x-x-109">0</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">0</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">0</span><span 
+class="cmsy-10x-x-109">} </span>are or interest.  </td>
+</tr></table></div></div>
+<!--l. 737--><p class="noindent" >If <span 
+class="pcrr8t-x-x-109">groebnerf </span>detects a polynomial which formally conﬂicts with the restriction, it
+either splits the calculation into separate branches, or, if a violation of the restriction is
+determined, it cancels the actual calculation branch.
+</p><!--l. 742--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x217-8340002"></a><span 
+class="pcrr8t-x-x-109">greduce</span>, <span 
+class="pcrr8t-x-x-109">preduce</span>: Reduction of Polynomials</h5>
+<!--l. 744--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x217-8350002"></a>Background</h5>
+<!--l. 745--><p class="noindent" >Reduction of a polynomial “<span 
+class="cmmi-10x-x-109">p</span>” modulo a given sets of polynomials “<span 
+class="cmmi-10x-x-109">b</span>” is done by the
+reduction algorithm incorporated in the Buchberger algorithm. Informally it can be
+described for polynomials over a ﬁeld as follows: </p>
+<div class="center" 
+>
+<!--l. 749--><p class="noindent" >
+                                                                     
+
+                                                                     
+</p>
+<div class="tabular"> <table id="TBL-86" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-86-1g"><col 
+id="TBL-86-1" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-86-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-86-1-1"  
+class="td11">           loop1:  % head term elimination                              </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-86-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-86-2-1"  
+class="td11"> if there is one polynomial <span 
+class="cmmi-10x-x-109">b </span>in <span 
+class="cmmi-10x-x-109">B </span>such that the leading                   </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-86-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-86-3-1"  
+class="td11">           term of <span 
+class="cmmi-10x-x-109">p </span>is a multiple of the leading term of <span 
+class="cmmi-10x-x-109">P </span>do     </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-86-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-86-4-1"  
+class="td11">           <span 
+class="cmmi-10x-x-109">p </span><span 
+class="cmr-10x-x-109">:= </span><span 
+class="cmmi-10x-x-109">p </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">lt</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">p</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">∕lt</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">b</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">b </span>(the leading term vanishes)  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-86-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-86-5-1"  
+class="td11"> do this loop as long as possible;                                                      </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-86-6-"><td  style="white-space:nowrap; text-align:left;" id="TBL-86-6-1"  
+class="td11">           loop2:  % elimination of subsequent terms               </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-86-7-"><td  style="white-space:nowrap; text-align:left;" id="TBL-86-7-1"  
+class="td11"> for each term <span 
+class="cmmi-10x-x-109">s </span>in <span 
+class="cmmi-10x-x-109">p </span>do                                                                    </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-86-8-"><td  style="white-space:nowrap; text-align:left;" id="TBL-86-8-1"  
+class="td11">           if there is one polynomial <span 
+class="cmmi-10x-x-109">b </span>in <span 
+class="cmmi-10x-x-109">B </span>such that <span 
+class="cmmi-10x-x-109">s </span>is a        </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-86-9-"><td  style="white-space:nowrap; text-align:left;" id="TBL-86-9-1"  
+class="td11">           multiple of the leading term of <span 
+class="cmmi-10x-x-109">p </span>do                            </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-86-10-"><td  style="white-space:nowrap; text-align:left;" id="TBL-86-10-1"  
+class="td11">           <span 
+class="cmmi-10x-x-109">p </span><span 
+class="cmr-10x-x-109">:= </span><span 
+class="cmmi-10x-x-109">p </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">s∕lt</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">b</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">b </span>(the term <span 
+class="cmmi-10x-x-109">s </span>vanishes)                  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-86-11-"><td  style="white-space:nowrap; text-align:left;" id="TBL-86-11-1"  
+class="td11"> do this loop as long as possible;                                                      </td>
+</tr></table></div></div>
+<!--l. 765--><p class="noindent" >If the coeﬃcients are taken from a ring without zero divisors we cannot divide by each
+possible number like in the ﬁeld case. But using that in the ﬁeld case, <span 
+class="cmmi-10x-x-109">c</span><span 
+class="cmsy-10x-x-109">∗</span><span 
+class="cmmi-10x-x-109">p </span>is reduced to
+<span 
+class="cmmi-10x-x-109">c</span><span 
+class="cmsy-10x-x-109">∗</span><span 
+class="cmmi-10x-x-109">q</span>, if <span 
+class="cmmi-10x-x-109">p </span>is reduced to <span 
+class="cmmi-10x-x-109">q</span>, for arbitrary numbers <span 
+class="cmmi-10x-x-109">c</span>, the reduction for the ring case uses the
+least <span 
+class="cmmi-10x-x-109">c </span>which makes the (ﬁeld) reduction for <span 
+class="cmmi-10x-x-109">c</span><span 
+class="cmsy-10x-x-109">∗</span><span 
+class="cmmi-10x-x-109">p </span>integer. The result of this reduction is
+returned as (ring) reduction of <span 
+class="cmmi-10x-x-109">p </span>eventually after removing the content, i.e. the greatest
+common divisor of the coeﬃcients. The result of this type of reduction is also called a
+pseudo reduction of <span 
+class="cmmi-10x-x-109">p</span>.
+</p><!--l. 775--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x217-8360002"></a>Reduction via Gröbner Basis Calculation</h5>
+<a 
+ id="dx217-836001"></a>
+<!--l. 777--><p class="noindent" ><a 
+ id="operator:GREDUCE"></a>
+</p>
+<table 
+class="equation-star"><tr><td>
+                 <span 
+class="pcrr8t-x-x-109">greduce</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">exp,</span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">exp</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,exp</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,expm</span><span 
+class="cmsy-10x-x-109">}</span><span 
+class="cmr-10x-x-109">]);</span>
+</td></tr></table>
+<!--l. 780--><p class="nopar" >
+where <span 
+class="ptmri8t-x-x-109">exp </span>is an expression, and <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">exp</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,exp</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,expm</span><span 
+class="cmsy-10x-x-109">} </span>is a list of any number of
+                                                                     
+
+                                                                     
+expressions or equations.
+</p><!--l. 784--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">greduce </span>ﬁrst converts the list of expressions <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">exp</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,expn</span><span 
+class="cmsy-10x-x-109">} </span>to a Gröbner basis, and
+then reduces the given expression modulo that basis. An error results if the list of
+expressions is inconsistent. The returned value is an expression representing the reduced
+polynomial. As a side eﬀect, <span 
+class="pcrr8t-x-x-109">greduce </span>sets the variable <span 
+class="pcrr8t-x-x-109">gvarslast </span>in the same
+manner as <span 
+class="pcrr8t-x-x-109">groebner </span>does.
+</p><!--l. 791--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x217-8370002"></a>Reduction with Respect to Arbitrary Polynomials</h5>
+<a 
+ id="dx217-837001"></a>
+<!--l. 793--><p class="noindent" ><a 
+ id="operator:PREDUCE"></a>
+</p>
+<table 
+class="equation-star"><tr><td>
+                 <span 
+class="pcrr8t-x-x-109">preduce</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">exp,</span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">exp</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,exp</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,expm</span><span 
+class="cmsy-10x-x-109">}</span><span 
+class="cmr-10x-x-109">);</span>
+</td></tr></table>
+<!--l. 796--><p class="nopar" >
+where <span 
+class="ptmri8t-x-x-109">expm </span>is an expression, and <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">exp</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,exp</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,expm</span><span 
+class="cmsy-10x-x-109">} </span>is a list of any number of
+expressions or equations.
+</p><!--l. 800--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">preduce </span>reduces the given expression modulo the set <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">exp</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,expm</span><span 
+class="cmsy-10x-x-109">}</span>. If this set is a
+Gröbner basis, the obtained reduced expression is uniquely determined. If not, then it
+depends on the subsequence of the single reduction steps (see <a 
+href="#x217-8350002">2<!--tex4ht:ref: groebner:background --></a>). <span 
+class="pcrr8t-x-x-109">preduce </span>does not
+check whether <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">exp</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,exp</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,expm</span><span 
+class="cmsy-10x-x-109">} </span>is a Gröbner basis in the actual order. Therefore,
+if the expressions are a Gröbner basis calculated earlier with a variable sequence given
+explicitly or modiﬁed by optimization, the proper variable sequence and term order must
+be activated ﬁrst.
+<a 
+ id="x217-837002r3"></a>
+</p><!--l. 811--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Example 3</span>(<span 
+class="pcrr8t-x-x-109">preduce </span>called with a Gröbner basis):
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1208">
+  torder({x,y},lex);
+ <br />  gb:=groebner{3*x**2*y + 2*x*y + y + 9*x**2 + 5*x - 3,
+ <br />               2*x**3*y - x*y - y + 6*x**3 - 2*x**2
+ <br />                 - 3*x + 3,
+ <br />               x**3*y + x**2*y + 3*x**3 + 2*x**2}$
+ <br />  preduce (5*y**2 + 2*x**2*y + 5/2*x*y + 3/2*y
+ <br />             + 8*x**2 + 3/2*x - 9/2, gb);
+ <br />
+ <br />      2
+ <br />     y
+</div>
+<!--l. 823--><p class="nopar" >
+</p><!--l. 825--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x217-8380003"></a><span 
+class="pcrr8t-x-x-109">greduce_orders</span>: Reduction with several term orders</h5>
+<!--l. 826--><p class="noindent" >The shortest polynomial with diﬀerent polynomial term orders is computed with the
+operator <span 
+class="pcrr8t-x-x-109">greduce_orders</span>:
+<a 
+ id="dx217-838001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="pcrr8t-x-x-109">greduce_orders</span><span 
+class="ptmb8t-x-x-109">(</span><span 
+class="cmmi-10x-x-109">exp</span><span 
+class="ptmb8t-x-x-109">, {</span><span 
+class="cmmi-10x-x-109">exp</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="ptmb8t-x-x-109">, </span><span 
+class="cmmi-10x-x-109">exp</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="ptmb8t-x-x-109">, </span><span 
+class="ptmb8t-x-x-109">…, </span><span 
+class="cmmi-10x-x-109">expm</span><span 
+class="ptmb8t-x-x-109">} [,{</span><span 
+class="cmmi-10x-x-109">v</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,v</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,v</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="ptmb8t-x-x-109">}]);</span> </dt><dd 
+class="description"><br 
+class="newline" /><a 
+ id="operator:GREDUCE_ORDERS"></a>  where  <span 
+class="ptmri8t-x-x-109">exp  </span>is  an  expression  and  <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">exp</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,exp</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,expm</span><span 
+class="cmsy-10x-x-109">} </span>is  a  list  of  any
+     number of expressions or equations. The list of variables <span 
+class="cmmi-10x-x-109">v</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,v</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">v</span><sub><span 
+class="cmmi-8">n</span></sub> may be
+     omitted; if set, the variables must be a list.</dd></dl>
+<a 
+ id="dx217-838002"></a>
+<!--l. 840--><p class="noindent" ><a 
+ id="reserved:GORDERS"></a> The expression <span 
+class="ptmri8t-x-x-109">exp </span>is reduced by <span 
+class="pcrr8t-x-x-109">greduce </span>with the orders in the shared variable
+<span 
+class="pcrr8t-x-x-109">gorders</span>, which must be a list of term orders (if set). By default it is set to
+</p>
+<div class="center" 
+>
+                                                                     
+
+                                                                     
+<!--l. 845--><p class="noindent" >
+</p><!--l. 846--><p class="noindent" >{<span 
+class="ptmri8t-x-x-109">revgradlex</span>, <span 
+class="ptmri8t-x-x-109">gradlex</span>, <span 
+class="ptmri8t-x-x-109">lex</span>}</p></div>
+<!--l. 849--><p class="noindent" >The shortest polynomial is the result. The order with the shortest polynomial is set to the
+shared variable <span 
+class="pcrr8t-x-x-109">gorder</span>. A Gröbner basis of the system {<span 
+class="cmmi-10x-x-109">exp</span><span 
+class="cmr-10x-x-109">1</span>, <span 
+class="cmmi-10x-x-109">exp</span><span 
+class="cmr-10x-x-109">2</span>, …, <span 
+class="cmmi-10x-x-109">expm</span>} is
+computed for each element of <span 
+class="ptmri8t-x-x-109">orders</span>. With the default setting <span 
+class="pcrr8t-x-x-109">gorders </span>in
+most cases will be set to <span 
+class="ptmri8t-x-x-109">revgradlex</span>. If the variable set is given, these variables
+are taken; otherwise all variables of the system {<span 
+class="cmmi-10x-x-109">exp</span><span 
+class="cmr-10x-x-109">1</span>, <span 
+class="cmmi-10x-x-109">exp</span><span 
+class="cmr-10x-x-109">2</span>, …, <span 
+class="cmmi-10x-x-109">expm</span>} are
+extracted.
+<a 
+ id="dx217-838003"></a>
+</p><!--l. 860--><p class="noindent" ><a 
+ id="reserved:GREDUCE_RESULT"></a> The Gröbner basis computations can take some time; if interrupted, the intermediate
+result of the reduction is set to the shared variable <span 
+class="pcrr8t-x-x-109">greduce_result</span>, if one is done
+already. However, this is not nesessarily the minimal form.
+</p><!--l. 866--><p class="noindent" >If the variable <span 
+class="pcrr8t-x-x-109">gorders </span>should be set to orders with a parameter, the term oder has to be
+replaced by a list; the ﬁrst element is the term oder selected, followed by its parameter(s),
+e.g.
+</p>
+<div class="center" 
+>
+<!--l. 870--><p class="noindent" >
+</p><!--l. 871--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">orders </span>:= {{<span 
+class="ptmri8t-x-x-109">gradlexgradlex</span>, 2}, {<span 
+class="ptmri8t-x-x-109">lexgradlex</span>, 2}}</p></div>
+<!--l. 874--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x217-8390003"></a>Reduction Tree</h5>
+<!--l. 875--><p class="noindent" >In some case not only are the results produced by <span 
+class="pcrr8t-x-x-109">greduce </span>and <span 
+class="pcrr8t-x-x-109">preduce </span>of interest,
+but the reduction process is of some value too. If the switch <a 
+ id="dx217-839001"></a><a 
+ id="dx217-839002"></a><a 
+ id="dx217-839003"></a> <a 
+ id="switch:GROEBPROT"></a> </p>
+<div class="center" 
+>
+<!--l. 880--><p class="noindent" >
+</p><!--l. 881--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">groebprot</span></p></div>
+<!--l. 883--><p class="noindent" >is set on, <span 
+class="pcrr8t-x-x-109">groebner</span>, <span 
+class="pcrr8t-x-x-109">greduce </span>and <span 
+class="pcrr8t-x-x-109">preduce </span>produce as a side eﬀect a trace of their
+                                                                     
+
+                                                                     
+work as a REDUCE list of equations in the shared variable <a 
+ id="dx217-839004"></a> <a 
+ id="reserved:GROEBPROTFILE"></a> </p>
+<div class="center" 
+>
+<!--l. 887--><p class="noindent" >
+</p><!--l. 888--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">groebprotfile</span>.</p></div>
+<!--l. 890--><p class="noindent" >Its value is a list of equations with a variable “candidate” playing the role of the object to
+be reduced. The polynomials are cited as “<span 
+class="ptmri8t-x-x-109">poly1</span>”, “<span 
+class="ptmri8t-x-x-109">poly2</span>”, …. If read as assignments,
+these equations form a program which leads from the reduction input to its result. Note
+that, due to the pseudo reduction with a ring as the coeﬃcient domain, the input
+coeﬃcients may be changed by global factors.
+<a 
+ id="x217-839005r4"></a>
+</p><!--l. 897--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Example 4</span><a 
+ id="dx217-839006"></a>
+</p>
+<div class="alltt">
+<div class="obeylines-v">
+<span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> on</span><span 
+class="pcrr8t-x-x-109"> groebprot$</span><span 
+class="pcrr8t-x-x-109"> </span><br 
+class="newline" />
+<br /><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> preduce(5*y**2</span><span 
+class="pcrr8t-x-x-109"> +</span><span 
+class="pcrr8t-x-x-109"> 2*x**2*y</span><span 
+class="pcrr8t-x-x-109"> +</span><span 
+class="pcrr8t-x-x-109"> 5/2*x*y</span><span 
+class="pcrr8t-x-x-109"> +</span><span 
+class="pcrr8t-x-x-109"> 3/2*y</span><span 
+class="pcrr8t-x-x-109"> +</span><span 
+class="pcrr8t-x-x-109"> 8*x**2</span><span 
+class="pcrr8t-x-x-109"> </span><br 
+class="newline" />
+<br /><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109">     </span><span 
+class="pcrr8t-x-x-109"> +</span><span 
+class="pcrr8t-x-x-109"> 3/2*x</span><span 
+class="pcrr8t-x-x-109"> -</span><span 
+class="pcrr8t-x-x-109"> 9/2,</span><span 
+class="pcrr8t-x-x-109"> gb);</span><br 
+class="newline" />
+<br />
+<br /><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> 2</span>
+<br /><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> y</span>
+<br />
+<br /><span 
+class="pcrr8t-x-x-109">groebprotfile;</span>
+<br />
+<br /><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> candidate</span>
+<br /><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> 2</span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> 2</span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> 2</span>
+<br /><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> =4*x</span><span 
+class="pcrr8t-x-x-109"> *y</span><span 
+class="pcrr8t-x-x-109"> +</span><span 
+class="pcrr8t-x-x-109"> 16*x</span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> +</span><span 
+class="pcrr8t-x-x-109"> 5*x*y</span><span 
+class="pcrr8t-x-x-109"> +</span><span 
+class="pcrr8t-x-x-109"> 3*x</span><span 
+class="pcrr8t-x-x-109"> +</span><span 
+class="pcrr8t-x-x-109"> 10*y</span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> +</span><span 
+class="pcrr8t-x-x-109"> 3*y</span><span 
+class="pcrr8t-x-x-109"> -</span><span 
+class="pcrr8t-x-x-109"> 9,</span>
+<br />
+<br /><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> 2</span>
+<br /><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> poly1=8*x</span><span 
+class="pcrr8t-x-x-109"> -</span><span 
+class="pcrr8t-x-x-109"> 2*y</span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> +</span><span 
+class="pcrr8t-x-x-109"> 5*y</span><span 
+class="pcrr8t-x-x-109"> +</span><span 
+class="pcrr8t-x-x-109"> 3,</span>
+<br />
+                                                                     
+
+                                                                     
+<br /><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> 3</span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> 2</span>
+<br /><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> poly2=2*y</span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> -</span><span 
+class="pcrr8t-x-x-109"> 3*y</span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> -</span><span 
+class="pcrr8t-x-x-109"> 16*y</span><span 
+class="pcrr8t-x-x-109"> +</span><span 
+class="pcrr8t-x-x-109"> 21,</span>
+<br /><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> candidate=2*candidate,</span>
+<br /><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> candidate=</span><span 
+class="pcrr8t-x-x-109"> -</span><span 
+class="pcrr8t-x-x-109"> x*y*poly1</span><span 
+class="pcrr8t-x-x-109"> +</span><span 
+class="pcrr8t-x-x-109"> candidate,</span>
+<br /><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> candidate=</span><span 
+class="pcrr8t-x-x-109"> -</span><span 
+class="pcrr8t-x-x-109"> 4*x*poly1</span><span 
+class="pcrr8t-x-x-109"> +</span><span 
+class="pcrr8t-x-x-109"> candidate,</span>
+<br /><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> candidate=4*candidate,</span>
+<br />
+<br /><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> 3</span>
+<br /><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> candidate=</span><span 
+class="pcrr8t-x-x-109"> -</span><span 
+class="pcrr8t-x-x-109"> y</span><span 
+class="pcrr8t-x-x-109"> *poly1</span><span 
+class="pcrr8t-x-x-109"> +</span><span 
+class="pcrr8t-x-x-109"> candidate,</span>
+<br /><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> candidate=2*candidate,</span>
+<br />
+<br /><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> 2</span>
+<br /><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> candidate=</span><span 
+class="pcrr8t-x-x-109"> -</span><span 
+class="pcrr8t-x-x-109"> 3*y</span><span 
+class="pcrr8t-x-x-109"> *poly1</span><span 
+class="pcrr8t-x-x-109"> +</span><span 
+class="pcrr8t-x-x-109"> candidate,</span>
+<br /><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> candidate=13*y*poly1</span><span 
+class="pcrr8t-x-x-109"> +</span><span 
+class="pcrr8t-x-x-109"> candidate,</span>
+<br /><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> candidate=candidate</span><span 
+class="pcrr8t-x-x-109"> +</span><span 
+class="pcrr8t-x-x-109"> 6*poly1,</span>
+<br />
+<br /><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> 2</span>
+<br /><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> candidate=</span><span 
+class="pcrr8t-x-x-109"> -</span><span 
+class="pcrr8t-x-x-109"> 2*y</span><span 
+class="pcrr8t-x-x-109"> *poly2</span><span 
+class="pcrr8t-x-x-109"> +</span><span 
+class="pcrr8t-x-x-109"> candidate,</span>
+<br /><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> candidate=</span><span 
+class="pcrr8t-x-x-109"> -</span><span 
+class="pcrr8t-x-x-109"> y*poly2</span><span 
+class="pcrr8t-x-x-109"> +</span><span 
+class="pcrr8t-x-x-109"> candidate,</span>
+<br /><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> candidate=candidate</span><span 
+class="pcrr8t-x-x-109"> +</span><span 
+class="pcrr8t-x-x-109"> 6*poly2</span>
+</div>
+</div> This means
+<table 
+class="equation-star"><tr><td>
+             <span 
+class="cmr-10x-x-109">16(5</span><span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">+ 2</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-10x-x-109">y </span><span 
+class="cmr-10x-x-109">+</span> <img 
+src="manual270x.png" alt="5-
+2"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">xy </span><span 
+class="cmr-10x-x-109">+</span> <img 
+src="manual271x.png" alt="3-
+2"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">y </span><span 
+class="cmr-10x-x-109">+ 8</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">+</span> <img 
+src="manual272x.png" alt="3-
+2"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmsy-10x-x-109">−</span><img 
+src="manual273x.png" alt="9-
+2"  class="frac" align="middle" /><span 
+class="cmr-10x-x-109">) =</span>
+</td></tr></table>
+<!--l. 941--><p class="nopar" >
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+               <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">8</span><span 
+class="cmmi-10x-x-109">xy </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">32</span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmr-8">3</span></sup> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">3</span><span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">+ 13</span><span 
+class="cmmi-10x-x-109">y </span><span 
+class="cmr-10x-x-109">+ 6)</span><span style="margin-left:0.3em" class="thinspace"></span>poly1
+</td></tr></table>
+<!--l. 944--><p class="nopar" >
+</p>
+<table 
+class="equation-star"><tr><td>
+                     <span 
+class="cmr-10x-x-109">+ (</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">y </span><span 
+class="cmr-10x-x-109">+ 6)</span><span style="margin-left:0.3em" class="thinspace"></span>poly2 <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 947--><p class="nopar" >
+</p><!--l. 949--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x217-8400004"></a>Tracing with <span 
+class="pcrr8t-x-x-109">groebnert </span>and <span 
+class="pcrr8t-x-x-109">preducet</span></h5>
+<!--l. 950--><p class="noindent" >Given a set of polynomials <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,f</span><sub><span 
+class="cmmi-8">k</span></sub><span 
+class="cmsy-10x-x-109">} </span>and their Gröbner basis <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,g</span><sub><span 
+class="cmmi-8">l</span></sub><span 
+class="cmsy-10x-x-109">}</span>, it is well
+known that there are matrices of polynomials <span 
+class="cmmi-10x-x-109">C</span><sub><span 
+class="cmmi-8">ij</span></sub> and <span 
+class="cmmi-10x-x-109">D</span><sub><span 
+class="cmmi-8">ji</span></sub> such that
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                  <span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmmi-8">i</span></sub> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∑</span>
+   <sub><span 
+class="cmmi-8">j</span></sub><span 
+class="cmmi-10x-x-109">C</span><sub><span 
+class="cmmi-8">ij</span></sub><span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmmi-8">j</span></sub> and <span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmmi-8">j</span></sub> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∑</span>
+   <sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmmi-10x-x-109">D</span><sub><span 
+class="cmmi-8">ji</span></sub><span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmmi-8">i</span></sub>
+</td></tr></table>
+<!--l. 956--><p class="nopar" >
+and these relations are needed explicitly sometimes. In <span 
+class="ptmrc8t-x-x-109">B<span 
+class="small-caps">U</span><span 
+class="small-caps">C</span><span 
+class="small-caps">H</span><span 
+class="small-caps">B</span><span 
+class="small-caps">E</span><span 
+class="small-caps">R</span><span 
+class="small-caps">G</span><span 
+class="small-caps">E</span><span 
+class="small-caps">R</span> </span><span class="cite">[<a 
+href="manualap2.html#XBuchberger:85">Buc85</a>]</span>, such
+cases are described in the context of linear polynomial equations. The standard technique
+for computing the above formulae is to perform Gröbner reductions, keeping
+track of the computation in terms of the input data. In the current package such
+calculations are performed with (an internally hidden) cofactor technique: the
+user has to assign unique names to the input expressions and the arithmetic
+combinations are done with the expressions and with their names simultaneously. So the
+result is accompanied by an expression which relates it algebraically to the input
+values.
+<a 
+ id="dx217-840001"></a>
+<a 
+ id="dx217-840002"></a>
+</p><!--l. 971--><p class="noindent" ><a 
+ id="operator:GROEBNERT"></a> <a 
+ id="operator:PREDUCET"></a> There are two complementary operators with this feature: <span 
+class="pcrr8t-x-x-109">groebnert </span>and
+<span 
+class="pcrr8t-x-x-109">preducet</span>; functionally they correspond to <span 
+class="pcrr8t-x-x-109">groebner </span>and <span 
+class="pcrr8t-x-x-109">preduce</span>. However, the
+sets of expressions here <span 
+class="ptmbi8t-x-x-109">must be </span>equations with unique single identiﬁers on
+their left side and the <span 
+class="ptmri8t-x-x-109">lhs </span>are interpreted as names of the expressions. Their
+results are sets of equations (<span 
+class="pcrr8t-x-x-109">groebnert</span>) or equations (<span 
+class="pcrr8t-x-x-109">preducet</span>), where a
+<span 
+class="ptmri8t-x-x-109">lhs </span>is the computed value, while the <span 
+class="ptmri8t-x-x-109">rhs </span>is its equivalent in terms of the input
+names.
+<a 
+ id="x217-840003r5"></a>
+</p><!--l. 982--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Example 5</span><a 
+ id="dx217-840004"></a>
+</p><!--l. 984--><p class="noindent" >We calculate the Gröbner basis for an ellipse (named “<span 
+class="cmmi-10x-x-109">p</span><span 
+class="cmr-10x-x-109">1</span>” ) and a line (named “<span 
+class="cmmi-10x-x-109">p</span><span 
+class="cmr-10x-x-109">2</span>” );
+<span 
+class="cmmi-10x-x-109">p</span><span 
+class="cmr-10x-x-109">2 </span>is member of the basis immediately and so the corresponding ﬁrst result element is of
+a very simple form; the second member is a combination of <span 
+class="cmmi-10x-x-109">p</span><span 
+class="cmr-10x-x-109">1 </span>and <span 
+class="cmmi-10x-x-109">p</span><span 
+class="cmr-10x-x-109">2 </span>as shown on the
+<span 
+class="ptmri8t-x-x-109">rhs </span>of this equation:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1209">
+gb1:=groebnert {p1=2*x**2+4*y**2-100,p2=2*x-y+1};
+ <br />
+ <br />gb1 := {2*x - y + 1=p2,
+ <br />           2
+ <br />        9*y  - 2*y - 199= - 2*x*p2 - y*p2 + 2*p1 + p2}
+</div>
+<!--l. 996--><p class="nopar" >
+<a 
+ id="x217-840005r6"></a>
+</p><!--l. 998--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Example 6</span><a 
+ id="dx217-840006"></a>
+</p><!--l. 1000--><p class="noindent" >We want to reduce the polynomial <span 
+class="pcrr8t-x-x-109">x**2 </span><span 
+class="ptmri8t-x-x-109">wrt </span>the above Gröbner basis and need
+knowledge about the reduction formula. We therefore extract the basis polynomials from
+<span 
+class="cmmi-10x-x-109">gb</span><span 
+class="cmr-10x-x-109">1</span>, assign unique names to them (here <span 
+class="cmmi-10x-x-109">g</span><span 
+class="cmr-10x-x-109">1</span>, <span 
+class="cmmi-10x-x-109">g</span><span 
+class="cmr-10x-x-109">2</span>) and call <span 
+class="pcrr8t-x-x-109">preducet</span>. The polynomial to
+be reduced here is introduced with the name <span 
+class="cmmi-10x-x-109">Q</span>, which then appears on the <span 
+class="ptmri8t-x-x-109">rhs </span>of the
+result. If the name for the polynomial is omitted, its formal value is used on the right side
+too.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1210">
+  gb2 := for k := 1:length gb1 collect
+ <br />        mkid(g,k) = lhs part(gb1,k)$
+ <br />  preducet (q=x**2,gb2);
+ <br />
+ <br /> - 16*y + 208= - 18*x*g1 - 9*y*g1 + 36*q + 9*g1 - g2
+</div>
+<!--l. 1014--><p class="nopar" >
+</p><!--l. 1016--><p class="noindent" >This output means
+</p>
+<table 
+class="equation-star"><tr><td>
+             <span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">= (</span><img 
+src="manual274x.png" alt="1
+--
+2"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">+</span> <img 
+src="manual275x.png" alt="1
+--
+4"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">y </span><span 
+class="cmsy-10x-x-109">−</span><img 
+src="manual276x.png" alt="1
+--
+4"  class="frac" align="middle" /><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">g</span><span 
+class="cmr-10x-x-109">1 +</span> <img 
+src="manual277x.png" alt="1
+---
+36"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">g</span><span 
+class="cmr-10x-x-109">2 + (</span><span 
+class="cmsy-10x-x-109">−</span><img 
+src="manual278x.png" alt="4
+--
+9"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">y </span><span 
+class="cmr-10x-x-109">+</span> <img 
+src="manual279x.png" alt="52
+---
+9"  class="frac" align="middle" /><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 1020--><p class="nopar" >
+<a 
+ id="x217-840007r7"></a>
+</p><!--l. 1023--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Example 7</span><a 
+ id="dx217-840008"></a>
+</p><!--l. 1025--><p class="noindent" >If we reduce a polynomial which is member of the ideal, we consequently get a result
+with <span 
+class="ptmri8t-x-x-109">lhs </span>zero:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1211">
+   preducet(q=2*x**2+4*y**2-100,gb2);
+ <br />
+ <br />   0= - 2*x*g1 - y*g1 + 2*q + g1 - g2
+</div>
+<!--l. 1031--><p class="nopar" >
+</p><!--l. 1033--><p class="noindent" >This means
+</p>
+<table 
+class="equation-star"><tr><td>
+                      <span 
+class="cmmi-10x-x-109">q </span><span 
+class="cmr-10x-x-109">= (</span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">+</span> <img 
+src="manual280x.png" alt="1
+2-"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">y </span><span 
+class="cmsy-10x-x-109">−</span><img 
+src="manual281x.png" alt="1
+2-"  class="frac" align="middle" /><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">g</span><span 
+class="cmr-10x-x-109">1 +</span> <img 
+src="manual282x.png" alt="1
+2-"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">g</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 1035--><p class="nopar" >
+</p><!--l. 1037--><p class="noindent" >With these operators the matrices <span 
+class="cmmi-10x-x-109">C</span><sub><span 
+class="cmmi-8">ij</span></sub> and <span 
+class="cmmi-10x-x-109">D</span><sub><span 
+class="cmmi-8">ji</span></sub> are available implicitly, <span 
+class="cmmi-10x-x-109">D</span><sub><span 
+class="cmmi-8">ji</span></sub> as side eﬀect
+of <span 
+class="pcrr8t-x-x-109">groebnert</span>, <span 
+class="cmmi-10x-x-109">c</span><sub><span 
+class="cmmi-8">ij</span></sub> by <span 
+class="ptmri8t-x-x-109">calls </span>of <span 
+class="pcrr8t-x-x-109">preducet </span>of <span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmmi-8">i</span></sub> <span 
+class="ptmri8t-x-x-109">wrt </span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmmi-8">j</span></sub><span 
+class="cmsy-10x-x-109">}</span>. The latter by deﬁnition will
+have the <span 
+class="ptmri8t-x-x-109">lhs </span>zero and a <span 
+class="ptmri8t-x-x-109">rhs </span>with linear <span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmmi-8">i</span></sub>.
+</p><!--l. 1042--><p class="noindent" >If <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmsy-10x-x-109">} </span>is the Gröbner basis, the <span 
+class="pcrr8t-x-x-109">groebnert </span>calculation gives a “proof”, showing, how
+<span 
+class="cmr-10x-x-109">1 </span>can be computed as combination of the input polynomials.
+</p>
+<!--l. 1046--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x217-8410007"></a><span 
+class="ptmb8t-x-x-109">Remark:</span></span>
+Compared to the non-tracing algorithms, these operators are much more time consuming.
+So they are applicable only on small sized problems.
+                                                                     
+
+                                                                     
+</p><!--l. 1050--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x217-8420007"></a>Gröbner Bases for Modules</h5>
+<!--l. 1052--><p class="noindent" >Given a polynomial ring, e.g. <span 
+class="cmmi-10x-x-109">r </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmr-8">1</span></sub><img 
+src="manual283x.png" alt="⋅⋅⋅"  class="@cdots"  /><span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmmi-8">k</span></sub><span 
+class="cmr-10x-x-109">] </span>and an integer <span 
+class="cmmi-10x-x-109">n &#x003E; </span><span 
+class="cmr-10x-x-109">1</span>: the vectors with <span 
+class="cmmi-10x-x-109">n</span>
+elements of <span 
+class="cmmi-10x-x-109">r </span>form a <span 
+class="ptmri8t-x-x-109">module </span>under vector addition (= componentwise addition) and
+multiplication with elements of <span 
+class="cmmi-10x-x-109">r</span>. For a submodule given by a ﬁnite basis a Gröbner
+basis can be computed, and the facilities of the <span 
+class="ptmrc8t-x-x-109">G<span 
+class="small-caps">R</span><span 
+class="small-caps">O</span><span 
+class="small-caps">E</span><span 
+class="small-caps">B</span><span 
+class="small-caps">N</span><span 
+class="small-caps">E</span><span 
+class="small-caps">R</span> </span>package can be used except
+the operators <span 
+class="pcrr8t-x-x-109">groebnerf </span>and <span 
+class="pcrr8t-x-x-109">groesolve</span>.
+</p><!--l. 1060--><p class="noindent" >The vectors are encoded using auxiliary variables which represent the unit vectors
+in the module. E.g. using <span 
+class="cmmi-10x-x-109">v</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,v</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,v</span><sub><span 
+class="cmr-8">3</span></sub> the module element <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmr-8">1</span></sub><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">0</span><span 
+class="cmmi-10x-x-109">,x</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmr-10x-x-109">] </span>is
+represented as <span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmr-8">1</span></sub><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-10x-x-109">v</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">v</span><sub><span 
+class="cmr-8">3</span></sub> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">v</span><sub><span 
+class="cmr-8">3</span></sub>. The use of <span 
+class="cmmi-10x-x-109">v</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,v</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,v</span><sub><span 
+class="cmr-8">3</span></sub> as unit vectors is set up
+by assigning the set of auxiliary variables to the shared variable <a 
+ id="reserved:GMODULE"></a><span 
+class="pcrr8t-x-x-109">gmodule</span><a 
+ id="dx217-842001"></a>,
+e.g.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1212">
+   gmodule := {v1,v2,v3};
+</div>
+<!--l. 1068--><p class="nopar" > After this declaration all monomials built from these variables are considered as an
+algebraically independent basis of a vector space. However, you had best use them only
+linearly. Once <span 
+class="ptmri8t-x-x-109">gmodule </span>has been set, the auxiliary variables automatically will
+be added to the end of each variable list (if they are not yet member there).
+Example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1213">
+   torder({x,y,v1,v2,v3},lex)$
+ <br />   gmodule := {v1,v2,v3}$
+ <br />   g:=groebner{x^2*v1 + y*v2,x*y*v1 - v3,2y*v1 + y*v3};
+ <br />
+ <br />       2
+ <br />g := {x *v1 + y*v2,
+ <br />
+ <br />              2
+ <br />      x*v3 + y *v2,
+ <br />
+ <br />       3
+ <br />      y *v2 - 2*v3,
+ <br />
+ <br />      2*y*v1 + y*v3}
+ <br />
+ <br />   preduce((x+y)^3*v1,g);
+ <br />
+ <br />             1   3         2
+ <br /> - x*y*v2 - ---*y *v3 - 3*y *v2 + 3*y*v3
+ <br />             2
+</div>
+<!--l. 1097--><p class="nopar" >
+</p><!--l. 1099--><p class="noindent" >In many cases a total degree oriented term order will be adequate for computations in
+modules, e.g. for all cases where the submodule membership is investigated. However,
+arranging the auxiliary variables in an elimination oriented term order can give
+interesting results. E.g.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1214">
+   p1:=(x-1)*(x^2-x+3)$  p2:=(x-1)*(x^2+x-5)$
+ <br />   gmodule := {v1,v2,v3};
+ <br />   torder({v1,x,v2,v3},lex)$
+ <br />   gb:=groebner {p1*v1+v2,p2*v1+v3};
+ <br />
+ <br />gb := {30*v1*x - 30*v1 + x*v2 - x*v3 + 5*v2 - 3*v3,
+ <br />
+ <br />        2       2
+ <br />       x *v2 - x *v3 + x*v2 + x*v3 - 5*v2 - 3*v3}
+ <br />
+ <br />   g:=coeffn(first gb,v1,1);
+ <br />
+ <br />g := 30*(x - 1)
+ <br />
+ <br />   c1:=coeffn(first gb,v2,1);
+ <br />
+ <br />c1 := x + 5
+ <br />
+ <br />   c2:=coeffn(first gb,v3,1);
+ <br />
+ <br />c2 :=  - x - 3
+ <br />
+ <br />   c1*p1 + c2*p2;
+ <br />
+ <br />30*(x - 1)
+</div>
+<!--l. 1130--><p class="nopar" > Here two polynomials are entered as vectors <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">0] </span>and <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">0</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">1]</span>. Using a term
+ordering such that the ﬁrst dimension ranges highest and the other components lowest, a
+classical cofactor computation is executed just as in the extended Euclidean algorithm.
+Consequently the leading polynomial in the resulting basis shows the greatest common
+divisor of <span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmr-8">1</span></sub> and <span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmr-8">2</span></sub>, found as a coeﬃcient of <span 
+class="cmmi-10x-x-109">v</span><sub><span 
+class="cmr-8">1</span></sub> while the coeﬃcients of <span 
+class="cmmi-10x-x-109">v</span><sub><span 
+class="cmr-8">2</span></sub> and
+<span 
+class="cmmi-10x-x-109">v</span><sub><span 
+class="cmr-8">3</span></sub> are the cofactors <span 
+class="cmmi-10x-x-109">c</span><sub><span 
+class="cmr-8">1</span></sub> and <span 
+class="cmmi-10x-x-109">c</span><sub><span 
+class="cmr-8">2</span></sub> of the polynomials <span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmr-8">1</span></sub> and <span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmr-8">2</span></sub> with the relation
+<span 
+class="cmmi-10x-x-109">gcd</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,p</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmr-10x-x-109">) = </span><span 
+class="cmmi-10x-x-109">c</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">c</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmr-8">2</span></sub>.
+</p><!--l. 1142--><p class="noindent" >
+</p>
+                                                                     
+
+                                                                     
+<h5 class="subsubsectionHead"><a 
+ id="x217-8430007"></a>Additional Orderings</h5>
+<!--l. 1143--><p class="noindent" >Besides the basic orderings, there are ordering options that are used for special
+purposes.
+</p><!--l. 1146--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x217-8440007"></a>Separating the Variables into Groups </h5>
+<a 
+ id="dx217-844001"></a>
+<a 
+ id="dx217-844002"></a>
+<!--l. 1148--><p class="noindent" >It is often desirable to separate variables and formal parameters in a system of
+polynomials. This can be done with a <span 
+class="ptmri8t-x-x-109">lex </span>Gröbner basis. That however may be hard to
+compute as it does more separation than necessary. The following orderings group the
+variables into two (or more) sets, where inside each set a classical ordering acts, while
+the sets are handled via their total degrees, which are compared in elimination style. So
+the Gröbner basis will eliminate the members of the ﬁrst set, if algebraically
+possible. <span 
+class="ptmri8t-x-x-109">torder </span>here gets an additional parameter which describe the grouping
+<a 
+ id="dx217-844003"></a> </p>
+<div class="center" 
+>
+<!--l. 1159--><p class="noindent" >
+</p>
+<div class="tabular"> <table id="TBL-87" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-87-1g"><col 
+id="TBL-87-1" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-87-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-87-1-1"  
+class="td11"> <span 
+class="ptmri8t-x-x-109">torder </span>(<span 
+class="ptmri8t-x-x-109">vl</span>, <span 
+class="ptmri8t-x-x-109">gradlexgradlex</span>, <span 
+class="cmmi-10x-x-109">n</span>)     </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-87-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-87-2-1"  
+class="td11"> <span 
+class="ptmri8t-x-x-109">torder </span>(<span 
+class="ptmri8t-x-x-109">vl</span>, <span 
+class="ptmri8t-x-x-109">gradlexrevgradlex</span>,<span 
+class="cmmi-10x-x-109">n</span>)  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-87-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-87-3-1"  
+class="td11"> <span 
+class="ptmri8t-x-x-109">torder </span>(<span 
+class="ptmri8t-x-x-109">vl</span>, <span 
+class="ptmri8t-x-x-109">lexgradlex</span>, <span 
+class="cmmi-10x-x-109">n</span>)              </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-87-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-87-4-1"  
+class="td11"> <span 
+class="ptmri8t-x-x-109">torder </span>(<span 
+class="ptmri8t-x-x-109">vl</span>, <span 
+class="ptmri8t-x-x-109">lexrevgradlex</span>, <span 
+class="cmmi-10x-x-109">n</span>)         </td>
+</tr></table></div></div>
+<!--l. 1167--><p class="noindent" >Here the integer <span 
+class="cmmi-10x-x-109">n </span>is the number of variables in the ﬁrst group and the names combine
+the local ordering for the ﬁrst and second group, e.g.
+</p>
+<div class="center" 
+>
+<!--l. 1171--><p class="noindent" >
+</p>
+                                                                     
+
+                                                                     
+<div class="tabular"> <table id="TBL-88" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-88-1g"><col 
+id="TBL-88-1" /><col 
+id="TBL-88-2" /><col 
+id="TBL-88-3" /><col 
+id="TBL-88-4" /><col 
+id="TBL-88-5" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-88-1-"><td colspan="4" style="white-space:nowrap; text-align:left;" id="TBL-88-1-1"  
+class="td01"> <div class="multicolumn"  style="white-space:nowrap; text-align:left;"><span 
+class="ptmri8t-x-x-109">lexgradlex</span>, 3 for <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,x</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,x</span><sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmmi-10x-x-109">,x</span><sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmmi-10x-x-109">,x</span><sub><span 
+class="cmr-8">5</span></sub><span 
+class="cmsy-10x-x-109">}</span>:</div>
+</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-88-2-"><td colspan="4" style="white-space:nowrap; text-align:left;" id="TBL-88-2-1"  
+class="td01"> <div class="multicolumn"  style="white-space:nowrap; text-align:left;"><span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmr-8">1</span></sub><sup><span 
+class="cmmi-8">i</span><sub><span 
+class="cmr-6">1</span></sub></sup><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmr-8">5</span></sub><sup><span 
+class="cmmi-8">i</span><sub><span 
+class="cmr-6">5</span></sub></sup> <span 
+class="cmsy-10x-x-109">≫ </span><span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmr-8">1</span></sub><sup><span 
+class="cmmi-8">j</span><sub><span 
+class="cmr-6">1</span></sub></sup><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmr-8">5</span></sub><sup><span 
+class="cmmi-8">j</span><sub><span 
+class="cmr-6">5</span></sub></sup></div>
+</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-88-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-88-3-1"  
+class="td01"> if  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-88-3-2"  
+class="td11">   </td><td  style="white-space:nowrap; text-align:left;" id="TBL-88-3-3"  
+class="td11">    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-88-3-4"  
+class="td11"> <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">i</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,i</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,i</span><sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmsy-10x-x-109">≫</span><sub><span 
+class="cmmi-8">lex</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">j</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,j</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,j</span><sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmr-10x-x-109">)  </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-88-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-88-4-1"  
+class="td01">      </td><td  style="white-space:nowrap; text-align:left;" id="TBL-88-4-2"  
+class="td11"> or  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-88-4-3"  
+class="td11">    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-88-4-4"  
+class="td11"> <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">i</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,i</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,i</span><sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmr-10x-x-109">) = (</span><span 
+class="cmmi-10x-x-109">j</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,j</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,j</span><sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmr-10x-x-109">)      </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-88-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-88-5-1"  
+class="td01">      </td><td  style="white-space:nowrap; text-align:left;" id="TBL-88-5-2"  
+class="td11">   </td><td  style="white-space:nowrap; text-align:left;" id="TBL-88-5-3"  
+class="td11"> and  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-88-5-4"  
+class="td11"> <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">i</span><sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmmi-10x-x-109">,i</span><sub><span 
+class="cmr-8">5</span></sub><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmsy-10x-x-109">≫</span><sub><span 
+class="cmmi-8">gradlex</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">j</span><sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmmi-10x-x-109">,j</span><sub><span 
+class="cmr-8">5</span></sub><span 
+class="cmr-10x-x-109">)     </span></td>
+</tr></table></div></div>
+<!--l. 1181--><p class="noindent" >Note that in the second place there is no <span 
+class="ptmri8t-x-x-109">lex </span>ordering available; that would not make
+sense.
+</p><!--l. 1184--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x217-8450007"></a>Weighted Ordering</h5>
+<a 
+ id="dx217-845001"></a>
+<a 
+ id="dx217-845002"></a>
+<a 
+ id="dx217-845003"></a>
+<!--l. 1186--><p class="noindent" >The statement </p>
+<div class="center" 
+>
+<!--l. 1187--><p class="noindent" >
+</p><!--l. 1188--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">torder</span>(<span 
+class="ptmri8t-x-x-109">vl</span>, weighted, <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">n</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,n</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,n</span><sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmsy-10x-x-109">}</span>);</p></div>
+<!--l. 1190--><p class="noindent" >establishes a graduated ordering, where the exponents are ﬁrst multiplied by the given
+weights. If there are less weight values than variables, the weight 1 is added
+automatically. If the weighted degree calculation is not decidable, a <span 
+class="ptmri8t-x-x-109">lex </span>comparison
+follows.
+</p><!--l. 1195--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x217-8460007"></a>Graded Ordering</h5>
+<a 
+ id="dx217-846001"></a>
+<a 
+ id="dx217-846002"></a>
+<a 
+ id="dx217-846003"></a>
+<!--l. 1197--><p class="noindent" >The statement </p>
+<div class="center" 
+>
+<!--l. 1198--><p class="noindent" >
+                                                                     
+
+                                                                     
+</p><!--l. 1199--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">torder</span>(<span 
+class="ptmri8t-x-x-109">vl</span>, graded, <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">n</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,n</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,n</span><sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmsy-10x-x-109">}</span>, <span 
+class="cmmi-10x-x-109">order</span><sub><span 
+class="cmr-8">2</span></sub>);</p></div>
+<!--l. 1201--><p class="noindent" >establishes a graduated ordering, where the exponents are ﬁrst multiplied by the given
+weights. If there are less weight values than variables, the weight 1 is added
+automatically. If the weighted degree calculation is not decidable, the term order <span 
+class="cmmi-10x-x-109">order</span><sub><span 
+class="cmr-8">2</span></sub>
+speciﬁed in the following argument(s) is used. The ordering <span 
+class="ptmri8t-x-x-109">graded </span>is designed primarily
+for use with the operator <span 
+class="pcrr8t-x-x-109">dd_groebner</span>.
+</p><!--l. 1208--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x217-8470007"></a>Matrix Ordering</h5>
+<a 
+ id="dx217-847001"></a>
+<a 
+ id="dx217-847002"></a>
+<a 
+ id="dx217-847003"></a>
+<!--l. 1210--><p class="noindent" >The statement </p>
+<div class="center" 
+>
+<!--l. 1211--><p class="noindent" >
+</p><!--l. 1212--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">torder</span>(<span 
+class="ptmri8t-x-x-109">vl</span>, matrix, <span 
+class="cmmi-10x-x-109">m</span>);</p></div>
+<!--l. 1214--><p class="noindent" >where <span 
+class="cmmi-10x-x-109">m </span>is a matrix with integer elements and row length which corresponds to the
+variable number. The exponents of each monomial form a vector; two monomials are
+compared by multiplying their exponent vectors ﬁrst with <span 
+class="cmmi-10x-x-109">m </span>and comparing the resulting
+vector lexicographically. E.g. the unit matrix establishes the classical <span 
+class="ptmri8t-x-x-109">lex </span>term order
+mode, a matrix with a ﬁrst row of ones followed by the rows of a unit matrix corresponds
+to the <span 
+class="ptmri8t-x-x-109">gradlex </span>ordering.
+</p><!--l. 1222--><p class="noindent" >The matrix <span 
+class="cmmi-10x-x-109">m </span>must have at least as many rows as columns; a non–square matrix contains
+redundant rows. The matrix must have full rank, and the top non–zero element of each
+column must be positive.
+</p><!--l. 1226--><p class="noindent" >The generality of the matrix based term order has its price: the computing time spent in
+the term sorting is signiﬁcantly higher than with the specialized term orders. To
+overcome this problem, you can compile a matrix term order ; the compilation reduces
+the computing time overhead signiﬁcantly. If you set the switch <span 
+class="pcrr8t-x-x-109">comp</span><a 
+ id="dx217-847004"></a> on, any
+new order matrix is compiled when any operator of the <span 
+class="ptmrc8t-x-x-109">G<span 
+class="small-caps">R</span><span 
+class="small-caps">O</span><span 
+class="small-caps">E</span><span 
+class="small-caps">B</span><span 
+class="small-caps">N</span><span 
+class="small-caps">E</span><span 
+class="small-caps">R</span> </span>package
+accesses it for the ﬁrst time. Alternatively you can compile a matrix explicitly
+<a 
+ id="dx217-847005"></a> <a 
+ id="operator:TORDER_COMPILE"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1215">
+    torder_compile(&#x003C;n&#x003E;,&#x003C;m&#x003E;);
+</div>
+<!--l. 1239--><p class="nopar" > where <span 
+class="cmmi-10x-x-109">&#x003C; n &#x003E; </span>is a name (an identiﬁer) and <span 
+class="cmmi-10x-x-109">&#x003C; m &#x003E; </span>is a term order matrix.
+<span 
+class="pcrr8t-x-x-109">torder_compile </span>transforms the matrix into a LISP program, which is compiled by
+the LISP compiler when <span 
+class="pcrr8t-x-x-109">comp </span>is on or when you generate a fast loadable module. Later
+you can activate the new term order by using the name <span 
+class="cmmi-10x-x-109">&#x003C; n &#x003E; </span>in a <span 
+class="pcrr8t-x-x-109">torder </span>statement as
+term ordering mode.
+</p><!--l. 1247--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x217-8480007"></a>Gröbner Bases for Graded Homogeneous Systems</h5>
+<!--l. 1249--><p class="noindent" >For a homogeneous system of polynomials under a term order <span 
+class="ptmri8t-x-x-109">graded</span>, <span 
+class="ptmri8t-x-x-109">gradlex</span>,
+<span 
+class="ptmri8t-x-x-109">revgradlex </span>or <span 
+class="ptmri8t-x-x-109">weighted </span>a Gröbner Base can be computed with limiting the grade of the
+intermediate <span 
+class="cmmi-10x-x-109">s</span>–polynomials:
+<a 
+ id="dx217-848001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="pcrr8t-x-x-109">dd_groebner</span><span 
+class="ptmb8t-x-x-109">(</span><span 
+class="cmmi-10x-x-109">d</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,d</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,p</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmsy-10x-x-109">}</span><span 
+class="ptmb8t-x-x-109">);</span> </dt><dd 
+class="description"><a 
+ id="operator:DD_GROEBNER"></a></dd></dl>
+<!--l. 1258--><p class="noindent" >where <span 
+class="cmmi-10x-x-109">d</span><span 
+class="cmr-10x-x-109">1 </span>is a non–negative integer and <span 
+class="cmmi-10x-x-109">d</span><span 
+class="cmr-10x-x-109">2 </span>is an integer <span 
+class="cmmi-10x-x-109">&#x003E; d</span><span 
+class="cmr-10x-x-109">1 </span>or “inﬁnity&#x0022;. A pair of
+polynomials is considered only if the grade of the lcm of their head terms is between <span 
+class="cmmi-10x-x-109">d</span><span 
+class="cmr-10x-x-109">1</span>
+and <span 
+class="cmmi-10x-x-109">d</span><span 
+class="cmr-10x-x-109">2</span>. See <span class="cite">[<a 
+href="manualap2.html#XBecker:93">BWK93</a>]</span> for the mathematical background. For the term orders <span 
+class="ptmri8t-x-x-109">graded </span>or
+<span 
+class="ptmri8t-x-x-109">weighted </span>the (ﬁrst) weight vector is used for the grade computation. Otherwise the total
+degree of a term is used.
+</p><!--l. 1266--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.25.4    </span> <a 
+ id="x217-84900020.25.4"></a>Ideal Decomposition &#x0026; Equation System Solving</h4>
+<!--l. 1267--><p class="noindent" >Based on the elementary Gröbner operations, the <span 
+class="ptmrc8t-x-x-109">G<span 
+class="small-caps">R</span><span 
+class="small-caps">O</span><span 
+class="small-caps">E</span><span 
+class="small-caps">B</span><span 
+class="small-caps">N</span><span 
+class="small-caps">E</span><span 
+class="small-caps">R</span> </span>package oﬀers additional
+operators, which allow the decomposition of an ideal or of a system of equations down to
+the individual solutions.
+                                                                     
+
+                                                                     
+</p><!--l. 1271--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x217-85000020.25.4"></a>Solutions Based on Lex Type Gröbner Bases</h5>
+<!--l. 1273--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x217-85100020.25.4"></a>groesolve: Solution of a Set of Polynomial Equations</h5>
+<a 
+ id="dx217-851001"></a>
+<a 
+ id="dx217-851002"></a>
+<!--l. 1275--><p class="noindent" ><a 
+ id="operator:GROESOLVE"></a> The <span 
+class="pcrr8t-x-x-109">groesolve </span>operator incorporates a macro algorithm; lexical Gröbner bases are
+computed by <span 
+class="pcrr8t-x-x-109">groebnerf </span>and decomposed into simpler ones by ideal decomposition
+techniques; if algebraically possible, the problem is reduced to univariate polynomials
+which are solved by <span 
+class="pcrr8t-x-x-109">solve</span>; if <span 
+class="pcrr8t-x-x-109">rounded </span>is on, numerical approximations are computed
+for the roots of the univariate polynomials.
+</p>
+<table 
+class="equation-star"><tr><td>
+        <span 
+class="cmmi-10x-x-109">groesolve</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">exp</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,exp</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,expm</span><span 
+class="cmsy-10x-x-109">}</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">var</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,var</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,varn</span><span 
+class="cmsy-10x-x-109">}</span><span 
+class="cmr-10x-x-109">]);</span>
+</td></tr></table>
+<!--l. 1284--><p class="nopar" >
+where <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">exp</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,exp</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,expm</span><span 
+class="cmsy-10x-x-109">} </span>is a list of any number of expressions or equations,
+<span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">var</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,var</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,varn</span><span 
+class="cmsy-10x-x-109">} </span>is an optional list of variables.
+</p><!--l. 1289--><p class="noindent" >The result is a set of subsets. The subsets contain the solutions of the polynomial
+equations. If there are only ﬁnitely many solutions, then each subset is a set of
+expressions of triangular type <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">exp</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,exp</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,expn</span><span 
+class="cmsy-10x-x-109">}</span><span 
+class="cmmi-10x-x-109">, </span>where <span 
+class="cmmi-10x-x-109">exp</span><span 
+class="cmr-10x-x-109">1 </span>depends only on
+<span 
+class="cmmi-10x-x-109">var</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">, exp</span><span 
+class="cmr-10x-x-109">2 </span>depends only on <span 
+class="cmmi-10x-x-109">var</span><span 
+class="cmr-10x-x-109">1 </span>and <span 
+class="cmmi-10x-x-109">var</span><span 
+class="cmr-10x-x-109">2 </span>etc. until <span 
+class="cmmi-10x-x-109">expn </span>which depends on
+<span 
+class="cmmi-10x-x-109">var</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,varn. </span>This allows a successive determination of the solution components. If
+there are inﬁnitely many solutions, some subsets consist in less than <span 
+class="cmmi-10x-x-109">n </span>expressions. By
+considering some of the variables as “free parameters”, these subsets are usually again of
+triangular type.
+                                                                     
+
+                                                                     
+<a 
+ id="x217-851003r8"></a>
+</p><!--l. 1300--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Example 8</span>(Intersubsections of a line with a circle): <a 
+ id="dx217-851004"></a>
+</p>
+<table 
+class="equation-star"><tr><td>
+         <span 
+class="cmmi-10x-x-109">groesolve</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmsy-10x-x-109">∗∗</span><span 
+class="cmr-10x-x-109">2 </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">y </span><span 
+class="cmsy-10x-x-109">∗∗</span><span 
+class="cmr-10x-x-109">2 </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">a,p </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">q </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">y </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">s</span><span 
+class="cmsy-10x-x-109">}</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">x,y</span><span 
+class="cmsy-10x-x-109">}</span><span 
+class="cmr-10x-x-109">);</span>
+</td></tr></table>
+<!--l. 1303--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1216">
+                2      2    2             2    2
+ <br />{{x=(sqrt( - a*p  + a*q  + s )*q - p*s)/(p  - q ),
+ <br />                   2      2    2             2    2
+ <br />  y= - (sqrt( - a*p  + a*q  + s )*p - q*s)/(p  - q )},
+ <br />                   2      2    2             2    2
+ <br /> {x= - (sqrt( - a*p  + a*q  + s )*q + p*s)/(p  - q ),
+ <br />                2      2    2             2    2
+ <br />  y=(sqrt( - a*p  + a*q  + s )*p + q*s)/(p  - q )}}
+</div>
+<!--l. 1314--><p class="nopar" >
+</p><!--l. 1316--><p class="noindent" >If the system is zero–dimensional (has a number of isolated solutions), the algorithm
+described in <span class="cite">[<a 
+href="manualap2.html#XHillebrand:99">Hil99</a>]</span> is used, if the decomposition leaves a polynomial with mixed
+leading term. Hillebrand has written the article and Möller was the tutor of this
+job.
+</p><!--l. 1321--><p class="noindent" >The reordering of the <span 
+class="pcrr8t-x-x-109">groesolve </span>variables is controlled by the REDUCE switch
+<span 
+class="pcrr8t-x-x-109">varopt</span>. If <span 
+class="pcrr8t-x-x-109">varopt </span>is <span 
+class="pcrr8t-x-x-109">on </span>(which is the default of <span 
+class="pcrr8t-x-x-109">varopt</span>), the variable
+sequence is optimized (the variables are reordered). If <span 
+class="pcrr8t-x-x-109">varopt </span>is <span 
+class="pcrr8t-x-x-109">off</span>, the given
+variable sequence is taken (if no variables are given, the order of the REDUCE
+system is taken instead). In general, the reordering of the variables makes the
+Gröbner basis computation signiﬁcantly faster. A variable dependency, declare
+by one (or several) <span 
+class="pcrr8t-x-x-109">depend </span>statements, is regarded (if <span 
+class="pcrr8t-x-x-109">varopt </span>is <span 
+class="pcrr8t-x-x-109">on</span>). The
+switch <span 
+class="pcrr8t-x-x-109">groebopt </span>has no meaning for <span 
+class="pcrr8t-x-x-109">groesolve</span>; it is stored during its
+processing.
+</p><!--l. 1332--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x217-8520008"></a><span 
+class="ptmri8t-x-x-109">groepostproc</span>: Postprocessing of a Gröbner Basis</h5>
+<a 
+ id="dx217-852001"></a>
+<!--l. 1334--><p class="noindent" ><a 
+ id="operator:GROEPOSTPROC"></a> In many cases, it is diﬃcult to do the general Gröbner processing. If a Gröbner basis
+with a <span 
+class="ptmri8t-x-x-109">lex </span>ordering is calculated already (e.g., by very individual parameter
+settings), the solutions can be derived from it by a call to <span 
+class="pcrr8t-x-x-109">groepostproc</span>.
+<span 
+class="pcrr8t-x-x-109">groesolve </span>is functionally equivalent to a call to <span 
+class="pcrr8t-x-x-109">groebnerf </span>and subsequent calls to
+<span 
+class="pcrr8t-x-x-109">groepostproc </span>for each partial basis.
+</p>
+                                                                     
+
+                                                                     
+<table 
+class="equation-star"><tr><td>
+       <span 
+class="cmmi-10x-x-109">groepostproc</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">exp</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,exp</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,expm</span><span 
+class="cmsy-10x-x-109">}</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">var</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,var</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,varn</span><span 
+class="cmsy-10x-x-109">}</span><span 
+class="cmr-10x-x-109">]);</span>
+</td></tr></table>
+<!--l. 1344--><p class="nopar" >
+where <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">exp</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,exp</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,expm</span><span 
+class="cmsy-10x-x-109">} </span>is a list of any number of expressions,
+<span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">var</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,var</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,varn</span><span 
+class="cmsy-10x-x-109">} </span>is an optional list of variables. The expressions must be a <span 
+class="ptmri8t-x-x-109">lex</span>
+Gröbner basis with the given variables; the ordering must be still active.
+</p><!--l. 1350--><p class="noindent" >The result is the same as with <span 
+class="pcrr8t-x-x-109">groesolve</span>.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1217">
+groepostproc({x3**2 + x3 + x2 - 1,
+ <br />              x2*x3 + x1*x3 + x3 + x1*x2 + x1 + 2,
+ <br />              x2**2 + 2*x2 - 1,
+ <br />              x1**2 - 2},{x3,x2,x1});
+ <br />
+ <br />{{x3= - sqrt(2),
+ <br />
+ <br />  x2=sqrt(2) - 1,
+ <br />
+ <br />  x1=sqrt(2)},
+ <br />
+ <br /> {x3=sqrt(2),
+ <br />
+ <br />  x2= - (sqrt(2) + 1),
+ <br />
+ <br />  x1= - sqrt(2)},
+ <br />
+ <br />      sqrt(4*sqrt(2) + 9) - 1
+ <br /> {x3=-------------------------,
+ <br />                 2
+ <br />
+ <br />  x2= - (sqrt(2) + 1),
+ <br />
+ <br />  x1=sqrt(2)},
+ <br />
+ <br />       - (sqrt(4*sqrt(2) + 9) + 1)
+ <br /> {x3=------------------------------,
+ <br />                   2
+ <br />
+ <br />  x2= - (sqrt(2) + 1),
+ <br />
+ <br />  x1=sqrt(2)},
+ <br />
+ <br />      sqrt( - 4*sqrt(2) + 9) - 1
+ <br /> {x3=----------------------------,
+ <br />                  2
+ <br />
+ <br />  x2=sqrt(2) - 1,
+                                                                     
+
+                                                                     
+ <br />
+ <br />  x1= - sqrt(2)},
+ <br />
+ <br />       - (sqrt( - 4*sqrt(2) + 9) + 1)
+ <br /> {x3=---------------------------------,
+ <br />                     2
+ <br />
+ <br />  x2=sqrt(2) - 1,
+ <br />
+ <br />  x1= - sqrt(2)}}
+</div>
+<!--l. 1401--><p class="nopar" >
+</p><!--l. 1403--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x217-8530008"></a>Idealquotient: Quotient of an Ideal and an Expression</h5>
+<a 
+ id="dx217-853001"></a>
+<a 
+ id="dx217-853002"></a>
+<!--l. 1405--><p class="noindent" ><a 
+ id="operator:IDEALQUOTIENT"></a> Let <span 
+class="cmmi-10x-x-109">i </span>be an ideal and <span 
+class="cmmi-10x-x-109">f </span>be a polynomial in the same variables. Then the algebraic
+quotient is deﬁned by
+</p>
+<table 
+class="equation-star"><tr><td>
+                     <span 
+class="cmmi-10x-x-109">i </span><span 
+class="cmr-10x-x-109">: </span><span 
+class="cmmi-10x-x-109">f </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">p</span><span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmmi-10x-x-109">p </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">f</span> member of <span 
+class="cmmi-10x-x-109">i</span><span 
+class="cmsy-10x-x-109">}</span><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 1410--><p class="nopar" >
+The ideal quotient <span 
+class="cmmi-10x-x-109">i </span><span 
+class="cmr-10x-x-109">: </span><span 
+class="cmmi-10x-x-109">f </span>contains <span 
+class="cmmi-10x-x-109">i </span>and is obviously part of the whole polynomial ring, i.e.
+contained in <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmsy-10x-x-109">}</span>. The case <span 
+class="cmmi-10x-x-109">i </span><span 
+class="cmr-10x-x-109">: </span><span 
+class="cmmi-10x-x-109">f </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmsy-10x-x-109">} </span>is equivalent to <span 
+class="cmmi-10x-x-109">f </span>being a member of <span 
+class="cmmi-10x-x-109">i</span>. The other
+extremal case, <span 
+class="cmmi-10x-x-109">i </span><span 
+class="cmr-10x-x-109">: </span><span 
+class="cmmi-10x-x-109">f </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">i</span>, occurs, when <span 
+class="cmmi-10x-x-109">f </span>does not vanish at any general zero of <span 
+class="cmmi-10x-x-109">i</span>. The
+explanation of the notion “general zero” introduced by van der Waerden, however, is
+beyond the aim of this manual. The operation of <span 
+class="pcrr8t-x-x-109">groesolve</span>/<span 
+class="pcrr8t-x-x-109">groepostproc </span>is
+                                                                     
+
+                                                                     
+based on nested ideal quotient calculations.
+</p><!--l. 1420--><p class="noindent" >If <span 
+class="cmmi-10x-x-109">i </span>is given by a basis and <span 
+class="cmmi-10x-x-109">f </span>is given as an expression, the quotient can be calculated
+by
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">idealquotient </span>(<span 
+class="pcrr8t-x-x-109">{</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exp1</span><span 
+class="cmsy-10x-x-109">⟩</span>, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exp2</span><span 
+class="cmsy-10x-x-109">⟩</span>,…, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">expm</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">}</span>, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exp</span><span 
+class="cmsy-10x-x-109">⟩</span>);</div>
+<!--l. 1425--><p class="noindent" >where {<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exp1</span><span 
+class="cmsy-10x-x-109">⟩</span>, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exp2</span><span 
+class="cmsy-10x-x-109">⟩</span>, …, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">expm</span><span 
+class="cmsy-10x-x-109">⟩</span>} is a list of any number of expressions or equations,
+<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exp</span><span 
+class="cmsy-10x-x-109">⟩ </span>is a single expression or equation.
+</p><!--l. 1428--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">idealquotient </span>calculates the algebraic quotient of the ideal <span 
+class="cmmi-10x-x-109">i </span>with the basis
+<span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">exp</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,exp</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,expm</span><span 
+class="cmsy-10x-x-109">} </span>and <span 
+class="ptmri8t-x-x-109">exp </span>with respect to the variables given or extracted.
+<span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">exp</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,exp</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,expm</span><span 
+class="cmsy-10x-x-109">} </span>is not necessarily a Gröbner basis. The result is the Gröbner
+basis of the quotient.
+</p><!--l. 1434--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x217-8540008"></a>Saturation: Saturation of an Ideal and an Expression</h5>
+<a 
+ id="dx217-854001"></a>
+<!--l. 1436--><p class="noindent" ><a 
+ id="operator:SATURATION"></a> The <span 
+class="pcrr8t-x-x-109">saturation </span>operator computes the quotient on an ideal and an arbitrary power of
+an expression <span 
+class="cmmi-10x-x-109">exp </span><span 
+class="cmsy-10x-x-109">∗∗</span><span 
+class="cmmi-10x-x-109">n </span>with arbitrary <span 
+class="cmmi-10x-x-109">n</span>. The call is
+</p>
+<table 
+class="equation-star"><tr><td>
+                   <span 
+class="cmmi-10x-x-109">saturation</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">exp</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,expm</span><span 
+class="cmsy-10x-x-109">}</span><span 
+class="cmmi-10x-x-109">,exp</span><span 
+class="cmr-10x-x-109">);</span>
+</td></tr></table>
+<!--l. 1439--><p class="nopar" >
+where <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">exp</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,exp</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,expm</span><span 
+class="cmsy-10x-x-109">} </span>is a list of any number of expressions or equations, <span 
+class="ptmri8t-x-x-109">exp </span>is
+a single expression or equation.
+</p><!--l. 1443--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">saturation </span>calls <span 
+class="ptmri8t-x-x-109">idealquotient </span>several times, until the result is stable, and returns
+it.
+                                                                     
+
+                                                                     
+</p><!--l. 1446--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x217-8550008"></a>Operators for Gröbner Bases in all Term Orderings</h5>
+<a 
+ id="dx217-855001"></a>
+<!--l. 1448--><p class="noindent" >In some cases where no Gröbner basis with lexical ordering can be calculated, a
+calculation with a total degree ordering is still possible. Then the Hilbert polynomial
+gives information about the dimension of the solutions space and for ﬁnite sets of
+solutions univariate polynomials can be calculated. The solutions of the equation
+system then is contained in the cross product of all solutions of all univariate
+polynomials.
+</p><!--l. 1456--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x217-8560008"></a>Hilbertpolynomial: Hilbert Polynomial of an Ideal</h5>
+<a 
+ id="dx217-856001"></a>
+<!--l. 1458--><p class="noindent" >This algorithm was contributed by <span 
+class="ptmrc8t-x-x-109">J<span 
+class="small-caps">O</span><span 
+class="small-caps">A</span><span 
+class="small-caps">C</span><span 
+class="small-caps">H</span><span 
+class="small-caps">I</span><span 
+class="small-caps">M</span> H<span 
+class="small-caps">O</span><span 
+class="small-caps">L</span><span 
+class="small-caps">L</span><span 
+class="small-caps">M</span><span 
+class="small-caps">A</span><span 
+class="small-caps">N</span></span>, Royal Institute of Technology,
+Stockholm (private communication). <a 
+ id="dx217-856002"></a> <a 
+ id="operator:HILBERTPOLYNOMIAL"></a>
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">hilbertpolynomial (</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exp1:expression</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span>…<span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">expm:expression</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">)</span></div>
+<!--l. 1465--><p class="noindent" >where <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">exp</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,expm</span><span 
+class="cmsy-10x-x-109">} </span>is a list of any number of expressions or equations.
+</p><!--l. 1468--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">hilertpolynomial </span>calculates the Hilbert polynomial of the ideal with basis
+<span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">exp</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,expm</span><span 
+class="cmsy-10x-x-109">} </span>with respect to the variables given or extracted provided the given term
+ordering is compatible with the degree, such as the <span 
+class="ptmri8t-x-x-109">gradlex</span>- or <span 
+class="ptmri8t-x-x-109">revgradlex</span>-ordering. The
+term ordering of the basis must be active and <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">exp</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,expm</span><span 
+class="cmsy-10x-x-109">} </span>should be a Gröbner
+basis with respect to this ordering. The Hilbert polynomial gives information
+about the cardinality of solutions of the system <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">exp</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,expm</span><span 
+class="cmsy-10x-x-109">}</span>: if the Hilbert
+polynomial is an integer, the system has only a discrete set of solutions and the
+polynomial is identical with the number of solutions counted with their multiplicities.
+Otherwise the degree of the Hilbert polynomial is the dimension of the solution
+space.
+</p><!--l. 1482--><p class="noindent" >If the Hilbert polynomial is not a constant, it is constructed with the variable
+“x” regardless of whether <span 
+class="cmmi-10x-x-109">x </span>is member of <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">var</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,varn</span><span 
+class="cmsy-10x-x-109">} </span>or not. The value
+of this polynomial at suﬃciently large numbers “x” is the diﬀerence of the
+dimension of the linear vector space of all polynomials of degree <span 
+class="cmsy-10x-x-109">≤ </span><span 
+class="cmmi-10x-x-109">x </span>minus the
+                                                                     
+
+                                                                     
+dimension of the subspace of all polynomials of degree <span 
+class="cmsy-10x-x-109">≤ </span><span 
+class="cmmi-10x-x-109">x </span>which belong also to the
+ideal.
+</p><!--l. 1490--><p class="noindent" ><span 
+class="cmmi-10x-x-109">x </span>must be an undeﬁned variable or the value of <span 
+class="cmmi-10x-x-109">x </span>must be an undeﬁned variable;
+otherwise a warning is given and a new (generated) variable is taken instead.
+</p>
+<!--l. 1494--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x217-8570008"></a><span 
+class="ptmb8t-x-x-109">Remark:</span></span>
+The number of zeros in an ideal and the Hilbert polynomial depend only on the leading
+terms of the Gröbner basis. So if a subsequent Hilbert calculation is planned,
+the Gröbner calculation should be performed with <span 
+class="pcrr8t-x-x-109">on gltbasis </span>and the
+value of <span 
+class="pcrr8t-x-x-109">gltb </span>(or its elements in a <span 
+class="pcrr8t-x-x-109">groebnerf </span>context) should be given to
+<span 
+class="pcrr8t-x-x-109">hilbertpolynomial</span>. In this manner, a lot of computing time can be saved in the
+case of long calculations.
+</p><!--l. 1502--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.25.5    </span> <a 
+ id="x217-85800020.25.5"></a>Calculations “by Hand”</h4>
+<!--l. 1503--><p class="noindent" >The following operators support explicit calculations with polynomials in a
+distributive representation at the REDUCE top level. So they allow one to do
+Gröbner type evaluations stepwise by separate calls. Note that the normal
+REDUCE arithmetic can be used for arithmetic combinations of monomials and
+polynomials.
+</p><!--l. 1509--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x217-85900020.25.5"></a>Representing Polynomials in Distributive Form</h5>
+<a 
+ id="dx217-859001"></a>
+<!--l. 1511--><p class="noindent" ><a 
+ id="operator:GSORT"></a>
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">gsort </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">p</span><span 
+class="cmsy-10x-x-109">⟩</span></div>
+<!--l. 1515--><p class="noindent" >where <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">p</span><span 
+class="cmsy-10x-x-109">⟩ </span>is a polynomial or a list of polynomials.
+</p><!--l. 1517--><p class="noindent" >If <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">p</span><span 
+class="cmsy-10x-x-109">⟩ </span>is a single polynomial, the result is a reordered version of <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">p</span><span 
+class="cmsy-10x-x-109">⟩ </span>in the distributive
+                                                                     
+
+                                                                     
+representation according to the variables and the current term order mode; if <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">p</span><span 
+class="cmsy-10x-x-109">⟩ </span>is a list,
+its members are converted into distributive representation and the result is the list sorted
+by the term ordering of the leading terms; zero polynomials are eliminated from the
+result.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1218">
+     torder({alpha,beta,gamma},lex);
+ <br />
+ <br />     dip := gsort(gamma*(alpha-1)**2*(beta+1)**2);
+ <br />
+ <br />
+ <br />                2     2                2
+ <br />    dip := alpha *beta *gamma + 2*alpha *beta*gamma
+ <br />
+ <br />           2                     2
+ <br />    + alpha *gamma - 2*alpha*beta *gamma
+ <br />
+ <br />    - 4*alpha*beta*gamma - 2*alpha*gamma
+ <br />
+ <br />           2
+ <br />     + beta *gamma + 2*beta*gamma + gamma
+</div>
+<!--l. 1540--><p class="nopar" >
+</p><!--l. 1542--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x217-86000020.25.5"></a>Splitting of a Polynomial into Leading Term and Reductum</h5>
+<a 
+ id="dx217-860001"></a>
+<!--l. 1544--><p class="noindent" ><a 
+ id="operator:GSPLIT"></a>
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">gsplit </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">p</span><span 
+class="cmsy-10x-x-109">⟩</span></div>
+<!--l. 1548--><p class="noindent" >where <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">p</span><span 
+class="cmsy-10x-x-109">⟩ </span>is a polynomial.
+</p><!--l. 1550--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">gsplit </span>converts the polynomial <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">p</span><span 
+class="cmsy-10x-x-109">⟩ </span>into distributive representation and splits it into
+leading monomial and reductum. The result is a list with two elements, the leading
+monomial and the reductum.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1219">
+   gsplit dip;
+ <br />
+ <br />          2     2
+ <br />    {alpha *beta *gamma,
+ <br />
+ <br />            2                   2
+ <br />     2*alpha *beta*gamma + alpha *gamma
+ <br />
+ <br />                    2                           2
+ <br />      - 2*alpha*beta *gamma - 4*alpha*beta*gamma
+ <br />
+ <br />      - 2*alpha*gamma + beta *gamma + 2*beta*gamma
+ <br />
+ <br />      + gamma}
+</div>
+<!--l. 1569--><p class="nopar" >
+</p><!--l. 1571--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x217-86100020.25.5"></a>Calculation of Buchberger’s S-polynomial</h5>
+<a 
+ id="dx217-861001"></a>
+<!--l. 1573--><p class="noindent" ><a 
+ id="operator:GSPOLY"></a>
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">gspoly (</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">p1</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">p2</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">)</span></div>
+<!--l. 1577--><p class="noindent" >where <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">p1</span><span 
+class="cmsy-10x-x-109">⟩ </span>and <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">p2</span><span 
+class="cmsy-10x-x-109">⟩ </span>are polynomials.
+</p><!--l. 1579--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">gspoly </span>calculates the <span 
+class="cmmi-10x-x-109">s</span>-polynomial from <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">p1</span><span 
+class="cmsy-10x-x-109">⟩ </span>and <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">p2</span><span 
+class="cmsy-10x-x-109">⟩</span>.
+</p><!--l. 1581--><p class="noindent" >Example for a complete calculation (taken from <span 
+class="ptmrc8t-x-x-109">D<span 
+class="small-caps">A</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span><span 
+class="small-caps">N</span><span 
+class="small-caps">P</span><span 
+class="small-caps">O</span><span 
+class="small-caps">R</span><span 
+class="small-caps">T</span> <span 
+class="small-caps">E</span><span 
+class="small-caps">T</span> <span 
+class="small-caps">A</span><span 
+class="small-caps">L</span>. </span><span class="cite">[<a 
+href="manualap2.html#XDavenport:88a">DST93</a>]</span>):
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1220">
+   torder({x,y,z},lex)$
+ <br />   g1  :=  x**3*y*z - x*z**2;
+ <br />   g2  :=  x*y**2*z - x*y*z;
+ <br />   g3  :=  x**2*y**2 - z;$
+ <br />
+ <br />   % first S-polynomial
+ <br />
+ <br />   g4  :=  gspoly(g2,g3);$
+ <br />
+ <br />           2        2
+ <br />    g4 := x *y*z - z
+ <br />
+ <br />    % next S-polynomial
+ <br />
+ <br />    p :=  gspoly(g2,g4); $
+ <br />
+ <br />          2          2
+ <br />    p := x *y*z - y*z
+ <br />
+ <br />    % and reducing, here only by g4
+ <br />
+ <br />    g5  :=  preduce(p,{g4});
+ <br />
+ <br />                2    2
+ <br />    g5 :=  - y*z  + z
+ <br />
+ <br />    % last S-polynomial}
+ <br />
+ <br />    g6  :=  gspoly(g4,g5);
+ <br />
+ <br />           2  2    3
+ <br />    g6 := x *z  - z
+ <br />
+ <br />    % and the final basis sorted descending
+ <br />
+ <br />    gsort{g2,g3,g4,g5,g6};
+ <br />
+ <br />      2  2
+                                                                     
+
+                                                                     
+ <br />    {x *y  - z,
+ <br />
+ <br />      2        2
+ <br />     x *y*z - z ,
+ <br />
+ <br />      2  2    3
+ <br />     x *z  - z ,
+ <br />
+ <br />        2
+ <br />     x*y *z - x*y*z,
+ <br />
+ <br />           2    2
+ <br />      - y*z  + z }
+</div>
+<!--l. 1635--><p class="nopar" >
+</p><!--l. 534--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 536--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse150.html" >Up</a></td><td class="clinks"><a 
+href="manualse151.html" >Next</a></td><td class="clinks"><a 
+href="manualse149.html" >Prev</a></td><td class="clinks"><a 
+href="manualse149.html#tailmanualse149.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse150.html" >Front</a></td></tr></table><a 
+ id="tailmanualse150.html"></a>   </p> 
+</body> 
+</html>

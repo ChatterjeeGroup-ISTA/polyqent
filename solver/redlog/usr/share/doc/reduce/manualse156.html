@@ -1,0 +1,1466 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>LIE: Functions for the Classiﬁcation of Real n-Dimensional Lie Algebras</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse156.html" >Up</a></td><td class="clinks"><a 
+href="manualse157.html" >Next</a></td><td class="clinks"><a 
+href="manualse155.html" >Prev</a></td><td class="clinks"><a 
+href="manualse155.html#tailmanualse155.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse156.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.31    </span> <a 
+ id="x224-90600020.31"></a>LIE: Functions for the Classiﬁcation of Real
+<span 
+class="cmmi-10x-x-109">n</span>-Dimensional Lie Algebras</h3>
+<a 
+ id="dx224-906001"></a>
+<a 
+ id="dx224-906002"></a>
+<!--l. 628--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">LIE </span>is a package of functions for the classiﬁcation of real <span 
+class="cmmi-10x-x-109">n</span>-dimensional Lie algebras. It
+consists of two modules: <span 
+class="ptmb8t-x-x-109">liendmc1 </span>and <span 
+class="ptmb8t-x-x-109">lie1234</span>. With the help of the functions in the
+<span 
+class="ptmb8t-x-x-109">liendmcl </span>module, real <span 
+class="cmmi-10x-x-109">n</span>-dimensional Lie algebras <span 
+class="cmmi-10x-x-109">L </span>with a derived algebra <span 
+class="cmmi-10x-x-109">L</span><sup><span 
+class="cmr-8">(1)</span></sup> of
+dimension 1 can be classiﬁed.
+</p><!--l. 634--><p class="noindent" >Authors: Carsten and Franziska Schöbel.
+<a 
+ id="dx224-906003"></a>
+<a 
+ id="dx224-906004"></a>
+<a 
+ id="dx224-906005"></a>
+<a 
+ id="dx224-906006"></a>
+</p><!--l. 5--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.31.1    </span> <a 
+ id="x224-90700020.31.1"></a>liendmc1</h4>
+<!--l. 7--><p class="noindent" >With the help of the functions in this module real <span 
+class="cmmi-10x-x-109">n</span>-dimensional Lie algebras <span 
+class="cmmi-10x-x-109">L </span>with a
+derived algebra <span 
+class="cmmi-10x-x-109">L</span><sup><span 
+class="cmr-8">(1)</span></sup> of dimension <span 
+class="cmr-10x-x-109">1 </span>can be classiﬁed. <span 
+class="cmmi-10x-x-109">L </span>has to be deﬁned by its structure
+constants <span 
+class="cmmi-10x-x-109">c</span><sub><span 
+class="cmmi-8">ij</span></sub><sup><span 
+class="cmmi-8">k</span></sup> in the basis <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">X</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,X</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmsy-10x-x-109">} </span>with <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">X</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmmi-10x-x-109">,X</span><sub><span 
+class="cmmi-8">j</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">c</span><sub><span 
+class="cmmi-8">ij</span></sub><sup><span 
+class="cmmi-8">k</span></sup><span 
+class="cmmi-10x-x-109">X</span><sub><span 
+class="cmmi-8">k</span></sub>. The user must
+deﬁne an <span 
+class="pcrr8t-x-x-109">array lienstrucin(n,n,n) </span>with n being the dimension of
+the Lie algebra <span 
+class="cmmi-10x-x-109">L</span>. The structure constants lienstrucin(<span 
+class="cmmi-10x-x-109">i,j,k</span>):=<span 
+class="cmmi-10x-x-109">c</span><sub><span 
+class="cmmi-8">ij</span></sub><sup><span 
+class="cmmi-8">k</span></sup> for <span 
+class="cmmi-10x-x-109">i &#x003C; j</span>
+should be given. Then the procedure <span 
+class="pcrr8t-x-x-109">liendimcom1 </span>can be called. Its syntax is:
+<a 
+ id="dx224-907001"></a> <a 
+ id="procedure:LIENDIMCOM1"></a>
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">liendimcom1(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">number</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">) </span>.</div>
+<!--l. 19--><p class="noindent" ><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">number</span><span 
+class="cmsy-10x-x-109">⟩ </span>corresponds to the dimension <span 
+class="cmmi-10x-x-109">n</span>. The procedure simpliﬁes the structure of
+<span 
+class="cmmi-10x-x-109">L </span>performing real linear transformations. The returned value is a list of the
+form
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+  (i) </dt><dd 
+class="enumerate-enumitem">{LIE_ALGEBRA(2),COMMUTATIVE(n-2)} or
+                                                                     
+
+                                                                     
+     </dd><dt class="enumerate-enumitem">
+  (ii) </dt><dd 
+class="enumerate-enumitem">{HEISENBERG(k),COMMUTATIVE(n-k)}</dd></dl>
+<!--l. 26--><p class="noindent" >with <span 
+class="cmr-10x-x-109">3 </span><span 
+class="cmsy-10x-x-109">≤ </span><span 
+class="cmmi-10x-x-109">k </span><span 
+class="cmsy-10x-x-109">≤ </span><span 
+class="cmmi-10x-x-109">n</span>, <span 
+class="cmmi-10x-x-109">k </span>odd.
+</p><!--l. 28--><p class="noindent" >The concepts correspond to the following theorem (<span 
+class="pcrr8t-x-x-109">LIE_ALGEBRA(2)</span><span 
+class="cmsy-10x-x-109">→ </span><span 
+class="cmmi-10x-x-109">L</span><sub><span 
+class="cmr-8">2</span></sub>,
+<span 
+class="pcrr8t-x-x-109">HEISENBERG(k)</span><span 
+class="cmsy-10x-x-109">→ </span><span 
+class="cmmi-10x-x-109">H</span><sub><span 
+class="cmmi-8">k</span></sub> and <span 
+class="pcrr8t-x-x-109">COMMUTATIVE(n-k)</span><span 
+class="cmsy-10x-x-109">→ </span><span 
+class="cmmi-10x-x-109">C</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmmi-8">k</span></sub>):<br 
+class="newline" /> <span 
+class="ptmb8t-x-x-109">Theorem. </span>Every real <span 
+class="cmmi-10x-x-109">n</span>-dimensional Lie algebra <span 
+class="cmmi-10x-x-109">L </span>with a 1-dimensional derived algebra
+can be decomposed into one of the following forms:
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+  (1) </dt><dd 
+class="enumerate-enumitem"><span 
+class="cmmi-10x-x-109">C</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">L</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmsy-10x-x-109">∩ </span><span 
+class="cmmi-10x-x-109">L</span><sup><span 
+class="cmr-8">(1)</span></sup> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmr-10x-x-109">0</span><span 
+class="cmsy-10x-x-109">}</span><span style="margin-left:0.3em" class="thinspace"></span> <span 
+class="cmr-10x-x-109">: </span><span 
+class="cmmi-10x-x-109">L</span><sub><span 
+class="cmr-8">2</span></sub> <span 
+class="cmsy-10x-x-109">⊕ </span><span 
+class="cmmi-10x-x-109">C</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">2</span></sub> or
+     </dd><dt class="enumerate-enumitem">
+  (2) </dt><dd 
+class="enumerate-enumitem"><span 
+class="cmmi-10x-x-109">C</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">L</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmsy-10x-x-109">∩ </span><span 
+class="cmmi-10x-x-109">L</span><sup><span 
+class="cmr-8">(1)</span></sup> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">L</span><sup><span 
+class="cmr-8">(1)</span></sup><span style="margin-left:0.3em" class="thinspace"></span> <span 
+class="cmr-10x-x-109">: </span><span 
+class="cmmi-10x-x-109">H</span><sub><span 
+class="cmmi-8">k</span></sub> <span 
+class="cmsy-10x-x-109">⊕ </span><span 
+class="cmmi-10x-x-109">C</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmmi-8">k</span></sub>   <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">k </span><span 
+class="cmr-10x-x-109">= 2</span><span 
+class="cmmi-10x-x-109">r </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">r </span><span 
+class="cmsy-10x-x-109">≥ </span><span 
+class="cmr-10x-x-109">2)</span>,</dd></dl>
+<!--l. 39--><p class="noindent" >with
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   1. </dt><dd 
+class="enumerate-enumitem"><span 
+class="cmmi-10x-x-109">C</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">L</span><span 
+class="cmr-10x-x-109">) = </span><span 
+class="cmmi-10x-x-109">C</span><sub><span 
+class="cmmi-8">j</span></sub> <span 
+class="cmsy-10x-x-109">⊕ </span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">L</span><sup><span 
+class="cmr-8">(1)</span></sup> <span 
+class="cmsy-10x-x-109">∩ </span><span 
+class="cmmi-10x-x-109">C</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">L</span><span 
+class="cmr-10x-x-109">)) </span>and dim<span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">C</span><sub><span 
+class="cmmi-8">j</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">j </span>,
+     </dd><dt class="enumerate-enumitem">
+   2. </dt><dd 
+class="enumerate-enumitem"><span 
+class="cmmi-10x-x-109">L</span><sub><span 
+class="cmr-8">2</span></sub> is generated by <span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">2</span></sub> with <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub> ,
+     </dd><dt class="enumerate-enumitem">
+   3. </dt><dd 
+class="enumerate-enumitem"><span 
+class="cmmi-10x-x-109">H</span><sub><span 
+class="cmmi-8">k</span></sub> is generated by <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmmi-8">k</span></sub><span 
+class="cmsy-10x-x-109">} </span>with<br 
+class="newline" /><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmr-10x-x-109">] =</span> <img 
+src="manual359x.png" alt="⋅⋅⋅"  class="@cdots"  /> <span 
+class="cmr-10x-x-109">= [</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmmi-8">k</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmmi-8">k</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub>.</dd></dl>
+<!--l. 49--><p class="noindent" >(cf. <span class="cite">[<a 
+href="manualap2.html#XSchoebel:93">Sch93</a>]</span>)
+<a 
+ id="dx224-907009"></a>
+<a 
+ id="dx224-907010"></a>
+</p><!--l. 53--><p class="noindent" ><a 
+ id="reserved:LIE_LIST"></a> <a 
+ id="reserved:LIENTRANS"></a> The returned list is also stored as <span 
+class="pcrr8t-x-x-109">lie_list</span>. The matrix <span 
+class="pcrr8t-x-x-109">lientrans </span>gives the
+transformation from the given basis <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">X</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,X</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmsy-10x-x-109">} </span>into the standard basis <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmsy-10x-x-109">}</span>:
+<span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmmi-8">j</span></sub> <span 
+class="cmr-10x-x-109">= (</span>LIENTRANS<span 
+class="cmr-10x-x-109">)</span><sub><span 
+class="cmmi-8">j</span></sub><sup><span 
+class="cmmi-8">k</span></sup><span 
+class="cmmi-10x-x-109">X</span><sub><span 
+class="cmmi-8">k</span></sub>.
+</p><!--l. 59--><p class="noindent" >A more detailed output can be obtained by turning on the switch <span 
+class="pcrr8t-x-x-109">tr_lie</span>: <a 
+ id="dx224-907011"></a><a 
+ id="dx224-907012"></a><a 
+ id="dx224-907013"></a> <a 
+ id="switch:TR_LIE"></a> before the
+procedure <span 
+class="pcrr8t-x-x-109">liendimcom1 </span>is called.
+</p><!--l. 64--><p class="noindent" >The returned list could be an input for a data bank in which mathematical relevant
+properties of the obtained Lie algebras are stored.
+</p><!--l. 67--><p class="noindent" >
+</p>
+                                                                     
+
+                                                                     
+<h4 class="subsectionHead"><span class="titlemark">20.31.2    </span> <a 
+ id="x224-90800020.31.2"></a>lie1234</h4>
+<!--l. 69--><p class="noindent" >This part of the package classiﬁes real low-dimensional Lie algebras <span 
+class="cmmi-10x-x-109">L </span>of the dimension
+<span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmr-10x-x-109">:=</span>dim<span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">L </span><span 
+class="cmr-10x-x-109">= 1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">3</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">4</span>. <span 
+class="cmmi-10x-x-109">L </span>is also given by its structure constants <span 
+class="cmmi-10x-x-109">c</span><sub><span 
+class="cmmi-8">ij</span></sub><sup><span 
+class="cmmi-8">k</span></sup> in the basis
+<span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">X</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,X</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmsy-10x-x-109">} </span>with <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">X</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmmi-10x-x-109">,X</span><sub><span 
+class="cmmi-8">j</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">c</span><sub><span 
+class="cmmi-8">ij</span></sub><sup><span 
+class="cmmi-8">k</span></sup><span 
+class="cmmi-10x-x-109">X</span><sub><span 
+class="cmmi-8">k</span></sub>. An ARRAY LIESTRIN(<span 
+class="cmmi-10x-x-109">n,n,n</span>) has to be deﬁned
+and LIESTRIN(<span 
+class="cmmi-10x-x-109">i,j,k</span>):=<span 
+class="cmmi-10x-x-109">c</span><sub><span 
+class="cmmi-8">ij</span></sub><sup><span 
+class="cmmi-8">k</span></sup> for <span 
+class="cmmi-10x-x-109">i &#x003C; j </span>should be given. Then the procedure <span 
+class="pcrr8t-x-x-109">lieclass</span>
+can be called whose syntax is: <a 
+ id="dx224-908001"></a> <a 
+ id="procedure:LIECLASS"></a>
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">lieclass(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">number</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">) </span>.</div>
+<!--l. 81--><p class="noindent" ><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">number</span><span 
+class="cmsy-10x-x-109">⟩ </span>should be the dimension of the Lie algebra <span 
+class="cmmi-10x-x-109">L</span>. The procedure stepwise
+simpliﬁes the commutator relations of <span 
+class="cmmi-10x-x-109">L </span>using properties of invariance like the
+dimension of the centre, of the derived algebra, unimodularity etc. The returned value has
+the form:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1235">
+   {LIEALG(n),COMTAB(m)},
+</div>
+<!--l. 87--><p class="nopar" > where <span 
+class="cmmi-10x-x-109">m </span>corresponds to the number of the standard form (basis: <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmsy-10x-x-109">}</span>) in
+an enumeration scheme. The corresponding enumeration schemes are listed
+below (cf. <span class="cite">[<a 
+href="manualap2.html#XSchoebel:92">Sch92</a>]</span>,<span class="cite">[<a 
+href="manualap2.html#XMacCallum:99">Mac99</a>]</span>). In case that the standard form in the enumeration
+scheme depends on one (or two) parameter(s) <span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmr-8">1</span></sub> (and <span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmr-8">2</span></sub>) the list is expanded
+to:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1236">
+   {LIEALG(n),COMTAB(m),p1,p2}.
+</div>
+<!--l. 95--><p class="nopar" > <a 
+ id="dx224-908002"></a> <a 
+ id="dx224-908003"></a> <a 
+ id="reserved:LIE_CLASS"></a><a 
+ id="reserved:LIEMAT"></a> This returned value is also stored as <span 
+class="pcrr8t-x-x-109">lie_class</span>. The linear transformation from the
+basis <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">X</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,X</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmsy-10x-x-109">} </span>into the basis of the standard form <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmsy-10x-x-109">} </span>is given by the matrix
+<span 
+class="pcrr8t-x-x-109">liemat</span>: <span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmmi-8">j</span></sub> <span 
+class="cmr-10x-x-109">= (</span>LIEMAT<span 
+class="cmr-10x-x-109">)</span><sub><span 
+class="cmmi-8">j</span></sub><sup><span 
+class="cmmi-8">k</span></sup><span 
+class="cmmi-10x-x-109">X</span><sub><span 
+class="cmmi-8">k</span></sub>.
+</p><!--l. 105--><p class="noindent" >By turning on the switch <span 
+class="pcrr8t-x-x-109">tr_lie </span>before the procedure <span 
+class="pcrr8t-x-x-109">lieclass </span>is called the output
+contains not only the list <span 
+class="pcrr8t-x-x-109">lie_class </span>but also the non-vanishing commutator relations
+in the standard form.
+</p><!--l. 110--><p class="noindent" >By the value <span 
+class="cmmi-10x-x-109">m </span>and the parameters further examinations of the Lie algebra are possible,
+especially if in a data bank mathematical relevant properties of the enumerated standard
+forms are stored.
+</p><!--l. 114--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.31.3    </span> <a 
+ id="x224-90900020.31.3"></a>Enumeration schemes for lie1234</h4>
+<a 
+ id="x224-909001r10"></a><!--l. 118--><div class="longtable"> <table id="TBL-91" class="longtable" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-91-1g"><col 
+id="TBL-91-1" /></colgroup><colgroup id="TBL-91-2g"><col 
+id="TBL-91-2" /></colgroup>
+<tr  
+ style="vertical-align:baseline;" id="TBL-91-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-1-1"  
+class="td11"> returned list <span 
+class="pcrr8t-x-x-109">lie_class </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-1-2"  
+class="td11"> the corresponding commutator relations  </td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-2-1"  
+class="td11">                   </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-3-1"  
+class="td11">                        </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-3-2"  
+class="td11">
+</td></tr>
+<tr  
+ style="vertical-align:baseline;" id="TBL-91-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-4-1"  
+class="td11"> LIEALG(1),COMTAB(0)  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-4-2"  
+class="td11"> commutative case                                                     </td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-5-1"  
+class="td11"> LIEALG(2),COMTAB(0)  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-5-2"  
+class="td11"> commutative case                                                     </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-6-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-6-1"  
+class="td11"> LIEALG(2),COMTAB(1)  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-6-2"  
+class="td11"> <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub>                                                       </td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-7-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-7-1"  
+class="td11"> LIEALG(3),COMTAB(0)  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-7-2"  
+class="td11"> commutative case                                                     </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-8-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-8-1"  
+class="td11"> LIEALG(3),COMTAB(1)  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-8-2"  
+class="td11"> <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">3</span></sub>                                                       </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-9-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-9-1"  
+class="td11"> LIEALG(3),COMTAB(2)  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-9-2"  
+class="td11"> <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">3</span></sub>                                                       </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-10-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-10-1"  
+class="td11"> LIEALG(3),COMTAB(3)  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-10-2"  
+class="td11"> <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub>                              </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-11-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-11-1"  
+class="td11"> LIEALG(3),COMTAB(4)  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-11-2"  
+class="td11"> <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub>                              </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-12-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-12-1"  
+class="td11"> LIEALG(3),COMTAB(5)  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-12-2"  
+class="td11"> <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub>                           </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-13-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-13-1"  
+class="td11"> LIEALG(3),COMTAB(6)  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-13-2"  
+class="td11"> <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,p</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">≠</span><span 
+class="cmr-10x-x-109">0    </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-14-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-14-1"  
+class="td11"> LIEALG(3),COMTAB(7)  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-14-2"  
+class="td11"> <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-15-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-15-1"  
+class="td11"> LIEALG(3),COMTAB(8)  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-15-2"  
+class="td11"> <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub>     </td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-16-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-16-1"  
+class="td11"> LIEALG(4),COMTAB(0)  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-16-2"  
+class="td11"> commutative case                                                     </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-17-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-17-1"  
+class="td11"> LIEALG(4),COMTAB(1)  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-17-2"  
+class="td11"> <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub>                                                       </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-18-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-18-1"  
+class="td11"> LIEALG(4),COMTAB(2)  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-18-2"  
+class="td11"> <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub>                                                       </td>
+</tr><tr 
+class="vspace" style="font-size:2.84544pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-19-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-19-1"  
+class="td11"> LIEALG(4),COMTAB(3)  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-19-2"  
+class="td11"> <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub>                              </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-20-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-20-1"  
+class="td11"> LIEALG(4),COMTAB(4)  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-20-2"  
+class="td11"> <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,                 </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-21-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-21-1"  
+class="td11">                   </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-21-2"  
+class="td11"> <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = [</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub>                                     </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-22-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-22-1"  
+class="td11"> LIEALG(4),COMTAB(5)  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-22-2"  
+class="td11"> <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = [</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub>            </td>
+                                                                     
+
+                                                                     
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-23-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-23-1"  
+class="td11"> LIEALG(4),COMTAB(6)  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-23-2"  
+class="td11"> <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub>                              </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-24-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-24-1"  
+class="td11">                   </td>
+</tr>
+<tr  
+ style="vertical-align:baseline;" id="TBL-91-25-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-25-1"  
+class="td11"> LIEALG(4),COMTAB(7)    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-25-2"  
+class="td11"> <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub>                                    </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-26-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-26-1"  
+class="td11"> LIEALG(4),COMTAB(8)    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-26-2"  
+class="td11"> <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub>                                </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-27-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-27-1"  
+class="td11"> LIEALG(4),COMTAB(9)    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-27-2"  
+class="td11"> <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,p</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">≠</span><span 
+class="cmr-10x-x-109">0        </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-28-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-28-1"  
+class="td11"> LIEALG(4),COMTAB(10)  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-28-2"  
+class="td11"> <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub>                                    </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-29-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-29-1"  
+class="td11"> LIEALG(4),COMTAB(11)  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-29-2"  
+class="td11"> <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub>                                    </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-30-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-30-1"  
+class="td11"> LIEALG(4),COMTAB(12)  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-30-2"  
+class="td11"> <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmmi-10x-x-109">,          </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-31-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-31-1"  
+class="td11">                    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-31-2"  
+class="td11"> <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">3</span></sub>                                                             </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-32-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-32-1"  
+class="td11"> LIEALG(4),COMTAB(13)  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-32-2"  
+class="td11"> <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmmi-10x-x-109">, </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-33-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-33-1"  
+class="td11">                    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-33-2"  
+class="td11"> <span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,p</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">≠</span><span 
+class="cmr-10x-x-109">0                                                       </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-34-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-34-1"  
+class="td11"> LIEALG(4),COMTAB(14)  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-34-2"  
+class="td11"> <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,   </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-35-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-35-1"  
+class="td11">                    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-35-2"  
+class="td11"> <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmmi-10x-x-109">,p</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">≠</span><span 
+class="cmr-10x-x-109">0                                     </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-36-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-36-1"  
+class="td11"> LIEALG(4),COMTAB(15)  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-36-2"  
+class="td11"> <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,            </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-37-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-37-1"  
+class="td11">                    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-37-2"  
+class="td11"> <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmmi-10x-x-109">,p</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">≠</span><span 
+class="cmr-10x-x-109">0                                        </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-38-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-38-1"  
+class="td11"> LIEALG(4),COMTAB(16)  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-38-2"  
+class="td11"> <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = 2</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,                     </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-39-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-39-1"  
+class="td11">                    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-39-2"  
+class="td11"> <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = (1 + </span><span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = (1 </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmmi-10x-x-109">,     </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-40-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-40-1"  
+class="td11">                    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-40-2"  
+class="td11"> <span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmsy-10x-x-109">≥ </span><span 
+class="cmr-10x-x-109">0                                                         </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-41-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-41-1"  
+class="td11"> LIEALG(4),COMTAB(17)  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-41-2"  
+class="td11"> <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = 2</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,                     </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-42-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-42-1"  
+class="td11">                    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-42-2"  
+class="td11"> <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmmi-10x-x-109">,     </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-43-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-43-1"  
+class="td11">                    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-43-2"  
+class="td11"> <span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">≠</span><span 
+class="cmr-10x-x-109">0                                                           </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-44-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-44-1"  
+class="td11"> LIEALG(4),COMTAB(18)  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-44-2"  
+class="td11"> <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = 2</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,                     </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-45-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-45-1"  
+class="td11">                    </td>
+</tr>
+<tr  
+ style="vertical-align:baseline;" id="TBL-91-46-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-46-1"  
+class="td11">                    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-46-2"  
+class="td11"> <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">3</span></sub>                     </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-47-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-47-1"  
+class="td11"> LIEALG(4),COMTAB(19)  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-47-2"  
+class="td11"> <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub>     </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-48-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-48-1"  
+class="td11"> LIEALG(4),COMTAB(20)  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-48-2"  
+class="td11"> <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">4</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-49-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-49-1"  
+class="td11"> LIEALG(4),COMTAB(21)  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-49-2"  
+class="td11"> <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-50-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-50-1"  
+class="td11"> LIEALG(4),COMTAB(22)  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-91-50-2"  
+class="td11"> <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,Y</span> <sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">Y</span> <sub><span 
+class="cmr-8">1</span></sub>     </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-51-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-51-1"  
+class="td11">                    </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-52-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-52-1"  
+class="td11">                    </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-53-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-53-1"  
+class="td11">                    </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-91-54-"><td  style="white-space:nowrap; text-align:left;" id="TBL-91-54-1"  
+class="td11">                    </td>
+</tr>
+</table></div>
+<!--l. 638--><p class="noindent" >
+                                                                     
+
+                                                                     
+</p><!--l. 652--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 654--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse156.html" >Up</a></td><td class="clinks"><a 
+href="manualse157.html" >Next</a></td><td class="clinks"><a 
+href="manualse155.html" >Prev</a></td><td class="clinks"><a 
+href="manualse155.html#tailmanualse155.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse156.html" >Front</a></td></tr></table><a 
+ id="tailmanualse156.html"></a>  </p> 
+</body> 
+</html>

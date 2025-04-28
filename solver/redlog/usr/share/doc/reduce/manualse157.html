@@ -1,0 +1,3980 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>LINALG: Linear Algebra Package</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse157.html" >Up</a></td><td class="clinks"><a 
+href="manualse158.html" >Next</a></td><td class="clinks"><a 
+href="manualse156.html" >Prev</a></td><td class="clinks"><a 
+href="manualse156.html#tailmanualse156.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse157.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.32    </span> <a 
+ id="x225-91000020.32"></a>LINALG: Linear Algebra Package</h3>
+<a 
+ id="dx225-910001"></a>
+<a 
+ id="dx225-910002"></a>
+<!--l. 658--><p class="noindent" >This package provides a selection of functions that are useful in the world of linear
+algebra.
+</p><!--l. 661--><p class="noindent" >Author: Matt Rebbeck.
+<a 
+ id="dx225-910003"></a>
+<a 
+ id="dx225-910004"></a>
+<a 
+ id="dx225-910005"></a>
+</p><!--l. 17--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.32.1    </span> <a 
+ id="x225-91100020.32.1"></a>Introduction</h4>
+<!--l. 19--><p class="noindent" >This package provides a selection of functions that are useful in the world of linear
+algebra. These functions are described alphabetically in subsection <a 
+href="#x225-92200020.32.3">20.32.3<!--tex4ht:ref: linalg:subsec3 --></a> and are
+labelled <a 
+href="#x225-92300020.32.3.1">20.32.3.1<!--tex4ht:ref: linalg:add_columns --></a> to <a 
+href="#x225-97500020.32.3.53">20.32.3.53<!--tex4ht:ref: linalg:kronecker_product --></a>. They can be classiﬁed into four sections(n.b: the
+numbers after the dots signify the function label in section <a 
+href="#x225-92200020.32.3">20.32.3<!--tex4ht:ref: linalg:subsec3 --></a>).
+</p><!--l. 26--><p class="noindent" >Contributions to this package have been made by Walter Tietze (ZIB).
+</p><!--l. 28--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.1.1    </span> <a 
+ id="x225-91200020.32.1.1"></a>Basic matrix handling</h5>
+<div class="center" 
+>
+<!--l. 30--><p class="noindent" >
+</p>
+                                                                     
+
+                                                                     
+<div class="tabular"> <table id="TBL-92" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-92-1g"><col 
+id="TBL-92-1" /><col 
+id="TBL-92-2" /><col 
+id="TBL-92-3" /><col 
+id="TBL-92-4" /><col 
+id="TBL-92-5" /><col 
+id="TBL-92-6" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-92-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-92-1-1"  
+class="td11"> add_columns         </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-1-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-1-3"  
+class="td11"> <a 
+href="#x225-92300020.32.3.1">20.32.3.1<!--tex4ht:ref: linalg:add_columns --></a>    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-1-4"  
+class="td11"> add_rows          </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-1-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-1-6"  
+class="td11"> <a 
+href="#x225-92400020.32.3.2">20.32.3.2<!--tex4ht:ref: linalg:add_rows --></a>    </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-92-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-92-2-1"  
+class="td11"> add_to_columns     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-2-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-2-3"  
+class="td11"> <a 
+href="#x225-92500020.32.3.3">20.32.3.3<!--tex4ht:ref: linalg:add_to_columns --></a>    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-2-4"  
+class="td11"> add_to_rows     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-2-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-2-6"  
+class="td11"> <a 
+href="#x225-92600020.32.3.4">20.32.3.4<!--tex4ht:ref: linalg:add_to_rows --></a>    </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-92-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-92-3-1"  
+class="td11"> augment_columns  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-3-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-3-3"  
+class="td11"> <a 
+href="#x225-92700020.32.3.5">20.32.3.5<!--tex4ht:ref: linalg:augment_columns --></a>    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-3-4"  
+class="td11"> char_poly         </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-3-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-3-6"  
+class="td11"> <a 
+href="#x225-93100020.32.3.9">20.32.3.9<!--tex4ht:ref: linalg:char_poly --></a>    </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-92-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-92-4-1"  
+class="td11"> column_dim           </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-4-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-4-3"  
+class="td11"> <a 
+href="#x225-93400020.32.3.12">20.32.3.12<!--tex4ht:ref: linalg:column_dim --></a>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-4-4"  
+class="td11"> copy_into         </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-4-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-4-6"  
+class="td11"> <a 
+href="#x225-93600020.32.3.14">20.32.3.14<!--tex4ht:ref: linalg:copy_into --></a>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-92-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-92-5-1"  
+class="td11"> diagonal                  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-5-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-5-3"  
+class="td11"> <a 
+href="#x225-93700020.32.3.15">20.32.3.15<!--tex4ht:ref: linalg:diagonal --></a>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-5-4"  
+class="td11"> extend              </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-5-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-5-6"  
+class="td11"> <a 
+href="#x225-93800020.32.3.16">20.32.3.16<!--tex4ht:ref: linalg:extend --></a>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-92-6-"><td  style="white-space:nowrap; text-align:left;" id="TBL-92-6-1"  
+class="td11"> ﬁnd_companion      </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-6-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-6-3"  
+class="td11"> <a 
+href="#x225-93900020.32.3.17">20.32.3.17<!--tex4ht:ref: linalg:find_companion --></a>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-6-4"  
+class="td11"> get_columns     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-6-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-6-6"  
+class="td11"> <a 
+href="#x225-94000020.32.3.18">20.32.3.18<!--tex4ht:ref: linalg:get_columns --></a>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-92-7-"><td  style="white-space:nowrap; text-align:left;" id="TBL-92-7-1"  
+class="td11"> get_rows                 </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-7-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-7-3"  
+class="td11"> <a 
+href="#x225-94100020.32.3.19">20.32.3.19<!--tex4ht:ref: linalg:get_rows --></a>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-7-4"  
+class="td11"> hermitian_tp     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-7-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-7-6"  
+class="td11"> <a 
+href="#x225-94300020.32.3.21">20.32.3.21<!--tex4ht:ref: linalg:hermitian_tp --></a>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-92-8-"><td  style="white-space:nowrap; text-align:left;" id="TBL-92-8-1"  
+class="td11"> matrix_augment     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-8-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-8-3"  
+class="td11"> <a 
+href="#x225-95000020.32.3.28">20.32.3.28<!--tex4ht:ref: linalg:matrix_augment --></a>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-8-4"  
+class="td11"> matrix_stack    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-8-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-8-6"  
+class="td11"> <a 
+href="#x225-95200020.32.3.30">20.32.3.30<!--tex4ht:ref: linalg:matrix_stack --></a>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-92-9-"><td  style="white-space:nowrap; text-align:left;" id="TBL-92-9-1"  
+class="td11"> minor                      </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-9-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-9-3"  
+class="td11"> <a 
+href="#x225-95300020.32.3.31">20.32.3.31<!--tex4ht:ref: linalg:minor --></a>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-9-4"  
+class="td11"> mult_columns  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-9-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-9-6"  
+class="td11"> <a 
+href="#x225-95400020.32.3.32">20.32.3.32<!--tex4ht:ref: linalg:mult_columns --></a>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-92-10-"><td  style="white-space:nowrap; text-align:left;" id="TBL-92-10-1"  
+class="td11"> mult_rows               </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-10-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-10-3"  
+class="td11"> <a 
+href="#x225-95500020.32.3.33">20.32.3.33<!--tex4ht:ref: linalg:mult_rows --></a>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-10-4"  
+class="td11"> pivot                 </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-10-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-10-6"  
+class="td11"> <a 
+href="#x225-95600020.32.3.34">20.32.3.34<!--tex4ht:ref: linalg:pivot --></a>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-92-11-"><td  style="white-space:nowrap; text-align:left;" id="TBL-92-11-1"  
+class="td11"> remove_columns    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-11-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-11-3"  
+class="td11"> <a 
+href="#x225-95900020.32.3.37">20.32.3.37<!--tex4ht:ref: linalg:remove_columns --></a>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-11-4"  
+class="td11"> remove_rows    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-11-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-11-6"  
+class="td11"> <a 
+href="#x225-96000020.32.3.38">20.32.3.38<!--tex4ht:ref: linalg:remove_rows --></a>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-92-12-"><td  style="white-space:nowrap; text-align:left;" id="TBL-92-12-1"  
+class="td11"> row_dim                 </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-12-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-12-3"  
+class="td11"> <a 
+href="#x225-96100020.32.3.39">20.32.3.39<!--tex4ht:ref: linalg:row_dim --></a>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-12-4"  
+class="td11"> rows_pivot       </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-12-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-12-6"  
+class="td11"> <a 
+href="#x225-96200020.32.3.40">20.32.3.40<!--tex4ht:ref: linalg:rows_pivot --></a>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-92-13-"><td  style="white-space:nowrap; text-align:left;" id="TBL-92-13-1"  
+class="td11"> stack_rows              </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-13-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-13-3"  
+class="td11"> <a 
+href="#x225-96500020.32.3.43">20.32.3.43<!--tex4ht:ref: linalg:stack_rows --></a>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-13-4"  
+class="td11"> sub_matrix       </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-13-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-13-6"  
+class="td11"> <a 
+href="#x225-96600020.32.3.44">20.32.3.44<!--tex4ht:ref: linalg:sub_matrix --></a>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-92-14-"><td  style="white-space:nowrap; text-align:left;" id="TBL-92-14-1"  
+class="td11"> swap_columns        </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-14-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-14-3"  
+class="td11"> <a 
+href="#x225-96800020.32.3.46">20.32.3.46<!--tex4ht:ref: linalg:swap_columns --></a>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-14-4"  
+class="td11"> swap_entries    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-14-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-14-6"  
+class="td11"> <a 
+href="#x225-96900020.32.3.47">20.32.3.47<!--tex4ht:ref: linalg:swap_entries --></a>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-92-15-"><td  style="white-space:nowrap; text-align:left;" id="TBL-92-15-1"  
+class="td11"> swap_rows              </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-15-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-15-3"  
+class="td11"> <a 
+href="#x225-97000020.32.3.48">20.32.3.48<!--tex4ht:ref: linalg:swap_rows --></a>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-92-15-4"  
+class="td11">           </td>
+</tr></table></div></div>
+<!--l. 65--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.1.2    </span> <a 
+ id="x225-91300020.32.1.2"></a>Constructors</h5>
+<!--l. 67--><p class="noindent" >Functions that create matrices.
+</p>
+<div class="center" 
+>
+<!--l. 69--><p class="noindent" >
+</p>
+<div class="tabular"> <table id="TBL-93" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-93-1g"><col 
+id="TBL-93-1" /><col 
+id="TBL-93-2" /><col 
+id="TBL-93-3" /><col 
+id="TBL-93-4" /><col 
+id="TBL-93-5" /><col 
+id="TBL-93-6" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-93-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-93-1-1"  
+class="td11"> band_matrix      </td><td  style="white-space:nowrap; text-align:left;" id="TBL-93-1-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-93-1-3"  
+class="td11"> <a 
+href="#x225-92800020.32.3.6">20.32.3.6<!--tex4ht:ref: linalg:band_matrix --></a>    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-93-1-4"  
+class="td11"> block_matrix            </td><td  style="white-space:nowrap; text-align:left;" id="TBL-93-1-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-93-1-6"  
+class="td11"> <a 
+href="#x225-92900020.32.3.7">20.32.3.7<!--tex4ht:ref: linalg:block_matrix --></a>    </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-93-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-93-2-1"  
+class="td11"> char_matrix        </td><td  style="white-space:nowrap; text-align:left;" id="TBL-93-2-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-93-2-3"  
+class="td11"> <a 
+href="#x225-93000020.32.3.8">20.32.3.8<!--tex4ht:ref: linalg:char_matrix --></a>    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-93-2-4"  
+class="td11"> coeﬀ_matrix             </td><td  style="white-space:nowrap; text-align:left;" id="TBL-93-2-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-93-2-6"  
+class="td11"> <a 
+href="#x225-93300020.32.3.11">20.32.3.11<!--tex4ht:ref: linalg:coeff_matrix --></a>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-93-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-93-3-1"  
+class="td11"> companion         </td><td  style="white-space:nowrap; text-align:left;" id="TBL-93-3-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-93-3-3"  
+class="td11"> <a 
+href="#x225-93500020.32.3.13">20.32.3.13<!--tex4ht:ref: linalg:companion --></a>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-93-3-4"  
+class="td11"> hessian                      </td><td  style="white-space:nowrap; text-align:left;" id="TBL-93-3-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-93-3-6"  
+class="td11"> <a 
+href="#x225-94400020.32.3.22">20.32.3.22<!--tex4ht:ref: linalg:hessian --></a>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-93-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-93-4-1"  
+class="td11"> hilbert                </td><td  style="white-space:nowrap; text-align:left;" id="TBL-93-4-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-93-4-3"  
+class="td11"> <a 
+href="#x225-94500020.32.3.23">20.32.3.23<!--tex4ht:ref: linalg:hilbert --></a>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-93-4-4"  
+class="td11"> mat_jacobian            </td><td  style="white-space:nowrap; text-align:left;" id="TBL-93-4-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-93-4-6"  
+class="td11"> <a 
+href="#x225-94600020.32.3.24">20.32.3.24<!--tex4ht:ref: linalg:mat_jacobian --></a>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-93-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-93-5-1"  
+class="td11"> jordan_block      </td><td  style="white-space:nowrap; text-align:left;" id="TBL-93-5-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-93-5-3"  
+class="td11"> <a 
+href="#x225-94700020.32.3.25">20.32.3.25<!--tex4ht:ref: linalg:jordan_block --></a>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-93-5-4"  
+class="td11"> make_identity           </td><td  style="white-space:nowrap; text-align:left;" id="TBL-93-5-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-93-5-6"  
+class="td11"> <a 
+href="#x225-94900020.32.3.27">20.32.3.27<!--tex4ht:ref: linalg:make_identity --></a>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-93-6-"><td  style="white-space:nowrap; text-align:left;" id="TBL-93-6-1"  
+class="td11"> random_matrix  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-93-6-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-93-6-3"  
+class="td11"> <a 
+href="#x225-95800020.32.3.36">20.32.3.36<!--tex4ht:ref: linalg:random_matrix --></a>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-93-6-4"  
+class="td11"> toeplitz                     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-93-6-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-93-6-6"  
+class="td11"> <a 
+href="#x225-97200020.32.3.50">20.32.3.50<!--tex4ht:ref: linalg:toeplitz --></a>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-93-7-"><td  style="white-space:nowrap; text-align:left;" id="TBL-93-7-1"  
+class="td11"> Vandermonde     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-93-7-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-93-7-3"  
+class="td11"> <a 
+href="#x225-97400020.32.3.52">20.32.3.52<!--tex4ht:ref: linalg:Vandermonde --></a>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-93-7-4"  
+class="td11"> Kronecker_Product  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-93-7-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-93-7-6"  
+class="td11"> <a 
+href="#x225-97500020.32.3.53">20.32.3.53<!--tex4ht:ref: linalg:kronecker_product --></a>  </td>
+</tr></table></div></div>
+<!--l. 88--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.1.3    </span> <a 
+ id="x225-91400020.32.1.3"></a>High level algorithms</h5>
+<div class="center" 
+>
+                                                                     
+
+                                                                     
+<!--l. 90--><p class="noindent" >
+</p>
+<div class="tabular"> <table id="TBL-94" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-94-1g"><col 
+id="TBL-94-1" /><col 
+id="TBL-94-2" /><col 
+id="TBL-94-3" /><col 
+id="TBL-94-4" /><col 
+id="TBL-94-5" /><col 
+id="TBL-94-6" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-94-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-94-1-1"  
+class="td11"> char_poly          </td><td  style="white-space:nowrap; text-align:left;" id="TBL-94-1-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-94-1-3"  
+class="td11"> <a 
+href="#x225-93100020.32.3.9">20.32.3.9<!--tex4ht:ref: linalg:char_poly --></a>    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-94-1-4"  
+class="td11"> cholesky          </td><td  style="white-space:nowrap; text-align:left;" id="TBL-94-1-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-94-1-6"  
+class="td11"> <a 
+href="#x225-93200020.32.3.10">20.32.3.10<!--tex4ht:ref: linalg:cholesky --></a>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-94-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-94-2-1"  
+class="td11"> gram_schmidt    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-94-2-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-94-2-3"  
+class="td11"> <a 
+href="#x225-94200020.32.3.20">20.32.3.20<!--tex4ht:ref: linalg:gram_schmidt --></a>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-94-2-4"  
+class="td11"> lu_decom         </td><td  style="white-space:nowrap; text-align:left;" id="TBL-94-2-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-94-2-6"  
+class="td11"> <a 
+href="#x225-94800020.32.3.26">20.32.3.26<!--tex4ht:ref: linalg:lu_decom --></a>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-94-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-94-3-1"  
+class="td11"> pseudo_inverse  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-94-3-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-94-3-3"  
+class="td11"> <a 
+href="#x225-95700020.32.3.35">20.32.3.35<!--tex4ht:ref: linalg:pseudo_inverse --></a>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-94-3-4"  
+class="td11"> simplex            </td><td  style="white-space:nowrap; text-align:left;" id="TBL-94-3-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-94-3-6"  
+class="td11"> <a 
+href="#x225-96300020.32.3.41">20.32.3.41<!--tex4ht:ref: linalg:simplex --></a>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-94-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-94-4-1"  
+class="td11"> svd                     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-94-4-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-94-4-3"  
+class="td11"> <a 
+href="#x225-96700020.32.3.45">20.32.3.45<!--tex4ht:ref: linalg:svd --></a>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-94-4-4"  
+class="td11"> triang_adjoint  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-94-4-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-94-4-6"  
+class="td11"> <a 
+href="#x225-97300020.32.3.51">20.32.3.51<!--tex4ht:ref: linalg:triang_adjoint --></a>  </td>
+</tr></table></div></div>
+<!--l. 103--><p class="noindent" >There is a separate <span 
+class="ptmr8t-">NORMFORM </span>package described in section <a 
+href="manualse162.html#x240-102300020.37">20.37<!--tex4ht:ref: NORMFORM --></a> for computing the
+following matrix normal forms in REDUCE: </p>
+<div class="center" 
+>
+<!--l. 105--><p class="noindent" >
+</p><!--l. 106--><p class="noindent" >smithex, smithex_int, frobenius, ratjordan, jordansymbolic, jordan.</p></div>
+<!--l. 110--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.1.4    </span> <a 
+ id="x225-91500020.32.1.4"></a>Predicates</h5>
+<div class="center" 
+>
+<!--l. 112--><p class="noindent" >
+</p>
+<div class="tabular"> <table id="TBL-95" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-95-1g"><col 
+id="TBL-95-1" /><col 
+id="TBL-95-2" /><col 
+id="TBL-95-3" /><col 
+id="TBL-95-4" /><col 
+id="TBL-95-5" /><col 
+id="TBL-95-6" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-95-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-95-1-1"  
+class="td11"> matrixp        </td><td  style="white-space:nowrap; text-align:left;" id="TBL-95-1-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-95-1-3"  
+class="td11"> <a 
+href="#x225-95100020.32.3.29">20.32.3.29<!--tex4ht:ref: linalg:matrixp --></a>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-95-1-4"  
+class="td11"> squarep  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-95-1-5"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-95-1-6"  
+class="td11"> <a 
+href="#x225-96400020.32.3.42">20.32.3.42<!--tex4ht:ref: linalg:squarep --></a>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-95-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-95-2-1"  
+class="td11"> symmetricp  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-95-2-2"  
+class="td11"> …  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-95-2-3"  
+class="td11"> <a 
+href="#x225-97100020.32.3.49">20.32.3.49<!--tex4ht:ref: linalg:symmetricp --></a>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-95-2-4"  
+class="td11">       </td>
+</tr></table>
+</div></div>
+<!--l. 121--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x225-91600020.32.1.4"></a>Note on examples:</h5>
+<!--l. 123--><p class="noindent" >In the examples the matrix <span 
+class="cmsy-10x-x-109">𝒜 </span>will be
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                          <span 
+class="cmsy-10x-x-109">𝒜 </span><span 
+class="cmr-10x-x-109">= </span><img 
+src="manual360x.png" alt="( 1  2  3)
+( 4  5  6)
+
+  7  8  9"  class="left" align="middle" />
+</td></tr></table>
+<!--l. 126--><p class="nopar" >
+</p><!--l. 129--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x225-91700020.32.1.4"></a>Notation</h5>
+<!--l. 131--><p class="noindent" >Throughout <span 
+class="cmsy-10x-x-109">ℐ </span>is used to indicate the identity matrix and <span 
+class="cmsy-10x-x-109">𝒜</span><sup><span 
+class="cmmi-8">T</span> </sup> to indicate the transpose of
+the matrix <span 
+class="cmsy-10x-x-109">𝒜</span>.
+</p><!--l. 134--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.32.2    </span> <a 
+ id="x225-91800020.32.2"></a>Getting started</h4>
+<!--l. 136--><p class="noindent" >If you have not used matrices within REDUCE before then the following may be
+helpful.
+</p><!--l. 139--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x225-91900020.32.2"></a>Creating matrices</h5>
+<!--l. 141--><p class="noindent" >Initialisation of matrices takes the following syntax:
+</p><!--l. 143--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">mat1 := mat((a,b,c),(d,e,f),(g,h,i));</span>
+</p><!--l. 145--><p class="noindent" >will produce
+</p>
+                                                                     
+
+                                                                     
+<div class="flushleft" 
+>
+<!--l. 147--><p class="noindent" >
+ <img 
+src="manual361x.png" alt="        (        )
+          a  b  c
+mat1 := ( d  e  f)
+          g  h  i "  class="math"  /></p></div>
+<!--l. 153--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x225-92000020.32.2"></a>Getting at the entries</h5>
+<!--l. 155--><p class="noindent" >The <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">i,j</span><span 
+class="cmr-10x-x-109">)</span>th entry can be accessed by:
+</p><!--l. 157--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">mat1(i,j);</span>
+</p><!--l. 159--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x225-92100020.32.2"></a>Loading the linear_algebra package</h5>
+<!--l. 161--><p class="noindent" >The package is loaded by:
+</p><!--l. 163--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">load_package linalg;</span>
+</p><!--l. 166--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.32.3    </span> <a 
+ id="x225-92200020.32.3"></a>What’s available</h4>
+<!--l. 170--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.1    </span> <a 
+ id="x225-92300020.32.3.1"></a>add_columns, add_rows</h5>
+<!--l. 172--><p class="noindent" ><a 
+ id="operator:ADD_COLUMNS"></a> <a 
+ id="dx225-923001"></a>
+     </p><dl class="description"><dt class="description">
+                                                                     
+
+                                                                     
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">add_columns(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">,c1,c2,expr);</span>
+     <div class="tabular"><table id="TBL-96" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-96-1g"><col 
+id="TBL-96-1" /><col 
+id="TBL-96-2" /><col 
+id="TBL-96-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-96-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-96-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-96-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-96-1-3"  
+class="td11"> a matrix.                   </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-96-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-96-2-1"  
+class="td11"> <span 
+class="cmmi-10x-x-109">c</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">, c</span><span 
+class="cmr-10x-x-109">2 </span></td> <td  style="white-space:nowrap; text-align:left;" id="TBL-96-2-2"  
+class="td11"> :- </td> <td  style="white-space:nowrap; text-align:left;" id="TBL-96-2-3"  
+class="td11"> positive integers.</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-96-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-96-3-1"  
+class="td11"> expr    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-96-3-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-96-3-3"  
+class="td11"> a scalar expression.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">add_columns </span>replaces column <span 
+class="cmmi-10x-x-109">c</span>2 of <span 
+class="cmsy-10x-x-109">𝒜 </span>by<br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">expr</span><span 
+class="cmsy-10x-x-109">∗</span><span 
+class="pcrr8t-x-x-109">column(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">,c1)</span> <span 
+class="cmr-10x-x-109">+</span> <span 
+class="pcrr8t-x-x-109">column(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">,c2)</span>.<br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">add_rows </span>performs the equivalent task on the rows of <span 
+class="cmsy-10x-x-109">𝒜</span>.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">add_columns</span><img 
+src="manual362x.png" alt="            ( 1    x+ 2    3)
+(𝒜, 1,2,x) = ( 4 4 ∗x + 5  6)
+
+              7  7 ∗x + 8  9 "  class="math"  />
+     <!--l. 194--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">add_rows</span><img 
+src="manual363x.png" alt="            (           )
+               1   2   3
+(𝒜, 2,3,5) = ( 4   5   6)
+              27  33  39 "  class="math"  />
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">add_to_columns</span>, <span 
+class="pcrr8t-x-x-109">add_to_rows</span>, <span 
+class="pcrr8t-x-x-109">mult_columns</span>, <span 
+class="pcrr8t-x-x-109">mult_rows</span>.</dd></dl>
+<!--l. 202--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.2    </span> <a 
+ id="x225-92400020.32.3.2"></a>add_rows</h5>
+<!--l. 204--><p class="noindent" ><a 
+ id="operator:ADD_ROWS"></a> <a 
+ id="dx225-924001"></a>
+</p><!--l. 207--><p class="noindent" >See: <span 
+class="pcrr8t-x-x-109">add_columns</span>.
+</p><!--l. 210--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.3    </span> <a 
+ id="x225-92500020.32.3.3"></a>add_to_columns, add_to_rows</h5>
+<!--l. 212--><p class="noindent" ><a 
+ id="operator:ADD_TO_COLUMNS"></a> <a 
+ id="dx225-925001"></a>
+                                                                     
+
+                                                                     
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">add_to_columns(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">,column_list,expr);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-97" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-97-1g"><col 
+id="TBL-97-1" /><col 
+id="TBL-97-2" /><col 
+id="TBL-97-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-97-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-97-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜      </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-97-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-97-1-3"  
+class="td11"> a matrix.                                                             </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-97-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-97-2-1"  
+class="td11"> column_list </td> <td  style="white-space:nowrap; text-align:left;" id="TBL-97-2-2"  
+class="td11"> :- </td> <td  style="white-space:nowrap; text-align:left;" id="TBL-97-2-3"  
+class="td11"> a positive integer or a list of positive integers.</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-97-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-97-3-1"  
+class="td11"> expr              </td><td  style="white-space:nowrap; text-align:left;" id="TBL-97-3-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-97-3-3"  
+class="td11"> a scalar expression.                                            </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">add_to_columns </span>adds expr to each column speciﬁed in column_list of
+     <span 
+class="cmsy-10x-x-109">𝒜</span>.
+     <!--l. 228--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">add_to_rows </span>performs the equivalent task on the rows of <span 
+class="cmsy-10x-x-109">𝒜</span>.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">add_to_columns</span><img 
+src="manual364x.png" alt="               ( 11  12  3)
+               (          )
+(𝒜,{1,2},10) =   14  15  6
+                 17  18  9 "  class="math"  />
+     <!--l. 235--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">add_to_rows</span><img 
+src="manual365x.png" alt="            (    1       2       3   )
+(𝒜, 2,− x) = ( − x + 4 − x+ 5 − x + 6)
+
+                 7       8       9 "  class="math"  />
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">add_columns</span>, <span 
+class="pcrr8t-x-x-109">add_rows</span>, <span 
+class="pcrr8t-x-x-109">mult_rows</span>, <span 
+class="pcrr8t-x-x-109">mult_columns</span>.</dd></dl>
+<!--l. 243--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.4    </span> <a 
+ id="x225-92600020.32.3.4"></a>add_to_rows</h5>
+<!--l. 245--><p class="noindent" ><a 
+ id="operator:ADD_TO_ROWS"></a> <a 
+ id="dx225-926001"></a>
+</p><!--l. 248--><p class="noindent" >See: <span 
+class="pcrr8t-x-x-109">add_to_columns</span>.
+</p><!--l. 251--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.5    </span> <a 
+ id="x225-92700020.32.3.5"></a>augment_columns, stack_rows</h5>
+<!--l. 253--><p class="noindent" ><a 
+ id="operator:AUGMENT_COLUMNS"></a> <a 
+ id="dx225-927001"></a>
+                                                                     
+
+                                                                     
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">augment_columns(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">,column_list);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-98" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-98-1g"><col 
+id="TBL-98-1" /><col 
+id="TBL-98-2" /><col 
+id="TBL-98-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-98-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-98-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜      </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-98-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-98-1-3"  
+class="td11"> a matrix.                                                                       </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-98-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-98-2-1"  
+class="td11"> column_list </td> <td  style="white-space:nowrap; text-align:left;" id="TBL-98-2-2"  
+class="td11"> :- </td> <td  style="white-space:nowrap; text-align:left;" id="TBL-98-2-3"  
+class="td11"> either a positive integer or a list of positive integers.</td>
+</tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">augment_columns </span>gets hold of the columns of <span 
+class="cmsy-10x-x-109">𝒜 </span>speciﬁed in column_list and
+     sticks them together. <br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">stack_rows </span>performs the same task on rows of <span 
+class="cmsy-10x-x-109">𝒜</span>.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">augment_columns</span><img 
+src="manual366x.png" alt="            (       )
+              cc1  2
+(𝒜, {1,2}) = ( 4   5)
+               7   8 "  class="math"  />
+     <!--l. 275--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">stack_rows</span><img 
+src="manual367x.png" alt="            (1   2  3)
+(𝒜,{1,3}) =
+              7  8  9 "  class="math"  />
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">get_columns</span>, <span 
+class="pcrr8t-x-x-109">get_rows</span>, <span 
+class="pcrr8t-x-x-109">sub_matrix</span>.</dd></dl>
+<!--l. 284--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.6    </span> <a 
+ id="x225-92800020.32.3.6"></a>band_matrix</h5>
+<!--l. 286--><p class="noindent" ><a 
+ id="operator:BAND_MATRIX"></a> <a 
+ id="dx225-928001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">band_matrix(expr_list,square_size);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-99" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-99-1g"><col 
+id="TBL-99-1" /><col 
+id="TBL-99-2" /><col 
+id="TBL-99-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-99-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-99-1-1"  
+class="td11"> expr_list      </td><td  style="white-space:nowrap; text-align:left;" id="TBL-99-1-2"  
+class="td11"> :-  </td><td  style="white-space:normal; text-align:left;" id="TBL-99-1-3"  
+class="td11"> <!--l. 294--><p class="noindent" >either  a  single  scalar  expression  or  a  list  of  an  odd
+  number of scalar expressions.                                          </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-99-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-99-2-1"  
+class="td11"> square_size  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-99-2-2"  
+class="td11"> :-  </td><td  style="white-space:normal; text-align:left;" id="TBL-99-2-3"  
+class="td11"> <!--l. 296--><p class="noindent" >a positive integer.                                                              </p></td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">band_matrix </span>creates a square matrix of dimension <span 
+class="pcrr8t-x-x-109">square_size</span>. The
+     diagonal consists of the middle expr of the <span 
+class="pcrr8t-x-x-109">expr_list</span>. The expressions to the
+     left of this ﬁll the required number of sub-diagonals and the expressions to the
+     right the super-diagonals.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description">
+     <div class="flushleft" 
+>
+<!--l. 308--><p class="noindent" >
+ <span 
+class="pcrr8t-x-x-109">band_matrix</span><img 
+src="manual368x.png" alt="             (                  )
+               y  z  0  0  0   0
+             || x  y  z  0  0   0||
+             | 0  x  y  z  0   0|
+({x, y,z},6) = || 0 0  x  y  z   0||
+             |( 0  0  0  x  y   z|)
+
+               0  0  0  0  x   y "  class="math"  /></p></div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">diagonal</span>.</dd></dl>
+<!--l. 324--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.7    </span> <a 
+ id="x225-92900020.32.3.7"></a>block_matrix</h5>
+<!--l. 326--><p class="noindent" ><a 
+ id="operator:BLOCK_MATRIX"></a> <a 
+ id="dx225-929001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">block_matrix(r,c,matrix_list);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-100" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-100-1g"><col 
+id="TBL-100-1" /><col 
+id="TBL-100-2" /><col 
+id="TBL-100-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-100-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-100-1-1"  
+class="td11"> <span 
+class="cmmi-10x-x-109">r,c              </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-100-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-100-1-3"  
+class="td11"> positive integers.   </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-100-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-100-2-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">matrix_list </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-100-2-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-100-2-3"  
+class="td11"> a list of matrices.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">block_matrix </span>creates a matrix that consists of <span 
+class="cmmi-10x-x-109">r </span><span 
+class="cmsy-10x-x-109">× </span><span 
+class="cmmi-10x-x-109">c </span>matrices ﬁlled from the
+     <span 
+class="pcrr8t-x-x-109">matrix_list </span>row-wise.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><img 
+src="manual369x.png" alt="     (    )      (  )      (      )
+      1  0         5        22  33
+ℬ =   0  1  ,𝒞 =   5 ,𝒟  =  44  55 "  class="math"  />
+                                                                     
+
+                                                                     
+     <!--l. 347--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">block_matrix</span><img 
+src="manual370x.png" alt="                        (  1   0  5  22  33)
+                        |  0   1  5  44  55|
+(2,3,{ℬ, 𝒞,𝒟,𝒟, 𝒞,ℬ }) = |(                 |)
+                          22  33  5  1   0
+                          44  55  5  0   1 "  class="math"  /></p></dd></dl>
+<!--l. 353--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.8    </span> <a 
+ id="x225-93000020.32.3.8"></a>char_matrix</h5>
+<!--l. 355--><p class="noindent" ><a 
+ id="operator:CHAR_MATRIX"></a> <a 
+ id="dx225-930001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">char_matrix(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="cmmi-10x-x-109">,λ</span><span 
+class="pcrr8t-x-x-109">);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-101" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-101-1g"><col 
+id="TBL-101-1" /><col 
+id="TBL-101-2" /><col 
+id="TBL-101-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-101-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-101-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜 </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-101-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-101-1-3"  
+class="td11"> a square matrix.                              </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-101-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-101-2-1"  
+class="td11"> <span 
+class="cmmi-10x-x-109">λ   </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-101-2-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-101-2-3"  
+class="td11"> a symbol or algebraic expression.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">char_matrix </span>creates the characteristic matrix <span 
+class="cmsy-10x-x-109">𝒞 </span>of <span 
+class="cmsy-10x-x-109">𝒜</span>. This is <span 
+class="cmsy-10x-x-109">𝒞 </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">λ</span><span 
+class="cmsy-10x-x-109">ℐ−𝒜</span>.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description">
+     <div class="flushleft" 
+>
+<!--l. 371--><p class="noindent" >
+ <span 
+class="pcrr8t-x-x-109">char_matrix</span><img 
+src="manual371x.png" alt="        ( x− 1   − 2    − 3 )
+        (                   )
+(𝒜, x) =    − 4  x − 5   − 6
+           − 7   − 8   x − 9 "  class="math"  /></p></div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">char_poly</span>.</dd></dl>
+<!--l. 381--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.9    </span> <a 
+ id="x225-93100020.32.3.9"></a>char_poly</h5>
+                                                                     
+
+                                                                     
+<!--l. 383--><p class="noindent" ><a 
+ id="operator:CHAR_POLY"></a> <a 
+ id="dx225-931001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">char_poly(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="cmmi-10x-x-109">,λ</span><span 
+class="pcrr8t-x-x-109">);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-102" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-102-1g"><col 
+id="TBL-102-1" /><col 
+id="TBL-102-2" /><col 
+id="TBL-102-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-102-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-102-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜 </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-102-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-102-1-3"  
+class="td11"> a square matrix.                              </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-102-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-102-2-1"  
+class="td11"> <span 
+class="cmmi-10x-x-109">λ   </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-102-2-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-102-2-3"  
+class="td11"> a symbol or algebraic expression.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">char_poly </span>ﬁnds the characteristic polynomial of <span 
+class="cmsy-10x-x-109">𝒜</span>.
+     <!--l. 398--><p class="noindent" >This is the determinant of <span 
+class="cmmi-10x-x-109">λ</span><span 
+class="cmsy-10x-x-109">ℐ−𝒜</span>.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">char_poly(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="cmmi-10x-x-109">,x</span><span 
+class="pcrr8t-x-x-109">) </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmr-8">3</span></sup> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">15 </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">18 </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">x</span>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">char_matrix</span>.</dd></dl>
+<!--l. 408--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.10    </span> <a 
+ id="x225-93200020.32.3.10"></a>cholesky</h5>
+<!--l. 410--><p class="noindent" ><a 
+ id="operator:CHOLESKY"></a> <a 
+ id="dx225-932001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">cholesky(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-103" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-103-1g"><col 
+id="TBL-103-1" /><col 
+id="TBL-103-2" /><col 
+id="TBL-103-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-103-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-103-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜 </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-103-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-103-1-3"  
+class="td11"> a positive deﬁnite matrix containing numeric entries.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">cholesky </span>computes the cholesky decomposition of <span 
+class="cmsy-10x-x-109">𝒜</span>.
+     <!--l. 423--><p class="noindent" >It returns {<span 
+class="cmsy-10x-x-109">ℒ</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">𝒰</span>} where <span 
+class="cmsy-10x-x-109">ℒ </span>is a lower matrix, <span 
+class="cmsy-10x-x-109">𝒰 </span>is an upper matrix, <br 
+class="newline" /><span 
+class="cmsy-10x-x-109">𝒜 </span><span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmsy-10x-x-109">ℒ𝒰</span>, and <span 
+class="cmsy-10x-x-109">𝒰 </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">ℒ</span><sup><span 
+class="cmmi-8">T</span> </sup>.
+                                                                     
+
+                                                                     
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><img 
+src="manual372x.png" alt="     (        )
+       1  1  0
+ℱ  = ( 1  3  1)
+       0  1  1 "  class="math"  />
+     <!--l. 430--><p class="noindent" ><img 
+src="manual373x.png" alt="                 (|(            )  (1   1    0 ) )|
+                 {  1  √0--  0    |   √ -- -1-| }
+cholesky  (ℱ ) = |( 1    2   0 ) ,(0    2  √ 2) |
+                 (  0   1√2- √12-    0   0   √12-  ) "  class="math"  />
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">lu_decom</span>.</dd></dl>
+<!--l. 442--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.11    </span> <a 
+ id="x225-93300020.32.3.11"></a>coeﬀ_matrix</h5>
+<!--l. 444--><p class="noindent" ><a 
+ id="operator:COEFF_MATRIX"></a> <a 
+ id="dx225-933001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">coeff_matrix({lin_eqn</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="pcrr8t-x-x-109">,lin_eqn</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="pcrr8t-x-x-109">, </span><span 
+class="pcrr8t-x-x-109">…,lin_eqn</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="pcrr8t-x-x-109">});</span>
+     <span class="footnote-mark"><a 
+href="manual226.html#fn27x20"><sup class="textsuperscript">27</sup></a></span><a 
+ id="x225-933002f27"></a><br 
+class="newline" /> <!--tex4ht:inline--><div class="tabular"> <table id="TBL-104" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-104-1g"><col 
+id="TBL-104-1" /><col 
+id="TBL-104-2" /><col 
+id="TBL-104-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-104-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-104-1-1"  
+class="td11"> lin_eqn<sub><span 
+class="cmr-8">1</span></sub>,lin_eqn<sub><span 
+class="cmr-8">2</span></sub>, …,lin_eqn<sub><span 
+class="cmmi-8">n</span></sub>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-104-1-2"  
+class="td11"> :-  </td><td  style="white-space:normal; text-align:left;" id="TBL-104-1-3"  
+class="td11"> <!--l. 452--><p class="noindent" >linear  equations.  Can  be  of  the
+  form <span 
+class="ptmri8t-x-x-109">equation </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="ptmri8t-x-x-109">number </span>or just
+  <span 
+class="ptmri8t-x-x-109">equation  </span>which  is  equivalent  to
+  <span 
+class="ptmri8t-x-x-109">equation </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="ptmri8t-x-x-109">0</span>.                                 </p></td>
+</tr></table></div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">coeff_matrix </span>creates the coeﬃcient matrix <span 
+class="cmsy-10x-x-109">𝒞 </span>of the linear equations. It returns
+     {<span 
+class="cmsy-10x-x-109">𝒞</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">𝒳</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">ℬ</span>} such that <span 
+class="cmsy-10x-x-109">𝒞𝒳</span> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">ℬ</span>.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">coeff_matrix</span><img 
+src="manual374x.png" alt="({x + y + 4∗ z = 10,y + x − z = 20,x+ y + 4}) = "  class="math"  /><br 
+class="newline" /> <img 
+src="manual375x.png" alt="({ ( 4   1  1)  ( z)  (  10) )}
+  ( − 1 1  1) ,( y)  ,(  20)
+(                           )
+    0   1  1     x     − 4 "  class="math"  /></dd></dl>
+<!--l. 470--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.12    </span> <a 
+ id="x225-93400020.32.3.12"></a>column_dim, row_dim</h5>
+<!--l. 472--><p class="noindent" ><a 
+ id="operator:COLUMN_DIM"></a> <a 
+ id="dx225-934001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">column_dim(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-105" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-105-1g"><col 
+id="TBL-105-1" /><col 
+id="TBL-105-2" /><col 
+id="TBL-105-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-105-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-105-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜 </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-105-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-105-1-3"  
+class="td11"> a matrix.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">column_dim </span>ﬁnds the column dimension of <span 
+class="cmsy-10x-x-109">𝒜</span>. <br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">row_dim </span>ﬁnds the row dimension of <span 
+class="cmsy-10x-x-109">𝒜</span>.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">column_dim</span>(<span 
+class="cmsy-10x-x-109">𝒜</span>) = 3</dd></dl>
+<!--l. 491--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.13    </span> <a 
+ id="x225-93500020.32.3.13"></a>companion</h5>
+<!--l. 493--><p class="noindent" ><a 
+ id="operator:COMPANION"></a> <a 
+ id="dx225-935001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">companion(poly,x);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-106" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-106-1g"><col 
+id="TBL-106-1" /><col 
+id="TBL-106-2" /><col 
+id="TBL-106-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-106-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-106-1-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">poly </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-106-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-106-1-3"  
+class="td11"> a monic univariate polynomial in <span 
+class="cmmi-10x-x-109">x</span>.  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-106-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-106-2-1"  
+class="td11"> <span 
+class="cmmi-10x-x-109">x       </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-106-2-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-106-2-3"  
+class="td11"> the variable.                                        </td></tr></table>
+     </div>
+                                                                     
+
+                                                                     
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">companion </span>creates the companion matrix <span 
+class="cmsy-10x-x-109">𝒞 </span>of <span 
+class="pcrr8t-x-x-109">poly</span>.
+     <!--l. 508--><p class="noindent" >This is the square matrix of dimension <span 
+class="cmmi-10x-x-109">n</span>, where <span 
+class="cmmi-10x-x-109">n </span>is the degree of <span 
+class="pcrr8t-x-x-109">poly </span>w.r.t. <span 
+class="cmmi-10x-x-109">x</span>.
+     The entries of <span 
+class="cmsy-10x-x-109">𝒞 </span>are: <span 
+class="cmsy-10x-x-109">𝒞</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">i,n</span><span 
+class="cmr-10x-x-109">) = </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="pcrr8t-x-x-109">coeffn</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="pcrr8t-x-x-109">poly</span><span 
+class="cmmi-10x-x-109">,x,i </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1) </span>for <span 
+class="cmmi-10x-x-109">i </span><span 
+class="cmr-10x-x-109">= 1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,n</span>,
+     <span 
+class="cmsy-10x-x-109">𝒞</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">i,i </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1) = 1 </span>for <span 
+class="cmmi-10x-x-109">i </span><span 
+class="cmr-10x-x-109">= 2</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,n </span>and the rest are <span 
+class="cmr-10x-x-109">0</span>.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description">
+     <div class="flushleft" 
+>
+<!--l. 514--><p class="noindent" >
+ <img 
+src="manual376x.png" alt="                                         (             )
+                                          0  0  0  − 11
+             4        3      2           |1  0  0    0 |
+companion  (x + 17 ∗ x − 9 ∗x  + 11,x) = |(0  1  0    9 |)
+
+                                          0  0  1  − 17 "  class="math"  /></p></div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">find_companion</span>.</dd></dl>
+<!--l. 527--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.14    </span> <a 
+ id="x225-93600020.32.3.14"></a>copy_into</h5>
+<!--l. 529--><p class="noindent" ><a 
+ id="operator:COPY_INTO"></a> <a 
+ id="dx225-936001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">copy_into(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">ℬ</span><span 
+class="pcrr8t-x-x-109">,r,c);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-107" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-107-1g"><col 
+id="TBL-107-1" /><col 
+id="TBL-107-2" /><col 
+id="TBL-107-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-107-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-107-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">ℬ</span> </td><td  style="white-space:nowrap; text-align:left;" id="TBL-107-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-107-1-3"  
+class="td11"> matrices.               </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-107-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-107-2-1"  
+class="td11"> <span 
+class="cmmi-10x-x-109">r,c    </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-107-2-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-107-2-3"  
+class="td11"> positive integers.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">copy_into </span>copies matrix <span 
+class="cmsy-10x-x-109">𝒜 </span>into <span 
+class="cmsy-10x-x-109">ℬ </span>with <span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="cmr-10x-x-109">(1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">1) </span>at <span 
+class="cmsy-10x-x-109">ℬ</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">r,c</span><span 
+class="cmr-10x-x-109">)</span>.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><img 
+src="manual377x.png" alt="     (0  0  0  0)
+     |0  0  0  0|
+𝒢 =  |(          |)
+      0  0  0  0
+      0  0  0  0 "  class="math"  />
+     <!--l. 548--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">copy_into</span><img 
+src="manual378x.png" alt="            ( 0  1  2  3)
+            | 0  4  5  6|
+(𝒜,𝒢,1,2) = |(           |)
+              0  7  8  9
+              0  0  0  0 "  class="math"  />
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">augment_columns</span>, <span 
+class="pcrr8t-x-x-109">extend</span>, <span 
+class="pcrr8t-x-x-109">matrix_augment</span>, <span 
+class="pcrr8t-x-x-109">matrix_stack</span>,
+     <span 
+class="pcrr8t-x-x-109">stack_rows</span>, <span 
+class="pcrr8t-x-x-109">sub_matrix</span>.
+     </dd></dl>
+<!--l. 559--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.15    </span> <a 
+ id="x225-93700020.32.3.15"></a>diagonal</h5>
+<!--l. 561--><p class="noindent" ><a 
+ id="operator:DIAGONAL"></a> <a 
+ id="dx225-937001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">diagonal({mat</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="pcrr8t-x-x-109">,mat</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="pcrr8t-x-x-109">,</span>
+     <span 
+class="pcrr8t-x-x-109">…,mat</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="pcrr8t-x-x-109">});</span><span class="footnote-mark"><a 
+href="manual227.html#fn28x20"><sup class="textsuperscript">28</sup></a></span><a 
+ id="x225-937002f28"></a> <br 
+class="newline" /> <!--tex4ht:inline--><div class="tabular"> <table id="TBL-108" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-108-1g"><col 
+id="TBL-108-1" /><col 
+id="TBL-108-2" /><col 
+id="TBL-108-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-108-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-108-1-1"  
+class="td11"> mat<sub><span 
+class="cmr-8">1</span></sub>,mat<sub><span 
+class="cmr-8">2</span></sub>, …,mat<sub><span 
+class="cmmi-8">n</span></sub>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-108-1-2"  
+class="td11"> :-  </td><td  style="white-space:normal; text-align:left;" id="TBL-108-1-3"  
+class="td11"> <!--l. 568--><p class="noindent" >each can be either a scalar expr or a square
+  matrix.                                                             </p></td>
+</tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">diagonal </span>creates a matrix that contains the input on the diagonal.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><img 
+src="manual379x.png" alt="     (66   77)
+ℋ  =
+       88  99 "  class="math"  />
+                                                                     
+
+                                                                     
+     <!--l. 578--><p class="noindent" ><img 
+src="manual380x.png" alt="                       ( 1  2  3  0   0   0)
+                       | 4  5  6  0   0   0|
+                       ||                   ||
+diagonal  ({𝒜, x,ℋ }) = || 7 8  9  0   0   0||
+                       | 0  0  0  x   0   0|
+                       ( 0  0  0  0  66  77)
+                         0  0  0  0  88  99 "  class="math"  />
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">jordan_block</span>.</dd></dl>
+<!--l. 589--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.16    </span> <a 
+ id="x225-93800020.32.3.16"></a>extend</h5>
+<!--l. 591--><p class="noindent" ><a 
+ id="operator:EXTEND"></a> <a 
+ id="dx225-938001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">extend(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">,r,c,expr);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-109" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-109-1g"><col 
+id="TBL-109-1" /><col 
+id="TBL-109-2" /><col 
+id="TBL-109-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-109-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-109-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-109-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-109-1-3"  
+class="td11"> a matrix.                                       </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-109-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-109-2-1"  
+class="td11"> <span 
+class="cmmi-10x-x-109">r, c </span></td> <td  style="white-space:nowrap; text-align:left;" id="TBL-109-2-2"  
+class="td11"> :- </td> <td  style="white-space:nowrap; text-align:left;" id="TBL-109-2-3"  
+class="td11"> positive integers.</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-109-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-109-3-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">expr </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-109-3-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-109-3-3"  
+class="td11"> algebraic expression or symbol.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">extend </span>returns a copy of <span 
+class="cmsy-10x-x-109">𝒜 </span>that has been extended by <span 
+class="cmmi-10x-x-109">r </span>rows and <span 
+class="cmmi-10x-x-109">c </span>columns. The
+     new entries are made equal to <span 
+class="pcrr8t-x-x-109">expr</span>.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description">
+     <div class="flushleft" 
+>
+<!--l. 609--><p class="noindent" >
+ <img 
+src="manual381x.png" alt="                   (               )
+                     1  2   3  x  x
+extend (𝒜, 1,2,x) = || 4 5   6  x  x||
+                   ( 7  8   9  x  x)
+                     x  x  x   x  x "  class="math"  /></p></div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">copy_into</span>, <span 
+class="pcrr8t-x-x-109">matrix_augment</span>, <span 
+class="pcrr8t-x-x-109">matrix_stack</span>, <span 
+class="pcrr8t-x-x-109">remove_columns</span>,
+     <span 
+class="pcrr8t-x-x-109">remove_rows</span>.
+     </dd></dl>
+                                                                     
+
+                                                                     
+<!--l. 625--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.17    </span> <a 
+ id="x225-93900020.32.3.17"></a>ﬁnd_companion</h5>
+<!--l. 627--><p class="noindent" ><a 
+ id="operator:FIND_COMPANION"></a> <a 
+ id="dx225-939001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">find_companion(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">,x);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-110" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-110-1g"><col 
+id="TBL-110-1" /><col 
+id="TBL-110-2" /><col 
+id="TBL-110-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-110-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-110-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜 </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-110-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-110-1-3"  
+class="td11"> a matrix.        </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-110-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-110-2-1"  
+class="td11"> <span 
+class="cmmi-10x-x-109">x </span></td> <td  style="white-space:nowrap; text-align:left;" id="TBL-110-2-2"  
+class="td11"> :- </td> <td  style="white-space:nowrap; text-align:left;" id="TBL-110-2-3"  
+class="td11"> the variable.</td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" />Given a companion matrix, <span 
+class="pcrr8t-x-x-109">find_companion </span>ﬁnds the polynomial from which
+     it was made.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><img 
+src="manual382x.png" alt="    (              )
+      0  0  0  − 11
+𝒞 = || 1  0  0   0  ||
+    ( 0  1  0   9  )
+      0  0  1  − 17 "  class="math"  />
+     <!--l. 646--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">find_companion</span><img 
+src="manual383x.png" alt="         4        3      2
+(𝒞,x) = x + 17 ∗x  − 9 ∗x  + 11 "  class="math"  />
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">companion</span>.</dd></dl>
+<!--l. 652--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.18    </span> <a 
+ id="x225-94000020.32.3.18"></a>get_columns, get_rows</h5>
+<!--l. 654--><p class="noindent" ><a 
+ id="operator:GET_COLUMNS"></a> <a 
+ id="dx225-940001"></a>
+                                                                     
+
+                                                                     
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">get_columns(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">,column_list);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-111" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-111-1g"><col 
+id="TBL-111-1" /><col 
+id="TBL-111-2" /><col 
+id="TBL-111-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-111-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-111-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜 </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-111-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-111-1-3"  
+class="td11"> a matrix.                                                                       </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-111-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-111-2-1"  
+class="td11"> <span 
+class="cmmi-10x-x-109">c </span></td> <td  style="white-space:nowrap; text-align:left;" id="TBL-111-2-2"  
+class="td11"> :- </td> <td  style="white-space:nowrap; text-align:left;" id="TBL-111-2-3"  
+class="td11"> either a positive integer or a list of positive integers.</td>
+</tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">get_columns </span>removes the columns of <span 
+class="cmsy-10x-x-109">𝒜 </span>speciﬁed in <span 
+class="pcrr8t-x-x-109">column_list </span>and
+     returns them as a list of column matrices.
+     <!--l. 671--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">get_rows </span>performs the same task on the rows of <span 
+class="cmsy-10x-x-109">𝒜</span>.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">get_columns</span><img 
+src="manual384x.png" alt="            ( (  )  (  ) )
+            {   1     3  }
+(𝒜, {1,3}) =  ( 4) ,( 6)
+            (   7     9  ) "  class="math"  />
+     <!--l. 681--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">get_rows</span><img 
+src="manual385x.png" alt="         {(       )}
+(𝒜, 2) =   4  5  6 "  class="math"  />
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">augment_columns</span>, <span 
+class="pcrr8t-x-x-109">stack_rows</span>, <span 
+class="pcrr8t-x-x-109">sub_matrix</span>.</dd></dl>
+<!--l. 691--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.19    </span> <a 
+ id="x225-94100020.32.3.19"></a>get_rows</h5>
+<!--l. 693--><p class="noindent" ><a 
+ id="operator:GET_ROWS"></a> <a 
+ id="dx225-941001"></a> See: <span 
+class="pcrr8t-x-x-109">get_columns</span>.
+</p><!--l. 698--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.20    </span> <a 
+ id="x225-94200020.32.3.20"></a>gram_schmidt</h5>
+<!--l. 700--><p class="noindent" ><a 
+ id="operator:GRAM_SCHMIDT"></a> <a 
+ id="dx225-942001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">gram_schmidt({vec</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="pcrr8t-x-x-109">,vec</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="pcrr8t-x-x-109">, </span><span 
+class="pcrr8t-x-x-109">…,vec</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="pcrr8t-x-x-109">});</span>
+     <span class="footnote-mark"><a 
+href="manual228.html#fn29x20"><sup class="textsuperscript">29</sup></a></span><a 
+ id="x225-942002f29"></a><br 
+class="newline" /> <!--tex4ht:inline--><div class="tabular"> <table id="TBL-112" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-112-1g"><col 
+id="TBL-112-1" /><col 
+id="TBL-112-2" /><col 
+id="TBL-112-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-112-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-112-1-1"  
+class="td11"> vec<sub><span 
+class="cmr-8">1</span></sub>,vec<sub><span 
+class="cmr-8">2</span></sub>, …,vec<sub><span 
+class="cmmi-8">n</span></sub>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-112-1-2"  
+class="td11"> :-  </td><td  style="white-space:normal; text-align:left;" id="TBL-112-1-3"  
+class="td11"> <!--l. 707--><p class="noindent" >linearly-independent vectors. Each vector must
+  be written as a list, eg:{1,0,0}.                             </p></td>
+</tr></table></div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">gram_schmidt </span>performs the Gram-Schmidt orthonormalisation on the input
+     vectors. It returns a list of orthogonal normalised vectors.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">gram_schmidt({{1,0,0},{1,1,0},{1,1,1}}) </span>= <br 
+class="newline" />                                                         {{1,0,0},{0,1,0},{0,0,1}}<br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">gram_schmidt({{1,2},{3,4}}) </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">{{</span><img 
+src="manual386x.png" alt="√1--
+  5"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">,</span><img 
+src="manual387x.png" alt="√2--
+  5"  class="frac" align="middle" /><span 
+class="cmsy-10x-x-109">}</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">{</span><img 
+src="manual388x.png" alt="   √--
+2∗--5-
+  5"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">,</span><img 
+src="manual389x.png" alt="  √--
+−--5-
+  5"  class="frac" align="middle" /><span 
+class="cmsy-10x-x-109">}}</span></dd></dl>
+<!--l. 724--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.21    </span> <a 
+ id="x225-94300020.32.3.21"></a>hermitian_tp</h5>
+<!--l. 726--><p class="noindent" ><a 
+ id="operator:HERMITIAN_TP"></a> <a 
+ id="dx225-943001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">hermitian_tp(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-113" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-113-1g"><col 
+id="TBL-113-1" /><col 
+id="TBL-113-2" /><col 
+id="TBL-113-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-113-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-113-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜 </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-113-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-113-1-3"  
+class="td11"> a matrix.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">hermitian_tp </span>computes the hermitian transpose of <span 
+class="cmsy-10x-x-109">𝒜</span>.
+     <!--l. 739--><p class="noindent" >This is a matrix in which the <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">i,j</span><span 
+class="cmr-10x-x-109">)</span>th entry is the conjugate of the <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">j,i</span><span 
+class="cmr-10x-x-109">)</span>th entry of
+     <span 
+class="cmsy-10x-x-109">𝒜</span>.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><img 
+src="manual390x.png" alt="     ( i+ 1  i+ 2  i+  3)
+𝒥  = (   4     5     2  )
+
+         1     i     0 "  class="math"  />
+     <!--l. 746--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">hermitian_tp</span><img 
+src="manual391x.png" alt="       (              )
+         − i+ 1 4   1
+(𝒥 ) = ( − i+ 2 5  − i)
+         − i+ 3 2   0 "  class="math"  />
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">tp</span><span class="footnote-mark"><a 
+href="manual229.html#fn30x20"><sup class="textsuperscript">30</sup></a></span><a 
+ id="x225-943002f30"></a> .</dd></dl>
+<!--l. 755--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.22    </span> <a 
+ id="x225-94400020.32.3.22"></a>hessian</h5>
+<!--l. 757--><p class="noindent" ><a 
+ id="operator:HESSIAN"></a> <a 
+ id="dx225-944001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">hessian(expr,variable_list);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-114" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-114-1g"><col 
+id="TBL-114-1" /><col 
+id="TBL-114-2" /><col 
+id="TBL-114-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-114-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-114-1-1"  
+class="td11"> expr              </td><td  style="white-space:nowrap; text-align:left;" id="TBL-114-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-114-1-3"  
+class="td11"> a scalar expression.                                         </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-114-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-114-2-1"  
+class="td11"> variable_list  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-114-2-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-114-2-3"  
+class="td11"> either a single variable or a list of variables.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">hessian </span>computes the hessian matrix of expr w.r.t. the varibles in
+     <span 
+class="pcrr8t-x-x-109">variable_list</span>.
+     <!--l. 772--><p class="noindent" >This is an <span 
+class="cmmi-10x-x-109">n</span><span 
+class="cmsy-10x-x-109">×</span><span 
+class="cmmi-10x-x-109">n </span>matrix where <span 
+class="cmmi-10x-x-109">n </span>is the number of variables and the <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">i,j</span><span 
+class="cmr-10x-x-109">)</span>th entry is
+     <span 
+class="pcrr8t-x-x-109">df(expr,variable_list(i),variable_list(j))</span>.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description">
+     <div class="flushleft" 
+>
+<!--l. 776--><p class="noindent" >
+ <img 
+src="manual392x.png" alt="                                    (           )
+                                     0  0  0   0
+                    2               ||0  2  z  y ||
+hessian  (x ∗ y ∗ z + x ,{w, x,y,z}) = (0 z 0  x )
+                                     0  y  x   0 "  class="math"  /></p></div>
+                                                                     
+
+                                                                     
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">df</span><span class="footnote-mark"><a 
+href="manual230.html#fn31x20"><sup class="textsuperscript">31</sup></a></span><a 
+ id="x225-944002f31"></a> .</dd></dl>
+<!--l. 790--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.23    </span> <a 
+ id="x225-94500020.32.3.23"></a>hilbert</h5>
+<!--l. 792--><p class="noindent" ><a 
+ id="operator:HILBERT"></a> <a 
+ id="dx225-945001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">hilbert(square_size,expr);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-115" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-115-1g"><col 
+id="TBL-115-1" /><col 
+id="TBL-115-2" /><col 
+id="TBL-115-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-115-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-115-1-1"  
+class="td11"> square_size  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-115-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-115-1-3"  
+class="td11"> a positive integer.             </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-115-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-115-2-1"  
+class="td11"> expr               </td><td  style="white-space:nowrap; text-align:left;" id="TBL-115-2-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-115-2-3"  
+class="td11"> an algebraic expression.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">hilbert </span>computes the square hilbert matrix of dimension <span 
+class="pcrr8t-x-x-109">square_size</span>.
+     <!--l. 807--><p class="noindent" >This is the symmetric matrix in which the <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">i,j</span><span 
+class="cmr-10x-x-109">)</span>th entry is <span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">∕</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">i </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">j </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="pcrr8t-x-x-109">expr</span><span 
+class="cmr-10x-x-109">)</span>.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description">
+     <div class="flushleft" 
+>
+<!--l. 811--><p class="noindent" >
+ <img 
+src="manual393x.png" alt="                    (                     )
+                      x−+y1−2- x+−y1−-3  x−+1y−4-
+hilbert  (3,y + x) = | -−-1-- --−1--  -−1--|
+                    ( x+−y−13- x+y−−1-4  x+−y1−5)
+                      x+y−4  x+y− 5  x+y−6 "  class="math"  /></p></div>
+     </dd></dl>
+<!--l. 824--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.24    </span> <a 
+ id="x225-94600020.32.3.24"></a>jacobian</h5>
+                                                                     
+
+                                                                     
+<!--l. 826--><p class="noindent" ><a 
+ id="operator:JACOBIAN"></a> <a 
+ id="dx225-946001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">mat_jacobian(expr_list,variable_list);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-116" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-116-1g"><col 
+id="TBL-116-1" /><col 
+id="TBL-116-2" /><col 
+id="TBL-116-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-116-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-116-1-1"  
+class="td11"> expr_list       </td><td  style="white-space:nowrap; text-align:left;" id="TBL-116-1-2"  
+class="td11"> :-  </td><td  style="white-space:normal; text-align:left;" id="TBL-116-1-3"  
+class="td11"> <!--l. 833--><p class="noindent" >either a single algebraic expression or a list of algebraic
+  expressions.                                                                      </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-116-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-116-2-1"  
+class="td11"> variable_list  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-116-2-2"  
+class="td11"> :-  </td><td  style="white-space:normal; text-align:left;" id="TBL-116-2-3"  
+class="td11"> <!--l. 835--><p class="noindent" >either a single variable or a list of variables.                    </p></td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">mat_jacobian </span>computes the jacobian matrix of <span 
+class="pcrr8t-x-x-109">expr_list </span>w.r.t.
+     <span 
+class="pcrr8t-x-x-109">variable_list</span>. This is a matrix whose entry at position <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">i,j</span><span 
+class="cmr-10x-x-109">) </span>is
+     <span 
+class="pcrr8t-x-x-109">df(expr_list(i),variable_list(j))</span>. The matrix is <span 
+class="cmmi-10x-x-109">n</span><span 
+class="cmsy-10x-x-109">×</span><span 
+class="cmmi-10x-x-109">m </span>where <span 
+class="cmmi-10x-x-109">n </span>is
+     the number of variables and <span 
+class="cmmi-10x-x-109">m </span>the number of expressions.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">mat_jacobian</span><img 
+src="manual394x.png" alt="({x4,x ∗ y2,x ∗ y ∗ z3},{w,x,y,z}) = "  class="math"  />
+     <!--l. 848--><p class="noindent" ><img 
+src="manual395x.png" alt="(        3                       )
+  0  4 ∗x      0           0
+( 0    y2   2 ∗x ∗y        0     )
+  0  y ∗z3   x ∗z3   3 ∗x ∗ y ∗ z2 "  class="math"  />
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">hessian</span>, <span 
+class="pcrr8t-x-x-109">df</span><span class="footnote-mark"><a 
+href="manual231.html#fn32x20"><sup class="textsuperscript">32</sup></a></span><a 
+ id="x225-946002f32"></a> .
+     <!--l. 856--><p class="noindent" >NOTE: The function <span 
+class="pcrr8t-x-x-109">mat_jacobian </span>used to be called just &#x0022;<span 
+class="pcrr8t-x-x-109">jacobian</span>&#x0022;
+     however us of that name was in conﬂict with another Reduce package.</p></dd></dl>
+<!--l. 861--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.25    </span> <a 
+ id="x225-94700020.32.3.25"></a>jordan_block</h5>
+<!--l. 863--><p class="noindent" ><a 
+ id="operator:JORDAN_BLOCK"></a> <a 
+ id="dx225-947001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">jordan_block(expr,square_size);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-117" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-117-1g"><col 
+id="TBL-117-1" /><col 
+id="TBL-117-2" /><col 
+id="TBL-117-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-117-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-117-1-1"  
+class="td11"> expr             </td><td  style="white-space:nowrap; text-align:left;" id="TBL-117-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-117-1-3"  
+class="td11"> an algebraic expression or symbol.  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-117-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-117-2-1"  
+class="td11"> square_size  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-117-2-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-117-2-3"  
+class="td11"> a positive integer.                              </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">jordan_block </span>computes the square jordan block matrix <span 
+class="cmsy-10x-x-109">𝒥 </span>of dimension
+     <span 
+class="pcrr8t-x-x-109">square_size</span>.
+     <!--l. 878--><p class="noindent" >The entries of <span 
+class="cmsy-10x-x-109">𝒥 </span>are: <span 
+class="cmsy-10x-x-109">𝒥 </span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">i,i</span><span 
+class="cmr-10x-x-109">) =</span> <span 
+class="pcrr8t-x-x-109">expr</span> for <span 
+class="cmmi-10x-x-109">i </span><span 
+class="cmr-10x-x-109">= 1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,n</span>, <span 
+class="cmsy-10x-x-109">𝒥 </span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">i,i </span><span 
+class="cmr-10x-x-109">+ 1) = 1 </span>for
+     <span 
+class="cmmi-10x-x-109">i </span><span 
+class="cmr-10x-x-109">= 1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,n </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1</span>, and all other entries are 0.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description">
+     <div class="flushleft" 
+>
+<!--l. 883--><p class="noindent" >
+ <span 
+class="pcrr8t-x-x-109">jordan_block(x,5)</span><img 
+src="manual396x.png" alt="  (              )
+    x  1  0  0  0
+  || 0  x  1  0  0||
+= || 0  0  x  1  0||
+  ( 0  0  0  x  1)
+    0  0  0  0  x "  class="math"  /></p></div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">diagonal</span>, <span 
+class="pcrr8t-x-x-109">companion</span>.</dd></dl>
+<!--l. 895--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.26    </span> <a 
+ id="x225-94800020.32.3.26"></a>lu_decom</h5>
+<!--l. 897--><p class="noindent" ><a 
+ id="operator:LU_DECOM"></a> <a 
+ id="dx225-948001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">lu_decom(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-118" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-118-1g"><col 
+id="TBL-118-1" /><col 
+id="TBL-118-2" /><col 
+id="TBL-118-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-118-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-118-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜 </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-118-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-118-1-3"  
+class="td11"> a matrix containing either numeric entries or imaginary entries
+  with numeric coeﬃcients.                                                                </td>
+</tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">lu_decom </span>performs LU decomposition on <span 
+class="cmsy-10x-x-109">𝒜</span>, ie: it returns {<span 
+class="cmsy-10x-x-109">ℒ</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">𝒰</span>} where <span 
+class="cmsy-10x-x-109">ℒ </span>is a
+     lower diagonal matrix, <span 
+class="cmsy-10x-x-109">𝒰 </span>an upper diagonal matrix and <span 
+class="cmsy-10x-x-109">𝒜 </span><span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmsy-10x-x-109">ℒ𝒰</span>.
+                                                                     
+
+                                                                     
+     <!--l. 913--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Caution: </span>The algorithm used can swap the rows of <span 
+class="cmsy-10x-x-109">𝒜 </span>during the calculation. This
+     means that <span 
+class="cmsy-10x-x-109">ℒ𝒰</span> does not equal <span 
+class="cmsy-10x-x-109">𝒜 </span>but a row equivalent of it. Due to this,
+     <span 
+class="pcrr8t-x-x-109">lu_decom </span>returns {<span 
+class="cmsy-10x-x-109">ℒ</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">𝒰</span>,vec}. The call <span 
+class="pcrr8t-x-x-109">convert(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">,vec) </span>will return the
+     matrix that has been decomposed, ie: <span 
+class="cmsy-10x-x-109">ℒ𝒰</span> <span 
+class="cmr-10x-x-109">= </span><span 
+class="pcrr8t-x-x-109">convert(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">,vec)</span>.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><img 
+src="manual397x.png" alt="    (         )
+       1  3  5
+𝒦 = ( − 4 3  7)
+       8  6  4 "  class="math"  /><table 
+class="multline-star"><tr><td><img 
+src="manual398x.png" alt="lu := lu_decom  (𝒦) =
+                    ((                 )  (            )       )
+                    {   8    0      0       1  0.75  0.5        }
+                    (( − 4   6      0  ) ,( 0   1    1.5)  ,[323])
+                        1   2.25  1.1251     0   0     1
+     "  /></td></tr></table>
+     <!--l. 933--><p class="noindent" ><img 
+src="manual399x.png" alt="                            (  8   6  4)
+                            (          )
+first   lu  * second   lu =   − 4  3  7
+                               1   3  5 "  class="math"  />
+     </p><!--l. 936--><p class="noindent" ><img 
+src="manual400x.png" alt="                           (  8   6  4)
+convert  (𝒦,third    lu) = ( − 4  3  7)
+
+                              1   3  5 "  class="math"  />
+     </p><!--l. 939--><p class="noindent" ><img 
+src="manual401x.png" alt="     ( i+ 1  i+ 2  i+ 3)
+𝒫  = (  4      5     2 )
+        1      i     0 "  class="math"  />
+     </p><!--l. 943--><p class="noindent" >
+                                                                     
+
+                                                                     
+     </p><table 
+class="align-star">
+<tr><td 
+class="align-odd"><span 
+class="pcrr8t-x-x-109">lu</span> <span 
+class="cmr-10x-x-109">:=</span> <span 
+class="pcrr8t-x-x-109">lu</span>_<span 
+class="pcrr8t-x-x-109">decom</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">𝒫</span><span 
+class="cmr-10x-x-109">) =</span></td><td 
+class="align-even"><img 
+src="manual402x.png" alt="((                                     )
+{    1       0               0
+ (   4    − 4 ∗i+ 5          0         ) ,
+(  i+  1     3      0.41463 ∗i+ 2.26829"  class="left" align="middle" /></td><td 
+class="align-label"></td><td 
+class="align-label">
+</td></tr><tr><td 
+class="align-odd"></td>                     <td 
+class="align-even"><img 
+src="manual403x.png" alt="(                          )      )
+(1   i           0         )      }
+  0  1  0.19512∗ i+ 0.24390  ,[323])
+  0  0           1"  class="left" align="middle" /></td>       <td 
+class="align-label"></td><td 
+class="align-label">    </td></tr></table>
+     <!--l. 954--><p class="noindent" ><img 
+src="manual404x.png" alt="                            (                  )
+                                1     i     0
+first   lu  * second   lu = (   4     5     2  )
+                              i+ 1  i+  2  i+ 3 "  class="math"  />
+     </p><!--l. 957--><p class="noindent" ><img 
+src="manual405x.png" alt="                       (  1      i     0 )
+                       (                 )
+convert (𝒫,thirdlu ) =    4     5      2
+                         i+ 1  i+ 2  i+ 3 "  class="math"  />
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">cholesky</span>.</dd></dl>
+<!--l. 965--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.27    </span> <a 
+ id="x225-94900020.32.3.27"></a>make_identity</h5>
+<!--l. 967--><p class="noindent" ><a 
+ id="operator:MAKE_IDENTITY"></a> <a 
+ id="dx225-949001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">make_identity(square_size);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-119" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-119-1g"><col 
+id="TBL-119-1" /><col 
+id="TBL-119-2" /><col 
+id="TBL-119-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-119-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-119-1-1"  
+class="td11"> square_size  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-119-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-119-1-3"  
+class="td11"> a positive integer.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">make_identity </span>creates the identity matrix of dimension square_size.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description">
+     <div class="flushleft" 
+>
+<!--l. 982--><p class="noindent" >
+ <span 
+class="pcrr8t-x-x-109">make_identity</span>(4) <img 
+src="manual406x.png" alt="  (           )
+    1  0  0  0
+= || 0  1  0  0||
+  ( 0  0  1  0)
+    0  0  0  1 "  class="math"  /></p></div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">diagonal</span>.</dd></dl>
+<!--l. 994--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.28    </span> <a 
+ id="x225-95000020.32.3.28"></a>matrix_augment, matrix_stack</h5>
+<!--l. 996--><p class="noindent" ><a 
+ id="operator:MATRIX_AUGMENT"></a> <a 
+ id="dx225-950001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">matrix_augment({mat</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="pcrr8t-x-x-109">,mat</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="pcrr8t-x-x-109">,</span>
+     <span 
+class="pcrr8t-x-x-109">…,mat</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="pcrr8t-x-x-109">});</span><span class="footnote-mark"><a 
+href="manual232.html#fn33x20"><sup class="textsuperscript">33</sup></a></span><a 
+ id="x225-950002f33"></a> <br 
+class="newline" /> <!--tex4ht:inline--><div class="tabular"> <table id="TBL-120" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-120-1g"><col 
+id="TBL-120-1" /><col 
+id="TBL-120-2" /><col 
+id="TBL-120-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-120-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-120-1-1"  
+class="td11"> mat<sub><span 
+class="cmr-8">1</span></sub>,mat<sub><span 
+class="cmr-8">2</span></sub>, …,mat<sub><span 
+class="cmmi-8">n</span></sub>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-120-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-120-1-3"  
+class="td11"> matrices.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">matrix_augment </span>sticks the matrices in <span 
+class="pcrr8t-x-x-109">matrix_list </span>together
+     horizontally.
+     <!--l. 1010--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">matrix_stack </span>sticks the matrices in <span 
+class="pcrr8t-x-x-109">matrix_list </span>together vertically.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">matrix_augment</span><img 
+src="manual407x.png" alt="           (                )
+             1  2 3  1  2  3
+({𝒜,𝒜 }) = ( 4  4 6  4  5  6)
+             7  8 9  7  8  9 "  class="math"  />
+                                                                     
+
+                                                                     
+     <!--l. 1019--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">matrix_stack</span><img 
+src="manual408x.png" alt="           ( 1  2  3)
+           | 4  5  6|
+           ||        ||
+({𝒜, 𝒜 }) = || 7 8  9||
+           | 1  2  3|
+           ( 4  5  6)
+             7  8  9 "  class="math"  />
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">augment_columns</span>, <span 
+class="pcrr8t-x-x-109">stack_rows</span>, <span 
+class="pcrr8t-x-x-109">sub_matrix</span>.</dd></dl>
+<!--l. 1030--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.29    </span> <a 
+ id="x225-95100020.32.3.29"></a>matrixp</h5>
+<!--l. 1032--><p class="noindent" ><a 
+ id="operator:MATRIXP"></a> <a 
+ id="dx225-951001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">matrixp(test_input);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-121" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-121-1g"><col 
+id="TBL-121-1" /><col 
+id="TBL-121-2" /><col 
+id="TBL-121-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-121-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-121-1-1"  
+class="td11"> test_input  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-121-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-121-1-3"  
+class="td11"> anything you like.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">matrixp </span>is a boolean function that returns t if the input is a matrix and nil
+     otherwise.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">matrixp</span>(<span 
+class="cmsy-10x-x-109">𝒜</span>) = t
+     <!--l. 1049--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">matrixp</span>(doodlesackbanana) = nil
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">squarep</span>, <span 
+class="pcrr8t-x-x-109">symmetricp</span>.</dd></dl>
+                                                                     
+
+                                                                     
+<!--l. 1056--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.30    </span> <a 
+ id="x225-95200020.32.3.30"></a>matrix_stack</h5>
+<!--l. 1058--><p class="noindent" ><a 
+ id="operator:MATRIX_STACK"></a> <a 
+ id="dx225-952001"></a> See: <span 
+class="pcrr8t-x-x-109">matrix_augment</span>.
+</p><!--l. 1063--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.31    </span> <a 
+ id="x225-95300020.32.3.31"></a>minor</h5>
+<!--l. 1065--><p class="noindent" ><a 
+ id="operator:MINOR"></a> <a 
+ id="dx225-953001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">minor(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">,r,c);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-122" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-122-1g"><col 
+id="TBL-122-1" /><col 
+id="TBL-122-2" /><col 
+id="TBL-122-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-122-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-122-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜 </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-122-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-122-1-3"  
+class="td11"> a matrix.               </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-122-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-122-2-1"  
+class="td11"> <span 
+class="cmmi-10x-x-109">r, c </span></td> <td  style="white-space:nowrap; text-align:left;" id="TBL-122-2-2"  
+class="td11"> :- </td> <td  style="white-space:nowrap; text-align:left;" id="TBL-122-2-3"  
+class="td11"> positive integers.</td>
+</tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">minor </span>computes the <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">r,c</span><span 
+class="cmr-10x-x-109">)</span>th minor of <span 
+class="cmsy-10x-x-109">𝒜</span>.
+     <!--l. 1079--><p class="noindent" >This is created by removing the <span 
+class="cmmi-10x-x-109">r</span>th row and the <span 
+class="cmmi-10x-x-109">c</span>th column from <span 
+class="cmsy-10x-x-109">𝒜</span>.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description">
+     <div class="flushleft" 
+>
+<!--l. 1083--><p class="noindent" >
+ <img 
+src="manual409x.png" alt="                (     )
+minor (𝒜,1,3) =   4  5
+                  7  8 "  class="math"  /></p></div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">remove_columns</span>, <span 
+class="pcrr8t-x-x-109">remove_rows</span>.</dd></dl>
+<!--l. 1095--><p class="noindent" >
+</p>
+                                                                     
+
+                                                                     
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.32    </span> <a 
+ id="x225-95400020.32.3.32"></a>mult_columns, mult_rows</h5>
+<!--l. 1097--><p class="noindent" ><a 
+ id="operator:MULT_COLUMNS"></a> <a 
+ id="dx225-954001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">mult_columns(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">,column_list,expr);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-123" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-123-1g"><col 
+id="TBL-123-1" /><col 
+id="TBL-123-2" /><col 
+id="TBL-123-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-123-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-123-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜      </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-123-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-123-1-3"  
+class="td11"> a matrix.                                                             </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-123-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-123-2-1"  
+class="td11"> column_list </td> <td  style="white-space:nowrap; text-align:left;" id="TBL-123-2-2"  
+class="td11"> :- </td> <td  style="white-space:nowrap; text-align:left;" id="TBL-123-2-3"  
+class="td11"> a positive integer or a list of positive integers.</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-123-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-123-3-1"  
+class="td11"> expr              </td><td  style="white-space:nowrap; text-align:left;" id="TBL-123-3-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-123-3-3"  
+class="td11"> an algebraic expression.                                    </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">mult_columns </span>returns a copy of <span 
+class="cmsy-10x-x-109">𝒜 </span>in which the columns speciﬁed in
+     column_list have been multiplied by expr.
+     <!--l. 1114--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">mult_rows </span>performs the same task on the rows of <span 
+class="cmsy-10x-x-109">𝒜</span>.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">mult_columns</span><img 
+src="manual410x.png" alt="               (              )
+                  x    2  3∗ x
+(𝒜, {1,3},x) = ( 4∗ x  5  6∗ x)
+                 7∗ x  8  9∗ x "  class="math"  />
+     <!--l. 1120--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">mult_rows</span><img 
+src="manual411x.png" alt="           (           )
+             1   2   3
+(𝒜,2,10) = ( 40  50  60)
+             7   8   9 "  class="math"  />
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">add_to_columns</span>, <span 
+class="pcrr8t-x-x-109">add_to_rows</span>.</dd></dl>
+<!--l. 1128--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.33    </span> <a 
+ id="x225-95500020.32.3.33"></a><span 
+class="pcrr8t-x-x-109">mult_rows</span></h5>
+<!--l. 1130--><p class="noindent" ><a 
+ id="operator:MULT_ROWS"></a> <a 
+ id="dx225-955001"></a> See: <span 
+class="pcrr8t-x-x-109">mult_columns</span>.
+</p><!--l. 1135--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.34    </span> <a 
+ id="x225-95600020.32.3.34"></a>pivot</h5>
+                                                                     
+
+                                                                     
+<!--l. 1137--><p class="noindent" ><a 
+ id="operator:PIVOT"></a> <a 
+ id="dx225-956001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">pivot(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">,r,c);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-124" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-124-1g"><col 
+id="TBL-124-1" /><col 
+id="TBL-124-2" /><col 
+id="TBL-124-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-124-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-124-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜 </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-124-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-124-1-3"  
+class="td11"> a matrix.                                               </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-124-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-124-2-1"  
+class="td
+11"> <span 
+class="cmmi-10x-x-109">r,c </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-124-2-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-124-2-3"  
+class="td11"> positive integers such that <span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">r,c</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">≠</span><span 
+class="cmr-10x-x-109">0</span>.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">pivot </span>pivots <span 
+class="cmsy-10x-x-109">𝒜 </span>about its <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">r,c</span><span 
+class="cmr-10x-x-109">)</span>th entry.
+     <!--l. 1151--><p class="noindent" >To do this, multiples of the r’th row are added to every other row in the
+     matrix.
+     </p><!--l. 1154--><p class="noindent" >This means that the c’th column will be 0 except for the (r,c)’th entry.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description">
+     <div class="flushleft" 
+>
+<!--l. 1158--><p class="noindent" >
+ <img 
+src="manual412x.png" alt="                (             )
+                  − 1 − 0.5  0
+pivot (𝒜,2,3) = (  4    5    6)
+                   1   0.5   0 "  class="math"  /></p></div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">rows_pivot</span>.</dd></dl>
+<!--l. 1170--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.35    </span> <a 
+ id="x225-95700020.32.3.35"></a>pseudo_inverse</h5>
+<!--l. 1172--><p class="noindent" ><a 
+ id="operator:PSEUDO_INVERSE"></a> <a 
+ id="dx225-957001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">pseudo_inverse(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-125" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-125-1g"><col 
+id="TBL-125-1" /><col 
+id="TBL-125-2" /><col 
+id="TBL-125-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-125-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-125-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜 </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-125-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-125-1-3"  
+class="td11"> a matrix containing only real numeric entries.  </td></tr></table>
+     </div>
+                                                                     
+
+                                                                     
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">pseudo_inverse</span>, also known as the Moore-Penrose inverse, computes the
+     pseudo inverse of <span 
+class="cmsy-10x-x-109">𝒜</span>.
+     <!--l. 1186--><p class="noindent" >Given the singular value decomposition of <span 
+class="cmsy-10x-x-109">𝒜</span>, i.e: <span 
+class="cmsy-10x-x-109">𝒜 </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">𝒰</span><span 
+class="cmr-10x-x-109">Σ</span><span 
+class="cmsy-10x-x-109">𝒱</span><sup><span 
+class="cmmi-8">T</span> </sup>, then the pseudo
+     inverse <span 
+class="cmsy-10x-x-109">𝒜</span><sup><span 
+class="cmsy-8">†</span></sup> is deﬁned by <span 
+class="cmsy-10x-x-109">𝒜</span><sup><span 
+class="cmsy-8">†</span></sup> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">𝒱</span><span 
+class="cmr-10x-x-109">Σ</span><sup><span 
+class="cmsy-8">†</span></sup><span 
+class="cmsy-10x-x-109">𝒰</span><sup><span 
+class="cmmi-8">T</span> </sup>. For the diagonal matrix <span 
+class="cmr-10x-x-109">Σ</span>, the
+     pseudoinverse <span 
+class="cmr-10x-x-109">Σ</span><sup><span 
+class="cmsy-8">†</span></sup> is computed by taking the reciprocal of only the nonzero
+     diagonal elements.
+     </p><!--l. 1194--><p class="noindent" >If <span 
+class="cmsy-10x-x-109">𝒜 </span>is square and non-singular, then <span 
+class="cmsy-10x-x-109">𝒜</span><sup><span 
+class="cmsy-8">†</span></sup> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">𝒜</span>. In general, however, <span 
+class="cmsy-10x-x-109">𝒜𝒜</span><sup><span 
+class="cmsy-8">†</span></sup><span 
+class="cmsy-10x-x-109">𝒜 </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">𝒜</span>,
+     and <span 
+class="cmsy-10x-x-109">𝒜</span><sup><span 
+class="cmsy-8">†</span></sup><span 
+class="cmsy-10x-x-109">𝒜𝒜</span><sup><span 
+class="cmsy-8">†</span></sup> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">𝒜</span><sup><span 
+class="cmsy-8">†</span></sup>.
+     </p><!--l. 1199--><p class="noindent" >Perhaps more importantly, <span 
+class="cmsy-10x-x-109">𝒜</span><sup><span 
+class="cmsy-8">†</span></sup> solves the following least-squares problem: given a
+     rectangular matrix <span 
+class="cmsy-10x-x-109">𝒜 </span>and a vector <span 
+class="cmmi-10x-x-109">b</span>, ﬁnd the <span 
+class="cmmi-10x-x-109">x </span>minimizing <span 
+class="cmsy-10x-x-109">∥𝒜</span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">b</span><span 
+class="cmsy-10x-x-109">∥</span><sub><span 
+class="cmr-8">2</span></sub>, and
+     which, in addition, has minimum <span 
+class="cmmi-10x-x-109">ℓ</span><sub><span 
+class="cmr-8">2</span></sub> (euclidean) Norm, <span 
+class="cmsy-10x-x-109">∥</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmsy-10x-x-109">∥</span><sub><span 
+class="cmr-8">2</span></sub>. This <span 
+class="cmmi-10x-x-109">x </span>is
+     <span 
+class="cmsy-10x-x-109">𝒜</span><sup><span 
+class="cmsy-8">†</span></sup><span 
+class="cmmi-10x-x-109">b</span>.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description">
+     <div class="flushleft" 
+>
+<!--l. 1206--><p class="noindent" >
+</p>
+<table 
+class="equation-star"><tr><td>
+      <span 
+class="cmsy-10x-x-109">ℛ </span><span 
+class="cmr-10x-x-109">= </span><img 
+src="manual413x.png" alt="(          )
+  1 2  3  4
+  9 8  7  6"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">,</span>   pseudo_inverse<span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">ℛ</span><span 
+class="cmr-10x-x-109">) = </span><img 
+src="manual414x.png" alt="(              )
+   − 0.2   0.1
+|| − 0.05   0.05 ||
+(   0.1      0  )
+   0.25  − 0.05"  class="left" align="middle" />
+</td></tr></table>
+<!--l. 1212--><p class="nopar" >
+</p></div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">svd</span>.</dd></dl>
+                                                                     
+
+                                                                     
+<!--l. 1219--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.36    </span> <a 
+ id="x225-95800020.32.3.36"></a>random_matrix</h5>
+<!--l. 1221--><p class="noindent" ><a 
+ id="operator:RANDOM_MATRIX"></a> <a 
+ id="dx225-958001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">random_matrix(r,c,limit);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-126" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-126-1g"><col 
+id="TBL-126-1" /><col 
+id="TBL-126-2" /><col 
+id="TBL-126-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-126-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-126-1-1"  
+class="td11"> <span 
+class="cmmi-10x-x-109">r,c</span>, limit  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-126-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-126-1-3"  
+class="td11"> positive integers.  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-126-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-126-2-1"  
+class="td11">        </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">random_matrix </span>creates an <span 
+class="cmmi-10x-x-109">r </span><span 
+class="cmsy-10x-x-109">× </span><span 
+class="cmmi-10x-x-109">c </span>matrix with random entries in the range
+     <span 
+class="cmsy-10x-x-109">−</span>limit <span 
+class="cmmi-10x-x-109">&#x003C;</span> entry <span 
+class="cmmi-10x-x-109">&#x003C;</span> limit.
+     <!--l. 1235--><p class="noindent" ><a 
+ id="switch:IMAGINARY"></a> <a 
+ id="switch:NOT_NEGATIVE"></a> <a 
+ id="switch:ONLY_INTEGER"></a> <a 
+ id="switch:SYMMETRIC"></a> <a 
+ id="switch:LOWER_MATRIX"></a> <a 
+ id="switch:UPPER_MATRIX"></a> <a 
+ id="dx225-958002"></a><a 
+ id="dx225-958003"></a><a 
+ id="dx225-958004"></a> <a 
+ id="dx225-958005"></a><a 
+ id="dx225-958006"></a><a 
+ id="dx225-958007"></a> <a 
+ id="dx225-958008"></a><a 
+ id="dx225-958009"></a><a 
+ id="dx225-958010"></a> <a 
+ id="dx225-958011"></a><a 
+ id="dx225-958012"></a><a 
+ id="dx225-958013"></a> <a 
+ id="dx225-958014"></a><a 
+ id="dx225-958015"></a><a 
+ id="dx225-958016"></a> <a 
+ id="dx225-958017"></a><a 
+ id="dx225-958018"></a><a 
+ id="dx225-958019"></a>
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Switches:</span> </dt><dd 
+class="description"><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"> <table id="TBL-127" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-127-1g"><col 
+id="TBL-127-1" /><col 
+id="TBL-127-2" /><col 
+id="TBL-127-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-127-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-127-1-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">imaginary   </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-127-1-2"  
+class="td11"> :-  </td><td  style="white-space:normal; text-align:left;" id="TBL-127-1-3"  
+class="td11"> <!--l. 1249--><p class="noindent" >if  on,  then  matrix  entries  are  <span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">iy  </span>where
+  <span 
+class="cmsy-10x-x-109">−</span>limit <span 
+class="cmmi-10x-x-109">&#x003C; x,y &#x003C;</span> limit.                                             </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-127-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-127-2-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">not_negative </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-127-2-2"  
+class="td11"> :-  </td><td  style="white-space:normal; text-align:left;" id="TBL-127-2-3"  
+class="td11"> <!--l. 1251--><p class="noindent" >if on then <span 
+class="cmr-10x-x-109">0 </span><span 
+class="cmmi-10x-x-109">&#x003C;</span> entry  <span 
+class="cmmi-10x-x-109">&#x003C;</span> limit. In the imaginary
+  case we have <span 
+class="cmr-10x-x-109">0 </span><span 
+class="cmmi-10x-x-109">&#x003C; x,y &#x003C;</span> limit.                                </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-127-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-127-3-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">only_integer </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-127-3-2"  
+class="td11"> :-  </td><td  style="white-space:normal; text-align:left;" id="TBL-127-3-3"  
+class="td11"> <!--l. 1253--><p class="noindent" >if   on   then   each   entry   is   an   integer.   In   the
+  imaginary case <span 
+class="cmmi-10x-x-109">x,y </span>are integers.                             </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-127-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-127-4-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">symmetric    </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-127-4-2"  
+class="td11"> :-  </td><td  style="white-space:normal; text-align:left;" id="TBL-127-4-3"  
+class="td11"> <!--l. 1255--><p class="noindent" >if on then the matrix is symmetric.                          </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-127-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-127-5-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">upper_matrix </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-127-5-2"  
+class="td11"> :-  </td><td  style="white-space:normal; text-align:left;" id="TBL-127-5-3"  
+class="td11"> <!--l. 1256--><p class="noindent" >if on then the matrix is upper triangular.                 </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-127-6-"><td  style="white-space:nowrap; text-align:left;" id="TBL-127-6-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">lower_matrix </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-127-6-2"  
+class="td11"> :-  </td><td  style="white-space:normal; text-align:left;" id="TBL-127-6-3"  
+class="td11"> <!--l. 1258--><p class="noindent" >if on then the matrix is lower triangular.                 </p></td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">random_matrix</span><img 
+src="manual415x.png" alt="          (                                )
+            − 4.729721   6.987047    7.521383
+(3,3,10 ) = ( − 5.224177  5.797709   − 4.321952)
+            − 9.418455  − 9.94318  − 0.730980 "  class="math"  />
+     <!--l. 1268--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">on only_integer</span>, <span 
+class="pcrr8t-x-x-109">not_negative</span>, <span 
+class="pcrr8t-x-x-109">upper_matrix</span>, <span 
+class="pcrr8t-x-x-109">imaginary;</span>
+</p>
+     <table 
+class="multline-star"><tr><td><img 
+src="manual416x.png" alt="random_matrix   (4,4,10) =
+                          (                                    )
+                            2∗ i+ 5  3 ∗i+ 7  7 ∗i+  3     6
+                          ||    0     2 ∗i+ 5  5 ∗i+  1  2∗ i+ 1||
+                          (    0        0        8         i   )
+                               0        0        0      5∗ i+ 9
+     "  /></td></tr></table></dd></dl>
+<!--l. 1279--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.37    </span> <a 
+ id="x225-95900020.32.3.37"></a>remove_columns, remove_rows</h5>
+<!--l. 1281--><p class="noindent" ><a 
+ id="operator:REMOVE_COLUMNS"></a> <a 
+ id="dx225-959001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">remove_columns(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">,column_list);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-128" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-128-1g"><col 
+id="TBL-128-1" /><col 
+id="TBL-128-2" /><col 
+id="TBL-128-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-128-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-128-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜      </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-128-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-128-1-3"  
+class="td11"> a matrix.                                                                       </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-128-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-128-2-1"  
+class="td11"> column_list </td> <td  style="white-space:nowrap; text-align:left;" id="TBL-128-2-2"  
+class="td11"> :- </td> <td  style="white-space:nowrap; text-align:left;" id="TBL-128-2-3"  
+class="td11"> either a positive integer or a list of positive integers.</td>
+</tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">remove_columns </span>removes the columns speciﬁed in column_list from
+     <span 
+class="cmsy-10x-x-109">𝒜</span>.
+     <!--l. 1297--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">remove_rows </span>performs the same task on the rows of <span 
+class="cmsy-10x-x-109">𝒜</span>.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">remove_columns</span><img 
+src="manual417x.png" alt="        (     )
+          1  3
+(𝒜,2) = ( 4  6)
+          7  9 "  class="math"  />
+     <!--l. 1304--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">remove_rows</span><img 
+src="manual418x.png" alt="            (       )
+(𝒜, {1,3}) = 4  5  6 "  class="math"  />
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">minor</span>.</dd></dl>
+                                                                     
+
+                                                                     
+<!--l. 1312--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.38    </span> <a 
+ id="x225-96000020.32.3.38"></a>remove_rows</h5>
+<!--l. 1314--><p class="noindent" ><a 
+ id="operator:REMOVE_ROWS"></a> <a 
+ id="dx225-960001"></a> See: <span 
+class="pcrr8t-x-x-109">remove_columns</span>.
+</p><!--l. 1319--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.39    </span> <a 
+ id="x225-96100020.32.3.39"></a>row_dim</h5>
+<!--l. 1321--><p class="noindent" ><a 
+ id="operator:ROW_DIM"></a> <a 
+ id="dx225-961001"></a>
+</p><!--l. 1324--><p class="noindent" >See: <span 
+class="pcrr8t-x-x-109">column_dim</span>.
+</p><!--l. 1327--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.40    </span> <a 
+ id="x225-96200020.32.3.40"></a>rows_pivot</h5>
+<!--l. 1329--><p class="noindent" ><a 
+ id="operator:ROWS_PIVOT"></a> <a 
+ id="dx225-962001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">rows_pivot(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">,r,c,{row_list});</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-129" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-129-1g"><col 
+id="TBL-129-1" /><col 
+id="TBL-129-2" /><col 
+id="TBL-129-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-129-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-129-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜    </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-129-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-129-1-3"  
+class="td11"> a matrix.                                                          </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-129-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-129-2-1"  
+class="td11"> r,c </td> <td  style="white-space:nowrap; text-align:left;" id="TBL-129-2-2"  
+class="td11"> :- </td> <td  style="white-space:nowrap; text-align:left;" id="TBL-129-2-3"  
+class="td11"> positive integers such that <span 
+class="cmsy-10x-x-109">𝒜</span>(r,c) neq 0.</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-129-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-129-3-1"  
+class="td11"> row_list  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-129-3-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-129-3-3"  
+class="td11"> positive integer or a list of positive integers.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">rows_pivot </span>performs the same task as <span 
+class="pcrr8t-x-x-109">pivot </span>but applies the pivot only to the
+     rows speciﬁed in row_list.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><img 
+src="manual419x.png" alt="     (        )
+       1  2  3
+     || 4  5  6||
+𝒩  = | 7  8  9|
+     |( 1  2  3|)
+       4  5  6 "  class="math"  />
+                                                                     
+
+                                                                     
+     <!--l. 1349--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">rows_pivot</span><img 
+src="manual420x.png" alt="                (    1    2    3  )
+                |    4    5    6  |
+                ||                 ||
+(𝒩 ,2,3,{4,5}) = |(   7    8    9  |)
+                   − 0.75 0   0.75
+                  − 0.375  0  0.375 "  class="math"  />
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">pivot</span>.</dd></dl>
+<!--l. 1359--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.41    </span> <a 
+ id="x225-96300020.32.3.41"></a>simplex</h5>
+<!--l. 1361--><p class="noindent" ><a 
+ id="operator:SIMPLEX"></a> <a 
+ id="dx225-963001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description">
+       <div class="syntax">
+        <span 
+class="pcrr8t-x-x-109">simplex(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">max/min</span><span 
+class="cmsy-10x-x-109">⟩</span>,<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">objective function</span><span 
+class="cmsy-10x-x-109">⟩</span>,<span 
+class="pcrr8t-x-x-109">{</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">linear inequalities</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">}</span>,<br 
+class="newline" />                   <span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmr-10x-x-109">[</span><span 
+class="pcrr8t-x-x-109">{</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">bounds</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">}</span><span 
+class="cmr-10x-x-109">]</span><span style="margin-left:0.3em" class="thinspace"></span>)</div>
+     <div class="tabular"> <table id="TBL-130" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-130-1g"><col 
+id="TBL-130-1" /><col 
+id="TBL-130-2" /><col 
+id="TBL-130-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-130-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-130-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">max/min</span><span 
+class="cmsy-10x-x-109">⟩     </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-130-1-2"  
+class="td11"> :-  </td><td  style="white-space:normal; text-align:left;" id="TBL-130-1-3"  
+class="td11"> <!--l. 1371--><p class="noindent" >either  <span 
+class="pcrr8t-x-x-109">max </span>or  <span 
+class="pcrr8t-x-x-109">min </span>(signifying  maximise  and
+  minimise).                                                              </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-130-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-130-2-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">objective function</span><span 
+class="cmsy-10x-x-109">⟩ </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-130-2-2"  
+class="td11"> :-  </td><td  style="white-space:normal; text-align:left;" id="TBL-130-2-3"  
+class="td11"> <!--l. 1373--><p class="noindent" >the function you are maximising or minimising.  </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-130-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-130-3-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">linear inequalities</span><span 
+class="cmsy-10x-x-109">⟩ </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-130-3-2"  
+class="td11"> :-  </td><td  style="white-space:normal; text-align:left;" id="TBL-130-3-3"  
+class="td11"> <!--l. 1375--><p class="noindent" >the constraint inequalities. Each one must be of
+  the form<br 
+class="newline" /><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">sum of variables</span><span 
+class="cmsy-10x-x-109">⟩⟨</span><span 
+class="ptmri8t-x-x-109">compop</span><span 
+class="cmsy-10x-x-109">⟩⟨</span><span 
+class="ptmri8t-x-x-109">number</span><span 
+class="cmsy-10x-x-109">⟩</span><br 
+class="newline" />where <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">compop</span><span 
+class="cmsy-10x-x-109">⟩ </span>is one of <span 
+class="pcrr8t-x-x-109">&#x003C;=</span>,<span 
+class="pcrr8t-x-x-109">=</span>,<span 
+class="pcrr8t-x-x-109">&#x003E;=</span>.                     </p></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-130-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-130-4-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">bounds</span><span 
+class="cmsy-10x-x-109">⟩       </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-130-4-2"  
+class="td11"> :-  </td><td  style="white-space:normal; text-align:left;" id="TBL-130-4-3"  
+class="td11"> <!--l. 1378--><p class="noindent" >bounds on the variables as speciﬁed for the LP
+  ﬁle format. Each bound is of one of the forms
+  <span 
+class="cmmi-10x-x-109">l </span><span 
+class="cmsy-10x-x-109">≤ </span><span 
+class="cmmi-10x-x-109">v</span>,  <span 
+class="cmmi-10x-x-109">v </span><span 
+class="cmsy-10x-x-109">≤ </span><span 
+class="cmmi-10x-x-109">u</span>,  or  <span 
+class="cmmi-10x-x-109">l </span><span 
+class="cmsy-10x-x-109">≤ </span><span 
+class="cmmi-10x-x-109">v </span><span 
+class="cmsy-10x-x-109">≤ </span><span 
+class="cmmi-10x-x-109">u</span>,  where  <span 
+class="cmmi-10x-x-109">v </span>is  a
+  variable and <span 
+class="cmmi-10x-x-109">l</span>, <span 
+class="cmmi-10x-x-109">u </span>are numbers or <span 
+class="pcrr8t-x-x-109">infinity </span>or
+  <span 
+class="pcrr8t-x-x-109">-infinity</span>                        </p></td>
+</tr></table></div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">simplex </span>applies the revised simplex algorithm to ﬁnd the optimal(either
+     maximum or minimum) value of the objective function under the linear inequality
+     constraints.
+     <!--l. 1389--><p class="noindent" >It returns {optimal value,{ values of variables at this optimal}}.
+                                                                     
+
+                                                                     
+     </p><!--l. 1391--><p class="noindent" ><a 
+ id="switch:FASTSIMPLEX"></a> <a 
+ id="dx225-963002"></a><a 
+ id="dx225-963003"></a><a 
+ id="dx225-963004"></a> The <span 
+class="pcrr8t-x-x-109">{bounds} </span>argument is optional and admissible only when the switch
+     <span 
+class="pcrr8t-x-x-109">fastsimplex </span>is on, which is the default.
+     </p><!--l. 1396--><p class="noindent" >Without a <span 
+class="pcrr8t-x-x-109">{bounds} </span>argument, the algorithm implies that all the variables are
+     non-negative.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description">
+                                                                     
+
+                                                                     
+     <div class="verbatim" id="verbatim-1237">
+     simplex(max,x+y,{x&#x003E;=10,y&#x003E;=20,x+y&#x003C;=25});
+      <br />
+      <br />*****
+      <br />Error in simplex: Problem has no feasible solution.
+      <br />
+      <br />simplex(max,10x+5y+5.5z,{5x+3z&#x003C;=200,x+0.1y+0.5z&#x003C;=12,
+      <br />        0.1x+0.2y+0.3z&#x003C;=9, 30x+10y+50z&#x003C;=1500});
+      <br />
+      <br />{525.0,{x=40.0,y=25.0,z=0}}
+</div>
+     <!--l. 1410--><p class="nopar" ></p></dd></dl>
+<!--l. 1414--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.42    </span> <a 
+ id="x225-96400020.32.3.42"></a>squarep</h5>
+<!--l. 1416--><p class="noindent" ><a 
+ id="operator:SQUAREP"></a> <a 
+ id="dx225-964001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">squarep(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-131" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-131-1g"><col 
+id="TBL-131-1" /><col 
+id="TBL-131-2" /><col 
+id="TBL-131-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-131-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-131-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜 </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-131-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-131-1-3"  
+class="td11"> a matrix.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">squarep </span>is a boolean function that returns t if the matrix is square and nil
+     otherwise.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><img 
+src="manual421x.png" alt="ℒ =  (1  3  5) "  class="math"  />
+     <!--l. 1433--><p class="noindent" ><img 
+src="manual422x.png" alt="squarep  (𝒜 ) = t "  class="math"  />
+     </p><!--l. 1435--><p class="noindent" ><img 
+src="manual423x.png" alt="squarep  (ℒ) = nil "  class="math"  />
+                                                                     
+
+                                                                     
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">matrixp</span>, <span 
+class="pcrr8t-x-x-109">symmetricp</span>.</dd></dl>
+<!--l. 1442--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.43    </span> <a 
+ id="x225-96500020.32.3.43"></a>stack_rows</h5>
+<!--l. 1444--><p class="noindent" ><a 
+ id="operator:STACK_ROWS"></a> <a 
+ id="dx225-965001"></a>
+</p><!--l. 1447--><p class="noindent" >See: <span 
+class="pcrr8t-x-x-109">augment_columns</span>.
+</p><!--l. 1450--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.44    </span> <a 
+ id="x225-96600020.32.3.44"></a>sub_matrix</h5>
+<!--l. 1452--><p class="noindent" ><a 
+ id="operator:SUB_MATRIX"></a> <a 
+ id="dx225-966001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">sub_matrix(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">,row_list,column_list);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-132" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-132-1g"><col 
+id="TBL-132-1" /><col 
+id="TBL-132-2" /><col 
+id="TBL-132-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-132-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-132-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜          </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-132-1-2"  
+class="td11"> :-  </td><td  style="white-space:normal; text-align:left;" id="TBL-132-1-3"  
+class="td11"> <!--l. 1459--><p class="noindent" >a matrix.                                                             </p></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-132-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-132-2-1"  
+class="td11"> row_list, column_list </td> <td  style="white-space:nowrap; text-align:left;" id="TBL-132-2-2"  
+class="td11"> :- </td> <td  style="white-space:normal; text-align:left;" id="TBL-132-2-3"  
+class="td11"> <!--l. 1460--><p class="noindent" >either a positive integer or a list of positive
+  integers.                                                              </p></td>
+</tr></table></div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">sub_matrix </span>produces the matrix consisting of the intersection of the rows
+     speciﬁed in row_list and the columns speciﬁed in column_list.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description">
+     <div class="flushleft" 
+>
+<!--l. 1470--><p class="noindent" >
+ <span 
+class="pcrr8t-x-x-109">sub_matrix</span><img 
+src="manual424x.png" alt="                  (2   3)
+(𝒜, {1,3},{2,3}) =
+                    8  9 "  class="math"  /></p></div>
+                                                                     
+
+                                                                     
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">augment_columns</span>, <span 
+class="pcrr8t-x-x-109">stack_rows</span>.</dd></dl>
+<!--l. 1480--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.45    </span> <a 
+ id="x225-96700020.32.3.45"></a>svd (singular value decomposition)</h5>
+<!--l. 1482--><p class="noindent" ><a 
+ id="operator:SVD"></a> <a 
+ id="dx225-967001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">svd(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-133" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-133-1g"><col 
+id="TBL-133-1" /><col 
+id="TBL-133-2" /><col 
+id="TBL-133-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-133-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-133-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜 </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-133-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-133-1-3"  
+class="td11"> a matrix containing only real numeric entries.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">svd </span>computes the singular value decomposition of <span 
+class="cmsy-10x-x-109">𝒜</span>. If <span 
+class="cmmi-10x-x-109">A </span>is an <span 
+class="cmmi-10x-x-109">m </span><span 
+class="cmsy-10x-x-109">× </span><span 
+class="cmmi-10x-x-109">n </span>real
+     matrix of (column) rank <span 
+class="cmmi-10x-x-109">r</span>, <span 
+class="pcrr8t-x-x-109">svd </span>returns the 3-element list {<span 
+class="cmsy-10x-x-109">𝒰</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">Σ</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">𝒱</span>} where
+     <span 
+class="cmsy-10x-x-109">𝒜 </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">𝒰</span><span 
+class="cmr-10x-x-109">Σ</span><span 
+class="cmsy-10x-x-109">𝒱</span><sup><span 
+class="cmmi-8">T</span> </sup>.
+     <!--l. 1499--><p class="noindent" >Let <span 
+class="cmmi-10x-x-109">k </span><span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmr-10x-x-109">min</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">m,n</span><span 
+class="cmr-10x-x-109">)</span>. Then <span 
+class="cmmi-10x-x-109">U </span>is <span 
+class="cmmi-10x-x-109">m </span><span 
+class="cmsy-10x-x-109">× </span><span 
+class="cmmi-10x-x-109">k</span>, <span 
+class="cmmi-10x-x-109">V </span>is <span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmsy-10x-x-109">× </span><span 
+class="cmmi-10x-x-109">k</span>, and and <span 
+class="cmr-10x-x-109">Σ =</span> diag<span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">σ</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,σ</span><sub><span 
+class="cmmi-8">k</span></sub><span 
+class="cmr-10x-x-109">)</span>,
+     where <span 
+class="cmmi-10x-x-109">σ</span><sub><span 
+class="cmmi-8">i</span></sub> <span 
+class="cmsy-10x-x-109">≥ </span><span 
+class="cmr-10x-x-109">0 </span>are the singular values of <span 
+class="cmsy-10x-x-109">𝒜</span>; only <span 
+class="cmmi-10x-x-109">r </span>of these are non-zero. The
+     singular values are the non-negative square roots of the eigenvalues of
+     <span 
+class="cmsy-10x-x-109">𝒜</span><sup><span 
+class="cmmi-8">T</span> </sup><span 
+class="cmsy-10x-x-109">𝒜</span>.
+     </p><!--l. 1505--><p class="noindent" ><span 
+class="cmsy-10x-x-109">𝒰 </span>and <span 
+class="cmsy-10x-x-109">𝒱 </span>are such that <span 
+class="cmsy-10x-x-109">𝒰𝒰</span><sup><span 
+class="cmmi-8">T</span> </sup> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmsy-10x-x-109">𝒱𝒱</span><sup><span 
+class="cmmi-8">T</span> </sup> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">𝒱</span><sup><span 
+class="cmmi-8">T</span> </sup><span 
+class="cmsy-10x-x-109">𝒱 </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">ℐ</span><sub><span 
+class="cmmi-8">k</span></sub>.
+     </p><!--l. 1508--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Note: </span>there are a number of diﬀerent deﬁnitions of SVD in the literature, in some
+     of which <span 
+class="cmr-10x-x-109">Σ </span>is square and <span 
+class="cmmi-10x-x-109">U </span>and <span 
+class="cmmi-10x-x-109">V </span>rectangular, as here, but in others <span 
+class="cmmi-10x-x-109">U </span>and <span 
+class="cmmi-10x-x-109">V </span>are
+     square, and <span 
+class="cmr-10x-x-109">Σ </span>is rectangular.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><img 
+src="manual425x.png" alt="     (      )
+        1  3
+𝒬  = ( − 4 3)
+        3  6 "  class="math"  />
+                                                                     
+
+                                                                     
+     <!--l. 1515--><p class="noindent" ><img 
+src="manual426x.png" alt="             ({ ( 0.0236042   0.419897)   (                )
+    svd (𝒬 ) =  ( − 0.969049   0.232684)  , 4.83288     0    ,
+             (                              0     7.52618
+              (   0.245739   0.877237)}
+                0.959473   0.281799
+                − 0.281799 0.959473
+             { (                    )  (                )
+                 0.959473   0.281799    4.83288     0
+svd (TP(𝒬)) =    − 0.281799 0.959473  ,    0     7.52618  ,
+              (                    ) )
+                0.0236042  0.419897  }
+              ( − 0.969049 0.232684) )
+                 0.245739   0.877237 "  class="math"  /></p></dd></dl>
+<!--l. 1534--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.46    </span> <a 
+ id="x225-96800020.32.3.46"></a>swap_columns, swap_rows</h5>
+<!--l. 1536--><p class="noindent" ><a 
+ id="operator:SWAP_COLUMNS"></a> <a 
+ id="dx225-968001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">swap_columns(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">,c1,c2);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-134" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-134-1g"><col 
+id="TBL-134-1" /><col 
+id="TBL-134-2" /><col 
+id="TBL-134-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-134-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-134-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-134-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-134-1-3"  
+class="td11"> a matrix.               </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-134-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-134-2-1"  
+class="td11"> c1,c1 </td> <td  style="white-space:nowrap; text-align:left;" id="TBL-134-2-2"  
+class="td11"> :- </td> <td  style="white-space:nowrap; text-align:left;" id="TBL-134-2-3"  
+class="td11"> positive integers.</td>
+</tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">swap_columns </span>swaps column c1 of <span 
+class="cmsy-10x-x-109">𝒜 </span>with column c2.
+     <!--l. 1550--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">swap_rows </span>performs the same task on 2 rows of <span 
+class="cmsy-10x-x-109">𝒜</span>.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description">
+     <div class="flushleft" 
+>
+<!--l. 1553--><p class="noindent" >
+ <span 
+class="pcrr8t-x-x-109">swap_columns</span><img 
+src="manual427x.png" alt="          ( 1  3  2)
+(𝒜,2,3) = ( 4  6  5)
+
+            7  9  8 "  class="math"  /></p></div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">swap_entries</span>.</dd></dl>
+                                                                     
+
+                                                                     
+<!--l. 1563--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.47    </span> <a 
+ id="x225-96900020.32.3.47"></a>swap_entries</h5>
+<!--l. 1565--><p class="noindent" ><a 
+ id="operator:SWAP_ENTRIES"></a> <a 
+ id="dx225-969001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">swap_entries(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">,{r1,c1},{r2,c2});</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-135" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-135-1g"><col 
+id="TBL-135-1" /><col 
+id="TBL-135-2" /><col 
+id="TBL-135-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-135-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-135-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜     </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-135-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-135-1-3"  
+class="td11"> a matrix.               </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-135-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-135-2-1"  
+class="td11"> r1,c1,r2,c2 </td> <td  style="white-space:nowrap; text-align:left;" id="TBL-135-2-2"  
+class="td11"> :- </td> <td  style="white-space:nowrap; text-align:left;" id="TBL-135-2-3"  
+class="td11"> positive integers.</td>
+</tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">swap_entries </span>swaps <span 
+class="cmsy-10x-x-109">𝒜</span>(r1,c1) with <span 
+class="cmsy-10x-x-109">𝒜</span>(r2,c2).
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description">
+     <div class="flushleft" 
+>
+<!--l. 1581--><p class="noindent" >
+ <span 
+class="pcrr8t-x-x-109">swap_entries</span><img 
+src="manual428x.png" alt="                  ( 9  2  3)
+(𝒜,{1,1},{3,3}) = ( 4  5  6)
+
+                    7  8  1 "  class="math"  /></p></div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">swap_columns</span>, <span 
+class="pcrr8t-x-x-109">swap_rows</span>.</dd></dl>
+<!--l. 1591--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.48    </span> <a 
+ id="x225-97000020.32.3.48"></a>swap_rows</h5>
+<!--l. 1593--><p class="noindent" ><a 
+ id="operator:SWAP_ROWS"></a> <a 
+ id="dx225-970001"></a> See: <span 
+class="pcrr8t-x-x-109">swap_columns</span>.
+                                                                     
+
+                                                                     
+</p><!--l. 1598--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.49    </span> <a 
+ id="x225-97100020.32.3.49"></a>symmetricp</h5>
+<!--l. 1600--><p class="noindent" ><a 
+ id="operator:SYMMETRICP"></a> <a 
+ id="dx225-971001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">symmetricp(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-136" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-136-1g"><col 
+id="TBL-136-1" /><col 
+id="TBL-136-2" /><col 
+id="TBL-136-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-136-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-136-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜 </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-136-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-136-1-3"  
+class="td11"> a matrix.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">symmetricp </span>is a boolean function that returns t if the matrix is symmetric and
+     nil otherwise.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><img 
+src="manual429x.png" alt="      (    )
+ℳ   =  1  2
+       2  1 "  class="math"  />
+     <!--l. 1617--><p class="noindent" ><img 
+src="manual430x.png" alt="symmetricp   (𝒜) = nil "  class="math"  /><img 
+src="manual431x.png" alt="symmetricp  (ℳ  ) = t "  class="math"  />
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Related functions:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">matrixp</span>, <span 
+class="pcrr8t-x-x-109">squarep</span>.</dd></dl>
+<!--l. 1625--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.50    </span> <a 
+ id="x225-97200020.32.3.50"></a>toeplitz</h5>
+<!--l. 1627--><p class="noindent" ><a 
+ id="operator:TOEPLITZ"></a> <a 
+ id="dx225-972001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">toeplitz({expr</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="pcrr8t-x-x-109">,expr</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="pcrr8t-x-x-109">, </span><span 
+class="pcrr8t-x-x-109">…,expr</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="pcrr8t-x-x-109">});</span>
+     <span class="footnote-mark"><a 
+href="manual233.html#fn34x20"><sup class="textsuperscript">34</sup></a></span><a 
+ id="x225-972002f34"></a><br 
+class="newline" /> <!--tex4ht:inline--><div class="tabular"> <table id="TBL-137" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-137-1g"><col 
+id="TBL-137-1" /><col 
+id="TBL-137-2" /><col 
+id="TBL-137-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-137-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-137-1-1"  
+class="td11"> expr<sub><span 
+class="cmr-8">1</span></sub>,expr<sub><span 
+class="cmr-8">2</span></sub>, …,expr<sub><span 
+class="cmmi-8">n</span></sub>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-137-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-137-1-3"  
+class="td11"> algebraic expressions.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">toeplitz </span>creates the toeplitz matrix from the expression list.
+     <!--l. 1641--><p class="noindent" >This is a square symmetric matrix in which the ﬁrst expression is placed on the
+     diagonal and the i’th expression is placed on the (i-1)’th sub and super
+     diagonals.
+     </p><!--l. 1646--><p class="noindent" >It has dimension n where n is the number of expressions.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description">
+     <div class="flushleft" 
+>
+<!--l. 1650--><p class="noindent" >
+ <img 
+src="manual432x.png" alt="                        (             )
+                          w  x   y  z
+toeplitz  ({w,x,y,z}) = || x  w   x  y ||
+                        ( y  x   w  x )
+                          z  y   x  w "  class="math"  /></p></div>
+     </dd></dl>
+<!--l. 1660--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.51    </span> <a 
+ id="x225-97300020.32.3.51"></a>triang_adjoint</h5>
+<!--l. 1662--><p class="noindent" ><a 
+ id="operator:TRIANG_ADJOINT"></a> <a 
+ id="dx225-973001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">triang_adjoint(</span><span 
+class="cmsy-10x-x-109">𝒜</span><span 
+class="pcrr8t-x-x-109">);</span><br 
+class="newline" /><!--tex4ht:inline--><div class="tabular"><table id="TBL-138" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-138-1g"><col 
+id="TBL-138-1" /><col 
+id="TBL-138-2" /><col 
+id="TBL-138-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-138-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-138-1-1"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒜 </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-138-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-138-1-3"  
+class="td11"> a matrix.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description">
+     <!--l. 1674--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">triang_adjoint </span>computes the triangularizing adjoint <span 
+class="cmsy-10x-x-109">ℱ </span>of matrix <span 
+class="cmsy-10x-x-109">𝒜 </span>due to
+     the algorithm of Arne Storjohann. <span 
+class="cmsy-10x-x-109">ℱ </span>is lower triangular matrix and the resulting
+     matrix <span 
+class="cmsy-10x-x-109">𝒯 </span>of <span 
+class="cmsy-10x-x-109">ℱ∗𝒜 </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">𝒯</span> is upper triangular with the property that the <span 
+class="cmmi-10x-x-109">i</span>-th entry in
+     the diagonal of <span 
+class="cmsy-10x-x-109">𝒯 </span>is the determinant of the principal <span 
+class="cmmi-10x-x-109">i</span>-th submatrix of the matrix
+     <span 
+class="cmsy-10x-x-109">𝒜</span>.
+                                                                     
+
+                                                                     
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">triang_adjoint</span><img 
+src="manual433x.png" alt="      (           )
+         1  0   0
+(𝒜) = ( − 4 1   0 )
+        − 3 6  − 3 "  class="math"  />
+     <!--l. 1685--><p class="noindent" ><img 
+src="manual434x.png" alt="         (1   2    3 )
+         (           )
+ℱ  ∗𝒜 =   0  − 3  − 6
+          0   0    0 "  class="math"  /></p></dd></dl>
+<!--l. 1689--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.52    </span> <a 
+ id="x225-97400020.32.3.52"></a>Vandermonde</h5>
+<!--l. 1691--><p class="noindent" ><a 
+ id="operator:VANDERMONDE"></a> <a 
+ id="dx225-974001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">vandermonde</span>({expr<sub><span 
+class="cmr-8">1</span></sub>,expr<sub><span 
+class="cmr-8">2</span></sub>, …,expr<sub><span 
+class="cmmi-8">n</span></sub>});
+     <span class="footnote-mark"><a 
+href="manual234.html#fn35x20"><sup class="textsuperscript">35</sup></a></span><a 
+ id="x225-974002f35"></a><br 
+class="newline" /> <!--tex4ht:inline--><div class="tabular"> <table id="TBL-139" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-139-1g"><col 
+id="TBL-139-1" /><col 
+id="TBL-139-2" /><col 
+id="TBL-139-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-139-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-139-1-1"  
+class="td11"> expr<sub><span 
+class="cmr-8">1</span></sub>,expr<sub><span 
+class="cmr-8">2</span></sub>, …,expr<sub><span 
+class="cmmi-8">n</span></sub>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-139-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-139-1-3"  
+class="td11"> algebraic expressions.  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">Vandermonde </span>creates the Vandermonde matrix from the expression list. This is
+     the square matrix in which the <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">i,j</span><span 
+class="cmr-10x-x-109">)</span>th entry is expr<sub><span 
+class="cmmi-8">i</span></sub><sup><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">j</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1)</span></sup>. It has dimension <span 
+class="cmmi-10x-x-109">n</span>,
+     where <span 
+class="cmmi-10x-x-109">n </span>is the number of expressions.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description">
+     <div class="flushleft" 
+>
+<!--l. 1709--><p class="noindent" >
+ <img 
+src="manual435x.png" alt="                               (             2 )
+                                 1   x      x
+vandermonde   ({x, 2∗ y,3∗ z}) = ( 1 2 ∗y  4 ∗y2)
+                                 1  3 ∗z  9 ∗z2 "  class="math"  /></p></div>
+     </dd></dl>
+                                                                     
+
+                                                                     
+<!--l. 1717--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.32.3.53    </span> <a 
+ id="x225-97500020.32.3.53"></a>kronecker_product</h5>
+<!--l. 1718--><p class="noindent" ><a 
+ id="operator:KRONECKER_PRODUCT"></a> <a 
+ id="dx225-975001"></a>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Syntax:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">kronecker_product</span>(<span 
+class="cmmi-10x-x-109">M</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,M</span><sub><span 
+class="cmr-8">2</span></sub>)<br 
+class="newline" /> <!--tex4ht:inline--><div class="tabular"> <table id="TBL-140" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-140-1g"><col 
+id="TBL-140-1" /><col 
+id="TBL-140-2" /><col 
+id="TBL-140-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-140-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-140-1-1"  
+class="td11"> <span 
+class="cmmi-10x-x-109">M</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,M</span><sub><span 
+class="cmr-8">2</span></sub>  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-140-1-2"  
+class="td11"> :-  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-140-1-3"  
+class="td11"> Matrices  </td></tr></table>
+     </div>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Synopsis:</span> </dt><dd 
+class="description"><br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">kronecker_product </span>creates a matrix containing the Kronecker product (also
+     called <span 
+class="pcrr8t-x-x-109">direct product </span>or <span 
+class="pcrr8t-x-x-109">tensor product</span>) of its arguments.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Examples:</span> </dt><dd 
+class="description">
+                                                                     
+
+                                                                     
+     <div class="verbatim" id="verbatim-1238">
+     a1 := mat((1,2),(3,4),(5,6))$
+      <br />a2 := mat((1,1,1),(2,z,2),(3,3,3))$
+      <br />kronecker_product(a1,a2);
+</div>
+     <!--l. 1737--><p class="nopar" ></p>
+     <div class="flushleft" 
+>
+<!--l. 1738--><p class="noindent" >
+ <img 
+src="manual436x.png" alt="( 1    1    1   2    2    2 )
+|                           |
+| 2    z    2   4   2∗ z  4 |
+|| 3    3    3   6    6    6 ||
+|| 3    3    3   4    4    4 ||
+|| 6   3∗ z  6   8   4∗ z  8 ||
+|| 9    9    9   12   12   12||
+| 5    5    5   6    6    6 |
+|( 10  5∗ z  10  12  6∗ z  12|)
+
+  15   15   15  18   18   18 "  class="math"  /></p></div>
+     </dd></dl>
+<!--l. 1781--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.32.4    </span> <a 
+ id="x225-97600020.32.4"></a>Acknowledgments</h4>
+<!--l. 1783--><p class="noindent" >Many of the ideas for this package came from the Maple[3] Linalg package
+[4].
+</p><!--l. 1786--><p class="noindent" >The algorithms for <span 
+class="pcrr8t-x-x-109">cholesky</span>, <span 
+class="pcrr8t-x-x-109">lu_decom</span>, and <span 
+class="pcrr8t-x-x-109">svd </span>are taken from the book Linear
+Algebra - J.H. Wilkinson &#x0026; C. Reinsch[5].
+</p><!--l. 1789--><p class="noindent" >The <span 
+class="pcrr8t-x-x-109">gram_schmidt </span>code comes from Karin Gatermann’s Symmetry package[6] for
+REDUCE.
+</p><!--l. 665--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 667--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse157.html" >Up</a></td><td class="clinks"><a 
+href="manualse158.html" >Next</a></td><td class="clinks"><a 
+href="manualse156.html" >Prev</a></td><td class="clinks"><a 
+href="manualse156.html#tailmanualse156.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse157.html" >Front</a></td></tr></table><a 
+ id="tailmanualse157.html"></a>  </p> 
+</body> 
+</html>

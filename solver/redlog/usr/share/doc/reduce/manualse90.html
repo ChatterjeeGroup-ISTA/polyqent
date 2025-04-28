@@ -1,0 +1,158 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Referencing Previous Results: input, ws, display</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch13.html#manualse90.html" >Up</a></td><td class="clinks"><a 
+href="manualse91.html" >Next</a></td><td class="clinks"><a 
+href="manualse89.html" >Prev</a></td><td class="clinks"><a 
+href="manualse89.html#tailmanualse89.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse90.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">13.2    </span> <a 
+ id="x116-22000013.2"></a>Referencing Previous Results: <span 
+class="pcrr8t-">input</span>, <span 
+class="pcrr8t-">ws</span>, <span 
+class="pcrr8t-">display</span></h3>
+<!--l. 44--><p class="noindent" ><a 
+ id="reserved:INPUT"></a> <a 
+ id="reserved:WS"></a> It is often useful to be able to reference results of previous computations during a
+REDUCE session; see also <a 
+href="manualse56.html#x73-1200008.2">8.2<!--tex4ht:ref: Workspace --></a>. For this purpose, REDUCE maintains a history<a 
+ id="dx116-220001"></a> of all
+interactive inputs and the results of all interactive computations during a given session.
+These results are referenced by the command number that REDUCE prints
+automatically in interactive mode. To use a previous input expression in a new
+computation, write <span 
+class="pcrr8t-x-x-109">input(</span><span 
+class="cmmi-10x-x-109">n</span><span 
+class="pcrr8t-x-x-109">)</span>,<a 
+ id="dx116-220002"></a> where <span 
+class="cmmi-10x-x-109">n </span>is the command number. To use a previous
+output expression, write <span 
+class="pcrr8t-x-x-109">ws(</span><span 
+class="cmmi-10x-x-109">n</span><span 
+class="pcrr8t-x-x-109">)</span><a 
+ id="dx116-220003"></a> (where WS stands for WorkSpace). <span 
+class="pcrr8t-x-x-109">ws </span>used as a
+variable (rather than a function) references the previous output expression. For
+example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-419">
+1: int(x-1, x);
+ <br />
+ <br /> x*(x - 2)
+ <br />-----------
+ <br />     2
+</div>
+<!--l. 64--><p class="nopar" > <img 
+src="manual53x.png" alt=".
+..  "  class="math"  />
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-420">
+7: (x^2-1)/(x+1);
+ <br />
+ <br />x - 1
+</div>
+<!--l. 70--><p class="nopar" > <img 
+src="manual54x.png" alt="..
+.  "  class="math"  />
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-421">
+15: 2*input(1)-ws(7)^2;
+ <br />
+ <br />-1
+ <br />
+ <br />16: 2*ws(1)-ws(7)^2;
+ <br />
+ <br />-1
+ <br />
+ <br />17: x := 101;
+ <br />
+ <br />x := 101
+ <br />
+ <br />18: ws(7);
+ <br />
+ <br />100
+</div>
+<!--l. 88--><p class="nopar" > Inputs 15 and 16 above yield the same result, but input 16 does so <span 
+class="ptmri8t-x-x-109">without </span>recomputing
+the integral. However, an output expression referenced using <span 
+class="pcrr8t-x-x-109">ws </span>is re-evaluated in the
+current context, as shown by the last two statements above.
+</p><!--l. 94--><p class="noindent" >Note that input that causes an error, and some commands such as <span 
+class="pcrr8t-x-x-109">let </span>statements, ﬁle
+handling and mode changing, do not produce an output expression, so the output from
+such input cannot be accessed. <span 
+class="pcrr8t-x-x-109">ws </span>used as a variable returns the last output
+expression, which does not necessarily correspond to the last input, and <span 
+class="pcrr8t-x-x-109">ws</span>
+used as a function reports an error if you try to access non-existent output. For
+example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-422">
+1: 6*7;
+ <br />
+ <br />42
+ <br />
+ <br />2: 0/0;
+ <br />
+ <br />***** 0/0 formed
+ <br />
+ <br />3: ws;
+ <br />
+ <br />42
+ <br />
+ <br />4: ws 2;
+ <br />
+ <br />***** Entry 2 not found
+ <br />
+ <br />5: let x =&#x003E; 0;
+ <br />
+ <br />6: ws;
+ <br />
+ <br />42
+ <br />
+ <br />7: ws 5;
+ <br />
+ <br />***** Entry 5 not found
+</div>
+<!--l. 127--><p class="nopar" >
+</p><!--l. 129--><p class="noindent" ><a 
+ id="operator:DISPLAY"></a> The operator <span 
+class="pcrr8t-x-x-109">display</span><a 
+ id="dx116-220004"></a> is available to display previous inputs. If its argument is a
+positive integer, <span 
+class="cmmi-10x-x-109">n </span>say, then the previous <span 
+class="cmmi-10x-x-109">n </span>inputs are displayed. If its argument is
+<span 
+class="pcrr8t-x-x-109">all </span>(or in fact any non-numerical expression), then all previous inputs are
+displayed.
+                                                                     
+
+                                                                     
+</p><!--l. 135--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch13.html#manualse90.html" >Up</a></td><td class="clinks"><a 
+href="manualse91.html" >Next</a></td><td class="clinks"><a 
+href="manualse89.html" >Prev</a></td><td class="clinks"><a 
+href="manualse89.html#tailmanualse89.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse90.html" >Front</a></td></tr></table><a 
+ id="tailmanualse90.html"></a> </p> 
+</body> 
+</html>

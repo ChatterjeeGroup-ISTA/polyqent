@@ -1,0 +1,193 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>21 Symbolic Mode</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manual.html#manualch21.html" >Up</a></td><td class="clinks"><a 
+href="manualch22.html" >Next</a></td><td class="clinks"><a 
+href="manualch20.html" >Prev</a></td><td class="clinks"><a 
+href="manualch20.html#tailmanualch20.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualch21.html">Tail</a></td></tr></table><h2 class="ChapterHead"> 21 <a 
+ id="x286-132700021"></a>Symbolic Mode</h2>
+<a 
+ id="dx286-1327001"></a>
+<!--l. 3--><p class="noindent" ><a 
+ id="target:modes"></a> <a 
+ id="reserved:LISP"></a>
+</p><!--l. 6--><p class="noindent" >At the system level, REDUCE is based on a version of the programming language Lisp<a 
+ id="dx286-1327002"></a>
+known as <span 
+class="ptmri8t-x-x-109">Standard Lisp </span>which is described in <span class="cite">[<a 
+href="manualap2.html#XMarti:80">MHGG80</a>]</span>. We shall assume in this
+section that the reader is familiar with the material in that paper. This also assumes
+implicitly that the reader has a reasonable knowledge about Lisp in general, say at the
+level of the LISP 1.5 Programmer’s Manual (<span class="cite">[<a 
+href="manualap2.html#XLisp1.5:1962">MAE<sup><span 
+class="cmr-8">+</span></sup>62</a>]</span>) or any of the books mentioned
+at the end of this section. Persons unfamiliar with this material will have some diﬃculty
+understanding this section.
+</p><!--l. 17--><p class="noindent" >Although REDUCE is designed primarily for algebraic calculations, its source language
+is general enough to allow for a full range of Lisp-like symbolic calculations. To achieve
+this generality, however, it is necessary to provide the user with two modes of evaluation,
+namely an algebraic mode<a 
+ id="dx286-1327003"></a> and a symbolic mode.<a 
+ id="dx286-1327004"></a> To enter symbolic mode, the user
+types <span 
+class="pcrr8t-x-x-109">symbolic;</span><a 
+ id="dx286-1327005"></a> (or <span 
+class="pcrr8t-x-x-109">lisp;</span>)<a 
+ id="dx286-1327006"></a> and to return to algebraic mode one types
+<span 
+class="pcrr8t-x-x-109">algebraic;</span>.<a 
+ id="dx286-1327007"></a> Evaluations proceed diﬀerently in each mode so the user is advised to
+check what mode he is in if a puzzling error arises. He can ﬁnd his mode by
+typing<a 
+ id="dx286-1327008"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1476">
+        eval_mode;
+</div>
+<!--l. 30--><p class="nopar" > The current mode will then be printed as <span 
+class="pcrr8t-x-x-109">algebraic </span>or <span 
+class="pcrr8t-x-x-109">symbolic</span>.
+</p><!--l. 33--><p class="noindent" >Expression evaluation may proceed in either mode at any level of a calculation,
+provided the results are passed from mode to mode in a compatible manner.
+One simply preﬁxes the relevant expression by the appropriate mode. If the
+mode name preﬁxes an expression at the top level, it will then be handled as
+if the global system mode had been changed for the scope of that particular
+calculation.
+</p><!--l. 40--><p class="noindent" >For example, if the current mode is <span 
+class="pcrr8t-x-x-109">algebraic</span>, then the commands
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1477">
+        symbolic car ’(a);
+ <br />        x+y;
+</div>
+<!--l. 45--><p class="nopar" > will cause the ﬁrst expression to be evaluated and printed in symbolic mode and the
+second in algebraic mode. Only the second evaluation will thus aﬀect the expression
+workspace. On the other hand, the statement
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1478">
+        x + symbolic car ’(12);
+</div>
+<!--l. 51--><p class="nopar" > will result in the algebraic value <span 
+class="pcrr8t-x-x-109">X+12</span>.
+</p><!--l. 54--><p class="noindent" >The use of <span 
+class="pcrr8t-x-x-109">symbolic </span>(and equivalently <span 
+class="pcrr8t-x-x-109">algebraic</span>) in this manner is the same
+as any operator. That means that parentheses could be omitted in the above
+examples since the meaning is obvious. In other cases, parentheses must be used, as
+in
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1479">
+        symbolic(x := ’a);
+</div>
+<!--l. 61--><p class="nopar" > Omitting the parentheses, as in
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1480">
+        symbolic x := a;
+</div>
+<!--l. 65--><p class="nopar" > would be wrong, since it would parse as
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1481">
+        symbolic(x) := a;
+</div>
+<!--l. 69--><p class="nopar" > For convenience, it is assumed that any operator whose <span 
+class="ptmri8t-x-x-109">ﬁrst </span>argument is quoted is being
+evaluated in symbolic mode, regardless of the mode in eﬀect at that time. Thus, the ﬁrst
+example above could be equally well written:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1482">
+        car ’(a);
+</div>
+<!--l. 76--><p class="nopar" > Except where explicit limitations have been made, most REDUCE algebraic
+constructions carry over into symbolic mode.<a 
+ id="dx286-1327009"></a> However, there are some diﬀerences. First,
+expression evaluation now becomes Lisp evaluation. Secondly, assignment statements
+are handled diﬀerently, as we shall discuss shortly. Thirdly, local variables and array
+elements are initialized to <span 
+class="pcrr8t-x-x-109">nil </span>rather than <span 
+class="pcrr8t-x-x-109">0</span>. (In fact, any variables not explicitly
+declared <span 
+class="pcrr8t-x-x-109">integer </span>are also initialized to <span 
+class="pcrr8t-x-x-109">nil </span>in algebraic mode, but the algebraic
+evaluator recognizes <span 
+class="pcrr8t-x-x-109">nil </span>as <span 
+class="pcrr8t-x-x-109">0</span>.) Finally, function deﬁnitions follow the conventions of
+Standard Lisp.
+</p><!--l. 89--><p class="noindent" >To begin with, we mention a few extensions to our basic syntax which are designed
+primarily if not exclusively for symbolic mode.
+</p>
+<div class="sectionTOCS">
+ <span class="sectionToc" >21.1 <a 
+href="manualse192.html#x287-132800021.1">Symbolic Inﬁx Operators</a></span>
+<br /> <span class="sectionToc" >21.2 <a 
+href="manualse193.html#x288-132900021.2">Symbolic Expressions</a></span>
+<br /> <span class="sectionToc" >21.3 <a 
+href="manualse194.html#x289-133000021.3">Quoted Expressions</a></span>
+<br /> <span class="sectionToc" >21.4 <a 
+href="manualse195.html#x290-133100021.4">Lambda Expressions</a></span>
+<br /> <span class="sectionToc" >21.5 <a 
+href="manualse196.html#x291-133200021.5">Symbolic Assignment Statements</a></span>
+<br /> <span class="sectionToc" >21.6 <a 
+href="manualse197.html#x292-133300021.6">FOR EACH Statement</a></span>
+<br /> <span class="sectionToc" >21.7 <a 
+href="manualse198.html#x293-133400021.7">Symbolic Procedures</a></span>
+<br /> <span class="sectionToc" >21.8 <a 
+href="manualse199.html#x294-133500021.8">Standard Lisp Equivalent of REDUCE Input</a></span>
+<br /> <span class="sectionToc" >21.9 <a 
+href="manualse200.html#x295-133600021.9">Communicating with Algebraic Mode</a></span>
+<br /> <span class="sectionToc" >21.10 <a 
+href="manualse201.html#x296-134100021.10">Rlisp ’88</a></span>
+<br /> <span class="sectionToc" >21.11 <a 
+href="manualse202.html#x297-134200021.11">References</a></span>
+</div>
+
+
+
+
+
+
+
+
+
+
+                                                                     
+
+                                                                     
+<table cellspacing="5"><tr><td class="clinks"><a 
+href="manual.html#manualch21.html" >Up</a></td><td class="clinks"><a 
+href="manualch22.html" >Next</a></td><td class="clinks"><a 
+href="manualch20.html" >Prev</a></td><td class="clinks"><a 
+href="manualch20.html#tailmanualch20.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualch21.html" >Front</a></td></tr></table><a 
+ id="tailmanualch21.html"></a>  
+</body> 
+</html>

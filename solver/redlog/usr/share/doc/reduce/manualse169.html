@@ -1,0 +1,1033 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>RANDPOLY: A Random Polynomial Generator</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse169.html" >Up</a></td><td class="clinks"><a 
+href="manualse170.html" >Next</a></td><td class="clinks"><a 
+href="manualse168.html" >Prev</a></td><td class="clinks"><a 
+href="manualse168.html#tailmanualse168.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse169.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.44    </span> <a 
+ id="x253-109500020.44"></a>RANDPOLY: A Random Polynomial Generator</h3>
+<a 
+ id="dx253-1095001"></a>
+<a 
+ id="dx253-1095002"></a>
+<!--l. 914--><p class="noindent" >This package is based on a port of the Maple random polynomial generator together with
+some support facilities for the generation of random numbers and anonymous
+procedures.
+</p><!--l. 918--><p class="noindent" >Author: Francis J. Wright.
+<a 
+ id="dx253-1095003"></a>
+<a 
+ id="dx253-1095004"></a>
+</p><!--l. 6--><p class="noindent" >This package is based on a port of the Maple random polynomial generator together with
+some support facilities for the generation of random numbers and anonymous
+procedures.
+</p><!--l. 12--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.44.1    </span> <a 
+ id="x253-109600020.44.1"></a>Introduction</h4>
+<!--l. 14--><p class="noindent" ><a 
+ id="operator:RANDPOLY"></a> The operator <span 
+class="pcrr8t-x-x-109">randpoly</span><a 
+ id="dx253-1096001"></a> is based on a port of the Maple random polynomial
+generator. In fact, although by default it generates a univariate or multivariate
+polynomial, in its most general form it generates a sum of products of arbitrary
+integer powers of the variables multiplied by arbitrary coeﬃcient expressions, in
+which the variable powers and coeﬃcient expressions are the results of calling
+user-supplied functions (with no arguments). Moreover, the “variables” can be
+arbitrary expressions, which are composed with the underlying polynomial-like
+function.
+</p><!--l. 26--><p class="noindent" >The user interface, code structure and algorithms used are essentially identical to those in
+the Maple version. The package also provides an analogue of the Maple <span 
+class="pcrr8t-x-x-109">rand</span>
+random-number-generator generator, primarily for use by <span 
+class="pcrr8t-x-x-109">randpoly</span>. There are
+principally two reasons for translating these facilities rather than designing comparable
+facilites anew: (1) the Maple design seems satisfactory and has already been “proven”
+within Maple, so there is no good reason to repeat the design eﬀort; (2) the main use for
+these facilities is in testing the performance of other algebraic code, and there is an
+advantage in having essentially the same test data generator implemented in both Maple
+and REDUCE. Moreover, it is interesting to see the extent to which a facility can be
+                                                                     
+
+                                                                     
+translated without change between two systems. (This aspect will be described
+elsewhere.)
+</p><!--l. 40--><p class="noindent" >Sections <a 
+href="#x253-109700020.44.2">20.44.2<!--tex4ht:ref: randpolysec:Basic --></a> and <a 
+href="#x253-109900020.44.3">20.44.3<!--tex4ht:ref: randpolysec:Advanced --></a> describe respectively basic and more advanced use of
+<span 
+class="pcrr8t-x-x-109">randpoly</span>; §<a 
+href="#x253-110000020.44.4">20.44.4<!--tex4ht:ref: randpolysec:Subsidiary --></a> describes subsidiary functions provided to support advanced use
+of <span 
+class="pcrr8t-x-x-109">randpoly</span>; §<a 
+href="#x253-110500020.44.5">20.44.5<!--tex4ht:ref: randpolysec:Examples --></a> gives examples; an appendix gives some details of the only
+non-trivial algorithm, that used to compute random sparse polynomials. Additional
+examples of the use of <span 
+class="pcrr8t-x-x-109">randpoly </span>are given in the test and demonstration ﬁle
+<span 
+class="pcrr8t-x-x-109">randpoly.tst</span>.
+</p><!--l. 49--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.44.2    </span> <a 
+ id="x253-109700020.44.2"></a>Basic use of <span 
+class="pcrr8t-x-x-109">randpoly</span></h4>
+<!--l. 52--><p class="noindent" >The operator <span 
+class="pcrr8t-x-x-109">randpoly </span>requires at least one argument corresponding to the
+polynomial variable or variables, which must be either a single expression or a list of
+expressions.<span class="footnote-mark"><a 
+href="manual254.html#fn43x20"><sup class="textsuperscript">43</sup></a></span><a 
+ id="x253-1097001f43"></a> 
+In eﬀect, <span 
+class="pcrr8t-x-x-109">randpoly </span>replaces each input expression by an internal variable and
+then substitutes the input expression for the internal variable in the generated
+polynomial (and by default expands the result as usual), although in fact if the input
+expression is a REDUCE kernel then it is used directly. The rest of this document
+uses the term “variable” to refer to a general input expression or the internal
+variable used to represent it, and all references to the polynomial structure, such
+as its degree, are with respect to these internal variables. The actual degree
+of a generated polynomial might be diﬀerent from its degree in the internal
+variables.
+</p><!--l. 72--><p class="noindent" >By default, the polynomial generated has degree 5 and contains 6 terms. Therefore, if it
+is univariate it is dense whereas if it is multivariate it is sparse.
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.44.2.1    </span> <a 
+ id="x253-109800020.44.2.1"></a>Optional arguments</h5>
+<!--l. 79--><p class="noindent" >Other arguments can optionally be speciﬁed, in any order, after the ﬁrst compulsory
+variable argument. All arguments receive full algebraic evaluation, subject to the current
+                                                                     
+
+                                                                     
+switch settings etc. The arguments are processed in the order given, so that if more than
+one argument relates to the same property then the last one speciﬁed takes eﬀect.
+Optional arguments are either keywords or equations with keywords on the
+left.
+</p><!--l. 87--><p class="noindent" >In general, the polynomial is sparse by default, unless the keyword <span 
+class="ptmb8t-x-x-109">dense </span>is speciﬁed as
+an optional argument. (The keyword <span 
+class="ptmb8t-x-x-109">sparse </span>is also accepted, but is the default.)
+The default degree can be changed by specifying an optional argument of the
+form
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">degree </span>= <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">natural number</span><span 
+class="cmsy-10x-x-109">⟩ </span>.</div>
+<!--l. 94--><p class="noindent" >In the multivariate case this is the total degree, i.e. the sum of the degrees with respect to
+the individual variables. The keywords <span 
+class="ptmb8t-x-x-109">deg </span>and <span 
+class="ptmb8t-x-x-109">maxdeg </span>can also be used in place of
+<span 
+class="ptmb8t-x-x-109">degree</span>. More complicated monomial degree bounds can be constructed by using
+the coeﬃcient function described below to return a monomial or polynomial
+coeﬃcient expression. Moreover, <span 
+class="pcrr8t-x-x-109">randpoly </span>respects internally the REDUCE
+“asymptotic” commands <span 
+class="pcrr8t-x-x-109">let</span>, <span 
+class="pcrr8t-x-x-109">weight </span>etc. described in §<a 
+href="manualse82.html#x105-21000011.4">11.4<!--tex4ht:ref: sec-asymp --></a> of the REDUCE
+manual, which can be used to exercise additional control over the polynomial
+generated.
+</p><!--l. 104--><p class="noindent" >In the sparse case (only), the default maximum number of terms generated can be
+changed by specifying an optional argument of the form
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">terms </span>= <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">natural number</span><span 
+class="cmsy-10x-x-109">⟩ </span>.</div>
+<!--l. 110--><p class="noindent" >The actual number of terms generated will be the minimum of the value of <span 
+class="pcrr8t-x-x-109">terms </span>and
+the number of terms in a dense polynomial of the speciﬁed degree, number of variables,
+etc.
+</p><!--l. 115--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.44.3    </span> <a 
+ id="x253-109900020.44.3"></a>Advanced use of <span 
+class="pcrr8t-x-x-109">randpoly</span></h4>
+<!--l. 118--><p class="noindent" >The default order (or minimum or trailing degree) can be changed by specifying an
+optional argument of the form
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">ord </span>= <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">natural number</span><span 
+class="cmsy-10x-x-109">⟩ </span>.</div>
+<!--l. 123--><p class="noindent" >The keyword is <span 
+class="pcrr8t-x-x-109">ord </span>rather than <span 
+class="pcrr8t-x-x-109">order </span>because <span 
+class="pcrr8t-x-x-109">order </span>is a reserved command name in
+                                                                     
+
+                                                                     
+REDUCE. The keyword <span 
+class="pcrr8t-x-x-109">mindeg </span>can also be used in place of <span 
+class="pcrr8t-x-x-109">ord</span>. In the multivariate
+case this is the total degree, i.e. the sum of the degrees with respect to the individual
+variables. The order normally defaults to 0.
+</p><!--l. 129--><p class="noindent" >However, the input expressions to <span 
+class="pcrr8t-x-x-109">randpoly </span>can also be equations, in which case the
+order defaults to 1 rather than 0. Input equations are converted to the diﬀerence of their
+two sides before being substituted into the generated polynomial. The purpose of this
+facility is to easily generate polynomials with a speciﬁed zero – for example
+</p><div class="alltt">
+<div class="obeylines-v">
+<span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> randpoly(x</span><span 
+class="pcrr8t-x-x-109"> =</span><span 
+class="pcrr8t-x-x-109"> a);</span>
+</div>
+</div> generates a polynomial that is guaranteed to vanish at <span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">a</span>, but is otherwise
+random.
+<!--l. 141--><p class="noindent" >Order speciﬁcation and equation input are extensions of the current Maple version of
+<span 
+class="pcrr8t-x-x-109">randpoly</span>.
+</p><!--l. 144--><p class="noindent" >The operator <span 
+class="pcrr8t-x-x-109">randpoly </span>accepts two further optional arguments in the form of
+equations with the keywords <span 
+class="pcrr8t-x-x-109">coeffs </span>and <span 
+class="pcrr8t-x-x-109">expons </span>on the left. The right sides of each of
+these equations must evaluate to objects that can be applied as functions of no variables.
+These functions should be normal algebraic procedures (or something equivalent); the
+<span 
+class="pcrr8t-x-x-109">coeffs </span>procedure may return any algebraic expression, but the <span 
+class="pcrr8t-x-x-109">expons </span>procedure
+must return an integer (otherwise <span 
+class="pcrr8t-x-x-109">randpoly </span>reports an error). The values returned by
+the functions should normally be random, because it is the randomness of the coeﬃcients
+and, in the sparse case, of the exponents that makes the constructed polynomial
+random.
+</p><!--l. 156--><p class="noindent" ><a 
+ id="operator:RAND"></a> A convenient special case is to use the function <span 
+class="pcrr8t-x-x-109">rand</span><a 
+ id="dx253-1099001"></a> on the right of one or both of
+these equations; when called with a single argument <span 
+class="pcrr8t-x-x-109">rand </span>returns an anonymous
+function of no variables that generates a random integer. The single argument of <span 
+class="pcrr8t-x-x-109">rand</span>
+should normally be an integer range in the form <span 
+class="cmmi-10x-x-109">a</span><span 
+class="cmmi-10x-x-109"> ..</span><span 
+class="cmmi-10x-x-109"> b</span>, where <span 
+class="cmmi-10x-x-109">a</span>, <span 
+class="cmmi-10x-x-109">b </span>are integers such that
+<span 
+class="cmmi-10x-x-109">a &#x003C; b</span>. The spaces around (or at least before) the inﬁx operator “..” are necessary in some
+cases in REDUCE and generally recommended. For example, the <span 
+class="pcrr8t-x-x-109">expons </span>argument
+might take the form </p><div class="alltt">
+<div class="obeylines-v">
+<span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> expons</span><span 
+class="pcrr8t-x-x-109"> =</span><span 
+class="pcrr8t-x-x-109"> rand(0</span><span 
+class="pcrr8t-x-x-109"> ..</span><span 
+class="pcrr8t-x-x-109"> n)</span>
+</div>
+</div> where <span 
+class="pcrr8t-x-x-109">n </span>will be the maximum degree with respect to each variable <span 
+class="ptmri8t-x-x-109">independently</span>. In the
+                                                                     
+
+                                                                     
+case of <span 
+class="pcrr8t-x-x-109">coeffs </span>the lower limit will often be the negative of the upper limit to give a
+balanced coeﬃcient range, so that the <span 
+class="pcrr8t-x-x-109">coeffs </span>argument might take the form
+<div class="alltt">
+<div class="obeylines-v">
+<span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> coeffs</span><span 
+class="pcrr8t-x-x-109"> =</span><span 
+class="pcrr8t-x-x-109"> rand(-n</span><span 
+class="pcrr8t-x-x-109"> ..</span><span 
+class="pcrr8t-x-x-109"> n)</span>
+</div>
+</div> which will generate random integer coeﬃcients in the range <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmmi-10x-x-109">n,n</span><span 
+class="cmr-10x-x-109">]</span>.
+<!--l. 181--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.44.4    </span> <a 
+ id="x253-110000020.44.4"></a>Subsidiary functions: rand, proc, random</h4>
+<!--l. 184--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.44.4.1    </span> <a 
+ id="x253-110100020.44.4.1"></a>Rand: a random-number-generator generator</h5>
+<!--l. 186--><p class="noindent" >The ﬁrst argument of <span 
+class="pcrr8t-x-x-109">rand </span>must be either an integer range in the form <span 
+class="cmmi-10x-x-109">a</span><span 
+class="cmmi-10x-x-109"> ..</span><span 
+class="cmmi-10x-x-109"> b</span>, where <span 
+class="cmmi-10x-x-109">a</span>,
+<span 
+class="cmmi-10x-x-109">b </span>are integers such that <span 
+class="cmmi-10x-x-109">a &#x003C; b</span>, or a positive integer <span 
+class="cmmi-10x-x-109">n </span>which is equivalent to the range
+<span 
+class="cmr-10x-x-109">0</span><span 
+class="cmmi-10x-x-109"> ..</span><span 
+class="cmmi-10x-x-109"> n </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1</span>. The operator <span 
+class="pcrr8t-x-x-109">rand </span>constructs a function of no arguments that calls the
+REDUCE random number generator function <span 
+class="pcrr8t-x-x-109">random</span><a 
+ id="dx253-1101001"></a> to return a random integer in the
+range speciﬁed; in the case that the ﬁrst argument of <span 
+class="pcrr8t-x-x-109">rand </span>is a single positive integer <span 
+class="cmmi-10x-x-109">n</span>
+the function constructed just calls <span 
+class="pcrr8t-x-x-109">random(</span><span 
+class="cmmi-10x-x-109">n</span><span 
+class="pcrr8t-x-x-109">)</span>, otherwise the call of <span 
+class="pcrr8t-x-x-109">random </span>is scaled
+and shifted.
+</p><!--l. 196--><p class="noindent" >As an additional convenience, if <span 
+class="pcrr8t-x-x-109">rand </span>is called with a second argument that is an
+identiﬁer then the call of <span 
+class="pcrr8t-x-x-109">rand </span>acts exactly like a procedure deﬁnition with the identiﬁer
+as the procedure name. The procedure generated can then be called with an empty
+argument list by the algebraic processor.
+</p><!--l. 202--><p class="noindent" >[Note that <span 
+class="pcrr8t-x-x-109">rand() </span>with no argument is an error in REDUCE and does not return
+directly a random number in a default range as it does in Maple – use instead the
+REDUCE function <span 
+class="pcrr8t-x-x-109">random </span>(see below).]
+</p><!--l. 207--><p class="noindent" >
+</p>
+                                                                     
+
+                                                                     
+<h5 class="subsubsectionHead"><span class="titlemark">20.44.4.2    </span> <a 
+ id="x253-110200020.44.4.2"></a>Proc: an anonymous procedure generator</h5>
+<!--l. 209--><p class="noindent" ><a 
+ id="operator:PROC"></a> The operator <span 
+class="pcrr8t-x-x-109">proc</span><a 
+ id="dx253-1102001"></a> provides a generalization of <span 
+class="pcrr8t-x-x-109">rand</span>, and is primarily intended to be
+used with expressions involving the <span 
+class="pcrr8t-x-x-109">random </span>function (see below). Essentially, it
+provides a mechanism to prevent functions such as <span 
+class="pcrr8t-x-x-109">random </span>being evaluated when the
+arguments to <span 
+class="pcrr8t-x-x-109">randpoly </span>are evaluated, which is too early. The operator <span 
+class="pcrr8t-x-x-109">proc </span>accepts a
+single argument which is converted into the body of an anonymous procedure, which is
+returned as the value of <span 
+class="pcrr8t-x-x-109">proc</span>. (If a named procedure is required then the normal
+REDUCE <span 
+class="pcrr8t-x-x-109">procedure </span>statement should be used instead.) Examples are given in the
+following sections, and in the ﬁle <span 
+class="pcrr8t-x-x-109">randpoly.tst</span>.
+</p><!--l. 222--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.44.4.3    </span> <a 
+ id="x253-110300020.44.4.3"></a>Random: a generalized interface</h5>
+<!--l. 224--><p class="noindent" >As an additional convenience, this package extends the interface to the standard
+REDUCE <span 
+class="pcrr8t-x-x-109">random </span>function so that it will directly accept either a natural number or an
+integer range as its argument, exactly as for the ﬁrst argument of <span 
+class="pcrr8t-x-x-109">rand</span>. Hence
+eﬀectively </p><div class="alltt">
+<div class="obeylines-v">
+<span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> rand(X)</span><span 
+class="pcrr8t-x-x-109"> =</span><span 
+class="pcrr8t-x-x-109"> proc</span><span 
+class="pcrr8t-x-x-109"> random(X)</span>
+</div>
+</div> although <span 
+class="pcrr8t-x-x-109">rand </span>is marginally more eﬃcient. However, <span 
+class="pcrr8t-x-x-109">proc </span>and the generalized
+<span 
+class="pcrr8t-x-x-109">random </span>interface allow expressions such as the following anonymous random fraction
+generator to be easily constructed: <div class="alltt">
+<div class="obeylines-v">
+<span 
+class="pcrr8t-x-x-109"> </span><span 
+class="pcrr8t-x-x-109"> proc(random(-99</span><span 
+class="pcrr8t-x-x-109"> ..</span><span 
+class="pcrr8t-x-x-109"> 99)/random(1</span><span 
+class="pcrr8t-x-x-109"> ..</span><span 
+class="pcrr8t-x-x-109"> 99))</span>
+</div>
+</div>
+<!--l. 240--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.44.4.4    </span> <a 
+ id="x253-110400020.44.4.4"></a>Further support for procs</h5>
+                                                                     
+
+                                                                     
+<!--l. 242--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">Rand </span>is a special case of <span 
+class="pcrr8t-x-x-109">proc</span>, and (for either) if the switch <span 
+class="pcrr8t-x-x-109">comp </span>is <span 
+class="pcrr8t-x-x-109">on </span>(and the
+compiler is available) then the generated procedure body is compiled.
+</p><!--l. 246--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">Rand </span>with a single argument and <span 
+class="pcrr8t-x-x-109">proc </span>both return as their values anonymous
+procedures, which if they are not compiled are Lisp lambda expressions. However, if
+compilation is in eﬀect then they return only an identiﬁer that has no external
+signiﬁcance<span class="footnote-mark"><a 
+href="manual255.html#fn44x20"><sup class="textsuperscript">44</sup></a></span><a 
+ id="x253-1104001f44"></a> 
+but which can be applied as a function in the same way as a lambda expression.
+</p><!--l. 254--><p class="noindent" ><a 
+ id="operator:SHOWPROC"></a> <a 
+ id="operator:EVALPROC"></a> It is primarily intended that such “proc expressions” will be used immediately as input
+to <span 
+class="pcrr8t-x-x-109">randpoly</span>. The algebraic processor is not intended to handle lambda expressions.
+However, they can be output or assigned to variables in algebraic mode, although the
+output form looks a little strange and is probably best not displayed. But beware that
+lambda expressions cannot be evaluated by the algebraic processor (at least, not without
+declaring some internal Lisp functions to be algebraic operators). Therefore, for testing
+purposes or curious users, this package provides the operators <span 
+class="pcrr8t-x-x-109">showproc</span><a 
+ id="dx253-1104002"></a> and
+<span 
+class="pcrr8t-x-x-109">evalproc</span><a 
+ id="dx253-1104003"></a> respectively to display and evaluate “proc expressions” output by <span 
+class="pcrr8t-x-x-109">rand </span>or
+<span 
+class="pcrr8t-x-x-109">proc </span>(or in fact any lambda expression), in the case of <span 
+class="pcrr8t-x-x-109">showproc </span>provided they are
+not compiled.
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.44.5    </span> <a 
+ id="x253-110500020.44.5"></a>Examples</h4>
+<!--l. 275--><p class="noindent" >The ﬁle <span 
+class="pcrr8t-x-x-109">randpoly.tst </span>gives a set of test and demonstration examples.
+</p><!--l. 278--><p class="noindent" >The following additional examples were taken from the Maple <span 
+class="pcrr8t-x-x-109">randpoly </span>help ﬁle and
+converted to REDUCE syntax by replacing [ ] by { } and making the other changes
+shown explicitly:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1335">
+randpoly(x);
+ <br />
+ <br />       5       4       3       2
+ <br /> - 54*x  - 92*x  - 30*x  + 73*x  - 69*x - 67
+ <br />
+ <br />
+ <br />randpoly({x, y}, terms = 20);
+ <br />
+ <br />    5       4         4       3  2       3         3
+ <br />31*x  - 17*x *y - 48*x  - 15*x *y  + 80*x *y + 92*x
+ <br />
+ <br />       2  3      2         2         4         3
+ <br /> + 86*x *y  + 2*x *y - 44*x  + 83*x*y  + 85*x*y
+ <br />
+ <br />         2                      5       4      3
+ <br /> + 55*x*y - 27*x*y + 33*x - 98*y  + 51*y  - 2*y
+ <br />
+ <br />       2
+ <br /> + 70*y  - 60*y - 10
+ <br />
+ <br />
+ <br />randpoly({x, sin(x), cos(x)});
+ <br />
+ <br />                   4            3              3
+ <br />sin(x)*( - 4*cos(x)  - 85*cos(x) *x + 50*sin(x)
+ <br />
+ <br />                    2
+ <br />         - 20*sin(x) *x + 76*sin(x)*x + 96*sin(x))
+ <br />
+ <br />
+ <br />% randpoly(z, expons = rand(-5..5));  % Maple
+ <br />% A generalized random &#x0022;polynomial&#x0022;!
+ <br />% Note that spaces are needed around .. in REDUCE.
+ <br />on div; off allfac;
+ <br />randpoly(z, expons = rand(-5 .. 5));
+ <br />
+ <br />       4       3       -3       -4      -5
+ <br /> - 39*z  + 14*z  - 77*z   - 37*z   - 8*z
+                                                                     
+
+                                                                     
+ <br />
+ <br />off div; on allfac;
+ <br />% Maple
+ <br />% randpoly([x], coeffs = proc() randpoly(y) end);
+ <br />randpoly({x}, coeffs = proc randpoly(y));
+ <br />
+ <br />    5  5       5  4       5  3       5  2       5
+ <br />95*x *y  - 53*x *y  - 78*x *y  + 69*x *y  + 58*x *y
+ <br />
+ <br />       5       4  5       4  4       4  3       4  2
+ <br /> - 58*x  + 64*x *y  + 93*x *y  - 21*x *y  + 24*x *y
+ <br />
+ <br />       4         4       3  5       3  4       3  3
+ <br /> - 13*x *y - 28*x  - 57*x *y  - 78*x *y  - 44*x *y
+ <br />
+ <br />       3  2       3         3       2  5       2  4
+ <br /> + 37*x *y  - 64*x *y - 95*x  - 71*x *y  - 69*x *y
+ <br />
+ <br />    2  3       2  2       2         2         5
+ <br /> - x *y  - 49*x *y  + 77*x *y + 48*x  + 38*x*y
+ <br />
+ <br />         4         3         2                       5
+ <br /> + 93*x*y  - 65*x*y  - 83*x*y  + 25*x*y + 51*x + 35*y
+ <br />
+ <br />       4       3       2
+ <br /> - 18*y  - 59*y  + 73*y  - y + 31
+ <br />
+ <br />% A more conventional alternative is ...
+ <br />%   procedure r; randpoly(y)$
+ <br />%   randpoly({x}, coeffs = r);
+ <br />% or, in fact, equivalently ...
+ <br />%   randpoly({x}, coeffs = procedure r; randpoly(y));
+ <br />
+ <br />randpoly({x, y}, dense);
+ <br />
+ <br />    5       4         4       3  2       3         3
+ <br />85*x  + 43*x *y + 68*x  + 87*x *y  - 93*x *y - 20*x
+ <br />
+ <br />       2  2       2        2         4         3
+ <br /> - 74*x *y  - 29*x *y + 7*x  + 10*x*y  + 62*x*y
+ <br />
+ <br />         2                       5       4       3
+ <br /> - 86*x*y  + 15*x*y - 97*x - 53*y  + 71*y  - 46*y
+ <br />
+                                                                     
+
+                                                                     
+ <br />       2
+ <br /> - 28*y  + 79*y + 44
+</div>
+<!--l. 366--><p class="nopar" >
+</p><!--l. 378--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.44.6    </span> <a 
+ id="x253-110600020.44.6"></a>Appendix: Algorithmic background</h4>
+<!--l. 380--><p class="noindent" >The only part of this package that involves any mathematics that is not completely trivial
+is the procedure to generate a sparse set of monomials of speciﬁed maximum and
+minimum total degrees in a speciﬁed set of variables. This involves some combinatorics,
+and the Maple implementation calls some procedures from the Maple Combinatorial
+Functions Package <span 
+class="pcrr8t-x-x-109">combinat </span>(of which I have implemented restricted versions in
+REDUCE).
+</p><!--l. 388--><p class="noindent" >Given the maximum possible number <span 
+class="cmmi-10x-x-109">N </span>of terms (in a dense polynomial), the required
+number of terms (in the sparse polynomial) is selected as a random subset of the natural
+numbers up to <span 
+class="cmmi-10x-x-109">N</span>, where each number indexes a term. In the univariate case
+these indices are used directly as monomial exponents, but in the multivariate
+case they are converted to monomial exponent vectors using a lexicographic
+ordering.
+</p><!--l. 397--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.44.6.1    </span> <a 
+ id="x253-110700020.44.6.1"></a>Numbers of polynomial terms</h5>
+<!--l. 399--><p class="noindent" >By explicitly enumerating cases with 1, 2, etc. variables, as indicated by the inductive
+proof below, one deduces that:
+</p>
+<div class="newtheorem">
+<!--l. 402--><p class="noindent" ><span class="head">
+<a 
+ id="x253-1107001r1"></a>
+<span 
+class="ptmb8t-x-x-109">Proposition 1.</span>  </span><span 
+class="ptmri8t-x-x-109">In  </span><span 
+class="cmmi-10x-x-109">n </span><span 
+class="ptmri8t-x-x-109">variables,  the  number  of  distinct  monomials  having  total</span>
+<span 
+class="ptmri8t-x-x-109">degree precisely </span><span 
+class="cmmi-10x-x-109">r </span><span 
+class="ptmri8t-x-x-109">is</span> <sup><span 
+class="cmmi-8">r</span><span 
+class="cmr-8">+</span><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup><span 
+class="cmmi-10x-x-109">C</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sub><span 
+class="ptmri8t-x-x-109">, and the maximum number of distinct monomials</span>
+<span 
+class="ptmri8t-x-x-109">in a polynomial of maximum total degree </span><span 
+class="cmmi-10x-x-109">d </span><span 
+class="ptmri8t-x-x-109">is</span> <sup><span 
+class="cmmi-8">d</span><span 
+class="cmr-8">+</span><span 
+class="cmmi-8">n</span></sup><span 
+class="cmmi-10x-x-109">C</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="ptmri8t-x-x-109">.</span>
+</p>
+                                                                     
+
+                                                                     
+</div>
+<!--l. 409--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Proof</span><span 
+class="ptmb8t-x-x-109">  </span>Suppose the ﬁrst part of the proposition is true, namely that there are at
+most
+</p>
+<table 
+class="equation-star"><tr><td>
+                        <span 
+class="cmmi-10x-x-109">N</span><sub><span 
+class="cmmi-8">h</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n,r</span><span 
+class="cmr-10x-x-109">) =</span> <sup><span 
+class="cmmi-8">r</span><span 
+class="cmr-8">+</span><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup><span 
+class="cmmi-10x-x-109">C</span><sub>
+<span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sub>
+</td></tr></table>
+<!--l. 414--><p class="nopar" >
+distinct monomials in an <span 
+class="cmmi-10x-x-109">n</span>-variable <span 
+class="ptmri8t-x-x-109">homogeneous </span>polynomial of total degree <span 
+class="cmmi-10x-x-109">r</span>. Then
+there are at most
+</p>
+<table 
+class="equation-star"><tr><td>
+                 <span 
+class="cmmi-10x-x-109">N</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">d,r</span><span 
+class="cmr-10x-x-109">) =</span> <span 
+class="cmex-10x-x-109">∑</span>
+  <sub><span 
+class="cmmi-8">r</span><span 
+class="cmr-8">=0</span></sub><sup><span 
+class="cmmi-8">d</span></sup><sup><span 
+class="cmmi-8">r</span><span 
+class="cmr-8">+</span><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup><span 
+class="cmmi-10x-x-109">C</span><sub>
+<span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">=</span> <sup><span 
+class="cmmi-8">d</span><span 
+class="cmr-8">+</span><span 
+class="cmmi-8">n</span></sup><span 
+class="cmmi-10x-x-109">C</span><sub>
+<span 
+class="cmmi-8">n</span></sub>
+</td></tr></table>
+<!--l. 419--><p class="nopar" >
+distinct monomials in an <span 
+class="cmmi-10x-x-109">n</span>-variable polynomial of maximum total degree <span 
+class="cmmi-10x-x-109">d</span>.
+</p><!--l. 423--><p class="noindent" >The sum follows from the fact that
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                          <sup><span 
+class="cmmi-8">r</span><span 
+class="cmr-8">+</span><span 
+class="cmmi-8">n</span></sup><span 
+class="cmmi-10x-x-109">C</span><sub>
+<span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual534x.png" alt="(r + n )n-
+---n!---"  class="frac" align="middle" />
+</td></tr></table>
+<!--l. 426--><p class="nopar" >
+where <span 
+class="cmmi-10x-x-109">x</span><sup><span class="underline"><span 
+class="cmmi-8">n</span></span></sup> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1)(</span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">2)</span><img 
+src="manual535x.png" alt="⋅⋅⋅"  class="@cdots"  /><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmr-10x-x-109">+ 1) </span>denotes a falling factorial, and
+</p>
+<table 
+class="equation-star"><tr><td>
+                       <span 
+class="cmex-10x-x-109">∑</span>
+                          <sub><span 
+class="cmmi-8">a</span><span 
+class="cmsy-8">≤</span><span 
+class="cmmi-8">x&#x003C;b</span></sub><span 
+class="cmmi-10x-x-109">x</span><sup><span class="underline"><span 
+class="cmmi-8">n</span></span></sup> <span 
+class="cmr-10x-x-109">= </span><img 
+src="manual536x.png" alt=" xn+1-||
+----- ||
+n + 1"  class="left" align="middle" /><sub><span 
+class="cmmi-8">a</span></sub><sup><span 
+class="cmmi-8">b</span></sup><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 432--><p class="nopar" >
+(See, for example <span class="cite">[<a 
+href="manualap2.html#XGreenHarper:1982">GK82</a>, equation (1.37)]</span>. Hence the second part of the proposition
+follows from the ﬁrst.
+</p><!--l. 437--><p class="noindent" >The proposition holds for 1 variable (<span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmr-10x-x-109">= 1</span>), because there is clearly 1 distinct monomial
+of each degree precisely <span 
+class="cmmi-10x-x-109">r </span>and hence at most <span 
+class="cmmi-10x-x-109">d </span><span 
+class="cmr-10x-x-109">+ 1 </span>distinct monomials in a polynomial of
+maximum degree <span 
+class="cmmi-10x-x-109">d</span>.
+</p><!--l. 442--><p class="noindent" >Suppose that the proposition holds for <span 
+class="cmmi-10x-x-109">n </span>variables, which are represented by the vector
+<span 
+class="cmmi-10x-x-109">X</span>. Then a homogeneous polynomial of degree <span 
+class="cmmi-10x-x-109">r </span>in the <span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmr-10x-x-109">+ 1 </span>variables <span 
+class="cmmi-10x-x-109">X </span>together with
+the single variable <span 
+class="cmmi-10x-x-109">x </span>has the form
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                <span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">r</span></sup><span 
+class="cmmi-10x-x-109">P</span><sub>
+<span 
+class="cmr-8">0</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">X</span><span 
+class="cmr-10x-x-109">) + </span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">r</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup><span 
+class="cmmi-10x-x-109">P</span><sub>
+<span 
+class="cmr-8">1</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">X</span><span 
+class="cmr-10x-x-109">) +</span> <img 
+src="manual537x.png" alt="⋅⋅⋅"  class="@cdots"  /> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmr-8">0</span></sup><span 
+class="cmmi-10x-x-109">P</span><sub>
+<span 
+class="cmmi-8">r</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">X</span><span 
+class="cmr-10x-x-109">)</span>
+</td></tr></table>
+<!--l. 448--><p class="nopar" >
+where <span 
+class="cmmi-10x-x-109">P</span><sub><span 
+class="cmmi-8">s</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">X</span><span 
+class="cmr-10x-x-109">) </span>represents a polynomial of maximum total degree <span 
+class="cmmi-10x-x-109">s </span>in the <span 
+class="cmmi-10x-x-109">n </span>variables <span 
+class="cmmi-10x-x-109">X</span>,
+which therefore contains at most <sup><span 
+class="cmmi-8">s</span><span 
+class="cmr-8">+</span><span 
+class="cmmi-8">n</span></sup><span 
+class="cmmi-10x-x-109">C</span><sub><span 
+class="cmmi-8">n</span></sub> distinct monomials. The homogeneous
+polynomial of degree <span 
+class="cmmi-10x-x-109">r </span>in <span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmr-10x-x-109">+ 1 </span>terms therefore contains at most
+</p>
+<table 
+class="equation-star"><tr><td>
+                     <span 
+class="cmex-10x-x-109">∑</span>
+                        <sub><span 
+class="cmmi-8">s</span><span 
+class="cmr-8">=0</span></sub><sup><span 
+class="cmmi-8">r</span></sup><sup><span 
+class="cmmi-8">s</span><span 
+class="cmr-8">+</span><span 
+class="cmmi-8">n</span></sup><span 
+class="cmmi-10x-x-109">C</span><sub>
+<span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">=</span> <sup><span 
+class="cmmi-8">r</span><span 
+class="cmr-8">+</span><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">+1</span></sup><span 
+class="cmmi-10x-x-109">C</span><sub>
+<span 
+class="cmmi-8">n</span><span 
+class="cmr-8">+1</span></sub>
+</td></tr></table>
+<!--l. 455--><p class="nopar" >
+distinct monomials. Hence the proposition holds for <span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmr-10x-x-109">+ 1 </span>variables, and therefore by
+induction it holds for all <span 
+class="cmmi-10x-x-109">n</span>.                                                                                     <span 
+class="msam-10x-x-109">□</span>
+</p><!--l. 462--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.44.6.2    </span> <a 
+ id="x253-110800020.44.6.2"></a>Mapping indices to exponent vectors</h5>
+<!--l. 464--><p class="noindent" >The previous proposition is also the basis of the algorithm to map term indices <span 
+class="cmmi-10x-x-109">m </span><span 
+class="cmsy-10x-x-109">∈ </span><span 
+class="msbm-10x-x-109">ℕ </span>to
+exponent vectors <span 
+class="cmmi-10x-x-109">v </span><span 
+class="cmsy-10x-x-109">∈ </span><span 
+class="msbm-10x-x-109">ℕ</span><sup><span 
+class="cmmi-8">n</span></sup>, where <span 
+class="cmmi-10x-x-109">n </span>is the number of variables.
+                                                                     
+
+                                                                     
+</p><!--l. 468--><p class="noindent" >Deﬁne a norm <span 
+class="cmsy-10x-x-109">∥⋅∥ </span>on exponent vectors by <span 
+class="cmsy-10x-x-109">∥</span><span 
+class="cmmi-10x-x-109">v</span><span 
+class="cmsy-10x-x-109">∥ </span><span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∑</span>
+  <sub><span 
+class="cmmi-8">i</span><span 
+class="cmr-8">=1</span></sub><sup><span 
+class="cmmi-8">n</span></sup><span 
+class="cmmi-10x-x-109">v</span><sub><span 
+class="cmmi-8">i</span></sub>, which corresponds to the
+total degree of the monomial. Then, from the previous proposition, the number of
+exponent vectors of length <span 
+class="cmmi-10x-x-109">n </span>with norm <span 
+class="cmsy-10x-x-109">∥</span><span 
+class="cmmi-10x-x-109">v</span><span 
+class="cmsy-10x-x-109">∥≤ </span><span 
+class="cmmi-10x-x-109">d </span>is <span 
+class="cmmi-10x-x-109">N</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n,d</span><span 
+class="cmr-10x-x-109">) =</span> <sup><span 
+class="cmmi-8">d</span><span 
+class="cmr-8">+</span><span 
+class="cmmi-8">n</span></sup><span 
+class="cmmi-10x-x-109">C</span><sub><span 
+class="cmmi-8">n</span></sub>. The elements of
+the <span 
+class="cmmi-10x-x-109">m</span><sup>th</sup> exponent vector are constructed recursively by applying the algorithm to
+successive tail vectors, so let a subscript denote the length of the vector to which a
+symbol refers.
+</p><!--l. 476--><p class="noindent" >The aim is to compute the vector of length <span 
+class="cmmi-10x-x-109">n </span>with index <span 
+class="cmmi-10x-x-109">m </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">m</span><sub><span 
+class="cmmi-8">n</span></sub>. If this vector has norm
+<span 
+class="cmmi-10x-x-109">d</span><sub><span 
+class="cmmi-8">n</span></sub> then the index and norm must satisfy
+</p>
+<table 
+class="equation-star"><tr><td>
+                    <span 
+class="cmmi-10x-x-109">N</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n,d</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1) </span><span 
+class="cmsy-10x-x-109">≤ </span><span 
+class="cmmi-10x-x-109">m</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmmi-10x-x-109">&#x003C; N</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n,d</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,</span>
+</td></tr></table>
+<!--l. 480--><p class="nopar" >
+which can be used (as explained below) to compute <span 
+class="cmmi-10x-x-109">d</span><sub><span 
+class="cmmi-8">n</span></sub> given <span 
+class="cmmi-10x-x-109">n </span>and <span 
+class="cmmi-10x-x-109">m</span><sub><span 
+class="cmmi-8">n</span></sub>. Since there are
+<span 
+class="cmmi-10x-x-109">N</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n,d</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1) </span>vectors with norm less than <span 
+class="cmmi-10x-x-109">d</span><sub><span 
+class="cmmi-8">n</span></sub>, the index of the <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n</span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1)</span>-element tail vector
+must be given by <span 
+class="cmmi-10x-x-109">m</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">m</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">N</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n,d</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1)</span>, which can be used recursively to
+compute the norm <span 
+class="cmmi-10x-x-109">d</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sub> of the tail vector. From this, the ﬁrst element of the exponent
+vector is given by <span 
+class="cmmi-10x-x-109">v</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">d</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">d</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sub>.
+</p><!--l. 488--><p class="noindent" >The algorithm therefore has a natural recursive structure that computes the norm of each
+tail subvector as the recursion stack is built up, but can only compute the ﬁrst term of
+each tail subvector as the recursion stack is unwound. Hence, it constructs the exponent
+vector from right to left, whilst being applied to the elements from left to right. The
+recursion is terminated by the observation that <span 
+class="cmmi-10x-x-109">v</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">d</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">m</span><sub><span 
+class="cmr-8">1</span></sub> for an exponent vector of
+length <span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmr-10x-x-109">= 1</span>.
+</p><!--l. 496--><p class="noindent" >The main sub-procedure, given the required length <span 
+class="cmmi-10x-x-109">n </span>and index <span 
+class="cmmi-10x-x-109">m</span><sub><span 
+class="cmmi-8">n</span></sub> of an exponent
+vector, must return its norm <span 
+class="cmmi-10x-x-109">d</span><sub><span 
+class="cmmi-8">n</span></sub> and the index of its tail subvector of length <span 
+class="cmmi-10x-x-109">n</span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1</span>. Within
+this procedure, <span 
+class="cmmi-10x-x-109">N</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n,d</span><span 
+class="cmr-10x-x-109">) </span>can be eﬃciently computed for values of <span 
+class="cmmi-10x-x-109">d </span>increasing from 0,
+for which <span 
+class="cmmi-10x-x-109">N</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n,</span><span 
+class="cmr-10x-x-109">0) =</span> <sup><span 
+class="cmmi-8">n</span></sup><span 
+class="cmmi-10x-x-109">C</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">= 1</span>, until <span 
+class="cmmi-10x-x-109">N</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n,d</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmmi-10x-x-109">&#x003E; m </span>by using the observation
+that
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+            <span 
+class="cmmi-10x-x-109">N</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n,d</span><span 
+class="cmr-10x-x-109">) =</span> <sup><span 
+class="cmmi-8">d</span><span 
+class="cmr-8">+</span><span 
+class="cmmi-8">n</span></sup><span 
+class="cmmi-10x-x-109">C</span><sub>
+<span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual538x.png" alt="(d + n)(d− 1 + n)⋅⋅⋅(1+ n )
+-------------d!------------"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 504--><p class="nopar" >
+</p><!--l. 922--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 924--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse169.html" >Up</a></td><td class="clinks"><a 
+href="manualse170.html" >Next</a></td><td class="clinks"><a 
+href="manualse168.html" >Prev</a></td><td class="clinks"><a 
+href="manualse168.html#tailmanualse168.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse169.html" >Front</a></td></tr></table><a 
+ id="tailmanualse169.html"></a>   </p> 
+</body> 
+</html>

@@ -1,0 +1,231 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>CONTINUED_FRACTION Operator</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse33.html" >Up</a></td><td class="clinks"><a 
+href="manualse34.html" >Next</a></td><td class="clinks"><a 
+href="manualse32.html" >Prev</a></td><td class="clinks"><a 
+href="manualse32.html#tailmanualse32.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse33.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">7.6    </span> <a 
+ id="x43-820007.6"></a>CONTINUED_FRACTION Operator</h3>
+<!--l. 1253--><p class="noindent" ><a 
+ id="operator:CONTINUED_FRACTION"></a> <a 
+ id="operator:CONTFRAC"></a> <a 
+ id="dx43-82001"></a><a 
+ id="dx43-82002"></a>
+</p><!--l. 1257--><p class="noindent" >The operator <span 
+class="pcrr8t-x-x-109">continued_fraction</span><a 
+ id="dx43-82003"></a> generates the continued fraction expansion of a
+rational number argument. For irrational or rounded arguments, it approximates the real
+number as a rational number to the current system precision and generates the
+continued fraction expansion. Currently the operator <span 
+class="pcrr8t-x-x-109">cf </span>is a complete synonym for
+<span 
+class="pcrr8t-x-x-109">continued_fraction </span>although this may change in future updates of the package
+<span 
+class="ptmrc8t-x-x-109">R<span 
+class="small-caps">A</span><span 
+class="small-caps">T</span><span 
+class="small-caps">A</span><span 
+class="small-caps">P</span><span 
+class="small-caps">R</span><span 
+class="small-caps">X</span></span>. <a 
+ id="dx43-82004"></a>
+</p><!--l. 1267--><p class="noindent" >The operator <span 
+class="pcrr8t-x-x-109">continued_fraction </span>accepts one, two or three arguments: the
+number to be expanded; an <span 
+class="ptmb8t-x-x-109">optional </span>maximum size permitted for the denominator of the
+convergent and an <span 
+class="ptmb8t-x-x-109">optional </span>number of continuents to be generated:
+  </p><div class="syntax">
+  <!--tex4ht:inline--><div class="tabular"> <table id="TBL-16" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-16-1g"><col 
+id="TBL-16-1" /><col 
+id="TBL-16-2" /><col 
+id="TBL-16-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-16-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-16-1-1"  
+class="td01"><span 
+class="pcrr8t-x-x-109">continued_fraction(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">num</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">)               </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-16-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-16-2-1"  
+class="td01"><span 
+class="pcrr8t-x-x-109">continued_fraction(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">num</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">size</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">)          </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-16-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-16-3-1"  
+class="td01"><span 
+class="pcrr8t-x-x-109">continued_fraction(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">num</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">size</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">numterms</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">) </span></td></tr></table>
+  </div></div>
+<!--l. 1277--><p class="noindent" >The result is the special operator <span 
+class="pcrr8t-x-x-109">contfrac</span><a 
+ id="dx43-82005"></a> with three arguments: the original number
+to be expanded <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">num</span><span 
+class="cmsy-10x-x-109">⟩</span>, secondly the rational number approximation (the ﬁnal convergent)
+and thirdly a list of continuents of the continued fraction (i.e. a list of pairs of partial
+numerators and denominators)
+</p><!--l. 1284--><p class="noindent" >            <span 
+class="pcrr8t-x-x-109">{t0, {1, t1}, {1, t2}, .... }</span>
+</p><!--l. 1286--><p class="noindent" >which represents the same value according to the deﬁnition
+</p><!--l. 1288--><p class="noindent" >            <span 
+class="pcrr8t-x-x-109">t0 + 1/(t1 + 1/(t2 + ...))</span>.
+</p><!--l. 1290--><p class="noindent" >Note that, although with the current algorithm all the partial numerators have the value 1,
+they are stored in the list of continuents. This is for compatibility with the output of other
+continued fractions functions <span 
+class="pcrr8t-x-x-109">cfrac </span>and <span 
+class="pcrr8t-x-x-109">cf_euler</span>. This facilitates pretty-printing
+and the implementation of various equivalence transformations all of which are
+documented in the continued fraction subsection of the <span 
+class="pcrr8t-x-x-109">rataprx </span>manual (Section
+<a 
+href="manualse170.html#x256-111300020.45.2">20.45.2<!--tex4ht:ref: sec:rataprx:cf --></a>). <a 
+ id="dx43-82006"></a> <a 
+ id="dx43-82007"></a>
+</p><!--l. 1300--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Precision</span>: the second optional parameter <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">size</span><span 
+class="cmsy-10x-x-109">⟩ </span>is an upper bound for the absolute value
+of the denominator of the convergent.<br 
+class="newline" /><span 
+class="ptmb8t-x-x-109">Number of terms</span>: the third optional parameter <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">numterms</span><span 
+class="cmsy-10x-x-109">⟩ </span>is the maximum number of
+terms (continuents) to be generated.<br 
+class="newline" />If both optional parameters omitted, the expansion performed is exact for rational
+number arguments and for irrational or rounded arguments it is up to the current system
+precision. If both optional parameters are given the expansion is halted when the desired
+precision is reached or when the speciﬁed maximum number of terms have been
+generated whichever is the sooner. If the size parameter is zero, its value is ignored.
+Thus to obtain a continued fraction expansion to, for example, 10 terms one
+would specify the <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">size</span><span 
+class="cmsy-10x-x-109">⟩ </span>parameter to be 0 and the <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">numterms</span><span 
+class="cmsy-10x-x-109">⟩ </span>parameter to be
+10.
+</p><!--l. 1314--><p class="noindent" >Note that the operator <span 
+class="pcrr8t-x-x-109">contfrac </span>is not normally seen as the output is pretty-printed,
+unless the number of continuents generated is larger than 12.
+</p><!--l. 1318--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Examples:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-144">
+continued_fraction(6/11);
+ <br />
+ <br />  6                1
+ <br />{----,exact,---------------}
+ <br />  11                 1
+ <br />             1 + ---------
+ <br />                       1
+ <br />                  1 + ---
+ <br />                       5
+ <br />
+ <br />continued_fraction(pi,1000);
+ <br />
+ <br />     355             1
+ <br />{pi,-----,3 + ----------------}
+ <br />     113               1
+ <br />               7 + ----------
+ <br />                          1
+ <br />                    15 + ---
+ <br />                          1
+ <br />
+ <br />continued_fraction(pi,0,6);
+ <br />
+ <br />     104348                    1
+ <br />{pi,--------,3 + ------------------------------}
+ <br />     33215                       1
+ <br />                  7 + ------------------------
+ <br />                                    1
+ <br />                       15 + -----------------
+ <br />                                      1
+ <br />                             1 + -----------
+ <br />                                         1
+ <br />                                  292 + ---
+ <br />                                         1
+ <br />
+ <br />continued_fraction(pi,1000,3);
+ <br />
+ <br />     333          1
+ <br />{pi,-----,3 + ----------}
+                                                                     
+
+                                                                     
+ <br />     106            1
+ <br />               7 + ----
+ <br />                    15
+ <br />
+ <br />continued_fraction(pi,1000,6);
+ <br />
+ <br />     355             1
+ <br />{pi,-----,3 + ----------------}
+ <br />     113               1
+ <br />               7 + ----------
+ <br />                          1
+ <br />                    15 + ---
+ <br />                          1
+ <br />
+ <br />continued_fraction e;
+ <br />
+ <br />{e,
+ <br />
+ <br />  13580623
+ <br /> ----------,
+ <br />  4996032
+ <br />
+ <br /> {2, {1,1}, {1,2}, {1,1}, {1,1}, {1,4}, {1,1}, {1,1},
+ <br />  {1,6}, {1,1}, {1,1}, {1,8}, {1,1}, {1,1}, {1,10},
+ <br />  {1,1}, {1,1}, {1,12}}}
+</div>
+<!--l. 1383--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p><!--l. 1386--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse33.html" >Up</a></td><td class="clinks"><a 
+href="manualse34.html" >Next</a></td><td class="clinks"><a 
+href="manualse32.html" >Prev</a></td><td class="clinks"><a 
+href="manualse32.html#tailmanualse32.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse33.html" >Front</a></td></tr></table><a 
+ id="tailmanualse33.html"></a> </p> 
+</body> 
+</html>

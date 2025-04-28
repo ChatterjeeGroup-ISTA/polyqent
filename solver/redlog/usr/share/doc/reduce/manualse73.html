@@ -1,0 +1,860 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Polynomial Coeﬃcient Arithmetic</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch9.html#manualse73.html" >Up</a></td><td class="clinks"><a 
+href="manualse74.html" >Next</a></td><td class="clinks"><a 
+href="manualse72.html" >Prev</a></td><td class="clinks"><a 
+href="manualse72.html#tailmanualse72.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse73.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">9.12    </span> <a 
+ id="x92-1750009.12"></a>Polynomial Coeﬃcient Arithmetic</h3>
+<a 
+ id="dx92-175001"></a>
+<!--l. 838--><p class="noindent" >REDUCE allows for a variety of numerical domains for the numerical coeﬃcients of
+polynomials used in calculations. The default mode is integer arithmetic, although the
+possibility of using real coeﬃcients <a 
+ id="dx92-175002"></a>has been discussed elsewhere. Rational coeﬃcients
+have also been available by using integer coeﬃcients in both the numerator and
+denominator of an expression, using the <span 
+class="pcrr8t-x-x-109">on div</span><a 
+ id="dx92-175003"></a><a 
+ id="dx92-175004"></a><a 
+ id="dx92-175005"></a> option to print the coeﬃcients
+as rationals. However, REDUCE includes several other coeﬃcient options in
+its basic version which we shall describe in this section. All such coeﬃcient
+modes are supported in a table-driven manner so that it is straightforward to
+extend the range of possibilities. A description of how to do this is given in
+<span class="cite">[<a 
+href="manualap2.html#XBradford:86">BHPS86</a>]</span>.
+</p><!--l. 851--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">9.12.1    </span> <a 
+ id="x92-1760009.12.1"></a>Rational Coeﬃcients in Polynomials</h4>
+<a 
+ id="dx92-176001"></a>
+<!--l. 852--><p class="noindent" ><a 
+ id="switch:RATIONAL"></a> <a 
+ id="dx92-176002"></a>Instead of treating rational numbers as the numerator and denominator of a rational
+expression, it is also possible to use them as polynomial coeﬃcients directly. This is
+accomplished by turning on the switch <span 
+class="pcrr8t-x-x-109">rational</span>.<a 
+ id="dx92-176003"></a><a 
+ id="dx92-176004"></a><a 
+ id="dx92-176005"></a>
+</p><!--l. 859--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Example: </span>With <span 
+class="pcrr8t-x-x-109">rational </span>oﬀ, the input expression <span 
+class="pcrr8t-x-x-109">a/2 </span>would be converted into a
+rational expression, whose numerator was <span 
+class="pcrr8t-x-x-109">a </span>and denominator 2. With <span 
+class="pcrr8t-x-x-109">rational </span>on,
+the same input would become a rational expression with numerator <span 
+class="pcrr8t-x-x-109">1/2*a </span>and
+denominator <span 
+class="pcrr8t-x-x-109">1</span>. Thus the latter can be used in operations that require polynomial input
+whereas the former could not.
+</p><!--l. 866--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">9.12.2    </span> <a 
+ id="x92-1770009.12.2"></a>Real Coeﬃcients in Polynomials</h4>
+<a 
+ id="dx92-177001"></a>
+<a 
+ id="dx92-177002"></a>
+                                                                     
+
+                                                                     
+<!--l. 868--><p class="noindent" ><a 
+ id="switch:ROUNDED"></a> <a 
+ id="switch:ROUNDBF"></a> <a 
+ id="operator:PRECISION"></a> The switch <span 
+class="pcrr8t-x-x-109">rounded</span><a 
+ id="dx92-177003"></a><a 
+ id="dx92-177004"></a><a 
+ id="dx92-177005"></a> permits the use of arbitrary sized real coeﬃcients in polynomial
+expressions. The actual precision of these coeﬃcients can be set by the operator
+<span 
+class="pcrr8t-x-x-109">precision</span>. <a 
+ id="dx92-177006"></a> For example, <span 
+class="pcrr8t-x-x-109">precision 50; </span>sets the precision to ﬁfty decimal digits.
+The default precision is system dependent and can be found by <span 
+class="pcrr8t-x-x-109">precision 0;</span>. In this
+mode, denominators are automatically made monic, and an appropriate adjustment is
+made to the numerator.
+</p><!--l. 880--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Example: </span>With <span 
+class="pcrr8t-x-x-109">ROUNDED </span>on, the input expression <span 
+class="pcrr8t-x-x-109">a/2 </span>would be converted into a
+rational expression whose numerator is <span 
+class="pcrr8t-x-x-109">0.5*a </span>and denominator <span 
+class="pcrr8t-x-x-109">1</span>.
+</p><!--l. 884--><p class="noindent" >Internally, REDUCE uses ﬂoating point numbers up to the precision supported by the
+underlying machine hardware, and so-called <span 
+class="ptmri8t-x-x-109">bigﬂoats </span>for higher precision or whenever
+necessary to represent numbers whose value cannot be represented in ﬂoating point.
+The internal precision is two decimal digits greater than the external precision
+to guard against roundoﬀ inaccuracies. Bigﬂoats represent the fraction and
+exponent parts of a ﬂoating-point number by means of (arbitrary precision)
+integers, which is a more precise representation in many cases than the machine
+ﬂoating point arithmetic, but not as eﬃcient. If a case arises where use of the
+machine arithmetic leads to problems, a user can force REDUCE to use the
+bigﬂoat representation at all precisions by turning on the switch <span 
+class="pcrr8t-x-x-109">roundbf</span>.<a 
+ id="dx92-177007"></a><a 
+ id="dx92-177008"></a><a 
+ id="dx92-177009"></a> In
+rare cases, this switch is turned on by the system, and the user informed by the
+message
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-344">
+        ROUNDBF turned on to increase accuracy
+</div>
+<!--l. 900--><p class="nopar" >
+</p><!--l. 902--><p class="noindent" ><a 
+ id="command:PRINT_PRECISION"></a> Rounded numbers are normally printed to the speciﬁed precision. However, if the user
+wishes to print such numbers with less precision, the printing precision can be set by the
+command <span 
+class="pcrr8t-x-x-109">print_precision</span>. <a 
+ id="dx92-177010"></a> For example, <span 
+class="pcrr8t-x-x-109">print_precision 5; </span>will cause
+such numbers to be printed with ﬁve digits maximum.
+</p><!--l. 909--><p class="noindent" ><a 
+ id="switch:NOCONVERT"></a> Under normal circumstances when <span 
+class="pcrr8t-x-x-109">rounded </span>is on, REDUCE converts the number 1.0
+to the integer 1. If this is not desired, the switch <span 
+class="pcrr8t-x-x-109">noconvert</span><a 
+ id="dx92-177011"></a><a 
+ id="dx92-177012"></a><a 
+ id="dx92-177013"></a> can be turned
+on.
+</p><!--l. 914--><p class="noindent" ><a 
+ id="switch:BFSPACE"></a> Numbers that are stored internally as bigﬂoats are normally printed with a space
+between every ﬁve digits to improve readability. If this feature is not required, it can be
+suppressed by turning oﬀ the switch <span 
+class="pcrr8t-x-x-109">bfspace</span>.<a 
+ id="dx92-177014"></a><a 
+ id="dx92-177015"></a><a 
+ id="dx92-177016"></a>
+</p><!--l. 920--><p class="noindent" >Further information on the bigﬂoat arithmetic may be found in T. Sasaki, “Manual for
+Arbitrary Precision Real Arithmetic System in REDUCE”, Department of Computer
+Science, University of Utah, Technical Note No. TR-8 (1979).
+</p><!--l. 925--><p class="noindent" ><a 
+ id="switch:ADJPREC"></a> When a real number is input, it is normally truncated to the precision in eﬀect at the time
+the number is read. If it is desired to keep the full precision of all numbers input, the
+switch <span 
+class="pcrr8t-x-x-109">adjprec</span><a 
+ id="dx92-177017"></a><a 
+ id="dx92-177018"></a><a 
+ id="dx92-177019"></a> (for <span 
+class="ptmri8t-x-x-109">adjust precision</span>) can be turned on. While on, <span 
+class="pcrr8t-x-x-109">adjprec</span>
+will automatically increase the precision, when necessary, to match that of any
+integer or real input, and a message printed to inform the user of the precision
+increase.
+</p><!--l. 934--><p class="noindent" ><a 
+ id="switch:ROUNDALL"></a> When <span 
+class="pcrr8t-x-x-109">rounded </span>is on, rational numbers are normally converted to rounded
+representation. However, if a user wishes to keep such numbers in a rational form until
+used in an operation that returns a real number, the switch <span 
+class="pcrr8t-x-x-109">roundall</span><a 
+ id="dx92-177020"></a><a 
+ id="dx92-177021"></a><a 
+ id="dx92-177022"></a> can be turned oﬀ.
+This switch is normally on.
+</p><!--l. 941--><p class="noindent" >Results from rounded calculations are returned in rounded form with two exceptions: if
+the result is recognized as <span 
+class="pcrr8t-x-x-109">0 </span>or <span 
+class="pcrr8t-x-x-109">1 </span>to the current precision, the integer result is
+returned.
+</p><!--l. 945--><p class="noindent" >
+</p>
+                                                                     
+
+                                                                     
+<h4 class="subsectionHead"><span class="titlemark">9.12.3    </span> <a 
+ id="x92-1780009.12.3"></a>Modular Number Coeﬃcients in Polynomials</h4>
+<a 
+ id="dx92-178001"></a>
+<!--l. 947--><p class="noindent" ><a 
+ id="switch:MODULAR"></a> <a 
+ id="command:SETMOD"></a> <a 
+ id="dx92-178002"></a>REDUCE includes facilities for manipulating polynomials whose coeﬃcients are
+computed modulo a given base. To use this option, two commands must be used;
+<span 
+class="pcrr8t-x-x-109">setmod </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">integer</span><span 
+class="cmsy-10x-x-109">⟩</span><a 
+ id="dx92-178003"></a>, to set the prime modulus, and <span 
+class="pcrr8t-x-x-109">on modular</span><a 
+ id="dx92-178004"></a><a 
+ id="dx92-178005"></a><a 
+ id="dx92-178006"></a> to cause the actual
+modular calculations to occur. For example, with <span 
+class="pcrr8t-x-x-109">setmod 3; </span>and <span 
+class="pcrr8t-x-x-109">on modular;</span>, the
+polynomial <span 
+class="pcrr8t-x-x-109">(a+2*b)^3 </span>would become <span 
+class="pcrr8t-x-x-109">a^3+2*b^3</span>.
+</p><!--l. 959--><p class="noindent" >The argument of <span 
+class="pcrr8t-x-x-109">setmod </span>is evaluated algebraically, except that non-modular (integer)
+arithmetic is used. Thus the sequence
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-345">
+        setmod 3; on modular; setmod 7;
+</div>
+<!--l. 963--><p class="nopar" > will correctly set the modulus to 7.
+</p><!--l. 966--><p class="noindent" ><a 
+ id="switch:BALANCED_MOD"></a> Modular numbers are by default represented by integers in the interval [0,p-1] where p is
+the current modulus. Sometimes it is more convenient to use an equivalent symmetric
+representation in the interval [-p/2+1,p/2], or more precisely [-ﬂoor((p-1)/2),
+ceiling((p-1)/2)], especially if the modular numbers map objects that include negative
+quantities. The switch <span 
+class="pcrr8t-x-x-109">balanced_mod</span><a 
+ id="dx92-178007"></a><a 
+ id="dx92-178008"></a><a 
+ id="dx92-178009"></a> allows you to select the symmetric
+representation for output.
+</p><!--l. 976--><p class="noindent" >Users should note that the modular calculations are on the polynomial coeﬃcients only.
+It is not currently possible to reduce the exponents since no check for a prime modulus is
+made (which would allow <span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">p</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup> to be reduced to 1 mod p). Note also that any division by
+a number not co-prime with the modulus will result in the error “Invalid modular
+division”.
+</p><!--l. 983--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">9.12.4    </span> <a 
+ id="x92-1790009.12.4"></a>Complex Number Coeﬃcients in Polynomials</h4>
+<a 
+ id="dx92-179001"></a>
+<a 
+ id="dx92-179002"></a>
+<!--l. 986--><p class="noindent" ><a 
+ id="switch:COMPLEX"></a>Although REDUCE routinely treats the square of the variable <span 
+class="ptmri8t-x-x-109">i </span>as equivalent to <span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1</span>,
+this is not suﬃcient to reduce expressions involving <span 
+class="ptmri8t-x-x-109">i </span>to lowest terms, or to
+factor such expressions over the complex numbers. For example, in the default
+case,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-346">
+        factorize(a^2+1);
+</div>
+<!--l. 992--><p class="nopar" > gives the result
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-347">
+        {{a**2+1,1}}
+</div>
+<!--l. 996--><p class="nopar" > and
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-348">
+        (a^2+b^2)/(a+i*b)
+</div>
+<!--l. 1000--><p class="nopar" > is not reduced further. However, if the switch <span 
+class="pcrr8t-x-x-109">complex</span><a 
+ id="dx92-179003"></a><a 
+ id="dx92-179004"></a><a 
+ id="dx92-179005"></a> is turned on, full complex
+arithmetic is then carried out. In other words, the above factorization will give the
+result
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-349">
+        {{a + i,1},{a - i,1}}
+</div>
+<!--l. 1006--><p class="nopar" > and the quotient will be reduced to <span 
+class="pcrr8t-x-x-109">a-i*b</span>.
+</p><!--l. 1009--><p class="noindent" >The switch <span 
+class="pcrr8t-x-x-109">complex </span>may be combined with <span 
+class="pcrr8t-x-x-109">rounded </span>to give complex real
+numbers; the appropriate arithmetic is performed in this case. Similarly, combining
+<span 
+class="pcrr8t-x-x-109">complex </span>with <span 
+class="pcrr8t-x-x-109">rational </span>performs polynomial arithmetic with complex rational
+numbers.
+</p><!--l. 1014--><p class="noindent" ><a 
+ id="switch:RATIONALIZE"></a> Complex conjugation is used to remove complex numbers from denominators of
+expressions. To do this if <span 
+class="pcrr8t-x-x-109">complex </span>is oﬀ, you must turn the switch <span 
+class="pcrr8t-x-x-109">rationalize</span><a 
+ id="dx92-179006"></a><a 
+ id="dx92-179007"></a><a 
+ id="dx92-179008"></a>
+on.
+</p><!--l. 1019--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">9.12.5    </span> <a 
+ id="x92-1800009.12.5"></a>Algebraic Numbers as Coeﬃcients in Polynomial</h4>
+<a 
+ id="dx92-180001"></a>
+<a 
+ id="dx92-180002"></a>
+<!--l. 1023--><p class="noindent" >The <span 
+class="ptmrc8t-x-x-109">A<span 
+class="small-caps">R</span><span 
+class="small-caps">N</span><span 
+class="small-caps">U</span><span 
+class="small-caps">M</span> </span>package<span class="footnote-mark"><a 
+href="manual93.html#fn1x9"><sup class="textsuperscript">1</sup></a></span><a 
+ id="x92-180003f1"></a> 
+provides facilities for handling algebraic numbers as polynomial coeﬃcients in
+REDUCE calculations. It includes facilities for introducing indeterminates to represent
+algebraic numbers, for calculating splitting ﬁelds, and for factoring and ﬁnding greatest
+common divisors in such domains.
+<a 
+ id="dx92-180004"></a>
+<a 
+ id="dx92-180005"></a>
+<a 
+ id="dx92-180006"></a>
+<a 
+ id="dx92-180007"></a>
+</p><!--l. 7--><p class="noindent" >Algebraic numbers are the solutions of an irreducible polynomial over some ground
+domain<a 
+ id="dx92-180008"></a><a 
+ id="dx92-180009"></a>. The algebraic number <span 
+class="cmmi-10x-x-109">i </span>(imaginary unit), for example, would be deﬁned by the
+polynomial <span 
+class="cmmi-10x-x-109">i</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">+ 1</span>. The arithmetic of algebraic number <span 
+class="cmmi-10x-x-109">s </span>can be viewed as a polynomial
+arithmetic modulo the deﬁning polynomial.
+</p><!--l. 13--><p class="noindent" >Given a deﬁning polynomial for an algebraic number <span 
+class="cmmi-10x-x-109">a</span>
+                                                                     
+
+                                                                     
+</p>
+<table 
+class="equation-star"><tr><td>
+                    <span 
+class="cmmi-10x-x-109">a</span><sup><span 
+class="cmmi-8">n</span></sup><span 
+class="cmmi-10x-x-109">  </span><span 
+class="cmr-10x-x-109">+</span> <span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmmi-10x-x-109">p</span><sub>
+<span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">a</span><sup><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup><span 
+class="cmmi-10x-x-109">  </span><span 
+class="cmr-10x-x-109">+</span> <span 
+class="cmmi-10x-x-109"> ...</span><span 
+class="cmmi-10x-x-109">  </span><span 
+class="cmr-10x-x-109">+</span> <span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmmi-10x-x-109">p</span><sub>
+<span 
+class="cmr-8">0</span></sub>
+</td></tr></table>
+<!--l. 16--><p class="nopar" >
+</p><!--l. 18--><p class="noindent" >All algebraic numbers which can be built up from <span 
+class="cmmi-10x-x-109">a </span>are then of the form:
+</p>
+<table 
+class="equation-star"><tr><td>
+                 <span 
+class="cmmi-10x-x-109">r</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">a</span><sup><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup><span 
+class="cmmi-10x-x-109">  </span><span 
+class="cmr-10x-x-109">+</span> <span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmmi-10x-x-109">r</span><sub>
+<span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">a</span><sup><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-10x-x-109">  </span><span 
+class="cmr-10x-x-109">+</span> <span 
+class="cmmi-10x-x-109"> ...</span><span 
+class="cmmi-10x-x-109">  </span><span 
+class="cmr-10x-x-109">+</span> <span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmmi-10x-x-109">r</span><sub>
+<span 
+class="cmr-8">0</span></sub>
+</td></tr></table>
+<!--l. 21--><p class="nopar" >
+where the <span 
+class="cmmi-10x-x-109">r</span><sub><span 
+class="cmmi-8">j</span></sub>’s are rational numbers.
+<a 
+ id="dx92-180010"></a>
+</p><!--l. 25--><p class="noindent" >The operation of addition is deﬁned by </p><table 
+class="multline"><tr><td><img 
+src="manual50x.png" alt="      n−1         n−2                n−1        n− 2
+(rn− 1a    + rn− 2a    + ...) + (sn− 1a     + sn−2a     + ...) =
+                      (rn−1 + sn−1)an−1 + (rn−2 + sn−2)an−2 +  ...
+                                                                     
+
+                                                                     
+"  /></td><td class="equation-label"><br />(9.1)<br /></td></tr></table>
+<a 
+ id="dx92-180012"></a>
+<!--l. 33--><p class="noindent" >Multiplication of two algebraic numbers can be performed by normal polynomial
+multiplication followed by a reduction of the result with the help of the deﬁning
+polynomial.
+</p>
+<table 
+class="multline"><tr><td><img 
+src="manual51x.png" alt="(rn− 1an−1 + rn− 2an −2 + ...) × (sn−1an− 1 + sn−2an− 2 + ...) =
+          n−1 2n−2                n         n−1
+     rn−1s   a     + ... modulo  (a  +  pn−1a    +  ... + p0)
+                                   =   qn−1an−1 +  qn−2an−2 +  ...
+"  /></td><td class="equation-label"><br />(9.2)<br /></td></tr></table>
+<a 
+ id="dx92-180014"></a>
+<!--l. 46--><p class="noindent" >Division of two algebraic numbers r and s yields another algebraic number
+q.
+</p><!--l. 48--><p class="noindent" ><img 
+src="manual52x.png" alt="r
+s"  class="frac" align="middle" /> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">q </span>or <span 
+class="cmmi-10x-x-109">r </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">qs</span>.
+</p><!--l. 50--><p class="noindent" >The last equation written out explicitly reads
+</p><table 
+class="align-star">
+     <tr><td 
+class="align-odd"><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">r</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sub></td>     <td 
+class="align-even"><span 
+class="cmmi-10x-x-109">a</span><sup><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup> <span 
+class="cmr-10x-x-109">+</span> <span 
+class="cmmi-10x-x-109">r</span><sub>
+<span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">a</span><sup><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">+</span> <span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmr-10x-x-109">)</span></td>                                     <td 
+class="align-label"></td>     <td 
+class="align-label">
+     </td></tr><tr><td 
+class="align-odd"> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmmi-10x-x-109"> </span></td>      <td 
+class="align-even"><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">q</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">a</span><sup><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup> <span 
+class="cmr-10x-x-109">+</span> <span 
+class="cmmi-10x-x-109">q</span><sub>
+<span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">a</span><sup><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">+</span> <span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmsy-10x-x-109">× </span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">s</span><sub>
+<span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">a</span><sup><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup> <span 
+class="cmr-10x-x-109">+</span> <span 
+class="cmmi-10x-x-109">s</span><sub>
+<span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">a</span><sup><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">+</span> <span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmr-10x-x-109">)</span></td>     <td 
+class="align-label"></td>     <td 
+class="align-label">
+     </td></tr><tr><td 
+class="align-odd"></td>          <td 
+class="align-even"> <span 
+class="cmbx-10x-x-109">modulo</span> <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a</span><sup><span 
+class="cmmi-8">n</span></sup> <span 
+class="cmr-10x-x-109">+</span> <span 
+class="cmmi-10x-x-109">p</span><sub>
+<span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">a</span><sup><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup> <span 
+class="cmr-10x-x-109">+</span> <span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmr-10x-x-109">)</span></td>                             <td 
+class="align-label"></td>     <td 
+class="align-label">
+     </td></tr><tr><td 
+class="align-odd"> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmmi-10x-x-109"> </span></td>      <td 
+class="align-even"><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">t</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">a</span><sup><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup> <span 
+class="cmr-10x-x-109">+</span> <span 
+class="cmmi-10x-x-109">t</span><sub>
+<span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">a</span><sup><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">+</span> <span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmr-10x-x-109">)</span></td>                                <td 
+class="align-label"></td>     <td 
+class="align-label"></td></tr></table>
+                                                                     
+
+                                                                     
+<!--l. 59--><p class="noindent" >The <span 
+class="cmmi-10x-x-109">t</span><sub><span 
+class="cmmi-8">i</span></sub> are linear in the <span 
+class="cmmi-10x-x-109">q</span><sub><span 
+class="cmmi-8">j</span></sub>. Equating equal powers of <span 
+class="cmmi-10x-x-109">a </span>yields a linear system for the
+quotient coeﬃcients <span 
+class="cmmi-10x-x-109">q</span><sub><span 
+class="cmmi-8">j</span></sub>.
+</p><!--l. 62--><p class="noindent" >With this, all ﬁeld operations for the algebraic numbers are available. The translation into
+algorithms is straightforward. For an implementation we have to decide on a data
+structure for an algebraic number. We have chosen the representation REDUCE normally
+uses for polynomials, the so-called standard form. Since our polynomials have in general
+rational coeﬃcients, we must allow for a rational number domain inside the algebraic
+number.
+</p>
+<div class="flushleft" 
+>
+<!--l. 69--><p class="noindent" >
+ <span 
+class="cmmi-10x-x-109">&#x003C; </span><span 
+class="ptmri8t-x-x-109">algebraic number </span><span 
+class="cmmi-10x-x-109">&#x003E; </span>::=<br />
+         <span 
+class="pcrr8t-x-x-109">:ar: </span>. <span 
+class="cmmi-10x-x-109">&#x003C; </span><span 
+class="ptmri8t-x-x-109">univariate polynomial over the rationals </span><span 
+class="cmmi-10x-x-109">&#x003E;</span><br />
+<span 
+class="cmmi-10x-x-109">&#x003C; </span><span 
+class="ptmri8t-x-x-109">univariate polynomial over the rationals </span><span 
+class="cmmi-10x-x-109">&#x003E; </span>::=<br />
+         <span 
+class="cmmi-10x-x-109">&#x003C; </span><span 
+class="ptmri8t-x-x-109">variable </span><span 
+class="cmmi-10x-x-109">&#x003E; </span>.** <span 
+class="cmmi-10x-x-109">&#x003C; </span><span 
+class="ptmri8t-x-x-109">ldeg </span><span 
+class="cmmi-10x-x-109">&#x003E; </span>.* <span 
+class="cmmi-10x-x-109">&#x003C; </span><span 
+class="ptmri8t-x-x-109">rational </span><span 
+class="cmmi-10x-x-109">&#x003E; </span>.+ <span 
+class="cmmi-10x-x-109">&#x003C; </span><span 
+class="ptmri8t-x-x-109">reductum </span><span 
+class="cmmi-10x-x-109">&#x003E;</span><br />
+<span 
+class="cmmi-10x-x-109">&#x003C; </span><span 
+class="ptmri8t-x-x-109">ldeg </span><span 
+class="cmmi-10x-x-109">&#x003E; </span>::= integer<br /><br />
+<span 
+class="cmmi-10x-x-109">&#x003C; </span><span 
+class="ptmri8t-x-x-109">rational </span><span 
+class="cmmi-10x-x-109">&#x003E; </span>::=<br />
+         <span 
+class="pcrr8t-x-x-109">:rn: </span>. <span 
+class="cmmi-10x-x-109">&#x003C; </span><span 
+class="ptmri8t-x-x-109">integer numerator </span><span 
+class="cmmi-10x-x-109">&#x003E; </span>. <span 
+class="cmmi-10x-x-109">&#x003C; </span><span 
+class="ptmri8t-x-x-109">integer denominator </span><span 
+class="cmmi-10x-x-109">&#x003E; </span>: integer<br />
+<span 
+class="cmmi-10x-x-109">&#x003C; </span><span 
+class="ptmri8t-x-x-109">reductum </span><span 
+class="cmmi-10x-x-109">&#x003E; </span>::= <span 
+class="cmmi-10x-x-109">&#x003C; </span><span 
+class="ptmri8t-x-x-109">univariate polynomial </span><span 
+class="cmmi-10x-x-109">&#x003E; </span>: <span 
+class="cmmi-10x-x-109">&#x003C; </span><span 
+class="ptmri8t-x-x-109">rational </span><span 
+class="cmmi-10x-x-109">&#x003E; </span>: nil</p></div>
+<!--l. 86--><p class="noindent" ><a 
+ id="operator:DEFPOLY"></a> This representation allows us to use the REDUCE functions for adding and
+multiplying polynomials on the tail of the tagged algebraic number. Also, the
+routines for solving linear equations can easily be used for the calculation of
+quotients. We are still left with the problem of introducing a particular algebraic
+number. In the current version this is done by giving the deﬁning polynomial to the
+statement <span 
+class="ptmb8t-x-x-109">defpoly</span>. The <a 
+ id="dx92-180015"></a> algebraic number sqrt(2), for example, can be introduced
+by
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-350">
+   defpoly sqrt2**2 - 2;
+</div>
+<!--l. 97--><p class="nopar" >
+</p><!--l. 99--><p class="noindent" >This statement associates a simpliﬁcation function for the translation of the variable in
+the deﬁning polynomial into its tagged internal form and also generates a power
+reduction rule used by the operations <span 
+class="ptmb8t-x-x-109">times </span>and <span 
+class="ptmb8t-x-x-109">quotient </span>for the reduction of
+their result modulo the deﬁning polynomial. A basis for the representation of
+an algebraic number is also set up by the statement. In the working version,
+the basis is a list of powers of the indeterminate of the deﬁning polynomial
+up to one less then its degree. Experiments with integral bases, however, have
+been very encouraging, and these bases might be available in a later version.
+If the deﬁning polynomial is not monic, it will be made so by an appropriate
+substitution.
+<a 
+ id="x92-180016r1"></a>
+</p><!--l. 112--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Example 1</span><a 
+ id="dx92-180017"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-351">
+defpoly sqrt2**2-2;
+ <br />
+ <br />1/(sqrt2+1);
+ <br />
+ <br />sqrt2 - 1
+ <br />
+ <br />(x**2+2*sqrt2*x+2)/(x+sqrt2);
+ <br />
+ <br />x + sqrt2
+ <br />
+ <br />on gcd;
+ <br />
+ <br />(x**3+(sqrt2-2)*x**2-(2*sqrt2+3)*x-3*sqrt2)/(x**2-2);
+ <br />
+ <br />  2
+ <br />(x  - 2*x - 3)/(x - sqrt2)
+ <br />
+ <br />off gcd;
+ <br />
+ <br />sqrt(x**2-2*sqrt2*x*y+2*y**2);
+ <br />
+ <br />abs(x - sqrt2*y)
+</div>
+<!--l. 137--><p class="nopar" >
+</p><!--l. 139--><p class="noindent" >Until now we have dealt with only a single algebraic number. In practice this is not
+suﬃcient as very often several algebraic numbers appear in an expression. There are two
+possibilities for handling this: one can use multivariate extensions <span class="cite">[<a 
+href="manualap2.html#XDavenport:81">Dav81</a>]</span> or one can
+construct a deﬁning polynomial that contains all speciﬁed extensions. This package
+implements the latter case (the so called primitive representation). The algorithm we use
+for the construction of the primitive element is the same as given by Trager <span class="cite">[<a 
+href="manualap2.html#XTrager:76">Tra76</a>]</span>. In
+the implementation, multiple extensions can be given as a list of equations to the
+statement <span 
+class="ptmb8t-x-x-109">defpoly</span>, which, among other things, adds the new extension to the previously
+deﬁned one. All algebraic numbers are then expressed in terms of the primitive
+element.
+<a 
+ id="x92-180018r2"></a>
+</p><!--l. 152--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Example 2</span><a 
+ id="dx92-180019"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-352">
+defpoly sqrt2**2-2,cbrt5**3-5;
+ <br />
+ <br />*** defining polynomial for primitive element:
+ <br />
+ <br />  6       4        3        2
+ <br />a1  - 6*a1  - 10*a1  + 12*a1  - 60*a1 + 17
+ <br />
+ <br />sqrt2;
+ <br />
+ <br />  48     5     45     4    320     3    780     2
+ <br />------*a1  + ------*a1  - ------*a1  - ------*a1
+ <br /> 1187         1187         1187         1187
+ <br />
+ <br />    735         1820
+ <br /> + ------*a1 - ------
+ <br />    1187        1187
+ <br />
+ <br />sqrt2**2;
+ <br />
+ <br />   2
+</div>
+<!--l. 175--><p class="nopar" >
+</p><!--l. 177--><p class="noindent" >We can provide factorization of polynomials over the algebraic number domain by using
+Trager’s algorithm. The polynomial to be factored is ﬁrst mapped to a polynomial over
+the integers by computing the norm of the polynomial, which is the resultant with respect
+to the primitive element of the polynomial and the deﬁning polynomial. After factoring
+over the integers, the factors over the algebraic number ﬁeld are recovered by GCD
+calculations.
+<a 
+ id="x92-180020r3"></a>
+</p><!--l. 185--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Example 3</span><a 
+ id="dx92-180021"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-353">
+   defpoly a**2-5;
+ <br />
+ <br />   on factor;
+ <br />
+ <br />   x**2 + x - 1;
+ <br />
+ <br />   (x + (1/2*a + 1/2))*(x - (1/2*a - 1/2))
+</div>
+<!--l. 195--><p class="nopar" > <a 
+ id="dx92-180022"></a> <a 
+ id="operator:SPLIT_FIELD"></a> We have also incorporated a function <span 
+class="pcrr8t-x-x-109">split_field </span>for the calculation of a primitive
+element of minimal degree for which a given polynomial splits into linear factors. The
+algorithm as described in Trager’s article is essentially a repeated primitive element
+calculation.
+<a 
+ id="x92-180023r4"></a>
+</p><!--l. 203--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Example 4</span><a 
+ id="dx92-180024"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-354">
+   split_field(x**3-3*x+7);
+ <br />
+ <br />   *** Splitting field is generated by:
+ <br />
+ <br />     6        4        2
+ <br />   a2  - 18*a2  + 81*a2  + 1215
+ <br />
+ <br />
+ <br />
+ <br />            4          2
+ <br />   {1/126*a2  - 5/42*a2  - 1/2*a2 + 2/7,
+ <br />
+ <br />
+ <br />              4          2
+ <br />    - (1/63*a2  - 5/21*a2  + 4/7),
+ <br />
+ <br />
+ <br />           4          2
+ <br />   1/126*a2  - 5/42*a2  + 1/2*a2 + 2/7}
+ <br />
+ <br />
+ <br />   for each j in ws product (x-j);
+ <br />
+ <br />    3
+ <br />   x  - 3*x + 7
+</div>
+<!--l. 231--><p class="nopar" >
+</p><!--l. 233--><p class="noindent" >A more complete description can be found in <span class="cite">[<a 
+href="manualap2.html#XBradford:86">BHPS86</a>]</span>.
+                                                                     
+
+                                                                     
+</p><!--l. 1--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch9.html#manualse73.html" >Up</a></td><td class="clinks"><a 
+href="manualse74.html" >Next</a></td><td class="clinks"><a 
+href="manualse72.html" >Prev</a></td><td class="clinks"><a 
+href="manualse72.html#tailmanualse72.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse73.html" >Front</a></td></tr></table><a 
+ id="tailmanualse73.html"></a>  </p> 
+</body> 
+</html>

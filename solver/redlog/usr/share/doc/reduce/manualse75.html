@@ -1,0 +1,115 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>REALVALUED Declaration and Check</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch10.html#manualse75.html" >Up</a></td><td class="clinks"><a 
+href="manualse76.html" >Next</a></td><td class="clinks"><a 
+href="#tailmanualse75.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">10.1    </span> <a 
+ id="x97-19400010.1"></a>REALVALUED Declaration and Check</h3>
+<!--l. 10--><p class="noindent" ><a 
+ id="command:REALVALUED"></a> <a 
+ id="command:NOTREALVALUED"></a>
+</p><!--l. 13--><p class="noindent" >The declaration <span 
+class="pcrr8t-x-x-109">realvalued</span><a 
+ id="dx97-194001"></a><a 
+ id="dx97-194002"></a> may be used to restrict variables to the real numbers. The
+syntax is:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-357">
+        realvalued v1,...vn;
+</div>
+<!--l. 19--><p class="nopar" > For such variables the operator <span 
+class="pcrr8t-x-x-109">impart</span><a 
+ id="dx97-194003"></a> gives the result zero. Thus, with
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-358">
+        realvalued x,y;
+</div>
+<!--l. 24--><p class="nopar" > the expression <span 
+class="pcrr8t-x-x-109">impart(x+sin(y)) </span>is evaluated as zero. You may also declare an
+operator as real valued with the meaning, that this operator maps real arguments always
+to real values. Example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-359">
+    operator h; realvalued h,x;
+ <br />    impart h(x);
+ <br />
+ <br />       0
+ <br />
+ <br />    impart h(w);
+ <br />
+ <br />       impart(h(w))
+</div>
+<!--l. 38--><p class="nopar" > Such declarations are not needed for the standard elementary functions.
+</p><!--l. 41--><p class="noindent" >To remove the propery from a variable or an operator use the declaration <span 
+class="pcrr8t-x-x-109">notrealvalued</span><a 
+ id="dx97-194004"></a>
+<a 
+ id="dx97-194005"></a>with the syntax:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-360">
+    notrealvalued v1,...vn;
+</div>
+<!--l. 47--><p class="nopar" >
+</p><!--l. 49--><p class="noindent" ><a 
+ id="operator:REALVALUEDP"></a> The boolean operator <span 
+class="pcrr8t-x-x-109">realvaluedp</span><a 
+ id="dx97-194006"></a> allows you to check if a variable, an operator, or
+an operator expression is known as real valued. Thus,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-361">
+    realvalued x;
+ <br />    write if realvaluedp(sin x) then &#x0022;yes&#x0022; else &#x0022;no&#x0022;;
+ <br />    write if realvaluedp(sin z) then &#x0022;yes&#x0022; else &#x0022;no&#x0022;;
+</div>
+<!--l. 58--><p class="nopar" > would print ﬁrst <span 
+class="pcrr8t-x-x-109">yes </span>and then <span 
+class="pcrr8t-x-x-109">no</span>. For general expressions test the impart for checking
+the value range:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-362">
+    realvalued x,y; w:=(x+i*y); w1:=conj w;
+ <br />    impart(w*w1);
+ <br />
+ <br />       0
+ <br />
+ <br />    impart(w*w);
+ <br />
+ <br />       2*x*y
+</div>
+<!--l. 70--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p><!--l. 72--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch10.html#manualse75.html" >Up</a></td><td class="clinks"><a 
+href="manualse76.html" >Next</a></td><td class="clinks"><a 
+href="manualse75.html" >Front</a></td></tr></table><a 
+ id="tailmanualse75.html"></a> </p> 
+</body> 
+</html>

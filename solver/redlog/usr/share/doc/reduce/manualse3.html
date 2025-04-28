@@ -1,0 +1,163 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Identiﬁers</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch2.html#manualse3.html" >Up</a></td><td class="clinks"><a 
+href="manualse4.html" >Next</a></td><td class="clinks"><a 
+href="manualse2.html" >Prev</a></td><td class="clinks"><a 
+href="manualse2.html#tailmanualse2.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse3.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">2.3    </span> <a 
+ id="x8-70002.3"></a>Identiﬁers</h3>
+<!--l. 95--><p class="noindent" >Identiﬁers<a 
+ id="dx8-7001"></a> in REDUCE consist of one or more alphanumeric characters (i.e. alphabetic
+letters or decimal digits) the ﬁrst of which must be alphabetic. The maximum number of
+characters allowed is implementation dependent, although twenty-four is permitted in
+most implementations. In addition, the underscore character (<span 
+class="pcrr8t-x-x-109">_</span>) is considered a letter if it
+is <span 
+class="ptmri8t-x-x-109">within </span>an identiﬁer. For example,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-19">
+        a az p1 q23p  a_very_long_variable
+</div>
+<!--l. 104--><p class="nopar" > are all identiﬁers, whereas
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-20">
+        _a
+</div>
+<!--l. 108--><p class="nopar" > is not.
+</p><!--l. 111--><p class="noindent" >A sequence of alphanumeric characters in which the ﬁrst is a digit is interpreted as a
+product. For example, <span 
+class="pcrr8t-x-x-109">2ab3c </span>is interpreted as <span 
+class="pcrr8t-x-x-109">2*ab3c</span>. There is one exception to this:
+If the ﬁrst letter after a digit is <span 
+class="pcrr8t-x-x-109">E</span>, the system will try to interpret that part of the sequence
+as a real number<a 
+ id="dx8-7002"></a>, which may fail in some cases. For example, <span 
+class="pcrr8t-x-x-109">2E12 </span>is the real
+number <span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">.</span><span 
+class="cmr-10x-x-109">0 </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmr-10x-x-109">10</span><sup><span 
+class="cmr-8">12</span></sup> and <span 
+class="pcrr8t-x-x-109">2e3c </span>is 2000.0*C. If the <span 
+class="pcrr8t-x-x-109">E </span>is not followed by a number, 0
+is assumed as the decimal exponent, thus <span 
+class="pcrr8t-x-x-109">2e </span>is interpreted as 2 and <span 
+class="pcrr8t-x-x-109">2ebc </span>as
+2*bc.
+</p><!--l. 121--><p class="noindent" >Special characters, such as <span 
+class="pcrr8t-x-x-109">-</span>, <span 
+class="pcrr8t-x-x-109">*</span>, and blank, may be used in identiﬁers too, even as the
+ﬁrst character, but each must be preceded by an exclamation mark in input. For
+example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-21">
+        light!-years    d!*!*n         good! morning
+ <br />        !$sign          !5goldrings
+</div>
+<!--l. 128--><p class="nopar" > <span 
+class="ptmri8t-x-x-109">CAUTION: </span>Many system identiﬁers have such special characters in their names
+(especially * and =). If the user accidentally picks the name of one of them for his own
+purposes it may have catastrophic consequences for his REDUCE run. Users are
+therefore advised to avoid such names.
+</p><!--l. 134--><p class="noindent" >Identiﬁers are used as variables, labels and to name arrays, operators and procedures.
+</p><!--l. 137--><p class="noindent" >In graphical environments with typeset mathematics enabled, the (shared) variable
+<span 
+class="pcrr8t-x-x-109">fancy_lower_digits</span><a 
+ id="dx8-7003"></a> can be set to one of the values <span 
+class="pcrr8t-x-x-109">t</span>, <span 
+class="pcrr8t-x-x-109">nil </span>or <span 
+class="pcrr8t-x-x-109">all </span>to
+control the display of digits within identiﬁers. The default value is <span 
+class="pcrr8t-x-x-109">t</span>. Digits in an
+identiﬁer are typeset as subscripts if <span 
+class="pcrr8t-x-x-109">fancy_lower_digits</span><span 
+class="pcrr8t-x-x-109"> =</span><span 
+class="pcrr8t-x-x-109"> all </span>or if
+<span 
+class="pcrr8t-x-x-109">fancy_lower_digits</span><span 
+class="pcrr8t-x-x-109"> =</span><span 
+class="pcrr8t-x-x-109"> t </span>and the digits are all at the end of the identiﬁer. For
+example, with the following values assigned to <span 
+class="pcrr8t-x-x-109">fancy_lower_digits</span>, the identiﬁers
+<span 
+class="pcrr8t-x-x-109">ab12cd34 </span>and <span 
+class="pcrr8t-x-x-109">abcd34 </span>are displayed as follows:
+</p>
+<div class="tabular"> <table id="TBL-1" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-1-1g"><col 
+id="TBL-1-1" /><col 
+id="TBL-1-2" /><col 
+id="TBL-1-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-1-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-1-1-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">fancy_lower_digits </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-1-1-2"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">ab12cd34 </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-1-1-3"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">abcd34 </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-1-2-1"  
+class="td11">          <span 
+class="pcrr8t-x-x-109">t          </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-1-2-2"  
+class="td11"> <img 
+src="manual0x.png" alt="ab12cd34 "  class="math"  />  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-1-2-3"  
+class="td11"> <img 
+src="manual1x.png" alt="abcd34  "  class="math"  />  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-1-3-1"  
+class="td11">         <span 
+class="pcrr8t-x-x-109">all         </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-1-3-2"  
+class="td11"> <img 
+src="manual2x.png" alt="ab12cd34  "  class="math"  />   </td><td  style="white-space:nowrap; text-align:center;" id="TBL-1-3-3"  
+class="td11"> <img 
+src="manual3x.png" alt="abcd34  "  class="math"  />  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-1-4-"><td  style="white-space:nowrap; text-align:center;" id="TBL-1-4-1"  
+class="td11">         <span 
+class="pcrr8t-x-x-109">nil         </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-1-4-2"  
+class="td11"> <img 
+src="manual4x.png" alt="ab12cd34 "  class="math"  />  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-1-4-3"  
+class="td11"> <img 
+src="manual5x.png" alt="abcd34 "  class="math"  />  </td>
+</tr></table></div>
+<!--l. 156--><p class="noindent" >
+</p>
+<h4 class="likesubsectionHead"><a 
+ id="x8-80002.3"></a>Restrictions</h4>
+<!--l. 158--><p class="noindent" >The reserved words listed in appendix <a 
+href="manualap1.html#x314-1367000A">A<!--tex4ht:ref: reservedids --></a> may not be used as identiﬁers. No spaces
+may appear within an identiﬁer, and an identiﬁer may not extend over a line of
+text.
+                                                                     
+
+                                                                     
+</p><!--l. 166--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch2.html#manualse3.html" >Up</a></td><td class="clinks"><a 
+href="manualse4.html" >Next</a></td><td class="clinks"><a 
+href="manualse2.html" >Prev</a></td><td class="clinks"><a 
+href="manualse2.html#tailmanualse2.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse3.html" >Front</a></td></tr></table><a 
+ id="tailmanualse3.html"></a>  </p> 
+</body> 
+</html>

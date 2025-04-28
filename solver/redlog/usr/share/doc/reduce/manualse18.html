@@ -1,0 +1,94 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>WHILE … DO</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch5.html#manualse18.html" >Up</a></td><td class="clinks"><a 
+href="manualse19.html" >Next</a></td><td class="clinks"><a 
+href="manualse17.html" >Prev</a></td><td class="clinks"><a 
+href="manualse17.html#tailmanualse17.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse18.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">5.5    </span> <a 
+ id="x26-390005.5"></a>WHILE … DO</h3>
+<!--l. 340--><p class="noindent" ><a 
+ id="command:WHILE"></a>
+</p><!--l. 342--><p class="noindent" >The<a 
+ id="dx26-39001"></a> <span 
+class="pcrr8t-x-x-109">for</span>… <span 
+class="pcrr8t-x-x-109">do</span><a 
+ id="dx26-39002"></a> feature <a 
+ id="dx26-39003"></a><a 
+ id="dx26-39004"></a> allows easy coding of a repeated operation in which the number
+of repetitions is known in advance. If the criterion for repetition is more complicated,
+<span 
+class="pcrr8t-x-x-109">while</span>… <span 
+class="pcrr8t-x-x-109">do </span>can often be used. Its syntax is:
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">while </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">boolean expression</span><span 
+class="cmsy-10x-x-109">⟩ </span><span 
+class="pcrr8t-x-x-109">do </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">statement</span><span 
+class="cmsy-10x-x-109">⟩</span></div>
+<!--l. 350--><p class="noindent" >The <span 
+class="pcrr8t-x-x-109">while</span>… <span 
+class="pcrr8t-x-x-109">do </span>controls the single statement following <span 
+class="pcrr8t-x-x-109">do</span>. If several statements are to
+be repeated, as is almost always the case, they must be grouped using the <span 
+class="pcrr8t-x-x-109">&#x003C;&#x003C;</span>… <span 
+class="pcrr8t-x-x-109">&#x003E;&#x003E; </span>or
+<span 
+class="pcrr8t-x-x-109">begin</span>… <span 
+class="pcrr8t-x-x-109">end </span>as in the example below.
+</p><!--l. 357--><p class="noindent" >The <span 
+class="pcrr8t-x-x-109">while </span>condition is tested each time <span 
+class="ptmri8t-x-x-109">before </span>the action following the <span 
+class="pcrr8t-x-x-109">do </span>is attempted.
+If the condition is false to begin with, the action is not performed at all. Make sure that
+what is to be tested has an appropriate value initially.
+</p><!--l. 362--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Example:</span>
+</p><!--l. 364--><p class="noindent" >Suppose we want to add up a series of terms, generated one by one, until we reach a term
+which is less than 1/1000 in value. For our simple example, let us suppose the ﬁrst term
+equals 1 and each term is obtained from the one before by taking one third of it and
+adding one third its square. We would write:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-62">
+    ex:=0; term:=1;
+ <br />    while num(term - 1/1000) &#x003E;= 0  do
+ <br />            &#x003C;&#x003C;ex := ex+term; term:=(term + term^2)/3&#x003E;&#x003E;;
+ <br />    ex;
+</div>
+<!--l. 374--><p class="nopar" > As long as <span 
+class="pcrr8t-x-x-109">term </span>is greater than or equal to (<span 
+class="pcrr8t-x-x-109">&#x003E;=</span>) 1/1000 it will be added to <span 
+class="pcrr8t-x-x-109">ex </span>and the
+next <span 
+class="pcrr8t-x-x-109">term </span>calculated. As soon as <span 
+class="pcrr8t-x-x-109">term </span>becomes less than 1/1000 the <span 
+class="pcrr8t-x-x-109">while </span>test fails
+and the <span 
+class="pcrr8t-x-x-109">term </span>will not be added.
+                                                                     
+
+                                                                     
+</p><!--l. 381--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch5.html#manualse18.html" >Up</a></td><td class="clinks"><a 
+href="manualse19.html" >Next</a></td><td class="clinks"><a 
+href="manualse17.html" >Prev</a></td><td class="clinks"><a 
+href="manualse17.html#tailmanualse17.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse18.html" >Front</a></td></tr></table><a 
+ id="tailmanualse18.html"></a> </p> 
+</body> 
+</html>

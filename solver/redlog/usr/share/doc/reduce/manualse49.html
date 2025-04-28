@@ -1,0 +1,157 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Linear Operators</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse49.html" >Up</a></td><td class="clinks"><a 
+href="manualse50.html" >Next</a></td><td class="clinks"><a 
+href="manualse48.html" >Prev</a></td><td class="clinks"><a 
+href="manualse48.html#tailmanualse48.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse49.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">7.22    </span> <a 
+ id="x65-1120007.22"></a>Linear Operators</h3>
+<a 
+ id="dx65-112001"></a>
+<a 
+ id="dx65-112002"></a>
+<!--l. 29--><p class="noindent" ><a 
+ id="command:LINEAR"></a> <a 
+ id="dx65-112003"></a><a 
+ id="dx65-112004"></a> An operator can be declared to be linear in its ﬁrst argument over powers of its
+second argument. If an operator <span 
+class="pcrr8t-x-x-109">f </span>is so declared, <span 
+class="pcrr8t-x-x-109">f </span>of any sum is broken up
+into sums of <span 
+class="pcrr8t-x-x-109">f</span>s, and any factors that are not powers of the variable are taken
+outside. This means that <span 
+class="pcrr8t-x-x-109">f </span>must have (at least) two arguments. In addition,
+the second argument must be an identiﬁer (or more generally a kernel), not an
+expression.
+</p><!--l. 38--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Example:</span>
+</p><!--l. 40--><p class="noindent" >If <span 
+class="pcrr8t-x-x-109">F </span>were declared linear, then
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-195">
+        f(a*x^5+b*x+c,x) -&#x003E;
+ <br />
+ <br />                5
+ <br />             f(x ,x)*a + f(x,x)*b + f(1,x)*c
+</div>
+<!--l. 46--><p class="nopar" > More precisely, not only will the variable and its powers remain within the scope of the
+<span 
+class="pcrr8t-x-x-109">f </span>operator, but so will any variable and its powers that had been declared to <span 
+class="pcrr8t-x-x-109">depend </span>on
+the prescribed variable; and so would any expression that contains that variable or a
+dependent variable on any level, e.g. <span 
+class="pcrr8t-x-x-109">cos(sin(x))</span>.
+</p><!--l. 53--><p class="noindent" >To declare operators <span 
+class="pcrr8t-x-x-109">f </span>and <span 
+class="pcrr8t-x-x-109">g </span>to be linear operators, use:<a 
+ id="dx65-112005"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-196">
+        linear f,g;
+</div>
+<!--l. 57--><p class="nopar" > The analysis is done of the ﬁrst argument with respect to the second; any other
+arguments are ignored. It uses the following rules of evaluation: </p>
+<div class="flushleft" 
+>
+<!--l. 60--><p class="noindent" >
+                 <!--tex4ht:inline--></p><div class="tabular"> <table id="TBL-22" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-22-1g"><col 
+id="TBL-22-1" /><col 
+id="TBL-22-2" /><col 
+id="TBL-22-3" /><col 
+id="TBL-22-4" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-22-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-22-1-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">f(0)    </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-22-1-2"  
+class="td11"> <span 
+class="cmmi-10x-x-109">→</span> </td><td  style="white-space:nowrap; text-align:left;" id="TBL-22-1-3"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">0             </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-22-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-22-2-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">f(-y,x)  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-22-2-2"  
+class="td11"> <span 
+class="cmmi-10x-x-109">→</span> </td><td  style="white-space:nowrap; text-align:left;" id="TBL-22-2-3"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">-f(y,x)       </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-22-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-22-3-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">f(y+z,x) </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-22-3-2"  
+class="td11"> <span 
+class="cmmi-10x-x-109">→</span> </td><td  style="white-space:nowrap; text-align:left;" id="TBL-22-3-3"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">f(y,x)+f(z,x) </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-22-3-4"  
+class="td11">                   </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-22-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-22-4-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">f(y*z,x) </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-22-4-2"  
+class="td11"> <span 
+class="cmmi-10x-x-109">→</span> </td><td  style="white-space:nowrap; text-align:left;" id="TBL-22-4-3"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">z*f(y,x)      </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-22-4-4"  
+class="td11"> if z does not depend on x  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-22-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-22-5-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">f(y/z,x) </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-22-5-2"  
+class="td11"> <span 
+class="cmmi-10x-x-109">→</span> </td><td  style="white-space:nowrap; text-align:left;" id="TBL-22-5-3"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">f(y,x)/z      </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-22-5-4"  
+class="td11"> if z does not depend on x  </td></tr></table>
+</div></div>
+<!--l. 72--><p class="noindent" >To summarize, <span 
+class="pcrr8t-x-x-109">y </span>“depends” on the indeterminate <span 
+class="pcrr8t-x-x-109">x </span>in the above if either of the following
+hold:
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   1. </dt><dd 
+class="enumerate-enumitem"><span 
+class="pcrr8t-x-x-109">y </span>is  an  expression  that  contains  <span 
+class="pcrr8t-x-x-109">x </span>at  any  level  as  a  variable,  e.g.,
+     <span 
+class="pcrr8t-x-x-109">cos(sin(x))</span>
+     </dd><dt class="enumerate-enumitem">
+   2. </dt><dd 
+class="enumerate-enumitem">Any variable in the expression <span 
+class="pcrr8t-x-x-109">y </span>has been declared dependent on <span 
+class="pcrr8t-x-x-109">x </span>by use
+     of the declaration <span 
+class="pcrr8t-x-x-109">depend</span>.</dd></dl>
+<!--l. 81--><p class="noindent" >The use of such linear operators<a 
+ id="dx65-112008"></a> can be seen in the paper <span class="cite">[<a 
+href="manualap2.html#XFox:74">FH74</a>]</span> which contains a
+complete listing of a program for deﬁnite integration<a 
+ id="dx65-112009"></a> of some expressions that arise in
+fourth order quantum electrodynamics.
+                                                                     
+
+                                                                     
+</p><!--l. 86--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse49.html" >Up</a></td><td class="clinks"><a 
+href="manualse50.html" >Next</a></td><td class="clinks"><a 
+href="manualse48.html" >Prev</a></td><td class="clinks"><a 
+href="manualse48.html#tailmanualse48.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse49.html" >Front</a></td></tr></table><a 
+ id="tailmanualse49.html"></a> </p> 
+</body> 
+</html>

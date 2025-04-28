@@ -1,0 +1,197 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Euclidean Division</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch9.html#manualse67.html" >Up</a></td><td class="clinks"><a 
+href="manualse68.html" >Next</a></td><td class="clinks"><a 
+href="manualse66.html" >Prev</a></td><td class="clinks"><a 
+href="manualse66.html#tailmanualse66.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse67.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">9.6    </span> <a 
+ id="x86-1600009.6"></a>Euclidean Division</h3>
+<a 
+ id="dx86-160001"></a>
+<a 
+ id="dx86-160002"></a>
+<a 
+ id="dx86-160003"></a>
+<a 
+ id="dx86-160004"></a>
+<!--l. 306--><p class="noindent" ><a 
+ id="operator:DIVIDE"></a> <a 
+ id="operator:POLY_QUOTIENT"></a> <a 
+ id="operator:REMAINDER"></a> <a 
+ id="operator:MOD"></a>
+</p><!--l. 311--><p class="noindent" >The operators <span 
+class="pcrr8t-x-x-109">divide</span>, <span 
+class="pcrr8t-x-x-109">poly_quotient </span>and <span 
+class="pcrr8t-x-x-109">mod </span>/ <span 
+class="pcrr8t-x-x-109">remainder </span>implement
+Euclidean division of polynomials (over the current number domain). The <span 
+class="pcrr8t-x-x-109">remainder</span>
+operator is used with the syntax
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-305">
+     remainder(exprn1:polynomial,exprn2:polynomial):
+ <br />          polynomial.
+</div>
+<!--l. 318--><p class="nopar" > It returns the remainder when <span 
+class="pcrr8t-x-x-109">exprn1 </span>is divided by <span 
+class="pcrr8t-x-x-109">exprn2</span>. This is the true
+remainder based on the internal ordering of the variables, and not the pseudo-remainder.
+</p><!--l. 323--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Examples:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-306">
+     remainder((x + y)*(x + 2*y), x + 3*y)  -&#x003E;  2*y^2
+ <br />     remainder(2*x + y, 2)                  -&#x003E;  y
+</div>
+<!--l. 327--><p class="nopar" >
+</p><!--l. 329--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">CAUTION: </span>In the default case, remainders are calculated over the integers. If
+you need the remainder with respect to another domain, it must be declared
+explicitly.
+</p><!--l. 333--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Example:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-307">
+     remainder(x^2 - 2, x + sqrt(2));  -&#x003E;  x^2 - 2
+ <br />     load_package arnum;
+ <br />     defpoly sqrt2^2 - 2;
+ <br />     remainder(x^2 - 2, x + sqrt2);    -&#x003E;  0
+</div>
+<!--l. 339--><p class="nopar" > (Note the use of <span 
+class="pcrr8t-x-x-109">sqrt2 </span>in place of <span 
+class="pcrr8t-x-x-109">sqrt(2) </span>in the second call of <span 
+class="pcrr8t-x-x-109">remainder</span>.)
+</p><!--l. 343--><p class="noindent" >The inﬁx operator <span 
+class="pcrr8t-x-x-109">mod </span>is an alias for <span 
+class="pcrr8t-x-x-109">remainder </span>when at least one operand is
+explicitly polynomial, e.g.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-308">
+     (x^2 + y^2) mod (x - y);
+ <br />
+ <br />        2
+ <br />     2*y
+</div>
+<!--l. 350--><p class="nopar" > However, when both operands are integers, <span 
+class="pcrr8t-x-x-109">mod </span>implements the integer modulus
+operation, regardless of the current number domain, e.g.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-309">
+     7 mod 4  -&#x003E;  3
+</div>
+<!--l. 356--><p class="nopar" >
+</p><!--l. 358--><p class="noindent" >The Euclidean division operator <span 
+class="pcrr8t-x-x-109">divide </span>is used with the syntax
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-310">
+     divide(exprn1:polynomial,exprn2:polynomial):
+ <br />          list(polynomial,polynomial)
+</div>
+<!--l. 362--><p class="nopar" > and returns both the quotient and the remainder together as the ﬁrst and second elements
+of a list, e.g.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-311">
+     divide(x^2 + y^2, x - y);
+ <br />
+ <br />               2
+ <br />     {x + y,2*y }
+</div>
+<!--l. 370--><p class="nopar" > It can also be used as an inﬁx operator:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-312">
+     (x^2 + y^2) divide (x - y);
+ <br />
+ <br />               2
+ <br />     {x + y,2*y }
+</div>
+<!--l. 377--><p class="nopar" > The inﬁx operator <span 
+class="pcrr8t-x-x-109">poly_quotient </span>returns only the quotient, i.e. the ﬁrst element of
+the list returned by <span 
+class="pcrr8t-x-x-109">divide</span>.
+</p><!--l. 381--><p class="noindent" >All Euclidean division operators (when used in preﬁx form) accept an optional third
+argument, which speciﬁes the main variable to be used during the division. The default is
+the leading kernel in the current global ordering. Specifying the main variable does not
+change the ordering of any other variables involved, nor does it change the global
+environment. For example
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-313">
+     divide(x^2 + y^2, x - y, y);
+ <br />
+ <br />                    2
+ <br />     { - (x + y),2*x }
+</div>
+<!--l. 392--><p class="nopar" >
+</p><!--l. 394--><p class="noindent" >Specifying <span 
+class="cmmi-10x-x-109">x </span>as main variable gives the same behaviour as the default shown earlier,
+i.e.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-314">
+     divide(x^2 + y^2, x - y, x);
+ <br />
+ <br />               2
+ <br />     {x + y,2*y }
+</div>
+<!--l. 401--><p class="nopar" >
+</p><!--l. 403--><p class="noindent" >All Euclidean division operators accept a (possibly nested) list as ﬁrst argument/operand
+and map over that list, e.g.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-315">
+     {x, x + 1, x^2 - 1} mod x - 1;
+ <br />
+ <br />     {1,2,0}
+</div>
+<!--l. 409--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p><!--l. 411--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch9.html#manualse67.html" >Up</a></td><td class="clinks"><a 
+href="manualse68.html" >Next</a></td><td class="clinks"><a 
+href="manualse66.html" >Prev</a></td><td class="clinks"><a 
+href="manualse66.html#tailmanualse66.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse67.html" >Front</a></td></tr></table><a 
+ id="tailmanualse67.html"></a> </p> 
+</body> 
+</html>

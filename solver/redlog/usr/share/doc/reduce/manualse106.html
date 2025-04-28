@@ -1,0 +1,821 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>TPS: Extendible Power Series</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch16.html#manualse106.html" >Up</a></td><td class="clinks"><a 
+href="manualse107.html" >Next</a></td><td class="clinks"><a 
+href="manualse105.html" >Prev</a></td><td class="clinks"><a 
+href="manualse105.html#tailmanualse105.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse106.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">16.2    </span> <a 
+ id="x136-25000016.2"></a>TPS: Extendible Power Series</h3>
+<a 
+ id="dx136-250001"></a>
+<a 
+ id="dx136-250002"></a>
+<a 
+ id="dx136-250003"></a>
+<a 
+ id="dx136-250004"></a>
+<a 
+ id="dx136-250005"></a>
+<a 
+ id="dx136-250006"></a>
+<a 
+ id="dx136-250007"></a>
+<!--l. 5--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">16.2.1    </span> <a 
+ id="x136-25100016.2.1"></a>Introduction</h4>
+<a 
+ id="dx136-251001"></a>
+<!--l. 7--><p class="noindent" >This package implements formal Laurent power series expansions in one variable using
+the domain mechanism of REDUCE. This means that power series objects can be added,
+multiplied, diﬀerentiated etc. like other ﬁrst class objects in the system. A lazy evaluation
+scheme is used in the package and thus terms of the series are not evaluated until they are
+required for printing or for use in calculating terms in other power series. The
+series are extendible giving the user the impression that the full inﬁnite series is
+being manipulated. The errors that can sometimes occur using series that are
+truncated at some ﬁxed depth (for example when a term in the required series
+depends on terms of an intermediate series beyond the truncation depth) are thus
+avoided.
+</p><!--l. 19--><p class="noindent" >The package was originally based on an earlier <span 
+class="ptmri8t-x-x-109">truncated power series </span>package
+developed by Julian Padget in the 1980’s. The name of the original package was TPS
+and this was never changed. The alternative (more accurate) name EPS was
+perhaps rejected because of possible confusion with the acronym for <span 
+class="ptmri8t-x-x-109">encapsulated</span>
+<span 
+class="ptmri8t-x-x-109">PostScript</span>.
+</p><!--l. 25--><p class="noindent" >In the ﬁrst subsection below a brief description of the main operators available for series
+expansion are given together with some examples of their use.
+</p><!--l. 29--><p class="noindent" >
+                                                                     
+
+                                                                     
+</p>
+<h4 class="subsectionHead"><span class="titlemark">16.2.2    </span> <a 
+ id="x136-25200016.2.2"></a>Basic Use</h4>
+<!--l. 30--><p class="noindent" ><a 
+ id="operator:PS"></a> <a 
+ id="dx136-252001"></a> The most important operator is <span 
+class="pcrr8t-x-x-109">ps </span>which is used as follows:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-471">
+  ps(EXP:algebraic, VAR:kernel,
+ <br />     ABOUT:algebraic):algebraic.
+</div>
+<!--l. 36--><p class="nopar" >
+</p><!--l. 38--><p class="noindent" >The <span 
+class="pcrr8t-x-x-109">ps </span>operator returns a Laurent power series object (a tagged domain element)
+representing the univariate formal Laurent power series expansion of <span 
+class="pcrr8t-x-x-109">EXP </span>with respect to
+the dependent variable <span 
+class="pcrr8t-x-x-109">VAR </span>about the expansion point <span 
+class="pcrr8t-x-x-109">ABOUT</span>. <span 
+class="pcrr8t-x-x-109">EXP </span>may itself contain
+power series objects. If the function has a pole at the expansion point then the correct
+Laurent series expansion will be produced.
+</p><!--l. 45--><p class="noindent" >The algebraic expression <span 
+class="pcrr8t-x-x-109">ABOUT </span>should simplify to an expression which is independent
+of the dependent variable <span 
+class="pcrr8t-x-x-109">VAR</span>, otherwise an error will result. If <span 
+class="pcrr8t-x-x-109">ABOUT </span>is the identiﬁer
+<span 
+class="pcrr8t-x-x-109">infinity </span>then the power series expansion about <span 
+class="cmsy-10x-x-109">∞ </span>is obtained in ascending powers of
+<span 
+class="pcrr8t-x-x-109">1/VAR</span>.
+</p><!--l. 51--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Examples</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-472">
+   a := ps(sin x, x, 0);
+ <br />   ps(sin a, x, 0);
+ <br />   ps(cos x/x^2, x, 0);
+ <br />   ps(x/(1+x),x,infinity);
+</div>
+<!--l. 57--><p class="nopar" >
+</p><!--l. 59--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Operations on Power Series</span> <a 
+ id="dx136-252002"></a>
+</p><!--l. 62--><p class="noindent" >As power series objects are domain elements they may be added, subtracted, multiplied
+and divided in the normal way. For example if A and B are power series objects with the
+<span 
+class="ptmri8t-x-x-109">same expansion variable and expansion point</span>:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-473">
+    a+b; a*b;
+ <br />    1/b; a/b;
+</div>
+<!--l. 68--><p class="nopar" >
+</p><!--l. 70--><p class="noindent" >will produce power series objects representing the sum, product, reciprocal, and quotient
+of the power series objects A and B respectively.
+<a 
+ id="dx136-252003"></a>
+</p><!--l. 75--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Diﬀerentiation</span>
+</p><!--l. 77--><p class="noindent" >Similarly, if A is a power series object depending on X then the input <span 
+class="pcrr8t-x-x-109">df(a, x);</span>
+will produce the power series expansion of the derivative of A with respect to
+X.
+<a 
+ id="dx136-252004"></a>
+</p><!--l. 82--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Integration</span>
+</p><!--l. 84--><p class="noindent" >The power series expansion of an integral may also be obtained (even if REDUCE cannot
+evaluate the integral in closed form). An example of this is
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-474">
+    ps(int(exp(exp x),x),x,0);
+</div>
+<!--l. 90--><p class="nopar" >
+</p><!--l. 92--><p class="noindent" >Note that if the integration variable is the same as the expansion variable, the integration
+package is not called. If on the other hand the two variables are diﬀerent the integrator is
+called to integrate each of the coeﬃcients in the power series expansion of the integrand.
+The constant of integration is zero by default.
+</p><!--l. 99--><p class="noindent" >Note that the Laurent series domain is not closed under integration with respect to the
+expansion variable; if the term of degree -1 is non-zero a logarithmic singularity error
+will occur on integration.
+<a 
+ id="dx136-252005"></a>
+</p><!--l. 104--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Exponentiation </span>The Laurent series domain is closed under exponentiation by an <span 
+class="ptmri8t-x-x-109">integer</span>
+power. Thus, with respect to integer exponentiation, power series are ﬁrst class
+objects and for example the following results in automatic expansion of the ﬁnal
+result:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-475">
+  a:= ps(cos x,x,0);
+ <br />  b:= ps(sin x,x,0);
+ <br />  a^2+b^(-2);
+</div>
+<!--l. 113--><p class="nopar" >
+</p><!--l. 115--><p class="noindent" >However, for more general exponents automatic expansion does not occur. For
+example given power series <span 
+class="pcrr8t-x-x-109">a </span>and <span 
+class="pcrr8t-x-x-109">b </span>deﬁned as above, the following commands are
+necessary:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-476">
+    ps(a^(1/2),x,0);
+ <br />    ps(a^pi,x,0);
+ <br />    ps(a^b,x,0);
+</div>
+<!--l. 122--><p class="nopar" > Note <span 
+class="ptmri8t-x-x-109">any </span>power of a power series of <span 
+class="ptmri8t-x-x-109">order zero </span>(that is with a non-zero term of degree
+zero) can be expanded as a power series (again of order zero) provided only that the
+power is non-singular at the expansion point. As the third example above shows the
+exponent may itself be a power series.
+</p><!--l. 128--><p class="noindent" >However in general the Laurent series domain is not closed under exponentiation. If the
+result is to be a Laurent series some restrictions on the allowed values of the exponent
+and order of the original series are necessary. Namely, if the order of the power series is
+non-zero (<span 
+class="cmmi-10x-x-109">σ </span>say) and the exponent is rational with denominator <span 
+class="cmmi-10x-x-109">q </span>say, then <span 
+class="cmmi-10x-x-109">σq </span>must be
+integral. If the exponent is rational, but <span 
+class="cmmi-10x-x-109">σq </span>is not an integer, a <span 
+class="ptmri8t-x-x-109">branch point </span>error is
+generated. For other exponents a <span 
+class="ptmri8t-x-x-109">logarithmic singularity </span>error is usually generated. For
+example,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-477">
+   a := ps(1-cos x,x,0);  % series has order 2
+ <br />   ps(a^(1/2),x,0);   % series has order 1
+ <br />   ps(a^(2/3),x,0);   % branch point error
+ <br />   ps(a^pi,x,0);      % logarithmic singularity error
+</div>
+<!--l. 141--><p class="nopar" >
+</p><!--l. 143--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Power series of user deﬁned functions</span>
+</p><!--l. 145--><p class="noindent" >New user-deﬁned functions may be expanded provided the user provides a rule or rule
+list deﬁning the derivative of the function and optionally its value at the expansion point.
+For example
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-478">
+    operator u;
+ <br />    let df(u(~x),~x)= exp(e^x);
+ <br />    let u(0) = e;
+ <br />    ps(u(sin x),x,0);
+</div>
+<!--l. 153--><p class="nopar" > Of course the rules deﬁned must be such that the function actually has a Taylor series
+expansion about the speciﬁed point.
+</p><!--l. 157--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Restrictions and Known Bugs</span>
+</p><!--l. 159--><p class="noindent" >Currently automatic expansion of quotients with an integer denominator does not
+normally occur. One must use:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-479">
+    a:=ps(sin x,x,0);
+ <br />    ps(a/5,x,0);
+ <br />or
+ <br />    on rational;    % or on rounded;
+ <br />    a/5;
+</div>
+<!--l. 167--><p class="nopar" >
+</p><!--l. 169--><p class="noindent" >Currently the following does not produce a power series object (although the result is
+formally valid):
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-480">
+   a := ps(cos x, x, 0);
+ <br />   ps(2^a,x,0);
+ <br /> % instead use:
+ <br />   ps(2^cos x,x,0);
+</div>
+<!--l. 176--><p class="nopar" >
+</p><!--l. 178--><p class="noindent" >If A is a power series object and X is a variable which evaluates to itself then expressions
+such as <span 
+class="pcrr8t-x-x-109">a*x </span>or <span 
+class="pcrr8t-x-x-109">int(a, x); </span>do not automtically expand to a single power series object
+(although the result returned is formally valid). Instead expressions such as
+<span 
+class="pcrr8t-x-x-109">ps(a*x,x,0) </span>and <span 
+class="pcrr8t-x-x-109">ps(int(a,x),x,0 </span>should be used.
+</p><!--l. 184--><p class="noindent" >Currently the handling of essential sigularities is rather erratic; sometimes an Essential
+Singularity or Logarithmic Singularity error message is output, but often the system fails
+rather ungracefully.
+</p><!--l. 188--><p class="noindent" >There is no simple way to write the results of power series calculation to a ﬁle and read
+them back into REDUCE at a later stage.
+</p><!--l. 192--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Taylor Series Expansion</span>
+</p><!--l. 194--><p class="noindent" >The operator <span 
+class="pcrr8t-x-x-109">pstaylor </span>may be used as follows: <a 
+ id="operator:PSTAYLOR"></a> <a 
+ id="dx136-252006"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-481">
+  pstaylor(EXP:algebraic, VAR:kernel,
+ <br />           ABOUT:algebraic):algebraic.
+</div>
+<!--l. 200--><p class="nopar" >
+</p><!--l. 202--><p class="noindent" >which uses the classic Taylor series algorithm for expanding <span 
+class="pcrr8t-x-x-109">EXP </span>and returning an
+extendible Taylor series object.
+</p><!--l. 205--><p class="noindent" >The <span 
+class="pcrr8t-x-x-109">pstaylor </span>operator may be useful in contexts where the operator <span 
+class="pcrr8t-x-x-109">ps</span>
+fails to build a suitable recurrence relation automatically and reports too deep a
+recursion in <span 
+class="pcrr8t-x-x-109">ps!:unknown!-crule</span>. A typical example is the expansion of
+the <span 
+class="cmr-10x-x-109">Γ </span>function about an expansion point which is not a non-positive integer
+<span class="footnote-mark"><a 
+href="manual137.html#fn2x16"><sup class="textsuperscript">2</sup></a></span><a 
+ id="x136-252007f2"></a>.
+</p><!--l. 213--><p class="noindent" >Note, however, that <span 
+class="pcrr8t-x-x-109">pstaylor </span>always returns a <span 
+class="ptmri8t-x-x-109">Taylor </span>series whose order is
+non-negative. Attempting to use <span 
+class="pcrr8t-x-x-109">pstaylor </span>to expand a function about a pole will fail
+with a zero divisor error message.
+</p><!--l. 217--><p class="noindent" >Also in many cases the use of an automatically generated recurrence relation built by <span 
+class="pcrr8t-x-x-109">ps</span>
+is more eﬃcient than using <span 
+class="pcrr8t-x-x-109">pstaylor</span>, particularly if a large number of terms is
+required; expansion of <span 
+class="pcrr8t-x-x-109">tan </span>is a typical example where the number of terms in the nth
+derivative grows exponentially.
+</p>
+<h4 class="subsectionHead"><span class="titlemark">16.2.3    </span> <a 
+ id="x136-25300016.2.3"></a>Printing Power Series</h4>
+<!--l. 225--><p class="noindent" >If the command <span 
+class="pcrr8t-x-x-109">ps </span>or <span 
+class="pcrr8t-x-x-109">pstaylor </span>is terminated by a semi-colon, a power series object is
+compiled and then a number of terms of the power series expansion are evaluated and
+printed.
+</p><!--l. 229--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">psexplim Operator</span>
+</p><!--l. 231--><p class="noindent" >The expansion is carried out as far as the value speciﬁed by an internal variable (with a
+default value of 6). This variable can be accessed via the operator <span 
+class="pcrr8t-x-x-109">psexplim</span>. <a 
+ id="operator:PSEXPLIM"></a>
+<a 
+ id="dx136-253001"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-482">
+  psexplim(UPTO:integer):integer.
+ <br />or
+ <br />  psexplim():integer
+</div>
+<!--l. 240--><p class="nopar" > If <span 
+class="pcrr8t-x-x-109">psexplim </span>is called with an integer value, the internal variable is updated to the value
+of <span 
+class="pcrr8t-x-x-109">UPTO </span>and its previous value is returned. If <span 
+class="pcrr8t-x-x-109">psexplim </span>is called with no argument the
+current value is unaltered and that value is returned.
+</p><!--l. 246--><p class="noindent" >If <span 
+class="pcrr8t-x-x-109">psexplim </span>is used to increase the expansion limit, suﬃcient information is stored in
+the power series object to enable the additional terms to be calculated without
+recalculating the terms already obtained.
+</p><!--l. 250--><p class="noindent" >If the command is terminated by a dollar symbol, a power series object is compiled and
+the ﬁrst term is calculated, but no output is printed.
+</p><!--l. 253--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">psprintorder Switch </span><a 
+ id="switch:PSPRINTORDER"></a> <a 
+ id="dx136-253002"></a><a 
+ id="dx136-253003"></a><a 
+ id="dx136-253004"></a>
+</p><!--l. 257--><p class="noindent" >When the switch <span 
+class="pcrr8t-x-x-109">psprintorder </span>is ON the trailing terms of power series beyond
+<span 
+class="pcrr8t-x-x-109">psexplim </span>are represented in print by a big-O notation, otherwise, three dots are
+printed. This switch is ON by default. However, if expression being expanded
+is a polynomial in the expansion variable and all non-zero terms have been
+output then the big-O or trailing dots are omitted to indicate that the series is
+complete.
+</p><!--l. 264--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">16.2.4    </span> <a 
+ id="x136-25400016.2.4"></a>Accessor Functions</h4>
+<!--l. 265--><p class="noindent" >In this section a number of accessor functions which allow the user to extract information
+such as the dependent variable, expansion point, a particular term etc. of a power series
+object.
+</p><!--l. 269--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">psdepvar Operator </span><a 
+ id="operator:PSDEPVAR"></a> <a 
+ id="dx136-254001"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-483">
+  psdepvar(TPS:power series object):identifier.
+</div>
+<!--l. 274--><p class="nopar" > The operator <span 
+class="pcrr8t-x-x-109">psdepvar </span>returns the expansion variable of the power series object TPS.
+TPS should evaluate to a power series object or an integer, otherwise an error results. If
+TPS is an integer, the identiﬁer <span 
+class="pcrr8t-x-x-109">undefined </span>is returned.
+</p><!--l. 280--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">psexpansionpt operator </span><a 
+ id="operator:PSEXPANSIONPT"></a> <a 
+ id="dx136-254002"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-484">
+  psexpansionpt(TPS:power-series-object):algebraic.
+</div>
+<!--l. 285--><p class="nopar" > The operator <span 
+class="pcrr8t-x-x-109">psexpansionpt </span>returns the expansion point of the power series object
+TPS. TPS should evaluate to a power series object or an integer, otherwise an error
+results. If TPS is an integer, the identiﬁer <span 
+class="pcrr8t-x-x-109">undefined </span>is returned. If the expansion is
+about inﬁnity, the identiﬁer <span 
+class="pcrr8t-x-x-109">infinity </span>is returned.
+</p><!--l. 293--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">psfunction Operator </span><a 
+ id="operator:PSFUNCTION"></a> <a 
+ id="dx136-254003"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-485">
+  psfunction(TPS:power-series-object):algebraic.
+</div>
+<!--l. 298--><p class="nopar" > The operator <span 
+class="pcrr8t-x-x-109">psfunction </span>returns the function whose expansion gave rise to the power
+series object TPS. TPS should evaluate to a power series object or an integer, otherwise
+an error results.
+</p><!--l. 304--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">psterm Operator </span><a 
+ id="operator:PSTERM"></a> <a 
+ id="dx136-254004"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-486">
+  psterm(TPS:power-series-object,
+ <br />         NTH:integer):algebraic.
+</div>
+<!--l. 310--><p class="nopar" > The operator <span 
+class="pcrr8t-x-x-109">psterm </span>returns the NTH term of the existing power series object TPS. If
+NTH does not evaluate to an integer or TPS to a power series object an error results. It
+should be noted that an integer is treated as a power series.
+</p><!--l. 316--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">psorder Operator </span><a 
+ id="operator:PSORDER"></a> <a 
+ id="dx136-254005"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-487">
+  psorder(TPS:power-series-object):integer.
+</div>
+<!--l. 321--><p class="nopar" > The operator <span 
+class="pcrr8t-x-x-109">psorder </span>returns the order, that is the degree of the ﬁrst non-zero term, of
+the power series object TPS. TPS should evaluate to a power series object or an error
+results. If TPS is zero, the identiﬁer <span 
+class="pcrr8t-x-x-109">undefined </span>is returned.
+</p><!--l. 327--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">pstruncate Operator </span><a 
+ id="operator:PSTRUNCATE"></a> <a 
+ id="dx136-254006"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-488">
+  pstruncate(TPS:power-series-object,
+ <br />             POWER:integer):algebraic.
+</div>
+<!--l. 333--><p class="nopar" > This procedure truncates the power series <span 
+class="pcrr8t-x-x-109">TPS </span>discarding terms of order higher than
+<span 
+class="pcrr8t-x-x-109">POWER</span>. The series is extended automatically if the value of <span 
+class="pcrr8t-x-x-109">POWER </span>is greater than the
+order of last term calculated to date. For example
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-489">
+    a := ps(sin x, x, 0);
+ <br />    pstruncate(a, 11);
+</div>
+<!--l. 341--><p class="nopar" > will output the eleventh order polynomial resulting in truncating the series for <span 
+class="cmmi-10x-x-109">sinx </span>after
+the term involving <span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmr-8">11</span></sup>.
+</p><!--l. 345--><p class="noindent" >If <span 
+class="pcrr8t-x-x-109">POWER </span>is less than the order of the series then <span 
+class="cmr-10x-x-109">0 </span>is returned. If <span 
+class="pcrr8t-x-x-109">POWER </span>does not
+simplify to an integer or if <span 
+class="pcrr8t-x-x-109">TPS </span>is not a power series object then a Reduce error
+result.
+</p><!--l. 350--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">16.2.5    </span> <a 
+ id="x136-25500016.2.5"></a>Power Series Reversion</h4>
+<!--l. 351--><p class="noindent" ><a 
+ id="operator:PSREVERSE"></a> <a 
+ id="dx136-255001"></a> <a 
+ id="dx136-255002"></a>In order to functionally invert a power series the operator <span 
+class="pcrr8t-x-x-109">psreverse </span>is
+used.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-490">
+    psreverse(TPS:power-series-object)
+ <br />              :power-series-object
+</div>
+<!--l. 359--><p class="nopar" > Four cases arise:
+</p><!--l. 363--><p class="noindent" >
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   1. </dt><dd 
+class="enumerate-enumitem">If the order of the series is 1, then the expansion point of the inverted series
+     is 0.
+     </dd><dt class="enumerate-enumitem">
+   2. </dt><dd 
+class="enumerate-enumitem">If  the  order  is  0  <span 
+class="ptmri8t-x-x-109">and  </span>if  the  ﬁrst  order  term  in  TPS  is  non-zero,  then  the
+     expansion point of the inverted series is taken to be the coeﬃcient of the
+     zeroth order term in TPS.
+     </dd><dt class="enumerate-enumitem">
+   3. </dt><dd 
+class="enumerate-enumitem">If the order is -1 the expansion point of the inverted series is the point at
+     inﬁnity. In all other cases a REDUCE error is reported because the series
+     cannot be inverted as a power series. Puiseux <a 
+ id="dx136-255006"></a>expansion would be required
+     to handle these cases.
+     </dd><dt class="enumerate-enumitem">
+   4. </dt><dd 
+class="enumerate-enumitem">If the expansion point of TPS is ﬁnite it becomes the zeroth order term in the
+     inverted series. For expansion about 0 or the point at inﬁnity the order of the
+     inverted series is one.</dd></dl>
+<!--l. 381--><p class="noindent" >If TPS is not a power series object after evaluation an error results.
+</p><!--l. 383--><p class="noindent" >Some examples:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-491">
+ps(sin x,x,0);
+ <br />psreverse(ws); % produces series for asin x about x=0.
+ <br />ps(exp x,x,0);
+ <br />psreverse ws; % produces series for log x about x=1.
+ <br />ps(sin(1/x),x,infinity);
+ <br />psreverse(ws); % series for 1/asin(x) about x=0.
+</div>
+<!--l. 391--><p class="nopar" >
+</p><!--l. 393--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">16.2.6    </span> <a 
+ id="x136-25600016.2.6"></a>Power Series Composition</h4>
+<!--l. 394--><p class="noindent" ><a 
+ id="operator:PSCOMPOSE"></a> <a 
+ id="dx136-256001"></a> <a 
+ id="dx136-256002"></a>In order to functionally compose two power series the operator <span 
+class="pcrr8t-x-x-109">pscompose </span>is
+used.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-492">
+   pscompose(TPS1:power-series-object,
+ <br />             TPS2:power-series-object)
+ <br />             :power-series-object
+</div>
+<!--l. 403--><p class="nopar" > The power series TPS1 and TPS2 are functionally composed; that is to say that
+TPS2 is substituted for the expansion variable in TPS1 and the result expressed
+as a power series. The dependent variable and expansion point of the result
+coincide with those of TPS2. The following conditions apply to power series
+composition:
+</p><!--l. 412--><p class="noindent" >
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   1. </dt><dd 
+class="enumerate-enumitem">If the expansion point of TPS1 is 0 then the order of the TPS2 must be at
+     least 1.
+     </dd><dt class="enumerate-enumitem">
+   2. </dt><dd 
+class="enumerate-enumitem">If the expansion point of TPS1 is ﬁnite, it should coincide with the coeﬃcient
+     of  the  zeroth  order  term  in  TPS2.  The  order  of  TPS2  should  also  be
+     non-negative in this case.
+     </dd><dt class="enumerate-enumitem">
+   3. </dt><dd 
+class="enumerate-enumitem">If the expansion point of TPS1 is the point at inﬁnity then the order of TPS2
+     must be less than or equal to -1.</dd></dl>
+<!--l. 423--><p class="noindent" >If these conditions do not hold the series cannot be composed (with the current algorithm
+terms of the inverted series would involve inﬁnite sums) and a REDUCE error
+occurs.
+</p><!--l. 427--><p class="noindent" >Some examples:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-493">
+  a:=ps(exp y,y,0);  b:=ps(sin x,x,0);
+ <br />  pscompose(a,b);
+ <br />  % Produces the power series expansion of exp(sin x)
+ <br />  % about x=0.
+ <br />
+ <br />  a:=ps(exp z,z,1); b:=ps(cos x,x,0);
+ <br />  pscompose(a,b);
+ <br />  % Produces the power series expansion of exp(cos x)
+ <br />  % about x=0.
+ <br />
+ <br />  a:=ps(cos(1/x),x,infinity);  b:=ps(1/sin x,x,0);
+ <br />  pscompose(a,b);
+ <br />  % Produces the power series expansion of cos(sin x)
+ <br />  % about x=0.
+</div>
+<!--l. 443--><p class="nopar" >
+</p><!--l. 445--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">16.2.7    </span> <a 
+ id="x136-25700016.2.7"></a>pssum Operator</h4>
+<!--l. 446--><p class="noindent" ><a 
+ id="operator:PSSUM"></a> <a 
+ id="dx136-257001"></a> If an expression is known for the nth term of a power series, an extendible power series
+object may be constructed by the operator <span 
+class="pcrr8t-x-x-109">pssum</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-494">
+   pssum(J:kernel = LOWLIM:integer,
+ <br />         COEFF:algebraic, X:kernel,
+ <br />         ABOUT:algebraic, POWER:algebraic)
+ <br />         :power-series-object
+</div>
+<!--l. 456--><p class="nopar" >
+</p><!--l. 458--><p class="noindent" >The formal power series sum for J from LOWLIM to <span 
+class="pcrr8t-x-x-109">infinity </span>of
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-495">
+      COEFF*(X-ABOUT)**POWER
+</div>
+<!--l. 461--><p class="nopar" > when <span 
+class="pcrr8t-x-x-109">ABOUT </span>is ﬁnite or zero, whereas if ABOUT is <span 
+class="pcrr8t-x-x-109">infinity</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-496">
+      COEFF*(1/X)**POWER
+</div>
+<!--l. 465--><p class="nopar" > is constructed and returned. This enables power series whose general term is known to
+be constructed and manipulated using the other procedures of the power series
+package.
+</p><!--l. 470--><p class="noindent" >J and X should be distinct simple kernels. The algebraics ABOUT, COEFF and POWER
+should not depend on the expansion variable X, similarly the algebraic ABOUT should
+not depend on the summation variable J. The algebraic POWER should be a
+strictly increasing integer-valued function of J for J in the range LOWLIM to
+<span 
+class="pcrr8t-x-x-109">infinity</span>.
+</p><!--l. 477--><p class="noindent" >Some examples:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-497">
+pssum(n=0,1,x,0,n*n);
+ <br />% Produces the power series summation for n=0 to
+ <br />% infinity of x**(n*n).
+ <br />
+ <br />pssum(n=1,n,x,0,n);
+ <br />% Produces the power series summation for n=1 to
+ <br />% infinity of n*x**n.
+ <br />
+ <br />pssum(m=1,(-1)**(m-1)/(2m-1),y,1,2m-1);
+ <br />% Produces a power series which is actually the
+ <br />% expansion of atan(y-1)  about y=1.
+ <br />
+ <br />pssum(j=1,-1/j,x,infinity,j);
+ <br />% Produces a power series which is actually the
+ <br />% expansion of log(1-1/x) about the point at infinity.
+ <br />
+ <br />pssum(n=0,1,x,0,2n**2+3n) + pssum(n=1,1,x,0,2n**2-3n);
+ <br />% Produces the power series summation for n=-infinity
+ <br />% to +infinity of x**(2n**2+3n).
+</div>
+<!--l. 498--><p class="nopar" > It should be noted that a formal power series is produced which may not have
+a non-zero radius of convergence; the second example above illustrates this.
+Nevertheless these formal series may be added, multiplied, diﬀerentiated etc. by the
+TPS package. Of course, in general the result may also have a zero radius of
+convergence.
+</p><!--l. 505--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">16.2.8    </span> <a 
+ id="x136-25800016.2.8"></a>Miscellaneous Operators</h4>
+<!--l. 507--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">pscopy Operator </span><a 
+ id="operator:PSCOPY"></a> <a 
+ id="dx136-258001"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-498">
+   pscopy(TPS:power-series-object):power-series-object
+</div>
+<!--l. 512--><p class="nopar" > This procedure returns a copy of the power series <span 
+class="pcrr8t-x-x-109">TPS</span>. The copy has no shared
+sub-structures in common with the original series. This enables substitutions to be
+performed on the series without side-eﬀects on previously computed objects. For
+example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-499">
+    clear a;
+ <br />    b := ps(sin(a*x)), x, 0);
+ <br />    b where a =&#x003E; 1;
+</div>
+<!--l. 521--><p class="nopar" >
+</p><!--l. 523--><p class="noindent" >will result in <span 
+class="pcrr8t-x-x-109">a </span>being set to 1 in each of the terms of the power series and the resulting
+expressions being simpliﬁed. Owing to the way power series objects are implemented
+using Lisp vectors, this has the side-eﬀect that the value of <span 
+class="pcrr8t-x-x-109">b </span>is changed. This may be
+avoided by copying the series with   <span 
+class="pcrr8t-x-x-109">pscopy </span>before applying the substitution,
+thus:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-500">
+    b := ps(sin(a*x)), x, 0);
+ <br />    pscopy b where a =&#x003E; 1;
+</div>
+<!--l. 532--><p class="nopar" >
+</p><!--l. 534--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">pschangevar Operator </span><a 
+ id="operator:PSCHANGEVAR"></a> <a 
+ id="dx136-258002"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-501">
+    pschangevar(TPS:power-series-object,
+ <br />                X:kernel):power-series-object
+</div>
+<!--l. 540--><p class="nopar" > The operator <span 
+class="pcrr8t-x-x-109">pschangevar </span>changes the dependent variable of the power series object
+TPS to the variable X. TPS should evaluate to a power series object and X to a kernel,
+otherwise an error results. Also X should not appear as a parameter in TPS. The power
+series with the new dependent variable is returned.
+</p><!--l. 547--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">psordlim Operator </span><a 
+ id="operator:PSORDLIM"></a> <a 
+ id="dx136-258003"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-502">
+   psordlim(UPTO:integer):integer
+ <br />or
+ <br />   psordlim():integer
+</div>
+<!--l. 554--><p class="nopar" > An internal variable is set to the value of <span 
+class="pcrr8t-x-x-109">UPTO </span>(which should evaluate to an
+integer). The value returned is the previous value of the variable. The default
+value is 100. If <span 
+class="pcrr8t-x-x-109">psordlim </span>is called with no argument, the current value is
+returned.
+</p><!--l. 560--><p class="noindent" >The signiﬁcance of this control is that the system attempts to ﬁnd the order of the power
+series required, that is the order is the degree of the ﬁrst non-zero term in the power
+series. If the order is greater than the value of this variable an error message is given
+and the computation aborts. This prevents inﬁnite loops in certain cases, for
+example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-503">
+    a:=ps(1-(cos x)^2,x,0);
+ <br />    b :=ps((sin x)^2,x,0);
+ <br />    b-a;
+</div>
+<!--l. 570--><p class="nopar" > This will also occur in the rather unlikely situation where the expression being expanded
+is
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   1. </dt><dd 
+class="enumerate-enumitem">identically zero, but is not recognized as such by REDUCE;
+     </dd><dt class="enumerate-enumitem">
+   2. </dt><dd 
+class="enumerate-enumitem">and its derivatives are not recognized as identically zero by Reduce;
+     </dd><dt class="enumerate-enumitem">
+   3. </dt><dd 
+class="enumerate-enumitem">but the values of all derivatives at the expansion point are simpliﬁed to zero
+     by REDUCE.</dd></dl>
+<!--l. 24--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 26--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch16.html#manualse106.html" >Up</a></td><td class="clinks"><a 
+href="manualse107.html" >Next</a></td><td class="clinks"><a 
+href="manualse105.html" >Prev</a></td><td class="clinks"><a 
+href="manualse105.html#tailmanualse105.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse106.html" >Front</a></td></tr></table><a 
+ id="tailmanualse106.html"></a>  </p> 
+</body> 
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>SUB Operator</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch11.html#manualse79.html" >Up</a></td><td class="clinks"><a 
+href="manualse80.html" >Next</a></td><td class="clinks"><a 
+href="#tailmanualse79.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">11.1    </span> <a 
+ id="x102-19900011.1"></a>SUB Operator</h3>
+<a 
+ id="dx102-199001"></a>
+<!--l. 11--><p class="noindent" ><a 
+ id="operator:SUB"></a>
+</p><!--l. 13--><p class="noindent" >Syntax:
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">sub(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">substitution_list</span><span 
+class="cmsy-10x-x-109">⟩</span>, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exprn1:algebraic</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">) </span>: <span 
+class="ptmri8t-x-x-109">algebraic</span></div>
+<!--l. 17--><p class="noindent" >where <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">substitution_list</span><span 
+class="cmsy-10x-x-109">⟩ </span>is a list of one or more equations of the form
+  </p><div class="syntax">
+   <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">var:kernel</span><span 
+class="cmsy-10x-x-109">⟩ </span><span 
+class="pcrr8t-x-x-109">= </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exprn:algebraic</span><span 
+class="cmsy-10x-x-109">⟩</span></div>
+<!--l. 22--><p class="noindent" >or a kernel that evaluates to such a list.
+</p><!--l. 24--><p class="noindent" >The <span 
+class="pcrr8t-x-x-109">sub </span>operator gives the algebraic result of replacing every occurrence of the variable
+<span 
+class="pcrr8t-x-x-109">var </span>in the expression <span 
+class="pcrr8t-x-x-109">exprn1 </span>by the expression <span 
+class="pcrr8t-x-x-109">exprn</span>. Speciﬁcally, <span 
+class="pcrr8t-x-x-109">exprn1 </span>is ﬁrst
+evaluated using all available rules. Next the substitutions are made, and ﬁnally the
+substituted expression is reevaluated. When more than one variable occurs in the
+substitution list, the substitution is performed by recursively walking down the
+tree representing <span 
+class="pcrr8t-x-x-109">exprn1</span>, and replacing every <span 
+class="pcrr8t-x-x-109">var </span>found by the appropriate
+<span 
+class="pcrr8t-x-x-109">exprn</span>. The <span 
+class="pcrr8t-x-x-109">exprn </span>are not themselves searched for any occurrences of the
+                                                                     
+
+                                                                     
+various <span 
+class="pcrr8t-x-x-109">var</span>s. The trivial case <span 
+class="pcrr8t-x-x-109">sub(exprn1) </span>returns the algebraic value of
+<span 
+class="pcrr8t-x-x-109">exprn1</span>.
+</p><!--l. 36--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Examples:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-367">
+sub({x=a+y,y=y+1},x^2+y^2);
+ <br />
+ <br /> 2              2
+ <br />a  + 2*a*y + 2*y  + 2*y + 1
+</div>
+<!--l. 42--><p class="nopar" > and
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-368">
+s := {x=a+y,y=y+1}$
+ <br />
+ <br />sub(s,x^2+y^2);
+ <br />
+ <br /> 2              2
+ <br />a  + 2*a*y + 2*y  + 2*y + 1
+</div>
+<!--l. 51--><p class="nopar" > Note that the global assignments <span 
+class="pcrr8t-x-x-109">x:=a+y</span>, etc., do not take place.
+</p><!--l. 54--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">exprn1 </span>can be any valid algebraic expression whose type is such that a substitution
+process is deﬁned for it (e.g., scalar expressions, lists and matrices). An error will occur
+if an expression of an invalid type for substitution occurs either in <span 
+class="pcrr8t-x-x-109">exprn </span>or
+<span 
+class="pcrr8t-x-x-109">exprn1</span>.
+</p><!--l. 59--><p class="noindent" >The braces around the substitution list may also be omitted, as in:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-369">
+sub(x=a+y,y=y+1,x^2+y^2);
+ <br />
+ <br /> 2              2
+ <br />a  + 2*a*y + 2*y  + 2*y + 1
+</div>
+<!--l. 65--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p><!--l. 67--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch11.html#manualse79.html" >Up</a></td><td class="clinks"><a 
+href="manualse80.html" >Next</a></td><td class="clinks"><a 
+href="manualse79.html" >Front</a></td></tr></table><a 
+ id="tailmanualse79.html"></a> </p> 
+</body> 
+</html>

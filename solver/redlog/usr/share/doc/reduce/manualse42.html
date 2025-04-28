@@ -1,0 +1,335 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>RESIDUE and POLEORDER Operators</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse42.html" >Up</a></td><td class="clinks"><a 
+href="manualse43.html" >Next</a></td><td class="clinks"><a 
+href="manualse41.html" >Prev</a></td><td class="clinks"><a 
+href="manualse41.html#tailmanualse41.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse42.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">7.15    </span> <a 
+ id="x53-980007.15"></a>RESIDUE and POLEORDER Operators</h3>
+<a 
+ id="dx53-98001"></a>
+<a 
+ id="dx53-98002"></a>
+<!--l. 1863--><p class="noindent" ><a 
+ id="operator:RESIDUE"></a> <a 
+ id="operator:POLEORDER"></a>
+</p><!--l. 1866--><p class="noindent" >The residue <span 
+class="cmr-10x-x-109">Res</span><sub><span 
+class="cmmi-8">z</span><span 
+class="cmr-8">=</span><span 
+class="cmmi-8">a</span></sub><span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) </span>of a function <span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) </span>at the point <span 
+class="cmmi-10x-x-109">a </span><span 
+class="cmsy-10x-x-109">∈ </span><span 
+class="msbm-10x-x-109">ℂ </span>is deﬁned as
+</p>
+<table 
+class="equation-star"><tr><td>
+                     <span 
+class="cmr-10x-x-109">Res</span><sub><span 
+class="cmmi-8">z</span><span 
+class="cmr-8">=</span><span 
+class="cmmi-8">a</span></sub><span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) =</span> <img 
+src="manual43x.png" alt="-1--
+2πi"  class="frac" align="middle" /><span 
+class="cmex-10x-x-109">∮</span>
+     <span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">dz,</span>
+</td></tr></table>
+<!--l. 1873--><p class="nopar" >
+with integration along a closed curve around <span 
+class="cmmi-10x-x-109">z </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">a </span>with winding number 1.
+</p><!--l. 1876--><p class="noindent" >If <span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) </span>is given by a Laurent series expansion at <span 
+class="cmmi-10x-x-109">z </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">a</span>
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                     <span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) =</span> <span 
+class="cmex-10x-x-109">∑</span>
+  <sub><span 
+class="cmmi-8">k</span><span 
+class="cmr-8">=</span><span 
+class="cmsy-8">−∞</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><span 
+class="cmmi-10x-x-109">a</span><sub>
+<span 
+class="cmmi-8">k</span></sub><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">a</span><span 
+class="cmr-10x-x-109">)</span><sup><span 
+class="cmmi-8">k</span></sup><span 
+class="cmmi-10x-x-109">,</span>
+</td></tr></table>
+<!--l. 1880--><p class="nopar" >
+then
+</p>
+<table 
+class="equation"><tr><td><a 
+ id="x53-98003r1"></a>
+<center class="math-display" >
+<img 
+src="manual44x.png" alt="Rze=sa f(z) = a− 1.
+" class="math-display"  /></center></td><td class="equation-label">(7.1)</td></tr></table>
+<!--l. 1886--><p class="nopar" >
+If <span 
+class="cmmi-10x-x-109">a </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">∞</span>, one deﬁnes on the other hand
+</p>
+<table 
+class="equation"><tr><td><a 
+ id="x53-98004r2"></a>
+<center class="math-display" >
+<img 
+src="manual45x.png" alt="Res f (z) = − a−1
+z=∞
+" class="math-display"  /></center></td><td class="equation-label">(7.2)</td></tr></table>
+<!--l. 1891--><p class="nopar" >
+for given Laurent representation
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                       <span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) =</span> <span 
+class="cmex-10x-x-109">∑</span>
+  <sub><span 
+class="cmmi-8">k</span><span 
+class="cmr-8">=</span><span 
+class="cmsy-8">−∞</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><span 
+class="cmmi-10x-x-109">a</span><sub>
+<span 
+class="cmmi-8">k</span></sub><span style="margin-left:0.3em" class="thinspace"></span><img 
+src="manual46x.png" alt="1--
+zk"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 1896--><p class="nopar" >
+The operator <span 
+class="pcrr8t-x-x-109">residue(f,z,a) </span>determines the residue of <span 
+class="cmmi-10x-x-109">f </span>at the
+point <span 
+class="cmmi-10x-x-109">z </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">a </span>if <span 
+class="cmmi-10x-x-109">f </span>is meromorphic at <span 
+class="cmmi-10x-x-109">z </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">a</span>. The calculation of residues at
+essential singularities of <span 
+class="cmmi-10x-x-109">f </span>is not supported, as are the residues of factorial
+terms.<span class="footnote-mark"><a 
+href="manual54.html#fn2x7"><sup class="textsuperscript">2</sup></a></span><a 
+ id="x53-98005f2"></a> 
+<a 
+ id="dx53-98006"></a><a 
+ id="dx53-98007"></a>
+</p><!--l. 1902--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">poleorder(f,z,a) </span>determines the pole order of <span 
+class="cmmi-10x-x-109">f </span>at the point <span 
+class="cmmi-10x-x-109">z </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">a </span>if <span 
+class="cmmi-10x-x-109">f </span>is
+meromorphic at <span 
+class="cmmi-10x-x-109">z </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">a</span>.
+</p><!--l. 1905--><p class="noindent" >Note that both functions use the operator <span 
+class="pcrr8t-x-x-109">taylor </span>in connection with representations
+(<a 
+href="#x53-98003r1">7.1<!--tex4ht:ref: eq:Laurent --></a>)–(<a 
+href="#x53-98004r2">7.2<!--tex4ht:ref: eq:Laurent2 --></a>).
+</p><!--l. 1908--><p class="noindent" >Here are some examples:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-168">
+2: residue(x/(x^2-2),x,sqrt(2));
+ <br />
+ <br /> 1
+ <br />---
+ <br /> 2
+ <br />
+ <br />3: poleorder(x/(x^2-2),x,sqrt(2));
+ <br />
+ <br />1
+ <br />
+ <br />4: residue(sin(x)/(x^2-2),x,sqrt(2));
+ <br />
+ <br /> sqrt(2)*sin(sqrt(2))
+ <br />----------------------
+ <br />          4
+ <br />
+ <br />5: poleorder(sin(x)/(x^2-2),x,sqrt(2));
+ <br />
+ <br />1
+ <br />
+ <br />6: residue(1/(x-1)^m/(x-2)^2,x,2);
+ <br />
+ <br /> - m
+ <br />
+ <br />7: poleorder(1/(x-1)/(x-2)^2,x,2);
+ <br />
+ <br />2
+ <br />
+ <br />8: residue(sin(x)/x^2,x,0);
+ <br />
+ <br />1
+ <br />
+ <br />9: poleorder(sin(x)/x^2,x,0);
+ <br />
+ <br />1
+ <br />
+ <br />10: residue((1+x^2)/(1-x^2),x,1);
+ <br />
+ <br />-1
+ <br />
+ <br />11: poleorder((1+x^2)/(1-x^2),x,1);
+ <br />
+ <br />1
+                                                                     
+
+                                                                     
+ <br />
+ <br />12: residue((1+x^2)/(1-x^2),x,-1);
+ <br />
+ <br />1
+ <br />
+ <br />13: poleorder((1+x^2)/(1-x^2),x,-1);
+ <br />
+ <br />1
+ <br />
+ <br />14: residue(tan(x),x,pi/2);
+ <br />
+ <br />-1
+ <br />
+ <br />15: poleorder(tan(x),x,pi/2);
+ <br />
+ <br />1
+ <br />
+ <br />16: residue((x^n-y^n)/(x-y),x,y);
+ <br />
+ <br />0
+ <br />
+ <br />17: poleorder((x^n-y^n)/(x-y),x,y);
+ <br />
+ <br />0
+ <br />
+ <br />18: residue((x^n-y^n)/(x-y)^2,x,y);
+ <br />
+ <br />  n
+ <br /> y *n
+ <br />------
+ <br />  y
+ <br />
+ <br />19: poleorder((x^n-y^n)/(x-y)^2,x,y);
+ <br />
+ <br />1
+ <br />
+ <br />20: residue(tan(x)/sec(x-pi/2)+1/cos(x),x,pi/2);
+ <br />
+ <br />-2
+ <br />
+ <br />21: poleorder(tan(x)/sec(x-pi/2)+1/cos(x),x,pi/2);
+ <br />
+ <br />1
+ <br />
+ <br />22: for k:=1:2 sum residue((a+b*x+c*x^2)/(d+e*x+f*x^2),x,
+ <br />    part(part(solve(d+e*x+f*x^2,x),k),2));
+ <br />
+ <br /> b*f - c*e
+ <br />-----------
+                                                                     
+
+                                                                     
+ <br />     2
+ <br />    f
+ <br />
+ <br />23: residue(x^3/sin(1/x)^2,x,infinity);
+ <br />
+ <br />  - 1
+ <br />------
+ <br />  15
+ <br />
+ <br />24: residue(x^3*sin(1/x)^2,x,infinity);
+ <br />
+ <br />-1
+ <br />
+ <br />25: residue(gamma(x),x,-1);
+ <br />
+ <br />-1
+ <br />
+ <br />26: residue(psi(x),x,-1);
+ <br />
+ <br />-1
+ <br />
+ <br />27: on fullroots;
+ <br />
+ <br />28: for k:=1:3 sum
+ <br />28: residue((a+b*x+c*x^2+d*x^3)/(e+f*x+g*x^2+h*x^3),x,
+ <br />28: part(part(solve(e+f*x+g*x^2+h*x^3,x),k),2));
+ <br />
+ <br />0
+</div>
+<!--l. 2031--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p><!--l. 2034--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse42.html" >Up</a></td><td class="clinks"><a 
+href="manualse43.html" >Next</a></td><td class="clinks"><a 
+href="manualse41.html" >Prev</a></td><td class="clinks"><a 
+href="manualse41.html#tailmanualse41.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse42.html" >Front</a></td></tr></table><a 
+ id="tailmanualse42.html"></a> </p> 
+</body> 
+</html>

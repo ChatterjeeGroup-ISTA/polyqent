@@ -1,0 +1,1960 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>CDIFF: A Package for Computations in Geometry of Diﬀerential Equations</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse136.html" >Up</a></td><td class="clinks"><a 
+href="manualse137.html" >Next</a></td><td class="clinks"><a 
+href="manualse135.html" >Prev</a></td><td class="clinks"><a 
+href="manualse135.html#tailmanualse135.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse136.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.11    </span> <a 
+ id="x202-54500020.11"></a>CDIFF: A Package for Computations in Geometry of
+Diﬀerential Equations</h3>
+<a 
+ id="dx202-545001"></a>
+<a 
+ id="dx202-545002"></a>
+<!--l. 239--><p class="noindent" >Authors: P. Gragert, P.H.M. Kersten, G. Post and G. Roelofs.
+<a 
+ id="dx202-545003"></a>
+<a 
+ id="dx202-545004"></a>
+<a 
+ id="dx202-545005"></a>
+<a 
+ id="dx202-545006"></a>
+<a 
+ id="dx202-545007"></a>
+<a 
+ id="dx202-545008"></a>
+<a 
+ id="dx202-545009"></a>
+<a 
+ id="dx202-545010"></a>
+<a 
+ id="dx202-545011"></a>
+<a 
+ id="dx202-545012"></a>
+</p><!--l. 52--><p class="noindent" >Author of this Section: R. Vitolo.
+</p><!--l. 54--><p class="noindent" >We describe CDIFF, a Reduce package for computations in geometry of Diﬀerential
+Equations (DEs, for short) developed by P. Gragert, P.H.M. Kersten, G. Post and
+G. Roelofs from the University of Twente, The Netherlands.
+</p><!--l. 59--><p class="noindent" >The package is part of the oﬃcial REDUCE distribution at Sourceforge <span class="cite">[<a 
+href="manualap2.html#XReduce:Obtaining">Red</a>]</span>,
+but it is also distributed on the Geometry of Diﬀerential Equations web site
+<a 
+href="http://gdeq.org" class="url" ><span 
+class="pcrr8t-x-x-109">http://gdeq.org</span></a> (GDEQ for short).
+</p><!--l. 63--><p class="noindent" >We start from an installation guide for Linux and Windows. Then we focus on concrete
+usage recipes for the computation of higher symmetries, conservation laws, Hamiltonian
+and recursion operators for polynomial diﬀerential equations. All programs discussed
+here are shipped together with this manual and can be found at the GDEQ website.
+The mathematical theory on which computations are based can be found in
+refs. <span class="cite">[<a 
+href="manualap2.html#XKrasilshchik:99">BCD<sup><span 
+class="cmr-8">+</span></sup>99</a>, <a 
+href="manualap2.html#XKerstenKrasilshchikVerboretsky:2004">KKV04</a>]</span>.
+</p><!--l. 70--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">NOTE: </span>The new REDUCE package <span 
+class="ptmrc8t-x-x-109">C<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span> </span><span class="cite">[<a 
+href="manualap2.html#XVitolo:CDE">Vit</a>]</span>, also distributed on <a 
+href="http://gdeq.org" class="url" ><span 
+class="pcrr8t-x-x-109">http://gdeq.org</span></a>,
+simpliﬁes the use of CDIFF and extends its capabilities. Interested users may read the
+manual of <span 
+class="ptmrc8t-x-x-109">C<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span> </span>where the same computations described here for CDIFF are done in a
+simpler way, and further capabilities allow <span 
+class="ptmrc8t-x-x-109">C<span 
+class="small-caps">D</span><span 
+class="small-caps">E</span> </span>to solve a greater variety of
+problems.
+                                                                     
+
+                                                                     
+</p><!--l. 79--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.11.1    </span> <a 
+ id="x202-54600020.11.1"></a>Introduction</h4>
+<!--l. 81--><p class="noindent" >This brief guide refers to using CDIFF, a set of symbolic computation programs devoted
+to computations in geometry of DEs and developed by P. Gragert, P.H.M. Kersten, G.
+Post and G. Roelofs at the University of Twente, The Netherlands.
+</p><!--l. 86--><p class="noindent" >Initially, the development of the CDIFF packages was started by Gragert and Kersten for
+symmetry computations in DEs, then they have been partly rewritten and extended by
+Roelofs and Post. The CDIFF packages consist of 3 program ﬁles plus a utility ﬁle; only
+the main three ﬁles are documented <span class="cite">[<a 
+href="manualap2.html#XRoelofs:92">Roe92b</a>, <a 
+href="manualap2.html#XRoelofs:92a">Roe92a</a>, <a 
+href="manualap2.html#XPost:96">Pos96</a>]</span>. The CDIFF
+packages, as well as a copy of the documentation (including this manual) and
+several example programs, can be found both at Sourceforge in the sources of
+REDUCE <span class="cite">[<a 
+href="manualap2.html#XReduce:Obtaining">Red</a>]</span> and in the Geometry of Diﬀerential Equations (GDEQ for short)
+web site <span class="cite">[<a 
+href="manualap2.html#Xgdeq">gde</a>]</span>. The name of the packages, CDIFF, comes from the fact that the
+package is aimed at deﬁning diﬀerential operators in total derivatives and do
+computations involving them. Such operators are called <span 
+class="cmsy-10x-x-109">𝒞</span><span 
+class="ptmri8t-x-x-109">-diﬀerential operators </span>(see
+<span class="cite">[<a 
+href="manualap2.html#XKrasilshchik:99">BCD<sup><span 
+class="cmr-8">+</span></sup>99</a>]</span>).
+</p><!--l. 99--><p class="noindent" >The main motivation for writing this manual was that REDUCE 3.8 recently became free
+software, and can be downloaded here <span class="cite">[<a 
+href="manualap2.html#XReduce:Obtaining">Red</a>]</span>. For this reason, we are able to make
+our computations accessible to a wider public, also thanks to the inclusion of
+CDIFF in the oﬃcial REDUCE distribution. The readers are warmly invited to
+send questions, comments, etc., both on the computations and on the technical
+aspects of installation and conﬁguration of REDUCE, to the author of the present
+manual.
+</p><!--l. 107--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Acknowledgements. </span>My warmest thanks are for Paul H.M. Kersten, who explained to
+me how to use the CDIFF packages for several computations of interest in the Geometry
+of Diﬀerential Equations. I also would like to thank I.S. Krasil’shchik and A.M.
+Verbovetsky for constant support and stimulating discussions which led me to write this
+text.
+</p><!--l. 113--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.11.2    </span> <a 
+ id="x202-54700020.11.2"></a>Computing with CDIFF</h4>
+<!--l. 115--><p class="noindent" >In order to use CDIFF it is necessary to load the package by the command
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-967">
+load_package cdiff;
+</div>
+<!--l. 118--><p class="nopar" >
+</p><!--l. 120--><p class="noindent" >All programs that we will discuss in this manual can be found inside the subfolder
+<span 
+class="pcrr8t-x-x-109">examples </span>in the folder which contains this manual. In order to run them just
+do
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-968">
+in &#x0022;filename.red&#x0022;;
+</div>
+<!--l. 125--><p class="nopar" > at the REDUCE command prompt.
+</p><!--l. 128--><p class="noindent" >There are some conventions that I adopted on writing programs which use CDIFF.
+</p>
+     <ul class="itemize1">
+     <li class="itemize">Program  ﬁles  have  the  extension  <span 
+class="pcrr8t-x-x-109">.red</span>.  This  will  load  automatically
+     the  reduce-ide  mode  in  emacs  (provided  you  made  the  installation  steps
+     described in the reduce-ide guides).
+     </li>
+     <li class="itemize">Program ﬁles have the following names:
+     <div class="center" 
+>
+<!--l. 134--><p class="noindent" >
+</p><!--l. 135--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">equationname_typeofcomputation_version.red</span></p></div>
+     <!--l. 137--><p class="noindent" >where <span 
+class="pcrr8t-x-x-109">equationname </span>stands for the shortened name of the equation (<span 
+class="ptmri8t-x-x-109">e.g.</span>
+     Korteweg–de Vries is always indicated by KdV), <span 
+class="pcrr8t-x-x-109">typeofcomputation </span>stands
+     for the type of geometric object which is computed with the given ﬁle, for
+     example symmetries, Hamiltonian operators, etc., <span 
+class="pcrr8t-x-x-109">version </span>is a version
+     number.
+     </p></li>
+     <li class="itemize">More speciﬁc information, like the date and more details on the computation done
+     in each version, are included as comment lines at the very beginning of each
+     ﬁle.</li></ul>
+<!--l. 147--><p class="noindent" >Now we describe some examples of computations with CDIFF. The parts of examples
+which are shared between all examples are described only once. We stress that all
+computations presented in this document are included in the oﬃcial REDUCE
+distribution and can be also downloaded at the GDEQ website <span class="cite">[<a 
+href="manualap2.html#Xgdeq">gde</a>]</span>. The examples can
+be run with REDUCE by typing <span 
+class="pcrr8t-x-x-109">in &#x0022;program.red&#x0022;; </span>at the REDUCE prompt, as
+explained above.
+</p><!--l. 154--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Remark. </span>The mathematical theories on which the computations are based can be found
+in <span class="cite">[<a 
+href="manualap2.html#XKrasilshchik:99">BCD<sup><span 
+class="cmr-8">+</span></sup>99</a>, <a 
+href="manualap2.html#XKerstenKrasilshchikVerboretsky:2004">KKV04</a>]</span>.
+                                                                     
+
+                                                                     
+</p><!--l. 157--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x202-54800020.11.2"></a>Higher symmetries</h5>
+<!--l. 159--><p class="noindent" >In this section we show the computation of (some) higher symmetries of Burgers’
+equation <span 
+class="cmmi-10x-x-109">B </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmmi-8">t</span></sub> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmmi-8">xx</span></sub> <span 
+class="cmr-10x-x-109">+ 2</span><span 
+class="cmmi-10x-x-109">uu</span><sub><span 
+class="cmmi-8">x</span></sub> <span 
+class="cmr-10x-x-109">= 0</span>. The corresponding ﬁle is <span 
+class="pcrr8t-x-x-109">Burg_hsym_1.red</span>
+and the results of the computation are in <span 
+class="pcrr8t-x-x-109">Burg_hsym_1_res.red</span>.
+</p><!--l. 164--><p class="noindent" >The idea underlying this computation is that one can use the scale symmetries of
+Burgers’ equation to assign “gradings” to each variable appearing in the equation. As a
+consequence, one could try diﬀerent ansatz for symmetries with polynomial generating
+function. For example, it is possible to require that they are sum of monomials of given
+degrees. This ansatz yields a simpliﬁcation of the equations for symmetries, because it is
+possible to solve them in a “graded” way, <span 
+class="ptmri8t-x-x-109">i.e.</span>, it is possible to split them into several
+equations made by the homogeneous components of the equation for symmetries with
+respect to gradings.
+</p><!--l. 174--><p class="noindent" >In particular, Burgers’ equation translates into the following dimensional equation:
+</p>
+<table 
+class="equation-star"><tr><td>
+                      <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmmi-8">t</span></sub><span 
+class="cmr-10x-x-109">] = [</span><span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmmi-8">xx</span></sub><span 
+class="cmr-10x-x-109">]</span><span 
+class="cmmi-10x-x-109">,   </span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmmi-8">xx</span></sub> <span 
+class="cmr-10x-x-109">= 2</span><span 
+class="cmmi-10x-x-109">uu</span><sub><span 
+class="cmmi-8">x</span></sub><span 
+class="cmr-10x-x-109">]</span><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 178--><p class="nopar" >
+By the rules <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmmi-8">z</span></sub><span 
+class="cmr-10x-x-109">] = [</span><span 
+class="cmmi-10x-x-109">u</span><span 
+class="cmr-10x-x-109">] </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">] </span>and <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">uv</span><span 
+class="cmr-10x-x-109">] = [</span><span 
+class="cmmi-10x-x-109">u</span><span 
+class="cmr-10x-x-109">] + [</span><span 
+class="cmmi-10x-x-109">v</span><span 
+class="cmr-10x-x-109">]</span>, and choosing <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1</span>, we have
+<span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">u</span><span 
+class="cmr-10x-x-109">] = 1 </span>and <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">t</span><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">2</span>. This will be used to generate the list of homogeneous monomials
+of given grading to be used in the ansatz about the structure of the generating function of
+the symmetries.
+</p><!--l. 184--><p class="noindent" >The following instructions initialize the total derivatives. The ﬁrst string is the name of
+the vector ﬁeld, the second item is the list of even variables (note that <span 
+class="pcrr8t-x-x-109">u1</span>, <span 
+class="pcrr8t-x-x-109">u2</span>, ... are <span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmmi-8">x</span></sub>,
+<span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmmi-8">xx</span></sub>, …), the third item is the list of odd (non-commuting) variables (‘ext’ stands for
+‘external’ like in external (wedge) product). Note that in this example odd variables are
+                                                                     
+
+                                                                     
+not strictly needed, but it is better to insert some of them for syntax reasons.
+<a 
+ id="dx202-548001"></a> <a 
+ id="operator:SUPER_VECTORFIELD"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-969">
+super_vectorfield(ddx,{x,t,u,u1,u2,u3,u4,u5,u6,u7,
+ <br />u8,u9,u10,u11,u12,u13,u14,u15,u16,u17},
+ <br />{ext 1,ext 2,ext 3,ext 4,ext 5,ext 6,ext 7,ext 8,ext 9,
+ <br />ext 10,ext 11,ext 12,ext 13,ext 14,ext 15,ext 16,ext 17,
+ <br />ext 18,ext 19,ext 20,ext 21,ext 22,ext 23,ext 24,ext 25,
+ <br />ext 26,ext 27,ext 28,ext 29,ext 30,ext 31,ext 32,ext 33,
+ <br />ext 34,ext 35,ext 36,ext 37,ext 38,ext 39,ext 40,ext 41,
+ <br />ext 42,ext 43,ext 44,ext 45,ext 46,ext 47,ext 48,ext 49,
+ <br />ext 50,ext 51,ext 52,ext 53,ext 54,ext 55,ext 56,ext 57,
+ <br />ext 58,ext 59,ext 60,ext 61,ext 62,ext 63,ext 64,ext 65,
+ <br />ext 66,ext 67,ext 68,ext 69,ext 70,ext 71,ext 72,ext 73,
+ <br />ext 74,ext 75,ext 76,ext 77,ext 78,ext 79,ext 80
+ <br />});
+</div>
+<!--l. 206--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-970">
+super_vectorfield(ddt,{x,t,u,u1,u2,u3,u4,u5,u6,u7,
+ <br />u8,u9,u10,u11,u12,u13,u14,u15,u16,u17},
+ <br />{ext 1,ext 2,ext 3,ext 4,ext 5,ext 6,ext 7,ext 8,ext 9,
+ <br />ext 10,ext 11,ext 12,ext 13,ext 14,ext 15,ext 16,ext 17,
+ <br />ext 18,ext 19,ext 20,ext 21,ext 22,ext 23,ext 24,ext 25,
+ <br />ext 26,ext 27,ext 28,ext 29,ext 30,ext 31,ext 32,ext 33,
+ <br />ext 34,ext 35,ext 36,ext 37,ext 38,ext 39,ext 40,ext 41,
+ <br />ext 42,ext 43,ext 44,ext 45,ext 46,ext 47,ext 48,ext 49,
+ <br />ext 50,ext 51,ext 52,ext 53,ext 54,ext 55,ext 56,ext 57,
+ <br />ext 58,ext 59,ext 60,ext 61,ext 62,ext 63,ext 64,ext 65,
+ <br />ext 66,ext 67,ext 68,ext 69,ext 70,ext 71,ext 72,ext 73,
+ <br />ext 74,ext 75,ext 76,ext 77,ext 78,ext 79,ext 80
+ <br />});
+</div>
+<!--l. 222--><p class="nopar" >
+</p><!--l. 224--><p class="noindent" >Speciﬁcation of the vectorﬁeld <span 
+class="pcrr8t-x-x-109">ddx</span>. The meaning of the ﬁrst index is the parity of
+variables. In particular here we have just even variables. The second index parametrizes
+the second item (list) in the <span 
+class="pcrr8t-x-x-109">super_vectorfield </span>declaration. More precisely,
+<span 
+class="pcrr8t-x-x-109">ddx(0,1) </span>stands for <span 
+class="cmmi-10x-x-109">∂∕∂x</span>, <span 
+class="pcrr8t-x-x-109">ddx(0,2) </span>stands for <span 
+class="cmmi-10x-x-109">∂∕∂t</span>, <span 
+class="pcrr8t-x-x-109">ddx(0,3) </span>stands for <span 
+class="cmmi-10x-x-109">∂∕∂u</span>,
+<span 
+class="pcrr8t-x-x-109">ddx(0,4) </span>stands for <span 
+class="cmmi-10x-x-109">∂∕∂u</span><span 
+class="cmmi-8">x</span>, …, and all coordinates <span 
+class="cmmi-10x-x-109">x</span>, <span 
+class="cmmi-10x-x-109">t</span>, <span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmmi-8">x</span></sub>, …, are treated as even
+coordinates. Note that <span 
+class="pcrr8t-x-x-109">‘$’ </span>suppresses the output.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-971">
+ddx(0,1):=1$
+ <br />ddx(0,2):=0$
+ <br />ddx(0,3):=u1$
+ <br />ddx(0,4):=u2$
+ <br />ddx(0,5):=u3$
+ <br />ddx(0,6):=u4$
+ <br />ddx(0,7):=u5$
+ <br />ddx(0,8):=u6$
+ <br />ddx(0,9):=u7$
+ <br />ddx(0,10):=u8$
+ <br />ddx(0,11):=u9$
+ <br />ddx(0,12):=u10$
+ <br />ddx(0,13):=u11$
+ <br />ddx(0,14):=u12$
+ <br />ddx(0,15):=u13$
+ <br />ddx(0,16):=u14$
+ <br />ddx(0,17):=u15$
+ <br />ddx(0,18):=u16$
+ <br />ddx(0,19):=u17$
+ <br />ddx(0,20):=letop$
+</div>
+<!--l. 253--><p class="nopar" > The string <span 
+class="pcrr8t-x-x-109">letop </span>is treated as a variable; if it appears during computations it is likely
+that we went too close to the highest order variables that we deﬁned in the ﬁle. This
+could mean that we need to extend the operators and variable list. In case of
+large output, one can search in it the string <span 
+class="pcrr8t-x-x-109">letop </span>to check whether errors
+occurred.
+</p><!--l. 260--><p class="noindent" >Speciﬁcation of the vectorﬁeld <span 
+class="pcrr8t-x-x-109">ddt</span>. In the evolutionary case we never have more than
+one time derivative, other derivatives are <span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmmi-8">txxx</span><img 
+src="manual185x.png" alt="⋅⋅⋅"  class="@cdots"  /></sub>.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-972">
+ddt(0,1):=0$
+ <br />ddt(0,2):=1$
+ <br />ddt(0,3):=ut$
+ <br />ddt(0,4):=ut1$
+ <br />ddt(0,5):=ut2$
+ <br />ddt(0,6):=ut3$
+ <br />ddt(0,7):=ut4$
+ <br />ddt(0,8):=ut5$
+ <br />ddt(0,9):=ut6$
+ <br />ddt(0,10):=ut7$
+ <br />ddt(0,11):=ut8$
+ <br />ddt(0,12):=ut9$
+ <br />ddt(0,13):=ut10$
+ <br />ddt(0,14):=ut11$
+ <br />ddt(0,15):=ut12$
+ <br />ddt(0,16):=ut13$
+ <br />ddt(0,17):=ut14$
+ <br />ddt(0,18):=letop$
+ <br />ddt(0,19):=letop$
+ <br />sddt(0,20):=letop$
+</div>
+<!--l. 284--><p class="nopar" >
+</p><!--l. 286--><p class="noindent" >We now give the equation in the form one of the derivatives equated to a right-hand side expression.
+The left-hand side derivative is called <span 
+class="ptmri8t-x-x-109">principal</span>, and the remaining derivatives are called
+<span 
+class="ptmri8t-x-x-109">parametric</span><span class="footnote-mark"><a 
+href="manual203.html#fn25x20"><sup class="textsuperscript">25</sup></a></span><a 
+ id="x202-548002f25"></a> .
+For scalar evolutionary equations with two independent variables internal variables are of
+the type <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">t,x,u,u</span><sub><span 
+class="cmmi-8">x</span></sub><span 
+class="cmmi-10x-x-109">,u</span><sub><span 
+class="cmmi-8">xx</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmr-10x-x-109">)</span>.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-973">
+ut:=u2+2*u*u1;
+</div>
+<!--l. 295--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-974">
+ut1:=ddx ut;
+ <br />ut2:=ddx ut1;
+ <br />ut3:=ddx ut2;
+ <br />ut4:=ddx ut3;
+ <br />ut5:=ddx ut4;
+ <br />ut6:=ddx ut5;
+ <br />ut7:=ddx ut6;
+ <br />ut8:=ddx ut7;
+ <br />ut9:=ddx ut8;
+ <br />ut10:=ddx ut9;
+ <br />ut11:=ddx ut10;
+ <br />ut12:=ddx ut11;
+ <br />ut13:=ddx ut12;
+ <br />ut14:=ddx ut13;
+</div>
+<!--l. 312--><p class="nopar" >
+</p><!--l. 314--><p class="noindent" >Test for verifying the commutation of total derivatives. Highest order deﬁned terms may
+yield some <span 
+class="pcrr8t-x-x-109">letop</span>.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-975">
+operator ev;
+ <br />
+ <br />for i:=1:17 do
+ <br />    write ev(0,i):=ddt(ddx(0,i))-ddx(ddt(0,i));
+</div>
+<!--l. 321--><p class="nopar" >
+</p><!--l. 323--><p class="noindent" >This is the list of variables with respect to their grading, starting from degree <span 
+class="ptmri8t-x-x-109">one</span>.
+<a 
+ id="dx202-548003"></a> <a 
+ id="variable:ALL_GRADED_DER"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-976">
+all_graded_der:={{u},{u1},{u2},{u3},{u4},{u5},
+ <br /> {u6},{u7},{u8},{u9},{u10},{u11},{u12},{u13},{u14},
+ <br /> {u15},{u16},{u17}};
+</div>
+<!--l. 331--><p class="nopar" >
+</p><!--l. 333--><p class="noindent" >This is the list of all monomials of degree <span 
+class="cmr-10x-x-109">0</span>, <span 
+class="cmr-10x-x-109">1</span>, <span 
+class="cmr-10x-x-109">2</span>, …which can be constructed from the
+above list of elementary variables with their grading. <a 
+ id="dx202-548004"></a> <a 
+ id="operator:MKVARLIST1"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-977">
+grd0:={1};
+ <br />grd1:= mkvarlist1(1,1)$
+ <br />grd2:= mkvarlist1(2,2)$
+ <br />grd3:= mkvarlist1(3,3)$
+ <br />grd4:= mkvarlist1(4,4)$
+ <br />grd5:= mkvarlist1(5,5)$
+ <br />grd6:= mkvarlist1(6,6)$
+ <br />grd7:= mkvarlist1(7,7)$
+ <br />grd8:= mkvarlist1(8,8)$
+ <br />grd9:= mkvarlist1(9,9)$
+ <br />grd10:= mkvarlist1(10,10)$
+ <br />grd11:= mkvarlist1(11,11)$
+ <br />grd12:= mkvarlist1(12,12)$
+ <br />grd13:= mkvarlist1(13,13)$
+ <br />grd14:= mkvarlist1(14,14)$
+ <br />grd15:= mkvarlist1(15,15)$
+ <br />grd16:= mkvarlist1(16,16)$
+</div>
+<!--l. 355--><p class="nopar" >
+</p><!--l. 357--><p class="noindent" >Initialize a counter <span 
+class="pcrr8t-x-x-109">ctel </span>for arbitrary constants <span 
+class="pcrr8t-x-x-109">c</span>; initialize equations:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-978">
+operator c,equ;
+ <br />
+ <br />ctel:=0;
+</div>
+<!--l. 363--><p class="nopar" >
+</p><!--l. 365--><p class="noindent" >We assume a generating function <span 
+class="pcrr8t-x-x-109">sym</span>, <span 
+class="ptmri8t-x-x-109">independent of </span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="ptmri8t-x-x-109">and </span><span 
+class="cmmi-10x-x-109">t</span>, of degree <span 
+class="cmsy-10x-x-109">≤ </span><span 
+class="cmr-10x-x-109">5</span>.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-979">
+sym:=
+ <br />(for each el in grd0 sum (c(ctel:=ctel+1)*el))+
+ <br />(for each el in grd1 sum (c(ctel:=ctel+1)*el))+
+ <br />(for each el in grd2 sum (c(ctel:=ctel+1)*el))+
+ <br />(for each el in grd3 sum (c(ctel:=ctel+1)*el))+
+ <br />(for each el in grd4 sum (c(ctel:=ctel+1)*el))+
+ <br />(for each el in grd5 sum (c(ctel:=ctel+1)*el))$
+</div>
+<!--l. 375--><p class="nopar" >
+</p><!--l. 377--><p class="noindent" >This is the equation <span class='accentbar'><span 
+class="cmmi-10x-x-109">ℓ</span></span><sub><span 
+class="cmmi-8">B</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmtt-10x-x-109">sym</span><span 
+class="cmr-10x-x-109">) = 0</span>, where <span 
+class="cmmi-10x-x-109">B </span><span 
+class="cmr-10x-x-109">= 0 </span>is Burgers’ equation and <span 
+class="pcrr8t-x-x-109">sym </span>is the
+generating function. From now on all equations are arranged in a single vector whose
+name is <span 
+class="pcrr8t-x-x-109">equ</span>.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-980">
+equ 1:=ddt(sym)-ddx(ddx(sym))-2*u*ddx(sym)-2*u1*sym ;
+</div>
+<!--l. 382--><p class="nopar" >
+</p><!--l. 384--><p class="noindent" >This is the list of variables, to be passed to the equation solver.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-981">
+vars:={x,t,u,u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11,
+ <br />u12,u13,u14,u15,u16,u17};
+</div>
+<!--l. 388--><p class="nopar" >
+</p><!--l. 390--><p class="noindent" >This is the number of initial equation(s)
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-982">
+tel:=1;
+</div>
+<!--l. 393--><p class="nopar" >
+<a 
+ id="dx202-548005"></a>
+</p><!--l. 396--><p class="noindent" ><a 
+ id="operator:MULTI_COEFF"></a> The following procedure uses <span 
+class="pcrr8t-x-x-109">multi_coeff </span>(from the package <span 
+class="pcrr8t-x-x-109">tools</span>). It gets all
+coeﬃcients of monomials appearing in the initial equation(s). The coeﬃcients are put
+into the vector <span 
+class="pcrr8t-x-x-109">equ </span>after the initial equations.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-983">
+procedure splitvars i;
+ <br />begin;
+ <br />ll:=multi_coeff(equ i,vars);
+ <br />equ(tel:=tel+1):=first ll;
+ <br />ll:=rest ll;
+ <br />for each el in ll do equ(tel:=tel+1):=second el;
+ <br />end;
+</div>
+<!--l. 409--><p class="nopar" >
+</p><!--l. 411--><p class="noindent" >This command initializes the equation solver. It passes </p>
+     <ul class="itemize1">
+     <li class="itemize">the equation vector <span 
+class="pcrr8t-x-x-109">equ </span>togeher with its length <span 
+class="pcrr8t-x-x-109">tel </span>(<span 
+class="ptmri8t-x-x-109">i.e.</span>, the total number
+     of equations);
+     </li>
+     <li class="itemize">the  list  of  variables  with  respect  to  which  the  system  <span 
+class="ptmri8t-x-x-109">must  not  </span>split  the
+     equations,  <span 
+class="ptmri8t-x-x-109">i.e.</span>,  variables  with  respect  to  which  the  unknowns  are  not
+     polynomial. In this case this list is just <span 
+class="cmsy-10x-x-109">{}</span>;
+     </li>
+     <li class="itemize">the constants’vector <span 
+class="pcrr8t-x-x-109">c</span>, its length <span 
+class="pcrr8t-x-x-109">ctel</span>, and the number of negative indexes
+     if any; just <span 
+class="pcrr8t-x-x-109">0</span> in our example;
+     </li>
+     <li class="itemize">the vector of free functions <span 
+class="pcrr8t-x-x-109">f </span>that may appear in computations. Note that in
+     <span 
+class="cmsy-10x-x-109">{</span><span 
+class="pcrr8t-x-x-109">f,0,0 </span><span 
+class="cmsy-10x-x-109">} </span>the second <span 
+class="pcrr8t-x-x-109">0</span> stands for the length of the vector of free functions.
+     In  this  example  there  are  no  free  functions,  but  the  command  needs  the
+     presence of at least a dummy argument, <span 
+class="pcrr8t-x-x-109">f </span>in this case. There is also a last
+     zero which is the negative length of the vector <span 
+class="cmmi-10x-x-109">f</span>, just as for constants.</li></ul>
+<a 
+ id="dx202-548006"></a>
+<!--l. 428--><p class="noindent" ><a 
+ id="operator:CDIFF_INITIALIZE_EQUATIONS"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-984">
+initialize_equations(equ,tel,{},{c,ctel,0},{f,0,0});
+</div>
+<!--l. 431--><p class="nopar" >
+</p><!--l. 433--><p class="noindent" >Run the procedure splitvars in order to obtain equations on coeﬃciens of each
+monomial.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-985">
+splitvars 1;
+</div>
+<!--l. 437--><p class="nopar" >
+</p><!--l. 439--><p class="noindent" >Next command tells the solver the total number of equations obtained after running
+splitvars. <a 
+ id="dx202-548007"></a> <a 
+ id="operator:CDIFF_PUT_EQUATIONS_USED"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-986">
+put_equations_used tel;
+</div>
+<!--l. 445--><p class="nopar" >
+</p><!--l. 447--><p class="noindent" >It is worth to write down the equations for the coeﬃcients.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-987">
+for i:=2:tel do write equ i;
+</div>
+<!--l. 450--><p class="nopar" >
+</p><!--l. 452--><p class="noindent" >This command solves the equations for the coeﬃcients. Note that we have to skip the
+initial equations! <a 
+ id="dx202-548008"></a> <a 
+ id="operator:CDIFF_INTEGRATE_EQUATION"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-988">
+for i:=2:tel do integrate_equation i;
+ <br />;end;
+</div>
+<!--l. 459--><p class="nopar" >
+</p><!--l. 461--><p class="noindent" >In the folder <span 
+class="pcrr8t-x-x-109">computations/NewTests/Higher_symmetries </span>it is possible to
+ﬁnd the following ﬁles:
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">Burg_hsym_1.red</span> </dt><dd 
+class="description">The above ﬁle, together with its results ﬁle.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">KdV_hsym_1.red</span> </dt><dd 
+class="description">Higher symmetries of KdV, with the ansatz: deg(sym) <span 
+class="cmsy-10x-x-109">≤ </span>5.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">KdV_hsym_2.red</span> </dt><dd 
+class="description">Higher symmetries of KdV, with the ansatz:
+     <div class="center" 
+>
+<!--l. 468--><p class="noindent" >
+</p><!--l. 469--><p class="noindent" >sym = x*(something of degree 3) + t*(something of degree 5)<br />
++ (something of degree 2).</p></div>
+     <!--l. 472--><p class="noindent" >This yields scale symmetries.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">KdV_hsym_3.red</span> </dt><dd 
+class="description">Higher symmetries of KdV, with the ansatz:
+     <div class="center" 
+>
+<!--l. 474--><p class="noindent" >
+</p><!--l. 475--><p class="noindent" >sym = x*(something of degree 1) + t*(something of degree 3)<br />
++ (something of degree 0).</p></div>
+     <!--l. 478--><p class="noindent" >This yields Galilean boosts.</p></dd></dl>
+                                                                     
+
+                                                                     
+<h5 class="subsubsectionHead"><a 
+ id="x202-54900020.11.2"></a>Local conservation laws</h5>
+<!--l. 484--><p class="noindent" >In this section we will ﬁnd (some) local conservation laws for the KdV equation
+<span 
+class="cmmi-10x-x-109">F </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmmi-8">t</span></sub> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmmi-8">xxx</span></sub> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">uu</span><sub><span 
+class="cmmi-8">x</span></sub> <span 
+class="cmr-10x-x-109">= 0</span>. Concretely, we have to ﬁnd non-trivial <span 
+class="cmr-10x-x-109">1</span>-forms
+<span 
+class="cmmi-10x-x-109">f </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmmi-8">x</span></sub><span 
+class="cmmi-10x-x-109">dx </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmmi-8">t</span></sub><span 
+class="cmmi-10x-x-109">dt </span>on <span 
+class="cmmi-10x-x-109">F </span><span 
+class="cmr-10x-x-109">= 0 </span>such that <span class='accentbar'><span 
+class="cmmi-10x-x-109">d</span></span><span 
+class="cmmi-10x-x-109">f </span><span 
+class="cmr-10x-x-109">= 0 </span>on <span 
+class="cmmi-10x-x-109">F </span><span 
+class="cmr-10x-x-109">= 0</span>. “Triviality” of conservation
+laws is a delicate matter, for which we invite the reader to have a look in <span class="cite">[<a 
+href="manualap2.html#XKrasilshchik:99">BCD<sup><span 
+class="cmr-8">+</span></sup>99</a>]</span>.
+</p><!--l. 490--><p class="noindent" >The ﬁles for this example are <span 
+class="pcrr8t-x-x-109">KdV_loc-cl_1.red </span>and <span 
+class="pcrr8t-x-x-109">KdV_loc-cl_2.red </span>and
+the corresponding results ﬁles.
+</p><!--l. 493--><p class="noindent" >We make use of <span 
+class="pcrr8t-x-x-109">ddx </span>and <span 
+class="pcrr8t-x-x-109">ddt</span>, which in the even part are the same as in the previous
+example (subsection <a 
+href="#x202-54800020.11.2">20.11.2<!--tex4ht:ref: sec:higher-symmetries --></a>). After deﬁning the total derivatives we prepare the list of
+graded variables (recall that in KdV <span 
+class="cmmi-10x-x-109">u </span>is of degree <span 
+class="cmr-10x-x-109">2</span>):
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-989">
+all_graded_der:={{},{u},{u1},{u2},{u3},{u4},{u5},
+ <br /> {u6},{u7},{u8},{u9},{u10},{u11},{u12},{u13},{u14},
+ <br /> {u15},{u16},{u17}};
+</div>
+<!--l. 501--><p class="nopar" > We make the ansatz
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-990">
+fx:=
+ <br />(for each el in grd0 sum (c(ctel:=ctel+1)*el))+
+ <br />(for each el in grd1 sum (c(ctel:=ctel+1)*el))+
+ <br />(for each el in grd2 sum (c(ctel:=ctel+1)*el))+
+ <br />(for each el in grd3 sum (c(ctel:=ctel+1)*el))$
+ <br />ft:=
+ <br />(for each el in grd2 sum (c(ctel:=ctel+1)*el))+
+ <br />(for each el in grd3 sum (c(ctel:=ctel+1)*el))+
+ <br />(for each el in grd4 sum (c(ctel:=ctel+1)*el))+
+ <br />(for each el in grd5 sum (c(ctel:=ctel+1)*el))$
+</div>
+<!--l. 514--><p class="nopar" > for the components of the conservation law. We have to solve the equation
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-991">
+equ 1:=ddt(fx)-ddx(ft);
+</div>
+<!--l. 518--><p class="nopar" > the fact that <span 
+class="pcrr8t-x-x-109">ddx </span>and <span 
+class="pcrr8t-x-x-109">ddt </span>are expressed in internal coordinates on the equation means
+that the objects that we consider are already restricted to the equation.
+</p><!--l. 523--><p class="noindent" >We shall split the equation in its graded summands with the procedure <span 
+class="pcrr8t-x-x-109">splitvars</span>,
+then solve it
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-992">
+initialize_equations(equ,tel,{},{c,ctel,0},{f,0,0});
+ <br />splitvars 1;
+ <br />pte tel;
+ <br />for i:=2:tel do es i;
+ <br />end;
+</div>
+<!--l. 531--><p class="nopar" > As a result we get
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-993">
+fx := c(3)*u1 + c(2)*u + c(1)$
+ <br />ft := (2*c(3)*u*u1 + 2*c(3)*u3
+ <br />        + c(2)*u**2 + 2*c(2)*u2)/2$
+</div>
+<!--l. 537--><p class="nopar" > Unfortunately it is clear that the conservation law corresponding to <span 
+class="pcrr8t-x-x-109">c(3) </span>is trivial,
+because it is the total <span 
+class="cmmi-10x-x-109">x</span>-derivative of <span 
+class="cmmi-10x-x-109">F </span>; its restriction on the inﬁnite prolongation of the
+KdV is zero. Here this fact is evident; how to get rid of less evident trivialities by an
+‘automatic’ mechanism? We considered this problem in the ﬁle <span 
+class="pcrr8t-x-x-109">KdV_loc-cl_2.red</span>,
+where we solved the equation
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-994">
+equ 1:=fx-ddx(f0);
+ <br />equ 2:=ft-ddt(f0);
+</div>
+<!--l. 547--><p class="nopar" > after having loaded the values <span 
+class="pcrr8t-x-x-109">fx </span>and <span 
+class="pcrr8t-x-x-109">ft </span>found by the previous program. We make the
+following ansatz on <span 
+class="pcrr8t-x-x-109">f0</span>:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-995">
+f0:=
+ <br />(for each el in grd0 sum (cc(cctel:=cctel+1)*el))+
+ <br />(for each el in grd1 sum (cc(cctel:=cctel+1)*el))+
+ <br />(for each el in grd2 sum (cc(cctel:=cctel+1)*el))+
+ <br />(for each el in grd3 sum (cc(cctel:=cctel+1)*el))$
+</div>
+<!--l. 556--><p class="nopar" > Note that this gives a grading which is compatible with the gradings of <span 
+class="pcrr8t-x-x-109">fx </span>and <span 
+class="pcrr8t-x-x-109">ft</span>. After
+solving the system
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-996">
+initialize_equations(equ,tel,{},{cc,cctel,0},{f,0,0});
+ <br />for i:=1:2 do begin splitvars i;end;
+ <br />pte tel;
+ <br />for i:=3:tel do es i;
+ <br />end;
+</div>
+<!--l. 565--><p class="nopar" > issuing the commands
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-997">
+fxnontriv := fx-ddx(f0);
+ <br />ftnontriv := ft-ddt(f0);
+</div>
+<!--l. 570--><p class="nopar" > we obtain
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-998">
+fxnontriv := c(2)*u + c(1)$
+ <br />ftnontriv := (c(2)*(u**2 + 2*u2))/2$
+</div>
+<!--l. 575--><p class="nopar" > This mechanism can be easily generalized to situations in which the conservation laws
+which are found by the program are diﬃcult to treat by pen and paper.
+</p><!--l. 581--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x202-55000020.11.2"></a>Local Hamiltonian operators</h5>
+<!--l. 584--><p class="noindent" >In this section we will ﬁnd local Hamiltonian operators for the KdV equation
+<span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmmi-8">t</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmmi-8">xxx</span></sub> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">uu</span><sub><span 
+class="cmmi-8">x</span></sub>. Concretely, we have to solve <span class='accentbar'><span 
+class="cmmi-10x-x-109">ℓ</span></span><sub><span 
+class="cmmi-8">KdV</span> </sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmtt-10x-x-109">phi</span><span 
+class="cmr-10x-x-109">) = 0 </span>over the equation
+</p>
+<table 
+class="equation-star"><tr><td>
+                         <img 
+src="manual186x.png" alt="{
+  ut = uxxx + uux
+  pt = pxxx + upx"  class="left" align="middle" />
+</td></tr></table>
+<!--l. 592--><p class="nopar" >
+or, in geometric terminology, ﬁnd the shadows of symmetries on the <span 
+class="cmmi-10x-x-109">ℓ</span><sup><span 
+class="cmsy-8">∗</span></sup>-covering of the
+KdV equation. The reference paper for this type of computations is <span class="cite">[<a 
+href="manualap2.html#XKerstenKrasilshchikVerboretsky:2004">KKV04</a>]</span>.
+</p><!--l. 597--><p class="noindent" >The ﬁle containing this example is <span 
+class="pcrr8t-x-x-109">KdV_Ham_1.red</span>.
+</p><!--l. 599--><p class="noindent" >We make use of <span 
+class="pcrr8t-x-x-109">ddx </span>and <span 
+class="pcrr8t-x-x-109">ddt</span>, which in the even part are the same as in the previous
+example (subsection <a 
+href="#x202-54800020.11.2">20.11.2<!--tex4ht:ref: sec:higher-symmetries --></a>). We stress that the linearization <span class='accentbar'><span 
+class="cmmi-10x-x-109">ℓ</span></span><sub><span 
+class="cmmi-8">KdV</span> </sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmtt-10x-x-109">phi</span><span 
+class="cmr-10x-x-109">) = 0 </span>is the
+equation
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-999">
+ddt(phi)-u*ddx(phi)-u1*phi-ddx(ddx(ddx(phi)))=0
+</div>
+<!--l. 604--><p class="nopar" > but the total derivatives are lifted to the <span 
+class="cmmi-10x-x-109">ℓ</span><sup><span 
+class="cmsy-8">∗</span></sup> covering, hence they must contain also
+derivatives with respect to <span 
+class="cmmi-10x-x-109">p</span>’s. This will be achieved by treating <span 
+class="cmmi-10x-x-109">p </span>variables as odd and
+introducing the odd parts of <span 
+class="pcrr8t-x-x-109">ddx </span>and <span 
+class="pcrr8t-x-x-109">ddt</span>,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1000">
+ddx(1,1):=0$
+ <br />ddx(1,2):=0$
+ <br />ddx(1,3):=ext 4$
+ <br />ddx(1,4):=ext 5$
+ <br />ddx(1,5):=ext 6$
+ <br />ddx(1,6):=ext 7$
+ <br />ddx(1,7):=ext 8$
+ <br />ddx(1,8):=ext 9$
+ <br />ddx(1,9):=ext 10$
+ <br />ddx(1,10):=ext 11$
+ <br />ddx(1,11):=ext 12$
+ <br />ddx(1,12):=ext 13$
+ <br />ddx(1,13):=ext 14$
+ <br />ddx(1,14):=ext 15$
+ <br />ddx(1,15):=ext 16$
+ <br />ddx(1,16):=ext 17$
+ <br />ddx(1,17):=ext 18$
+ <br />ddx(1,18):=ext 19$
+ <br />ddx(1,19):=ext 20$
+ <br />ddx(1,20):=letop$
+</div>
+<!--l. 630--><p class="nopar" > In the above deﬁnition the ﬁrst index ‘1’ says that we are dealing with odd variables,
+<span 
+class="pcrr8t-x-x-109">ext </span>indicates anticommuting variables. Here, <span 
+class="pcrr8t-x-x-109">ext 3 </span>is <span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmr-8">0</span></sub>, <span 
+class="pcrr8t-x-x-109">ext 4 </span>is <span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmmi-8">x</span></sub>, <span 
+class="pcrr8t-x-x-109">ext 5 </span>is <span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmmi-8">xx</span></sub>,
+…so <span 
+class="pcrr8t-x-x-109">ddx(1,3):=ext 4 </span>indicates <span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmmi-8">x</span></sub><span 
+class="cmmi-10x-x-109">∂∕∂p</span>, etc..
+</p><!--l. 636--><p class="noindent" >Now, remembering that the additional equation is again evolutionary, we can get rid of <span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmmi-8">t</span></sub>
+by letting it be equal to <span 
+class="pcrr8t-x-x-109">ext 6 + u*ext 4</span>, as follows:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1001">
+ddt(1,1):=0$
+ <br />ddt(1,2):=0$
+ <br />ddt(1,3):=ext 6 + u*ext 4$
+ <br />ddt(1,4):=ddx(ddt(1,3))$
+ <br />ddt(1,5):=ddx(ddt(1,4))$
+ <br />ddt(1,6):=ddx(ddt(1,5))$
+ <br />ddt(1,7):=ddx(ddt(1,6))$
+ <br />ddt(1,8):=ddx(ddt(1,7))$
+ <br />ddt(1,9):=ddx(ddt(1,8))$
+ <br />ddt(1,10):=ddx(ddt(1,9))$
+ <br />ddt(1,11):=ddx(ddt(1,10))$
+ <br />ddt(1,12):=ddx(ddt(1,11))$
+ <br />ddt(1,13):=ddx(ddt(1,12))$
+ <br />ddt(1,14):=ddx(ddt(1,13))$
+ <br />ddt(1,15):=ddx(ddt(1,14))$
+ <br />ddt(1,16):=ddx(ddt(1,15))$
+ <br />ddt(1,17):=ddx(ddt(1,16))$
+ <br />ddt(1,18):=letop$
+ <br />ddt(1,19):=letop$
+ <br />ddt(1,20):=letop$
+</div>
+<!--l. 659--><p class="nopar" >
+</p><!--l. 661--><p class="noindent" >Let us make the following ansatz about the Hamiltonian operators:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1002">
+phi:=
+ <br />(for each el in grd0 sum (c(ctel:=ctel+1)*el))*ext 3+
+ <br />(for each el in grd1 sum (c(ctel:=ctel+1)*el))*ext 3+
+ <br />(for each el in grd2 sum (c(ctel:=ctel+1)*el))*ext 3+
+ <br />(for each el in grd3 sum (c(ctel:=ctel+1)*el))*ext 3+
+ <br />
+ <br />(for each el in grd0 sum (c(ctel:=ctel+1)*el))*ext 4+
+ <br />(for each el in grd1 sum (c(ctel:=ctel+1)*el))*ext 4+
+ <br />(for each el in grd2 sum (c(ctel:=ctel+1)*el))*ext 4+
+ <br />
+ <br />(for each el in grd0 sum (c(ctel:=ctel+1)*el))*ext 5+
+ <br />(for each el in grd1 sum (c(ctel:=ctel+1)*el))*ext 5+
+ <br />
+ <br />(for each el in grd0 sum (c(ctel:=ctel+1)*el))*ext 6
+ <br />$
+</div>
+<!--l. 678--><p class="nopar" > Note that we are looking for generating functions of shadows which are <span 
+class="ptmri8t-x-x-109">linear </span>with
+respect to <span 
+class="cmmi-10x-x-109">p</span>’s. Moreover, having set <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">p</span><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">2 </span>we will look for solutions of maximal
+possible degree <span 
+class="cmr-10x-x-109">+1</span>.
+</p><!--l. 683--><p class="noindent" >After having set
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1003">
+equ 1:=ddt(phi)-u*ddx(phi)-u1*phi-ddx(ddx(ddx(phi)));
+ <br />vars:={x,t,u,u1,u2,u3,u4,u5,u6,u7,u8,u9,u10,u11,u12,
+ <br /> u13,u14,u15,u16,u17};
+ <br />tel:=1;
+</div>
+<!--l. 689--><p class="nopar" > we deﬁne the procedures <span 
+class="pcrr8t-x-x-109">splitvars </span>as in subsection <a 
+href="#x202-54800020.11.2">20.11.2<!--tex4ht:ref: sec:higher-symmetries --></a> and <span 
+class="pcrr8t-x-x-109">splitext </span>as
+follows:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1004">
+procedure splitext i;
+ <br />begin;
+ <br />ll:=operator_coeff(equ i,ext);
+ <br />equ(tel:=tel+1):=first ll;
+ <br />ll:=rest ll;
+ <br />for each el in ll do equ(tel:=tel+1):=second el;
+ <br />end;
+</div>
+<!--l. 700--><p class="nopar" > Then we initialize the equations:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1005">
+initialize_equations(equ,tel,{},{c,ctel,0},{f,0,0});
+</div>
+<!--l. 704--><p class="nopar" > do <span 
+class="pcrr8t-x-x-109">splitext</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1006">
+splitext 1;
+</div>
+<!--l. 708--><p class="nopar" > then <span 
+class="pcrr8t-x-x-109">splitvars</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1007">
+tel1:=tel;
+ <br />for i:=2:tel1 do begin splitvars i;equ i:=0;end;
+</div>
+<!--l. 713--><p class="nopar" > Now we are ready to solve all equations:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1008">
+put_equations_used tel;
+ <br />for i:=2:tel do write equ i:=equ i;
+ <br />pause;
+ <br />for i:=2:tel do integrate_equation i;
+ <br />end;
+</div>
+<!--l. 721--><p class="nopar" > Note that we want <span 
+class="ptmri8t-x-x-109">all </span>equations to be solved!
+</p><!--l. 724--><p class="noindent" >The results are the two well-known Hamiltonian operators for the KdV:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1009">
+phi := c(4)*ext(4) + 3*c(3)*ext(6) + 2*c(3)*ext(4)*u
+ <br /> + c(3)*ext(3)*u1$
+</div>
+<!--l. 728--><p class="nopar" > Of course, the results correspond to the operators </p>
+<div class="center" 
+>
+<!--l. 730--><p class="noindent" >
+</p><!--l. 731--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">ext(4)</span> <span 
+class="cmsy-10x-x-109">→ </span><span 
+class="cmmi-10x-x-109">D</span><sub><span 
+class="cmmi-8">x</span></sub>,<br />
+<span 
+class="pcrr8t-x-x-109">3*c(3)*ext(6) + 2*c(3)*ext(4)*u + c(3)*ext(3)*u1</span> <span 
+class="cmsy-10x-x-109">→</span><br />
+<span 
+class="cmr-10x-x-109">3</span><span 
+class="cmmi-10x-x-109">D</span><sub><span 
+class="cmmi-8">xxx</span></sub> <span 
+class="cmr-10x-x-109">+ 2</span><span 
+class="cmmi-10x-x-109">uD</span><sub><span 
+class="cmmi-8">x</span></sub> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmmi-8">x</span></sub>.</p></div>
+<!--l. 736--><p class="noindent" >Note that each operator is multiplied by one arbitrary real constant, <span 
+class="pcrr8t-x-x-109">c(4) </span>and
+<span 
+class="pcrr8t-x-x-109">c(3)</span>.
+</p><!--l. 739--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x202-55100020.11.2"></a>Non-local Hamiltonian operators</h5>
+<!--l. 742--><p class="noindent" >In this section we will show an experimental way to ﬁnd nonlocal Hamiltonian operators
+for the KdV equation. The word ‘experimental’ comes from the lack of a consistent
+mathematical theory. The result of the computation (without the details below) has been
+published in <span class="cite">[<a 
+href="manualap2.html#XKerstenKrasilshchikVerboretsky:2004">KKV04</a>]</span>.
+</p><!--l. 747--><p class="noindent" >We have to solve equations of the type <span 
+class="pcrr8t-x-x-109">ddx(ft)-ddt(fx) </span>as in <a 
+href="#x202-54900020.11.2">20.11.2<!--tex4ht:ref: sec:local-cons-laws --></a>. The main
+diﬀerence is that we will attempt a solution on the <span 
+class="cmmi-10x-x-109">ℓ</span><sup><span 
+class="cmsy-8">∗</span></sup>-covering (see Subsection <a 
+href="#x202-55000020.11.2">20.11.2<!--tex4ht:ref: sec:local-hamilt-oper --></a>).
+For this reason, ﬁrst of all we have to determine covering variables with the usual
+mechanism of introducing them through conservation laws, this time on the
+<span 
+class="cmmi-10x-x-109">ℓ</span><sup><span 
+class="cmsy-8">∗</span></sup>-covering.
+</p><!--l. 754--><p class="noindent" >As a ﬁrst step, let us compute conservation laws on the <span 
+class="cmmi-10x-x-109">ℓ</span><sup><span 
+class="cmsy-8">∗</span></sup>-covering whose components
+are linear in the <span 
+class="cmmi-10x-x-109">p</span>’s. This computation can be found in the ﬁle <span 
+class="pcrr8t-x-x-109">KdV_nloc-cl_1.red</span>
+and related results ﬁle. When specifying odd variables in <span 
+class="pcrr8t-x-x-109">ddx </span>and <span 
+class="pcrr8t-x-x-109">ddt</span>, we have
+something like
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1010">
+ddx(1,1):=0$
+ <br />ddx(1,2):=0$
+ <br />ddx(1,3):=ext 4$
+ <br />ddx(1,4):=ext 5$
+ <br />ddx(1,5):=ext 6$
+ <br />ddx(1,6):=ext 7$
+ <br />ddx(1,7):=ext 8$
+ <br />ddx(1,8):=ext 9$
+ <br />ddx(1,9):=ext 10$
+ <br />ddx(1,10):=ext 11$
+ <br />ddx(1,11):=ext 12$
+ <br />ddx(1,12):=ext 13$
+ <br />ddx(1,13):=ext 14$
+ <br />ddx(1,14):=ext 15$
+ <br />ddx(1,15):=ext 16$
+ <br />ddx(1,16):=ext 17$
+ <br />ddx(1,17):=ext 18$
+ <br />ddx(1,18):=ext 19$
+ <br />ddx(1,19):=ext 20$
+ <br />ddx(1,20):=letop$
+ <br />ddx(1,50):=(t*u1+1)*ext 3$ % degree -2
+ <br />ddx(1,51):=u1*ext 3$ % degree +1
+ <br />ddx(1,52):=(u*u1+u3)*ext 3$ % degree +3
+</div>
+<!--l. 782--><p class="nopar" > and
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1011">
+ddt(1,1):=0$
+ <br />ddt(1,2):=0$
+ <br />ddt(1,3):=ext 6 + u*ext 4$
+ <br />ddt(1,4):=ddx(ddt(1,3))$
+ <br />ddt(1,5):=ddx(ddt(1,4))$
+ <br />ddt(1,6):=ddx(ddt(1,5))$
+ <br />ddt(1,7):=ddx(ddt(1,6))$
+ <br />ddt(1,8):=ddx(ddt(1,7))$
+ <br />ddt(1,9):=ddx(ddt(1,8))$
+ <br />ddt(1,10):=ddx(ddt(1,9))$
+ <br />ddt(1,11):=ddx(ddt(1,10))$
+ <br />ddt(1,12):=ddx(ddt(1,11))$
+ <br />ddt(1,13):=ddx(ddt(1,12))$
+ <br />ddt(1,14):=ddx(ddt(1,13))$
+ <br />ddt(1,15):=ddx(ddt(1,14))$
+ <br />ddt(1,16):=ddx(ddt(1,15))$
+ <br />ddt(1,17):=ddx(ddt(1,16))$
+ <br />ddt(1,18):=letop$
+ <br />ddt(1,19):=letop$
+ <br />ddt(1,20):=letop$
+ <br />ddt(1,50):=f1*ext 3+f2*ext 4+f3*ext 5$
+ <br />ddt(1,51):=f4*ext 3+f5*ext 4+f6*ext 5$
+ <br />ddt(1,52):=f7*ext 3+f8*ext 4+f9*ext 5$
+</div>
+<!--l. 808--><p class="nopar" > The variables corresponding to the numbers <span 
+class="pcrr8t-x-x-109">50,51,52 </span>here play a dummy role, the
+coeﬃcients of the corresponding vector are the unknown generating functions of
+conservation laws on the <span 
+class="cmmi-10x-x-109">ℓ</span><sup><span 
+class="cmsy-8">∗</span></sup>-covering. More precisely, we look for conservation laws of
+the form
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1012">
+fx= phi*ext 3
+ <br />ft= f1*ext3+f2*ext4+f3*ext5
+</div>
+<!--l. 817--><p class="nopar" > The ansatz is chosen because, ﬁrst of all, <span 
+class="pcrr8t-x-x-109">ext 4 </span>and <span 
+class="pcrr8t-x-x-109">ext 5 </span>can be removed from fx by
+adding a suitable total divergence (trivial conservation law); moreover it can be proved
+that <span 
+class="pcrr8t-x-x-109">phi </span>is a symmetry of KdV. We can write down the equations
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1013">
+equ 1:=ddx(ddt(1,50))-ddt(ddx(1,50));
+ <br />equ 2:=ddx(ddt(1,51))-ddt(ddx(1,51));
+ <br />equ 3:=ddx(ddt(1,52))-ddt(ddx(1,52));
+</div>
+<!--l. 826--><p class="nopar" > However, the above choices make use of a symmetry which contains <span 
+class="pcrr8t-x-x-109">‘t’ </span>in the
+generator. This would make automatic computations more tricky, but still possible.
+In this case the solution of <span 
+class="pcrr8t-x-x-109">equ 1 </span>has been found by hand and passed to the
+program:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1014">
+f3:=t*u1+1$
+ <br />f1:=u*f3+ddx(ddx(f3))$
+ <br />f2:=-ddx(f3)$
+</div>
+<!--l. 835--><p class="nopar" > together with the ansatz on the coeﬃcients for the other equations
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1015">
+f4:=(for each el in grd5 sum (c(ctel:=ctel+1)*el))$
+ <br />f5:=(for each el in grd4 sum (c(ctel:=ctel+1)*el))$
+ <br />f6:=(for each el in grd3 sum (c(ctel:=ctel+1)*el))$
+ <br />
+ <br />f7:=(for each el in grd7 sum (c(ctel:=ctel+1)*el))$
+ <br />f8:=(for each el in grd6 sum (c(ctel:=ctel+1)*el))$
+ <br />f9:=(for each el in grd5 sum (c(ctel:=ctel+1)*el))$
+</div>
+<!--l. 845--><p class="nopar" > The previous ansatz keep into account the grading of the starting symmetry in
+<span 
+class="pcrr8t-x-x-109">phi*ext 3</span>. The resulting equations are solved in the usual way (see the example
+ﬁle).
+</p><!--l. 850--><p class="noindent" >Now, we solve the equation for shadows of nonlocal symmetries in a covering of the
+<span 
+class="cmmi-10x-x-109">ℓ</span><sup><span 
+class="cmsy-8">∗</span></sup>-covering. We can choose between three new nonlocal variables <span 
+class="pcrr8t-x-x-109">ra,rb,rc</span>. We are
+going to look for non-local Hamiltonian operators depending linearly on one of these
+variables. Higher non-local Hamiltonian operators could be found by introducing
+total derivatives of the r’s. As usual, the new variables are speciﬁed through
+the components of the previously found conservation laws according with the
+rule
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1016">
+ra_x=fx, ra_t=ft,
+</div>
+<!--l. 859--><p class="nopar" > and analogously for the others. We deﬁne
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1017">
+ddx(1,50):=(t*u1+1)*ext 3$ % degree -2
+ <br />ddx(1,51):=u1*ext 3$ % degree +1
+ <br />ddx(1,52):=(u*u1+u3)*ext 3$ % degree +3
+</div>
+<!--l. 865--><p class="nopar" > and
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1018">
+ddt(1,50) := ext(5)*t*u1 + ext(5) - ext(4)*t*u2
+ <br /> + ext(3)*t*u*u1 + ext(3)*t*u3 + ext(3)*u$
+ <br />ddt(1,51) := ext(5)*u1 - ext(4)*u2 + ext(3)*u*u1
+ <br /> + ext(3)*u3$
+ <br />ddt(1,52) := ext(5)*u*u1 + ext(5)*u3 - ext(4)*u*u2
+ <br /> - ext(4)*u1**2 - ext(4)*u4 + ext(3)*u**2*u1
+ <br /> + 2*ext(3)*u*u3 + 3*ext(3)*u1*u2 + ext(3)*u5$
+</div>
+<!--l. 875--><p class="nopar" > as it results from the computation of the conservation laws. The following ansatz for the
+nonlocal Hamiltonian operator comes from the fact that local Hamiltonian operators have
+gradings <span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1 </span>and <span 
+class="cmr-10x-x-109">+1 </span>when written in terms of <span 
+class="cmmi-10x-x-109">p</span>’s. So we are looking for a nonlocal
+Hamiltonian operator of degree <span 
+class="cmr-10x-x-109">3</span>.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1019">
+phi:=
+ <br />(for each el in grd6 sum (c(ctel:=ctel+1)*el))*ext 50+
+ <br />(for each el in grd3 sum (c(ctel:=ctel+1)*el))*ext 51+
+ <br />(for each el in grd1 sum (c(ctel:=ctel+1)*el))*ext 52+
+ <br />
+ <br />(for each el in grd5 sum (c(ctel:=ctel+1)*el))*ext 3+
+ <br />(for each el in grd4 sum (c(ctel:=ctel+1)*el))*ext 4+
+ <br />(for each el in grd3 sum (c(ctel:=ctel+1)*el))*ext 5+
+ <br />(for each el in grd2 sum (c(ctel:=ctel+1)*el))*ext 6+
+ <br />(for each el in grd1 sum (c(ctel:=ctel+1)*el))*ext 7+
+ <br />(for each el in grd0 sum (c(ctel:=ctel+1)*el))*ext 8
+ <br />$
+</div>
+<!--l. 894--><p class="nopar" > As a solution, we obtain
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1020">
+phi := c(1)*(ext(51)*u1 - 9*ext(8) - 12*ext(6)*u
+ <br /> - 18*ext(5)*u1 - 4*ext(4)*u**2 - 12*ext(4)*u2
+ <br /> - 4*ext(3)*u*u1 - 3*ext(3)*u3)$
+</div>
+<!--l. 900--><p class="nopar" > where <span 
+class="pcrr8t-x-x-109">ext51 </span>stands for the nonlocal variable <span 
+class="pcrr8t-x-x-109">rb </span>fulﬁlling
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1021">
+rb_x:=u1*ext 3$
+ <br />rb_t:=ext(5)*u1 - ext(4)*u2 + ext(3)*u*u1 + ext(3)*u3$
+</div>
+<!--l. 905--><p class="nopar" >
+</p><!--l. 907--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Remark. </span>In the ﬁle <span 
+class="pcrr8t-x-x-109">KdV_nloc-Ham_2.red </span>it is possible to ﬁnd another ansatz for a
+non-local Hamiltonian operator of degree <span 
+class="cmr-10x-x-109">+5</span>.
+</p><!--l. 910--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x202-55200020.11.2"></a>Computations for systems of PDEs</h5>
+<!--l. 913--><p class="noindent" >There is no conceptual diﬀerence when computing for systems of PDEs. We will look for
+Hamiltonian structures for the following Boussinesq equation:
+</p>
+<table 
+class="equation"><tr><td><a 
+ id="x202-552001r70"></a>
+<center class="math-display" >
+<img 
+src="manual187x.png" alt="{
+  ut − uxv − uvx − σvxxx = 0
+  vt − ux − vvx = 0
+" class="math-display"  /></center></td><td class="equation-label">(20.70)</td></tr></table>
+<!--l. 923--><p class="nopar" >
+where <span 
+class="cmmi-10x-x-109">σ </span>is a constant. This example also shows how to deal with jet spaces with more
+than one dependent variable. Here gradings can be taken as
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+ <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">t</span><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">,  </span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,  </span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">v</span><span 
+class="cmr-10x-x-109">] = 1</span><span 
+class="cmmi-10x-x-109">,  </span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">u</span><span 
+class="cmr-10x-x-109">] = 2</span><span 
+class="cmmi-10x-x-109">,  </span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">p</span><span 
+class="cmr-10x-x-109">] = [</span> <span 
+class="cmmi-10x-x-109">∂</span>_
+<span 
+class="cmmi-10x-x-109">∂u</span><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">,  </span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">q</span><span 
+class="cmr-10x-x-109">] = [</span> <span 
+class="cmmi-10x-x-109">∂</span>_
+<span 
+class="cmmi-10x-x-109">∂v</span><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1</span>
+</td></tr></table>
+<!--l. 929--><p class="nopar" >
+where <span 
+class="cmmi-10x-x-109">p</span>, <span 
+class="cmmi-10x-x-109">q </span>are the two coordinates in the space of generating functions of conservation
+laws.
+</p><!--l. 933--><p class="noindent" >The linearization of the above system and its adjoint are, respectively
+</p><table 
+class="align-star">
+            <tr><td 
+class="align-odd"><span 
+class="cmmi-10x-x-109">ℓ</span><sub>Bou</sub></td>             <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= </span><img 
+src="manual188x.png" alt="(Dt  − vDx − vx  − ux − uDx − σDxxx )
+      − D           D − v  − vD
+         x           t    x     x"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">,</span></td>            <td 
+class="align-label"></td>            <td 
+class="align-label">
+            </td></tr><tr><td 
+class="align-odd"><span 
+class="cmmi-10x-x-109">ℓ</span><sub>Bou</sub><sup><span 
+class="cmsy-8">∗</span></sup></td>            <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= </span><img 
+src="manual189x.png" alt="(                         )
+   − Dt + vDx       Dx
+  uDx + σDxxx   − Dt + vDx"  class="left" align="middle" /></td>                      <td 
+class="align-label"></td>            <td 
+class="align-label"></td></tr></table>
+<!--l. 946--><p class="noindent" >and lead to the <span 
+class="cmmi-10x-x-109">ℓ</span><sub>Bou</sub><sup><span 
+class="cmsy-8">∗</span></sup> covering equation
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                   <img 
+src="manual190x.png" alt="(|  − pt + vpx + qx = 0
+|{  up  + σp   − q +  vq = 0
+     x     xxx   t     x
+||(  ut − uxv − uvx − σvxxx = 0
+   vt − ux − vvx = 0"  class="left" align="middle" />
+</td></tr></table>
+<!--l. 957--><p class="nopar" >
+We have to ﬁnd shadows of symmetries on the above covering. Total derivatives must be
+deﬁned as follows:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1022">
+super_vectorfield(ddx,{x,t,u,v,u1,v1,u2,v2,u3,v3,u4,v4,
+ <br />u5,v5,u6,v6,u7,v7,u8,v8,u9,v9,u10,v10,u11,v11,u12,v12,
+ <br />u13,v13,u14,v14,u15,v15,u16,v16,u17,v17},
+ <br />{ext 1,ext 2,ext 3,ext 4,ext 5,ext 6,ext 7,ext 8,ext 9,
+ <br />ext 10,ext 11,ext 12,ext 13,ext 14,ext 15,ext 16,ext 17,
+ <br />ext 18,ext 19,ext 20,ext 21,ext 22,ext 23,ext 24,ext 25,
+ <br />ext 26,ext 27,ext 28,ext 29,ext 30,ext 31,ext 32,ext 33,
+ <br />ext 34,ext 35,ext 36,ext 37,ext 38,ext 39,ext 40,ext 41,
+ <br />ext 42,ext 43,ext 44,ext 45,ext 46,ext 47,ext 48,ext 49,
+ <br />ext 50,ext 51,ext 52,ext 53,ext 54,ext 55,ext 56,ext 57,
+ <br />ext 58,ext 59,ext 60,ext 61,ext 62,ext 63,ext 64,ext 65,
+ <br />ext 66,ext 67,ext 68,ext 69,ext 70,ext 71,ext 72,ext 73,
+ <br />ext 74,ext 75,ext 76,ext 77,ext 78,ext 79,ext 80
+ <br />});
+ <br />
+ <br />super_vectorfield(ddt,{x,t,u,v,u1,v1,u2,v2,u3,v3,u4,v4,
+ <br />u5,v5,u6,v6,u7,v7,u8,v8,u9,v9,u10,v10,u11,v11,u12,v12,
+ <br />u13,v13,u14,v14,u15,v15,u16,v16,u17,v17},
+ <br />{ext 1,ext 2,ext 3,ext 4,ext 5,ext 6,ext 7,ext 8,ext 9,
+ <br />ext 10,ext 11,ext 12,ext 13,ext 14,ext 15,ext 16,ext 17,
+ <br />ext 18,ext 19,ext 20,ext 21,ext 22,ext 23,ext 24,ext 25,
+ <br />ext 26,ext 27,ext 28,ext 29,ext 30,ext 31,ext 32,ext 33,
+ <br />ext 34,ext 35,ext 36,ext 37,ext 38,ext 39,ext 40,ext 41,
+ <br />ext 42,ext 43,ext 44,ext 45,ext 46,ext 47,ext 48,ext 49,
+ <br />ext 50,ext 51,ext 52,ext 53,ext 54,ext 55,ext 56,ext 57,
+ <br />ext 58,ext 59,ext 60,ext 61,ext 62,ext 63,ext 64,ext 65,
+ <br />ext 66,ext 67,ext 68,ext 69,ext 70,ext 71,ext 72,ext 73,
+ <br />ext 74,ext 75,ext 76,ext 77,ext 78,ext 79,ext 80
+ <br />});
+</div>
+<!--l. 990--><p class="nopar" > In the list of coordinates we alternate derivatives of <span 
+class="cmmi-10x-x-109">u </span>and derivatives of <span 
+class="cmmi-10x-x-109">v</span>. The same
+must be done for coeﬃcients; for example,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1023">
+ddx(0,1):=1$
+ <br />ddx(0,2):=0$
+ <br />ddx(0,3):=u1$
+ <br />ddx(0,4):=v1$
+ <br />ddx(0,5):=u2$
+ <br />ddx(0,6):=v2$
+ <br />...
+</div>
+<!--l. 1001--><p class="nopar" > After specifying the equation
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1024">
+ut:=u1*v+u*v1+sig*v3;
+ <br />vt:=u1+v*v1;
+</div>
+<!--l. 1006--><p class="nopar" > we deﬁne the (already introduced) time derivatives:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1025">
+ut1:=ddx ut;
+ <br />ut2:=ddx ut1;
+ <br />ut3:=ddx ut2;
+ <br />...
+ <br />vt1:=ddx vt;
+ <br />vt2:=ddx vt1;
+ <br />vt3:=ddx vt2;
+ <br />...
+</div>
+<!--l. 1017--><p class="nopar" > up to the required order (here the order can be stopped at <span 
+class="cmr-10x-x-109">15</span>). Odd variables <span 
+class="cmmi-10x-x-109">p </span>and <span 
+class="cmmi-10x-x-109">q</span>
+must be speciﬁed with an appropriate length (here it is OK to stop at <span 
+class="pcrr8t-x-x-109">ddx(1,36)</span>).
+Recall to replace <span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmmi-8">t</span></sub>, <span 
+class="cmmi-10x-x-109">q</span><sub><span 
+class="cmmi-8">t</span></sub> with the internal coordinates of the covering:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1026">
+ddt(1,1):=0$
+ <br />ddt(1,2):=0$
+ <br />ddt(1,3):=+v*ext 5+ext 6$
+ <br />ddt(1,4):=u*ext 5+sig*ext 9+v*ext 6$
+ <br />ddt(1,5):=ddx(ddt(1,3))$
+ <br />...
+</div>
+<!--l. 1029--><p class="nopar" > The list of graded variables:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1027">
+all_graded_der:={{v},{u,v1},{u1,v2},{u2,v3},{u3,v4},
+ <br /> {u4,v5},{u5,v6},{u6,v7},{u7,v8},{u8,v9},{u9,v10},
+ <br /> {u10,v11},{u11,v12},{u12,v13},{u13,v14},{u14,v15},
+ <br /> {u15,v16},{u16,v17},{u17}};
+</div>
+<!--l. 1036--><p class="nopar" > The ansatz for the components of the Hamiltonian operator is
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1028">
+phi1:=
+ <br />(for each el in grd2 sum (c(ctel:=ctel+1)*el))*ext 3+
+ <br />(for each el in grd1 sum (c(ctel:=ctel+1)*el))*ext 5+
+ <br />(for each el in grd1 sum (c(ctel:=ctel+1)*el))*ext 4+
+ <br />(for each el in grd0 sum (c(ctel:=ctel+1)*el))*ext 6
+ <br />$
+ <br />
+ <br />phi2:=
+ <br />(for each el in grd1 sum (c(ctel:=ctel+1)*el))*ext 3+
+ <br />(for each el in grd0 sum (c(ctel:=ctel+1)*el))*ext 5+
+ <br />(for each el in grd0 sum (c(ctel:=ctel+1)*el))*ext 4
+ <br />$
+</div>
+<!--l. 1051--><p class="nopar" > and the equation for shadows of symmetries is
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1029">
+equ 1:=ddt(phi1)-v*ddx(phi1)-v1*phi1-u1*phi2-u*ddx(phi2)
+ <br />-sig*ddx(ddx(ddx(phi2)));
+ <br />equ 2:=-ddx(phi1)-v*ddx(phi2)-v1*phi2+ddt(phi2);
+</div>
+<!--l. 1057--><p class="nopar" > After the usual procedures for decomposing polynomials we obtain the following
+result:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1030">
+phi1 := c(6)*ext(6)$
+ <br />phi2 := c(6)*ext(5)$
+</div>
+<!--l. 1063--><p class="nopar" > which corresponds to the vector <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">D</span><sub><span 
+class="cmmi-8">x</span></sub><span 
+class="cmmi-10x-x-109">,D</span><sub><span 
+class="cmmi-8">x</span></sub><span 
+class="cmr-10x-x-109">)</span>. Extending the ansatz to
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1031">
+phi1:=
+ <br />(for each el in grd3 sum (c(ctel:=ctel+1)*el))*ext 3+
+ <br />(for each el in grd2 sum (c(ctel:=ctel+1)*el))*ext 5+
+ <br />(for each el in grd1 sum (c(ctel:=ctel+1)*el))*ext 7+
+ <br />(for each el in grd0 sum (c(ctel:=ctel+1)*el))*ext 9+
+ <br />(for each el in grd2 sum (c(ctel:=ctel+1)*el))*ext 4+
+ <br />(for each el in grd1 sum (c(ctel:=ctel+1)*el))*ext 6+
+ <br />(for each el in grd0 sum (c(ctel:=ctel+1)*el))*ext 8
+ <br />$
+ <br />
+ <br />phi2:=
+ <br />(for each el in grd2 sum (c(ctel:=ctel+1)*el))*ext 3+
+ <br />(for each el in grd1 sum (c(ctel:=ctel+1)*el))*ext 5+
+ <br />(for each el in grd0 sum (c(ctel:=ctel+1)*el))*ext 7+
+ <br />(for each el in grd1 sum (c(ctel:=ctel+1)*el))*ext 4+
+ <br />(for each el in grd0 sum (c(ctel:=ctel+1)*el))*ext 6
+ <br />$
+</div>
+<!--l. 1083--><p class="nopar" > allows us to ﬁnd a second (local) Hamiltonian operator
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1032">
+phi1 := (c(3)*(2*ext(9)*sig + ext(6)*v + 2*ext(5)*u
+ <br /> + ext(3)*u1))/2$
+ <br />phi2 := (c(3)*(2*ext(6) + ext(5)*v + ext(3)*v1))/2$
+</div>
+<!--l. 1089--><p class="nopar" > There is one more higher local Hamiltonian operator, and a whole hierarchy of nonlocal
+Hamiltonian operators <span class="cite">[<a 
+href="manualap2.html#XKerstenKrasilshchikVerboretsky:2004">KKV04</a>]</span>.
+</p><!--l. 1094--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x202-55300020.11.2"></a>Explosion of denominators and how to avoid it</h5>
+<!--l. 1096--><p class="noindent" >Here we propose the computation of the repeated total derivative of a denominator. This
+computation ﬁlls up the whole memory after some time, and can be used as a kind of
+speed test for the system. The ﬁle is <span 
+class="pcrr8t-x-x-109">KdV_denom_1.red</span>.
+</p><!--l. 1101--><p class="noindent" >After having deﬁned total derivatives on the KdV equation, run the following
+iteration:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1033">
+phi:=1/(u3+u*u1)$
+ <br />for i:=1:100 do begin
+ <br />                phi:=ddx(phi)$
+ <br />                write i;
+ <br />end;
+</div>
+<!--l. 1109--><p class="nopar" > The program shows the iteration number. At the 18th iteration the program uses about
+600MB of RAM, as shown by <span 
+class="pcrr8t-x-x-109">top </span>run from another shell, and 100% of one
+processor.
+</p><!--l. 1114--><p class="noindent" >There is a simple way to avoid denominator explosion. The ﬁle for this example is
+<span 
+class="pcrr8t-x-x-109">KdV_denom_2.red</span>.
+</p><!--l. 1117--><p class="noindent" >After having deﬁned total derivatives with respect to <span 
+class="cmmi-10x-x-109">x </span>(on the KdV equation,
+for example) consider in the same <span 
+class="pcrr8t-x-x-109">ddx </span>a component with a suﬃcently high
+index <span 
+class="ptmb8t-x-x-109">immediately after ‘letop’ </span>(otherwise <span 
+class="pcrr8t-x-x-109">super_vectorfield </span>does not
+work!), say <span 
+class="pcrr8t-x-x-109">ddx(0,21)</span>, and think of it as being the coeﬃcient to a vector of the
+type
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1034">
+aa21:=1/(u3+u*u1);
+</div>
+<!--l. 1124--><p class="nopar" > In this case, its coeﬃcient must be
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1035">
+ddx(0,21):=-aa21**2*(u4+u1**2+u*u2)$
+</div>
+<!--l. 1128--><p class="nopar" > More particularly, here follows the detailed deﬁnition of <span 
+class="pcrr8t-x-x-109">ddx</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1036">
+ddx(0,1):=1$
+ <br />ddx(0,2):=0$
+ <br />ddx(0,3):=u1$
+ <br />ddx(0,4):=u2$
+ <br />ddx(0,5):=u3$
+ <br />ddx(0,6):=u4$
+ <br />ddx(0,7):=u5$
+ <br />ddx(0,8):=u6$
+ <br />ddx(0,9):=u7$
+ <br />ddx(0,10):=u8$
+ <br />ddx(0,11):=u9$
+ <br />ddx(0,12):=u10$
+ <br />ddx(0,13):=u11$
+ <br />ddx(0,14):=u12$
+ <br />ddx(0,15):=u13$
+ <br />ddx(0,16):=u14$
+ <br />ddx(0,17):=u15$
+ <br />ddx(0,18):=u16$
+ <br />ddx(0,19):=u17$
+ <br />ddx(0,20):=letop$
+ <br />ddx(0,21):=-aa21**2*(u4+u1**2+u*u2)$
+</div>
+<!--l. 1152--><p class="nopar" >
+</p><!--l. 1154--><p class="noindent" >Now, suppose that we want to compute the 5th total derivative of <span 
+class="pcrr8t-x-x-109">phi</span>. Write the
+following code:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1037">
+phi:=aa30;
+ <br />for i:=1:5 do begin
+ <br />                phi:=ddx(phi)$
+ <br />                write i;
+ <br />end;
+</div>
+<!--l. 1162--><p class="nopar" > The result is then a polynomial in the additional ‘denominator’ variable
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1038">
+phi := aa21**2*( - 120*aa21**4*u**5*u2**5
+ <br /> - 600*aa21**4*u**4*u1**2*u2**4
+ <br /> - 600*aa21**4*u**4*u2**4*u4
+ <br /> - 1200*aa21**4*u**3*u1**4*u2**3
+ <br /> - 2400*aa21**4*u**3*u1**2*u2**3*u4
+ <br /> - 1200*aa21**4*u**3*u2**3*u4**2
+ <br /> - 1200*aa21**4*u**2*u1**6*u2**2
+ <br /> - 3600*aa21**4*u**2*u1**4*u2**2*u4
+ <br /> - 3600*aa21**4*u**2*u1**2*u2**2*u4**2
+ <br /> - 1200*aa21**4*u**2*u2**2*u4**3
+ <br /> - 600*aa21**4*u*u1**8*u2
+ <br /> - 2400*aa21**4*u*u1**6*u2*u4
+ <br /> - 3600*aa21**4*u*u1**4*u2*u4**2
+ <br /> - 2400*aa21**4*u*u1**2*u2*u4**3
+ <br /> - 600*aa21**4*u*u2*u4**4
+ <br /> - 120*aa21**4*u1**10 - 600*aa21**4*u1**8*u4
+ <br /> - 1200*aa21**4*u1**6*u4**2 - 1200*aa21**4*u1**4*u4**3
+ <br /> - 600*aa21**4*u1**2*u4**4 - 120*aa21**4*u4**5
+ <br /> + 240*aa21**3*u**4*u2**3*u3
+ <br /> + 720*aa21**3*u**3*u1**2*u2**2*u3
+ <br /> + 720*aa21**3*u**3*u1*u2**4
+ <br /> + 240*aa21**3*u**3*u2**3*u5
+ <br /> + 720*aa21**3*u**3*u2**2*u3*u4
+ <br /> + 720*aa21**3*u**2*u1**4*u2*u3
+ <br /> + 2160*aa21**3*u**2*u1**3*u2**3
+ <br /> + 720*aa21**3*u**2*u1**2*u2**2*u5
+ <br /> + 1440*aa21**3*u**2*u1**2*u2*u3*u4
+ <br /> + 2160*aa21**3*u**2*u1*u2**3*u4
+ <br /> + 720*aa21**3*u**2*u2**2*u4*u5
+ <br /> + 720*aa21**3*u**2*u2*u3*u4**2 + 240*aa21**3*u*u1**6*u3
+ <br /> + 2160*aa21**3*u*u1**5*u2**2
+ <br /> + 720*aa21**3*u*u1**4*u2*u5
+ <br /> + 720*aa21**3*u*u1**4*u3*u4
+ <br /> + 4320*aa21**3*u*u1**3*u2**2*u4
+ <br /> + 1440*aa21**3*u*u1**2*u2*u4*u5
+ <br /> + 720*aa21**3*u*u1**2*u3*u4**2
+ <br /> + 2160*aa21**3*u*u1*u2**2*u4**2
+ <br /> + 720*aa21**3*u*u2*u4**2*u5
+                                                                     
+
+                                                                     
+ <br /> + 240*aa21**3*u*u3*u4**3 + 720*aa21**3*u1**7*u2
+ <br /> + 240*aa21**3*u1**6*u5
+ <br /> + 2160*aa21**3*u1**5*u2*u4 + 720*aa21**3*u1**4*u4*u5
+ <br /> + 2160*aa21**3*u1**3*u2*u4**2
+ <br /> + 720*aa21**3*u1**2*u4**2*u5
+ <br /> + 720*aa21**3*u1*u2*u4**3 + 240*aa21**3*u4**3*u5
+ <br /> - 60*aa21**2*u**3*u2**2*u4 - 90*aa21**2*u**3*u2*u3**2
+ <br /> - 120*aa21**2*u**2*u1**2*u2*u4
+ <br /> - 90*aa21**2*u**2*u1**2*u3**2
+ <br /> - 780*aa21**2*u**2*u1*u2**2*u3 - 180*aa21**2*u**2*u2**4
+ <br /> - 60*aa21**2*u**2*u2**2*u6 - 180*aa21**2*u**2*u2*u3*u5
+ <br /> - 120*aa21**2*u**2*u2*u4**2 - 90*aa21**2*u**2*u3**2*u4
+ <br /> - 60*aa21**2*u*u1**4*u4 - 1020*aa21**2*u*u1**3*u2*u3
+ <br /> - 1170*aa21**2*u*u1**2*u2**3
+ <br /> - 120*aa21**2*u*u1**2*u2*u6
+ <br /> - 180*aa21**2*u*u1**2*u3*u5 - 120*aa21**2*u*u1**2*u4**2
+ <br /> - 540*aa21**2*u*u1*u2**2*u5
+ <br /> - 1020*aa21**2*u*u1*u2*u3*u4
+ <br /> - 360*aa21**2*u*u2**3*u4 - 120*aa21**2*u*u2*u4*u6
+ <br /> - 90*aa21**2*u*u2*u5**2 - 180*aa21**2*u*u3*u4*u5
+ <br /> - 60*aa21**2*u*u4**3 - 240*aa21**2*u1**5*u3
+ <br /> - 990*aa21**2*u1**4*u2**2 - 60*aa21**2*u1**4*u6
+ <br /> - 540*aa21**2*u1**3*u2*u5 - 480*aa21**2*u1**3*u3*u4
+ <br /> - 1170*aa21**2*u1**2*u2**2*u4 - 120*aa21**2*u1**2*u4*u6
+ <br /> - 90*aa21**2*u1**2*u5**2 - 540*aa21**2*u1*u2*u4*u5
+ <br /> - 240*aa21**2*u1*u3*u4**2 - 180*aa21**2*u2**2*u4**2
+ <br /> - 60*aa21**2*u4**2*u6 - 90*aa21**2*u4*u5**2
+ <br /> + 10*aa21*u**2*u2*u5 + 20*aa21*u**2*u3*u4
+ <br /> + 10*aa21*u*u1**2*u5 + 110*aa21*u*u1*u2*u4
+ <br /> + 80*aa21*u*u1*u3**2 + 160*aa21*u*u2**2*u3
+ <br /> + 10*aa21*u*u2*u7 + 20*aa21*u*u3*u6 + 30*aa21*u*u4*u5
+ <br /> + 50*aa21*u1**3*u4 + 340*aa21*u1**2*u2*u3
+ <br /> + 10*aa21*u1**2*u7 + 180*aa21*u1*u2**3
+ <br /> + 60*aa21*u1*u2*u6 + 80*aa21*u1*u3*u5
+ <br /> + 50*aa21*u1*u4**2 + 60*aa21*u2**2*u5
+ <br /> + 100*aa21*u2*u3*u4 + 10*aa21*u4*u7 + 20*aa21*u5*u6
+ <br /> - u*u6 - 6*u1*u5 - 15*u2*u4 - 10*u3**2 - u8)$
+</div>
+<!--l. 1240--><p class="nopar" > where the value of <span 
+class="pcrr8t-x-x-109">aa21 </span>can be replaced back in the expression.
+</p><!--l. 243--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 245--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse136.html" >Up</a></td><td class="clinks"><a 
+href="manualse137.html" >Next</a></td><td class="clinks"><a 
+href="manualse135.html" >Prev</a></td><td class="clinks"><a 
+href="manualse135.html#tailmanualse135.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse136.html" >Front</a></td></tr></table><a 
+ id="tailmanualse136.html"></a>   </p> 
+</body> 
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>GCREF: A Graph Cross Referencer</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse147.html" >Up</a></td><td class="clinks"><a 
+href="manualse148.html" >Next</a></td><td class="clinks"><a 
+href="manualse146.html" >Prev</a></td><td class="clinks"><a 
+href="manualse146.html#tailmanualse146.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse147.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.22    </span> <a 
+ id="x214-80700020.22"></a>GCREF: A Graph Cross Referencer</h3>
+<a 
+ id="dx214-807001"></a>
+<a 
+ id="dx214-807002"></a>
+<!--l. 451--><p class="noindent" >This package reuses the code of the RCREF package to create a graph displaying the
+interdependency of procedures in a Reduce source code ﬁle.
+</p><!--l. 454--><p class="noindent" >Authors: A. Dolzmann, T. Sturm.
+<a 
+ id="dx214-807003"></a>
+<a 
+ id="dx214-807004"></a>
+<a 
+ id="dx214-807005"></a>
+<a 
+ id="dx214-807006"></a>
+</p><!--l. 5--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.22.1    </span> <a 
+ id="x214-80800020.22.1"></a>Basic Usage</h4>
+<!--l. 8--><p class="noindent" >Similarly to the Reduce cross referencer, it is used via switches as follows:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1197">
+load_package gcref;
+ <br />on gcref;
+ <br />in &#x0022;&#x003C;filename&#x003E;.red&#x0022;;
+ <br />off gcref;
+</div>
+<!--l. 14--><p class="nopar" > At <span 
+class="pcrr8t-x-x-109">off gcref; </span>the graph is printed to the screen in TGF format. To redirect this
+output to a ﬁle, use the following:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1198">
+load_package gcref;
+ <br />on gcref;
+ <br />in &#x0022;&#x003C;filename&#x003E;.red&#x0022;;
+ <br />out &#x0022;&#x003C;filename&#x003E;.tgf&#x0022;;
+ <br />off gcref;
+ <br />shut &#x0022;&#x003C;filename&#x003E;.tgf&#x0022;;
+</div>
+<!--l. 24--><p class="nopar" >
+</p><!--l. 26--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.22.2    </span> <a 
+ id="x214-80900020.22.2"></a>Shell Script &#x0022;gcref&#x0022;</h4>
+<!--l. 28--><p class="noindent" >There is a shell script &#x0022;gcref&#x0022; in this directory automizing this like
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1199">
+./gcref filename.red
+</div>
+<!--l. 31--><p class="nopar" > &#x0022;gcref&#x0022; is conﬁgured to use CSL Reduce. To use PSL Reduce instead, set $REDUCE in
+the environment. To use PSL by default, deﬁne
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1200">
+REDUCE=redpsl
+</div>
+<!--l. 36--><p class="nopar" > in line 3 of &#x0022;gcref&#x0022;.
+</p><!--l. 40--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.22.3    </span> <a 
+ id="x214-81000020.22.3"></a>Rendering with yED</h4>
+<!--l. 42--><p class="noindent" >The obtained TGF ﬁle can be viewed with a graph editor. I recommend using the free
+software yED, which is written in Java and available for many platforms.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1201">
+http://www.yworks.com/en/products_yed_about.html
+</div>
+<!--l. 46--><p class="nopar" > Note that TGF is not suitable for storing rendering information. After opening the TGF
+ﬁle with yED, the graph has to be rendered explicitly as follows:
+</p><!--l. 50--><p class="noindent" >* From menu &#x0022;Layout&#x0022; choose &#x0022;Hierarchical Layout&#x0022;.
+</p><!--l. 52--><p class="noindent" >To resize the nodes to the procedure names
+</p><!--l. 54--><p class="noindent" >* from menu &#x0022;Tools&#x0022; choose &#x0022;Fit Node to Label&#x0022;.
+</p><!--l. 56--><p class="noindent" >Feel free to experiment with yED and use other layout and layout options, which might
+be suitable for your particular software.
+</p><!--l. 59--><p class="noindent" >For saving your particular layout at the end, use the GRAPHML format instead of
+TGF.
+</p><!--l. 458--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 460--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse147.html" >Up</a></td><td class="clinks"><a 
+href="manualse148.html" >Next</a></td><td class="clinks"><a 
+href="manualse146.html" >Prev</a></td><td class="clinks"><a 
+href="manualse146.html#tailmanualse146.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse147.html" >Front</a></td></tr></table><a 
+ id="tailmanualse147.html"></a>  </p> 
+</body> 
+</html>

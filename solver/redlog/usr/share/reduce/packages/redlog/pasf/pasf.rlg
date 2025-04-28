@@ -1,0 +1,364 @@
+off rlabout;
+
+
+rlset pasf;
+
+
+{}
+
+off rlverbose;
+
+
+
+% Information Flow Control
+sec := (a < b and cong(a+b,0,2) and 2*n = a+b and
+      (a < b and b-a = n or a >= b and a-b = n)) or
+   (a < b and ncong(a+b,0,2) and 2*n = a+b+1 and
+      (a < b and b-a = n or a >= b and a-b = n))$
+
+
+
+rlqe rlex sec;
+
+
+true
+
+
+rlqea rlex sec;
+
+
+{{true,
+
+  {n = _k16,
+
+        3*_k16 - 1
+   b = ------------,
+            2
+
+        _k16 - 1
+   a = ----------,
+           2
+
+   implicit = {_k16 + 2 >= 0 and _k16 - 2 <= 0}}},
+
+ {true,
+
+  {n = _k12,
+
+        3*_k12
+   b = --------,
+          2
+
+        _k12
+   a = ------,
+         2
+
+   implicit = {_k12 + 2 >= 0 and _k12 - 2 <= 0}}}}
+
+
+rlqe ex(n,sec);
+
+
+(3*a - b + 1 = 0 and a + b #2# 0 and a - b < 0)
+
+ or (3*a - b = 0 and a + b ~2~ 0 and a - b < 0)
+
+
+% Information Flow Control, Nonlinear Variant
+phi := ex(n,
+   (a < b and cong(a+b,0,2) and 2*n = a+b and
+      ((a<b and b-a=n^2) or (a >= b and a-b = n^2))) or
+   (a < b and ncong(a+b,0,2) and 2*n = a+b+1 and
+      ((a < b and b-a = n^2) or (a >= b and a-b = n^2))))$
+
+
+
+rlwqe phi;
+
+
+              2            2                 2            2
+bex _k20 [ - a  + 2*a*b - b  - 2 <= _k20 <= a  - 2*a*b + b  + 2] (a - b < 0
+
+                                                    2
+ and a + b #2# 0 and 2*_k20 - a - b - 1 = 0 and _k20  + a - b = 0) or bex _k19 [
+
+    2            2                 2            2
+ - a  + 2*a*b - b  - 2 <= _k19 <= a  - 2*a*b + b  + 2] (a - b < 0
+
+                                                2
+ and a + b ~2~ 0 and 2*_k19 - a - b = 0 and _k19  + a - b = 0)
+
+
+% Integer Roots
+phi := ex(x,x^5-3x^2+1 = 0 and 3x >= 1 and x <= 3)$
+
+
+
+rlwqe phi;
+
+
+false
+
+
+% Integer Roots of Generic Polynomial
+phi := ex(x,a*x^2+b*x+c=0)$
+
+
+
+rlwqe phi;
+
+
+              2    2                 2    2           2
+bex _k21 [ - b  - c  - 2 <= _k21 <= b  + c  + 2] (_k21 *a + _k21*b + c = 0)
+
+
+% Feasibility of Parametric Integer Constraints
+las := ex(x,a*x>=b and c*x<=d)$
+
+
+
+rlwqe las;
+
+
+(b <= 0 and d >= 0) or bex _k23 [ - abs(a) <= _k23 <= abs(a)] (
+
+((_k23 <= 0 and a < 0) or (_k23 >= 0 and a > 0)) and (
+
+(_k23*c - a*d + b*c <= 0 and a > 0) or (_k23*c - a*d + b*c >= 0 and a < 0))
+
+ and a <> 0 and _k23 + b ~a~ 0) or bex _k23 [ - abs(c) <= _k23 <= abs(c)] (
+
+((_k23 <= 0 and c > 0) or (_k23 >= 0 and c < 0)) and (
+
+(_k23*a + a*d - b*c <= 0 and c < 0) or (_k23*a + a*d - b*c >= 0 and c > 0))
+
+ and c <> 0 and _k23 + d ~c~ 0)
+
+
+procedure t1(m);
+   rlsimpl ex(for i:=1:m collect mkid(x,i),
+      (for i:=1:m sum mkid(x,i))=a and
+      for i:=1:m mkand mkid(x,i)>=0);
+
+
+t1
+
+
+procedure t2(m);
+   rlsimpl ex(for i:=1:m join for j:=1:m collect mkid(mkid(x,i),j),
+      for i:=1:m mkand (for j:=1:m sum mkid(mkid(x,i),j))=mkid(a,i) and
+      for j:=1:m mkand (for i:=1:m sum mkid(mkid(x,i),j))=mkid(b,j) and
+      for i:=1:m mkand for j:=1:m mkand mkid(mkid(x,i),j)>=0);
+
+
+t2
+
+
+% We compute $T_{1,8}$. In the literature we have treated instances
+% with in the range t1(5), ..., t1(11):
+
+f:=t1(5)$
+
+ s:=rlwqe f$
+
+ rlatnum s;
+
+
+192
+ rlexpand s$
+
+ ws;
+
+
+a >= 0
+
+
+% We compute $T_{2,2}$. In the literature we have treated instances with
+% in the range t1(1), ..., t1(3):
+
+f:=t2(2)$
+
+ s:=rlwqe f$
+
+ rlatnum s;
+
+
+24
+ rlexpand s$
+
+ ws;
+
+
+(a1 + a2 - b1 - b2 = 0 and a2 - b1 - b2 <= 0 and a2 - b1 >= 0 and b1 >= 0)
+
+ or (a1 + a2 - b1 - b2 = 0 and a2 - b1 - b2 <= 0 and a2 - b2 >= 0 and b2 >= 0)
+
+ or (a1 + a2 - b1 - b2 = 0 and a2 - b1 - b2 < 0 and a2 - b1 + 1 >= 0 and b1 > 0)
+
+ or (a1 + a2 - b1 - b2 = 0 and a2 - b1 - b2 < 0 and a2 - b2 + 1 >= 0 and b2 > 0)
+
+ or (a1 + a2 - b1 - b2 = 0 and a2 - b1 - 1 <= 0 and a2 > 0 and b2 > 0)
+
+ or (a1 + a2 - b1 - b2 = 0 and a2 - b1 <= 0 and a2 >= 0 and b2 >= 0)
+
+ or (a1 + a2 - b1 - b2 = 0 and a2 - b2 - 1 <= 0 and a2 > 0 and b1 > 0)
+
+ or (a1 + a2 - b1 - b2 = 0 and a2 - b2 <= 0 and a2 >= 0 and b1 >= 0)
+
+
+% Dependency Analysis for Automatic Parallelization
+dep := ex({ii,j,ip,jp},0<=ii<=m and 0<=j<=m and 0<=ip<=m and 0<=jp<=m and
+(ii<>ip or j<>jp) and ii+j<>ip+jp and n*ii+j=n*ip+jp)$
+
+
+
+depsol := rlwqe dep$
+
+
+rlatnum depsol;
+
+
+11021
+
+
+rlexpand rlsimpl sub(m=4,n=4,depsol);
+
+
+true
+
+
+rlqe sub(m=4,n=4,dep);
+
+
+true
+
+
+rlqe sub(m=4,n=5,dep);
+
+
+false
+
+
+% Parametric Linear Optimization Problem with Univariately Nonlinear
+% Constraints
+f := ex({x,y},x+y <= z and x >= 0 and y >= 0 and x+y >= 0 and x^2-a >= 0);
+
+
+f := ex x ex y (x + y - z <= 0 and x >= 0 and y >= 0 and x + y >= 0
+
+             2
+ and  - a + x  >= 0)
+
+
+sol := rlwqe f$
+
+
+rlatnum sol;
+
+
+103
+
+rlexpand sub(a=10,sol);
+
+
+z - 3 > 0
+
+
+% An artificial example with some more interesting bounds.
+f := ex({m, n}, a+2*b = (a+b)*m and a*(m+n) < 0);
+
+
+f := ex m ex n ( - a*m + a - b*m + 2*b = 0 and a*m + a*n < 0)
+
+
+sol := rlwqe f;
+
+
+sol := (2*a + 3*b ~a + b~ 0 and a + b <> 0 and a > 0) or (a + 2*b ~a + b~ 0
+
+ and a + b <> 0 and (
+
+(a < 0 and ((a + 2*b < 0 and a + b < 0) or (a + 2*b > 0 and a + b > 0)))
+
+ or (a > 0 and ((a + 2*b < 0 and a + b > 0) or (a + 2*b > 0 and a + b < 0)))))
+
+ or (a + b <> 0 and a < 0 and b ~a + b~ 0) or bex _k1309 [ - 1 <= _k1309 <= 1] (
+
+((_k1309 + 1 = 0 and a > 0) or (_k1309 - 1 = 0 and a < 0)) and a + 2*b = 0) or 
+
+bex _k1307 [ - abs(a + b) <= _k1307 <= abs(a + b)] ((
+
+(a < 0 and ((_k1307 > 0 and a + b < 0) or (_k1307 > 0 and a + b > 0)))
+
+ or (a > 0 and ((_k1307 < 0 and a + b < 0) or (_k1307 < 0 and a + b > 0))))
+
+ and a + b <> 0 and a + 2*b ~a + b~ 0 and _k1307 - a - 2*b ~a + b~ 0) or bex 
+
+_k1305 [ - 1 <= _k1305 <= 1] (bex _k1304 [
+
+_k1305*a + _k1305*b + a + b <= _k1304 <= _k1305*a + _k1305*b - a - b
+
+ or _k1305*a + _k1305*b - a - b <= _k1304 <= _k1305*a + _k1305*b + a + b] (bex 
+
+_k1301 [ - 1 <= _k1301 <= 1] (((_k1301 + 1 = 0 and _k1304 + a + b = 0 and a > 0)
+
+ or (_k1301 - 1 = 0 and _k1304 - a - b = 0 and a < 0))
+
+ and _k1301*a + _k1301*b - _k1304 = 0) and a + b <> 0
+
+ and _k1304 - a - 2*b ~a + b~ 0)) or bex _k1301 [ - 1 <= _k1301 <= 1] ((
+
+(_k1301 + 1 = 0 and 2*a + 3*b = 0 and a > 0)
+
+ or (_k1301 - 1 = 0 and a < 0 and b = 0)) and _k1301*a + _k1301*b - a - 2*b = 0)
+
+
+% Specifically, one can see bound-variables _kj occurring in the bound of some
+% other _ki:
+part(sol, 6);
+
+
+bex _k1305 [ - 1 <= _k1305 <= 1] (bex _k1304 [
+
+_k1305*a + _k1305*b + a + b <= _k1304 <= _k1305*a + _k1305*b - a - b
+
+ or _k1305*a + _k1305*b - a - b <= _k1304 <= _k1305*a + _k1305*b + a + b] (bex 
+
+_k1301 [ - 1 <= _k1301 <= 1] (((_k1301 + 1 = 0 and _k1304 + a + b = 0 and a > 0)
+
+ or (_k1301 - 1 = 0 and _k1304 - a - b = 0 and a < 0))
+
+ and _k1301*a + _k1301*b - _k1304 = 0) and a + b <> 0
+
+ and _k1304 - a - 2*b ~a + b~ 0))
+
+
+% Absolute values in the bounds are produced only for printing:
+part(sol, 5);
+
+
+bex _k1307 [ - abs(a + b) <= _k1307 <= abs(a + b)] ((
+
+(a < 0 and ((_k1307 > 0 and a + b < 0) or (_k1307 > 0 and a + b > 0)))
+
+ or (a > 0 and ((_k1307 < 0 and a + b < 0) or (_k1307 < 0 and a + b > 0))))
+
+ and a + b <> 0 and a + 2*b ~a + b~ 0 and _k1307 - a - 2*b ~a + b~ 0)
+
+part(sol, 5, 2);
+
+
+(_k1307 + a + b <= 0 and _k1307 - a - b >= 0)
+
+ or (_k1307 + a + b >= 0 and _k1307 - a - b <= 0)
+
+
+end;
+
+Tested on x86_64-pc-windows CSL
+1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 
+Time: pasf  1047  0
+1: Leaving REDUCE ... 
+
+
+End of Lisp run after 1.10+0.03 seconds

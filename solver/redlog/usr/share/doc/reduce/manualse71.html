@@ -1,0 +1,84 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>INTERPOL Operator</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch9.html#manualse71.html" >Up</a></td><td class="clinks"><a 
+href="manualse72.html" >Next</a></td><td class="clinks"><a 
+href="manualse70.html" >Prev</a></td><td class="clinks"><a 
+href="manualse70.html#tailmanualse70.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse71.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">9.10    </span> <a 
+ id="x90-1640009.10"></a>INTERPOL Operator</h3>
+<a 
+ id="dx90-164001"></a>
+<!--l. 623--><p class="noindent" ><a 
+ id="operator:INTERPOL"></a>
+</p><!--l. 625--><p class="noindent" >Syntax:
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">interpol(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">values</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">variable</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">points</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">);</span></div>
+<!--l. 630--><p class="noindent" >where <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">values</span><span 
+class="cmsy-10x-x-109">⟩ </span>and <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">points</span><span 
+class="cmsy-10x-x-109">⟩ </span>are lists of equal length and <span 
+class="pcrr8t-x-x-109">&#x003C;variable&#x003E; </span>is an algebraic
+expression (preferably a kernel).
+</p><!--l. 633--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">interpol </span>generates an interpolation polynomial <span 
+class="ptmri8t-x-x-109">f  </span>in the given variable of degree
+<span 
+class="pcrr8t-x-x-109">length</span>(<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">values</span><span 
+class="cmsy-10x-x-109">⟩</span>)-1. The unique polynomial <span 
+class="ptmri8t-x-x-109">f  </span>is deﬁned by the property that for
+corresponding elements <span 
+class="ptmri8t-x-x-109">v </span>of <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">values</span><span 
+class="cmsy-10x-x-109">⟩ </span>and <span 
+class="ptmri8t-x-x-109">p </span>of <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">points</span><span 
+class="cmsy-10x-x-109">⟩ </span>the relation <span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">p</span><span 
+class="cmr-10x-x-109">) = </span><span 
+class="cmmi-10x-x-109">v</span>
+holds.
+</p><!--l. 639--><p class="noindent" >The Aitken-Neville interpolation algorithm is used which guarantees a stable result even
+with rounded numbers and an ill-conditioned problem.
+                                                                     
+
+                                                                     
+</p><!--l. 642--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch9.html#manualse71.html" >Up</a></td><td class="clinks"><a 
+href="manualse72.html" >Next</a></td><td class="clinks"><a 
+href="manualse70.html" >Prev</a></td><td class="clinks"><a 
+href="manualse70.html#tailmanualse70.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse71.html" >Front</a></td></tr></table><a 
+ id="tailmanualse71.html"></a> </p> 
+</body> 
+</html>

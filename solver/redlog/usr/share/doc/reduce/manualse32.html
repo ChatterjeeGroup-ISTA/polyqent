@@ -1,0 +1,435 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>CHANGEVAR Operator</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse32.html" >Up</a></td><td class="clinks"><a 
+href="manualse33.html" >Next</a></td><td class="clinks"><a 
+href="manualse31.html" >Prev</a></td><td class="clinks"><a 
+href="manualse31.html#tailmanualse31.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse32.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">7.5    </span> <a 
+ id="x42-790007.5"></a>CHANGEVAR Operator</h3>
+<!--l. 1110--><p class="noindent" ><a 
+ id="operator:CHANGEVAR"></a> <a 
+ id="dx42-79001"></a>
+</p><!--l. 1113--><p class="noindent" >Author: G. Üçoluk.
+</p><!--l. 1116--><p class="noindent" >The operator <span 
+class="pcrr8t-x-x-109">changevar </span>does a variable transformation in a set of diﬀerential
+equations. Syntax:
+  </p><div class="syntax">
+  <!--tex4ht:inline--><div class="tabular"> <table id="TBL-15" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-15-1g"><col 
+id="TBL-15-1" /><col 
+id="TBL-15-2" /><col 
+id="TBL-15-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-15-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-15-1-1"  
+class="td01"><span 
+class="pcrr8t-x-x-109">changevar(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">depvars</span><span 
+class="cmsy-10x-x-109">⟩</span>, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">newvars</span><span 
+class="cmsy-10x-x-109">⟩</span>, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">eqlist</span><span 
+class="cmsy-10x-x-109">⟩</span>, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">diﬀeq</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">) </span></td></tr></table>
+  </div></div>
+<!--l. 1122--><p class="noindent" ><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">diﬀeq</span><span 
+class="cmsy-10x-x-109">⟩ </span>is either a single diﬀerential equation or a list of diﬀerential equations, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">depvars</span><span 
+class="cmsy-10x-x-109">⟩</span>
+are the dependent variables to be substituted, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">newvars</span><span 
+class="cmsy-10x-x-109">⟩ </span>are the new depend variables,
+and <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">eqlist</span><span 
+class="cmsy-10x-x-109">⟩ </span>is a list of equations of the form <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">depvar</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">=</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">expression</span><span 
+class="cmsy-10x-x-109">⟩ </span>where <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">expression</span><span 
+class="cmsy-10x-x-109">⟩</span>
+is some function in the new dependent variables.
+</p><!--l. 1129--><p class="noindent" >The three lists <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">depvars</span><span 
+class="cmsy-10x-x-109">⟩</span>, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">newvars</span><span 
+class="cmsy-10x-x-109">⟩</span>, and <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">eqlist</span><span 
+class="cmsy-10x-x-109">⟩ </span>must be of the same length. If there is
+only one variable to be substituted, then it can be given instead of the list. The same
+applies to the list of diﬀerential equations, i.e., the following two commands are
+equivalent
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-139">
+    changevar(u,y,x=e^y,df(u(x),x) - log(x));
+ <br />
+ <br />    changevar({u},{y},{x=e^y},{df(u(x),x) - log(x)});
+</div>
+<!--l. 1138--><p class="nopar" > except for one diﬀerence: the ﬁrst command returns the transformed diﬀerential
+equation, the second one a list with a single element.
+</p><!--l. 1142--><p class="noindent" ><a 
+ id="switch:DISPJACOBIAN"></a> The switch <span 
+class="pcrr8t-x-x-109">dispjacobian </span>governs the display the entries of the inverse Jacobian, it
+is <span 
+class="pcrr8t-x-x-109">off </span>per default.<a 
+ id="dx42-79002"></a><a 
+ id="dx42-79003"></a><a 
+ id="dx42-79004"></a>
+</p><!--l. 1146--><p class="noindent" >The mathematics behind the change of independent variable(s) in diﬀerential equations is
+quite straightforward. It is basically the application of the chain rule. If the dependent
+variable of the diﬀerential equation is <span 
+class="cmmi-10x-x-109">F </span>, the independent variables are <span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmmi-8">i</span></sub> and
+the new independent variables are <span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmmi-8">i</span></sub> (where <span 
+class="cmmi-8">i</span><span 
+class="cmr-8">=1</span><span 
+class="cmmi-8">…</span><span 
+class="cmmi-8">n</span>) then the ﬁrst derivatives
+are:
+</p>
+<table 
+class="equation-star"><tr><td>
+                           <img 
+src="manual17x.png" alt="∂F--
+∂xi"  class="frac" align="middle" /> <span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual18x.png" alt="∂F--
+∂uj"  class="frac" align="middle" /><img 
+src="manual19x.png" alt="∂uj-
+∂xi"  class="frac" align="middle" />
+</td></tr></table>
+<!--l. 1154--><p class="nopar" >
+We assumed Einstein’s summation convention. Here the problem is to calculate the
+<span 
+class="cmmi-10x-x-109">∂u</span><sub><span 
+class="cmmi-8">j</span></sub><span 
+class="cmmi-10x-x-109">∕∂x</span><sub><span 
+class="cmmi-8">i</span></sub> terms if the change of variables is given by
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                           <span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmmi-8">i</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,u</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmr-10x-x-109">)</span>
+</td></tr></table>
+<!--l. 1160--><p class="nopar" >
+The ﬁrst thought might be solving the above given equations for <span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmmi-8">j</span></sub> and then
+diﬀerentiating them with respect to <span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmmi-8">i</span></sub>, then again making use of the equations above,
+substituting new variables for the old ones in the calculated derivatives. This is not
+always a preferable way to proceed. Mainly because the functions <span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmmi-8">i</span></sub> may not always be
+easily invertible. Another approach that makes use of the Jacobian is better. Consider the
+above given equations which relate the old variables to the new ones. Let us diﬀerentiate
+them:
+</p><table 
+class="align-star">
+                           <tr><td 
+class="align-odd"><img 
+src="manual20x.png" alt="∂xj-
+∂xi"  class="frac" align="middle" /></td>                           <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual21x.png" alt="∂fj-
+∂xi"  class="frac" align="middle" /></td>                               <td 
+class="align-label"></td>                           <td 
+class="align-label">
+                           </td></tr><tr><td 
+class="align-odd"><span 
+class="cmmi-10x-x-109">δ</span><sub><span 
+class="cmmi-8">ij</span></sub></td>                             <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual22x.png" alt=" ∂fj
+----
+∂uk"  class="frac" align="middle" /><img 
+src="manual23x.png" alt="∂uk
+----
+∂xi"  class="frac" align="middle" /></td>                           <td 
+class="align-label"></td>                           <td 
+class="align-label"></td></tr></table>
+<!--l. 1175--><p class="noindent" >The ﬁrst derivative is nothing but the <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">j,k</span><span 
+class="cmr-10x-x-109">) </span>th entry of the Jacobian matrix.
+</p><!--l. 1177--><p class="noindent" >So if we speak in matrix language
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                              <span 
+class="cmbx-10x-x-109">1 </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmbx-10x-x-109">J </span><span 
+class="cmsy-10x-x-109">⋅</span><span 
+class="cmbx-10x-x-109">D</span>
+</td></tr></table>
+<!--l. 1178--><p class="nopar" >
+where we deﬁned the Jacobian
+</p>
+<table 
+class="equation-star"><tr><td>
+                              <span 
+class="cmbx-10x-x-109">J</span><sub><span 
+class="cmmi-8">ij</span></sub><img 
+src="manual24x.png" alt=" △
+=" class="stackrel" /><img 
+src="manual25x.png" alt="-∂fi
+∂uj"  class="frac" align="middle" />
+</td></tr></table>
+<!--l. 1180--><p class="nopar" >
+and the matrix of the derivatives we wanted to obtain as
+</p>
+<table 
+class="equation-star"><tr><td>
+                             <span 
+class="cmbx-10x-x-109">D</span><sub><span 
+class="cmmi-8">ij</span></sub><img 
+src="manual26x.png" alt=" △
+=" class="stackrel" /><img 
+src="manual27x.png" alt="∂ui
+∂x--
+   j"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+                                                                     
+
+                                                                     
+<!--l. 1182--><p class="nopar" >
+If the Jacobian has a non-vanishing determinant then it is invertible and we are able to
+write from the matrix equation above:
+</p>
+<table 
+class="equation-star"><tr><td>
+                              <span 
+class="cmbx-10x-x-109">D </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmbx-10x-x-109">J</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmbx-8">1</span></sup>
+</td></tr></table>
+<!--l. 1185--><p class="nopar" >
+so ﬁnally we have what we want
+</p>
+<table 
+class="equation-star"><tr><td>
+                           <img 
+src="manual28x.png" alt="∂ui-
+∂xj"  class="frac" align="middle" /> <span 
+class="cmr-10x-x-109">= </span><img 
+src="manual29x.png" alt="[J −1]"  class="left" align="middle" /><sub>
+<span 
+class="cmmi-8">ij</span></sub>
+</td></tr></table>
+<!--l. 1189--><p class="nopar" >
+The higher derivatives are obtained by the successive application of the chain rule and
+using the deﬁnitions of the old variables in terms of the new ones. It can be easily
+veriﬁed that the only derivatives that are needed to be calculated are the ﬁrst order ones
+which are obtained above.
+                                                                     
+
+                                                                     
+</p><!--l. 1195--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">7.5.1    </span> <a 
+ id="x42-800007.5.1"></a><span 
+class="pcrr8t-x-x-109">CHANGEVAR </span>example: The 2-dim. Laplace Equation</h4>
+<!--l. 1196--><p class="noindent" >The 2-dimensional Laplace equation in cartesian coordinates is:
+</p>
+<table 
+class="equation-star"><tr><td>
+                           <img 
+src="manual30x.png" alt="∂2u-
+∂x2"  class="frac" align="middle" /> <span 
+class="cmr-10x-x-109">+</span> <img 
+src="manual31x.png" alt="∂2u-
+∂y2"  class="frac" align="middle" /> <span 
+class="cmr-10x-x-109">= 0</span>
+</td></tr></table>
+<!--l. 1200--><p class="nopar" >
+Now assume we want to obtain the polar coordinate form of Laplace equation. The
+change of variables is:
+</p>
+<table 
+class="equation-star"><tr><td>
+                      <span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">r</span> <span 
+class="cmr-10x-x-109">cos</span><span 
+class="cmmi-10x-x-109">𝜃,      y </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">r</span> <span 
+class="cmr-10x-x-109">sin</span><span 
+class="cmmi-10x-x-109">𝜃</span>
+</td></tr></table>
+<!--l. 1205--><p class="nopar" >
+The solution using <span 
+class="pcrr8t-x-x-109">changevar </span>is as follows
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-140">
+  changevar({u},{r,theta},{x=r*cos theta,y=r*sin theta},
+ <br />            {df(u(x,y),x,2)+df(u(x,y),y,2)} );
+</div>
+<!--l. 1210--><p class="nopar" > Here we could omit the curly braces in the ﬁrst and last arguments (because those lists
+have only one member) and the curly braces in the third argument (because they are
+optional), but you cannot leave oﬀ the curly braces in the second argument. So one could
+equivalently write
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-141">
+   changevar(u,{r,theta},x=r*cos theta,y=r*sin theta,
+ <br />             df(u(x,y),x,2)+df(u(x,y),y,2) );
+</div>
+<!--l. 1218--><p class="nopar" > If you have tried out the above example, you will notice that the denominator contains a
+<span 
+class="cmr-10x-x-109">cos</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-10x-x-109">𝜃 </span><span 
+class="cmr-10x-x-109">+</span> <span 
+class="cmr-10x-x-109">sin</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-10x-x-109">𝜃 </span>which is actually equal to <span 
+class="cmr-10x-x-109">1</span>. This has of course nothing to do
+with <span 
+class="pcrr8t-x-x-109">changevar</span>. One has to be overcome these pattern matching problems
+by the conventional methods REDUCE provides (a rule, for example, will ﬁx
+it).
+</p><!--l. 1226--><p class="noindent" >Secondly you will notice that your <span 
+class="pcrr8t-x-x-109">u(x,y) </span>operator has changed to <span 
+class="pcrr8t-x-x-109">u(r,theta) </span>in
+the result. Nothing magical about this. That is just what we do with pencil and paper.
+<span 
+class="pcrr8t-x-x-109">u(r,theta) </span>represents the the transformed dependent variable.
+</p><!--l. 1231--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">7.5.2    </span> <a 
+ id="x42-810007.5.2"></a>Another <span 
+class="pcrr8t-x-x-109">CHANGEVAR </span>example: An Euler Equation</h4>
+<!--l. 1232--><p class="noindent" >Consider a diﬀerential equation which is of Euler type, for instance:
+</p>
+<table 
+class="equation-star"><tr><td>
+                    <span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmr-8">3</span></sup><span 
+class="cmmi-10x-x-109">y</span><span 
+class="cmsy-10x-x-109">′′′</span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">3</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-10x-x-109">y</span><span 
+class="cmsy-10x-x-109">′′</span> <span 
+class="cmr-10x-x-109">+ 6</span><span 
+class="cmmi-10x-x-109">xy</span><span 
+class="cmsy-10x-x-109">′− </span><span 
+class="cmr-10x-x-109">6</span><span 
+class="cmmi-10x-x-109">y </span><span 
+class="cmr-10x-x-109">= 0</span>
+</td></tr></table>
+<!--l. 1235--><p class="nopar" >
+where prime denotes diﬀerentiation with respect to <span 
+class="cmmi-10x-x-109">x</span>. As is well known, Euler type of
+equations are solved by a change of variable:
+</p>
+                                                                     
+
+                                                                     
+<table 
+class="equation-star"><tr><td>
+                               <span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">e</span><sup><span 
+class="cmmi-8">u</span></sup>
+</td></tr></table>
+<!--l. 1240--><p class="nopar" >
+So our call to <span 
+class="pcrr8t-x-x-109">changevar </span>reads as follows:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-142">
+   changevar(y, u, x=e**u, x**3*df(y(x),x,3)-
+ <br />             3*x**2*df(y(x),x,2)+6*x*df(y(x),x)-6*y(x));
+</div>
+<!--l. 1245--><p class="nopar" > and returns the result
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-143">
+ df(y(u),u,3) - 6*df(y(u),u,2) + 11*df(y(u),u) - 6*y(u)
+</div>
+<!--l. 1249--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p><!--l. 1252--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch7.html#manualse32.html" >Up</a></td><td class="clinks"><a 
+href="manualse33.html" >Next</a></td><td class="clinks"><a 
+href="manualse31.html" >Prev</a></td><td class="clinks"><a 
+href="manualse31.html#tailmanualse31.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse32.html" >Front</a></td></tr></table><a 
+ id="tailmanualse32.html"></a>  </p> 
+</body> 
+</html>

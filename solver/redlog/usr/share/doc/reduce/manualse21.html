@@ -1,0 +1,79 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Array Declarations</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch6.html#manualse21.html" >Up</a></td><td class="clinks"><a 
+href="manualse22.html" >Next</a></td><td class="clinks"><a 
+href="#tailmanualse21.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">6.1    </span> <a 
+ id="x30-460006.1"></a>Array Declarations</h3>
+<a 
+ id="dx30-46001"></a>
+<!--l. 18--><p class="noindent" >Array<a 
+ id="dx30-46002"></a> declarations in REDUCE are similar to FORTRAN dimension statements. For
+example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-74">
+        array a(10),b(2,3,4);
+</div>
+<!--l. 22--><p class="nopar" > Array indices each range from 0 to the value declared. An element of an array is referred
+to in standard FORTRAN notation, e.g. <span 
+class="pcrr8t-x-x-109">a(2)</span>.
+</p><!--l. 26--><p class="noindent" >We can also use an expression for deﬁning an array bound, provided the value of the
+expression is a positive integer. For example, if <span 
+class="pcrr8t-x-x-109">x </span>has the value 10 and <span 
+class="pcrr8t-x-x-109">y </span>the value 7 then
+<span 
+class="pcrr8t-x-x-109">array c(5*x+y) </span>is the same as <span 
+class="pcrr8t-x-x-109">array c(57)</span>.
+</p><!--l. 31--><p class="noindent" >If an array is referenced by an index outside its range, an error occurs. If the array is to be
+one-dimensional, and the bound a number or a variable (not a more general expression)
+the parentheses may be omitted:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-75">
+        array a 10, c 57;
+</div>
+<!--l. 36--><p class="nopar" > The operator <span 
+class="pcrr8t-x-x-109">length</span><a 
+ id="dx30-46003"></a><a 
+ id="dx30-46004"></a> applied to an array name returns a list of its dimensions.
+</p><!--l. 40--><p class="noindent" >All array elements are initialized to 0 at declaration time. In other words, an array
+element has an <span 
+class="ptmri8t-x-x-109">instant evaluation</span><a 
+ id="dx30-46005"></a> property and cannot stand for itself. If this is required,
+then an operator should be used instead.
+</p><!--l. 45--><p class="noindent" >Array declarations can appear anywhere in a program. Once a symbol is declared to
+name an array, it can not also be used as a variable, or to name an operator or a
+procedure. It can however be re-declared to be an array, and its size may be
+changed at that time. An array name can also continue to be used as a parameter in
+a procedure, or a local variable in a compound statement, although this use
+is not recommended, since it can lead to user confusion over the type of the
+variable.
+</p><!--l. 53--><p class="noindent" >Arrays once declared are global in scope, and so can then be referenced anywhere in the
+program. In other words, unlike arrays in most other languages, a declaration within
+a block (or a procedure) does not limit the scope of the array to that block,
+nor does the array go away on exiting the block (use <span 
+class="pcrr8t-x-x-109">clear </span>instead for this
+purpose).
+                                                                     
+
+                                                                     
+</p><!--l. 59--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch6.html#manualse21.html" >Up</a></td><td class="clinks"><a 
+href="manualse22.html" >Next</a></td><td class="clinks"><a 
+href="manualse21.html" >Front</a></td></tr></table><a 
+ id="tailmanualse21.html"></a> </p> 
+</body> 
+</html>

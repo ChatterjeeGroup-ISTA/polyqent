@@ -1,0 +1,696 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>TRIGSIMP package: Simpliﬁcation and factorization of trigonometric and hyperbolic
+functions</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch8.html#manualse61.html" >Up</a></td><td class="clinks"><a 
+href="manualse60.html" >Prev</a></td><td class="clinks"><a 
+href="manualse60.html#tailmanualse60.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse61.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">8.7    </span> <a 
+ id="x78-1480008.7"></a>TRIGSIMP package: Simpliﬁcation and factorization of
+trigonometric and hyperbolic functions</h3>
+<a 
+ id="dx78-148001"></a>
+<a 
+ id="dx78-148002"></a>
+<!--l. 6--><p class="noindent" ><span 
+class="ptmrc8t-x-x-109">T<span 
+class="small-caps">R</span><span 
+class="small-caps">I</span><span 
+class="small-caps">G</span><span 
+class="small-caps">S</span><span 
+class="small-caps">I</span><span 
+class="small-caps">M</span><span 
+class="small-caps">P</span> </span>is a useful tool for all kinds of problems related to trigonometric and hyperbolic simpliﬁcation
+and factorization.<span class="footnote-mark"><a 
+href="manual79.html#fn1x8"><sup class="textsuperscript">1</sup></a></span><a 
+ id="x78-148003f1"></a> 
+There are three operators included: <span 
+class="pcrr8t-x-x-109">trigsimp</span>, <span 
+class="pcrr8t-x-x-109">trigfactorize </span>and <span 
+class="pcrr8t-x-x-109">triggcd</span>. The
+ﬁrst is for simplifying trigonometric or hyperbolic expressions and has many options, the
+second is for factorizing them and the third is for ﬁnding the greatest common divisor of
+two trigonometric or hyperbolic polynomials. This package is automatically loaded when
+one of these operators is used.
+</p>
+<h4 class="subsectionHead"><span class="titlemark">8.7.1    </span> <a 
+ id="x78-1490008.7.1"></a>Simplifying trigonometric expressions</h4>
+<a 
+ id="dx78-149001"></a>
+<!--l. 19--><p class="noindent" ><a 
+ id="operator:TRIGSIMP"></a> As there is no normal form for trigonometric and hyperbolic expressions, the same
+function can convert in many diﬀerent directions, e.g. <span 
+class="cmr-10x-x-109">sin</span><span 
+class="cmr-10x-x-109">(2</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmsy-10x-x-109">↔ </span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmr-10x-x-109">sin</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmr-10x-x-109">cos</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span>. The
+user has the possibility to give several parameters to the operator <span 
+class="pcrr8t-x-x-109">trigsimp </span>in order to
+inﬂuence the transformations. It is possible to decide whether or not a rational expression
+involving trigonometric and hyperbolic functions vanishes.
+</p><!--l. 28--><p class="noindent" >To simplify an expression <span 
+class="pcrr8t-x-x-109">f</span>, one uses <span 
+class="pcrr8t-x-x-109">trigsimp(f[,options])</span>. For example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-264">
+trigsimp(sin(x)^2+cos(x)^2);
+ <br />
+ <br />1
+</div>
+<!--l. 34--><p class="nopar" > The possible options (where <sup><span 
+class="cmsy-8">∗</span></sup> denotes the default) are:
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   1. </dt><dd 
+class="enumerate-enumitem"><span 
+class="pcrr8t-x-x-109">sin</span><sup><span 
+class="cmsy-8">∗</span></sup> or <span 
+class="pcrr8t-x-x-109">cos</span>;
+     </dd><dt class="enumerate-enumitem">
+   2. </dt><dd 
+class="enumerate-enumitem"><span 
+class="pcrr8t-x-x-109">sinh</span><sup><span 
+class="cmsy-8">∗</span></sup> or <span 
+class="pcrr8t-x-x-109">cosh</span>;
+     </dd><dt class="enumerate-enumitem">
+   3. </dt><dd 
+class="enumerate-enumitem"><span 
+class="pcrr8t-x-x-109">expand</span><sup><span 
+class="cmsy-8">∗</span></sup>, <span 
+class="pcrr8t-x-x-109">combine </span>or <span 
+class="pcrr8t-x-x-109">compact</span>;
+     </dd><dt class="enumerate-enumitem">
+   4. </dt><dd 
+class="enumerate-enumitem"><span 
+class="pcrr8t-x-x-109">hyp</span>, <span 
+class="pcrr8t-x-x-109">trig </span>or <span 
+class="pcrr8t-x-x-109">expon</span>;
+     </dd><dt class="enumerate-enumitem">
+   5. </dt><dd 
+class="enumerate-enumitem"><span 
+class="pcrr8t-x-x-109">keepalltrig</span>;
+     </dd><dt class="enumerate-enumitem">
+   6. </dt><dd 
+class="enumerate-enumitem"><span 
+class="pcrr8t-x-x-109">tan </span>and/or <span 
+class="pcrr8t-x-x-109">tanh</span>;
+     </dd><dt class="enumerate-enumitem">
+   7. </dt><dd 
+class="enumerate-enumitem">target arguments of the form <span 
+class="ptmri8t-x-x-109">variable </span>/ <span 
+class="ptmri8t-x-x-109">positive integer</span>.</dd></dl>
+<!--l. 46--><p class="noindent" >From each of the ﬁrst four groups one can use at most one option, otherwise an error
+message will occur. Options can be given in any order.
+</p><!--l. 50--><p class="noindent" >The ﬁrst group ﬁxes the preference used while transforming a trigonometric
+expression:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-265">
+trigsimp(sin(x)^2);
+ <br />
+ <br />      2
+ <br />sin(x)
+ <br />
+ <br />trigsimp(sin(x)^2, cos);
+ <br />
+ <br />         2
+ <br /> - cos(x)  + 1
+</div>
+<!--l. 62--><p class="nopar" > The second group is the equivalent for the hyperbolic functions.
+</p><!--l. 65--><p class="noindent" >The third group determines the type of transformation. With the default, <span 
+class="pcrr8t-x-x-109">expand</span>, an
+expression is transformed to use only simple variables as arguments:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-266">
+trigsimp(sin(2x+y));
+ <br />
+ <br />                                 2
+ <br />2*cos(x)*cos(y)*sin(x) - 2*sin(x) *sin(y) + sin(y)
+</div>
+<!--l. 73--><p class="nopar" > With <span 
+class="pcrr8t-x-x-109">combine</span>, products of trigonometric functions are transformed to trigonometric
+functions involving sums of variables:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-267">
+trigsimp(sin(x)*cos(y), combine);
+ <br />
+ <br /> sin(x - y) + sin(x + y)
+ <br />-------------------------
+ <br />            2
+</div>
+<!--l. 82--><p class="nopar" > With <span 
+class="pcrr8t-x-x-109">compact</span>, the REDUCE operator <span 
+class="pcrr8t-x-x-109">compact </span>(cf. section <a 
+href="manualse60.html#x77-1470008.6">8.6<!--tex4ht:ref: sec:COMPACT --></a>) is applied to <span 
+class="pcrr8t-x-x-109">f</span>.
+This often leads to a simple form, but in contrast to <span 
+class="pcrr8t-x-x-109">expand </span>one does not get a normal
+form. For example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-268">
+trigsimp((1-sin(x)^2)^20*(1-cos(x)^2)^20, compact);
+ <br />
+ <br />      40       40
+ <br />cos(x)  *sin(x)
+</div>
+<!--l. 92--><p class="nopar" >
+</p><!--l. 94--><p class="noindent" >With an option from the fourth group, the input expression is transformed to
+trigonometric, hyperbolic or exponential form respectively:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-269">
+trigsimp(sin(x), hyp);
+ <br />
+ <br /> - sinh(i*x)*i
+ <br />
+ <br />trigsimp(sinh(x), expon);
+ <br />
+ <br />  2*x
+ <br /> e    - 1
+ <br />----------
+ <br />      x
+ <br />   2*e
+ <br />
+ <br />trigsimp(e^x, trig);
+ <br />
+ <br />cos(i*x) - sin(i*x)*i
+</div>
+<!--l. 113--><p class="nopar" >
+</p><!--l. 115--><p class="noindent" >Usually, <span 
+class="pcrr8t-x-x-109">tan</span>, <span 
+class="pcrr8t-x-x-109">cot</span>, <span 
+class="pcrr8t-x-x-109">sec</span>, <span 
+class="pcrr8t-x-x-109">csc </span>are expressed in terms of <span 
+class="pcrr8t-x-x-109">sin </span>and <span 
+class="pcrr8t-x-x-109">cos</span>. It can sometimes
+be useful to avoid this, which is handled by the option <span 
+class="pcrr8t-x-x-109">keepalltrig</span>:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-270">
+trigsimp(tan(x+y), keepalltrig);
+ <br />
+ <br />  - (tan(x) + tan(y))
+ <br />----------------------
+ <br />  tan(x)*tan(y) - 1
+</div>
+<!--l. 125--><p class="nopar" > Alternatively, the options <span 
+class="pcrr8t-x-x-109">tan </span>and/or <span 
+class="pcrr8t-x-x-109">tanh </span>can be given to convert the output to the
+speciﬁed form as far as possible:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-271">
+trigsimp(tan(x+y), tan);
+ <br />
+ <br />  - (tan(x) + tan(y))
+ <br />----------------------
+ <br />  tan(x)*tan(y) - 1
+</div>
+<!--l. 134--><p class="nopar" > By default, the other functions used will be <span 
+class="pcrr8t-x-x-109">cos </span>and/or <span 
+class="pcrr8t-x-x-109">cosh</span>, unless the other desired
+functions are also speciﬁed in which case this choice will be respected.
+</p><!--l. 139--><p class="noindent" >The ﬁnal possibility is to specify additional target arguments for the trigonometric or
+hyperbolic functions, each of which should have the form of a variable divided by a
+positive integer. These additional arguments are treated as if they had occurred within the
+expression to be simpliﬁed, and their denominators are used in determining the overall
+denominator to use for each variable in the simpliﬁed form:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-272">
+trigsimp(csc x - cot x + csc y - cot y, x/2, y/2, tan);
+ <br />
+ <br />     x          y
+ <br />tan(---) + tan(---)
+ <br />     2          2
+</div>
+<!--l. 152--><p class="nopar" >
+</p><!--l. 154--><p class="noindent" >It is possible to use the options of diﬀerent groups simultaneously:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-273">
+trigsimp(sin(x)^4, cos, combine);
+ <br />
+ <br /> cos(4*x) - 4*cos(2*x) + 3
+ <br />---------------------------
+ <br />             8
+</div>
+<!--l. 161--><p class="nopar" >
+</p><!--l. 163--><p class="noindent" >Sometimes, it is necessary to handle an expression in separate steps:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-274">
+trigsimp((sinh(x)+cosh(x))^n+(cosh(x)-sinh(x))^n,
+ <br />         expon);
+ <br />
+ <br />  1   n    n*x
+ <br />(----)  + e
+ <br />   x
+ <br />  e
+ <br />
+ <br />trigsimp(ws, hyp);
+ <br />
+ <br />2*cosh(n*x)
+ <br />
+ <br />trigsimp((cosh(a*n)*sinh(a)*sinh(p)+
+ <br />          cosh(a)*sinh(a*n)*sinh(p)+
+ <br />          sinh(a - p)*sinh(a*n))/sinh(a));
+ <br />
+ <br />cosh(a*n)*sinh(p) + cosh(p)*sinh(a*n)
+ <br />
+ <br />trigsimp(ws, combine);
+ <br />
+ <br />sinh(a*n + p)
+</div>
+<!--l. 186--><p class="nopar" >
+</p><!--l. 188--><p class="noindent" >The <span 
+class="pcrr8t-x-x-109">trigsimp </span>operator can be applied to equations, lists and matrices (and
+compositions thereof) as well as scalar expressions, and automatically maps itself
+recursively over such non-scalar data structures:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-275">
+trigsimp( { sin(2x) = cos(2x) } );
+ <br />
+ <br />                            2
+ <br />{2*cos(x)*sin(x)= - 2*sin(x)  + 1}
+</div>
+<!--l. 197--><p class="nopar" >
+</p><!--l. 200--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">8.7.2    </span> <a 
+ id="x78-1500008.7.2"></a>Factorizing trigonometric expressions</h4>
+<a 
+ id="dx78-150001"></a>
+<!--l. 202--><p class="noindent" ><a 
+ id="operator:TRIGFACTORIZE"></a>
+</p><!--l. 204--><p class="noindent" >With <span 
+class="pcrr8t-x-x-109">trigfactorize(p,x) </span>one can factorize the trigonometric or hyperbolic
+polynomial <span 
+class="pcrr8t-x-x-109">p </span>in terms of trigonometric functions of the argument <span 
+class="pcrr8t-x-x-109">x</span>. The output has the
+same format as that from the standard REDUCE operator <span 
+class="pcrr8t-x-x-109">factorize</span>. For
+example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-276">
+trigfactorize(sin(x), x/2);
+ <br />
+ <br />             x            x
+ <br />{{2,1},{sin(---),1},{cos(---),1}}
+ <br />             2            2
+</div>
+<!--l. 215--><p class="nopar" > If the polynomial is not coordinated or balanced <span class="cite">[<a 
+href="manualap2.html#XRoach:Talk">Roa</a>]</span>, the output will equal the
+input. In this case, changing the value for <span 
+class="pcrr8t-x-x-109">x </span>can help to ﬁnd a factorization,
+e.g.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-277">
+trigfactorize(1+cos(x), x);
+ <br />
+ <br />{{cos(x) + 1,1}}
+ <br />
+ <br />trigfactorize(1+cos(x), x/2);
+ <br />
+ <br />             x
+ <br />{{2,1},{cos(---),2}}
+ <br />             2
+</div>
+<!--l. 229--><p class="nopar" > The polynomial can consist of both trigonometric and hyperbolic functions:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-278">
+trigfactorize(sin(2x)*sinh(2x), x);
+ <br />
+ <br />{{4,1},
+ <br />
+ <br /> {sinh(x),1},
+ <br />
+ <br /> {cosh(x),1},
+ <br />
+ <br /> {sin(x),1},
+ <br />
+ <br /> {cos(x),1}}
+</div>
+<!--l. 243--><p class="nopar" >
+</p><!--l. 245--><p class="noindent" >The <span 
+class="pcrr8t-x-x-109">trigfactorize </span>operator respects the standard REDUCE <span 
+class="pcrr8t-x-x-109">factorize </span>switch
+<span 
+class="pcrr8t-x-x-109">nopowers </span>– see the REDUCE manual for details. Turning it on gives the behaviour that
+was standard before REDUCE 3.7:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-279">
+on nopowers;
+ <br />
+ <br />trigfactorize(1+cos(x), x/2);
+ <br />
+ <br />        x        x
+ <br />{2,cos(---),cos(---)}
+ <br />        2        2
+</div>
+<!--l. 257--><p class="nopar" >
+</p><!--l. 260--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">8.7.3    </span> <a 
+ id="x78-1510008.7.3"></a>GCDs of trigonometric expressions</h4>
+<a 
+ id="dx78-151001"></a>
+<!--l. 262--><p class="noindent" ><a 
+ id="operator:TRIGGCD"></a>
+</p><!--l. 264--><p class="noindent" >The operator <span 
+class="pcrr8t-x-x-109">triggcd </span>is essentially an application of the algorithm behind
+<span 
+class="pcrr8t-x-x-109">trigfactorize</span>. With its help the user can ﬁnd the greatest common divisor of two
+trigonometric or hyperbolic polynomials. It uses the method described in <span class="cite">[<a 
+href="manualap2.html#XRoach:Talk">Roa</a>]</span>. The
+syntax is <span 
+class="pcrr8t-x-x-109">triggcd(p,q,x)</span>, where <span 
+class="pcrr8t-x-x-109">p </span>and <span 
+class="pcrr8t-x-x-109">q </span>are the trigonometric polynomials and <span 
+class="pcrr8t-x-x-109">x </span>is
+the argument to use. For example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-280">
+triggcd(sin(x), 1+cos(x), x/2);
+ <br />
+ <br />     x
+ <br />cos(---)
+ <br />     2
+ <br />
+ <br />triggcd(sin(x), 1+cos(x), x);
+ <br />
+ <br />1
+</div>
+<!--l. 281--><p class="nopar" > The polynomials <span 
+class="cmmi-10x-x-109">p </span>and <span 
+class="cmmi-10x-x-109">q </span>can consist of both trigonometric and hyperbolic
+functions:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-281">
+triggcd(sin(2x)*sinh(2x), (1-cos(2x))*(1+cosh(2x)), x);
+ <br />
+ <br />cosh(x)*sin(x)
+</div>
+<!--l. 288--><p class="nopar" >
+</p><!--l. 291--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">8.7.4    </span> <a 
+ id="x78-1520008.7.4"></a>Further Examples</h4>
+<!--l. 293--><p class="noindent" >With the help of this package the user can create identities:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-282">
+trigsimp(tan(x)*tan(y));
+ <br />
+ <br /> sin(x)*sin(y)
+ <br />---------------
+ <br /> cos(x)*cos(y)
+ <br />
+ <br />trigsimp(ws, combine);
+</div>
+<!--l. 302--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-283">
+ cos(x - y) - cos(x + y)
+ <br />-------------------------
+ <br /> cos(x - y) + cos(x + y)
+</div>
+<!--l. 309--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-284">
+trigsimp((sin(x-a)+sin(x+a))/(cos(x-a)+cos(x+a)));
+ <br />
+ <br /> sin(x)
+ <br />--------
+ <br /> cos(x)
+ <br />
+ <br />trigsimp(cosh(n*acosh(x))-cos(n*acos(x)), trig);
+ <br />
+ <br />0
+ <br />
+ <br />trigsimp(sec(a-b), keepalltrig);
+ <br />
+ <br />  csc(a)*csc(b)*sec(a)*sec(b)
+ <br />-------------------------------
+ <br /> csc(a)*csc(b) + sec(a)*sec(b)
+ <br />
+ <br />trigsimp(tan(a+b), keepalltrig);
+ <br />
+ <br />  - (tan(a) + tan(b))
+ <br />----------------------
+ <br />  tan(a)*tan(b) - 1
+ <br />
+ <br />trigsimp(ws, keepalltrig, combine);
+ <br />
+ <br />tan(a + b)
+</div>
+<!--l. 337--><p class="nopar" >
+</p><!--l. 339--><p class="noindent" >Some diﬃcult expressions can be simpliﬁed:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-285">
+df(sqrt(1+cos(x)), x, 4);
+ <br />
+ <br />            5           4            3       2
+ <br />( - 4*cos(x)  - 4*cos(x)  - 20*cos(x) *sin(x)
+ <br />
+ <br />             3            2       2            2
+ <br />  + 12*cos(x)  - 24*cos(x) *sin(x)  + 20*cos(x)
+ <br />
+ <br />                    4                   2
+ <br />  - 15*cos(x)*sin(x)  + 12*cos(x)*sin(x)
+ <br />
+ <br />                        4            2
+ <br />  + 8*cos(x) - 15*sin(x)  + 16*sin(x) )/(16
+ <br />
+ <br />                            4           3
+ <br />   *sqrt(cos(x) + 1)*(cos(x)  + 4*cos(x)
+ <br />
+ <br />                 2
+ <br />       + 6*cos(x)  + 4*cos(x) + 1))
+ <br />
+ <br />on rationalize;
+ <br />trigsimp(ws);
+ <br />
+ <br /> sqrt(cos(x) + 1)
+ <br />------------------
+ <br />        16
+ <br />
+ <br />off rationalize;
+ <br />
+ <br />taylor(sin(x+a)*cos(x+b), x, 0, 4);
+ <br />
+ <br />cos(b)*sin(a) + (cos(a)*cos(b) - sin(a)*sin(b))*x
+ <br />
+ <br />                                    2
+ <br /> - (cos(a)*sin(b) + cos(b)*sin(a))*x
+ <br />
+ <br />    2*( - cos(a)*cos(b) + sin(a)*sin(b))   3
+ <br /> + --------------------------------------*x
+                                                                     
+
+                                                                     
+ <br />                     3
+ <br />
+ <br />    cos(a)*sin(b) + cos(b)*sin(a)   4      5
+ <br /> + -------------------------------*x  + O(x )
+ <br />                  3
+ <br />
+ <br />trigsimp(ws, combine);
+ <br />
+ <br /> sin(a - b) + sin(a + b)
+ <br />------------------------- + cos(a + b)*x
+ <br />            2
+ <br />
+ <br />               2    2*cos(a + b)   3
+ <br /> - sin(a + b)*x  - --------------*x
+ <br />                         3
+ <br />
+ <br />    sin(a + b)   4      5
+ <br /> + ------------*x  + O(x )
+ <br />        3
+</div>
+<!--l. 398--><p class="nopar" >
+</p><!--l. 400--><p class="noindent" >Certain integrals whose evaluation was not possible in REDUCE (without preprocessing)
+are now computable:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-286">
+int(trigsimp(sin(x+y)*cos(x-y)*tan(x)), x);
+ <br />
+ <br />       2
+ <br />(cos(x) *x - cos(x)*sin(x) - 2*cos(y)*log(cos(x))*sin(y)
+ <br />
+ <br />          2
+ <br />  + sin(x) *x)/2
+ <br />
+ <br />int(trigsimp(sin(x+y)*cos(x-y)/tan(x)), x);
+ <br />
+ <br />                                   x  2
+ <br />(cos(x)*sin(x) - 2*cos(y)*log(tan(---)  + 1)*sin(y)
+ <br />                                   2
+ <br />
+ <br />                      x
+ <br />  + 2*cos(y)*log(tan(---))*sin(y) + x)/2
+ <br />                      2
+</div>
+<!--l. 420--><p class="nopar" > Without the package, the integration fails, and in the second case one does not receive an
+answer for many hours.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-287">
+trigfactorize(sin(2x)*cos(y)^2, y/2);
+ <br />
+ <br />{{2*cos(x)*sin(x),1},
+ <br />
+ <br />       y          y
+ <br /> {cos(---) - sin(---),2},
+ <br />       2          2
+ <br />
+ <br />       y          y
+ <br /> {cos(---) + sin(---),2}}
+ <br />       2          2
+</div>
+<!--l. 436--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-288">
+trigfactorize(sin(y)^4-x^2, y);
+ <br />
+ <br />        2               2
+ <br />{{sin(y)  + x,1},{sin(y)  - x,1}}
+ <br />
+ <br />trigfactorize(sin(x)*sinh(x), x/2);
+ <br />
+ <br />{{4,1},
+ <br />
+ <br />        x
+ <br /> {sinh(---),1},
+ <br />        2
+ <br />
+ <br />        x
+ <br /> {cosh(---),1},
+ <br />        2
+ <br />
+ <br />       x
+ <br /> {sin(---),1},
+ <br />       2
+ <br />
+ <br />       x
+ <br /> {cos(---),1}}
+ <br />       2
+ <br />
+ <br />triggcd(-5+cos(2x)-6sin(x), -7+cos(2x)-8sin(x), x/2);
+ <br />
+ <br />       x        x
+ <br />2*cos(---)*sin(---) + 1
+ <br />       2        2
+ <br />
+ <br />triggcd(1-2cosh(x)+cosh(2x), 1+2cosh(x)+cosh(2x), x/2);
+ <br />
+ <br />        x  2
+ <br />2*sinh(---)  + 1
+ <br />        2
+</div>
+<!--l. 474--><p class="nopar" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 1--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch8.html#manualse61.html" >Up</a></td><td class="clinks"><a 
+href="manualse60.html" >Prev</a></td><td class="clinks"><a 
+href="manualse60.html#tailmanualse60.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse61.html" >Front</a></td></tr></table><a 
+ id="tailmanualse61.html"></a>  </p> 
+</body> 
+</html>

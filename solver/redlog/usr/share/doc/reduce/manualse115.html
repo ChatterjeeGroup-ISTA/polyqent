@@ -1,0 +1,100 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>General Curve Fitting</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch17.html#manualse115.html" >Up</a></td><td class="clinks"><a 
+href="manualse114.html" >Prev</a></td><td class="clinks"><a 
+href="manualse114.html#tailmanualse114.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse115.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">17.8    </span> <a 
+ id="x149-27500017.8"></a>General Curve Fitting</h3>
+<a 
+ id="dx149-275001"></a>
+<!--l. 482--><p class="noindent" ><a 
+ id="operator:NUM_FIT"></a>
+</p><!--l. 484--><p class="noindent" >The operator <span 
+class="pcrr8t-x-x-109">num_fit </span>ﬁnds for a set of points the linear combination of a given
+set of functions (function basis) which approximates the points best under the
+objective of the least squares criterion (minimum of the sum of the squares of the
+deviation). The solution is found as zero of the gradient vector of the sum of squared
+errors.
+</p><!--l. 492--><p class="noindent" >Syntax:
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">num_ﬁt</span> </dt><dd 
+class="description"><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">vals,basis,var </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">pts</span><span 
+class="cmr-10x-x-109">)</span>
+     <!--l. 497--><p class="noindent" >where <span 
+class="cmmi-10x-x-109">vals </span>is a list of numeric values,
+     </p><!--l. 499--><p class="noindent" ><span 
+class="cmmi-10x-x-109">var </span>is a variable used for the approximation,
+     </p><!--l. 501--><p class="noindent" ><span 
+class="cmmi-10x-x-109">pts </span>is a list of coordinate values which correspond to <span 
+class="cmmi-10x-x-109">var</span>,
+     </p><!--l. 503--><p class="noindent" ><span 
+class="cmmi-10x-x-109">basis  </span>is   a   set   of   functions   varying   in   <span 
+class="cmmi-10x-x-109">var  </span>which   is   used   for   the
+     approximation.
+</p>
+     </dd></dl>
+<!--l. 508--><p class="noindent" >The result is a list containing as ﬁrst element the function which approximates the given
+values, and as second element a list of coeﬃcients which were used to build this function
+from the basis.
+</p><!--l. 513--><p class="noindent" >Example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-527">
+ <br />     % approximate a set of factorials by a polynomial
+ <br />    pts:=for i:=1 step 1 until 5 collect i$
+ <br />    vals:=for i:=1 step 1 until 5 collect
+ <br />            for j:=1:i product j$
+ <br />
+ <br />    num_fit(vals,{1,x,x**2},x=pts);
+ <br />
+ <br />                   2
+ <br />    {14.5714285714*x  - 61.4285714286*x + 54.6,{54.6,
+ <br />
+ <br />         - 61.4285714286,14.5714285714}}
+ <br />
+ <br />    num_fit(vals,{1,x,x**2,x**3,x**4},x=pts);
+ <br />
+ <br />    {2.20833333343*x  - 20.2500000011*x
+ <br />
+ <br />      + 67.7916666713*x  - 93.7500000077*x
+ <br />
+ <br />      + 45.0000000042,
+ <br />
+ <br />     {45.0000000042, - 93.7500000077,67.7916666713,
+ <br />
+ <br />      - 20.2500000011,2.20833333343}}
+</div>
+<!--l. 540--><p class="nopar" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 1--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch17.html#manualse115.html" >Up</a></td><td class="clinks"><a 
+href="manualse114.html" >Prev</a></td><td class="clinks"><a 
+href="manualse114.html#tailmanualse114.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse115.html" >Front</a></td></tr></table><a 
+ id="tailmanualse115.html"></a> </p> 
+</body> 
+</html>

@@ -1,0 +1,94 @@
+
+\index{Kazasov, C.}\index{People!Kazasov, C.}
+\index{Spiridonova, M.}\index{People!Spiridonova, M.}
+\index{Tomov, V.}\index{People!Tomov, V.}
+
+\index{Laplace transform}
+\index{Integral transform!Laplace transform}
+
+\hypertarget{operator:LAPLACE}{}
+\hypertarget{operator:INVLAP}{}
+\ttindextype[LAPLACE]{laplace}{operator}
+\ttindextype[LAPLACE]{invlap}{operator}
+Reference: \cite{Kazasov:87}.
+
+Some hints on how to use to use this package: \\[\baselineskip]
+%
+Syntax:
+\begin{syntax}
+  \f{laplace}(\meta{exp},\meta{var-s},\meta{var-t}) \\[\baselineskip]
+%
+  \f{invlap}(\meta{exp},\meta{var-s},\meta{var-t})
+\end{syntax}
+%
+where \meta{exp} is the expression to be transformed, \meta{var-s} is the source
+variable (in most cases \meta{exp} depends explicitly of this variable) and
+\meta{var-t} is the target variable. If \meta{var-t} is omitted, the above operators use
+an internal variable \var{lp!\&} or \var{il!\&}, respectively.
+
+The following switches can be used to control the transformations: \\
+\ttindexswitch[LAPLACE]{lmon}
+\ttindexswitch[LAPLACE]{lhyp}
+\ttindexswitch[LAPLACE]{ltrig}
+\hypertarget{switch:LMON}{}
+\hypertarget{switch:LHYP}{}
+\hypertarget{switch:LTRIG}{}
+\begin{description}
+\item[\sw{lmon}:] If on, sin, cos, sinh and cosh are converted by \f{laplace} into
+exponentials,
+\item[\sw{lhyp}:] If on, expressions $e^{\tilde\ x}$ are converted by \f{invlap} into 
+hyperbolic functions sinh and cosh,
+\item[\sw{ltrig}:] If on, expressions $e^{\tilde\ x}$ are converted by \f{invlap} into
+trigonometric functions sin and cos.
+\end{description}
+
+The system can be extended by adding Laplace transformation rules for
+single functions by rules or rule sets.~ In such a rule the source
+variable \emph{must} be free, the target variable \emph{must} be \var{il!\&} for \f{laplace} and
+\var{lp!\&} for \f{invlap} and the third parameter should be omitted.~ Also rules for
+transforming derivatives are entered in such a form.
+
+\pagebreak
+\textbf{Examples:}
+\begin{verbatim}
+
+    let {laplace(log(~x),x)
+             => -log(Euler_Gamma * il!&)/il!&,
+
+         invlap(log(Euler_Gamma * ~x)/x,x) 
+             => -log(lp!&)};
+
+
+    operator f;
+
+    let{
+
+    laplace(df(f(~x),x),x)
+           => il!&*laplace(f(x),x) - sub(x=0,f(x)),
+
+    laplace(df(f(~x),x,~n),x)
+           => il!&**n*laplace(f(x),x) -
+
+    for i:=n-1 step -1 until 0 sum
+
+    sub(x=0, df(f(x),x,n-1-i)) * il!&**i
+
+    when fixp n,
+
+    laplace(f(~x),x) = f(il!&)
+
+    };
+
+\end{verbatim}
+
+
+Remarks about some functions: \\[\baselineskip]
+The \f{delta} and \f{gamma} functions are known. \\
+ONE is the name of the unit step function. \\
+INTL is a parametrized integral function
+\begin{syntax}
+\f{intl}(\meta{expr},\meta{var},0,\meta{obj.var})
+\end{syntax}
+which means ``Integral of \meta{expr} w.r.t.~\meta{var} taken from 0 to \meta{obj.var}'',
+e.g. \texttt{intl($2{*}y^2,y,0,x$)} which is formally a function in $x$.\\
+We recommend reading the file \texttt{laplace.tst} for a further introduction.

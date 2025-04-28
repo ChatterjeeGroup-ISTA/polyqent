@@ -1,0 +1,70 @@
+
+%\begin{abstract}
+Program \char`\"{}xCOLOR\char`\"{} is intended for calculation the colour
+factor in non-abelian gauge field theories. It is 
+realized Cvitanovich algorithm \cite{Cvitanovic:76}. In comparison to the program
+\char`\"{}COLOR\char`\"{} \cite{Kryukov:88a} many improvements were made.
+The package was written in symbolic mode. This version is more than $10$ times
+faster than the one in \cite{Kryukov:88a}.
+%\end{abstract} 
+
+
+After load the program by the following command \quad {\tt load xcolor}; \\
+user can be able to use the next additional commands and operators. 
+
+\subsection*{Command SUdim.}
+
+Format: {\tt SUdim <any expression>}; \\
+%
+Set the order of SU group. \\
+%
+The default value is 3, i.e. SU(3). 
+
+\subsection*{Command SpTT.}
+
+Format: {\tt SpTT <any expression>}; \\
+%
+Set the normalization coefficient A: Sp(TiTj) = A{*}Delta(i,j).
+Default value is 1/2. 
+
+\subsection*{Operator QG.}
+
+Format: {\tt QG(inQuark,outQuark,Gluon)} \\
+%
+Describe the quark-gluon vertex. Parameters may be any identifiers.
+First and second of then must be in- and out- quarks correspondently.
+Third one is a gluon. 
+
+\subsection*{Operator G3.}
+
+Format: {\tt G3(Gluon1,Gluon2,Gluon3)} \\
+%
+Describe the three-gluon vertex. Parameters may be any identifiers.
+The order of gluons must be clock. \\
+%
+In terms of QG and G3 operators you input diagram in \char`\"{}color\char`\"{}
+space as a product of these operators. For example. 
+
+\begin{verbatim}
+
+
+ Diagram:                       REDUCE expression:
+
+            e1
+
+         ---->---
+        /        \
+       |    e2    |
+     v1*..........*v2  <===>  QG(e3,e1,e2)*QG(e1,e3,e2)
+       |          |
+        \   e3   /
+         ----<---
+
+
+Here: --->--- quark
+
+      ....... gluon
+
+\end{verbatim}
+
+For more detail see \cite{Kryukov:88a}.

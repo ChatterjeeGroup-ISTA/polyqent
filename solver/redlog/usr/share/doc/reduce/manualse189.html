@@ -1,0 +1,777 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>XIDEAL: Grobner Bases for Exterior Algebra</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse189.html" >Up</a></td><td class="clinks"><a 
+href="manualse190.html" >Next</a></td><td class="clinks"><a 
+href="manualse188.html" >Prev</a></td><td class="clinks"><a 
+href="manualse188.html#tailmanualse188.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse189.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.64    </span> <a 
+ id="x281-128800020.64"></a>XIDEAL: Gröbner Bases for Exterior Algebra</h3>
+<a 
+ id="dx281-1288001"></a>
+<a 
+ id="dx281-1288002"></a>
+<!--l. 1393--><p class="noindent" >XIDEAL constructs Gröbner bases for solving the left ideal membership problem:
+Gröbner left ideal bases or GLIBs. For graded ideals, where each form is homogeneous
+in degree, the distinction between left and right ideals vanishes. Furthermore, if the
+generating forms are all homogeneous, then the Gröbner bases for the non-graded and
+graded ideals are identical. In this case, XIDEAL is able to save time by truncating the
+Gröbner basis at some maximum degree if desired.
+</p><!--l. 1401--><p class="noindent" >Author: David Hartley.
+<a 
+ id="dx281-1288003"></a>
+<a 
+ id="dx281-1288004"></a>
+</p><!--l. 4--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.64.1    </span> <a 
+ id="x281-128900020.64.1"></a>Description</h4>
+<!--l. 6--><p class="noindent" >The method of Gröbner bases in commutative polynomial rings introduced by
+Buchberger (e.g. <span class="cite">[<a 
+href="manualap2.html#XBuchberger:85">Buc85</a>]</span>) is a well-known and very important tool in polynomial
+ideal theory, for example in solving the ideal membership problem. XIDEAL
+extends the method to exterior algebras using algorithms from <span class="cite">[<a 
+href="manualap2.html#XHartleyTuckey:93">HT93</a>]</span> and
+<span class="cite">[<a 
+href="manualap2.html#XApel:92">Ape92</a>]</span>.
+</p><!--l. 12--><p class="noindent" >There are two main departures from the commutative polynomial case. First,
+owing to the non-commutative product in exterior algebras, ideals are no longer
+automatically two-sided, and it is necessary to distinguish between left and right ideals.
+Secondly, because there are zero divisors, conﬂuent reduction relations are no longer
+suﬃcient to solve the ideal membership problem: a unique normal form for every
+polynomial does not guarantee that all elements in the ideal reduce to zero. This
+leads to two possible deﬁnitions of Gröbner bases as pointed out by Stokes
+<span class="cite">[<a 
+href="manualap2.html#XStokes:90">Sto90</a>]</span>.
+</p><!--l. 21--><p class="noindent" ><span 
+class="ptmrc8t-x-x-109">X<span 
+class="small-caps">I</span><span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">A</span><span 
+class="small-caps">L</span> </span>constructs Gröbner bases for solving the left ideal membership problem:
+Gröbner left ideal bases or GLIBs. For graded ideals, where each form is homogeneous
+in degree, the distinction between left and right ideals vanishes. Furthermore, if the
+generating forms are all homogeneous, then the Gröbner bases for the non-graded and
+                                                                     
+
+                                                                     
+graded ideals are identical. In this case, <span 
+class="ptmrc8t-x-x-109">X<span 
+class="small-caps">I</span><span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">A</span><span 
+class="small-caps">L</span> </span>is able to save time by truncating the
+Gröbner basis at some maximum degree if desired.
+</p><!--l. 29--><p class="noindent" ><span 
+class="ptmrc8t-x-x-109">X<span 
+class="small-caps">I</span><span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">A</span><span 
+class="small-caps">L</span> </span>uses the exterior calculus package <span 
+class="ptmrc8t-x-x-109">E<span 
+class="small-caps">X</span><span 
+class="small-caps">C</span><span 
+class="small-caps">A</span><span 
+class="small-caps">L</span><span 
+class="small-caps">C</span> </span>of E. Schrüfer <span class="cite">[<a 
+href="manualap2.html#XSchruefer:85">Sch85a</a>]</span>
+to provide the exterior algebra deﬁnitions. <span 
+class="ptmrc8t-x-x-109">E<span 
+class="small-caps">X</span><span 
+class="small-caps">C</span><span 
+class="small-caps">A</span><span 
+class="small-caps">L</span><span 
+class="small-caps">C</span> </span>is loaded automatically
+with <span 
+class="ptmrc8t-x-x-109">X<span 
+class="small-caps">I</span><span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">A</span><span 
+class="small-caps">L</span></span>. The exterior variables may be speciﬁed explicitly, or extracted
+automatically from the input polynomials. All distinct exterior variables in the input are
+assumed to be linearly independent – if a dimension has been ﬁxed (using the
+<span 
+class="ptmrc8t-x-x-109">E<span 
+class="small-caps">X</span><span 
+class="small-caps">C</span><span 
+class="small-caps">A</span><span 
+class="small-caps">L</span><span 
+class="small-caps">C</span> </span><span 
+class="pcrr8t-x-x-109">spacedim</span><a 
+ id="dx281-1289001"></a> or <span 
+class="pcrr8t-x-x-109">coframe</span><a 
+ id="dx281-1289002"></a> statements), then input containing distinct
+exterior variables with degrees totaling more than this number will generate an
+error.
+</p><!--l. 58--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.64.2    </span> <a 
+ id="x281-129000020.64.2"></a>Declarations</h4>
+<!--l. 61--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x281-129100020.64.2"></a>xorder</h5>
+<!--l. 63--><p class="noindent" ><a 
+ id="command:XORDER"></a> <span 
+class="pcrr8t-x-x-109">xorder</span><a 
+ id="dx281-1291001"></a> sets the term ordering for all other calculations. The syntax is
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1432">
+     xorder k
+</div>
+<!--l. 68--><p class="nopar" > where <span 
+class="pcrr8t-x-x-109">k </span>is one of <span 
+class="pcrr8t-x-x-109">lex</span>, <span 
+class="pcrr8t-x-x-109">gradlex </span>or <span 
+class="pcrr8t-x-x-109">deglex</span>. The lexicographical ordering <span 
+class="pcrr8t-x-x-109">lex </span>is
+based on the prevailing EXCALC kernel ordering for the exterior variables. The
+<span 
+class="ptmrc8t-x-x-109">E<span 
+class="small-caps">X</span><span 
+class="small-caps">C</span><span 
+class="small-caps">A</span><span 
+class="small-caps">L</span><span 
+class="small-caps">C</span> </span>kernel ordering can be changed with the REDUCE <span 
+class="pcrr8t-x-x-109">korder </span>or <span 
+class="ptmrc8t-x-x-109">E<span 
+class="small-caps">X</span><span 
+class="small-caps">C</span><span 
+class="small-caps">A</span><span 
+class="small-caps">L</span><span 
+class="small-caps">C</span></span>
+<span 
+class="pcrr8t-x-x-109">forder </span>declarations. The graded lexicographical ordering <span 
+class="pcrr8t-x-x-109">gradlex </span>puts terms with
+more factors ﬁrst (irrespective of their exterior degrees) and sorts terms of the same
+grading lexicographically. The degree lexicographical ordering <span 
+class="pcrr8t-x-x-109">deglex </span>takes
+account of the exterior degree of the variables, putting highest degree ﬁrst and
+then sorting terms of the same degree lexicographically. The default ordering is
+<span 
+class="pcrr8t-x-x-109">deglex</span>.
+</p><!--l. 81--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x281-129200020.64.2"></a>xvars</h5>
+<!--l. 83--><p class="noindent" ><a 
+ id="command:XVARS"></a> It is possible to consider scalar and 0-form variables in exterior polynomials in two
+ways: as variables or as coeﬃcient parameters. This diﬀerence is crucial for Gröbner
+basis calculations. By default, all scalar variables which have been declared as
+0-forms are treated as exterior variables, along with any <span 
+class="ptmrc8t-x-x-109">E<span 
+class="small-caps">X</span><span 
+class="small-caps">C</span><span 
+class="small-caps">A</span><span 
+class="small-caps">L</span><span 
+class="small-caps">C</span> </span>kernels of
+degree 0. This division can be changed with the <span 
+class="pcrr8t-x-x-109">xvars</span><a 
+ id="dx281-1292001"></a> declaration. The syntax
+is
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1433">
+     xvars U,V,W,...
+</div>
+<!--l. 93--><p class="nopar" > where the arguments are either kernels or lists of kernels. All variables speciﬁed in
+the <span 
+class="pcrr8t-x-x-109">xvars </span>declaration are treated as exterior variables in subsequent <span 
+class="ptmrc8t-x-x-109">X<span 
+class="small-caps">I</span><span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">A</span><span 
+class="small-caps">L</span></span>
+calculations with exterior polynomials, and any other scalars are treated as parameters.
+This is true whether or not the variables have been declared as 0-forms. The
+declaration
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1434">
+     xvars {}
+</div>
+<!--l. 101--><p class="nopar" > causes all degree 0 variables to be treated as parameters, and
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1435">
+     xvars nil
+</div>
+<!--l. 105--><p class="nopar" > restores the default. Of course, <span 
+class="cmmi-10x-x-109">p</span>-form kernels with <span 
+class="cmmi-10x-x-109">p</span><span 
+class="cmr-10x-x-109">≠</span><span 
+class="cmr-10x-x-109">0 </span>are always considered as
+exterior variables. The order of the variables in an <span 
+class="pcrr8t-x-x-109">xvars </span>declaration has no eﬀect on
+the REDUCE kernel ordering or <span 
+class="ptmrc8t-x-x-109">X<span 
+class="small-caps">I</span><span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">A</span><span 
+class="small-caps">L</span> </span>term ordering.
+</p><!--l. 113--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.64.3    </span> <a 
+ id="x281-129300020.64.3"></a>Operators</h4>
+<!--l. 116--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x281-129400020.64.3"></a>xideal</h5>
+<!--l. 118--><p class="noindent" ><a 
+ id="operator:XIDEAL"></a> <span 
+class="pcrr8t-x-x-109">xideal</span><a 
+ id="dx281-1294001"></a> calculates a Gröbner left ideal basis in an exterior algebra. The syntax
+is
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">xideal</span>(<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">S:list of forms</span><span 
+class="cmsy-10x-x-109">⟩</span>[,<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">V:list of kernels</span><span 
+class="cmsy-10x-x-109">⟩</span>][,<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">R:integer</span><span 
+class="cmsy-10x-x-109">⟩</span>]) :list of forms.</div>
+<!--l. 125--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">xideal </span>calculates a Gröbner basis for the left ideal generated by <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">S</span><span 
+class="cmsy-10x-x-109">⟩ </span>using the current
+term ordering. The resulting list can be used for subsequent reductions with <span 
+class="pcrr8t-x-x-109">xmod </span>as
+long as the term ordering is not changed. Which 0-form variables are to be regarded as
+exterior variables can be speciﬁed in an optional argument <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">V</span><span 
+class="cmsy-10x-x-109">⟩ </span>(just like an <span 
+class="pcrr8t-x-x-109">xvars</span>
+declaration). The order of variables in <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">V</span><span 
+class="cmsy-10x-x-109">⟩ </span>has no eﬀect on the term ordering. If the set of
+generators <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">S</span><span 
+class="cmsy-10x-x-109">⟩ </span>is graded, an optional parameter <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">R</span><span 
+class="cmsy-10x-x-109">⟩ </span>can be given, and <span 
+class="pcrr8t-x-x-109">xideal </span>produces
+a truncated basis suitable for reducing exterior forms of degree less than or equal to <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">R</span><span 
+class="cmsy-10x-x-109">⟩</span>
+in the left ideal. This can save time and space with large problems, but the result cannot
+be used for exterior forms of degree greater than <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">R</span><span 
+class="cmsy-10x-x-109">⟩</span>. The forms returned by
+<span 
+class="pcrr8t-x-x-109">xideal </span>are sorted in increasing order. See also the switches <span 
+class="pcrr8t-x-x-109">trxideal </span>and
+<span 
+class="pcrr8t-x-x-109">xfullreduction</span>.
+                                                                     
+
+                                                                     
+</p><!--l. 140--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x281-129500020.64.3"></a>xmodideal</h5>
+<!--l. 142--><p class="noindent" ><a 
+ id="operator:XMODIDEAL"></a> <span 
+class="pcrr8t-x-x-109">xmodideal</span><a 
+ id="dx281-1295001"></a> reduces exterior forms to their (unique) normal forms modulo a left ideal.
+The syntax is
+  </p><div class="syntax">
+  <!--tex4ht:inline--><div class="tabular"> <table id="TBL-221" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-221-1g"><col 
+id="TBL-221-1" /><col 
+id="TBL-221-2" /><col 
+id="TBL-221-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-221-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-221-1-1"  
+class="td01"><span 
+class="pcrr8t-x-x-109">xmodideal</span>(<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">F:form</span><span 
+class="cmsy-10x-x-109">⟩</span>, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">S:list of forms</span><span 
+class="cmsy-10x-x-109">⟩</span>):form                           </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-221-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-221-2-1"  
+class="td01"><div class="multicolumn"  style="white-space:nowrap; text-align:left;">or</div>
+</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-221-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-221-3-1"  
+class="td01"><span 
+class="pcrr8t-x-x-109">xmodideal</span>(<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">F:list of forms</span><span 
+class="cmsy-10x-x-109">⟩</span>, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">S:list of forms</span><span 
+class="cmsy-10x-x-109">⟩</span>) :list of forms.  </td></tr></table>
+  </div></div>
+<!--l. 151--><p class="noindent" >An alternative inﬁx syntax is also available:
+  </p><div class="syntax">
+   <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">F</span><span 
+class="cmsy-10x-x-109">⟩ </span>xmodideal <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">S</span><span 
+class="cmsy-10x-x-109">⟩ </span>.</div>
+<!--l. 155--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">xmodideal</span>(<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">F</span><span 
+class="cmsy-10x-x-109">⟩</span>,<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">S</span><span 
+class="cmsy-10x-x-109">⟩</span>) ﬁrst calculates a Gröbner basis for the left ideal generated by
+<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">S</span><span 
+class="cmsy-10x-x-109">⟩</span>, and then reduces <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">F</span><span 
+class="cmsy-10x-x-109">⟩</span>. <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">F</span><span 
+class="cmsy-10x-x-109">⟩ </span>may be either a single exterior form, or a list of forms, and
+<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">S</span><span 
+class="cmsy-10x-x-109">⟩ </span>is a list of forms. If <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">F</span><span 
+class="cmsy-10x-x-109">⟩ </span>is a list of forms, each element is reduced, and any which
+vanish are deleted from the result. If the set of generators <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">S</span><span 
+class="cmsy-10x-x-109">⟩ </span>is graded, then a truncated
+Gröbner basis is calculated using the degree of <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">F</span><span 
+class="cmsy-10x-x-109">⟩ </span>(or the maximal degree in <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">F</span><span 
+class="cmsy-10x-x-109">⟩</span>). See
+also <span 
+class="pcrr8t-x-x-109">trxmod</span>.
+</p><!--l. 167--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x281-129600020.64.3"></a>xmod</h5>
+<!--l. 169--><p class="noindent" ><a 
+ id="operator:XMOD"></a> <span 
+class="pcrr8t-x-x-109">xmod</span><a 
+ id="dx281-1296001"></a> reduces exterior forms to their (not necessarily unique) normal forms modulo a
+set of exterior polynomials. The syntax is
+  </p><div class="syntax">
+  <!--tex4ht:inline--><div class="tabular"> <table id="TBL-222" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-222-1g"><col 
+id="TBL-222-1" /><col 
+id="TBL-222-2" /><col 
+id="TBL-222-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-222-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-222-1-1"  
+class="td01"><span 
+class="pcrr8t-x-x-109">xmod</span>(<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">F:form</span><span 
+class="cmsy-10x-x-109">⟩</span>, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">S:list of forms</span><span 
+class="cmsy-10x-x-109">⟩</span>):form                          </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-222-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-222-2-1"  
+class="td01"><div class="multicolumn"  style="white-space:nowrap; text-align:left;">or</div>
+</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-222-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-222-3-1"  
+class="td01"><span 
+class="pcrr8t-x-x-109">xmod</span>(<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">F:list of forms</span><span 
+class="cmsy-10x-x-109">⟩</span>, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">S:list of forms</span><span 
+class="cmsy-10x-x-109">⟩</span>):list of forms.  </td></tr></table>
+  </div></div>
+<!--l. 178--><p class="noindent" >An alternative inﬁx syntax is also available:
+  </p><div class="syntax">
+   <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">F</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">xmod</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">S</span><span 
+class="cmsy-10x-x-109">⟩ </span>.</div>
+<!--l. 182--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">xmod</span>(<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">F</span><span 
+class="cmsy-10x-x-109">⟩</span>,<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">S</span><span 
+class="cmsy-10x-x-109">⟩</span>) reduces <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">F</span><span 
+class="cmsy-10x-x-109">⟩ </span>with respect to the set of exterior polynomials <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">S</span><span 
+class="cmsy-10x-x-109">⟩</span>, which is
+                                                                     
+
+                                                                     
+not necessarily a Gröbner basis. <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">F</span><span 
+class="cmsy-10x-x-109">⟩ </span>may be either a single exterior form, or a list of
+forms, and <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">S</span><span 
+class="cmsy-10x-x-109">⟩ </span>is a list of forms. This operator can be used in conjunction with <span 
+class="pcrr8t-x-x-109">xideal</span>
+to produce the same eﬀect as <span 
+class="pcrr8t-x-x-109">xmodideal</span>: for a single homogeneous form <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">F</span><span 
+class="cmsy-10x-x-109">⟩ </span>and
+a set of exterior forms <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">S</span><span 
+class="cmsy-10x-x-109">⟩</span>, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">F</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">xmodideal</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">S</span><span 
+class="cmsy-10x-x-109">⟩ </span>is equivalent to <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">F</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">xmod</span>
+<span 
+class="pcrr8t-x-x-109">xideal</span>(<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">S</span><span 
+class="cmsy-10x-x-109">⟩</span>,<span 
+class="pcrr8t-x-x-109">exdegree</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">F</span><span 
+class="cmsy-10x-x-109">⟩</span>). See also <span 
+class="pcrr8t-x-x-109">trxmod</span>.
+</p><!--l. 191--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x281-129700020.64.3"></a>xauto</h5>
+<!--l. 193--><p class="noindent" ><a 
+ id="operator:XAUTO"></a> <span 
+class="pcrr8t-x-x-109">xauto</span><a 
+ id="dx281-1297001"></a> autoreduces a set of exterior forms. The syntax is
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">xauto</span>(<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">S:list of forms</span><span 
+class="cmsy-10x-x-109">⟩</span>):list of forms.</div>
+<!--l. 198--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">xauto</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">S</span><span 
+class="cmsy-10x-x-109">⟩ </span>returns a set of exterior polynomials which generate the same left ideal, but
+which are in normal form with respect to each other. For linear expressions,
+this is equivalent to ﬁnding the reduced row echelon form of the coeﬃcient
+matrix.
+</p><!--l. 204--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x281-129800020.64.3"></a>excoeﬀs</h5>
+<!--l. 206--><p class="noindent" ><a 
+ id="operator:EXCOEFFS"></a> The operator <span 
+class="pcrr8t-x-x-109">excoeffs</span><a 
+ id="dx281-1298001"></a>, with syntax
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">excoeffs</span>(<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">F:form</span><span 
+class="cmsy-10x-x-109">⟩</span>):list of expressions</div>
+<!--l. 211--><p class="noindent" >returns the coeﬃcients from an exterior form as a list. The coeﬃcients are always
+scalars, but which degree 0 variables count as coeﬃcient parameters is controlled by the
+command <span 
+class="pcrr8t-x-x-109">xvars</span>.
+</p><!--l. 216--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x281-129900020.64.3"></a>exvars</h5>
+                                                                     
+
+                                                                     
+<!--l. 218--><p class="noindent" ><a 
+ id="operator:EXVARS"></a> The operator <span 
+class="pcrr8t-x-x-109">exvars</span><a 
+ id="dx281-1299001"></a>, with syntax
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">exvars</span>(<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">F:form</span><span 
+class="cmsy-10x-x-109">⟩</span>):list of kernels</div>
+<!--l. 223--><p class="noindent" >returns the exterior powers from an exterior form as a list. All non-scalar variables are
+returned, but which degree 0 variables count as coeﬃcient parameters is controlled by
+the command <span 
+class="pcrr8t-x-x-109">xvars</span>.
+</p><!--l. 228--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.64.4    </span> <a 
+ id="x281-130000020.64.4"></a>Switches</h4>
+<!--l. 231--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x281-130100020.64.4"></a>xfullreduce</h5>
+<!--l. 233--><p class="noindent" ><a 
+ id="switch:XFULLREDUCE"></a> <span 
+class="pcrr8t-x-x-109">onxfullreduce</span><a 
+ id="dx281-1301001"></a><a 
+ id="dx281-1301002"></a><a 
+ id="dx281-1301003"></a> allows <span 
+class="pcrr8t-x-x-109">xideal </span>and <span 
+class="pcrr8t-x-x-109">xmodideal </span>to calculate reduced, monic
+Gröbner bases, which speeds up subsequent reductions, and guarantees a unique
+form for the Gröbner basis. <span 
+class="pcrr8t-x-x-109">offxfullreduce </span>turns of this feature, which
+may speed up calculation of some Gröbner basis. <span 
+class="pcrr8t-x-x-109">xfullreduce </span>is <span 
+class="pcrr8t-x-x-109">on </span>by
+default.
+</p><!--l. 241--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x281-130200020.64.4"></a>trxideal</h5>
+<!--l. 243--><p class="noindent" ><a 
+ id="switch:TRXIDEAL"></a> <span 
+class="pcrr8t-x-x-109">ontrxideal</span><a 
+ id="dx281-1302001"></a><a 
+ id="dx281-1302002"></a><a 
+ id="dx281-1302003"></a> produces a trace of the calculations done by <span 
+class="pcrr8t-x-x-109">xideal </span>and
+<span 
+class="pcrr8t-x-x-109">xmodideal</span>, showing the basis polynomials and the results of the critical element
+calculations. This can generate profuse amounts of output. <span 
+class="pcrr8t-x-x-109">trxideal </span>is <span 
+class="pcrr8t-x-x-109">off </span>by
+default.
+</p><!--l. 250--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x281-130300020.64.4"></a>trxmod</h5>
+                                                                     
+
+                                                                     
+<!--l. 252--><p class="noindent" ><a 
+ id="switch:TRXMOD"></a> <span 
+class="pcrr8t-x-x-109">ontrxmod</span><a 
+ id="dx281-1303001"></a><a 
+ id="dx281-1303002"></a><a 
+ id="dx281-1303003"></a> produces a trace of reductions to normal form during calculations by
+<span 
+class="ptmrc8t-x-x-109">X<span 
+class="small-caps">I</span><span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">A</span><span 
+class="small-caps">L</span> </span>operators. <span 
+class="pcrr8t-x-x-109">trxmod </span>is <span 
+class="pcrr8t-x-x-109">off </span>by default.
+</p><!--l. 267--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.64.5    </span> <a 
+ id="x281-130400020.64.5"></a>Examples</h4>
+<!--l. 269--><p class="noindent" >Suppose <span 
+class="ptmrc8t-x-x-109">X<span 
+class="small-caps">I</span><span 
+class="small-caps">D</span><span 
+class="small-caps">E</span><span 
+class="small-caps">A</span><span 
+class="small-caps">L</span> </span>has been loaded, the switches are at their default settings, and the
+following exterior variables have been declared:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1436">
+     pform x=0,y=0,z=0,t=0,f(i)=1,h=0,hx=0,ht=0;
+</div>
+<!--l. 274--><p class="nopar" >
+</p><!--l. 276--><p class="noindent" >In a commutative polynomial ring, a single polynomial is its own Gröbner basis. This is
+no longer true for exterior algebras because of the presence of zero divisors, and can lead
+to some surprising reductions:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1437">
+     xideal {d x^d y - d z^d t};
+ <br />
+ <br />          {d t^d z + d x^d y,
+ <br />
+ <br />           d x^d y^d z,
+ <br />
+ <br />           d t^d x^d y}
+ <br />
+ <br />     f(3)^f(4)^f(5)^f(6)
+ <br />       xmodideal {f(1)^f(2) + f(3)^f(4) + f(5)^f(6)};
+ <br />
+ <br />          0
+</div>
+<!--l. 292--><p class="nopar" >
+</p><!--l. 294--><p class="noindent" >The heat equation, <span 
+class="cmmi-10x-x-109">h</span><sub><span 
+class="cmmi-8">xx</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">h</span><sub><span 
+class="cmmi-8">t</span></sub> can be represented by the following exterior diﬀerential
+system.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1438">
+     S := {d h - ht*d t - hx*d x,
+ <br />           d ht^d t + d hx^d x,
+ <br />           d hx^d t - ht*d x^d t};
+</div>
+<!--l. 300--><p class="nopar" > <span 
+class="pcrr8t-x-x-109">xmodideal </span>can be used to check that the exterior diﬀerential system is closed under
+exterior diﬀerentiation.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1439">
+     d S xmodideal S;
+ <br />
+ <br />          {}
+</div>
+<!--l. 307--><p class="nopar" >
+</p><!--l. 309--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">xvars</span>, or a second argument to <span 
+class="pcrr8t-x-x-109">xideal </span>can be used to change the division between
+exterior variables of degree 0 and parameters.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1440">
+        xideal {a*d x+y*d y};
+ <br />
+ <br />                  d x*a + d y*y
+ <br />                {---------------}
+ <br />                        a
+ <br />
+ <br />        xvars {a};
+ <br />        xideal {a*d x+y*d y};
+ <br />
+ <br />                {d x*a + d y*y,d x^d y}
+ <br />
+ <br />        xideal({a*d x+y*d y},{a,y});
+ <br />
+ <br />                {d x*a + d y*y,
+ <br />
+ <br />                 d x^d y*y}
+ <br />
+ <br />        xvars {};       % all 0-forms are coefficients
+ <br />        excoeffs(d u - (a*p - q)*d y);
+ <br />
+ <br />                {1, - a*p + q}
+ <br />
+ <br />        exvars(d u - (a*p - q)*d y);
+ <br />
+ <br />                {d u,d y}
+ <br />
+ <br />        xvars {p,q};    % p,q are no longer coefficients
+ <br />        excoeffs(d u - (a*p - q)*d y);
+ <br />
+ <br />                { - a,1,1}
+ <br />
+ <br />        exvars(d u - (a*p - q)*d y);
+ <br />
+ <br />                {d y*p,d y*q,d u}
+ <br />
+ <br />        xvars nil;
+</div>
+<!--l. 348--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p><!--l. 351--><p class="noindent" >Non-graded left and right ideals are no longer the same:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1441">
+     d t^(d z+d x^d y) xmodideal {d z+d x^d y};
+ <br />
+ <br />          0
+ <br />
+ <br />     (d z+d x^d y)^d t xmodideal {d z+d x^d y};
+ <br />
+ <br />           - 2*d t^d z
+</div>
+<!--l. 360--><p class="nopar" > Any form containing a 0-form term generates the whole ideal:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1442">
+     xideal {1 + f(1) + f(1)^f(2) + f(2)^f(3)^f(4)};
+ <br />
+ <br />          {1}
+</div>
+<!--l. 366--><p class="nopar" >
+</p><!--l. 1405--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 1407--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse189.html" >Up</a></td><td class="clinks"><a 
+href="manualse190.html" >Next</a></td><td class="clinks"><a 
+href="manualse188.html" >Prev</a></td><td class="clinks"><a 
+href="manualse188.html#tailmanualse188.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse189.html" >Front</a></td></tr></table><a 
+ id="tailmanualse189.html"></a>  </p> 
+</body> 
+</html>

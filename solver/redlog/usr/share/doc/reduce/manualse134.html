@@ -1,0 +1,3502 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>CANTENS: A Package for Manipulations and Simpliﬁcations of Indexed Objects</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse134.html" >Up</a></td><td class="clinks"><a 
+href="manualse135.html" >Next</a></td><td class="clinks"><a 
+href="manualse133.html" >Prev</a></td><td class="clinks"><a 
+href="manualse133.html#tailmanualse133.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse134.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.9    </span> <a 
+ id="x192-49300020.9"></a>CANTENS: A Package for Manipulations and
+Simpliﬁcations of Indexed Objects</h3>
+<a 
+ id="dx192-493001"></a>
+<a 
+ id="dx192-493002"></a>
+<!--l. 215--><p class="noindent" >This package creates an environment which allows the user to manipulate and simplify
+expressions containing various indexed objects like tensors, spinors, ﬁelds and quantum
+ﬁelds.
+</p><!--l. 219--><p class="noindent" >Author: Hubert Caprasse.
+<a 
+ id="dx192-493003"></a>
+<a 
+ id="dx192-493004"></a>
+</p><!--l. 5--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.9.1    </span> <a 
+ id="x192-49400020.9.1"></a>Introduction</h4>
+<!--l. 6--><p class="noindent" ><span 
+class="ptmrc8t-x-x-109">C<span 
+class="small-caps">A</span><span 
+class="small-caps">N</span><span 
+class="small-caps">T</span><span 
+class="small-caps">E</span><span 
+class="small-caps">N</span><span 
+class="small-caps">S</span> </span>is a package that creates an environment inside REDUCE which allows
+the user to manipulate and simplify expressions containing various indexed
+objects like tensors, spinors, ﬁelds and quantum ﬁelds. Brieﬂy said, it allows him
+</p>
+     <ul class="itemize1">
+     <li class="itemize">to deﬁne generic indexed quantities which can eventually depend implicitly
+     or explicitly on any number of variables;
+     </li>
+     <li class="itemize">to deﬁne one or several aﬃne or metric (sub-)spaces, and to work within
+     them without diﬃculty;
+     </li>
+     <li class="itemize">to handle dummy indices and simplify adequatly expressions which contain
+     them.</li></ul>
+<!--l. 20--><p class="noindent" >Beside the above features, it oﬀers the user:
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   1. </dt><dd 
+class="enumerate-enumitem">Several   invariant   elementary   tensors   which   are   always   used   in   the
+                                                                     
+
+                                                                     
+     applications involving the use of indexed objects like <span 
+class="pcrr8t-x-x-109">delta</span>, <span 
+class="pcrr8t-x-x-109">epsilon</span>,
+     <span 
+class="pcrr8t-x-x-109">eta</span>, and the generalized delta function.
+     </dd><dt class="enumerate-enumitem">
+   2. </dt><dd 
+class="enumerate-enumitem">The possibility to deﬁne any metric and to make it bloc-diagonal if he wishes
+     to.
+     </dd><dt class="enumerate-enumitem">
+   3. </dt><dd 
+class="enumerate-enumitem">The capability to symmetrize or antisymmetrize any expression.
+     </dd><dt class="enumerate-enumitem">
+   4. </dt><dd 
+class="enumerate-enumitem">The possibility to introduce any kind of symmetry (even partial symmetries)
+     for the indexed objects.
+     </dd><dt class="enumerate-enumitem">
+   5. </dt><dd 
+class="enumerate-enumitem">The choice to work with commutative, non-commutative or anticommutative
+     indexed objects.</dd></dl>
+<!--l. 34--><p class="noindent" >In this package, one cannot ﬁnd algorithms or even speciﬁc objects (i.e. like the covariant
+derivative or the SU(3) group structure constants) which are of used either in
+nuclear and particle physics. The objective of the package is simply to allow
+the user to easily formulate <span 
+class="ptmri8t-x-x-109">his algorithms </span>in the <span 
+class="ptmri8t-x-x-109">notations he likes most</span>. The
+package is also conceived so as to minimize the number of new commands.
+However, the large number of new capabilities inherently implies that quite
+a substantial number of new functions and commands must be used. On the
+other hand, in order to avoid too many error or warning messages the package
+assumes, in many cases, that the user is reponsible of the consistency of its
+inputs. The author is aware that the package is still perfectible and he will be
+grateful to all people who shall spare some time to communicate bugs or suggest
+improvements.
+</p><!--l. 52--><p class="noindent" >The documentation below is separated into four sections. In the ﬁrst one, the space(s)
+properties and deﬁnitions are described.
+</p><!--l. 55--><p class="noindent" >In the second one, the commands to geberate and handle generic indexed quantities
+(called abusively tensors) are illustrated. The manipulation and control of free and
+dummy indices is discussed.
+</p><!--l. 59--><p class="noindent" >In the third one, the special tensors are introduced and their properties discussed
+especially with respect to their ability to work simultaneously within several
+subspaces.
+</p><!--l. 63--><p class="noindent" >The last section, which is also the most important, is devoted entirely to the
+simpliﬁcation function <a 
+ id="dx192-494006"></a><span 
+class="pcrr8t-x-x-109">canonical</span>. This function originates from the package <span 
+class="ptmrc8t-x-x-109">D<span 
+class="small-caps">U</span><span 
+class="small-caps">M</span><span 
+class="small-caps">M</span><span 
+class="small-caps">Y</span></span><a 
+ id="dx192-494007"></a>
+and has been substantially extended . It takes account of all symmetries, make dummy
+summations and seeks a “canonical” form for any tensorial expression. Without it, the
+present package would be much less useful.
+                                                                     
+
+                                                                     
+</p><!--l. 82--><p class="noindent" >When <span 
+class="ptmrc8t-x-x-109">C<span 
+class="small-caps">A</span><span 
+class="small-caps">N</span><span 
+class="small-caps">T</span><span 
+class="small-caps">E</span><span 
+class="small-caps">N</span><span 
+class="small-caps">S</span></span><a 
+ id="dx192-494008"></a> is loaded, the packages <span 
+class="ptmrc8t-x-x-109">A<span 
+class="small-caps">S</span><span 
+class="small-caps">S</span><span 
+class="small-caps">I</span><span 
+class="small-caps">S</span><span 
+class="small-caps">T</span></span><a 
+ id="dx192-494009"></a> and <span 
+class="ptmrc8t-x-x-109">D<span 
+class="small-caps">U</span><span 
+class="small-caps">M</span><span 
+class="small-caps">M</span><span 
+class="small-caps">Y</span></span><a 
+ id="dx192-494010"></a> are also loaded.
+</p><!--l. 87--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.9.2    </span> <a 
+ id="x192-49500020.9.2"></a>Handling of space(s)</h4>
+<a 
+ id="dx192-495001"></a>
+<!--l. 89--><p class="noindent" ><a 
+ id="switch:ONESPACE"></a> One can work either in a <span 
+class="ptmri8t-x-x-109">single </span>space environment or in a multiple space environment.
+After the package is loaded, the single space environment is set and a unique space is
+deﬁned. It is euclidian, and has a symbolic dimension equal to <span 
+class="pcrr8t-x-x-109">dim</span>. The single space
+environment is determined by the switch <span 
+class="pcrr8t-x-x-109">onespace</span><a 
+ id="dx192-495002"></a><a 
+ id="dx192-495003"></a><a 
+ id="dx192-495004"></a> which is turned on. One can verify
+the above assertions as follows <span 
+class="pcrr8t-x-x-109">wholespace_dim</span>:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-768">
+      onespace ?; =&#x003E; yes
+ <br />
+ <br />      wholespace_dim ?; =&#x003E; dim
+ <br />
+ <br />      signature ?; =&#x003E; 0
+</div>
+<!--l. 104--><p class="nopar" > One can introduce a pseudoeuclidian metric for the above space by the command
+<span 
+class="pcrr8t-x-x-109">signature</span><a 
+ id="dx192-495005"></a> and verify that the signature is indeed <span 
+class="cmr-10x-x-109">1</span>: <a 
+ id="command:SIGNATURE"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-769">
+      signature 1;
+ <br />
+ <br />      signature ?; =&#x003E; 1
+</div>
+<!--l. 113--><p class="nopar" > In principle the signature may be set to any positive integer. However, presently, the
+package cannot handle signatures larger than 1. One gets the Minkowski-like space
+metric<a 
+ id="dx192-495006"></a>
+</p>
+<table 
+class="equation-star"><tr><td>
+                        <img 
+src="manual134x.png" alt="(                 )
+  1   0    0   0
+|| 0  − 1   0   0  ||
+( 0   0   − 1  0  )
+  0   0    0  − 1"  class="left" align="middle" />
+</td></tr></table>
+<!--l. 126--><p class="nopar" >
+which corresponds to the convention of high energy physicists. <a 
+ id="command:GLOBAL_SIGN"></a> It is possible to change it
+into the astrophysicists convention using the command <span 
+class="pcrr8t-x-x-109">global_sign</span><a 
+ id="dx192-495007"></a>:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-770">
+      global_sign ?; =&#x003E; 1
+ <br />
+ <br />      global_sign (-1);
+ <br />
+ <br />      global_sign ?; =&#x003E; -1
+</div>
+<!--l. 137--><p class="nopar" > This means that the actual metric is now <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">1)</span>. The space dimension may, of
+course, be assigned at will using the function <span 
+class="pcrr8t-x-x-109">wholespace_dim</span><a 
+ id="dx192-495008"></a>. <a 
+ id="operator:WHOLESPACE_DIM"></a> Below, it is assigned
+to 4:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-771">
+      wholespace_dim 4; ==&#x003E; 4
+</div>
+<!--l. 145--><p class="nopar" > When the switch <span 
+class="pcrr8t-x-x-109">onespace </span>is turned oﬀ, the system <span 
+class="ptmri8t-x-x-109">assumes </span>that this default space is
+non-existent and, therefore, that the user is going to deﬁne the space(s) in which he wants
+to work. Unexpected error messages will occur if it is not done. Once the switch is turned
+oﬀ many more functions become active. A few of them are available in the algebraic
+mode to allow the user to properly conctruct and control the properties of the various
+(sub-)spaces he is going to deﬁne and, also, to assign symbolic indices to some of
+them.
+</p><!--l. 155--><p class="noindent" ><a 
+ id="command:DEFINE_SPACES"></a> <a 
+ id="reserved:WHOLESPACE"></a> <a 
+ id="reserved:SIGNATURE"></a> <a 
+ id="reserved:INDEXRANGE"></a> <a 
+ id="dx192-495009"></a><span 
+class="pcrr8t-x-x-109">define_spaces </span>is the space constructor and <a 
+ id="dx192-495010"></a><span 
+class="pcrr8t-x-x-109">wholespace </span>is a reserved identiﬁer
+which is meant to be the name of the global space if subspaces are introduced. Suppose
+we want to deﬁne a unique space, we can choose for its any name but choosing
+<span 
+class="pcrr8t-x-x-109">wholespace </span>will be more eﬃcient. On the other hand, it leaves open the possibility to
+introduce subspaces in a more transparent way. So one writes, for instance,:
+<a 
+ id="dx192-495011"></a><a 
+ id="dx192-495012"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-772">
+      define_spaces wholespace=
+ <br />
+ <br />             {6,signature=1,indexrange=0 .. 5}; ==&#x003E;t
+</div>
+<!--l. 172--><p class="nopar" > The arguments inside the list, assign respectively the dimension, the signature and the
+range of the numeric indices which is allowed. Notice that the range starts from 0 and not
+from 1. This is made to conform with the usual convention for spaces of signature equal
+to 1. However, this is not compulsory. Notice that the declaration of the indexrange may
+be omitted if this is the only deﬁned space. <a 
+ id="reserved:EUCLIDIAN"></a> <a 
+ id="reserved:AFFINE"></a> There are two other options which may
+replace the signature option, namely <a 
+ id="dx192-495013"></a><span 
+class="pcrr8t-x-x-109">euclidian </span>and <a 
+ id="dx192-495014"></a><span 
+class="pcrr8t-x-x-109">affine</span>. They have both an
+obvious signiﬁcance.
+</p><!--l. 186--><p class="noindent" >In the subsequent example, an eleven dimension global space is deﬁned and two
+subspaces of this space are speciﬁed. Notice that no indexrange has been declared
+for the entire space. However, the indexrange declaration is compulsory for
+subspaces otherwise the package will improperly work when dealing with numeric
+indices.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-773">
+      define_spaces wholespace={11,signature=1}; ==&#x003E; t
+ <br />
+ <br />      define_spaces mink=
+ <br />
+ <br />               {4,signature=1,indexrange=0 .. 3}; ==&#x003E; t
+ <br />
+ <br />      define_spaces eucl=
+ <br />
+ <br />               {6,euclidian,indexrange=4 .. 9}; ==&#x003E; t
+</div>
+<!--l. 201--><p class="nopar" > <a 
+ id="operator:SHOW_SPACES"></a>To remind ones the space context in which one is working, the use of the function
+<a 
+ id="dx192-495015"></a><span 
+class="pcrr8t-x-x-109">show_spaces </span>is required. Its output is an <span 
+class="ptmri8t-x-x-109">algebraic value </span>from which the user can
+retrieve all the informations displayed. After the declarations above, this function
+gives:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-774">
+      show_spaces(); ==&#x003E;
+ <br />
+ <br />               {{wholespace,11,signature=1}
+ <br />
+ <br />                {mink,4,signature=1,indexrange=0..3},
+ <br />
+ <br />                {eucl,6,euclidian,indexrange=4..9}}
+</div>
+<!--l. 215--><p class="nopar" > If an input error is made or if one wants to change the space framework, one cannot
+directly redeﬁne the relevant space(s). For instance, the input
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-775">
+      define_spaces eucl=
+ <br />
+ <br />                {7,euclidian,indexrange=4 .. 9}; ==&#x003E;
+ <br />
+ <br />          *** Warning: eucl cannot be (or is already)
+ <br />                       defined as space identifier
+ <br />             t
+</div>
+<!--l. 226--><p class="nopar" > which aims to ﬁll all dimensions present in <span 
+class="pcrr8t-x-x-109">wholespace </span>tells that the space <span 
+class="pcrr8t-x-x-109">eucl</span>
+cannot be redeﬁned. To redeﬁne it eﬀectively, one is to <span 
+class="ptmri8t-x-x-109">remove </span>the existing deﬁnition ﬁrst
+using the function <a 
+ id="dx192-495016"></a><a 
+ id="command:REM_SPACES"></a><span 
+class="pcrr8t-x-x-109">rem_spaces </span>which takes any number of space-names as its
+argument. Here is the illustration:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-776">
+   rem_spaces eucl; ==&#x003E; t
+ <br />
+ <br />   show_spaces(); ==&#x003E;
+ <br />
+ <br />             {{wholespace,11,signature=1},
+ <br />
+ <br />              {mink,4,signature=1,indexrange=0..3}}
+ <br />
+ <br />   define_spaces eucl=
+ <br />
+ <br />             {7,euclidian,indexrange=4 .. 10}; ==&#x003E; t
+ <br />
+ <br />   show_spaces(); ==&#x003E;
+ <br />
+ <br />             {{wholespace,11,signature=1},
+ <br />
+ <br />              {mink,4,signature=1,indexrange=0..3},
+ <br />
+ <br />              {eucl,7,euclidian,indexrange=4..10}}
+</div>
+<!--l. 253--><p class="nopar" > Here, the user is entirely responsible of the coherence of his construction. The
+system does <span 
+class="ptmri8t-x-x-109">NOT </span>verify it but will incorrectly run if there is a mistake at this
+level.
+</p><!--l. 258--><p class="noindent" >When two spaces are direct product of each other (as the color and Minkowski spaces in
+quantum chromodynamics), it is not necessary to introduce the global space
+<span 
+class="pcrr8t-x-x-109">wholespace</span><a 
+ id="dx192-495017"></a>.
+</p><!--l. 262--><p class="noindent" >“Tensors” and symbolic indices can be declared to belong to a speciﬁc space or subspace.
+It is in fact an essential ingredient of the package and make it able to handle
+expressions which involve quantities belonging to several (sub-)spaces or to handle
+bloc-diagonal “tensors”. This will be discussed in the next section. Here, we just
+mention how to declare that some set of symbolic indices belong to a speciﬁc
+(sub-)space<a 
+ id="dx192-495018"></a> or how to declare them to belong to any space<a 
+ id="dx192-495019"></a>. The relevant command is
+<a 
+ id="dx192-495020"></a><span 
+class="pcrr8t-x-x-109">mk_ids_belong_space </span>whose syntax is
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">mk_ids_belong_space</span>(<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">list of indices</span><span 
+class="cmsy-10x-x-109">⟩</span>,<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">space</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmsy-10x-x-109">∣</span><span 
+class="cmmi-10x-x-109">  </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">subspace identiﬁer</span><span 
+class="cmsy-10x-x-109">⟩</span>)</div>
+                                                                     
+
+                                                                     
+<!--l. 276--><p class="noindent" >For example, within the above declared spaces one could write:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-777">
+      mk_ids_belong_space({a0,a1,a2,a3},mink); ==&#x003E; t
+ <br />
+ <br />      mk_ids_belong_space({x,y,z,u,v},eucl); ==&#x003E; t
+</div>
+<!--l. 281--><p class="nopar" > The command <a 
+ id="dx192-495021"></a> <a 
+ id="command:MK_IDS_BELONG_ANYSPACE"></a><span 
+class="pcrr8t-x-x-109">mk_ids_belong_anyspace </span>allows to remake them usable either in
+<span 
+class="pcrr8t-x-x-109">wholespace</span><a 
+ id="dx192-495022"></a> if it is deﬁned or in anyone among the deﬁned spaces. For instance, the
+declaration:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-778">
+ mk_ids_belong_anyspace a1,a2; ==&#x003E; t
+</div>
+<!--l. 289--><p class="nopar" > tells that a1 and a2 belong either to <span 
+class="pcrr8t-x-x-109">mink </span>or to <span 
+class="pcrr8t-x-x-109">eucl </span>or to <span 
+class="pcrr8t-x-x-109">wholespace</span>.
+</p><!--l. 293--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.9.3    </span> <a 
+ id="x192-49600020.9.3"></a>Generic tensors and their manipulation</h4>
+<a 
+ id="dx192-496001"></a>
+<!--l. 296--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x192-49700020.9.3"></a>Deﬁnition</h5>
+<!--l. 297--><p class="noindent" >The generic tensors handled by <span 
+class="ptmrc8t-x-x-109">C<span 
+class="small-caps">A</span><span 
+class="small-caps">N</span><span 
+class="small-caps">T</span><span 
+class="small-caps">E</span><span 
+class="small-caps">N</span><span 
+class="small-caps">S</span> </span>are objects much more general than
+usual tensors. The reason is that they are not supposed to obey well deﬁned
+transformation properties under a change of coordinates. They are only indexed
+quantities. The indices are either contravariantly (upper indices) or covariantly (lower
+indices) placed. They can be symbolic or numeric. When a given index is found
+both in one upper and in one lower place, it is supposed to be summed over all
+space-coordinates it belongs to viz. it is a <span 
+class="ptmri8t-x-x-109">dummy</span><a 
+ id="dx192-497001"></a> index and <span 
+class="ptmri8t-x-x-109">automatically recognized </span>as
+such. So they are supposed to obey the summation rules of tensor calculus. This
+why and only why they are called tensors. Moreover, aside from indices they
+may also depend implicitly or explicitly on any number of <span 
+class="ptmri8t-x-x-109">variables</span><a 
+ id="dx192-497002"></a>. Within
+this deﬁnition, tensors may also be spinors, they can be non-commutative or
+anticommutative, they may also be algebra generators and represent ﬁelds or quantum
+ﬁelds.
+</p><!--l. 314--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x192-49800020.9.3"></a>Implications of <span 
+class="pcrr8t-x-x-109">TENSOR </span>declaration</h5>
+<a 
+ id="dx192-498001"></a>
+                                                                     
+
+                                                                     
+<!--l. 316--><p class="noindent" ><a 
+ id="command:TENSOR"></a>
+</p><!--l. 318--><p class="noindent" >The procedure <span 
+class="pcrr8t-x-x-109">tensor </span>which takes an arbitrary number of identiﬁers as argument
+deﬁnes them as operator-like objects which admit an arbitrary number of indices. Each
+component has a formal character and may or may not belong to a speciﬁc (sub-)space.
+Numeric indices are also allowed. The way to distinguish upper and lower indices is the
+same as the one in the package <a 
+ id="dx192-498002"></a><span 
+class="ptmrc8t-x-x-109">E<span 
+class="small-caps">X</span><span 
+class="small-caps">C</span><span 
+class="small-caps">A</span><span 
+class="small-caps">L</span><span 
+class="small-caps">C</span> </span>e.g. <span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmmi-10x-x-109">a </span>is a lower index and <span 
+class="cmmi-10x-x-109">a </span>is an upper index.
+A special printing function has been created so as to mimic as much as possible
+the way of writing such objects on a sheet of paper. Let us illustrate the use of
+<span 
+class="pcrr8t-x-x-109">tensor</span>:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-779">
+   tensor te; ==&#x003E; t
+ <br />
+ <br />   te(3,a,-4,b,-c,7); ==&#x003E;
+ <br />                            3 a   b   7
+ <br />                        te
+ <br />                                4   c
+ <br />
+ <br />
+ <br />
+ <br />  te(3,a,{x,y},-4,b,-c,7); ==&#x003E;
+ <br />
+ <br />             3 a   b   7
+ <br />          te            (x,y)
+ <br />                 4   c
+ <br />
+ <br />
+ <br />
+ <br />   te(3,a,-4,b,{u,v},-c,7); ==&#x003E;
+ <br />
+ <br />             3 a   b   7
+ <br />          te            (u,v)
+ <br />                 4   c
+ <br />
+ <br />
+ <br />   te({x,y}); ==&#x003E;  te(x,y)
+</div>
+<!--l. 354--><p class="nopar" > Notice that the system distinguishes indices from variables on input solely on the basis
+that the user puts variables <span 
+class="ptmri8t-x-x-109">inside a list</span>.
+</p><!--l. 358--><p class="noindent" >The dependence can also be declared implicit through the REDUCE command
+<a 
+ id="dx192-498003"></a> <a 
+ id="dx192-498004"></a><span 
+class="pcrr8t-x-x-109">depend </span>which is generalized so as to allow to declare a tensor to depend on another
+tensor irrespective of its components. It means that only <span 
+class="ptmri8t-x-x-109">one </span>declaration is enough to
+express the dependence with respect to <span 
+class="ptmri8t-x-x-109">all its components</span>. A simple example:
+<a 
+ id="dx192-498005"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-780">
+      tensor te,x;
+ <br />
+ <br />      depend te,x;
+ <br />
+ <br />      df(te(a,-b),x(c)); ==&#x003E;
+ <br />
+ <br />                  a    c
+ <br />             df(te   ,x )
+ <br />                    b
+</div>
+<!--l. 377--><p class="nopar" > Therefore, when <span 
+class="ptmri8t-x-x-109">all </span>objects are tensors, the dependence declaration is valid for all
+indices.
+</p><!--l. 381--><p class="noindent" >One can also avoid the trouble to place the explicit variables inside a list if one declare
+them as variables through the command <a 
+ id="command:MAKE_VARIABLES"></a> <a 
+ id="command:REMOVE_VARIABLES"></a> <span 
+class="pcrr8t-x-x-109">make_variables</span><a 
+ id="dx192-498006"></a>. This property can also be
+removed<span class="footnote-mark"><a 
+href="manual193.html#fn17x20"><sup class="textsuperscript">17</sup></a></span><a 
+ id="x192-498007f17"></a> 
+using <a 
+ id="dx192-498008"></a><span 
+class="pcrr8t-x-x-109">remove_variables</span>:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-781">
+      make_variables x,y; ==&#x003E; t
+ <br />
+ <br />      te(x,y); ==&#x003E; te(x,y)
+ <br />
+ <br />
+ <br />      te(x,y,a); ==&#x003E;
+ <br />
+ <br />                a
+ <br />             te  (x,y)
+ <br />
+ <br />
+ <br />      remove_variables x; ==&#x003E; t
+ <br />
+ <br />
+ <br />      te(x,y,a); ==&#x003E;
+ <br />
+ <br />                x a
+ <br />             te    (y)
+</div>
+<!--l. 411--><p class="nopar" > If one does that one must be careful not to substitute a number to such declared variables
+because this number would be considered as an index and no longer as a variable. So it is
+only useful for <span 
+class="ptmri8t-x-x-109">formal </span>variables<a 
+ id="dx192-498009"></a>.
+</p><!--l. 417--><p class="noindent" ><a 
+ id="command:REM_TENSOR"></a> A tensor can be easily eliminated using the function <a 
+ id="dx192-498010"></a><span 
+class="pcrr8t-x-x-109">rem_tensor</span>. It has the
+syntax
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-782">
+      rem_tensor t1,t2,t3 ....;
+</div>
+<!--l. 422--><p class="nopar" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x192-49900020.9.3"></a>Dummy indices recognition</h5>
+<a 
+ id="dx192-499001"></a>
+<!--l. 427--><p class="noindent" ><a 
+ id="operator:DUMMY_INDICES"></a> <a 
+ id="command:REM_DUMMY_INDICES"></a> For all individual tensors met by the evaluator, the system will analyse the written
+indices and will detect those which must be considered dummy according to the usual
+rules of tensor calculus. Those indices will be given the <span 
+class="pcrr8t-x-x-109">dummy </span>property and will no
+longer be allowed to play the role of <span 
+class="ptmri8t-x-x-109">free </span>indices unless the user removes this dummy
+property. In that way, the system checks immediately the consistency of an input. Three
+functions are at the disposal of the user to control dummy indices. They are
+<a 
+ id="dx192-499002"></a><span 
+class="pcrr8t-x-x-109">dummy_indices</span>, <a 
+ id="dx192-499003"></a><span 
+class="pcrr8t-x-x-109">rem_dummy_indices </span>The following illustrates their use as well
+as the behaviour of the system:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-783">
+  dummy_indices(); ==&#x003E; {} % In a fresh environment
+ <br />
+ <br />  te(a,b,-c,-a); ==&#x003E;
+ <br />
+ <br />           a b
+ <br />         te
+ <br />               c a
+ <br />
+ <br />  dummy_indices(); ==&#x003E; {a}
+ <br />
+ <br />  te(a,b,-c,a); ==&#x003E;
+ <br />
+ <br />  ***** ((c)(a b a)) are inconsistent lists of indices
+ <br />
+ <br />           % a cannot be found twice as an upper index
+ <br />
+ <br />  te(a,b,-b,-a); ==&#x003E;
+ <br />
+ <br />           a b
+ <br />        te
+ <br />               b a
+ <br />
+ <br />  dummy_indices(); ==&#x003E; {b,a}
+ <br />
+ <br />  te(d,-d,d); ==&#x003E;
+ <br />
+ <br />    ***** ((d)(d d)) are inconsistent lists of indices
+ <br />
+ <br />  dummy_indices(); ==&#x003E; {d,b,a}
+ <br />
+ <br />  rem_dummy_indices d; ==&#x003E; t
+ <br />
+ <br />  dummy_indices(); ==&#x003E; {b,a}
+ <br />
+ <br />  te(d,d); ==&#x003E;
+ <br />
+ <br />           d d
+ <br />         te              %  This is allowed again.
+                                                                     
+
+                                                                     
+ <br />
+ <br />  dummy_indices(); ==&#x003E; {b,a}
+ <br />
+ <br />  rem_dummy_indices(); ==&#x003E; t
+ <br />
+ <br />  dummy_indices(); ==&#x003E; {}
+</div>
+<!--l. 485--><p class="nopar" > Other veriﬁcations of coherence are made when space speciﬁcations are introduced both
+in the ON and OFF <span 
+class="pcrr8t-x-x-109">onespace </span>environment. We shall discuss them later<a 
+ id="dx192-499004"></a><a 
+ id="dx192-499005"></a><a 
+ id="dx192-499006"></a>.
+</p><!--l. 490--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x192-50000020.9.3"></a>Substitutions, assignments and rewriting rules</h5>
+<a 
+ id="dx192-500001"></a>
+<a 
+ id="dx192-500002"></a>
+<a 
+ id="dx192-500003"></a>
+<!--l. 495--><p class="noindent" >The user must be able to manipulate and give speciﬁc characteristics to the generic
+tensors he has introduced. Since tensors are essentially REDUCE operators, the
+usual commands of the system are available. However, some limitations are
+implied by the fact that indices and, especially numeric indices, must always be
+properly recognized before any substitution or manipulation is done. We have
+gathered below a set of examples which illustrate all the “delicate” points. First, the
+substitutions<a 
+ id="dx192-500004"></a>:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-784">
+      sub(a=-c,te(a,b)); ==&#x003E;
+ <br />
+ <br />                 b
+ <br />             te
+ <br />               c
+ <br />
+ <br />      sub(a=-1,te(a,b)); ==&#x003E;
+ <br />
+ <br />                 b
+ <br />             te
+ <br />               1
+ <br />
+ <br />      sub(a=-0,te(a,b)); ==&#x003E;
+ <br />
+ <br />               0 b
+ <br />             te    % sub has replaced -0 by 0. wrong!
+ <br />
+ <br />      sub(a=-!0,te(a,b)); ==&#x003E;
+ <br />
+ <br />                 b
+ <br />             te    % right
+ <br />               0
+</div>
+<!--l. 527--><p class="nopar" > The substitution of an index by -0 is the <span 
+class="ptmri8t-x-x-109">only one </span>case where there is a problem. The
+operator <span 
+class="pcrr8t-x-x-109">sub </span>replaces -0 by 0 because it does not recognize 0 as an index of course.
+Such a recognition is context dependent and implies a modiﬁcation of <span 
+class="pcrr8t-x-x-109">sub </span>for this <span 
+class="ptmri8t-x-x-109">single</span>
+exceptional case. Therefore,we have opted, not do do so and to use the index 0 which is
+simply !0 instead of 0.
+</p><!--l. 535--><p class="noindent" >Second, the assignments. Here, we advise the user to rely on the
+operator<a 
+ id="dx192-500005"></a><span 
+class="pcrr8t-x-x-109">==</span><a 
+ id="dx192-500006"></a><span class="footnote-mark"><a 
+href="manual194.html#fn18x20"><sup class="textsuperscript">18</sup></a></span><a 
+ id="x192-500007f18"></a> 
+instead of the operator <a 
+ id="dx192-500008"></a><span 
+class="pcrr8t-x-x-109">:=</span>. Again, the reason is to avoid the problem raised above in the
+case of substitutions. <span 
+class="pcrr8t-x-x-109">:= </span>does not evaluate its left hand side so that -0 is not recognized
+as an index and simpliﬁed to 0 while the <span 
+class="pcrr8t-x-x-109">== </span>operator evaluates both its left
+and right hand sides and does recognize it. The disadvantage of <span 
+class="pcrr8t-x-x-109">== </span>is that it
+                                                                     
+
+                                                                     
+demands that a second assignement on a given component be made only after
+having suppressed <span 
+class="ptmri8t-x-x-109">explicitly </span>the ﬁrst assignement. This is done by the function
+<a 
+ id="dx192-500009"></a><span 
+class="pcrr8t-x-x-109">rem_value_tens </span>which can be applied on any component. We stress, however, that if
+one is willing to use -!0 instead of -0 as the lower 0 index, the use of <span 
+class="cmr-10x-x-109">:= </span>is perfectly
+legitimate:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-785">
+      te({x,y},a,-0)==x*y*te(a,-0); ==&#x003E;
+ <br />
+ <br />               a
+ <br />             te   *x*y
+ <br />                 0
+ <br />
+ <br />      te({x,y},a,-0); ==&#x003E;
+ <br />
+ <br />               a
+ <br />             te   *x*y
+ <br />                 0
+ <br />
+ <br />      te({x,y},a,0); ==&#x003E;
+ <br />
+ <br />
+ <br />                a 0
+ <br />             te    (x,y)
+ <br />
+ <br />
+ <br />      te({x,y},a,-0)==x*y*te(a,-0); ==&#x003E;
+ <br />
+ <br />                   a
+ <br />          ***** te    *x*y invalid as setvalue kernel
+ <br />                     0
+ <br />
+ <br />      rem_value_tens te({x,y},a,-0);
+ <br />
+ <br />      te({x,y},a,-0); ==&#x003E;
+ <br />
+ <br />                a
+ <br />             te    (x,y)
+ <br />                  0
+ <br />
+ <br />      te({x,y},a,-0)==(x+y)*te(a,-0); ==&#x003E;
+ <br />
+ <br />            a
+ <br />          te   *(x + y)
+ <br />              0
+                                                                     
+
+                                                                     
+</div>
+<!--l. 591--><p class="nopar" > In the elementary application below, the use of a tensor avoids the introduction of two
+diﬀerent operators and makes the calculation more readable.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-786">
+      te(1)==sin th * cos phi; ==&#x003E; cos(phi)*sin(th)
+ <br />
+ <br />      te(-1)==sin th * cos phi; ==&#x003E; cos(phi)*sin(th)
+ <br />
+ <br />      te(2)==sin th * sin phi; ==&#x003E; sin(phi)*sin(th)
+ <br />
+ <br />      te(-2)==sin th * sin phi; ==&#x003E; sin(phi)*sin(th)
+ <br />
+ <br />      te(3)==cos th ; ==&#x003E; cos(th)
+ <br />
+ <br />      te(-3)==cos th ; ==&#x003E; cos(th)
+ <br />
+ <br />      for i:=1:3 sum te(i)*te(-i); ==&#x003E;
+ <br />
+ <br />           2        2          2           2        2
+ <br />   cos(phi) *sin(th)  + cos(th)  + sin(phi) *sin(th)
+ <br />
+ <br />      rem_value_tens te;
+ <br />
+ <br />      te(2); ==&#x003E;
+ <br />
+ <br />               2
+ <br />            te
+</div>
+<!--l. 619--><p class="nopar" > There is no diﬀerence in the manipulation of numeric indices and numeric <span 
+class="ptmri8t-x-x-109">tensor</span>
+indices. The function <a 
+ id="dx192-500010"></a><span 
+class="pcrr8t-x-x-109">rem_value_tens </span>when applied to a tensor preﬁx suppresses the
+value of <span 
+class="ptmri8t-x-x-109">all its components</span>. Finally, there is no “interference” with i as a dummy index
+and i as a numeric index in a loop.
+</p><!--l. 626--><p class="noindent" >Third, rewriting rules. They are either global or local and can be used as in REDUCE.
+Again, here, the -0 index problem exists each time a substitution by the index -0 must be
+made in a template. <a 
+ id="dx192-500011"></a><a 
+ id="dx192-500012"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-787">
+  % LET:
+ <br />
+ <br />      let te({x,y},-0)=x*y;
+ <br />
+ <br />      te({x,y},-0); ==&#x003E; x*y
+ <br />
+ <br />      te({x,y},+0); ==&#x003E;
+ <br />
+ <br />                0
+ <br />             te  (x,y)
+ <br />
+ <br />
+ <br />      te({x,u},-0); ==&#x003E;
+ <br />
+ <br />             te  (x,u)
+ <br />                0
+ <br />
+ <br />  % FOR ALL .. LET:
+ <br />
+ <br />      for all x,a let te({x},a,-b)=x*te(a,-b);
+ <br />
+ <br />      te({u},1,-b); ==&#x003E;
+ <br />
+ <br />               1
+ <br />             te   *u
+ <br />                 b
+ <br />
+ <br />      te({u},c,-b); ==&#x003E;
+ <br />
+ <br />               c
+ <br />             te   *u
+ <br />                 b
+ <br />
+ <br />      te({u},b,-b); ==&#x003E;
+ <br />
+ <br />               b
+ <br />             te   *u
+ <br />                 b
+                                                                     
+
+                                                                     
+ <br />
+ <br />      te({u},a,-a); ==&#x003E;
+ <br />
+ <br />                a
+ <br />             te    (u)
+ <br />                  a
+ <br />
+ <br />      for all x,a clear te({x},a,-b);
+ <br />
+ <br />      te({u},c,-b); ==&#x003E;
+ <br />
+ <br />                c
+ <br />             te    (u)
+ <br />                  b
+ <br />
+ <br />      for all a,b let te({x},a,-b)=x*te(a,-b);
+ <br />
+ <br />      te({x},c,-b); ==&#x003E;
+ <br />
+ <br />               c
+ <br />             te   *x
+ <br />                 b
+ <br />
+ <br />      te({x},a,-a); ==&#x003E;
+ <br />
+ <br />               a
+ <br />             te   *x
+ <br />                 a
+ <br />
+ <br />   % The index -0 problem:
+ <br />
+ <br />      te({x},a,-0); ==&#x003E; % -0 becomes +0 in the template
+ <br />
+ <br />                a
+ <br />             te    (x)  %  the rule does not apply.
+ <br />                  0
+ <br />
+ <br />      te({x},0,-!0); ==&#x003E;
+ <br />
+ <br />               0
+ <br />             te   *x      % here it applies.
+ <br />                 0
+</div>
+<!--l. 713--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-788">
+  % WHERE:
+ <br />
+ <br />      rul:={te(~a) =&#x003E; sin a}; ==&#x003E;
+ <br />
+ <br />                        a
+ <br />             rul := {te  =&#x003E; sin(a)}
+ <br />
+ <br />
+ <br />
+ <br />      te(1) where rul; ==&#x003E; sin(1)
+ <br />
+ <br />      te(1); ==&#x003E;
+ <br />
+ <br />                 1
+ <br />               te
+</div>
+<!--l. 730--><p class="nopar" > <a 
+ id="dx192-500013"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-789">
+  % with variables:
+ <br />
+ <br />      rul1:={te(~a,{~x,~y}) =&#x003E; x*y*sin(a)}; ==&#x003E;
+ <br />
+ <br />
+ <br />                        ~a
+ <br />             rul1 := {te   (~x,~y) =&#x003E; x*y*sin(a)}
+ <br />
+ <br />
+ <br />      te(a,{x,y}) where rul1; ==&#x003E; sin(a)*x*y
+ <br />
+ <br />
+ <br />
+ <br />      te({x,y},a) where rul1; ==&#x003E; sin(a)*x*y
+ <br />
+ <br />
+ <br />      rul2:={te(-~a,{~x,~y}) =&#x003E; x*y*sin(-a)};
+ <br />
+ <br />
+ <br />            rul2 := {te   (~x,~y) =&#x003E; x*y*sin(-a)}
+ <br />                       ~a
+ <br />
+ <br />      te(-a,{x,y}) where rul2; ==&#x003E; -sin(a)*x*y
+ <br />
+ <br />
+ <br />      te({x,y},-a) where rul2; ==&#x003E; -sin(a)*x*y
+</div>
+<!--l. 759--><p class="nopar" > Notice that the position of the list of variables inside the rule may be chosen at will. It is
+an irrelevant feature of the template. This may be confusing, so, we advise to write the
+rules not as above but placing the list of variables <span 
+class="ptmri8t-x-x-109">in front of all indices </span>since it is in that
+canonical form which it is written by the simpliﬁcation function of individual
+tensors.
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x192-50100020.9.3"></a>Behaviour under space speciﬁcations</h5>
+                                                                     
+
+                                                                     
+<a 
+ id="dx192-501001"></a>
+<!--l. 769--><p class="noindent" >The characteristics and the behaviour of generic tensors described up to now are
+independent of all space speciﬁcations. They are complete as long as we conﬁne to the
+default space which is active when starting <span 
+class="ptmrc8t-x-x-109">C<span 
+class="small-caps">A</span><span 
+class="small-caps">N</span><span 
+class="small-caps">T</span><span 
+class="small-caps">E</span><span 
+class="small-caps">N</span><span 
+class="small-caps">S</span></span>. However, as soon as some space
+speciﬁcation is introduced, it has some consequences one the generic tensor properties.
+This is true both when <a 
+ id="dx192-501002"></a><a 
+ id="dx192-501003"></a><a 
+ id="dx192-501004"></a><span 
+class="pcrr8t-x-x-109">onespace </span>is switched ON or OFF. Here we shall describe how
+to deal with these features.
+</p><!--l. 777--><p class="noindent" >When <span 
+class="pcrr8t-x-x-109">onespace </span>is ON, if the space dimension is set to an integer, numeric indices of
+any generic tensors are forced to be less or equal that integer if the signature is 0 or less
+than that integer if the signature is equal to 1. The following illustrates what happens.
+<a 
+ id="dx192-501005"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-790">
+  on onespace;
+ <br />
+ <br />  wholespace_dim 4; ==&#x003E; 4
+ <br />
+ <br />  signature 0; ==&#x003E; 0
+ <br />
+ <br />  te(3,a,-b,7); ==&#x003E; ***** numeric indices out of range
+ <br />
+ <br />  te(3,a,-b,3); ==&#x003E;
+ <br />
+ <br />
+ <br />           3 a   3
+ <br />         te
+ <br />               b
+ <br />
+ <br />
+ <br />  te(4,a,-b,4); ==&#x003E;
+ <br />
+ <br />           4 a   4
+ <br />         te
+ <br />               b
+ <br />
+ <br />  sub(a=5,te(3,a,-b,3));
+ <br />
+ <br />               ==&#x003E; ***** numeric indices out of range
+ <br />
+ <br />  signature 1; ==&#x003E; 1
+ <br />
+ <br />  % Now indices range from 0 to 3:
+ <br />
+ <br />  te(4,a,-b,4);
+ <br />
+ <br />               ==&#x003E; ***** numeric indices out of range
+ <br />
+ <br />  te(0,a,-b,3); ==&#x003E;
+ <br />
+ <br />
+ <br />            0 a   3
+                                                                     
+
+                                                                     
+ <br />          te
+ <br />                b
+</div>
+<!--l. 823--><p class="nopar" > When <span 
+class="pcrr8t-x-x-109">onespace </span>is OFF<a 
+ id="dx192-501006"></a>, many more possibilities to control the input or to give
+speciﬁc properties to tensors are open. For instance, it is possible to declare that a tensor
+belongs to one of them. It is also possible to declare that some indices belongs to one of
+them. It is even possible to do that for <span 
+class="ptmri8t-x-x-109">numeric </span>indices thanks to the declaration
+<a 
+ id="dx192-501007"></a>indexrange included optionally in the space deﬁnition generated by <a 
+ id="dx192-501008"></a><span 
+class="pcrr8t-x-x-109">define_spaces</span>.
+First, when <span 
+class="pcrr8t-x-x-109">onespace </span>is OFF, the run equivalent to the previous one is like the
+following: <a 
+ id="dx192-501009"></a><a 
+ id="dx192-501010"></a> <a 
+ id="dx192-501011"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-791">
+      off onespace;
+ <br />
+ <br />      define_spaces wholespace={6,signature=1); ==&#x003E; t
+ <br />
+ <br />      show_spaces(); ==&#x003E; {{wholespace,6,signature=1}}
+ <br />
+ <br />      make_tensor_belong_space(te,wholespace);
+ <br />
+ <br />                                        ==&#x003E; wholespace
+ <br />
+ <br />      te(4,a,-b,6); ==&#x003E;
+ <br />
+ <br />                     ***** numeric indices out of range
+ <br />
+ <br />      te(4,a,-b,5); ==&#x003E;
+ <br />
+ <br />
+ <br />               4 a   5
+ <br />             te
+ <br />                   b
+ <br />
+ <br />      rem_spaces wholespace;
+ <br />
+ <br />      define_spaces wholespace={4,euclidean}; ==&#x003E; t
+ <br />
+ <br />      te(a,5,-b); ==&#x003E; ***** numeric indices out of range
+ <br />
+ <br />      te(a,4,-b); ==&#x003E;
+ <br />
+ <br />
+ <br />               a 4
+ <br />             te
+ <br />                   b
+ <br />
+ <br />      define_spaces eucl={1,signature=0}; ==&#x003E; t
+ <br />
+ <br />      show_spaces(); ==&#x003E;
+ <br />
+                                                                     
+
+                                                                     
+ <br />        {{wholespace,5,signature=1},
+ <br />
+ <br />                {eucl,1,signature=0}}
+ <br />
+ <br />      make_tensor_belong_space(te,eucl); ==&#x003E; eucl
+ <br />
+ <br />      te(1); ==&#x003E;
+ <br />
+ <br />               1
+ <br />             te
+ <br />
+ <br />      te(2); ==&#x003E; ***** numeric indices out of range
+ <br />
+ <br />      te(0); ==&#x003E;
+ <br />
+ <br />               0
+ <br />             te
+</div>
+<!--l. 894--><p class="nopar" > In the run, the new function <a 
+ id="dx192-501012"></a> <span 
+class="pcrr8t-x-x-109">make_tensor_belong_space </span>has been used. One
+may be surprised that <span 
+class="pcrr8t-x-x-109">te(0) </span>is allowed in the end of the previous run and, indeed, it is
+incorrect that the system allows <span 
+class="ptmri8t-x-x-109">two </span>diﬀerent components to <span 
+class="pcrr8t-x-x-109">te</span>. This is due to an
+incomplete deﬁnition of the space. When one deals with spaces of integer dimensions, if
+one wants to control numeric indices correctly <span 
+class="ptmri8t-x-x-109">when </span><span 
+class="pcrr8t-x-x-109">onespace </span>is switched
+oﬀ <span 
+class="ptmri8t-x-x-109">one must also give the indexrange</span><a 
+ id="dx192-501013"></a>. So the previous run must be corrected
+to
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-792">
+   define_spaces eucl=
+ <br />
+ <br />              {1,signature=0,indexrange=1 .. 1}; ==&#x003E; t
+ <br />
+ <br />   make_tensor_belong_space(te,eucl); ==&#x003E; eucl
+ <br />
+ <br />   te(0); ==&#x003E;
+ <br />
+ <br />     ***** numeric indices do not belong to (sub)-space
+ <br />
+ <br />   te(1); ==&#x003E;
+ <br />
+ <br />            1
+ <br />          te
+ <br />
+ <br />   te(2); ==&#x003E;
+ <br />
+ <br />     ***** numeric indices do not belong to (sub)-space
+</div>
+<!--l. 926--><p class="nopar" > Notice that the error message has also changed accordingly. So, now one can even
+constrain the 0 component to belong to an euclidian space.
+</p><!--l. 931--><p class="noindent" ><a 
+ id="operator:MK_IDS_BELONG_SPACE"></a> <a 
+ id="operator:MK_IDS_BELONG_ANYSPACE"></a> Let us go back to symbolic indices. <a 
+ id="dx192-501014"></a>By default, any symbolic index belongs to the
+global space or to all deﬁned partial spaces. In many cases, this is, of course, not
+consistent. So, the possibility exists to declare that one or several indices belong to a
+speciﬁc (sub-)space. To this end, one is to use the function <a 
+ id="dx192-501015"></a><span 
+class="pcrr8t-x-x-109">mk_ids_belong_space</span>.
+Its syntax is
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">mk_ids_belong_space</span>(<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">list of indices</span><span 
+class="cmsy-10x-x-109">⟩</span>, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">(sub-)space identiﬁer</span><span 
+class="cmsy-10x-x-109">⟩</span>)</div>
+<!--l. 945--><p class="noindent" >The function <a 
+ id="dx192-501016"></a><span 
+class="pcrr8t-x-x-109">mk_ids_belong_anyspace </span>whose syntax is the same do the reverse
+operation.
+</p><!--l. 948--><p class="noindent" >Combined with the declaration <a 
+ id="dx192-501017"></a><span 
+class="pcrr8t-x-x-109">make_tensor_belong_space</span>, it allows to
+express all problems which involve tensors belonging to diﬀerent spaces and do
+the dummy summations correctly. One can also deﬁne a tensor which has a
+<a 
+ id="dx192-501018"></a>“bloc-diagonal” structure. All these features are illustrated in the next sections
+which describe speciﬁc tensors and the properties of the extended function
+                                                                     
+
+                                                                     
+<a 
+ id="dx192-501019"></a><span 
+class="pcrr8t-x-x-109">canonical</span>.
+</p><!--l. 958--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.9.4    </span> <a 
+ id="x192-50200020.9.4"></a>Speciﬁc tensors</h4>
+<!--l. 959--><p class="noindent" >The means provided in the two previous subsection to handle generic tensors already
+allow to construct any speciﬁc tensor we may need. That the package contains a certain
+number of them is already justiﬁed on the level of conviviality. However, a more
+important justiﬁcation is that some basic tensors are so universaly and frequently used
+that a careful programming of these improves considerably the robustness and the
+eﬃciency of most calculations. The choice of the set of speciﬁc tensors is not
+clearcut. We have tried to keep their number to a minimum but, experience, may
+lead us extend it without diﬁculty. So, up to now, the list of speciﬁc tensors
+is:
+     </p><dl class="list1"><dt class="list">
+   - </dt><dd 
+class="list">
+     <!--l. 969--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">delta </span>tensor<a 
+ id="dx192-502001"></a>,
+     </p></dd><dt class="list">
+   - </dt><dd 
+class="list">
+     <!--l. 970--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">eta </span>Minkowski tensor<a 
+ id="dx192-502002"></a><a 
+ id="dx192-502003"></a>,
+     </p></dd><dt class="list">
+   - </dt><dd 
+class="list">
+     <!--l. 971--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">epsilon </span>tensor,<a 
+ id="dx192-502004"></a>
+     </p></dd><dt class="list">
+   - </dt><dd 
+class="list">
+     <!--l. 972--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">del </span>generalised delta tensor,<a 
+ id="dx192-502005"></a>
+     </p></dd><dt class="list">
+   - </dt><dd 
+class="list">
+     <!--l. 973--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">metric </span>generic tensor metric.<a 
+ id="dx192-502006"></a></p></dd></dl>
+                                                                     
+
+                                                                     
+<!--l. 975--><p class="noindent" >It is important to realize that the typewriter font names in the list are <span 
+class="ptmri8t-x-x-109">keywords </span>for
+the corresponding tensors and do not necessarily correspond to their <span 
+class="ptmri8t-x-x-109">actual</span>
+<span 
+class="ptmri8t-x-x-109">names</span>. Indeed, the choice of the names of particular tensors is left to the user.
+When startting <span 
+class="ptmrc8t-x-x-109">C<span 
+class="small-caps">A</span><span 
+class="small-caps">N</span><span 
+class="small-caps">T</span><span 
+class="small-caps">E</span><span 
+class="small-caps">N</span><span 
+class="small-caps">S</span> </span>speciﬁc tensors are NOT available. They must be
+activated by the user using the function <a 
+ id="dx192-502007"></a><a 
+ id="operator:MAKE_PARTIC_TENS"></a><span 
+class="pcrr8t-x-x-109">make_partic_tens </span>whose syntax
+is:
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">make_partic_tens</span>(<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">tensor name</span><span 
+class="cmsy-10x-x-109">⟩ </span>, <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">keyword</span><span 
+class="cmsy-10x-x-109">⟩</span>);</div>
+<!--l. 987--><p class="noindent" >The name chosen may be the same as the keyword. As we shall see, it is never needed to
+deﬁne more than one <span 
+class="pcrr8t-x-x-109">delta </span>tensor but it is often needed to deﬁne several <span 
+class="pcrr8t-x-x-109">epsilon</span>
+tensors. Hereunder, we describe each of the above tensors especially their behaviour in a
+multi-space environment.
+</p><!--l. 993--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x192-50300020.9.4"></a>DELTA tensor</h5>
+<a 
+ id="dx192-503001"></a>
+<!--l. 995--><p class="noindent" >It is the simplest example of a bloc-diagonal<a 
+ id="dx192-503002"></a> tensor we mentioned in the previous section.
+It can also work in a space which is a direct product of two spaces. Therefore, one never
+needs to introduce more than one such tensor. If one is working in a graphic
+environment, it is advantageous to choose the keyword as its name. Here we choose
+<span 
+class="pcrr8t-x-x-109">delt</span>. We illustrate how it works when the switch <a 
+ id="dx192-503003"></a><a 
+ id="dx192-503004"></a><a 
+ id="dx192-503005"></a><span 
+class="pcrr8t-x-x-109">onespace </span>is successively switched
+ON and OFF. <a 
+ id="dx192-503006"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-793">
+      on onespace;
+ <br />
+ <br />      make_partic_tens(delt,delta); ==&#x003E; t
+ <br />
+ <br />      delt(a,b); ==&#x003E;
+ <br />
+ <br />          ***** bad choice of indices for DELTA tensor
+ <br />
+ <br />  % order of upper and lower indices irrelevant:
+ <br />
+ <br />      delt(a,-b); ==&#x003E;
+ <br />
+ <br />                 a
+ <br />             delt
+ <br />                 b
+ <br />
+ <br />      delt(-b,a); ==&#x003E;
+ <br />
+ <br />                 a
+ <br />             delt
+ <br />                 b
+ <br />
+ <br />      delt(-a,b); ==&#x003E;
+ <br />
+ <br />                 b
+ <br />             delt
+ <br />                 a
+ <br />
+ <br />
+ <br />      wholespace_dim ?; ==&#x003E; dim
+ <br />
+ <br />      delt(1,-5); ==&#x003E; 0
+ <br />
+ <br />  % dummy summation done:
+ <br />
+ <br />      delt(-a,a); ==&#x003E; dim
+ <br />
+ <br />
+                                                                     
+
+                                                                     
+ <br />      wholespace_dim 4; ==&#x003E; 4
+ <br />
+ <br />      delt(1,-5); ==&#x003E; ***** numeric indices out of range
+ <br />
+ <br />
+ <br />      wholespace_dim 3; ==&#x003E; 3
+ <br />
+ <br />      delt(-a,a); ==&#x003E; 3
+</div>
+<!--l. 1051--><p class="nopar" > There is a peculiarity of this tensor, viz. it can serve to represent the Dirac
+<span 
+class="ptmri8t-x-x-109">delta function</span><a 
+ id="dx192-503007"></a> when it has no indices and an explicit variable dependency as
+hereunder
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-794">
+      delt({x-y}) ==&#x003E; delt(x-y)
+</div>
+<!--l. 1057--><p class="nopar" > Next we work in the context of several spaces: <a 
+ id="dx192-503008"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-795">
+  off onespace;
+ <br />
+ <br />  define_spaces wholespace={5,signature=1}; ==&#x003E; t
+ <br />
+ <br />  % we need to assign delta to wholespace
+ <br />  % when it exists:
+ <br />
+ <br />  make_tensor_belong_space(delt,wholespace);
+ <br />
+ <br />  delt(a,-a); ==&#x003E; 5
+ <br />
+ <br />  delt(0,-0); ==&#x003E;1
+ <br />
+ <br />  rem_spaces wholespace; ==&#x003E; t
+ <br />
+ <br />  define_spaces wholespace={5,signature=0}; ==&#x003E; t
+ <br />
+ <br />  delt(a,-a); ==&#x003E; 5
+ <br />
+ <br />  delt(0,-a); ==&#x003E;
+ <br />
+ <br />      ***** bad value of indices for DELTA tensor
+</div>
+<!--l. 1083--><p class="nopar" > The checking of consistency of chosen indices is made in the same way as for generic
+tensor. In fact, all the previous functions which act on generic tensors may also aﬀect, in
+the same way, a speciﬁc tensor. For instance, it was compulsory to explicitly tell that we
+want <span 
+class="pcrr8t-x-x-109">delt </span>to belong to the wholespace <a 
+ id="dx192-503009"></a><span 
+class="pcrr8t-x-x-109">make_tensor_belong_space</span>, otherwise
+<span 
+class="pcrr8t-x-x-109">delt </span>would remain deﬁned on the <span 
+class="ptmri8t-x-x-109">default space</span>. In the next sample run, we display the
+bloc-diagonal property of the <a 
+ id="dx192-503010"></a> delta tensor<a 
+ id="dx192-503011"></a>.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-796">
+      onespace ?; ==&#x003E; no
+ <br />
+ <br />      rem_spaces wholespace; ==&#x003E; t
+ <br />
+ <br />      define_spaces wholespace={10,signature=1}$
+ <br />
+ <br />      define_spaces d1={5,euclidian}$
+ <br />
+ <br />      define_spaces d2={2,euclidian}$
+ <br />
+ <br />
+ <br />      mk_ids_belong_space({a},d1); ==&#x003E; t
+ <br />
+ <br />      mk_ids_belong_space({b},d2); ==&#x003E; t
+ <br />
+ <br />  % c belongs to wholespace so:
+ <br />
+ <br />      delt(c,-b); ==&#x003E;
+ <br />
+ <br />                 c
+ <br />             delt
+ <br />                 b
+ <br />
+ <br />      delt(c,-c); ==&#x003E; 10
+ <br />
+ <br />
+ <br />      delt(b,-b); ==&#x003E; 2
+ <br />
+ <br />      delt(a,-a); ==&#x003E; 5
+ <br />
+ <br />  % this is especially important:
+ <br />
+ <br />      delt(a,-b); ==&#x003E; 0
+</div>
+<!--l. 1126--><p class="nopar" > The bloc-diagonal property of <a 
+ id="dx192-503012"></a><span 
+class="pcrr8t-x-x-109">delt </span>is made active under two conditions.
+The ﬁrst is that the system knows to which space it belongs, the second is that
+indices must be declared to belong to a speciﬁc space<a 
+ id="dx192-503013"></a>. To enforce the same
+property on a generic tensor, we have to make the <a 
+ id="dx192-503014"></a><span 
+class="pcrr8t-x-x-109">make_bloc_diagonal</span>
+                                                                     
+
+                                                                     
+declaration:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-797">
+      make_bloc_diagonal t1,t2, ...;
+</div>
+<!--l. 1135--><p class="nopar" > and to make it active, one proceeds as in the above run. Starting from a fresh
+environment, the following sample run is illustrative<a 
+ id="dx192-503015"></a>:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-798">
+  off onespace;
+ <br />
+ <br />  define_spaces wholespace={6,signature=1}$
+ <br />
+ <br />  define_spaces mink={4,signature=1,indexrange=0 .. 3}$
+ <br />
+ <br />  define_spaces eucl={3,euclidian,indexrange=4 .. 6}$
+ <br />
+ <br />  tensor te;
+ <br />
+ <br />  make_tensor_belong_space(te,eucl); ==&#x003E; eucl
+ <br />
+ <br />
+ <br />  % the key declaration:
+ <br />
+ <br />  make_bloc_diagonal te; ==&#x003E; t
+ <br />
+ <br />
+ <br />  % bloc-diagonal property activation:
+ <br />
+ <br />  mk_ids_belong_space({a,b,c},eucl); ==&#x003E; t
+ <br />
+ <br />  mk_ids_belong_space({m1,m2},mink); ==&#x003E; t
+ <br />
+ <br />
+ <br />  te(a,b,m1); ==&#x003E; 0
+ <br />
+ <br />  te(a,b,m2); ==&#x003E; 0
+ <br />
+ <br />  % bloc-diagonal property suppression:
+ <br />
+ <br />  mk_ids_belong_anyspace a,b,c,m1,m2; ==&#x003E; t
+ <br />
+ <br />
+ <br />  te(a,b,m2); ==&#x003E;
+ <br />
+ <br />           a b m2
+ <br />         te
+                                                                     
+
+                                                                     
+</div>
+<!--l. 1178--><p class="nopar" >
+</p><!--l. 1180--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x192-50400020.9.4"></a>ETA Minkowski tensor</h5>
+<a 
+ id="dx192-504001"></a>
+<a 
+ id="dx192-504002"></a>
+<!--l. 1182--><p class="noindent" >The use of <a 
+ id="dx192-504003"></a><span 
+class="pcrr8t-x-x-109">make_partic_tens </span>with the keyword <span 
+class="pcrr8t-x-x-109">eta </span>allows to create a Minkowski
+diagonal metric tensor in a one or multi-space context either with the convention of high
+energy physicists or in the convention of astrophysicists. Any <span 
+class="pcrr8t-x-x-109">eta</span>-like tensor is assumed
+to work within a space of signature 1. Therefore, if the space whose metric, it is supposed
+to describe has a signature 0, an error message follows if one is working in an ON
+<span 
+class="pcrr8t-x-x-109">onespace</span><a 
+ id="dx192-504004"></a><a 
+ id="dx192-504005"></a> context and a warning when in an OFF <span 
+class="pcrr8t-x-x-109">onespace </span>context. Illustration:
+<a 
+ id="dx192-504006"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-799">
+  on onespace;
+ <br />
+ <br />  make_partic_tens(et,eta); ==&#x003E; t
+ <br />
+ <br />  signature 0; ==&#x003E; 0;
+ <br />
+ <br />  et(-b,-a); ==&#x003E;
+ <br />
+ <br />     *****  signature must be equal to 1 for ETA tensor
+ <br />
+ <br />
+ <br />  off onespace;
+ <br />
+ <br />  et(a,b); ==&#x003E;
+ <br />
+ <br />     ***  ETA tensor not properly assigned to a space
+ <br />
+ <br />  % it is then evaluated to zero:
+ <br />
+ <br />      0
+ <br />
+ <br />  on onespace;
+ <br />
+ <br />  signature 1; ==&#x003E; 1
+ <br />
+ <br />  et(-b,-a); ==&#x003E;
+ <br />
+ <br />         et
+ <br />           a b
+</div>
+<!--l. 1225--><p class="nopar" > Since <span 
+class="pcrr8t-x-x-109">et(a,-a) </span>is evaluated to the corresponding <span 
+class="pcrr8t-x-x-109">delta </span>tensor, one cannot deﬁne
+properly an <span 
+class="pcrr8t-x-x-109">eta</span><a 
+ id="dx192-504007"></a> tensor without a simultaneous introduction of a <span 
+class="pcrr8t-x-x-109">delta </span>tensor.
+Otherwise one gets the following message:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-800">
+      et(a,-a); ==&#x003E; *****  no name found for (delta)
+</div>
+<!--l. 1232--><p class="nopar" > So we need to issue, for instance,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-801">
+      make_partic_tens(delta,delta); ==&#x003E; t
+</div>
+<!--l. 1236--><p class="nopar" > The value of its diagonal elements depends on the chosen <a 
+ id="dx192-504008"></a>global sign. The next run
+illustrates this:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-802">
+      global_sign ?; ==&#x003E; 1
+ <br />
+ <br />      et(0,0); ==&#x003E; 1
+ <br />
+ <br />      et(3,3); ==&#x003E;  - 1
+ <br />
+ <br />      global_sign(-1); ==&#x003E; -1
+ <br />
+ <br />      et(0,0); ==&#x003E;  - 1
+ <br />
+ <br />      et(3,3); ==&#x003E; 1
+</div>
+<!--l. 1251--><p class="nopar" > The tensor is of course symmetric <a 
+ id="dx192-504009"></a>. Its indices are checked in the same way as for a
+generic tensor. In a multi_space context<a 
+ id="dx192-504010"></a>, the <span 
+class="pcrr8t-x-x-109">eta </span>tensor must belong to a well deﬁned
+space of <a 
+ id="dx192-504011"></a><a 
+ id="dx192-504012"></a>signature 1: <a 
+ id="dx192-504013"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-803">
+      off onespace;
+ <br />
+ <br />      define_spaces wholespace={4,signature=1}$
+ <br />
+ <br />      make_tensor_belong_space(et,wholespace)$
+ <br />
+ <br />      et(a,-a); ==&#x003E; 4
+</div>
+<!--l. 1266--><p class="nopar" > If the space to which <span 
+class="pcrr8t-x-x-109">et </span>belongs to is a subspace<a 
+ id="dx192-504014"></a><a 
+ id="dx192-504015"></a>, one must also take care to give a
+space-identity to dummy indices which may appear inside it. In the following run, the
+index <span 
+class="pcrr8t-x-x-109">a </span>belongs to <span 
+class="pcrr8t-x-x-109">wholespace</span><a 
+ id="dx192-504016"></a>if it is not told to the system that it is a dummy index
+of the space <span 
+class="pcrr8t-x-x-109">mink</span>:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-804">
+      make_tensor_belong_anyspace et; ==&#x003E; t
+ <br />
+ <br />      rem_spaces wholespace; ==&#x003E; t
+ <br />
+ <br />      define_spaces wholespace={8,signature=1}; ==&#x003E; t
+ <br />
+ <br />      define_spaces mink={5,signature=1}; ==&#x003E; t
+ <br />
+ <br />      make_tensor_belong_space(et,mink); ==&#x003E; mink
+ <br />
+ <br />  % a sits in wholespace:
+ <br />
+ <br />      et(a,-a); ==&#x003E; 8
+ <br />
+ <br />      mk_ids_belong_space({a},mink); ==&#x003E; t
+ <br />
+ <br />  % a sits in mink:
+ <br />
+ <br />      et(a,-a); ==&#x003E;  5
+</div>
+<!--l. 1294--><p class="nopar" >
+</p><!--l. 1296--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x192-50500020.9.4"></a>EPSILON tensors</h5>
+<a 
+ id="dx192-505001"></a>
+<a 
+ id="dx192-505002"></a>
+<!--l. 1299--><p class="noindent" >It is an antisymmetric <a 
+ id="dx192-505003"></a><a 
+ id="dx192-505004"></a> tensor which is the invariant tensor for the unitary group
+transformations in n-dimensional complex space which are continuously connected to
+the identity transformation. The number of their indices are always stricty equal to the
+number of space dimensions. So, to each speciﬁc space is associated a speciﬁc <span 
+class="pcrr8t-x-x-109">epsilon</span>
+tensor. Its properties are also dependent on the signature of the space. We describe how
+to deﬁne and manipulate it in the context of a unique space and, next, in a multi-space
+context.
+                                                                     
+
+                                                                     
+</p><!--l. 1310--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x192-50600020.9.4"></a>Switch <span 
+class="pcrr8t-x-x-109">onespace </span>is on</h5>
+<a 
+ id="dx192-506001"></a>
+<!--l. 1312--><p class="noindent" >The use of <a 
+ id="dx192-506002"></a><span 
+class="pcrr8t-x-x-109">make_partic_tens </span>places it, by default, in an euclidian space if the
+signature is 0 and in a Minkowski-type space if the signature<a 
+ id="dx192-506003"></a><a 
+ id="dx192-506004"></a> is 1. For higher
+signatures it is not constructed. For a space of symbolic dimension, the number of its
+indices is not constrained. When it appears inside an expression, its indices are
+<span 
+class="ptmri8t-x-x-109">all </span>currently upper or lower indices. However, the system allows for mixed
+positions of the indices. In that case, the output of the system is changed compared
+to the input only to place all contravariant indices to the left of the covariant
+ones.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-805">
+  make_partic_tens(eps,epsilon); ==&#x003E; t
+ <br />
+ <br />  eps(a,d,b,-g,e,-f); ==&#x003E;
+ <br />
+ <br />               a d b e
+ <br />          - eps
+ <br />                       g f
+ <br />
+ <br />  eps(a,d,b,-f,e,-f); ==&#x003E; 0
+ <br />
+ <br />  % indices have all the same variance:
+ <br />
+ <br />  eps(-b,-a); ==&#x003E;
+ <br />
+ <br />          - eps
+ <br />               a b
+ <br />
+ <br />
+ <br />  signature ?; ==&#x003E; 0
+ <br />
+ <br />  eps(1,2,3,4); ==&#x003E; 1
+ <br />
+ <br />  eps(-1,-2,-3,-4); ==&#x003E; 1
+ <br />
+ <br />  wholespace_dim 3; ==&#x003E; 3
+ <br />
+ <br />  eps(-1,-2,-3); ==&#x003E; 1
+ <br />
+ <br />  eps(-1,-2,-3,-4); ==&#x003E;
+ <br />
+ <br />         ***** numeric indices out of range
+ <br />
+ <br />  eps(-1,-2,-3,-3); ==&#x003E;
+ <br />
+ <br />         ***** bad number of indices for (eps) tensor
+ <br />
+ <br />  eps(a,b); ==&#x003E;
+ <br />
+                                                                     
+
+                                                                     
+ <br />         ***** bad number of indices for (eps) tensor
+ <br />
+ <br />  eps(a,b,c); ==&#x003E;
+ <br />
+ <br />            a b c
+ <br />         eps
+ <br />
+ <br />
+ <br />  eps(a,b,b); ==&#x003E; 0
+</div>
+<!--l. 1371--><p class="nopar" > When the signature<a 
+ id="dx192-506005"></a><a 
+ id="dx192-506006"></a> is equal to 1, it is known that there exists two <span 
+class="ptmri8t-x-x-109">conventions </span>which are
+linked to the chosen value 1 or -1 of the <span 
+class="cmr-10x-x-109">(0</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,n</span><span 
+class="cmr-10x-x-109">) </span>component. So, the sytem does
+evaluate all components in terms of the <span 
+class="cmr-10x-x-109">(0</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,n</span><span 
+class="cmr-10x-x-109">) </span>upper index component. It is left to
+the user to assign it to 1 or -1<a 
+ id="dx192-506007"></a>.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-806">
+      signature 1; ==&#x003E; 1
+ <br />
+ <br />      eps(0,1,2); ==&#x003E;
+ <br />
+ <br />                0 1 2
+ <br />             eps
+ <br />
+ <br />      eps(-0,-1,-2); ==&#x003E;
+ <br />
+ <br />                0 1 2
+ <br />             eps
+ <br />
+ <br />      wholespace_dim 4; ==&#x003E; 4
+ <br />
+ <br />      eps(0,1,2,3); ==&#x003E;
+ <br />
+ <br />                0 1 2 3
+ <br />             eps
+ <br />
+ <br />      eps(-0,-1,-2,-3); ==&#x003E;
+ <br />
+ <br />                   0 1 2 3
+ <br />              - eps
+ <br />
+ <br />  % change of the global_sign convention:
+ <br />
+ <br />      global_sign(-1);
+ <br />
+ <br />      wholespace_dim 3; ==&#x003E; 3
+ <br />
+ <br />  % compare with second input:
+ <br />
+ <br />      eps(-0,-1,-2); ==&#x003E;
+ <br />
+ <br />                   0 1 2
+ <br />              - eps
+</div>
+<!--l. 1416--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p><!--l. 1418--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x192-50700020.9.4"></a>Switch <span 
+class="pcrr8t-x-x-109">onespace </span>is oﬀ</h5>
+<a 
+ id="dx192-507001"></a>
+<!--l. 1420--><p class="noindent" >As already said, several epsilon tensors may be deﬁned. They <span 
+class="ptmri8t-x-x-109">must </span>be assigned to a well
+deﬁned (sub-)space otherwise the simplifying function <a 
+ id="dx192-507002"></a><span 
+class="pcrr8t-x-x-109">canonical </span>will not properly
+work. The set of epsilon tensors deﬁned associated to their space-name may be retrieved
+using the function <a 
+ id="dx192-507003"></a><a 
+ id="operator:SHOW_EPSILONS"></a><span 
+class="pcrr8t-x-x-109">show_epsilons</span>. An important word of caution here.
+The output of this function does NOT show the epsilon tensor one may have
+deﬁned in the ON <span 
+class="pcrr8t-x-x-109">onespace </span>context. This is so because the default space has
+<span 
+class="ptmri8t-x-x-109">NO </span>name. Starting from a fresh environment, the following run illustrates this
+point:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-807">
+      show_epsilons(); ==&#x003E; {}
+ <br />
+ <br />      onespace ?; ==&#x003E; yes
+ <br />
+ <br />      make_partic_tens(eps,epsilon); ==&#x003E; t
+ <br />
+ <br />      show_epsilons(); ==&#x003E; {}
+</div>
+<!--l. 1439--><p class="nopar" > To make the <span 
+class="pcrr8t-x-x-109">epsilon </span>tensor deﬁned in the single space environment visible in the
+multi-space environment, one needs to associate it to a space. For example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-808">
+      off onespace;
+ <br />
+ <br />      define_spaces wholespace={7,signature=1}; ==&#x003E; t
+ <br />
+ <br />      show_epsilons(); ==&#x003E; {}   % still invisible
+ <br />
+ <br />      make_tensor_belong_space(eps,wholespace); ==&#x003E;
+ <br />
+ <br />                                            wholespace
+ <br />
+ <br />      show_epsilons(); ==&#x003E; {{eps,wholespace}}
+</div>
+<!--l. 1456--><p class="nopar" > Next, let us deﬁne an <span 
+class="ptmri8t-x-x-109">additional </span><span 
+class="pcrr8t-x-x-109">epsilon</span>-type tensor:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-809">
+  define_spaces eucl={3,euclidian}; ==&#x003E; t
+ <br />
+ <br />  make_partic_tens(ep,epsilon); ==&#x003E;
+ <br />
+ <br />          *** Warning: ep MUST belong to a space
+ <br />                t
+ <br />
+ <br />  make_tensor_belong_space(ep,eucl); ==&#x003E; eucl
+ <br />
+ <br />
+ <br />  show_epsilons(); ==&#x003E; {{ep,eucl},{eps,wholespace}}
+ <br />
+ <br />  % We show that it is indeed working inside eucl:
+ <br />
+ <br />  ep(-1,-2,-3); ==&#x003E; 1
+ <br />
+ <br />  ep(1,2,3); ==&#x003E; 1
+ <br />
+ <br />  ep(a,b,c,d); ==&#x003E;
+ <br />
+ <br />        ***** bad number of indices for  (ep)  tensor
+ <br />
+ <br />  ep(1,2,4); ==&#x003E;
+ <br />
+ <br />        ***** numeric indices out of range
+</div>
+<!--l. 1484--><p class="nopar" > As previously, the discrimation between symbolic indices <a 
+ id="dx192-507004"></a><a 
+ id="dx192-507005"></a> <a 
+ id="dx192-507006"></a>may be introduced by
+assigning them to one or another space<a 
+ id="dx192-507007"></a> <a 
+ id="dx192-507008"></a>:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-810">
+      rem_spaces wholespace;
+ <br />
+ <br />      define_spaces wholespace={dim,signature=1}; ==&#x003E; t
+ <br />
+ <br />      mk_ids_belong_space({e1,e2,e3},eucl); ==&#x003E; t
+ <br />
+ <br />      mk_ids_belong_space({a,b,c},wholespace); ==&#x003E; t
+ <br />
+ <br />      ep(e1,e2,e3); ==&#x003E;
+ <br />
+ <br />               e1 e2 e3
+ <br />             ep           % accepted
+ <br />
+ <br />      ep(e1,e2,z); ==&#x003E;
+ <br />
+ <br />               e1 e2 z
+ <br />             ep            % accepted because z
+ <br />                           % not attached to a space.
+ <br />
+ <br />      ep(e1,e2,a);==&#x003E;
+ <br />
+ <br />          ***** some indices are not in the space of ep
+ <br />
+ <br />
+ <br />      eps(a,b,c); ==&#x003E;
+ <br />
+ <br />                a b c
+ <br />             eps           % accepted because *symbolic*
+ <br />                           % space dimension.
+</div>
+<!--l. 1523--><p class="nopar" > <span 
+class="pcrr8t-x-x-109">epsilon</span>-like tensors can also be deﬁned on disjoint spaces. The subsequent sample
+run starts from the environment of the previous one. It suppresses the space
+<span 
+class="pcrr8t-x-x-109">wholespace</span><a 
+ id="dx192-507009"></a> as well as the space-assignment of the indices <span 
+class="pcrr8t-x-x-109">a,b,c</span>. It deﬁnes the
+new space <span 
+class="pcrr8t-x-x-109">mink</span>. Next, the previously deﬁned <span 
+class="pcrr8t-x-x-109">eps </span>tensor is attached to this
+space. <span 
+class="pcrr8t-x-x-109">ep </span>remains unchanged and <span 
+class="pcrr8t-x-x-109">e1,e2,e3 </span>still belong to the space <span 
+class="pcrr8t-x-x-109">eucl</span>.
+<a 
+ id="dx192-507010"></a><a 
+ id="dx192-507011"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-811">
+      rem_spaces wholespace; ==&#x003E; t
+ <br />
+ <br />      make_tensor_belong_anyspace eps; ==&#x003E; t
+ <br />
+ <br />      show_epsilons(); ==&#x003E; {{ep,eucl}}
+ <br />
+ <br />      show_spaces(); ==&#x003E; {{eucl,3,signature=0}}
+ <br />
+ <br />      mk_ids_belong_anyspace a,b,c; ==&#x003E; t
+ <br />
+ <br />      define_spaces mink={4,signature=1}; ==&#x003E; t
+ <br />
+ <br />      show_spaces(); ==&#x003E;
+ <br />
+ <br />             {{eucl,3,signature=0},
+ <br />
+ <br />              {mink,4,signature=1}}
+ <br />
+ <br />      make_tensor_belong_space(eps,mink); ==&#x003E; mink
+ <br />
+ <br />      show_epsilons(); ==&#x003E; {{eps,mink},{ep,eucl}}
+ <br />
+ <br />      eps(a,b,c,d); ==&#x003E;
+ <br />
+ <br />             a b c d
+ <br />          eps
+ <br />
+ <br />      eps(e1,b,c,d); ==&#x003E;
+ <br />
+ <br />         ***** some indices are not in the space of eps
+ <br />
+ <br />      ep(e1,b,c,d); ==&#x003E;
+ <br />
+ <br />         ***** bad number of indices for  (ep)  tensor
+ <br />
+ <br />      ep(e1,b,c); ==&#x003E;
+ <br />
+ <br />               b c e1
+                                                                     
+
+                                                                     
+ <br />             ep
+ <br />
+ <br />
+ <br />      ep(e1,e2,e3); ==&#x003E;
+ <br />
+ <br />               e1 e2 e3
+ <br />             ep
+</div>
+<!--l. 1578--><p class="nopar" >
+</p><!--l. 1580--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x192-50800020.9.4"></a><span 
+class="pcrr8t-x-x-109">DEL </span>generalized delta tensor</h5>
+<a 
+ id="dx192-508001"></a>
+<!--l. 1582--><p class="noindent" >The generalized delta function comes from the contraction of two epsilons. It is totally
+antisymmetric. Suppose its name has been chosen to be <span 
+class="cmr-10x-x-109">gd</span>, that the space to which it is
+attached has dimension n while the name of the chosen delta tensor is <span 
+class="cmmi-10x-x-109">δ</span>, then one can
+deﬁne it as follows:
+</p>
+<table 
+class="equation-star"><tr><td>
+              <span 
+class="cmr-10x-x-109">gd</span><sub><span 
+class="cmmi-8">b</span><sub><span 
+class="cmr-6">1</span></sub><span 
+class="cmmi-8">,b</span><sub><span 
+class="cmr-6">2</span></sub><span 
+class="cmmi-8">,</span><span 
+class="cmmi-8">…</span><span 
+class="cmmi-8">,b</span><sub><span 
+class="cmmi-6">n</span></sub></sub><sup><span 
+class="cmmi-8">a</span><sub><span 
+class="cmr-6">1</span></sub><span 
+class="cmmi-8">,a</span><sub><span 
+class="cmr-6">2</span></sub><span 
+class="cmmi-8">,</span><span 
+class="cmmi-8">…</span><span 
+class="cmmi-8">,a</span><sub><span 
+class="cmmi-6">n</span></sub>
+       </sup> <span 
+class="cmr-10x-x-109">= </span><img 
+src="manual135x.png" alt="|| δa1  δa1  ... δa1 ||
+|| δba12  δba22  ... δban2 ||
+||  b.1   b.2  .    b.n ||
+||  ..    ..    ..   ..  ||
+| δabn  δabn  ... δabn |
+    1   1         1"  class="left" align="middle" />
+</td></tr></table>
+<!--l. 1597--><p class="nopar" >
+It is, in general uneconomical to explicitly write that determinant except for particular
+<span 
+class="ptmri8t-x-x-109">numeric </span>values of the indices <a 
+ id="dx192-508002"></a><a 
+ id="dx192-508003"></a><a 
+ id="dx192-508004"></a> or when almost all upper and lower indices are recognized
+as dummy indices. In the sample run below, <span 
+class="pcrr8t-x-x-109">gd </span>is deﬁned as the generalized delta
+function in the default space. The main automatic evaluations are illustrated. The indices
+                                                                     
+
+                                                                     
+which are summed over are always simpliﬁed:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-812">
+      onespace ? ==&#x003E; yes
+ <br />
+ <br />      make_partic_tens(delta,delta); ==&#x003E; t
+ <br />
+ <br />      make_partic_tens(gd,del); ==&#x003E; t
+ <br />
+ <br />  % immediate simplifications:
+ <br />
+ <br />      gd(1,2,-3,-4); ==&#x003E; 0
+ <br />
+ <br />      gd(1,2,-1,-2); ==&#x003E; 1
+ <br />
+ <br />      gd(1,2,-2,-1); ==&#x003E; -1   % antisymmetric
+ <br />
+ <br />      gd(a,b,-a,-b);
+ <br />
+ <br />         ==&#x003E; dim*(dim - 1) % summed over dummy indices
+ <br />
+ <br />      gd(a,b,c,-a,-d,-e); ==&#x003E;
+ <br />
+ <br />                    b c
+ <br />                  gd    *(dim - 2)
+ <br />                    d e
+ <br />
+ <br />      gd(a,b,c,-a,-d,-c); ==&#x003E;
+ <br />
+ <br />                       b      2
+ <br />                  delta  *(dim  - 3*dim + 2)
+ <br />                       d
+ <br />
+ <br />  % no simplification:
+ <br />
+ <br />      gd(a,b,c,-d,-e,-f); ==&#x003E;
+ <br />
+ <br />                    a b c
+ <br />                  gd
+ <br />                    d e f
+</div>
+                                                                     
+
+                                                                     
+<!--l. 1645--><p class="nopar" > One can force evaluation in terms of the determinant in all cases. <a 
+ id="switch:EXDELT"></a> To this end, the switch
+<a 
+ id="dx192-508005"></a><a 
+ id="dx192-508006"></a><a 
+ id="dx192-508007"></a><span 
+class="pcrr8t-x-x-109">exdelt </span>is provided. It is initially <span 
+class="pcrr8t-x-x-109">OFF</span>. Switching it <span 
+class="pcrr8t-x-x-109">ON </span>will most often give
+inconveniently large outputs:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-813">
+  on exdelt;
+ <br />
+ <br />  gd(a,b,c,-d,-e,-f); ==&#x003E;
+ <br />
+ <br />       a       b       c         a       b       c
+ <br />  delta  *delta  *delta   - delta  *delta  *delta
+ <br />       d       e       f         d       f       e
+ <br />
+ <br />          a       b       c
+ <br />   - delta  *delta  *delta
+ <br />          e       d       f
+ <br />
+ <br />          a       b       c
+ <br />   + delta  *delta  *delta
+ <br />          e       f       d
+ <br />
+ <br />          a       b       c
+ <br />   + delta  *delta  *delta
+ <br />          f       d       e
+ <br />
+ <br />          a       b       c
+ <br />   - delta  *delta  *delta
+ <br />          f       e       d
+</div>
+<!--l. 1674--><p class="nopar" > In a multi-space environment, it is never necessary to deﬁne several such tensor. The
+reason is that <a 
+ id="dx192-508008"></a><span 
+class="pcrr8t-x-x-109">canonical </span>uses it always from the contraction of a pair of
+<span 
+class="pcrr8t-x-x-109">epsilon</span>-like tensors. Therefore the control of indices is already done, the
+space-dimension in which <span 
+class="pcrr8t-x-x-109">del </span>is working is also well deﬁned.
+</p><!--l. 1681--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x192-50900020.9.4"></a><span 
+class="pcrr8t-x-x-109">METRIC </span>tensors</h5>
+                                                                     
+
+                                                                     
+<a 
+ id="dx192-509001"></a>
+<!--l. 1683--><p class="noindent" >Very often, one has to deﬁne a speciﬁc metric. The <span 
+class="pcrr8t-x-x-109">metric</span>-type of tensors include all
+generic properties. The ﬁrst one is their symmetry, the second one is their equality to
+the <span 
+class="pcrr8t-x-x-109">delta</span><a 
+ id="dx192-509002"></a> tensor when they get mixed indices, the third one is their optional
+bloc-diagonality. So, a metric (generic) tensor is generated by the declaration
+<a 
+ id="dx192-509003"></a>
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">make_partic_tens</span>(<span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">tensor-name</span><span 
+class="cmsy-10x-x-109">⟩</span>,metric);</div>
+<!--l. 1692--><p class="noindent" >By default, when one is working in a multi-space environment, it is deﬁned in
+<span 
+class="pcrr8t-x-x-109">wholespace</span><a 
+ id="dx192-509004"></a> One uses the usual means of REDUCE to give it speciﬁc values. In
+particular, the metric ’delta’ tensor of the euclidian space can be deﬁned that way.
+Implicit or explicit dependences on variables are allowed. Here is an illustration in the
+single space environment:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-814">
+      make_partic_tens(g,metric); ==&#x003E; t
+ <br />
+ <br />      make_partic_tens(delt,delta); ==&#x003E; t
+ <br />
+ <br />      onespace ?; ==&#x003E; yes
+ <br />
+ <br />      g(a,b); ==&#x003E;
+ <br />
+ <br />                 a b
+ <br />                g
+ <br />
+ <br />      g(b,a); ==&#x003E;
+ <br />
+ <br />                 a b
+ <br />                g
+ <br />
+ <br />      g(a,b,c); ==&#x003E;
+ <br />
+ <br />        ***** bad choice of indices for a METRIC tensor
+ <br />
+ <br />
+ <br />      g(a,b,{x,y}); ==&#x003E;
+ <br />
+ <br />                  a b
+ <br />                g    (x,y)
+ <br />
+ <br />      g(a,-b,{x,z}); ==&#x003E;
+ <br />
+ <br />                    a
+ <br />                delt
+ <br />                    b
+ <br />
+ <br />
+ <br />      let g({x,y},1,1)=1/2(x+y);
+ <br />
+ <br />
+ <br />      g({x,y},1,1); ==&#x003E;
+ <br />
+                                                                     
+
+                                                                     
+ <br />                 x + y
+ <br />                -------
+ <br />                   2
+ <br />
+ <br />
+ <br />      rem_value_tens g({x,y},1,1);
+ <br />
+ <br />
+ <br />      g({x,y},1,1); ==&#x003E;
+ <br />
+ <br />                 1 1
+ <br />               g    (x,y)
+</div>
+<!--l. 1750--><p class="nopar" >
+</p><!--l. 1752--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.9.5    </span> <a 
+ id="x192-51000020.9.5"></a>The simpliﬁcation function <span 
+class="pcrr8t-x-x-109">canonical</span></h4>
+<a 
+ id="dx192-510001"></a>
+<!--l. 1755--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x192-51100020.9.5"></a>Tensor expressions</h5>
+<a 
+ id="dx192-511001"></a>
+<a 
+ id="dx192-511002"></a>
+<!--l. 1758--><p class="noindent" >Up to now, we have described the behaviour of individual tensors and how they simplify
+themselves whenever possible. However, this is far from being suﬃcient. In general, one
+is to deal with objects which involve several tensors together with various dummy
+summations between them. We deﬁne a tensor expression as an arbitrary multivariate
+polynomial. The indeterminates of such a polynomial may be either an indexed object, an
+operator, a variable or a rational number. A tensor-type indeterminate cannot
+appear to a degree larger than one except if it is a trace<a 
+ id="dx192-511003"></a><a 
+ id="dx192-511004"></a>. The following is a tensor
+expression:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-815">
+   aa:= delt({x - y})*delt(a, - g)*delt(d, - g)
+ <br />
+ <br />     *delt(g, -r)
+ <br />
+ <br />     *eps( - d, - e, - f)*eps(a,b,c)*op(x,y) + 1; ==&#x003E;
+ <br />
+ <br />
+ <br />                            a      d      g
+ <br />      aa := delt(x - y)*delt  *delt  *delt  *eps
+ <br />                            g      g      r     d e f
+ <br />
+ <br />
+ <br />                a b c
+ <br />            *eps     *op(x,y) + 1
+</div>
+<!--l. 1785--><p class="nopar" > In the above expression, <span 
+class="pcrr8t-x-x-109">delt </span>and <span 
+class="pcrr8t-x-x-109">eps </span>are, respectively, the <span 
+class="pcrr8t-x-x-109">delta</span><a 
+ id="dx192-511005"></a> and the <span 
+class="pcrr8t-x-x-109">epsilon</span><a 
+ id="dx192-511006"></a>
+tensors, <span 
+class="pcrr8t-x-x-109">op </span>is an operator<a 
+ id="dx192-511007"></a>. and <span 
+class="pcrr8t-x-x-109">delt(x-y) </span>is the Dirac delta function.<a 
+ id="dx192-511008"></a> Notice that the
+above expression is not cohérent since the ﬁrst term has a variance while the
+second term is a scalar. Moreover, the dummy index <span 
+class="pcrr8t-x-x-109">g </span>appears <span 
+class="ptmri8t-x-x-109">three </span>times in the
+ﬁrst term. In fact, on input, each factor is simpliﬁed and each factor is checked
+for coherence not more. Therefore, if a dummy summation appears inside one
+factor, it will be done whenever possible. Hereunder <span 
+class="pcrr8t-x-x-109">delt(a,-a) </span>is summed
+over:<a 
+ id="dx192-511009"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-816">
+   sub(g=a,aa); ==&#x003E;
+ <br />
+ <br />                          a      d              a b c
+ <br />          delt(x - y)*delt  *delt  *eps     *eps
+ <br />                          r      a     d e f
+ <br />
+ <br />                    *op(x,y)*dim + 1
+</div>
+<!--l. 1806--><p class="nopar" >
+</p><!--l. 1808--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x192-51200020.9.5"></a>The use of <span 
+class="pcrr8t-x-x-109">canonical</span></h5>
+<a 
+ id="dx192-512001"></a>
+<!--l. 1810--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">canonical </span>is an oﬀspring of the function with the same name of the package
+<span 
+class="ptmrc8t-x-x-109">D<span 
+class="small-caps">U</span><span 
+class="small-caps">M</span><span 
+class="small-caps">M</span><span 
+class="small-caps">Y</span></span><a 
+ id="dx192-512002"></a>. It applies to tensor expressions as deﬁned above. When it acts, this functions
+has several features which are worth to realise:
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   1. </dt><dd 
+class="enumerate-enumitem">It tracks the free indices in each term and checks their identity. It identiﬁes
+     and verify the coherence of the various dummy index summations<a 
+ id="dx192-512004"></a>.
+     </dd><dt class="enumerate-enumitem">
+   2. </dt><dd 
+class="enumerate-enumitem">Dummy indices summations are done on tensor products whenever possible
+     since it recognises the particular tensors deﬁned above or deﬁned by the user.
+     </dd><dt class="enumerate-enumitem">
+   3. </dt><dd 
+class="enumerate-enumitem">It  seeks  a  canonical  form  for  the  various  simpliﬁed  terms,  makes  the
+     comparison  between  them.  In  that  way  it  maximises  simpliﬁcations  and
+     generates a canonical form for the output polynomial.</dd></dl>
+<!--l. 1827--><p class="noindent" >Its capabilities have been extended in four directions: </p>
+     <ul class="itemize1">
+     <li class="itemize">It is able to work within <span 
+class="ptmri8t-x-x-109">several </span>spaces<a 
+ id="dx192-512007"></a><a 
+ id="dx192-512008"></a>.
+                                                                     
+
+                                                                     
+     </li>
+     <li class="itemize">It manages correctly expressions where formal tensor <span 
+class="ptmri8t-x-x-109">derivatives </span>are present<span class="footnote-mark"><a 
+href="manual195.html#fn19x20"><sup class="textsuperscript">19</sup></a></span><a 
+ id="x192-512009f19"></a> .
+     </li>
+     <li class="itemize">It takes into account all symmetries even if partial.
+     </li>
+     <li class="itemize">As          its          parent          function,          it          can          deal          with
+     non-commutative and anticommutative indexed objects<a 
+ id="dx192-512011"></a><a 
+ id="dx192-512012"></a>. So, Indexed objects
+     may be spinors<a 
+ id="dx192-512013"></a><a 
+ id="dx192-512014"></a> or quantum ﬁelds.</li></ul>
+<!--l. 1841--><p class="noindent" >We describe most of these features in the rest of this documentation.
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x192-51300020.9.5"></a>Check of tensor indices</h5>
+<a 
+ id="dx192-513001"></a>
+<a 
+ id="dx192-513002"></a>
+<!--l. 1847--><p class="noindent" >Dummy indices for individual tensors are kept in the memory of the system. If they are
+badly distributed over several tensors, it is <span 
+class="pcrr8t-x-x-109">canonical </span>which gives an error
+message:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-817">
+  tensor te,tf; ==&#x003E; t
+ <br />
+ <br />  bb:=te(a,b,b)*te(-b); ==&#x003E;
+ <br />
+ <br />                     a b b
+ <br />         bb := te *te
+ <br />                 b
+ <br />
+ <br />
+ <br />  canonical bb; ==&#x003E;
+ <br />
+ <br />  ***** ((b)(a b b)) are inconsistent lists of indices
+ <br />
+ <br />
+ <br />  aa:=te(b,-c)*tf(b,-c); ==&#x003E;
+ <br />
+ <br />                 b     b
+ <br />         aa := te   *tf     % b and c are free.
+ <br />                   c     c
+ <br />
+ <br />  canonical aa; ==&#x003E;
+ <br />
+ <br />           b     b
+ <br />         te   *tf
+ <br />             c     c
+ <br />
+ <br />  bb:=te(a,c,b)*te(-b)*tf(a)$
+ <br />
+ <br />
+ <br />  canonical bb; ==&#x003E;
+ <br />
+ <br />
+ <br />           a c     b   a
+ <br />         te     *te *tf
+ <br />               b
+ <br />
+ <br />  delt(a,-a); ==&#x003E; dim  % a is now a dummy index
+ <br />
+                                                                     
+
+                                                                     
+ <br />
+ <br />  canonical bb; ==&#x003E;
+ <br />
+ <br />         ***** wrong use of indices (a)
+</div>
+<!--l. 1893--><p class="nopar" > The message of canonical is clear, the ﬁrst sublist contains the list of all lower indices,
+and the second one the list of all upper indices. The index <span 
+class="pcrr8t-x-x-109">b </span>is repeated <span 
+class="ptmri8t-x-x-109">three </span>times. In
+the second example, <span 
+class="pcrr8t-x-x-109">b </span>and <span 
+class="pcrr8t-x-x-109">c </span>are considered as free indices, so they may be repeated. The
+last example shows the interference between the check on individual tensors and the one
+of canonical. The use of <span 
+class="pcrr8t-x-x-109">a </span>as dummy index inside <span 
+class="pcrr8t-x-x-109">delt </span>does no longer allow <span 
+class="pcrr8t-x-x-109">a </span>to be
+used as a free index in expression <span 
+class="pcrr8t-x-x-109">bb</span>. To be usable, one must explicitly remove it as
+dummy index using <span 
+class="pcrr8t-x-x-109">rem_dummy_indices</span><a 
+ id="dx192-513003"></a>. In the fourth example there are no
+problems as <span 
+class="pcrr8t-x-x-109">b </span>and <span 
+class="pcrr8t-x-x-109">c </span>are both <span 
+class="ptmri8t-x-x-109">free </span>indices. <span 
+class="pcrr8t-x-x-109">canonical</span><a 
+ id="dx192-513004"></a> checks that in a tensor
+polynomial all do possess the <span 
+class="ptmri8t-x-x-109">same </span>variance:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-818">
+  aa:=te(a,c)+x^2; ==&#x003E;
+ <br />
+ <br />                 a c    2
+ <br />         aa := te    + x
+ <br />
+ <br />  canonical aa; ==&#x003E;
+ <br />
+ <br />         ***** scalar added with tensor(s)
+ <br />
+ <br />  aa:=te(a,b)+tf(a,c); ==&#x003E;
+ <br />
+ <br />                 a b     a c
+ <br />         aa := te    + tf
+ <br />
+ <br />  canonical aa; ==&#x003E;
+ <br />
+ <br />        ***** mismatch in free indices :  ((a c) (a b))
+</div>
+<!--l. 1927--><p class="nopar" > In the message the ﬁrst two lists of incompatible indices are explicitly indicated. So, it is
+not an exhaustive message and a more complete correction may be needed.
+Of course, no message of that kind appears if the indices are inside ordinary
+operators<span class="footnote-mark"><a 
+href="manual196.html#fn20x20"><sup class="textsuperscript">20</sup></a></span><a 
+ id="x192-513005f20"></a> 
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-819">
+      dummy_names b; ==&#x003E; t
+ <br />
+ <br />      cc:=op(b)*op(a,b,b); ==&#x003E; cc := op(a,b,b)*op(b)
+ <br />
+ <br />      canonical cc; ==&#x003E; op(a,b,b)*op(b)
+ <br />
+ <br />      clear_dummy_names; ==&#x003E; t
+</div>
+<!--l. 1942--><p class="nopar" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x192-51400020.9.5"></a>Position and renaming of dummy indices</h5>
+<a 
+ id="dx192-514001"></a>
+<a 
+ id="dx192-514002"></a>
+<a 
+ id="dx192-514003"></a>
+<!--l. 1948--><p class="noindent" >For a speciﬁc tensor, contravariant dummy indices are place in front of covariant ones.
+This already leads to some useful simpliﬁcations. For instance:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-820">
+      pp:=te(a,-a)+te(-a,a)+1; ==&#x003E;
+ <br />
+ <br />                    a     a
+ <br />          pp := te    + te    + 1
+ <br />                  a         a
+ <br />
+ <br />      canonical pp; ==&#x003E;
+ <br />
+ <br />              a
+ <br />          2*te    + 1
+ <br />                a
+ <br />
+ <br />      pp:=te(a,-a)+te(-b,b); ==&#x003E;
+ <br />
+ <br />                    b     a
+ <br />          pp := te    + te
+ <br />                  b         a
+ <br />
+ <br />
+ <br />      canonical pp; ==&#x003E;
+ <br />
+ <br />              a
+ <br />          2*te
+ <br />                a
+ <br />
+ <br />
+ <br />        pp:=te(r,a,c,d,-a,f)+te(r,-b,c,d,b,f); ==&#x003E;
+ <br />
+ <br />                    r   c d b f     r a c d   f
+ <br />            pp := te            + te
+ <br />                      b                     a
+ <br />
+ <br />   canonical pp; ==&#x003E;
+ <br />
+ <br />
+ <br />              r a c d   f
+ <br />          2*te
+ <br />                      a
+                                                                     
+
+                                                                     
+</div>
+<!--l. 1990--><p class="nopar" > In the second and third example, there is also a renaming of the dummy variable <span 
+class="pcrr8t-x-x-109">b </span>whih
+becomes <span 
+class="pcrr8t-x-x-109">a</span>. There is a loophole at this point. For some expressions one will
+never reach a stable expression. This is the case for the following very simple
+monom:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-821">
+      tensor nt; ==&#x003E; t
+ <br />
+ <br />      a1:=nt(-a,d)*nt(-c,a); ==&#x003E;
+ <br />
+ <br />                 d     a
+ <br />             nt   *nt
+ <br />               a     c
+ <br />
+ <br />      canonical a1; ==&#x003E;
+ <br />
+ <br />
+ <br />                     a d
+ <br />             nt   *nt
+ <br />               c a
+ <br />
+ <br />      a12:=a1-canonical a1; ==&#x003E;
+ <br />
+ <br />                        d     a           a d
+ <br />             a12 := nt   *nt    - nt   *nt
+ <br />                      a     c       c a
+ <br />
+ <br />
+ <br />      canonical a12; ==&#x003E;
+ <br />
+ <br />
+ <br />                 d     a           a d
+ <br />           - nt   *nt    + nt   *nt   % changes sign.
+ <br />               a     c       c a
+</div>
+<!--l. 2025--><p class="nopar" > In the above example, no canonical form can be reached. When applied twice on the
+tensor monom <span 
+class="pcrr8t-x-x-109">a1 </span>it gives back <span 
+class="pcrr8t-x-x-109">a1</span>!
+</p><!--l. 2029--><p class="noindent" >No change of dummy index position is allowed if a tensor belongs to an <span 
+class="pcrr8t-x-x-109">affine</span><a 
+ id="dx192-514004"></a><a 
+ id="dx192-514005"></a> space.
+With the tensor polynomial <span 
+class="pcrr8t-x-x-109">pp </span>introduced above one has: <a 
+ id="dx192-514006"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-822">
+      off onespace;
+ <br />
+ <br />      define_spaces aff={dd,affine}; ==&#x003E; t
+ <br />
+ <br />      make_tensor_belong_space(te,aff); ==&#x003E; aff
+ <br />
+ <br />      mk_ids_belong_space({a,b},aff); ==&#x003E; t
+ <br />
+ <br />      canonical pp; ==&#x003E;
+ <br />
+ <br />               r   c d a f     r a c d   f
+ <br />             te            + te
+ <br />                 a                     a
+</div>
+<!--l. 2049--><p class="nopar" > The renaming of <span 
+class="pcrr8t-x-x-109">b </span>has been made however.
+</p><!--l. 2052--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x192-51500020.9.5"></a>Contractions and summations with particular tensors</h5>
+<a 
+ id="dx192-515001"></a>
+<a 
+ id="dx192-515002"></a>
+<!--l. 2056--><p class="noindent" >This is a central part of the extension of <span 
+class="pcrr8t-x-x-109">canonical</span>. The required contractions and
+summations can be done in a multi-space environment as well in a single space
+environment. </p>
+<div class="center" 
+>
+<!--l. 2059--><p class="noindent" >
+</p><!--l. 2060--><p class="noindent" >The case of <span 
+class="pcrr8t-x-x-109">delta</span><a 
+ id="dx192-515003"></a></p></div>
+<!--l. 2062--><p class="noindent" >Dummy indices are recognized contracted and summed over whenever possible:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-823">
+      aa:=delt(a,-b)*delt(b,-c)*delt(c,-a) + 1; ==&#x003E;
+ <br />
+ <br />                       a      b      c
+ <br />             aa := delt  *delt  *delt   + 1
+ <br />                       b      c      a
+ <br />
+ <br />      canonical aa; ==&#x003E; dim + 1
+ <br />
+ <br />      aa:=delt(a,-b)*delt(b,-c)*delt(c,-d)*te(d,e)$
+ <br />
+ <br />      canonical aa; ==&#x003E;
+ <br />
+ <br />               a e
+ <br />             te
+</div>
+<!--l. 2078--><p class="nopar" > <span 
+class="pcrr8t-x-x-109">canonical </span>will not attempt to make contraction with dummy indices included inside
+ordinary operators: <a 
+ id="dx192-515004"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-824">
+      operator op;
+ <br />
+ <br />      aa:=delt(a,-b)*op(b,b)$
+ <br />
+ <br />
+ <br />      canonical aa; ==&#x003E;
+ <br />
+ <br />                a
+ <br />            delt  *op(b,b)
+ <br />                b
+ <br />
+ <br />      dummy_names b; ==&#x003E; t
+ <br />
+ <br />      canonical aa; ==&#x003E;
+ <br />
+ <br />               a
+ <br />          delta  *op(b,b)
+ <br />               b
+</div>
+<!--l. 2101--><p class="nopar" > </p>
+<div class="center" 
+>
+<!--l. 2102--><p class="noindent" >
+</p><!--l. 2103--><p class="noindent" >The case of <span 
+class="pcrr8t-x-x-109">eta</span><a 
+ id="dx192-515005"></a></p></div>
+<!--l. 2105--><p class="noindent" >First, we introduce <span 
+class="pcrr8t-x-x-109">eta</span>:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-825">
+      make_partic_tens(eta,eta); ==&#x003E; t
+ <br />
+ <br />      signature 1; ==&#x003E; 1 % necessary
+ <br />
+ <br />      aa:=delta(a,-b)*eta(b,c); ==&#x003E;
+ <br />
+ <br />                       a     b c
+ <br />             aa := delt  *eta
+ <br />                       b
+ <br />
+ <br />      canonical aa; ==&#x003E;
+ <br />
+ <br />                a c
+ <br />             eta
+ <br />
+ <br />
+ <br />      canonical(eta(a,b)*eta(-b,c)); ==&#x003E;
+ <br />
+ <br />                a c
+ <br />             eta
+ <br />
+ <br />
+ <br />      canonical(eta(a,b)*eta(-b,-c)); ==&#x003E;
+ <br />
+ <br />                 a
+ <br />             delt
+ <br />                 c
+ <br />
+ <br />      canonical(eta(a,b)*eta(-b,-a)); ==&#x003E; dim
+ <br />
+ <br />      canonical (eta(-a,-b)*te(d,-e,f,b)); ==&#x003E;
+ <br />
+ <br />               d   f
+ <br />             te
+ <br />                 e   a
+ <br />
+ <br />
+ <br />      aa:=eta(a,b)*eta(-b,-c)*te(-a,c)+1; ==&#x003E;
+                                                                     
+
+                                                                     
+ <br />
+ <br />                             a b     c
+ <br />             aa := eta   *eta   *te    + 1
+ <br />                      b c          a
+ <br />
+ <br />      canonical aa; ==&#x003E;
+ <br />
+ <br />               a
+ <br />             te    + 1
+ <br />                 a
+ <br />
+ <br />      aa:=eta(a,b)*eta(-b,-c)*delta(-a,c)+
+ <br />
+ <br />          1+eta(a,b)*eta(-b,-c)*te(-a,c)$
+ <br />
+ <br />
+ <br />      canonical aa; ==&#x003E;
+ <br />
+ <br />               a
+ <br />             te    + dim + 1
+ <br />                 a
+</div>
+<!--l. 2166--><p class="nopar" > Let us add a generic metric <a 
+ id="dx192-515006"></a><a 
+ id="dx192-515007"></a> tensor:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-826">
+  aa:=g(a,b)*g(-b,-d); ==&#x003E;
+ <br />
+ <br />                     a b
+ <br />         aa := g   *g
+ <br />                b d
+ <br />
+ <br />  canonical aa; ==&#x003E;
+ <br />
+ <br />             a
+ <br />         delt
+ <br />             d
+ <br />
+ <br />  aa:=g(a,b)*g(c,d)*eta(-c,-e)*eta(e,f)*te(-f,g); ==&#x003E;
+ <br />
+ <br />                         e f  a b  c d     g
+ <br />         aa := eta   *eta   *g   *g   *te
+ <br />                  c e                    f
+ <br />
+ <br />  canonical aa; ==&#x003E;
+ <br />
+ <br />          a b   d g
+ <br />         g   *te
+</div>
+<!--l. 2192--><p class="nopar" > </p>
+<div class="center" 
+>
+<!--l. 2193--><p class="noindent" >
+</p><!--l. 2194--><p class="noindent" >The case of <span 
+class="pcrr8t-x-x-109">epsilon</span><a 
+ id="dx192-515008"></a><a 
+ id="dx192-515009"></a></p></div>
+<!--l. 2196--><p class="noindent" >The epsilon tensor plays an important role in many contexts. <span 
+class="pcrr8t-x-x-109">canonical </span>realises the
+contraction of two epsilons if and only if they belong to the same space. The proper use
+of <span 
+class="pcrr8t-x-x-109">canonical</span> on expressions which contains it requires a preliminary deﬁnition of the
+tensor <span 
+class="pcrr8t-x-x-109">DEL</span>. When the signature<a 
+ id="dx192-515010"></a> is 0; the contraction of two epsilons gives a <span 
+class="pcrr8t-x-x-109">del</span>-like
+tensor. When the signature is equal to 1, it is equal to <span 
+class="ptmri8t-x-x-109">minus </span>a <span 
+class="pcrr8t-x-x-109">del</span>-like tensor. Here we
+choose 1 for the signature<a 
+ id="dx192-515011"></a><a 
+ id="dx192-515012"></a> and we work in a single space<a 
+ id="dx192-515013"></a>. <a 
+ id="dx192-515014"></a><a 
+ id="dx192-515015"></a> We deﬁne the <span 
+class="pcrr8t-x-x-109">del</span>
+tensor:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-827">
+      on onespace;
+ <br />
+ <br />      wholespace_dim dim; ==&#x003E; dim
+ <br />
+ <br />      make_partic_tens(gd,del); ==&#x003E; t
+ <br />
+ <br />      signature 1; ==&#x003E; 1
+</div>
+<!--l. 2218--><p class="nopar" > We deﬁne the <span 
+class="pcrr8t-x-x-109">epsilon </span>tensor and show how <span 
+class="pcrr8t-x-x-109">canonical </span>contracts expression containing
+<span 
+class="ptmri8t-x-x-109">two</span><span class="footnote-mark"><a 
+href="manual197.html#fn21x20"><sup class="textsuperscript">21</sup></a></span><a 
+ id="x192-515016f21"></a> 
+of them:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-828">
+      aa:=eps(a,b)*eps(-c,-d); ==&#x003E;
+ <br />
+ <br />                             a b
+ <br />             aa := eps   *eps
+ <br />                      c d
+ <br />
+ <br />      canonical aa; ==&#x003E;
+ <br />
+ <br />                  a b
+ <br />              - gd
+ <br />                  c d
+ <br />
+ <br />
+ <br />      aa:=eps(a,b)*eps(-a,-b); ==&#x003E;
+ <br />
+ <br />                             a b
+ <br />             aa := eps   *eps
+ <br />                      a b
+ <br />
+ <br />      canonical aa; ==&#x003E; dim*( - dim + 1)
+ <br />
+ <br />      on exdelt;
+ <br />
+ <br />      gd(-a,-b,a,b); ==&#x003E; dim*(dim - 1)
+ <br />
+ <br />      aa:=eps(a,b,c)*eps(-b,-d,-e)$
+ <br />
+ <br />      canonical aa; ==&#x003E;
+ <br />
+ <br />                 a      c              a      c
+ <br />             delt  *delt  *dim - 2*delt  *delt  -
+ <br />                 d      e              d      e
+ <br />
+ <br />                   a      c              a       c
+ <br />             - delt  *delt  *dim + 2*delt  * delt
+ <br />                   e      d              e       d
+</div>
+<!--l. 2263--><p class="nopar" > Several expressions which contain the epsilon tensor together with other special tensors
+                                                                     
+
+                                                                     
+are given below as examples to treat with <span 
+class="pcrr8t-x-x-109">canonical</span>:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-829">
+      aa:=eps( - b, - c)*eta(a,b)*eta(a,c); ==&#x003E;
+ <br />
+ <br />                       a b    a c
+ <br />             eps   *eta   *eta
+ <br />                b c
+ <br />
+ <br />      canonical aa; ==&#x003E; 0
+ <br />
+ <br />      aa:=eps(a,b,c)*te(-a)*te(-b); ==&#x003E; % te is generic.
+ <br />
+ <br />                      a b c
+ <br />             aa := eps     *te *te
+ <br />                              a   b
+ <br />
+ <br />      canonical aa; ==&#x003E; 0
+ <br />
+ <br />      tensor tf,tg;
+ <br />
+ <br />      aa:=eps(a,b,c)*te(-a)*tf(-b)*tg(-c)
+ <br />
+ <br />          + eps(d,e,f)*te(-d)*tf(-e)*tg(-f); ==&#x003E;
+ <br />
+ <br />       canonical aa; ==&#x003E;
+ <br />
+ <br />                  a b c
+ <br />             2*eps     *te *tf *tg
+ <br />                          a   b   c
+ <br />
+ <br />      aa:=eps(a,b,c)*te(-a)*tf(-c)*tg(-b)
+ <br />
+ <br />          + eps(d,e,f)*te(-d)*tf(-e)*tg(-f)$
+ <br />
+ <br />   canonical aa; ==&#x003E; 0
+</div>
+<!--l. 2301--><p class="nopar" > Since <a 
+ id="dx192-515017"></a><span 
+class="pcrr8t-x-x-109">canonical </span>is able to work inside several spaces, we can introduce also several
+epsilons and make the relevant simpliﬁcations on each (sub)-spaces. This is the goal of
+the next illustration. <a 
+ id="dx192-515018"></a><a 
+ id="dx192-515019"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-830">
+      off onespace;
+ <br />
+ <br />      define_spaces wholespace=
+ <br />
+ <br />                        {dim,signature=1}; ==&#x003E; t
+ <br />
+ <br />      define_spaces subspace=
+ <br />
+ <br />                         {3,signature=0}; ==&#x003E; t
+ <br />
+ <br />      show_spaces(); ==&#x003E;
+ <br />
+ <br />             {{wholespace,dim,signature=1},
+ <br />
+ <br />              {subspace,3,signature=0}}
+ <br />
+ <br />      make_partic_tens(eps,epsilon); ==&#x003E; t
+ <br />
+ <br />      make_partic_tens(kap,epsilon); ==&#x003E; t
+ <br />
+ <br />      make_tensor_belong_space(eps,wholespace);
+ <br />
+ <br />                              ==&#x003E; wholespace
+ <br />
+ <br />      make_tensor_belong_space(kap,subspace);
+ <br />
+ <br />                              ==&#x003E; subspace
+ <br />
+ <br />      show_epsilons(); ==&#x003E;
+ <br />
+ <br />                   {{eps,wholespace},{kap,subspace}}
+ <br />
+ <br />      off exdelt;
+ <br />
+ <br />      aa:=kap(a,b,c)*kap(-d,-e,-f)*eps(i,j)*eps(-k,-l)$
+ <br />
+ <br />      canonical aa; ==&#x003E;
+ <br />
+                                                                     
+
+                                                                     
+ <br />                  a b c    i j
+ <br />              - gd      *gd
+ <br />                  d e f    k l
+</div>
+<!--l. 2349--><p class="nopar" > If there are no index summation, as in the expression above, one can develop both terms
+into the delta tensor with <span 
+class="pcrr8t-x-x-109">exdelt</span><a 
+ id="dx192-515020"></a><a 
+ id="dx192-515021"></a><a 
+ id="dx192-515022"></a> switched ON. In fact, the previous calculation is
+correct <span 
+class="ptmri8t-x-x-109">only if there are no dummy index </span>inside the two <span 
+class="pcrr8t-x-x-109">gd</span>’s. If some of the indices are
+dummy, then we must take care of the respective spaces in which the two <span 
+class="pcrr8t-x-x-109">gd </span>tensors are
+considered. Since, the tensor themselves do not belong to a given space, the space
+identiﬁcation can only be made through the indices. This is enough since the <span 
+class="pcrr8t-x-x-109">delta</span>-like
+tensor is bloc-diagonal. With <span 
+class="pcrr8t-x-x-109">aa </span>the result of the above illustration, one gets, for
+example,: <a 
+ id="dx192-515023"></a><a 
+ id="dx192-515024"></a> <a 
+ id="dx192-515025"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-831">
+      mk_ids_belong_space({a,b,c,d,e,f},wholespace)$
+ <br />
+ <br />      mk_ids_belong_space({i,j,k,l},subspace)$
+ <br />
+ <br />      sub(d=a,e=b,k=i,aa); ==&#x003E;
+ <br />
+ <br />                   c      j         2
+ <br />             2*delt  *delt  *( - dim  + 3*dim - 2)
+ <br />                   f      l
+ <br />
+ <br />      sub(k=i,l=j,aa); ==&#x003E;
+ <br />                                   a b c
+ <br />                            - 6*gd
+ <br />                                   d e f
+</div>
+<!--l. 2381--><p class="nopar" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x192-51600020.9.5"></a><span 
+class="pcrr8t-x-x-109">canonical </span>and symmetries</h5>
+<a 
+ id="dx192-516001"></a>
+<a 
+ id="dx192-516002"></a>
+<!--l. 2387--><p class="noindent" >Most of the time, indexed objects have some symmetry property. When this property
+is either full symmetry or antisymmetry, there is no diﬃculty to implement
+it using the declarations <span 
+class="pcrr8t-x-x-109">symmetric</span><a 
+ id="dx192-516003"></a> or <a 
+ id="dx192-516004"></a><span 
+class="pcrr8t-x-x-109">antisymmetric </span>of REDUCE.
+However, most often, indexed objects are neither fully symmetric nor fully
+antisymmetric: they have <span 
+class="ptmri8t-x-x-109">partial </span>or <span 
+class="ptmri8t-x-x-109">mixed </span>symmetries<a 
+ id="dx192-516005"></a><a 
+ id="dx192-516006"></a> <a 
+ id="dx192-516007"></a><a 
+ id="dx192-516008"></a> . In the <span 
+class="ptmrc8t-x-x-109">D<span 
+class="small-caps">U</span><span 
+class="small-caps">M</span><span 
+class="small-caps">M</span><span 
+class="small-caps">Y</span></span><a 
+ id="dx192-516009"></a> package, the
+declaration <a 
+ id="dx192-516010"></a><span 
+class="pcrr8t-x-x-109">symtree </span>allows to impose such type of symmetries on operators.
+This command has been improved and extended to apply to tensors. In order to
+illustrate it, we shall take the example of the wellknown Riemann <a 
+ id="dx192-516011"></a><a 
+ id="dx192-516012"></a> tensor in general
+relativity. Let us remind the reader that this tensor has four indices. It is separately
+<span 
+class="ptmri8t-x-x-109">antisymmetric </span>with respect to the interchange of the ﬁrst two indices and with respect
+to the interchange of the last two indices. It is <span 
+class="ptmri8t-x-x-109">symmetric </span>with respect to the
+interchange of the ﬁrst two and the last two indices. In the illustration below, we
+show how to express this and how <span 
+class="pcrr8t-x-x-109">canonical </span>is able to recognize mixed
+symmetries:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-832">
+      tensor r; ==&#x003E; t
+ <br />
+ <br />      symtree(r,{!+,{!-,1,2},{!-,3,4}});
+ <br />
+ <br />      rem_dummy_indices a,b,c,d; % free indices
+ <br />
+ <br />      ra:=r(b,a,c,d); ==&#x003E;
+ <br />
+ <br />                    b a c d
+ <br />             ra := r
+ <br />
+ <br />      canonical ra; ==&#x003E;
+ <br />
+ <br />                 a b c d
+ <br />              - r
+ <br />
+ <br />      ra:=r(c,d,a,b); ==&#x003E;
+ <br />                                    c d a b
+ <br />                             ra := r
+ <br />
+ <br />      canonical ra; ==&#x003E;
+ <br />
+ <br />              a b c d
+ <br />             r
+ <br />
+ <br />
+ <br />     canonical r(-c,-d,a,b); ==&#x003E;
+ <br />
+ <br />              a b
+ <br />             r
+ <br />                  c d
+ <br />
+ <br />      r(-c,-c,a,b); ==&#x003E;  0
+ <br />
+ <br />
+ <br />      ra:=r(-c,-d,c,b); ==&#x003E;
+ <br />
+ <br />                        c b
+                                                                     
+
+                                                                     
+ <br />             ra := r
+ <br />                    c d
+ <br />
+ <br />      canonical ra; ==&#x003E;
+ <br />
+ <br />                 b c
+ <br />              - r
+ <br />                     c d
+</div>
+<!--l. 2462--><p class="nopar" > In the last illustration, contravariant indices are placed in front of covariant indices and
+the contravariant indices are transposed. The superposition of the two partial symmetries
+gives a minus sign.
+</p><!--l. 2467--><p class="noindent" >There exists an important (though natural) restriction on the use of SYMTREE which is
+linked to the algorithm itself: Integer used to localize indices must start from 1, be
+<span 
+class="ptmri8t-x-x-109">contiguous </span>and monotoneously increasing. For instance, one is not allow to
+introduce
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-833">
+      symtree(r,{!*,{!+,1,3},{!*,2,4}});
+ <br />
+ <br />      symtree(r,{!*,{!+,1,2},{!*,4,5}};
+ <br />
+ <br />      symtree(r,{!*,{!-,1,3},{!*,2}});
+</div>
+<!--l. 2477--><p class="nopar" > but the subsequent declarations are allowed:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-834">
+      symtree(r,{!*,{!+,1,2},{!*,3,4}});
+ <br />
+ <br />      symtree(r,{!*,{!+,1,2},{!*,3,4,5}});
+ <br />
+ <br />      symtree(r,{!*,{!-,1,2},{!*,3}});
+</div>
+<!--l. 2485--><p class="nopar" > The ﬁrst declaration endows <span 
+class="pcrr8t-x-x-109">r </span>with a <span 
+class="ptmri8t-x-x-109">partial </span>symmetry with respect to the ﬁrst two
+indices.
+</p><!--l. 2489--><p class="noindent" >A side eﬀect of <span 
+class="pcrr8t-x-x-109">symtree </span>is to restrict the number of indices of a generic tensor. For
+instance, the second declaration in the above illustrations makes <span 
+class="pcrr8t-x-x-109">r </span>depend on 5 indices as
+illustrated below:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-835">
+      symtree(r,{!*,{!+,1,2},{!*,3,4,5}});
+ <br />
+ <br />      canonical r(-b,-a,d,c); ==&#x003E;
+ <br />
+ <br />           ***** Index ‘5’ out of range for
+ <br />
+ <br />                 ((minus b) (minus a) d c) in nth
+ <br />
+ <br />      canonical r(-b,-a,d,c,e); ==&#x003E;
+ <br />
+ <br />               d c e
+ <br />          r                   % correct
+ <br />           a b
+ <br />
+ <br />      canonical r(-b,-a,d,c,e,g); ==&#x003E;
+ <br />
+ <br />               d c e
+ <br />          r          % The sixth index is forgotten!
+ <br />           a b
+</div>
+<!--l. 2512--><p class="nopar" > Finally, the function <span 
+class="pcrr8t-x-x-109">remsym</span><a 
+ id="dx192-516013"></a> applied on any tensor identiﬁer removes all symmetry
+properties.
+</p><!--l. 2516--><p class="noindent" >Another related question is the frequent need to symmetrize a tensor polynomial. To
+fulﬁll it, the function <a 
+ id="dx192-516014"></a><span 
+class="pcrr8t-x-x-109">symmetrize </span>of the package <span 
+class="ptmrc8t-x-x-109">A<span 
+class="small-caps">S</span><span 
+class="small-caps">S</span><span 
+class="small-caps">I</span><span 
+class="small-caps">S</span><span 
+class="small-caps">T</span></span><a 
+ id="dx192-516015"></a> has been improved and
+generalised. For any kernel<a 
+ id="dx192-516016"></a> (which may be either an operator or a tensor) that function
+generates </p>
+     <ul class="itemize1">
+     <li class="itemize">the sum over the cyclic permutations of indices,
+     </li>
+     <li class="itemize">the symetric or antisymetric sums over all permutations of the indices.</li></ul>
+<!--l. 2527--><p class="noindent" >Moreover, if it is given a list of indices, it generates a new list which contains sublists
+which contain the relevant permutations of these indices
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-836">
+      symmetrize(te(x,y,z,{v}),te,cyclicpermlist); ==&#x003E;
+ <br />
+ <br />
+ <br />             x y z         y z x         z x y
+ <br />          te      (v) + te      (v) + te      (v)
+ <br />
+ <br />      symmetrize(te(x,y),te,permutations); ==&#x003E;
+ <br />
+ <br />               x y     y x
+ <br />             te    + te
+ <br />
+ <br />      symmetrize(te(x,y),te,permutations,perm_sign); ==&#x003E;
+ <br />
+ <br />               x y     y x
+ <br />             te    - te
+ <br />
+ <br />      symmetrize(te(y,x),te,permutations,perm_sign); ==&#x003E;
+ <br />
+ <br />               x y     y x
+ <br />           - te    + te
+</div>
+<!--l. 2551--><p class="nopar" > If one wants to symmetrise an expression which is not a kernel, one can also use
+<span 
+class="pcrr8t-x-x-109">symmetrize </span>to obtain the desired result as the next example shows:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-837">
+  ex:=te(a,-b,c)*te1(-a,-d,-e); ==&#x003E;
+ <br />
+ <br />                 a   c
+ <br />         ex := te     *te1
+ <br />                  b      a d e
+ <br />
+ <br />  ll:=list(b,c,d,e)$ % the chosen relevant indices
+ <br />
+ <br />  lls:=symmetrize(ll,list,cyclicpermlist); ==&#x003E;
+ <br />
+ <br />     lls := {{b,c,d,e},{c,d,e,b},{d,e,b,c},{e,b,c,d}}
+ <br />
+ <br />  % The sum over the cyclic permutations is:
+ <br />
+ <br />  excyc:=for each i in lls sum
+ <br />
+ <br />               sub(b=i.1,c=i.2,d=i.3,e=i.4,ex);  ==&#x003E;
+ <br />
+ <br />
+ <br />             a   c              a   d
+ <br />  excyc := te     *te1      + te     *te1
+ <br />               b      a d e       c      a e b
+ <br />
+ <br />
+ <br />               a   e              a   b
+ <br />           + te     *te1      + te      *te1
+ <br />                 d      a b c       e       a c d
+</div>
+<!--l. 2583--><p class="nopar" >
+</p><!--l. 2585--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x192-51700020.9.5"></a><span 
+class="pcrr8t-x-x-109">canonical </span>and tensor derivatives</h5>
+                                                                     
+
+                                                                     
+<a 
+ id="dx192-517001"></a>
+<a 
+ id="dx192-517002"></a>
+<!--l. 2589--><p class="noindent" >Only ordinary (partial) derivatives are fully correctly handled by <span 
+class="pcrr8t-x-x-109">canonical</span>.
+This is enough, to explicitly construct covariant derivatives. We recognize here
+that extensions should still be made. The subsequent illustrations show how
+<span 
+class="pcrr8t-x-x-109">canonical </span>does indeed manage to ﬁnd the canonical form and simplify expressions
+which contain derivatives. Notice, the use of the (modiﬁed) <a 
+ id="dx192-517003"></a><span 
+class="pcrr8t-x-x-109">depend </span>command.
+<a 
+ id="dx192-517004"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-838">
+      on onespace;
+ <br />
+ <br />      tensor te,x; ==&#x003E; t
+ <br />
+ <br />      depend te,x;
+ <br />
+ <br />
+ <br />      aa:=df(te(a,-b),x(-b))-df(te(a,-c),x(-c))$
+ <br />
+ <br />      canonical aa; ==&#x003E; 0
+ <br />
+ <br />      make_partic_tens(eta,eta); ==&#x003E;  t
+ <br />
+ <br />      signature 1;
+ <br />
+ <br />      aa:=df(te(a,-b),x(-b))$
+ <br />
+ <br />      aa:=aa*eta(-a,-d);
+ <br />
+ <br />                     a
+ <br />          aa := df(te   ,x )*eta
+ <br />                       b  b     a d
+ <br />
+ <br />    canonical aa; ==&#x003E;
+ <br />
+ <br />                 a  a
+ <br />          df(te   ,x )
+ <br />               d
+</div>
+<!--l. 2626--><p class="nopar" > In the last example, after contraction, the covariant dummy index <span 
+class="pcrr8t-x-x-109">b </span>has been
+changed into the contravariant dummy index <span 
+class="pcrr8t-x-x-109">a</span>. This is allowed since the space is
+metric.
+</p><!--l. 223--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 225--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse134.html" >Up</a></td><td class="clinks"><a 
+href="manualse135.html" >Next</a></td><td class="clinks"><a 
+href="manualse133.html" >Prev</a></td><td class="clinks"><a 
+href="manualse133.html#tailmanualse133.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse134.html" >Front</a></td></tr></table><a 
+ id="tailmanualse134.html"></a>   </p> 
+</body> 
+</html>

@@ -1,0 +1,1148 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>ZTRANS: Z-Transform Package</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse191.html" >Up</a></td><td class="clinks"><a 
+href="manualse190.html" >Prev</a></td><td class="clinks"><a 
+href="manualse190.html#tailmanualse190.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse191.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.66    </span> <a 
+ id="x285-132000020.66"></a>ZTRANS: <span 
+class="ptmri8t-x-x-109">Z</span>-Transform Package</h3>
+<a 
+ id="dx285-1320001"></a>
+<a 
+ id="dx285-1320002"></a>
+<!--l. 1428--><p class="noindent" >This package is an implementation of the <span 
+class="cmmi-10x-x-109">Z</span>-transform of a sequence. This is the discrete
+analogue of the Laplace Transform.
+</p><!--l. 1431--><p class="noindent" >Authors: Wolfram Koepf and Lisa Temme.
+<a 
+ id="dx285-1320003"></a>
+<a 
+ id="dx285-1320004"></a>
+<a 
+ id="dx285-1320005"></a>
+<a 
+ id="dx285-1320006"></a>
+</p><!--l. 5--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.66.1    </span> <a 
+ id="x285-132100020.66.1"></a><span 
+class="cmmi-10x-x-109">Z</span>-Transform</h4>
+<a 
+ id="dx285-1321001"></a>
+<!--l. 7--><p class="noindent" ><a 
+ id="operator:ZTRANS"></a> The <span 
+class="cmmi-10x-x-109">Z</span>-Transform of a sequence <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmsy-10x-x-109">} </span>is the discrete analogue of the Laplace Transform,
+and
+</p>
+<table 
+class="equation-star"><tr><td>
+                   <span 
+class="cmsy-10x-x-109">𝒵{</span><span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmsy-10x-x-109">} </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">F</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) =</span> <span 
+class="cmex-10x-x-109">∑</span>
+  <sub><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">=0</span></sub><sup><span 
+class="cmsy-8">∞</span></sup><span 
+class="cmmi-10x-x-109">f</span><sub>
+<span 
+class="cmmi-8">n</span></sub><span 
+class="cmmi-10x-x-109">z</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmmi-8">n</span></sup><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 10--><p class="nopar" >
+This series converges in the region outside the circle <span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmsy-10x-x-109">| </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmmi-10x-x-109">z</span><sub><span 
+class="cmr-8">0</span></sub><span 
+class="cmsy-10x-x-109">| </span><span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmr-10x-x-109">lim</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmr-10x-x-109">sup</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">→∞</span></sub><img 
+src="manual812x.png" alt="n∘ ----
+  |fn|"  class="root" align="middle"  /><span 
+class="cmmi-10x-x-109">.</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="tabular"> <table id="TBL-223" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-223-1g"><col 
+id="TBL-223-1" /><col 
+id="TBL-223-2" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-223-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-223-1-1"  
+class="td00"><span 
+class="ptmb8t-x-x-109">SYNTAX:</span>  <span 
+class="pcrr8t-x-x-109">ztrans</span>(<span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmmi-8">n</span></sub>, n, z)        </td><td  style="white-space:nowrap; text-align:left;" id="TBL-223-1-2"  
+class="td01">where <span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmmi-8">n</span></sub> is an expression, and <span 
+class="cmmi-10x-x-109">n</span>,<span 
+class="cmmi-10x-x-109">z  </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-223-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-223-2-1"  
+class="td00">                            </td><td  style="white-space:nowrap; text-align:left;" id="TBL-223-2-2"  
+class="td01">are identiﬁers.                                   </td>
+</tr></table>
+</div>
+<!--l. 22--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.66.2    </span> <a 
+ id="x285-132200020.66.2"></a>Inverse <span 
+class="cmmi-10x-x-109">Z</span>-Transform</h4>
+<a 
+ id="dx285-1322001"></a>
+<!--l. 24--><p class="noindent" ><a 
+ id="operator:INVZTRANS"></a> The calculation of the Laurent coeﬃcients of a regular function results in the following
+inverse formula for the <span 
+class="cmmi-10x-x-109">Z</span>-Transform: <br 
+class="newline" />If <span 
+class="cmmi-10x-x-109">F</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) </span>is a regular function in the region <span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmsy-10x-x-109">| </span><span 
+class="cmmi-10x-x-109">&#x003E; ρ </span>then <span 
+class="cmsy-10x-x-109">∃ </span>a sequence {<span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmmi-8">n</span></sub>} with
+<span 
+class="cmsy-10x-x-109">𝒵{</span><span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmsy-10x-x-109">} </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">F</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) </span>given by
+</p>
+<table 
+class="equation-star"><tr><td>
+                       <span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual813x.png" alt="-1--
+2πi"  class="frac" align="middle" /><span 
+class="cmex-10x-x-109">∮</span>
+     <span 
+class="cmmi-10x-x-109">F</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">z</span><sup><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup><span 
+class="cmmi-10x-x-109">dz</span>
+</td></tr></table>
+<!--l. 31--><p class="nopar" >
+</p>
+<div class="tabular"> <table id="TBL-224" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-224-1g"><col 
+id="TBL-224-1" /><col 
+id="TBL-224-2" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-224-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-224-1-1"  
+class="td00"><span 
+class="ptmb8t-x-x-109">SYNTAX:</span>  <span 
+class="pcrr8t-x-x-109">invztrans(</span><span 
+class="cmmi-10x-x-109">F</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="pcrr8t-x-x-109">, z, n)</span>        </td><td  style="white-space:nowrap; text-align:left;" id="TBL-224-1-2"  
+class="td01">where <span 
+class="cmmi-10x-x-109">F</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) </span>is an expression,  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-224-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-224-2-1"  
+class="td00">                                    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-224-2-2"  
+class="td01">and <span 
+class="cmmi-10x-x-109">z</span>,<span 
+class="cmmi-10x-x-109">n </span>are identiﬁers.             </td>
+</tr></table>
+</div>
+<!--l. 41--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.66.3    </span> <a 
+ id="x285-132300020.66.3"></a>Input for the <span 
+class="cmmi-10x-x-109">Z</span>-Transform</h4>
+                                                                     
+
+                                                                     
+<!--l. 43--><p class="noindent" >This package can compute the <span 
+class="cmmi-10x-x-109">Z</span>-Transforms of the following list of functions <span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmmi-8">n</span></sub>, and
+certain combinations thereof. </p>
+<div class="center" 
+>
+<!--l. 45--><p class="noindent" >
+</p>
+<div class="tabular"> <table id="TBL-225" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-225-1g"><col 
+id="TBL-225-1" /><col 
+id="TBL-225-2" /><col 
+id="TBL-225-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-225-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-225-1-1"  
+class="td11">      <span 
+class="cmr-10x-x-109">1           </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-225-1-2"  
+class="td11">      <span 
+class="cmmi-10x-x-109">e</span><sup><span 
+class="cmmi-8">αn</span></sup>           </td><td  style="white-space:nowrap; text-align:center;" id="TBL-225-1-3"  
+class="td11">    <img 
+src="manual814x.png" alt="(n1+k)"  class="frac" align="middle" />          </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-225-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-225-2-1"  
+class="td11">      <img 
+src="manual815x.png" alt="1-
+n!"  class="frac" align="middle" />              </td><td  style="white-space:nowrap; text-align:center;" id="TBL-225-2-2"  
+class="td11">     <img 
+src="manual816x.png" alt="--1-
+(2n)!"  class="frac" align="middle" />            </td><td  style="white-space:nowrap; text-align:center;" id="TBL-225-2-3"  
+class="td11">    <img 
+src="manual817x.png" alt="---1--
+(2n+1)!"  class="frac" align="middle" />         </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-225-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-225-3-1"  
+class="td11">     <img 
+src="manual818x.png" alt="sin(βn)-
+  n!"  class="frac" align="middle" />           </td><td  style="white-space:nowrap; text-align:center;" id="TBL-225-3-2"  
+class="td11">   <span 
+class="cmr-10x-x-109">sin</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">αn </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">ϕ</span><span 
+class="cmr-10x-x-109">)     </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-225-3-3"  
+class="td11">  <span 
+class="cmmi-10x-x-109">e</span><sup><span 
+class="cmmi-8">αn</span></sup> <span 
+class="cmr-10x-x-109">sin</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">βn</span><span 
+class="cmr-10x-x-109">)    </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-225-4-"><td  style="white-space:nowrap; text-align:center;" id="TBL-225-4-1"  
+class="td11">     <img 
+src="manual819x.png" alt="cos(nβ!n)"  class="frac" align="middle" />           </td><td  style="white-space:nowrap; text-align:center;" id="TBL-225-4-2"  
+class="td11">   <span 
+class="cmr-10x-x-109">cos</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">αn </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">ϕ</span><span 
+class="cmr-10x-x-109">)     </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-225-4-3"  
+class="td11">  <span 
+class="cmmi-10x-x-109">e</span><sup><span 
+class="cmmi-8">αn</span></sup> <span 
+class="cmr-10x-x-109">cos</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">βn</span><span 
+class="cmr-10x-x-109">)    </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-225-5-"><td  style="white-space:nowrap; text-align:center;" id="TBL-225-5-1"  
+class="td11">   <img 
+src="manual820x.png" alt="sin(β(n+1))
+   n+1"  class="frac" align="middle" />        </td><td  style="white-space:nowrap; text-align:center;" id="TBL-225-5-2"  
+class="td11">  <span 
+class="cmr-10x-x-109">sinh</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">αn </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">ϕ</span><span 
+class="cmr-10x-x-109">)    </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-225-5-3"  
+class="td11">   <img 
+src="manual821x.png" alt="cos(β(n+1))
+   n+1"  class="frac" align="middle" />      </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-225-6-"><td  style="white-space:nowrap; text-align:center;" id="TBL-225-6-1"  
+class="td11">  <span 
+class="cmr-10x-x-109">cosh</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">αn </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">ϕ</span><span 
+class="cmr-10x-x-109">)    </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-225-6-2"  
+class="td11">     <img 
+src="manual822x.png" alt="(n+k)
+ m"  />    </td>
+</tr></table></div></div>
+<!--l. 58--><p class="noindent" ><span class="underline"><span 
+class="ptmb8t-x-x-109">Other Combinations</span></span>
+</p>
+<div class="tabular"> <table id="TBL-226" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-226-1g"><col 
+id="TBL-226-1" /><col 
+id="TBL-226-2" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-226-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-226-1-1"  
+class="td11"> <span class="underline">Linearity</span>                                                                                                                      </td><td  style="white-space:nowrap; text-align:left;" id="TBL-226-1-2"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒵{</span><span 
+class="cmmi-10x-x-109">af</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">bg</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmsy-10x-x-109">} </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">a</span><span 
+class="cmsy-10x-x-109">𝒵{</span><span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmsy-10x-x-109">} </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">b</span><span 
+class="cmsy-10x-x-109">𝒵{</span><span 
+class="cmmi-10x-x-109">g</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmsy-10x-x-109">}   </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-226-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-226-2-1"  
+class="td11"> <span class="underline">Multiplication by <span 
+class="cmmi-10x-x-109">n</span></span>                                                                 </td><td  style="white-space:nowrap; text-align:left;" id="TBL-226-2-2"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒵{</span><span 
+class="cmmi-10x-x-109">n</span><sup><span 
+class="cmmi-8">k</span></sup> <span 
+class="cmsy-10x-x-109">⋅ </span><span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmsy-10x-x-109">} </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmmi-10x-x-109">z</span><img 
+src="manual823x.png" alt="ddz"  class="frac" align="middle" /><img 
+src="manual824x.png" alt="(                )
+ 𝒵 {nk−1 ⋅fn, n,z}"  class="left" align="middle" /> </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-226-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-226-3-1"  
+class="td11"> <span class="underline">Multiplication by <span 
+class="cmmi-10x-x-109">λ</span><sup><span 
+class="cmmi-8">n</span></sup></span>                                                                                  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-226-3-2"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒵{</span><span 
+class="cmmi-10x-x-109">λ</span><sup><span 
+class="cmmi-8">n</span></sup> <span 
+class="cmsy-10x-x-109">⋅ </span><span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmsy-10x-x-109">} </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">F</span><img 
+src="manual825x.png" alt="( )
+ zλ"  class="left" align="middle" />             </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-226-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-226-4-1"  
+class="td11"> <span class="underline">Shift Equation</span>                                                                                                              </td><td  style="white-space:nowrap; text-align:left;" id="TBL-226-4-2"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒵{</span><span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">+</span><span 
+class="cmmi-8">k</span></sub><span 
+class="cmsy-10x-x-109">} </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">z</span><sup><span 
+class="cmmi-8">k</span></sup><img 
+src="manual826x.png" alt="(       k−∑1     )
+ F (z)−    fjz− j
+        j=0"  class="left" align="middle" />   </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-226-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-226-5-1"  
+class="td11"> <span class="underline">Symbolic Sums</span>                                                                                                            </td><td  style="white-space:nowrap; text-align:left;" id="TBL-226-5-2"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒵</span><img 
+src="manual827x.png" alt="{      }
+  ∑n
+  k=0fk"  class="left" align="middle" /> <span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual828x.png" alt="-z-
+z−1"  class="frac" align="middle" /> <span 
+class="cmsy-10x-x-109">⋅𝒵{</span><span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmsy-10x-x-109">}        </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-226-6-"><td  style="white-space:nowrap; text-align:left;" id="TBL-226-6-1"  
+class="td11"> </td></tr><tr><td colspan="2"></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-0226-6-"><td  style="white-space:nowrap; text-align:left;" id="TBL-0226-6-1"  
+class="td11">                                                      </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-0226-7-"><td  style="white-space:nowrap; text-align:left;" id="TBL-0226-7-1"  
+class="td11">                                                         </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-0226-8-"><td  style="white-space:nowrap; text-align:left;" id="TBL-0226-8-1"  
+class="td11">                                                         </td><td  style="white-space:nowrap; text-align:left;" id="TBL-0226-8-2"  
+class="td11"> <span 
+class="cmsy-10x-x-109">𝒵</span><img 
+src="manual829x.png" alt="{n+q   }
+  ∑  fk
+  k=p"  class="left" align="middle" />  combination of the above    </td>
+</tr></table>
+</div>
+<!--l. 84--><p class="noindent" >where <span 
+class="cmmi-10x-x-109">k,λ </span><span 
+class="cmsy-10x-x-109">∈</span><span 
+class="cmbx-10x-x-109">N</span><span 
+class="cmsy-10x-x-109">∖{</span><span 
+class="cmr-10x-x-109">0</span><span 
+class="cmsy-10x-x-109">}</span>; and <span 
+class="cmmi-10x-x-109">a,b </span>are variables or fractions; and <span 
+class="cmmi-10x-x-109">p,q </span><span 
+class="cmsy-10x-x-109">∈</span><span 
+class="cmbx-10x-x-109">Z </span>or are functions of
+<span 
+class="cmmi-10x-x-109">n</span>; and <span 
+class="cmmi-10x-x-109">α,β </span>and <span 
+class="cmmi-10x-x-109">ϕ </span>are angles in radians.
+</p><!--l. 88--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.66.4    </span> <a 
+ id="x285-132400020.66.4"></a>Input for the Inverse <span 
+class="cmmi-10x-x-109">Z</span>-Transform</h4>
+<!--l. 90--><p class="noindent" >This package can compute the Inverse <span 
+class="cmmi-10x-x-109">Z</span>-Transforms of any rational function,
+whose denominator can be factored over <span 
+class="cmbx-10x-x-109">Q</span>, in addition to the following list of
+                                                                     
+
+                                                                     
+<span 
+class="cmmi-10x-x-109">F</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)</span>.
+</p>
+<table 
+class="equation-star"><tr><td>
+<div class="array"> <table id="TBL-227" class="array" 
+cellpadding="0" cellspacing="0"  
+><colgroup id="TBL-227-1g"><col 
+id="TBL-227-1" /><col 
+id="TBL-227-2" /></colgroup><tr  
+ style="vertical-align:baseline;"><td  style="white-space:nowrap; text-align:center;" 
+><div class="td11">    <span 
+class="cmr-10x-x-109">sin</span><img 
+src="manual830x.png" alt="(     )
+ sin(β)
+   z"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">e</span><sup><img 
+src="manual831x.png" alt="( cos(β))
+   z"  class="left" align="middle" />
+      </sup>     </div></td><td  style="white-space:nowrap; text-align:center;" 
+><div class="td11">    <span 
+class="cmr-10x-x-109">cos</span><img 
+src="manual832x.png" alt="(     )
+  sin(β)-
+   z"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">e</span><sup><img 
+src="manual833x.png" alt="(cos(β))
+  z"  class="left" align="middle" />
+      </sup>     </div></td>
+</tr><tr  
+ style="vertical-align:baseline;"><td  style="white-space:nowrap; text-align:center;" 
+><div class="td11">       <img 
+src="manual834x.png" alt="∘ -z-
+   A"  class="sqrt"  /> <span 
+class="cmr-10x-x-109">sin</span><img 
+src="manual835x.png" alt="(∘ z)
+   A"  class="left" align="middle" />      </div></td><td  style="white-space:nowrap; text-align:center;" 
+><div class="td11">        <span 
+class="cmr-10x-x-109">cos</span><img 
+src="manual836x.png" alt="(∘ z-)
+   A"  class="left" align="middle" />       </div></td>
+</tr><tr  
+ style="vertical-align:baseline;"><td  style="white-space:nowrap; text-align:center;" 
+><div class="td11">      <img 
+src="manual837x.png" alt="∘ z-
+  A"  class="sqrt"  /> <span 
+class="cmr-10x-x-109">sinh</span><img 
+src="manual838x.png" alt="(∘ -z)
+   A"  class="left" align="middle" />     </div></td><td  style="white-space:nowrap; text-align:center;" 
+><div class="td11">        <span 
+class="cmr-10x-x-109">cosh</span><img 
+src="manual839x.png" alt="(∘ z)
+   A"  class="left" align="middle" />       </div></td>
+</tr><tr  
+ style="vertical-align:baseline;"><td  style="white-space:nowrap; text-align:center;" 
+><div class="td11">     <span 
+class="cmmi-10x-x-109">z</span> <span 
+class="cmr-10x-x-109">log</span> <img 
+src="manual840x.png" alt="(          )
+  √-2-z----
+   z −Az+B"  class="left" align="middle" />     </div></td><td  style="white-space:nowrap; text-align:center;" 
+><div class="td11">     <span 
+class="cmmi-10x-x-109">z</span> <span 
+class="cmr-10x-x-109">log</span> <img 
+src="manual841x.png" alt="(√--------)
+ -z2+Azz+B-"  class="left" align="middle" />    </div></td>
+</tr><tr  
+ style="vertical-align:baseline;"><td  style="white-space:nowrap; text-align:center;" 
+><div class="td11">      <span 
+class="cmr-10x-x-109">arctan</span><img 
+src="manual842x.png" alt="( -sin(β)-)
+  z+cos(β)"  class="left" align="middle" />     </div></td>
+</tr></table>                                                                     </div>
+</td></tr></table>
+<!--l. 108--><p class="nopar" >
+</p><!--l. 110--><p class="noindent" >where <span 
+class="cmmi-10x-x-109">k,λ </span><span 
+class="cmsy-10x-x-109">∈</span><span 
+class="cmbx-10x-x-109">N </span><span 
+class="cmsy-10x-x-109">∖{</span><span 
+class="cmr-10x-x-109">0</span><span 
+class="cmsy-10x-x-109">} </span>and <span 
+class="cmmi-10x-x-109">A,B </span>are fractions or variables (<span 
+class="cmmi-10x-x-109">B &#x003E; </span><span 
+class="cmr-10x-x-109">0</span>) and <span 
+class="cmmi-10x-x-109">α,β</span>, and <span 
+class="cmmi-10x-x-109">ϕ </span>are
+angles in radians.
+</p><!--l. 114--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.66.5    </span> <a 
+ id="x285-132500020.66.5"></a>Application of the <span 
+class="cmmi-10x-x-109">Z</span>-Transform</h4>
+<!--l. 115--><p class="noindent" ><span class="underline"><span 
+class="ptmb8t-x-x-109">Solution of diﬀerence equations</span></span>
+</p><!--l. 117--><p class="noindent" >In the same way that a Laplace Transform can be used to solve diﬀerential equations, so
+<span 
+class="cmmi-10x-x-109">Z</span>-Transforms can be used to solve diﬀerence equations.<br 
+class="newline" />Given a linear diﬀerence equation of <span 
+class="cmmi-10x-x-109">k</span>-th order
+</p>
+<table 
+class="equation"><tr><td><a 
+ id="x285-1325001r94"></a>
+                                                                     
+
+                                                                     
+<center class="math-display" >
+<img 
+src="manual843x.png" alt="fn+k + a1fn+k−1 + ...+ akfn = gn
+" class="math-display"  /></center></td><td class="equation-label">(20.94)</td></tr></table>
+<!--l. 124--><p class="nopar" >
+</p><!--l. 126--><p class="noindent" >with initial conditions <span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmr-8">0</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">h</span><sub><span 
+class="cmr-8">0</span></sub>, <span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">h</span><sub><span 
+class="cmr-8">1</span></sub>, <span 
+class="cmmi-10x-x-109">…</span>, <span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmmi-8">k</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">h</span><sub><span 
+class="cmmi-8">k</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sub> (where <span 
+class="cmmi-10x-x-109">h</span><sub><span 
+class="cmmi-8">j</span></sub> are given), it is
+possible to solve it in the following way. If the coeﬃcients <span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,a</span><sub><span 
+class="cmmi-8">k</span></sub> are constants, then
+the <span 
+class="cmmi-10x-x-109">Z</span>-Transform of (<a 
+href="#x285-1325001r94">20.94<!--tex4ht:ref: eq:1 --></a>) can be calculated using the shift equation, and results in a
+solvable linear equation for <span 
+class="cmsy-10x-x-109">𝒵{</span><span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmsy-10x-x-109">}</span>. Application of the Inverse <span 
+class="cmmi-10x-x-109">Z</span>-Transform then results
+in the solution of  (<a 
+href="#x285-1325001r94">20.94<!--tex4ht:ref: eq:1 --></a>).<br 
+class="newline" />If the coeﬃcients <span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,a</span><sub><span 
+class="cmmi-8">k</span></sub> are polynomials in <span 
+class="cmmi-10x-x-109">n </span>then the <span 
+class="cmmi-10x-x-109">Z</span>-Transform of (<a 
+href="#x285-1325001r94">20.94<!--tex4ht:ref: eq:1 --></a>)
+constitutes a diﬀerential equation for <span 
+class="cmsy-10x-x-109">𝒵{</span><span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmsy-10x-x-109">}</span>. If this diﬀerential equation can be solved
+then the Inverse <span 
+class="cmmi-10x-x-109">Z</span>-Transform once again yields the solution of (<a 
+href="#x285-1325001r94">20.94<!--tex4ht:ref: eq:1 --></a>). Some examples
+of these methods of solution can be found in <span 
+class="cmsy-10x-x-109">§</span><a 
+href="#x285-132600020.66.6">20.66.6<!--tex4ht:ref: ztranssec:Examples --></a>.
+</p><!--l. 142--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.66.6    </span> <a 
+ id="x285-132600020.66.6"></a>EXAMPLES</h4>
+<!--l. 144--><p class="noindent" ><span class="underline"><span 
+class="ptmb8t-x-x-109">Here are some examples for the </span><span 
+class="cmmi-10x-x-109">Z</span><span 
+class="ptmb8t-x-x-109">-Transform</span></span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1471">
+1: ztrans((-1)^n*n^2,n,z);
+ <br />
+ <br />    z*( - z + 1)
+ <br />---------------------
+ <br />  3      2
+ <br /> z  + 3*z  + 3*z + 1
+ <br />
+ <br />2: ztrans(cos(n*omega*t),n,z);
+ <br />
+ <br />   z*(cos(omega*t) - z)
+ <br />---------------------------
+ <br />                     2
+ <br /> 2*cos(omega*t)*z - z  - 1
+ <br />
+ <br />3: ztrans(cos(b*(n+2))/(n+2),n,z);
+ <br />
+ <br />                                 z
+ <br />z*( - cos(b) + log(------------------------------)*z)
+ <br />                                          2
+ <br />                    sqrt( - 2*cos(b)*z + z  + 1)
+ <br />
+ <br />4: ztrans(n*cos(b*n)/factorial(n),n,z);
+ <br />
+ <br />  cos(b)/z
+ <br />(e
+ <br />
+ <br />        sin(b)                 sin(b)
+ <br /> *(cos(--------)*cos(b) - sin(--------)*sin(b)))/z
+ <br />          z                      z
+ <br />
+ <br />5: ztrans(sum(1/factorial(k),k,0,n),n,z);
+ <br />
+ <br />  1/z
+ <br /> e   *z
+ <br />--------
+ <br /> z - 1
+ <br />
+ <br />6: operator f$
+                                                                     
+
+                                                                     
+ <br />
+ <br />7: ztrans((1+n)^2*f(n),n,z);
+ <br />
+ <br />                          2
+ <br />df(ztrans(f(n),n,z),z,2)*z  - df(ztrans(f(n),n,z),z)*z
+ <br />+ ztrans(f(n),n,z)
+</div>
+<!--l. 190--><p class="nopar" >
+</p><!--l. 192--><p class="noindent" ><span class="underline"><span 
+class="ptmb8t-x-x-109">Here are some examples for the Inverse </span><span 
+class="cmmi-10x-x-109">Z</span><span 
+class="ptmb8t-x-x-109">-Transform</span></span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1472">
+8: invztrans((z^2-2*z)/(z^2-4*z+1),z,n);
+ <br />
+ <br />              n       n                n
+ <br /> (sqrt(3) - 2) *( - 1)  + (sqrt(3) + 2)
+ <br />-----------------------------------------
+ <br />                    2
+ <br />
+ <br />9: invztrans(z/((z-a)*(z-b)),z,n);
+ <br />
+ <br />  n    n
+ <br /> a  - b
+ <br />---------
+ <br />  a - b
+ <br />
+ <br />10: invztrans(z/((z-a)*(z-b)*(z-c)),z,n);
+ <br />
+ <br />  n      n      n      n      n      n
+ <br /> a *b - a *c - b *a + b *c + c *a - c *b
+ <br />-----------------------------------------
+ <br />  2      2        2      2    2        2
+ <br /> a *b - a *c - a*b  + a*c  + b *c - b*c
+ <br />
+ <br />11: invztrans(z*log(z/(z-a)),z,n);
+ <br />
+ <br />  n
+ <br /> a *a
+ <br />-------
+ <br /> n + 1
+ <br />
+ <br />12: invztrans(e^(1/(a*z)),z,n);
+ <br />
+ <br />        1
+ <br />-----------------
+ <br />  n
+ <br /> a *factorial(n)
+ <br />
+ <br />13: invztrans(z*(z-cosh(a))/(z^2-2*z*cosh(a)+1),z,n);
+ <br />
+                                                                     
+
+                                                                     
+ <br />cosh(a*n)
+</div>
+<!--l. 233--><p class="nopar" >
+</p><!--l. 235--><p class="noindent" ><span class="underline"><span 
+class="ptmb8t-x-x-109">Examples: Solutions of Diﬀerence Equations</span></span>
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">I</span> </dt><dd 
+class="description">(See <span class="cite">[<a 
+href="manualap2.html#XBronstein:1981">BS81</a>]</span>, p. 651, Example 1).<br 
+class="newline" />Consider the homogeneous linear diﬀerence equation
+     <table 
+class="equation-star"><tr><td>
+                  <span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">+5</span></sub> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">+3</span></sub> <span 
+class="cmr-10x-x-109">+ 2</span><span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">+2</span></sub> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">3</span><span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">+1</span></sub> <span 
+class="cmr-10x-x-109">+ 2</span><span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">= 0</span>
+     </td></tr></table>
+     <!--l. 240--><p class="nopar" >
+     with initial conditions <span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmr-8">0</span></sub> <span 
+class="cmr-10x-x-109">= 0</span>, <span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">= 0</span>, <span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmr-8">2</span></sub> <span 
+class="cmr-10x-x-109">= 9</span>, <span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmr-8">3</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">2</span>, <span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmr-8">4</span></sub> <span 
+class="cmr-10x-x-109">= 23</span>. The <span 
+class="cmmi-10x-x-109">Z</span>-Transform of
+     the left hand side can be written as <span 
+class="cmmi-10x-x-109">F</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) = </span><span 
+class="cmmi-10x-x-109">P</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">∕Q</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) </span>where <span 
+class="cmmi-10x-x-109">P</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) = 9</span><span 
+class="cmmi-10x-x-109">z</span><sup><span 
+class="cmr-8">3</span></sup> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">z</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">+ 5</span><span 
+class="cmmi-10x-x-109">z</span>
+     and <span 
+class="cmmi-10x-x-109">Q</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) = </span><span 
+class="cmmi-10x-x-109">z</span><sup><span 
+class="cmr-8">5</span></sup> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">z</span><sup><span 
+class="cmr-8">3</span></sup> <span 
+class="cmr-10x-x-109">+ 2</span><span 
+class="cmmi-10x-x-109">z</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">3</span><span 
+class="cmmi-10x-x-109">z </span><span 
+class="cmr-10x-x-109">+ 2 = (</span><span 
+class="cmmi-10x-x-109">z </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1)</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z </span><span 
+class="cmr-10x-x-109">+ 2)(</span><span 
+class="cmmi-10x-x-109">z</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">+ 1)</span>, which can be
+     inverted to give
+</p>
+     <table 
+class="equation-star"><tr><td>
+                         <span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">= 2</span><span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmr-10x-x-109">+ (</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">2)</span><sup><span 
+class="cmmi-8">n</span></sup> <span 
+class="cmsy-10x-x-109">−</span> <span 
+class="cmr-10x-x-109">cos</span><img 
+src="manual844x.png" alt="π
+--
+2"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">n.</span>
+     </td></tr></table>
+                                                                     
+
+                                                                     
+     <!--l. 246--><p class="nopar" >
+     The following REDUCE session shows how the present package can be used
+     to solve the above problem.</p></dd></dl>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-1473">
+1: operator f;
+ <br />
+ <br />2: f(0):=0$ f(1):=0$ f(2):=9$ f(3):=-2$ f(4):=23$
+ <br />
+ <br />
+ <br />7: equation :=
+ <br />   ztrans(f(n+5)-2*f(n+3)+2*f(n+2)-3*f(n+1)+2*f(n),n,z);
+ <br />
+ <br />                              5
+ <br />equation := ztrans(f(n),n,z)*z
+ <br />
+ <br />                                   3
+ <br />             - 2*ztrans(f(n),n,z)*z
+ <br />
+ <br />                                   2
+ <br />             + 2*ztrans(f(n),n,z)*z
+ <br />
+ <br />             - 3*ztrans(f(n),n,z)*z
+ <br />
+ <br />                                       3      2
+ <br />             + 2*ztrans(f(n),n,z) - 9*z  + 2*z
+ <br />
+ <br />             - 5*z
+ <br />
+ <br />8: ztransresult:=solve(equation,ztrans(f(n),n,z));
+ <br />
+ <br />ztransresult :=
+ <br />
+ <br />                             2
+ <br />                       z*(9*z  - 2*z + 5)
+ <br />{ztrans(f(n),n,z)=----------------------------}
+ <br />                    5      3      2
+ <br />                   z  - 2*z  + 2*z  - 3*z + 2
+ <br />
+ <br />9: result:=invztrans(part(first(ztransresult),2),z,n);
+ <br />
+ <br />result :=
+ <br />
+ <br />     n       n           n  n    n
+                                                                     
+
+                                                                     
+ <br />  - i *( - 1)  + 2*( - 1) *2  - i  + 4*n
+ <br />-----------------------------------------
+ <br />                    2
+</div>
+<!--l. 294--><p class="nopar" >
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">II</span> </dt><dd 
+class="description">(See <span class="cite">[<a 
+href="manualap2.html#XBronstein:1981">BS81</a>]</span>, p. 651, Example 2).<br 
+class="newline" />Consider the inhomogeneous diﬀerence equation:
+     <table 
+class="equation-star"><tr><td>
+                          <span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">+2</span></sub> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">4</span><span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">+1</span></sub> <span 
+class="cmr-10x-x-109">+ 3</span><span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">= 1</span>
+     </td></tr></table>
+     <!--l. 299--><p class="nopar" >
+     with initial conditions <span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmr-8">0</span></sub> <span 
+class="cmr-10x-x-109">= 0</span>, <span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">= 1</span>. Giving
+     </p><table 
+class="align-star">
+           <tr><td 
+class="align-odd"><span 
+class="cmmi-10x-x-109">F</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)</span></td>           <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">𝒵{</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmsy-10x-x-109">}</span><img 
+src="manual845x.png" alt="(                        )
+ -----1-----   ----z------
+ z2 − 4z + 3 + z2 − 4z + 3"  class="left" align="middle" /></td>             <td 
+class="align-label"></td>           <td 
+class="align-label">
+           </td></tr><tr><td 
+class="align-odd"></td>                <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual846x.png" alt="--z--
+z − 1"  class="frac" align="middle" /><img 
+src="manual847x.png" alt="(                        )
+  ----1------+ ----z------
+  z2 − 4z + 3  z2 − 4z + 3"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">.</span></td>           <td 
+class="align-label"></td>           <td 
+class="align-label"></td></tr></table>
+                                                                     
+
+                                                                     
+     <!--l. 307--><p class="noindent" >The Inverse <span 
+class="cmmi-10x-x-109">Z</span>-Transform results in the solution
+</p>
+     <table 
+class="equation-star"><tr><td>
+                       <span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual848x.png" alt="1
+2-"  class="frac" align="middle" /><img 
+src="manual849x.png" alt="(                  )
+  3n+1 − 1
+  ---2----− (n + 1)"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">.</span>
+     </td></tr></table>
+     <!--l. 308--><p class="nopar" >
+     The following REDUCE session shows how the present package can be used to
+     solve the above problem.</p></dd></dl>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-1474">
+10: clear(f)$ operator f$ f(0):=0$ f(1):=1$
+ <br />
+ <br />
+ <br />14: equation:=ztrans(f(n+2)-4*f(n+1)+3*f(n)-1,n,z);
+ <br />
+ <br />                               3
+ <br />equation := (ztrans(f(n),n,z)*z
+ <br />
+ <br />                                    2
+ <br />              - 5*ztrans(f(n),n,z)*z
+ <br />
+ <br />              + 7*ztrans(f(n),n,z)*z
+ <br />
+ <br />                                      2
+ <br />              - 3*ztrans(f(n),n,z) - z )/(z - 1)
+ <br />
+ <br />15: ztransresult:=solve(equation,ztrans(f(n),n,z));
+ <br />
+ <br />ztransresult :=
+ <br />
+ <br />                            2
+ <br />                           z
+ <br />{ztrans(f(n),n,z)=---------------------}
+ <br />                    3      2
+ <br />                   z  - 5*z  + 7*z - 3
+ <br />
+ <br />16: result:=invztrans(part(first(ztransresult),2),z,n);
+ <br />
+ <br />              n
+ <br />           3*3  - 2*n - 3
+ <br />result := ----------------
+ <br />                 4
+</div>
+<!--l. 346--><p class="nopar" >
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">III</span> </dt><dd 
+class="description">Consider the following diﬀerence equation, which has a diﬀerential equation for
+     <span 
+class="cmsy-10x-x-109">𝒵{</span><span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmsy-10x-x-109">}</span>.
+                                                                     
+
+                                                                     
+     <table 
+class="equation-star"><tr><td>
+                          <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmr-10x-x-109">+ 1) </span><span 
+class="cmsy-10x-x-109">⋅ </span><span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmmi-8">n</span><span 
+class="cmr-8">+1</span></sub> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmmi-8">n</span></sub> <span 
+class="cmr-10x-x-109">= 0</span>
+     </td></tr></table>
+     <!--l. 351--><p class="nopar" >
+     with initial conditions <span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmr-8">0</span></sub> <span 
+class="cmr-10x-x-109">= 1</span>, <span 
+class="cmmi-10x-x-109">f</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">= 1</span>. It can be solved in REDUCE using
+     the present package in the following way.</p></dd></dl>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-1475">
+17: clear(f)$ operator f$ f(0):=1$ f(1):=1$
+ <br />
+ <br />
+ <br />21: equation:=ztrans((n+1)*f(n+1)-f(n),n,z);
+ <br />
+ <br />equation :=
+ <br />
+ <br />                            2
+ <br /> - (df(ztrans(f(n),n,z),z)*z  + ztrans(f(n),n,z))
+ <br />
+ <br />22: operator tmp;
+ <br />
+ <br />23: equation:=sub(ztrans(f(n),n,z)=tmp(z),equation);
+ <br />
+ <br />                              2
+ <br />equation :=  - (df(tmp(z),z)*z  + tmp(z))
+ <br />
+ <br />24: load_package(odesolve);
+ <br />
+ <br />25: ztransresult:=odesolve(equation,tmp(z),z);
+ <br />
+ <br />                         1/z
+ <br />ztransresult := {tmp(z)=e   *arbconst(1)}
+ <br />
+ <br />39: preresult :=
+ <br />      invztrans(part(first(ztransresult),2),z,n);
+ <br />
+ <br />              arbconst(1)
+ <br />preresult := --------------
+ <br />              factorial(n)
+ <br />
+ <br />40: solve({sub(n=0,preresult)=f(0),
+ <br />           sub(n=1,preresult)=f(1)},
+ <br />          arbconst(1));
+ <br />
+ <br />{arbconst(1)=1}
+ <br />
+ <br />41: result:=preresult where ws;
+ <br />
+                                                                     
+
+                                                                     
+ <br />                1
+ <br />result := --------------
+ <br />           factorial(n)
+</div>
+<!--l. 399--><p class="nopar" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 1--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse191.html" >Up</a></td><td class="clinks"><a 
+href="manualse190.html" >Prev</a></td><td class="clinks"><a 
+href="manualse190.html#tailmanualse190.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse191.html" >Front</a></td></tr></table><a 
+ id="tailmanualse191.html"></a>  </p> 
+</body> 
+</html>

@@ -1,0 +1,908 @@
+module rlservices;
+
+revision('rlservices, "$Id: rlservices.red 6081 2021-10-05 12:19:46Z thomas-sturm $");
+
+copyright('rlservices, "(c) 2016-2017 T. Sturm");
+
+% Redistribution and use in source and binary forms, with or without
+% modification, are permitted provided that the following conditions
+% are met:
+%
+%    * Redistributions of source code must retain the relevant
+%      copyright notice, this list of conditions and the following
+%      disclaimer.
+%    * Redistributions in binary form must reproduce the above
+%      copyright notice, this list of conditions and the following
+%      disclaimer in the documentation and/or other materials provided
+%      with the distribution.
+%
+% THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+% "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+% LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+% A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+% OWNERS OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+% SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+% LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+% DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+% THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+% (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+% OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+%
+
+rl_service {
+   name = !1equation,
+   doc = "equivalent DNF with one relevant equation in each branch (DCFSF)",
+   arg = {pos = 1, name = conjunction, type = Formula, doc = "conjunction of atoms"},
+   arg = {pos = 2, name = variable, type = Variable, doc = "variable to be considered"},
+   arg = {pos = 3, name = assume, type = List(Atom), default = {}, doc = "atomic input assumptions"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = all,
+   doc = "universal closure",
+   seealso = ex,
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   arg = {pos = 2, name = except, type = List(Variable), default = {}, doc = "variables not to be quantified"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = atl,
+   doc = "set of contained atomic formulas",
+   seealso = atml,
+   seealso = atnum,
+   seealso = terml,
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   returns = {type = List(Atom)},
+   mode = both};
+
+rl_service {
+   name = atml,
+   doc = "list of contained atomic formulas with numbers of occurrences",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   returns = {type = MList(Atom)},
+   mode = both};
+
+rl_service {
+   name = atnum,
+   doc = "number of contained atomic formulas counting multiplicities",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   returns = {type = Integer},
+   mode = both};
+
+rl_service {
+   name = bvarl,
+   doc = "list of variables with bound occurrences",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   returns = {type = List(Variable)},
+   mode = both};
+
+rl_service {
+   name = cad,
+   doc = "cylindrical algebraic decomposition",
+   seealso = gcad,
+   seealso = hqe,
+   seealso = lqe,
+   seealso = mathematica,
+   seealso = posqe,
+   seealso = qe,
+   seealso = qeipo,
+   seealso = qepcad,
+   seealso = qews,
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   arg = {pos = 2, name = porder, type = List(Variable), default = {}, doc = "projection order"},
+   arg = {pos = 3, name = xpolys, type = List(Term), default = {}, doc = "extra polynomials for projection"},
+   arg = {pos = 4, name = verbose, type = Switch, doc = "print information on progress of computation"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = cadporder,
+   doc = "cylindrical algebraic decomposition projection order",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   returns = {type = List(Variable)},
+   mode = both};
+
+rl_service {
+   name = cadproj,
+   doc = "cylindrical algebraic decomposition projection",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   arg = {pos = 2, name = porder, type = List(Variable), default = {}, doc = "projection order"},
+   returns = {type = List(Term)},
+   mode = both};
+
+rl_service {
+   name = cnf,
+   doc = "conjunctive normal form",
+   arg = {pos = 1, name = formula, type = Formula, doc = "quantifier-free input formula"},
+   arg = {pos = 2, name = bnfsm, type = Switch, doc = "smart"},
+   arg = {pos = 3, name = bnfsac, type = Switch, doc = "subsumption and cut"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = decdeg,
+   doc = "decrease degree",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {  % There was the option variables = 'fvarl.
+   name = decdeg1,
+   doc = "low-level decrease degree information",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   arg = {pos = 2, name = variables, type = List(Variable), doc = "variables to consider"},
+   returns = {type = Pair(Formula, List(Pair(Variable, Integer)))},
+   mode = both};
+
+rl_service {
+   name = depth,
+   doc = "depth of the tree representation of a formula",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   returns = {type = Integer},
+   mode = both};
+
+rl_service {
+   name = dima,
+   doc = "experimental implementation of Grigoriev & Pasechnik, doi:10.1007/s00037-005-0189-7",
+   arg = {pos = 1, name = inner, type = List(Term), doc = "Q_1(X), ..., Q_k(X)"},
+   arg = {pos = 2, name = outer, type = Term, doc = "P(y_1, ..., y_k)"},
+   returns = {type = List(Formula)},
+   mode = both};
+
+rl_service {
+   name = dnf,
+   doc = "disjunctive normal form",
+   arg = {pos = 1, name = formula, type = Formula, doc = "quantifier-free input formula"},
+   arg = {pos = 2, name = bnfsm, type = Switch, doc = "smart"},
+   arg = {pos = 3, name = bnfsac, type = Switch, doc = "subsumption and cut"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = dpep,
+   doc = "deciding polynomial exponential problems",
+   seealso = cad,
+   arg = {pos = 1, name = formula, type = Formula, doc = "quantifier-free input formula"},
+   arg = {pos = 2, name = accuracy, type = Integer, default = 20, doc = "length of taylor expanson of exp"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = dump,
+   doc = "dump formula into input file for external software",
+   arg = {pos = 1, name = formula, type = Formula, doc = "quantifier-free input formula"},
+   arg = {pos = 2, name = format, type = Enum(qepcad, dfg, smt2, slfq, mathematica), doc = "target software"},
+   arg = {pos = 3, name = filename, type = String, default = "", doc = """"" dumps to screen"},
+   returns = {type = Void},
+   mode = both};
+
+rl_service {
+   name = enf,
+   doc = "elimination normal form (DCFSF)",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   arg = {pos = 2, name = variable, type = Variable, doc = "variable to be eliminated next"},
+   arg = {pos = 3, name = assume, type = List(Atom), default = {}, doc = "atomic input assumptions"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = ex,
+   doc = "existential closure",
+   seealso = all,
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   arg = {pos = 2, name = except, type = List(Variable), default = {}, doc = "variables not to be quantified"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = ex2,
+   doc = "'exists at least two' closure",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   arg = {pos = 2, name = except, type = List(Variable), default = {}, doc = "variables not to be quantified"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = expand,
+   doc = "expand  bounded quantifiers (INTEGERS only)",
+   arg = {pos = 1, name = formula, type = Formula, doc = "weakly quantified formula"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = expanda,
+   doc = "expand rlwqea result (INTEGERS only)",
+   arg = {pos = 1, name = result, type = List(Triplet(Formula, List(Formula), List(Assignment(Any)))), doc = "rlwqea result"},
+   arg = {pos = 2, name = formula, type = Formula, default = false, doc = "unused"},
+   returns = {type = List(Pair(Formula, List(Assignment(Any))))},
+   mode = both};
+
+rl_service {
+   name = explats,
+   doc = "explode (factor) atoms of the form z ~ 1 or z /~ 1 with z in Z (PADICS only)",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   arg = {pos = 2, name = siexpl, type = Switch, doc = "explode if boolean operator matches"},
+   arg = {pos = 3, name = siexpla, type = Switch, doc = "explode always"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = fvarl,
+   doc = "list of variables with free occurrences",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   returns = {type = List(Variable)},
+   mode = both};
+
+rl_service {
+   name = gcad,
+   doc = "generic cylindrical algebraic decomposition",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   arg = {pos = 2, name = porder, type = List(Variable), default = {}, doc = "projection order"},
+   arg = {pos = 3, name = xpolys, type = List(Term), default = {}, doc = "extra polynomials for projection"},
+   arg = {pos = 4, name = verbose, type = Switch, doc = "print information on progress of computation"},
+   returns = {type = Pair(List(Atom), Formula)},
+   mode = both};
+
+rl_service {
+   name = gcadporder,
+   doc = "generic cylindrical algebraic decomposition projection order",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   returns = {type = List(Variable)},
+   mode = both};
+
+rl_service {
+   name = gentheo,
+   doc = "heuristically add assumptions to theory to make formula true",
+   arg = {pos = 1, name = theory, type = List(Atom), doc = "input theory"},
+   arg = {pos = 2, name = formula, type = Formula, doc = "input formula"},
+   arg = {pos = 3, name = exclude, type = List(Variable), default = {}, doc = "variables not to make assumptions on"},
+   returns = {type = Pair(List(Atom), Formula)},
+   mode = both};
+
+rl_service {
+   name = ghqe,
+   doc = "generic Hermitian quantifier elimination",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   returns = {type = Pair(List(Atom), Formula)},
+   mode = both};
+
+rl_service {
+   name = gqe,
+   doc = "generic quantifier elimination",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   arg = {pos = 2, name = assume, type = List(Atom), default = {}, doc = "atomic input assumptions on the parameters"},
+   arg = {pos = 3, name = except, type = List(Variable), default = {}, doc = "parameters to exclude from assumptions"},
+   returns = {type = Pair(List(Atom), Formula)},
+   mode = both};
+
+rl_service {
+   name = gqea,
+   doc = "generic quantifier elimination with answer",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   arg = {pos = 2, name = assume, type = List(Atom), default = {}, doc = "atomic input assumptions"},
+   arg = {pos = 3, name = except, type = List(Variable), default = {}, doc = "parameters to exclude from assumptions"},
+   returns = {type = Pair(List(Atom),List(Pair(Formula, List(Assignment(Any)))))},
+   mode = both};
+
+rl_service {
+   name = gsn,
+   doc = "Groebner simplifier",
+   arg = {pos = 1, name = formula, type = Formula, doc = "quantifier-free input formula"},
+   arg = {pos = 2, name = assume, type = List(Atom), default = {}, doc = "atomic input assumptions"},
+   arg = {pos = 3, name = form, type = Enum(auto, cnf, dnf), default = auto, doc = "Boolean normal form to use"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = hqe,
+   doc = "Hermitian quantifier elimination",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = ifacl,
+   doc = "list of irreducible factors",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   returns = {type = List(Term)},
+   mode = both};
+
+rl_service {
+   name = ifacml,
+   doc = "list of irreducible factors with numbers of occurrences",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   returns = {type = MList(Term)},
+   mode = both};
+
+rl_service {
+   name = ifacdegl,
+   doc = "maximal degrees of variables in irreducible factors",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   returns = {type = Pair(List(Pair(Variable, Integer)), List(Pair(Variable, Integer)))},
+   mode = both};
+
+rl_service {
+   name = in,
+   doc = "silently read *.red file",
+   arg = {pos = 1, name = file, type = String, doc = "file name"},
+   arg = {pos = 2, name = msg, type = Flag, default = no, doc = "print warnings"},
+   arg = {pos = 3, name = output, type = Flag, default = no, doc = "print output"},
+   returns = {type = Void},
+   mode = both};
+
+rl_service {
+   name = kapur,
+   doc = "GB-based satisfiability",
+   arg = {pos = 1, name = formula, type = Formula, doc = "quantifier-free input formula"},
+   returns = {type = TruthValue},
+   mode = both};
+
+rl_service {
+   name = lqe,
+   doc = "local quantifier elimination",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   arg = {pos = 2, name = assume, type = List(Atom), default = {}, doc = "atomic input assumptions on the parameters"},
+   arg = {pos = 3, name = point, type = List(Assignment(Rational)), default = {}, doc = "point where generated theory will be consistent"},
+   returns = {type = Pair(List(Atom), Formula)},
+   mode = both};
+
+rl_service {
+   name = matrix,
+   doc = "matrix - remove all leading quantifiers",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = miniscope,
+   doc = "miniscoping, aka anti-prenex normal form",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = mkcanonic,
+   doc = "a canonical form for variable-free formulas (PADICS only)",
+   arg = {pos = 1, name = formula, type = Formula, doc = "variable-free input formula"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = mathematica,
+   doc = "interface to external mathematica using Resolve[]",
+   seealso = cad,
+   seealso = qe,
+   seealso = qepcad,
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = nnf,
+   doc = "negation normal form",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = nra2qf,
+   doc = "translate SMTLIB file from NRA to QF_NRA",
+   arg = {pos = 1, name = infile, type = String, doc = "smt2 input file (NRA)"},
+   arg = {pos = 2, name = outfile, type = String, doc = "smt2 output file (QF_NRA)"},
+   returns = {type = Void},
+   mode = both};
+
+rl_service {
+   name = opt,
+   doc = "optimize linear objective function subject to linear constraints",
+   arg = {pos = 1, name = constraints, type = List(Atom), doc = "linear constraints"},
+   arg = {pos = 2, name = objective, type = LPolyQ, doc = "linear objective function"},
+   % The weakly parametric case systematically throws bug messages in
+   % ofsf_getvalue. I think this never worked but was implemented to study the
+   % (non-)working of active/passive lists with weak parameters.  -- TS
+   arg = {pos = 3, name = unused, type = List(Variable), default = {}, doc = "do not use"},
+   arg = {pos = 4, name = processors, type = Integer, default = 8, doc = "number of processor with experimental PVM-based parallelization"},
+   arg = {pos = 5, name = parallel, type = Switch, doc = "experimental PVM-based parallelization"},
+   % [Any] in the return type is Rational or +-infty.
+   returns = {type = Pair(Any, List(List(Assignment(Any))))},
+   mode = both};
+
+rl_service {
+   doc = "prenex normal form",
+   name = pnf,
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = posgqe,
+   doc = "positive generic quantifier elimination",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   arg = {pos = 2, name = assume, type = List(Atom), default = {}, doc = "atomic input assumptions on the parameters"},
+   arg = {pos = 3, name = except, type = List(Variable), default = {}, doc = "parameters to exclude from assumptions"},
+   returns = {type = Pair(List(Atom), Formula)},
+   mode = both};
+
+rl_service {
+   name = posgqea,
+   doc = "generic quantifier elimination with answer",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   arg = {pos = 2, name = assume, type = List(Atom), default = {}, doc = "atomic input assumptions"},
+   arg = {pos = 3, name = except, type = List(Variable), default = {}, doc = "parameters to exclude from assumptions"},
+   returns = {type = Pair(List(Atom), List(Pair(Formula, List(Assignment(Any)))))},
+   mode = both};
+
+rl_service {
+   name = posqea,
+   doc = "positive quantifier elimination with answer",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   arg = {pos = 2, name = assume, type = List(Atom), default = {}, doc = "atomic input assumptions"},
+   returns = {type = List(Pair(Formula, List(Assignment(Any))))},
+   mode = both};
+
+rl_service {
+   name = pqea,
+   doc = "probabilistic quantifier elimination with answer (domain Z only)",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   arg = {pos = 2, name = probability, type = Rational, default = 1, doc = "probability in [0,1]"},
+   arg = {pos = 3, name = assume, type = List(Atom), default = {}, doc = "atomic input assumptions"},
+   returns = {type = List(Pair(Formula, List(Assignment(Any))))},
+   mode = both};
+
+rl_service {
+   name = posqe,
+   doc = "positive quantifier elimination (all variables are positive)",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   arg = {pos = 2, name = assume, type = List(Atom), default = {}, doc = "atomic input assumptions"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = posresolve,
+   doc = "resolve non-standard symbols (min, max, abs) in formulas assuming all variables are positive",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula with additional functions/relations"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = pqe,
+   doc = "probabilistic quantifier elimination (domain Z only)",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   arg = {pos = 2, name = probability, type = Rational, default = 1, doc = "p in [0,1]"},
+   arg = {pos = 3, name = assume, type = List(Atom), default = {}, doc = "atomic input assumptions"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = preqe,
+   doc = "pre-quantifier elimination (domain R only)",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   arg = {pos = 2, name = assume, type = List(Atom), default = {}, doc = "atomic input assumptions"},
+   arg = {pos = 3, name = exact, type = Flag, default = yes, doc = "use exact vertex cover"},
+   returns = {type = Pair(List(Atom), Formula)},
+   mode = both};
+
+rl_service {
+   name = vcreduce,
+   doc = "extended generic vertex cover reduction method (domain R only)",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   arg = {pos = 2, name = variables, type = List(Variable), doc = "to be eliminated"},
+   arg = {pos = 3, name = assume, type = List(Atom), default = {}, doc = "atomic input assumptions"},
+   arg = {pos = 4, name = nogen, type = Flag, default = no, doc = "do not generate assumptions on variables"},
+   arg = {pos = 5, name = exact, type = Flag, default = yes, doc = "use exact vertex cover"},
+   returns = {type = Triplet(Formula, List(Assignment(Any)), List(Atom))},
+   mode = both};
+
+rl_service {
+   name = psat2pol,
+   doc = "encode satisfiability into polynomial assuming all variables are positive",
+   arg = {pos = 1, name = formula, type = Formula, doc = "quantifier-free input formula"},
+   returns = {type = Term},
+   mode = both};
+
+rl_service {
+   name = qe,
+   doc = "quantifier elimination",
+   seealso = cad,
+   seealso = gcad,
+   seealso = ghqe,
+   seealso = gqe,
+   seealso = gqea,
+   seealso = hqe,
+   seealso = lqe,
+   seealso = posqe,
+   seealso = posqea,
+   seealso = qea,
+   seealso = qeipo,
+   seealso = qews,
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   arg = {pos = 2, name = assume, type = List(Atom), default = {}, doc = "atomic input assumptions"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = qea,
+   doc = "quantifier elimination with answer",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   arg = {pos = 2, name = assume, type = List(Atom), default = {}, doc = "atomic input assumptions"},
+   returns = {type = List(Pair(Formula, List(Assignment(Any))))},
+   mode = both};
+
+rl_service {
+   name = qeg,
+   doc = "regular quantifier elimination via multiple genric quantifier elimination",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = qeipo,
+   doc = "quantifier elimination in position",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   arg = {pos = 2, name = assume, type = List(Atom), default = {}, doc = "atomic input assumptions"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = qepcad,
+   doc = "interface to external Qepcad B",
+   seealso = cad,
+   seealso = mathematica,
+   seealso = qe,
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   arg = {pos = 2, name = N, type = Integer, default = 100, doc = "allocate N * 10^6 cells"},
+   arg = {pos = 3, name = L, type = Integer, default = 200, doc = "use prime list of size L * 10^3"},
+   arg = {pos = 4, name = verbose, type = Switch, doc = "print information on progress of computation"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = qesil,
+   doc = "recognized via QE and remove redundant formulas",
+   arg = {pos = 1, name = formulas, type = List(Formula), doc = "list of first-order input formulas"},
+   arg = {pos = 2, name = assume, type = List(Atom), default = {}, doc = "atomic input assumptions"},
+   returns = {type = List(Formula)},
+   mode = both};
+
+rl_service {
+   name = qews,
+   doc = "quantifier elimination with selection",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   arg = {pos = 2, name = assume, type = List(Atom), default = {}, doc = "atomic input assumptions"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = qnum,
+   doc = "number of occurring quantifier symbols ('ex', 'all')",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   returns = {type = Integer},
+   mode = both};
+
+rl_service {
+   name = qsat,
+   doc = "parametric quantified SAT",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula (QBF)"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = qsatdimacs,
+   doc = "apply parametric quantified SAT to DIMACS file",
+   arg = {pos = 1, name = file, type = String, doc = "file in DIMACS format"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = qsatoptions,
+   doc = "parametric quantified SAT set options",
+   arg = {pos = 1, name = options, type = List5(Enum(zmom, activity, dlcs), Integer, Integer, Integer, Integer), doc = "list of options: branching heuristc, restart value, first value to be set, increase factor for restarts, bound for clause deletion"},
+   returns = {type = List5(Enum(zmom, activity, dlcs), Integer, Integer, Integer, Integer)},
+   mode = both};
+
+rl_service {
+   name = quine,
+   doc = "Boolean normal form simplification following Quine",
+   arg = {pos = 1, name = formula, type = Formula, doc = "input formula in CNF or DNF"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = qvarl,
+   doc = "list of variables that are arguments of quantifier symbols",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   returns = {type = List(Variable)},
+   mode = both};
+
+rl_service {
+   name = readdimacs,
+   doc = "read DIMACS file into a first-order formula",
+   arg = {pos = 1, name = file, type = String, doc = "file in DIMACS format"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = resolve,
+   doc = "resolve non-standard symbols (min, max, abs) in formulas",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula with additional functions/relations"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = rnf,
+   doc = "refined normal form (domain TERMS only)",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = sat2pol,
+   doc = "encode satisfiability into polynomial",
+   arg = {pos = 1, name = formula, type = Formula, doc = "quantifier-free input formula"},
+   returns = {type = Term},
+   mode = both};
+
+rl_service {
+   name = sign,
+   doc = "replace all left hand sides of atoms with their sign",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula, typically variable-free"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = simpl,
+   doc = "standard simplifier",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   arg = {pos = 2, name = assume, type = List(Atom), default = {}, doc = "atomic input assumptions"},
+   arg = {pos = 3, name = depth, type = Integer, default = -1, doc = "maximal recursion depth"},
+   arg = {pos = 4, name = siatadv, type = Switch, doc = "main switch for advanced simplifications of atomic formulas"},
+   arg = {pos = 5, name = siexpl, type = Switch, doc = "split f*g=0 and f*g<>0 within dis- and conjunctions, resp."},
+   arg = {pos = 6, name = siexpla, type = Switch, doc = "generally split f*g=0 and f*g<>0"},
+   arg = {pos = 7, name = sifac, type = Switch, doc = "factorize left hand sides equations and inequations"},
+   arg = {pos = 8, name = sifaco, type = Switch, doc = "factorize left hand sides of inequalities"},
+   arg = {pos = 9, name = sipd, type = Switch, doc = "degree parity decompositon of left hand sides"},
+   arg = {pos = 10, name = sipo, type = Switch, doc = "prefer <, <=, >, >= over =, <>"},
+   arg = {pos = 11, name = sipw, type = Switch, doc = "prefer <=, >= over <, >"},
+   arg = {pos = 12, name = sitsqspl, type = Switch, doc = "split trivial square sums into several atomic formulas"},
+   % xargs are ignored - PSL has a limit of 14 parameters
+   xarg = {pos = 13, name = sid, type = Switch, doc = "smart simplification of derivatives (domain 'dcfsf' only)"},
+   xarg = {pos = 14, name = siplugtheo, type = Switch, doc = "plug in unique values for variables when discovered (domain 'dcfsf' only)"},
+   xarg = {pos = 15, name = siso, type = Switch, doc = "sort subformulas on each boolean level"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = simplbasic,
+   doc = "basic standard simplifier without smart simplification",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   arg = {pos = 2, name = assume, type = List(Atom), default = {}, doc = "atomic input assumptions (ignored)"},
+   arg = {pos = 3, name = depth, type = Integer, default = -1, doc = "maximal recursion depth"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = slfq,
+   doc = "interface to external Qepcad-based simplifier slfq",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   arg = {pos = 2, name = N, type = Integer, default = 100, doc = "allocate N * 10^6 cells"},
+   arg = {pos = 3, name = L, type = Integer, default = 200, doc = "use prime list of size L * 10^3"},
+   arg = {pos = 4, name = verbose, type = Switch, doc = "print information on progress of computation"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = smt2Read,
+   doc = "read SMTLIB 2 input file into formula",
+   arg = {pos = 1, name = file, type = String, doc = "SMTLIB 2 input file"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = smtqe,
+   doc = "quantifier elimination as SMT theory solver",
+   arg = {pos = 1, name = assertions, type = List(Formula), doc = "assertions to be satisfied simultaneously"},
+   % returns = {type = Triplet(Enum(sat, unsat, unknown), List(Any), List(Integer))},
+   returns = {type = Triplet(Formula, List(Any), List(Integer))},
+   mode = both};
+
+rl_service {
+   name = stex,
+   doc = "stochastic experiment (domain Z only)",
+   arg = {pos = 1, name = formula, type = Formula, doc = "input formula"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = struct,
+   doc = "structural formula analysis",
+   arg = {pos = 1, name = formula, type = Formula, doc = "input formula"},
+   arg = {pos = 2, name = fac, type = Flag, default = yes, doc = "factorize terms"},
+   arg = {pos = 3, name = basename, type = Variable, default = v, doc = "basename of newly introduced variables "},
+   returns = {type = Pair(Formula, List(Assignment(Term)))},
+   mode = both};
+
+rl_service {
+   name = symbolify,
+   doc = "replace integer factors with symbolic names",
+   arg = {pos = 1, name = formula, type = Formula, doc = "input formula"},
+   returns = {type = Pair(Formula, List(Assignment(Integer)))},
+   mode = both};
+
+rl_service {
+   name = tab,
+   doc = "tableau simplification",
+   arg = {pos = 1, name = formula, type = Formula, doc = "input formula"},
+   arg = {pos = 2, name = cases, type = List(Formula), default = {}, doc = "a finite case distinction, typically complete"},
+   arg = {pos = 3, name = iterate, type = Flag, default = yes, doc = "iterate tableau simplification as long as result gets smaller"},
+   arg = {pos = 4, name = iterateb, type = Flag, default = yes, doc = "iterate on the single branches instead of the whole formula"},
+   returns = {type = Formula},
+   mode = both};
+
+algebraic procedure rlatab(formula);
+   <<
+      lisp lprim "rlatab(formula) is depricated - use rltab(formula, iterate=no) instead.";
+      rltab(formula, iterate=no)
+   >>;
+
+algebraic procedure rlitab(formula);
+   <<
+      lisp lprim "rlitab(formula) is depricated - use rltab(formula) instead.";
+      rltab formula
+   >>;
+
+rl_service {
+   name = tan2,
+   doc = "tangent of half angle substitution",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = terml,
+   doc = "set of contained terms",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   returns = {type = List(Term)},
+   mode = both};
+
+rl_service {
+   name = termml,
+   doc = " list of contained terms with numbers of occurrences",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   returns = {type = MList(Term)},
+   mode = both};
+
+rl_service {
+   name = thsimpl,
+   doc = "theory simplifer",
+   arg = {pos = 1, name = theory, type = List(Atom), doc = "a list of atoms"},
+   returns = {type = List(Atom)},
+   mode = both};
+
+rl_service {
+   name = tnf,
+   doc = "tree normal form",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   arg = {pos = 2, name = terms, type = List(Term), doc = "terms for case distinction"},
+   arg = {pos = 3, name = tnft, type = Switch, doc = "tree TNF in contrast to flat TNF"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = tropsat,
+   doc = "tropical satisfiability checking (experimental)",
+   arg = {pos = 1, name = formula, type = Formula, doc = "quantifier-free input formula"},
+   returns = {type = Enum(sat, unsat, unknown)},
+   mode = both};
+
+rl_service {
+   name = ptropsat,
+   doc = "positive tropical satisfiability checking (experimental)",
+   arg = {pos = 1, name = formula, type = Formula, doc = "quantifier-free input formula"},
+   returns = {type = Enum(sat, unsat, unknown)},
+   mode = both};
+
+rl_service {
+   name = varl,
+   doc = "lists of variables sperarated wrt. free and bound occurrences",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   returns = {type = Pair(List(Variable), List(Variable))},
+   mode = both};
+
+rl_service {
+   name = vsl,
+   doc = "virtual substitution with learning",
+   arg = {pos = 1, name = constraints, type = List(Atom), doc = "a list of atomic constraints"},
+   returns = {type = TruthValue},
+   mode = both};
+
+rl_service {
+   name = wqe,
+   doc = "weak quantifier elimination (domain Z only)",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   arg = {pos = 2, name = assume, type = List(Atom), default = {}, doc = "atomic input assumptions"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = wqea,
+   doc = "weak quantifier elimination with answer",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   arg = {pos = 2, name = assume, type = List(Atom), default = {}, doc = "atomic input assumptions"},
+   returns = {type = List(Triplet(Formula, List(Formula), List(Assignment(Any))))},
+   mode = both};
+
+rl_service {
+   name = xqe,
+   doc = "weakly parametric linear quantifier elimination",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   returns = {type = Formula},
+   mode = both};
+
+rl_service {
+   name = xqea,
+   doc = "weakly parametric linear quantifier elimination with answer",
+   arg = {pos = 1, name = formula, type = Formula, doc = "first-order input formula"},
+   returns = {type = List(Pair(Formula, List(Assignment(Any))))},
+   mode = both};
+
+% SM-only services:
+
+rl_service {
+   name = dfgPrint,
+   doc = "dump a formula as DFG input",
+   argnum = 2,
+   mode = sm};
+
+rl_service {
+   name = identifyonoff,
+   doc = "for rlidentify - should become obsolete at some point",
+   argnum = 1,
+   mode = sm
+};
+
+rl_service {
+   name = lthsimpl,
+   doc = "local qe theory simplification",
+   argnum = 1,
+   mode = sm
+};
+
+rl_service {
+   name = nnfnot,
+   doc = "logical negation as a positive formula",
+   argnum = 1,
+   mode = sm
+};
+
+rl_service {
+   name = siaddatl,
+   doc = "simplifier add to list of atomic formulas",
+   argnum = 2,
+   mode = sm
+};
+
+rl_service {
+   name = smt2Print,
+   doc = "dump a formula as SMTLIB 2 input",
+   argnum = 3,
+   mode = sm};
+
+rl_service {
+   name = subfof,
+   doc = "substitution",
+   argnum = 2,
+   mode = sm
+};
+
+rl_service {
+   name = surep,
+   doc = "fast incomplete heuristic test for a formula to be valid",
+   argnum = 2,
+   mode = sm
+};
+
+endmodule;
+
+end;

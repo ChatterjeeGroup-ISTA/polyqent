@@ -1,0 +1,1924 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>ORTHOVEC: Manipulation of Scalars and Vectors</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse164.html" >Up</a></td><td class="clinks"><a 
+href="manualse165.html" >Next</a></td><td class="clinks"><a 
+href="manualse163.html" >Prev</a></td><td class="clinks"><a 
+href="manualse163.html#tailmanualse163.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse164.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.39    </span> <a 
+ id="x242-104800020.39"></a>ORTHOVEC: Manipulation of Scalars and
+Vectors</h3>
+<a 
+ id="dx242-1048001"></a>
+<a 
+ id="dx242-1048002"></a>
+<!--l. 812--><p class="noindent" >ORTHOVEC is a collection of REDUCE procedures and operations which provide a
+simple-to-use environment for the manipulation of scalars and vectors. Operations
+include addition, subtraction, dot and cross products, division, modulus, div, grad, curl,
+laplacian, diﬀerentiation, integration, and Taylor expansion.
+</p><!--l. 818--><p class="noindent" >Author: James W. Eastwood.
+<a 
+ id="dx242-1048003"></a>
+<a 
+ id="dx242-1048004"></a>
+</p><!--l. 10--><p class="noindent" >Version 2 is summarized in <span class="cite">[<a 
+href="manualap2.html#XEastwood:91">Eas91</a>]</span>. It diﬀers from the original (<span class="cite">[<a 
+href="manualap2.html#XEastwood:87">Eas87</a>]</span>) in revised
+notation and extended capabilities.
+</p><!--l. 55--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.39.1    </span> <a 
+ id="x242-104900020.39.1"></a>Introduction</h4>
+<!--l. 56--><p class="noindent" >The revised version of <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">R</span><span 
+class="small-caps">T</span><span 
+class="small-caps">H</span><span 
+class="small-caps">O</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span><span 
+class="small-caps">C</span> </span>(<span class="cite">[<a 
+href="manualap2.html#XEastwood:91">Eas91</a>]</span>) is, like the original (<span class="cite">[<a 
+href="manualap2.html#XEastwood:87">Eas87</a>]</span>), a collection
+of REDUCE procedures and operators designed to simplify the machine aided
+manipulation of vectors and vector expansions frequently met in many areas of applied
+mathematics. The revisions have been introduced for two reasons: ﬁrstly, to add extra
+capabilities missing from the original and secondly, to tidy up input and output to make
+the package easier to use.
+</p><!--l. 64--><p class="noindent" >The changes from Version 1 include:
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   1. </dt><dd 
+class="enumerate-enumitem">merging of scalar and vector unary and binary operators, <span 
+class="cmr-10x-x-109">+</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">∗</span><span 
+class="cmmi-10x-x-109">,∕</span>
+     </dd><dt class="enumerate-enumitem">
+   2. </dt><dd 
+class="enumerate-enumitem">extensions of the deﬁnitions of division and exponentiation to vectors
+     </dd><dt class="enumerate-enumitem">
+   3. </dt><dd 
+class="enumerate-enumitem">new vector dependency procedures
+                                                                     
+
+                                                                     
+     </dd><dt class="enumerate-enumitem">
+   4. </dt><dd 
+class="enumerate-enumitem">application of l’Hôpital’s rule in limits and Taylor expansions
+     </dd><dt class="enumerate-enumitem">
+   5. </dt><dd 
+class="enumerate-enumitem">a new component selector operator
+     </dd><dt class="enumerate-enumitem">
+   6. </dt><dd 
+class="enumerate-enumitem">algebraic mode output of LISP vector components</dd></dl>
+<!--l. 76--><p class="noindent" >The LISP vector primitives are again used to store vectors, although with the introduction
+of LIST types in algebraic mode in REDUCE 3.4, the implementation may have been
+more simply achieved using lists to store vector components.
+</p><!--l. 81--><p class="noindent" >The philosophy used in Version 2 follows that used in the original: namely, algebraic
+mode is used wherever possible. The view is taken that some computational
+ineﬃciencies are acceptable if it allows coding to be intelligible to (and thence
+adaptable by) users other than LISP experts familiar with the internal workings of
+REDUCE.
+</p><!--l. 87--><p class="noindent" >Procedures and operators in <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">R</span><span 
+class="small-caps">T</span><span 
+class="small-caps">H</span><span 
+class="small-caps">O</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span><span 
+class="small-caps">C</span> </span>fall into the ﬁve classes: initialisation,
+input-output, algebraic operations, diﬀerential operations and integral operations.
+Deﬁnitions are given in the following sections, and a summary of the procedure
+names and their meanings are give in Table 1. The ﬁnal section discusses test
+examples.
+</p><!--l. 94--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.39.2    </span> <a 
+ id="x242-105000020.39.2"></a>Initialisation</h4>
+<a 
+ id="dx242-1050001"></a>
+<!--l. 96--><p class="noindent" ><a 
+ id="command:VSTART"></a> The procedure <span 
+class="pcrr8t-x-x-109">vstart </span>initialises <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">R</span><span 
+class="small-caps">T</span><span 
+class="small-caps">H</span><span 
+class="small-caps">O</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span><span 
+class="small-caps">C</span></span>. It may be called after <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">R</span><span 
+class="small-caps">T</span><span 
+class="small-caps">H</span><span 
+class="small-caps">O</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span><span 
+class="small-caps">C</span> </span>has
+been loaded to reset coordinates. <span 
+class="pcrr8t-x-x-109">vstart </span>provides a menu of standard coordinate
+systems:
+</p><!--l. 103--><p class="noindent" >
+<a 
+ id="dx242-1050002"></a>
+<a 
+ id="dx242-1050003"></a>
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   1. </dt><dd 
+class="enumerate-enumitem">cartesian <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x,y,z</span><span 
+class="cmr-10x-x-109">) = </span><span 
+class="pcrr8t-x-x-109">(x, y, z)</span><a 
+ id="dx242-1050005"></a><a 
+ id="dx242-1050006"></a>
+     </dd><dt class="enumerate-enumitem">
+   2. </dt><dd 
+class="enumerate-enumitem">cylindrical <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">r,𝜃,z</span><span 
+class="cmr-10x-x-109">) = </span><span 
+class="pcrr8t-x-x-109">(r, th, z)</span><a 
+ id="dx242-1050008"></a><a 
+ id="dx242-1050009"></a>
+     </dd><dt class="enumerate-enumitem">
+   3. </dt><dd 
+class="enumerate-enumitem">spherical <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">r,𝜃,ϕ</span><span 
+class="cmr-10x-x-109">) = </span><span 
+class="pcrr8t-x-x-109">(r, th, ph)</span>
+                                                                     
+
+                                                                     
+     </dd><dt class="enumerate-enumitem">
+   4. </dt><dd 
+class="enumerate-enumitem">general <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,u</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,u</span><sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmr-10x-x-109">) = </span><span 
+class="pcrr8t-x-x-109">(u1, u2, u3)</span>
+     </dd><dt class="enumerate-enumitem">
+   5. </dt><dd 
+class="enumerate-enumitem">others</dd></dl>
+<!--l. 113--><p class="noindent" >which the user selects by number. Selecting options (1)-(4) automatically sets up the
+coordinates and scale factors. Selection option (5) shows the user how to select another
+coordinate system. If <span 
+class="pcrr8t-x-x-109">vstart </span>is not called, then the default cartesian coordinates are
+used. <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">R</span><span 
+class="small-caps">T</span><span 
+class="small-caps">H</span><span 
+class="small-caps">O</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span><span 
+class="small-caps">C</span> </span>may be re-initialised to a new coordinate system at any time during a
+given REDUCE session by typing
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1276">
+vstart $
+</div>
+<!--l. 121--><p class="nopar" >
+</p><!--l. 123--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.39.3    </span> <a 
+ id="x242-105100020.39.3"></a>Input-Output</h4>
+<!--l. 125--><p class="noindent" ><span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">R</span><span 
+class="small-caps">T</span><span 
+class="small-caps">H</span><span 
+class="small-caps">O</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span><span 
+class="small-caps">C</span> </span>assumes all quantities are either scalars or 3 component vectors. To deﬁne
+a vector <span 
+class="cmmi-10x-x-109">a </span>with components <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">c</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,c</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,c</span><sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmr-10x-x-109">) </span>use the procedure <span 
+class="pcrr8t-x-x-109">svec </span>as follows
+<a 
+ id="dx242-1051001"></a> <a 
+ id="operator:SVEC"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1277">
+a := svec(c1, c2, c3);
+</div>
+<!--l. 131--><p class="nopar" >
+</p><!--l. 133--><p class="noindent" >The standard REDUCE output for vectors when using the terminator “<span 
+class="cmr-10x-x-109">;</span>” is to list the
+three components inside square brackets <span 
+class="cmr-10x-x-109">[</span><img 
+src="manual492x.png" alt="⋅⋅⋅"  class="@cdots"  /><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmr-10x-x-109">]</span>, with each component in preﬁx form. A
+replacement for the standard REDUCE procedure <span 
+class="pcrr8t-x-x-109">maprin </span>is included in the package to
+change the output of LISP vector components to algebraic notation. The procedure
+<a 
+ id="dx242-1051002"></a> <span 
+class="pcrr8t-x-x-109">vout </span>(which returns the value of its argument) can be used to give labelled output of
+components in algebraic form: e.g.,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1278">
+b := svec (sin(x)**2, y**2, z)$
+ <br />vout(b)$
+</div>
+<!--l. 145--><p class="nopar" >
+</p><!--l. 147--><p class="noindent" >The operator <span 
+class="pcrr8t-x-x-109">_ </span>can be used to select a particular component (1, 2 or 3) for output
+e.g.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1279">
+b _1 ;
+</div>
+<!--l. 151--><p class="nopar" > Note the space before the <span 
+class="pcrr8t-x-x-109">_ </span>operator: otherwise this would be read as identiﬁer
+<span 
+class="pcrr8t-x-x-109">b_1</span>.
+</p><!--l. 154--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.39.4    </span> <a 
+ id="x242-105200020.39.4"></a>Algebraic Operations</h4>
+<!--l. 156--><p class="noindent" >Six inﬁx operators, sum, diﬀerence, quotient, times, exponentiation and cross product,
+and four preﬁx operators, plus, minus, reciprocal and modulus are deﬁned in
+<span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">R</span><span 
+class="small-caps">T</span><span 
+class="small-caps">H</span><span 
+class="small-caps">O</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span><span 
+class="small-caps">C</span></span>. These operators can take suitable combinations of scalar and vector
+arguments, and in the case of scalar arguments reduce to the usual deﬁnitions of
+<span 
+class="cmr-10x-x-109">+</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">∗</span><span 
+class="cmmi-10x-x-109">,∕, </span>etc.
+</p><!--l. 164--><p class="noindent" >The operators are represented by symbols <a 
+ id="dx242-1052001"></a> <a 
+ id="dx242-1052002"></a> <a 
+ id="dx242-1052003"></a> <a 
+ id="dx242-1052004"></a> <a 
+ id="dx242-1052005"></a> <a 
+ id="dx242-1052006"></a> <a 
+ id="reserved:vectorcross"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1280">
++, -, /, *, ^, &#x003E;&#x003C;
+</div>
+<!--l. 174--><p class="nopar" > The composite <span 
+class="pcrr8t-x-x-109">&#x003E;&#x003C; </span>is an attempt to represent the cross product symbol <span 
+class="cmsy-10x-x-109">× </span>in ASCII
+characters. If we let <span 
+class="cmbx-10x-x-109">v </span>be a vector and <span 
+class="cmmi-10x-x-109">s </span>be a scalar, then valid combinations of arguments
+of the procedures and operators and the type of the result are as summarised below. The
+notation used is<br 
+class="newline" /><span 
+class="ptmri8t-x-x-109">result :=procedure(left argument, right argument)  </span>or<br 
+class="newline" /><span 
+class="ptmri8t-x-x-109">result :=(left operand) operator (right operand)  </span>.
+</p><!--l. 186--><p class="noindent" ><span class="underline">Vector Addition</span> <br 
+class="newline" /><a 
+ id="dx242-1052007"></a> <a 
+ id="dx242-1052008"></a> <a 
+ id="dx242-1052009"></a><!--tex4ht:inline--></p><div class="tabular"> <table id="TBL-146" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-146-1g"><col 
+id="TBL-146-1" /><col 
+id="TBL-146-2" /><col 
+id="TBL-146-3" /><col 
+id="TBL-146-4" /><col 
+id="TBL-146-5" /><col 
+id="TBL-146-6" /><col 
+id="TBL-146-7" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-146-1-"><td  style="white-space:nowrap; text-align:right;" id="TBL-146-1-1"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">v  </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-146-1-2"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-146-1-3"  
+class="td11"> vectorplus(<span 
+class="ptmb8t-x-x-109">v</span>)    </td><td  style="white-space:nowrap; text-align:center;" id="TBL-146-1-4"  
+class="td11"> or  </td><td  style="white-space:nowrap; text-align:right;" id="TBL-146-1-5"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">v  </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-146-1-6"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-146-1-7"  
+class="td11"> + <span 
+class="ptmb8t-x-x-109">v     </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-146-2-"><td  style="white-space:nowrap; text-align:right;" id="TBL-146-2-1"  
+class="td11">  s  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-146-2-2"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-146-2-3"  
+class="td11"> vectorplus(s)     </td><td  style="white-space:nowrap; text-align:center;" id="TBL-146-2-4"  
+class="td11"> or  </td><td  style="white-space:nowrap; text-align:right;" id="TBL-146-2-5"  
+class="td11"> s  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-146-2-6"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-146-2-7"  
+class="td11"> + s      </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-146-3-"><td  style="white-space:nowrap; text-align:right;" id="TBL-146-3-1"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">v  </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-146-3-2"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-146-3-3"  
+class="td11"> vectoradd(<span 
+class="ptmb8t-x-x-109">v</span>,<span 
+class="ptmb8t-x-x-109">v</span>)  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-146-3-4"  
+class="td11"> or  </td><td  style="white-space:nowrap; text-align:right;" id="TBL-146-3-5"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">v  </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-146-3-6"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-146-3-7"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">v </span>+ <span 
+class="ptmb8t-x-x-109">v  </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-146-4-"><td  style="white-space:nowrap; text-align:right;" id="TBL-146-4-1"  
+class="td11">  s  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-146-4-2"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-146-4-3"  
+class="td11"> vectoradd(s,s)   </td><td  style="white-space:nowrap; text-align:center;" id="TBL-146-4-4"  
+class="td11"> or  </td><td  style="white-space:nowrap; text-align:right;" id="TBL-146-4-5"  
+class="td11"> s  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-146-4-6"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-146-4-7"  
+class="td11"> s + s   </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-146-5-"><td  style="white-space:nowrap; text-align:right;" id="TBL-146-5-1"  
+class="td11">   </td>
+</tr></table></div>
+<!--l. 196--><p class="noindent" ><span class="underline">Vector Subtraction</span> <br 
+class="newline" /><a 
+ id="dx242-1052010"></a> <a 
+ id="dx242-1052011"></a> <a 
+ id="dx242-1052012"></a><!--tex4ht:inline--></p><div class="tabular"> <table id="TBL-147" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-147-1g"><col 
+id="TBL-147-1" /><col 
+id="TBL-147-2" /><col 
+id="TBL-147-3" /><col 
+id="TBL-147-4" /><col 
+id="TBL-147-5" /><col 
+id="TBL-147-6" /><col 
+id="TBL-147-7" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-147-1-"><td  style="white-space:nowrap; text-align:right;" id="TBL-147-1-1"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">v  </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-147-1-2"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-147-1-3"  
+class="td11"> vectorminus(<span 
+class="ptmb8t-x-x-109">v</span>)            </td><td  style="white-space:nowrap; text-align:center;" id="TBL-147-1-4"  
+class="td11"> or  </td><td  style="white-space:nowrap; text-align:right;" id="TBL-147-1-5"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">v  </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-147-1-6"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-147-1-7"  
+class="td11"> - <span 
+class="ptmb8t-x-x-109">v     </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-147-2-"><td  style="white-space:nowrap; text-align:right;" id="TBL-147-2-1"  
+class="td11">  s  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-147-2-2"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-147-2-3"  
+class="td11"> vectorminus(s)            </td><td  style="white-space:nowrap; text-align:center;" id="TBL-147-2-4"  
+class="td11"> or  </td><td  style="white-space:nowrap; text-align:right;" id="TBL-147-2-5"  
+class="td11"> s  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-147-2-6"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-147-2-7"  
+class="td11"> - s      </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-147-3-"><td  style="white-space:nowrap; text-align:right;" id="TBL-147-3-1"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">v  </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-147-3-2"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-147-3-3"  
+class="td11"> vectordiﬀerence(<span 
+class="ptmb8t-x-x-109">v</span>,<span 
+class="ptmb8t-x-x-109">v</span>)  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-147-3-4"  
+class="td11"> or  </td><td  style="white-space:nowrap; text-align:right;" id="TBL-147-3-5"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">v  </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-147-3-6"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-147-3-7"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">v </span>- <span 
+class="ptmb8t-x-x-109">v  </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-147-4-"><td  style="white-space:nowrap; text-align:right;" id="TBL-147-4-1"  
+class="td11">  s  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-147-4-2"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-147-4-3"  
+class="td11"> vectordiﬀerence(s,s)   </td><td  style="white-space:nowrap; text-align:center;" id="TBL-147-4-4"  
+class="td11"> or  </td><td  style="white-space:nowrap; text-align:right;" id="TBL-147-4-5"  
+class="td11"> s  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-147-4-6"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-147-4-7"  
+class="td11"> s - s   </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-147-5-"><td  style="white-space:nowrap; text-align:right;" id="TBL-147-5-1"  
+class="td11">   </td>
+</tr></table></div>
+<!--l. 207--><p class="noindent" ><span class="underline">Vector Division</span><br 
+class="newline" /><a 
+ id="dx242-1052013"></a> <a 
+ id="dx242-1052014"></a> <a 
+ id="dx242-1052015"></a><!--tex4ht:inline--></p><div class="tabular"> <table id="TBL-148" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-148-1g"><col 
+id="TBL-148-1" /><col 
+id="TBL-148-2" /><col 
+id="TBL-148-3" /><col 
+id="TBL-148-4" /><col 
+id="TBL-148-5" /><col 
+id="TBL-148-6" /><col 
+id="TBL-148-7" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-148-1-"><td  style="white-space:nowrap; text-align:right;" id="TBL-148-1-1"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">v  </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-148-1-2"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-148-1-3"  
+class="td11"> vectorrecip(<span 
+class="ptmb8t-x-x-109">v</span>)            </td><td  style="white-space:nowrap; text-align:center;" id="TBL-148-1-4"  
+class="td11"> or  </td><td  style="white-space:nowrap; text-align:right;" id="TBL-148-1-5"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">v  </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-148-1-6"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-148-1-7"  
+class="td11"> / <span 
+class="ptmb8t-x-x-109">v     </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-148-2-"><td  style="white-space:nowrap; text-align:right;" id="TBL-148-2-1"  
+class="td11">  s  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-148-2-2"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-148-2-3"  
+class="td11"> vectorrecip(s)            </td><td  style="white-space:nowrap; text-align:center;" id="TBL-148-2-4"  
+class="td11"> or  </td><td  style="white-space:nowrap; text-align:right;" id="TBL-148-2-5"  
+class="td11"> s  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-148-2-6"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-148-2-7"  
+class="td11"> / s      </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-148-3-"><td  style="white-space:nowrap; text-align:right;" id="TBL-148-3-1"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">v  </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-148-3-2"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-148-3-3"  
+class="td11"> vectorquotient(<span 
+class="ptmb8t-x-x-109">v</span>,<span 
+class="ptmb8t-x-x-109">v</span>)    </td><td  style="white-space:nowrap; text-align:center;" id="TBL-148-3-4"  
+class="td11"> or  </td><td  style="white-space:nowrap; text-align:right;" id="TBL-148-3-5"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">v  </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-148-3-6"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-148-3-7"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">v </span>/ <span 
+class="ptmb8t-x-x-109">v  </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-148-4-"><td  style="white-space:nowrap; text-align:right;" id="TBL-148-4-1"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">v  </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-148-4-2"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-148-4-3"  
+class="td11"> vectorquotient(<span 
+class="ptmb8t-x-x-109">v</span>, s )  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-148-4-4"  
+class="td11"> or  </td><td  style="white-space:nowrap; text-align:right;" id="TBL-148-4-5"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">v  </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-148-4-6"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-148-4-7"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">v </span>/ s   </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-148-5-"><td  style="white-space:nowrap; text-align:right;" id="TBL-148-5-1"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">v  </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-148-5-2"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-148-5-3"  
+class="td11"> vectorquotient( s ,<span 
+class="ptmb8t-x-x-109">v</span>)  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-148-5-4"  
+class="td11"> or  </td><td  style="white-space:nowrap; text-align:right;" id="TBL-148-5-5"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">v  </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-148-5-6"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-148-5-7"  
+class="td11"> s / <span 
+class="ptmb8t-x-x-109">v   </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-148-6-"><td  style="white-space:nowrap; text-align:right;" id="TBL-148-6-1"  
+class="td11">  s  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-148-6-2"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-148-6-3"  
+class="td11"> vectorquotient(s,s)     </td><td  style="white-space:nowrap; text-align:center;" id="TBL-148-6-4"  
+class="td11"> or  </td><td  style="white-space:nowrap; text-align:right;" id="TBL-148-6-5"  
+class="td11"> s  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-148-6-6"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-148-6-7"  
+class="td11"> s / s   </td>
+</tr></table></div>
+<!--l. 223--><p class="noindent" ><span class="underline">Vector Multiplication</span><br 
+class="newline" /><a 
+ id="dx242-1052016"></a> <a 
+ id="dx242-1052017"></a><!--tex4ht:inline--></p><div class="tabular"> <table id="TBL-149" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-149-1g"><col 
+id="TBL-149-1" /><col 
+id="TBL-149-2" /><col 
+id="TBL-149-3" /><col 
+id="TBL-149-4" /><col 
+id="TBL-149-5" /><col 
+id="TBL-149-6" /><col 
+id="TBL-149-7" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-149-1-"><td  style="white-space:nowrap; text-align:right;" id="TBL-149-1-1"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">v  </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-149-1-2"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-149-1-3"  
+class="td11"> vectortimes( s ,<span 
+class="ptmb8t-x-x-109">v</span>)    </td><td  style="white-space:nowrap; text-align:center;" id="TBL-149-1-4"  
+class="td11"> or  </td><td  style="white-space:nowrap; text-align:right;" id="TBL-149-1-5"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">v  </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-149-1-6"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-149-1-7"  
+class="td11"> s * <span 
+class="ptmb8t-x-x-109">v   </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-149-2-"><td  style="white-space:nowrap; text-align:right;" id="TBL-149-2-1"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">v  </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-149-2-2"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-149-2-3"  
+class="td11"> vectortimes(<span 
+class="ptmb8t-x-x-109">v</span>, s )    </td><td  style="white-space:nowrap; text-align:center;" id="TBL-149-2-4"  
+class="td11"> or  </td><td  style="white-space:nowrap; text-align:right;" id="TBL-149-2-5"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">v  </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-149-2-6"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-149-2-7"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">v </span>* s   </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-149-3-"><td  style="white-space:nowrap; text-align:right;" id="TBL-149-3-1"  
+class="td11">  s  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-149-3-2"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-149-3-3"  
+class="td11"> vectortimes(<span 
+class="ptmb8t-x-x-109">v</span>,<span 
+class="ptmb8t-x-x-109">v</span>)     </td><td  style="white-space:nowrap; text-align:center;" id="TBL-149-3-4"  
+class="td11"> or  </td><td  style="white-space:nowrap; text-align:right;" id="TBL-149-3-5"  
+class="td11"> s  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-149-3-6"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-149-3-7"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">v </span>* <span 
+class="ptmb8t-x-x-109">v  </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-149-4-"><td  style="white-space:nowrap; text-align:right;" id="TBL-149-4-1"  
+class="td11">  s  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-149-4-2"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-149-4-3"  
+class="td11"> vectortimes( s , s )  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-149-4-4"  
+class="td11"> or  </td><td  style="white-space:nowrap; text-align:right;" id="TBL-149-4-5"  
+class="td11"> s  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-149-4-6"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-149-4-7"  
+class="td11"> s * s   </td>
+</tr></table></div>
+<!--l. 234--><p class="noindent" ><span class="underline">Vector Cross Product</span> <br 
+class="newline" /><a 
+ id="dx242-1052018"></a> <a 
+ id="dx242-1052019"></a><a 
+ id="dx242-1052020"></a> <!--tex4ht:inline--></p><div class="tabular"> <table id="TBL-150" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-150-1g"><col 
+id="TBL-150-1" /><col 
+id="TBL-150-2" /><col 
+id="TBL-150-3" /><col 
+id="TBL-150-4" /><col 
+id="TBL-150-5" /><col 
+id="TBL-150-6" /><col 
+id="TBL-150-7" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-150-1-"><td  style="white-space:nowrap; text-align:right;" id="TBL-150-1-1"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">v  </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-150-1-2"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-150-1-3"  
+class="td11"> vectorcross(<span 
+class="ptmb8t-x-x-109">v</span>,<span 
+class="ptmb8t-x-x-109">v</span>)  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-150-1-4"  
+class="td11"> or  </td><td  style="white-space:nowrap; text-align:right;" id="TBL-150-1-5"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">v  </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-150-1-6"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-150-1-7"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">v </span><span 
+class="cmsy-10x-x-109">× </span><span 
+class="ptmb8t-x-x-109">v  </span></td></tr></table>
+</div>
+<!--l. 240--><p class="noindent" ><span class="underline">Vector Exponentiation</span><br 
+class="newline" /><a 
+ id="dx242-1052021"></a> <a 
+ id="dx242-1052022"></a><!--tex4ht:inline--></p><div class="tabular"> <table id="TBL-151" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-151-1g"><col 
+id="TBL-151-1" /><col 
+id="TBL-151-2" /><col 
+id="TBL-151-3" /><col 
+id="TBL-151-4" /><col 
+id="TBL-151-5" /><col 
+id="TBL-151-6" /><col 
+id="TBL-151-7" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-151-1-"><td  style="white-space:nowrap; text-align:right;" id="TBL-151-1-1"  
+class="td11"> s  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-151-1-2"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-151-1-3"  
+class="td11"> vectorexpt (<span 
+class="ptmb8t-x-x-109">v</span>, s )    </td><td  style="white-space:nowrap; text-align:center;" id="TBL-151-1-4"  
+class="td11"> or  </td><td  style="white-space:nowrap; text-align:right;" id="TBL-151-1-5"  
+class="td11"> s  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-151-1-6"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-151-1-7"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">v </span>^ s  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-151-2-"><td  style="white-space:nowrap; text-align:right;" id="TBL-151-2-1"  
+class="td11"> s  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-151-2-2"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-151-2-3"  
+class="td11"> vectorexpt ( s , s )  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-151-2-4"  
+class="td11"> or  </td><td  style="white-space:nowrap; text-align:right;" id="TBL-151-2-5"  
+class="td11"> s  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-151-2-6"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-151-2-7"  
+class="td11"> s ^ s   </td>
+</tr></table>
+</div>
+                                                                     
+
+                                                                     
+<!--l. 248--><p class="noindent" ><span class="underline">Vector Modulus</span><br 
+class="newline" /><a 
+ id="dx242-1052023"></a> <a 
+ id="dx242-1052024"></a><!--tex4ht:inline--></p><div class="tabular"> <table id="TBL-152" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-152-1g"><col 
+id="TBL-152-1" /><col 
+id="TBL-152-2" /><col 
+id="TBL-152-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-152-1-"><td  style="white-space:nowrap; text-align:right;" id="TBL-152-1-1"  
+class="td11"> s  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-152-1-2"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-152-1-3"  
+class="td11"> vmod (s)   </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-152-2-"><td  style="white-space:nowrap; text-align:right;" id="TBL-152-2-1"  
+class="td11"> s  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-152-2-2"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-152-2-3"  
+class="td11"> vmod (<span 
+class="ptmb8t-x-x-109">v</span>)  </td>
+</tr></table>
+</div>
+<!--l. 255--><p class="noindent" >All other combinations of operands for these operators lead to error messages being
+issued. The ﬁrst two instances of vector multiplication are scalar multiplication of
+vectors, the third is the <a 
+ id="dx242-1052025"></a><a 
+ id="dx242-1052026"></a> <a 
+ id="dx242-1052027"></a><a 
+ id="dx242-1052028"></a> product of two scalars and the last is the inner (dot) product. The
+unary operators <span 
+class="pcrr8t-x-x-109">+, -, / </span>can take either scalar or vector arguments and return results
+of the same type as their arguments. <span 
+class="pcrr8t-x-x-109">vmod </span>returns a scalar.
+</p><!--l. 265--><p class="noindent" >In compound expressions, parentheses may be used to specify the order of combination.
+If parentheses are omitted the ordering of the operators, in increasing order of precedence
+is
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1281">
++ | - | dotgrad | * | &#x003E;&#x003C; | ^ | _
+</div>
+<!--l. 270--><p class="nopar" > and these are placed in the precedence list deﬁned in REDUCE after <span 
+class="cmmi-10x-x-109">&#x003C;</span>. The diﬀerential
+operator <span 
+class="pcrr8t-x-x-109">dotgrad </span>is deﬁned in the <a 
+ id="dx242-1052029"></a> <a 
+ id="operator:DORGRAD"></a> following section, and the component selector <span 
+class="pcrr8t-x-x-109">_</span>
+was introduced in section 3.
+</p><!--l. 278--><p class="noindent" >Vector divisions are deﬁned as follows: If <span 
+class="cmbx-10x-x-109">a </span>and <span 
+class="cmbx-10x-x-109">b </span>are vectors and <span 
+class="cmmi-10x-x-109">c </span>is a scalar,
+then
+</p><table 
+class="align-star">
+                             <tr><td 
+class="align-odd"><span 
+class="cmbx-10x-x-109">a</span><span 
+class="cmmi-10x-x-109">∕</span><span 
+class="cmbx-10x-x-109">b</span></td>                             <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual493x.png" alt="a ⋅b
+----2
+| b |"  class="frac" align="middle" /></td>                             <td 
+class="align-label"></td>                             <td 
+class="align-label">
+                             </td></tr><tr><td 
+class="align-odd"><span 
+class="cmmi-10x-x-109">c∕</span><span 
+class="cmbx-10x-x-109">a</span></td>                             <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual494x.png" alt="-ca--
+| a |2"  class="frac" align="middle" /></td>                             <td 
+class="align-label"></td>                             <td 
+class="align-label"></td></tr></table>
+<!--l. 286--><p class="noindent" >Both scalar multiplication and dot products are given by the same symbol, braces are
+advisable to ensure the correct precedences in expressions such as <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmbx-10x-x-109">a </span><span 
+class="cmsy-10x-x-109">⋅</span><span 
+class="cmbx-10x-x-109">b</span><span 
+class="cmr-10x-x-109">)(</span><span 
+class="cmbx-10x-x-109">c </span><span 
+class="cmsy-10x-x-109">⋅</span><span 
+class="cmbx-10x-x-109">d</span><span 
+class="cmr-10x-x-109">)</span>.
+</p><!--l. 291--><p class="noindent" >Vector exponentiation is deﬁned as the power of the modulus:<br 
+class="newline" /><span 
+class="cmbx-10x-x-109">a</span><sup><span 
+class="cmmi-8">n</span></sup> <span 
+class="cmsy-10x-x-109">≡</span><span 
+class="pcrr8t-x-x-109">vmod</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a</span><span 
+class="cmr-10x-x-109">)</span><sup><span 
+class="cmmi-8">n</span></sup> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmsy-10x-x-109">∣</span><span 
+class="cmbx-10x-x-109">a</span><span 
+class="cmsy-10x-x-109">∣</span><sup><span 
+class="cmmi-8">n</span></sup>
+                                                                     
+
+                                                                     
+</p><!--l. 294--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.39.5    </span> <a 
+ id="x242-105300020.39.5"></a>Diﬀerential Operations</h4>
+<!--l. 295--><p class="noindent" >Diﬀerential operators provided are div, grad, curl, delsq, and dotgrad. <a 
+ id="dx242-1053001"></a> <a 
+ id="dx242-1053002"></a><a 
+ id="dx242-1053003"></a> <a 
+ id="dx242-1053004"></a> <a 
+ id="dx242-1053005"></a> <a 
+ id="operator:DOTGRAD"></a> All but the last
+of these are preﬁx operators having a single vector or scalar argument as appropriate.
+Valid combinations of operator and argument, and the type of the result are shown in
+table <a 
+href="#x242-105300611">20.11<!--tex4ht:ref: vvecttable --></a>.
+</p>
+<div class="table">
+                                                                     
+
+                                                                     
+<!--l. 304--><p class="noindent" ><a 
+ id="x242-105300611"></a></p><figure class="float" 
+>
+                                                                     
+
+                                                                     
+<div class="center" 
+>
+<!--l. 305--><p class="noindent" >
+</p>
+<div class="tabular"> <table id="TBL-153" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-153-1g"><col 
+id="TBL-153-1" /><col 
+id="TBL-153-2" /><col 
+id="TBL-153-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-153-1-"><td  style="white-space:nowrap; text-align:right;" id="TBL-153-1-1"  
+class="td11"> s  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-153-1-2"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-153-1-3"  
+class="td11"> div (<span 
+class="ptmb8t-x-x-109">v</span>)          </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-153-2-"><td  style="white-space:nowrap; text-align:right;" id="TBL-153-2-1"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">v  </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-153-2-2"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-153-2-3"  
+class="td11"> grad(s)         </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-153-3-"><td  style="white-space:nowrap; text-align:right;" id="TBL-153-3-1"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">v  </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-153-3-2"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-153-3-3"  
+class="td11"> curl(<span 
+class="ptmb8t-x-x-109">v</span>)          </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-153-4-"><td  style="white-space:nowrap; text-align:right;" id="TBL-153-4-1"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">v  </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-153-4-2"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-153-4-3"  
+class="td11"> delsq(<span 
+class="ptmb8t-x-x-109">v</span>)       </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-153-5-"><td  style="white-space:nowrap; text-align:right;" id="TBL-153-5-1"  
+class="td11"> s  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-153-5-2"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-153-5-3"  
+class="td11"> delsq(s)        </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-153-6-"><td  style="white-space:nowrap; text-align:right;" id="TBL-153-6-1"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">v  </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-153-6-2"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-153-6-3"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">v </span>dotgrad <span 
+class="ptmb8t-x-x-109">v  </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-153-7-"><td  style="white-space:nowrap; text-align:right;" id="TBL-153-7-1"  
+class="td11"> s  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-153-7-2"  
+class="td11"> :=  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-153-7-3"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">v </span>dotgrad s   </td></tr></table>
+</div></div>
+<figcaption class="caption" ><span class="id">Table 20.11:</span><span  
+class="content"><span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">R</span><span 
+class="small-caps">T</span><span 
+class="small-caps">H</span><span 
+class="small-caps">O</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span><span 
+class="small-caps">C</span> </span>valid combinations of operator and argument</span></figcaption><!--tex4ht:label?: x242-105300611 -->
+                                                                     
+
+                                                                     
+</figure>
+</div>
+<!--l. 319--><p class="noindent" >All other combinations of operator and argument type cause error messages to be issued.
+The diﬀerential operators have their usual meanings <span class="cite">[<a 
+href="manualap2.html#XSpiegel:59">Spi59</a>]</span>. The coordinate system
+used by these operators is set by invoking <span 
+class="pcrr8t-x-x-109">vstart </span>(cf. Sec. <a 
+href="#x242-105000020.39.2">20.39.2<!--tex4ht:ref: vstart --></a>). The names <span 
+class="pcrr8t-x-x-109">h1</span>,
+<span 
+class="pcrr8t-x-x-109">h2 </span>and <span 
+class="pcrr8t-x-x-109">h3 </span>are reserved for the scale factors, and <span 
+class="pcrr8t-x-x-109">u1</span>, <span 
+class="pcrr8t-x-x-109">u2 </span>and <span 
+class="pcrr8t-x-x-109">u3 </span>are used for the
+coordinates.
+</p><!--l. 327--><p class="noindent" >A vector extension, <span 
+class="pcrr8t-x-x-109">vdf</span>, of the REDUCE procedure DF allows the diﬀerentiation of a
+vector (scalar) with respect to a scalar to be performed. Allowed forms are <a 
+ id="dx242-1053007"></a> <a 
+ id="operator:VDF"></a> <span 
+class="pcrr8t-x-x-109">vdf</span>(<span 
+class="ptmb8t-x-x-109">v</span>, s) <span 
+class="cmsy-10x-x-109">→</span>
+<span 
+class="ptmb8t-x-x-109">v </span>and <span 
+class="pcrr8t-x-x-109">vdf</span>(s, s) <span 
+class="cmsy-10x-x-109">→ </span>s , where, for example
+</p>
+<table 
+class="equation-star"><tr><td>
+<center class="math-display" >
+<img 
+src="manual495x.png" alt="vdf (  B,x ) ≡ ∂B-
+               ∂x
+" class="math-display"  /></center></td></tr></table>
+<!--l. 336--><p class="nopar" >
+</p><!--l. 338--><p class="noindent" >The standard REDUCE declarations <span 
+class="pcrr8t-x-x-109">depend </span>and <span 
+class="pcrr8t-x-x-109">nodepend </span>have been redeﬁned to
+allow dependences of vectors to be compactly deﬁned. For example <a 
+ id="dx242-1053008"></a><a 
+ id="dx242-1053009"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1282">
+a := svec(a1,a2,a3)$;
+ <br />depend a,x,y;
+</div>
+<!--l. 344--><p class="nopar" > causes all three components <span 
+class="pcrr8t-x-x-109">a1</span>,<span 
+class="pcrr8t-x-x-109">a2 </span>and <span 
+class="pcrr8t-x-x-109">a3 </span>of <span 
+class="pcrr8t-x-x-109">a </span>to be treated as functions of <span 
+class="pcrr8t-x-x-109">x </span>and <span 
+class="pcrr8t-x-x-109">y</span>.
+Individual component dependences can still be deﬁned if desired.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1283">
+depend a3,z;
+</div>
+<!--l. 350--><p class="nopar" >
+</p><!--l. 352--><p class="noindent" >The procedure <span 
+class="pcrr8t-x-x-109">vtaylor </span>gives truncated Taylor series expansions of scalar or vector
+functions: <a 
+ id="dx242-1053010"></a> <a 
+ id="operator:VTAYLOR"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1284">
+vtaylor(vex,vx,vpt,vorder);
+</div>
+<!--l. 357--><p class="nopar" > returns the series expansion of the expression VEX with respect to variable VX about
+point VPT to order VORDER. Valid combinations of argument types are shown in
+table <a 
+href="#x242-105301112">20.12<!--tex4ht:ref: ORTHOVEC:validexp --></a>.
+</p>
+<div class="table">
+                                                                     
+
+                                                                     
+<!--l. 364--><p class="noindent" ><a 
+ id="x242-105301112"></a></p><figure class="float" 
+>
+                                                                     
+
+                                                                     
+<div class="center" 
+>
+<!--l. 364--><p class="noindent" >
+</p>
+<div class="tabular"> <table id="TBL-154" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-154-1g"><col 
+id="TBL-154-1" /><col 
+id="TBL-154-2" /><col 
+id="TBL-154-3" /><col 
+id="TBL-154-4" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-154-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-154-1-1"  
+class="td11"> VEX  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-154-1-2"  
+class="td11"> VX  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-154-1-3"  
+class="td11"> VPT  </td><td  style="white-space:nowrap; text-align:center;" id="TBL-154-1-4"  
+class="td11"> VORDER  </td></tr><tr 
+class="vspace" style="font-size:9.85498pt"><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td><td 
+>&nbsp;</td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-154-2-"><td  style="white-space:nowrap; text-align:center;" id="TBL-154-2-1"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">v </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-154-2-2"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">v </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-154-2-3"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">v </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-154-2-4"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">v</span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-154-3-"><td  style="white-space:nowrap; text-align:center;" id="TBL-154-3-1"  
+class="td11">  <span 
+class="ptmb8t-x-x-109">v      </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-154-3-2"  
+class="td11">  <span 
+class="ptmb8t-x-x-109">v    </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-154-3-3"  
+class="td11">  <span 
+class="ptmb8t-x-x-109">v     </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-154-3-4"  
+class="td11">    s          </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-154-4-"><td  style="white-space:nowrap; text-align:center;" id="TBL-154-4-1"  
+class="td11"> <span 
+class="ptmb8t-x-x-109">v </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-154-4-2"  
+class="td11"> s </td><td  style="white-space:nowrap; text-align:center;" id="TBL-154-4-3"  
+class="td11"> s </td><td  style="white-space:nowrap; text-align:center;" id="TBL-154-4-4"  
+class="td11"> s</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-154-5-"><td  style="white-space:nowrap; text-align:center;" id="TBL-154-5-1"  
+class="td11">   s      </td><td  style="white-space:nowrap; text-align:center;" id="TBL-154-5-2"  
+class="td11">  <span 
+class="ptmb8t-x-x-109">v    </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-154-5-3"  
+class="td11">  <span 
+class="ptmb8t-x-x-109">v     </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-154-5-4"  
+class="td11">    <span 
+class="ptmb8t-x-x-109">v         </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-154-6-"><td  style="white-space:nowrap; text-align:center;" id="TBL-154-6-1"  
+class="td11">   s      </td><td  style="white-space:nowrap; text-align:center;" id="TBL-154-6-2"  
+class="td11">  <span 
+class="ptmb8t-x-x-109">v    </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-154-6-3"  
+class="td11">  <span 
+class="ptmb8t-x-x-109">v     </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-154-6-4"  
+class="td11">    s          </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-154-7-"><td  style="white-space:nowrap; text-align:center;" id="TBL-154-7-1"  
+class="td11">   s      </td><td  style="white-space:nowrap; text-align:center;" id="TBL-154-7-2"  
+class="td11">  s    </td><td  style="white-space:nowrap; text-align:center;" id="TBL-154-7-3"  
+class="td11">  s     </td><td  style="white-space:nowrap; text-align:center;" id="TBL-154-7-4"  
+class="td11">    s          </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-154-8-"><td  style="white-space:nowrap; text-align:center;" id="TBL-154-8-1"  
+class="td11">      </td></tr></table></div></div>
+<figcaption class="caption" ><span class="id">Table 20.12:</span><span  
+class="content"><span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">R</span><span 
+class="small-caps">T</span><span 
+class="small-caps">H</span><span 
+class="small-caps">O</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span><span 
+class="small-caps">C</span> </span>valid combination of argument types.</span></figcaption><!--tex4ht:label?: x242-105301112 -->
+                                                                     
+
+                                                                     
+</figure>
+</div>
+<!--l. 378--><p class="noindent" >Any other combinations cause error messages to be issued. Elements of VORDER must
+be non-negative integers, otherwise error messages are issued. If scalar VORDER is
+given for a vector expansion, expansions in each component are truncated at the same
+order, VORDER.
+</p><!--l. 383--><p class="noindent" ><a 
+ id="operator:OV_LIMIT"></a> The new version of Taylor expansion applies <a 
+ id="dx242-1053012"></a>l’Hôpital’s rule in evaluating
+coeﬃcients, so handle cases such as <span 
+class="cmr-10x-x-109">sin</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">∕</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) </span>, etc. which the original version of
+<span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">R</span><span 
+class="small-caps">T</span><span 
+class="small-caps">H</span><span 
+class="small-caps">O</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span><span 
+class="small-caps">C</span> </span>could not. The procedure used for this is <span 
+class="pcrr8t-x-x-109">ov_limit</span>, <a 
+ id="dx242-1053013"></a> which can
+be used directly to ﬁnd the limit of a scalar function <span 
+class="pcrr8t-x-x-109">ex </span>of variable <span 
+class="pcrr8t-x-x-109">x </span>at point
+<span 
+class="pcrr8t-x-x-109">pt</span>:-
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1285">
+ans := ov_limit(ex,x,pt);
+</div>
+<!--l. 393--><p class="nopar" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.39.6    </span> <a 
+ id="x242-105400020.39.6"></a>Integral Operations</h4>
+<!--l. 396--><p class="noindent" >Deﬁnite and indeﬁnite vector, volume and scalar line integration procedures are included
+in <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">R</span><span 
+class="small-caps">T</span><span 
+class="small-caps">H</span><span 
+class="small-caps">O</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span><span 
+class="small-caps">C</span></span>. They are deﬁned as follows: <a 
+ id="dx242-1054001"></a> <a 
+ id="dx242-1054002"></a> <a 
+ id="dx242-1054003"></a> <a 
+ id="dx242-1054004"></a> <a 
+ id="dx242-1054005"></a> <a 
+ id="dx242-1054006"></a> <a 
+ id="operator:VINT"></a> <a 
+ id="operator:DVINT"></a> <a 
+ id="operator:VOLINT"></a> <a 
+ id="operator:DVOLINT"></a> <a 
+ id="operator:LINEINT_OV"></a> <a 
+ id="operator:DLINEINT"></a>
+</p><table 
+class="align-star">
+            <tr><td 
+class="align-odd"><span 
+class="pcrr8t-x-x-109">vint</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmbx-10x-x-109">v</span><span 
+class="cmmi-10x-x-109">,x</span><span 
+class="cmr-10x-x-109">)</span></td>                      <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∫</span>
+  <span 
+class="cmbx-10x-x-109">v</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">dx</span></td>                         <td 
+class="align-label"></td>            <td 
+class="align-label">
+            </td></tr><tr><td 
+class="align-odd"><span 
+class="pcrr8t-x-x-109">dvint</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmbx-10x-x-109">v</span><span 
+class="cmmi-10x-x-109">,x,a,b</span><span 
+class="cmr-10x-x-109">)</span></td>                 <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∫</span>
+  <sub><span 
+class="cmmi-8">a</span></sub><sup><span 
+class="cmmi-8">b</span></sup><span 
+class="cmbx-10x-x-109">v</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">dx</span></td>                       <td 
+class="align-label"></td>            <td 
+class="align-label">
+            </td></tr><tr><td 
+class="align-odd"><span 
+class="pcrr8t-x-x-109">volint</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmbx-10x-x-109">v</span><span 
+class="cmr-10x-x-109">)</span></td>                      <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∫</span>
+  <span 
+class="cmbx-10x-x-109">v</span><span 
+class="cmmi-10x-x-109">h</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">h</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">h</span><sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmmi-10x-x-109">du</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">du</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">du</span><sub><span 
+class="cmr-8">3</span></sub></td>              <td 
+class="align-label"></td>            <td 
+class="align-label">
+            </td></tr><tr><td 
+class="align-odd"><span 
+class="pcrr8t-x-x-109">dvolint</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmbx-10x-x-109">v</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmbx-10x-x-109">l</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmbx-10x-x-109">u</span><span 
+class="cmmi-10x-x-109">,n</span><span 
+class="cmr-10x-x-109">)</span></td>              <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∫</span>
+  <sub><span 
+class="cmbx-8">l</span></sub><sup><span 
+class="cmbx-8">u</span></sup><span 
+class="cmbx-10x-x-109">v</span><span 
+class="cmmi-10x-x-109">h</span><sub>
+<span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">h</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">h</span><sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmmi-10x-x-109">du</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">du</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">du</span><sub><span 
+class="cmr-8">3</span></sub></td>             <td 
+class="align-label"></td>            <td 
+class="align-label">
+            </td></tr><tr><td 
+class="align-odd"><span 
+class="pcrr8t-x-x-109">lineint</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmbx-10x-x-109">v</span><span 
+class="cmmi-10x-x-109">,ω</span><span 
+class="cmmi-10x-x-109">,t</span><span 
+class="cmr-10x-x-109">)</span></td>                <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∫</span>
+  <span 
+class="cmbx-10x-x-109">v </span><span 
+class="cmsy-10x-x-109">⋅</span><span 
+class="cmbx-10x-x-109">dr</span> <span 
+class="cmsy-10x-x-109">≡</span><span 
+class="cmex-10x-x-109">∫</span> 
+<span 
+class="cmmi-10x-x-109">v</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmmi-10x-x-109">h</span><sub><span 
+class="cmmi-8">i</span></sub><img 
+src="manual496x.png" alt="∂ω
+--i-
+∂t"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">dt</span></td>            <td 
+class="align-label"></td>            <td 
+class="align-label">
+            </td></tr><tr><td 
+class="align-odd"><span 
+class="pcrr8t-x-x-109">dlineint</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmbx-10x-x-109">v</span><span 
+class="cmmi-10x-x-109">,ω</span><span 
+class="cmmi-10x-x-109">t,a,b</span><span 
+class="cmr-10x-x-109">)</span></td>            <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∫</span>
+  <sub><span 
+class="cmmi-8">a</span></sub><sup><span 
+class="cmmi-8">b</span></sup><span 
+class="cmmi-10x-x-109">v</span><sub>
+<span 
+class="cmmi-8">i</span></sub><span 
+class="cmmi-10x-x-109">h</span><sub><span 
+class="cmmi-8">i</span></sub><img 
+src="manual497x.png" alt="∂ωi-
+ ∂t"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">dt</span></td>                     <td 
+class="align-label"></td>            <td 
+class="align-label"></td></tr></table>
+                                                                     
+
+                                                                     
+<!--l. 424--><p class="noindent" >In the vector and volume integrals, <span 
+class="cmbx-10x-x-109">v </span>are vector or scalar, <span 
+class="cmmi-10x-x-109">a,b,x </span>and <span 
+class="cmmi-10x-x-109">n </span>are scalar.
+Vectors <span 
+class="cmbx-10x-x-109">l </span>and <span 
+class="cmbx-10x-x-109">u </span>contain expressions for lower and upper bounds to the integrals.
+The integer index <span 
+class="cmmi-10x-x-109">n </span>deﬁnes the order in which the integrals over <span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,u</span><sub><span 
+class="cmr-8">2</span></sub> and
+<span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmr-8">3</span></sub> are performed in order to allow for functional dependencies in the integral
+bounds:
+</p>
+<div class="center" 
+>
+<!--l. 431--><p class="noindent" >
+</p>
+<div class="tabular"> <table id="TBL-155" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-155-1g"><col 
+id="TBL-155-1" /><col 
+id="TBL-155-2" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-155-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-155-1-1"  
+class="td11"> n               </td><td  style="white-space:nowrap; text-align:left;" id="TBL-155-1-2"  
+class="td11"> order          </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-155-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-155-2-1"  
+class="td11"> 1 </td><td  style="white-space:nowrap; text-align:left;" id="TBL-155-2-2"  
+class="td11"> <span 
+class="cmmi-10x-x-109">u</span><sub>
+<span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109"> u</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109"> u</span><sub><span 
+class="cmr-8">3</span></sub>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-155-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-155-3-1"  
+class="td11"> 2                </td><td  style="white-space:nowrap; text-align:left;" id="TBL-155-3-2"  
+class="td11"> <span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmmi-10x-x-109"> u</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109"> u</span><sub><span 
+class="cmr-8">2</span></sub>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-155-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-155-4-1"  
+class="td11"> 3                </td><td  style="white-space:nowrap; text-align:left;" id="TBL-155-4-2"  
+class="td11"> <span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109"> u</span><sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmmi-10x-x-109"> u</span><sub><span 
+class="cmr-8">1</span></sub>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-155-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-155-5-1"  
+class="td11"> 4                </td><td  style="white-space:nowrap; text-align:left;" id="TBL-155-5-2"  
+class="td11"> <span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109"> u</span><sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmmi-10x-x-109"> u</span><sub><span 
+class="cmr-8">2</span></sub>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-155-6-"><td  style="white-space:nowrap; text-align:left;" id="TBL-155-6-1"  
+class="td11"> 5                </td><td  style="white-space:nowrap; text-align:left;" id="TBL-155-6-2"  
+class="td11"> <span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109"> u</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109"> u</span><sub><span 
+class="cmr-8">3</span></sub>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-155-7-"><td  style="white-space:nowrap; text-align:left;" id="TBL-155-7-1"  
+class="td11"> otherwise  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-155-7-2"  
+class="td11"> <span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmr-8">3</span></sub><span 
+class="cmmi-10x-x-109"> u</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109"> u</span><sub><span 
+class="cmr-8">1</span></sub>  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-155-8-"><td  style="white-space:nowrap; text-align:left;" id="TBL-155-8-1"  
+class="td11">        </td>
+</tr></table></div></div>
+<!--l. 446--><p class="noindent" >The vector <span 
+class="cmmi-10x-x-109">ω </span>in the line integral’s arguments contain explicit paramterisation of the
+coordinates <span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,u</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,u</span><sub><span 
+class="cmr-8">3</span></sub> of the line <span 
+class="cmbx-10x-x-109">u</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">t</span><span 
+class="cmr-10x-x-109">) </span>along which the integral is taken.
+</p>
+<div class="table">
+                                                                     
+
+                                                                     
+<!--l. 451--><p class="noindent" ><a 
+ id="x242-105400713"></a></p><figure class="float" 
+>
+                                                                     
+
+                                                                     
+<div class="center" 
+>
+<!--l. 451--><p class="noindent" >
+</p>
+<div class="tabular"> <table id="TBL-156" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-156-1g"><col 
+id="TBL-156-1" /><col 
+id="TBL-156-2" /><col 
+id="TBL-156-3" /></colgroup><tr 
+class="hline"><td><hr /></td><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-156-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-156-1-1"  
+class="td11">                        <div class="multicolumn"  style="white-space:nowrap; text-align:center;">Procedures</div>                               </td><td  style="white-space:nowrap; text-align:center;" id="TBL-156-1-2"  
+class="td11">    </td><td  style="white-space:nowrap; text-align:center;" id="TBL-156-1-3"  
+class="td11">          <div class="multicolumn"  style="white-space:nowrap; text-align:center;">Description</div>
+</td></tr><tr 
+class="hline"><td><hr /></td><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-156-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-156-2-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">vstart                                                  </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-156-2-2"  
+class="td11">    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-156-2-3"  
+class="td11"> select coordinate system                        </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-156-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-156-3-1"  
+class="td11"> </td></tr><tr><td colspan="3"></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-0156-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-0156-3-1"  
+class="td11">                                                      </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-0156-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-0156-4-1"  
+class="td11"></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-0156-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-0156-5-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">svec                                                    </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-0156-5-2"  
+class="td11">    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-0156-5-3"  
+class="td11"> set up a vector                                        </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-0156-6-"><td  style="white-space:nowrap; text-align:left;" id="TBL-0156-6-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">vout                                                    </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-0156-6-2"  
+class="td11">    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-0156-6-3"  
+class="td11"> output a vector                                       </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-0156-7-"><td  style="white-space:nowrap; text-align:left;" id="TBL-0156-7-1"  
+class="td11">  <span 
+class="pcrr8t-x-x-109">vectorcomponent                                        </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-0156-7-2"  
+class="td11">  _    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-0156-7-3"  
+class="td11"> extract a vector component (1-3)           </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-0156-8-"><td  style="white-space:nowrap; text-align:left;" id="TBL-0156-8-1"  
+class="td11"> </td></tr><tr><td colspan="3"></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-00156-8-"><td  style="white-space:nowrap; text-align:left;" id="TBL-00156-8-1"  
+class="td11">                                                      </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-00156-9-"><td  style="white-space:nowrap; text-align:left;" id="TBL-00156-9-1"  
+class="td11"></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-00156-10-"><td  style="white-space:nowrap; text-align:left;" id="TBL-00156-10-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">vectoradd                                               </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-00156-10-2"  
+class="td11">  +    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-00156-10-3"  
+class="td11"> add two vectors or scalars                      </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-00156-11-"><td  style="white-space:nowrap; text-align:left;" id="TBL-00156-11-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">vectorplus </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-00156-11-2"  
+class="td11"> + </td><td  style="white-space:nowrap; text-align:left;" id="TBL-00156-11-3"  
+class="td11"> unary vector or scalar plus</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-00156-12-"><td  style="white-space:nowrap; text-align:left;" id="TBL-00156-12-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">vectorminus                                             </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-00156-12-2"  
+class="td11">  -     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-00156-12-3"  
+class="td11"> unary vector or scalar minus                 </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-00156-13-"><td  style="white-space:nowrap; text-align:left;" id="TBL-00156-13-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">vectordifference                                        </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-00156-13-2"  
+class="td11">  -     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-00156-13-3"  
+class="td11"> subtract two vectors or scalars               </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-00156-14-"><td  style="white-space:nowrap; text-align:left;" id="TBL-00156-14-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">vectorquotient                                          </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-00156-14-2"  
+class="td11">  /     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-00156-14-3"  
+class="td11"> vector divided by scalar                         </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-00156-15-"><td  style="white-space:nowrap; text-align:left;" id="TBL-00156-15-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">vectorrecip                                             </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-00156-15-2"  
+class="td11">  /     </td><td  style="white-space:nowrap; text-align:left;" id="TBL-00156-15-3"  
+class="td11"> unary vector or scalar division              </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-00156-16-"><td  style="white-space:nowrap; text-align:left;" id="TBL-00156-16-1"  
+class="td11">                                                         </td><td  style="white-space:nowrap; text-align:center;" id="TBL-00156-16-2"  
+class="td11">    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-00156-16-3"  
+class="td11">    (reciprocal)                                      </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-00156-17-"><td  style="white-space:nowrap; text-align:left;" id="TBL-00156-17-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">vectortimes                                             </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-00156-17-2"  
+class="td11">  *    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-00156-17-3"  
+class="td11"> multiply vector or scalar by                   </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-00156-18-"><td  style="white-space:nowrap; text-align:left;" id="TBL-00156-18-1"  
+class="td11">                                                         </td><td  style="white-space:nowrap; text-align:center;" id="TBL-00156-18-2"  
+class="td11">    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-00156-18-3"  
+class="td11">    vector/scalar                                     </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-00156-19-"><td  style="white-space:nowrap; text-align:left;" id="TBL-00156-19-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">vectorcross                                             </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-00156-19-2"  
+class="td11"> <span 
+class="cmmi-10x-x-109">&#x003E;&#x003C; </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-00156-19-3"  
+class="td11"> cross product of two vectors                  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-00156-20-"><td  style="white-space:nowrap; text-align:left;" id="TBL-00156-20-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">vectorexpt                                              </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-00156-20-2"  
+class="td11">  ^    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-00156-20-3"  
+class="td11"> exponentiate vector modulus or scalar  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-00156-21-"><td  style="white-space:nowrap; text-align:left;" id="TBL-00156-21-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">vmod                                                    </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-00156-21-2"  
+class="td11">    </td><td  style="white-space:nowrap; text-align:left;" id="TBL-00156-21-3"  
+class="td11"> length of vector or scalar                       </td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-00156-22-"><td  style="white-space:nowrap; text-align:left;" id="TBL-00156-22-1"  
+class="td11">                                                         </td></tr></table>
+</div></div>
+<figcaption class="caption" ><span class="id">Table 20.13:</span><span  
+class="content">Procedures names and operators used in <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">R</span><span 
+class="small-caps">T</span><span 
+class="small-caps">H</span><span 
+class="small-caps">O</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span><span 
+class="small-caps">C</span> </span>(part 1)</span></figcaption><!--tex4ht:label?: x242-105400713 -->
+                                                                     
+
+                                                                     
+</figure>
+</div>
+<div class="table">
+                                                                     
+
+                                                                     
+<!--l. 474--><p class="noindent" ><a 
+ id="x242-105400814"></a></p><figure class="float" 
+>
+                                                                     
+
+                                                                     
+<div class="center" 
+>
+<!--l. 474--><p class="noindent" >
+</p>
+<div class="tabular"> <table id="TBL-157" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-157-1g"><col 
+id="TBL-157-1" /><col 
+id="TBL-157-2" /></colgroup><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-157-1-"><td  style="white-space:nowrap; text-align:center;" id="TBL-157-1-1"  
+class="td11"> <div class="multicolumn"  style="white-space:nowrap; text-align:center;">Procedures</div> </td><td  style="white-space:nowrap; text-align:center;" id="TBL-157-1-2"  
+class="td11">             <div class="multicolumn"  style="white-space:nowrap; text-align:center;">Description</div>
+</td></tr><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-157-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-157-2-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">div      </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-157-2-2"  
+class="td11"> divergence of vector                                              </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-157-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-157-3-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">grad     </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-157-3-2"  
+class="td11"> gradient of scalar                                                  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-157-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-157-4-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">curl     </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-157-4-2"  
+class="td11"> curl of vector                                                         </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-157-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-157-5-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">delsq </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-157-5-2"  
+class="td11"> laplacian of scalar or vector</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-157-6-"><td  style="white-space:nowrap; text-align:left;" id="TBL-157-6-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">dotgrad  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-157-6-2"  
+class="td11"> (vector).grad(scalar or vector)                              </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-157-7-"><td  style="white-space:nowrap; text-align:left;" id="TBL-157-7-1"  
+class="td11">          </td><td  style="white-space:nowrap; text-align:left;" id="TBL-157-7-2"  
+class="td11">                                 </td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-157-8-"><td  style="white-space:nowrap; text-align:left;" id="TBL-157-8-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">vtaylor </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-157-8-2"  
+class="td11"> vector or scalar Taylor series of vector or scalar</td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-157-9-"><td  style="white-space:nowrap; text-align:left;" id="TBL-157-9-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">vptaylor </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-157-9-2"  
+class="td11"> vector or scalar Taylor series of scalar                 </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-157-10-"><td  style="white-space:nowrap; text-align:left;" id="TBL-157-10-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">taylor   </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-157-10-2"  
+class="td11"> scalar Taylor series of scalar                                 </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-157-11-"><td  style="white-space:nowrap; text-align:left;" id="TBL-157-11-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">limit    </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-157-11-2"  
+class="td11"> limit of quotient using l’Hôpital’s rule               </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-157-12-"><td  style="white-space:nowrap; text-align:left;" id="TBL-157-12-1"  
+class="td11">          </td><td  style="white-space:nowrap; text-align:left;" id="TBL-157-12-2"  
+class="td11">                                 </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-157-13-"><td  style="white-space:nowrap; text-align:left;" id="TBL-157-13-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">vint     </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-157-13-2"  
+class="td11"> vector integral                                                       </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-157-14-"><td  style="white-space:nowrap; text-align:left;" id="TBL-157-14-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">dvint    </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-157-14-2"  
+class="td11"> deﬁnite vector integral                                          </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-157-15-"><td  style="white-space:nowrap; text-align:left;" id="TBL-157-15-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">volint   </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-157-15-2"  
+class="td11"> volume integral                                                     </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-157-16-"><td  style="white-space:nowrap; text-align:left;" id="TBL-157-16-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">dvolint  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-157-16-2"  
+class="td11"> deﬁnite volume integral                                        </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-157-17-"><td  style="white-space:nowrap; text-align:left;" id="TBL-157-17-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">lineint  </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-157-17-2"  
+class="td11"> line integral                                                           </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-157-18-"><td  style="white-space:nowrap; text-align:left;" id="TBL-157-18-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">dlineint </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-157-18-2"  
+class="td11"> deﬁnite line integral                                              </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-157-19-"><td  style="white-space:nowrap; text-align:left;" id="TBL-157-19-1"  
+class="td11">          </td><td  style="white-space:nowrap; text-align:left;" id="TBL-157-19-2"  
+class="td11">                                 </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-157-20-"><td  style="white-space:nowrap; text-align:left;" id="TBL-157-20-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">maprin   </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-157-20-2"  
+class="td11"> vector extension of REDUCE <span 
+class="pcrr8t-x-x-109">maprin      </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-157-21-"><td  style="white-space:nowrap; text-align:left;" id="TBL-157-21-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">depend   </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-157-21-2"  
+class="td11"> vector extension of REDUCE <span 
+class="pcrr8t-x-x-109">depend      </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-157-22-"><td  style="white-space:nowrap; text-align:left;" id="TBL-157-22-1"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">nodepend </span></td><td  style="white-space:nowrap; text-align:left;" id="TBL-157-22-2"  
+class="td11"> vector extension of REDUCE <span 
+class="pcrr8t-x-x-109">nodepend    </span></td>
+</tr><tr 
+class="hline"><td><hr /></td><td><hr /></td></tr><tr  
+ style="vertical-align:baseline;" id="TBL-157-23-"><td  style="white-space:nowrap; text-align:left;" id="TBL-157-23-1"  
+class="td11">          </td></tr></table></div></div>
+<figcaption class="caption" ><span class="id">Table 20.14:</span><span  
+class="content">Procedures names and operators used in <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">R</span><span 
+class="small-caps">T</span><span 
+class="small-caps">H</span><span 
+class="small-caps">O</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span><span 
+class="small-caps">C</span> </span>(part 2)</span></figcaption><!--tex4ht:label?: x242-105400814 -->
+                                                                     
+
+                                                                     
+</figure>
+</div>
+<h4 class="subsectionHead"><span class="titlemark">20.39.7    </span> <a 
+ id="x242-105500020.39.7"></a>Test Cases</h4>
+<!--l. 503--><p class="noindent" >To use the REDUCE source version of <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">R</span><span 
+class="small-caps">T</span><span 
+class="small-caps">H</span><span 
+class="small-caps">O</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span><span 
+class="small-caps">C</span></span>, initiate a REDUCE session and then
+load the package with the command <span 
+class="pcrr8t-x-x-109">load_package orthovec; </span>(see section <a 
+href="manualse212.html#x309-135900023.2">23.2<!--tex4ht:ref: sec-load --></a>
+of the REDUCE manual). If coordinate dependent diﬀerential and integral operators
+other than cartesian are needed, then <span 
+class="pcrr8t-x-x-109">vstart </span>must be used to reset coordinates and
+scale factors.
+</p><!--l. 510--><p class="noindent" >Six simple examples are given in the Test Run Output ﬁle <span 
+class="ptmri8t-x-x-109">orthovec.rlg </span>to illustrate the
+working of <span 
+class="ptmrc8t-x-x-109">O<span 
+class="small-caps">R</span><span 
+class="small-caps">T</span><span 
+class="small-caps">H</span><span 
+class="small-caps">O</span><span 
+class="small-caps">V</span><span 
+class="small-caps">E</span><span 
+class="small-caps">C</span></span>. The input lines were taken from the ﬁle <span 
+class="ptmri8t-x-x-109">orthovec.tst </span>(the Test
+Run Input), but could equally well be typed in at the Terminal.
+<a 
+ id="x242-1055001r1"></a>
+</p><!--l. 516--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Example 1</span><a 
+ id="dx242-1055002"></a>
+</p><!--l. 518--><p class="noindent" >Show that
+</p>
+<table 
+class="equation-star"><tr><td>
+<center class="math-display" >
+<img 
+src="manual498x.png" alt="(a × b)⋅(c × d)− (a ⋅c)(b⋅d )+ (a ⋅d)(b⋅c) ≡ 0
+" class="math-display"  /></center></td></tr></table>
+<!--l. 523--><p class="nopar" >
+<a 
+ id="x242-1055003r2"></a>
+</p><!--l. 525--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Example 2</span><a 
+ id="dx242-1055004"></a>
+</p><!--l. 527--><p class="noindent" >Write the equation of motion
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+<center class="math-display" >
+<img 
+src="manual499x.png" alt="∂v-+ v ⋅∇v  + ∇p − curl(B) × B
+∂t
+" class="math-display"  /></center></td></tr></table>
+<!--l. 531--><p class="nopar" >
+in cylindrical coordinates.
+<a 
+ id="x242-1055005r3"></a>
+</p><!--l. 534--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Example 3</span><a 
+ id="dx242-1055006"></a>
+</p><!--l. 536--><p class="noindent" >Taylor expand </p>
+     <ul class="itemize1">
+     <li class="itemize"><span 
+class="cmr-10x-x-109">sin</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmr-10x-x-109">cos</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">y</span><span 
+class="cmr-10x-x-109">) + </span><span 
+class="cmmi-10x-x-109">e</span><sup><span 
+class="cmmi-8">z</span></sup> about the point <span 
+class="cmr-10x-x-109">(0</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">0</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">0) </span>to third order in <span 
+class="cmmi-10x-x-109">x</span>, fourth order
+     in <span 
+class="cmmi-10x-x-109">y </span>and ﬁfth order in <span 
+class="cmmi-10x-x-109">z</span>.
+     </li>
+     <li class="itemize"><span 
+class="cmr-10x-x-109">sin</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">∕x </span>about <span 
+class="cmmi-10x-x-109">x </span>to ﬁfth order.
+     </li>
+     <li class="itemize"><span 
+class="cmbx-10x-x-109">v </span>about <span 
+class="cmbx-10x-x-109">x </span><span 
+class="cmr-10x-x-109">= (</span><span 
+class="cmmi-10x-x-109">x,y,z</span><span 
+class="cmr-10x-x-109">) </span>to ﬁfth order, where <span 
+class="cmbx-10x-x-109">v </span><span 
+class="cmr-10x-x-109">= (</span><span 
+class="cmmi-10x-x-109">x∕</span><span 
+class="cmr-10x-x-109">sin</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">e</span><sup><span 
+class="cmmi-8">y</span></sup> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1)</span><span 
+class="cmmi-10x-x-109">∕y,</span><span 
+class="cmr-10x-x-109">(1 +</span>
+     <span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)</span><sup><span 
+class="cmr-8">10</span></sup><span 
+class="cmr-10x-x-109">)</span>.</li></ul>
+<a 
+ id="x242-1055007r4"></a>
+<!--l. 548--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Example 4</span><a 
+ id="dx242-1055008"></a>
+</p><!--l. 550--><p class="noindent" >Obtain the second component of the equation of motion in example <a 
+href="#x242-1055003r2">2<!--tex4ht:ref: ORTHOVEC:eqm --></a>, and the ﬁrst
+component of the ﬁnal vector Taylor series in example <a 
+href="#x242-1055005r3">3<!--tex4ht:ref: ORTHOVEC:taylor --></a>.
+<a 
+ id="x242-1055009r5"></a>
+</p><!--l. 554--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Example 5</span><a 
+ id="dx242-1055010"></a>
+</p><!--l. 556--><p class="noindent" >Evaluate the line integral
+</p>
+<table 
+class="equation-star"><tr><td>
+<center class="math-display" >
+                                                                     
+
+                                                                     
+<img 
+src="manual500x.png" alt="∫ r2
+    A  ⋅dr
+ r1
+" class="math-display"  /></center></td></tr></table>
+<!--l. 559--><p class="nopar" >
+from point <span 
+class="cmbx-10x-x-109">r</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">= (1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">1) </span>to point <span 
+class="cmbx-10x-x-109">r</span><sub><span 
+class="cmr-8">2</span></sub> <span 
+class="cmr-10x-x-109">= (2</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">4</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">8) </span>along the path <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x,y,z</span><span 
+class="cmr-10x-x-109">) = (</span><span 
+class="cmmi-10x-x-109">s,s</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-10x-x-109">,s</span><sup><span 
+class="cmr-8">3</span></sup><span 
+class="cmr-10x-x-109">)</span>
+where
+</p>
+<table 
+class="equation-star"><tr><td>
+<center class="math-display" >
+<img 
+src="manual501x.png" alt="A  = (3x2 + 5y )i− 12xyj+ 2xyz2k
+" class="math-display"  /></center></td></tr></table>
+<!--l. 564--><p class="nopar" >
+and <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmbx-10x-x-109">i</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmbx-10x-x-109">j</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmbx-10x-x-109">k</span><span 
+class="cmr-10x-x-109">) </span>are unit vectors in the (<span 
+class="cmmi-10x-x-109">x,y,z</span>) directions.
+<a 
+ id="x242-1055011r6"></a>
+</p><!--l. 567--><p class="noindent" ><span 
+class="ptmb8t-x-x-109">Example 6</span><a 
+ id="dx242-1055012"></a>
+</p><!--l. 569--><p class="noindent" >Find the volume <span 
+class="cmmi-10x-x-109">V </span>common to the intersecting cylinders <span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">y</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">r</span><sup><span 
+class="cmr-8">2</span></sup> and <span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">z</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">r</span><sup><span 
+class="cmr-8">2</span></sup>
+i.e. evaluate
+</p>
+<table 
+class="equation-star"><tr><td>
+<center class="math-display" >
+<img 
+src="manual502x.png" alt="      ∫ r  ∫  ub   ∫ ub
+V = 8    dx     dy    dz
+       0     0     0
+" class="math-display"  /></center></td></tr></table>
+                                                                     
+
+                                                                     
+<!--l. 573--><p class="nopar" >
+where <span 
+class="cmmi-10x-x-109">ub </span><span 
+class="cmr-10x-x-109">=</span><span class="overline"> <img 
+src="manual503x.png" alt="√-2----2
+ r  − x"  class="sqrt"  /></span>
+</p><!--l. 822--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 825--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse164.html" >Up</a></td><td class="clinks"><a 
+href="manualse165.html" >Next</a></td><td class="clinks"><a 
+href="manualse163.html" >Prev</a></td><td class="clinks"><a 
+href="manualse163.html#tailmanualse163.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse164.html" >Front</a></td></tr></table><a 
+ id="tailmanualse164.html"></a>  </p> 
+</body> 
+</html>

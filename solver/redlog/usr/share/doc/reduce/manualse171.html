@@ -1,0 +1,1500 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>RATINT: Integrate Rational Functions using the Minimal Algebraic Extension to the
+Constant Field</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse171.html" >Up</a></td><td class="clinks"><a 
+href="manualse172.html" >Next</a></td><td class="clinks"><a 
+href="manualse170.html" >Prev</a></td><td class="clinks"><a 
+href="manualse170.html#tailmanualse170.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse171.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.46    </span> <a 
+ id="x257-111500020.46"></a>RATINT: Integrate Rational Functions using the
+Minimal Algebraic Extension to the Constant Field</h3>
+<a 
+ id="dx257-1115001"></a>
+<a 
+ id="dx257-1115002"></a>
+<!--l. 936--><p class="noindent" >Author: Neil Langmead
+</p><!--l. 938--><p class="noindent" >This package was written when the author was a placement student at ZIB Berlin.
+<a 
+ id="dx257-1115003"></a>
+<a 
+ id="dx257-1115004"></a>
+</p><!--l. 5--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.46.1    </span> <a 
+ id="x257-111600020.46.1"></a>Rational Integration</h4>
+<!--l. 7--><p class="noindent" >This package implements the Horowitz/ Rothstein/ Trager algorithms  <span class="cite">[<a 
+href="manualap2.html#XGeddes:92">GCL92</a>]</span> for the
+integration of rational functions in REDUCE. We work within a ﬁeld <span 
+class="cmmi-10x-x-109">K </span>of
+characteristic <span 
+class="cmr-10x-x-109">0 </span>and functions <span 
+class="cmmi-10x-x-109">p,q </span><span 
+class="cmsy-10x-x-109">∈ </span><span 
+class="cmmi-10x-x-109">K</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">]</span>. <span 
+class="cmmi-10x-x-109">K </span>is normally the ﬁeld <span 
+class="cmmi-10x-x-109">Q </span>of rational
+numbers, but not always. These procedures return <span 
+class="cmex-10x-x-109">∫</span>
+  <img 
+src="manual545x.png" alt="p
+q"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">dx. </span>The aim is to be able to
+integrate any function of the form <span 
+class="cmmi-10x-x-109">p∕q </span>in <span 
+class="cmmi-10x-x-109">x</span>, where <span 
+class="cmmi-10x-x-109">p </span>and <span 
+class="cmmi-10x-x-109">q </span>are polynomials in
+the ﬁeld <span 
+class="cmmi-10x-x-109">Q</span>. The algorithms used avoid algebraic number extensions wherever
+possible, and in general, express the integral using the minimal algebraic extension
+ﬁeld.
+</p><!--l. 10--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.46.1.1    </span> <a 
+ id="x257-111700020.46.1.1"></a>Syntax of <span 
+class="pcrr8t-x-x-109">ratint</span></h5>
+<a 
+ id="dx257-1117001"></a>
+<!--l. 12--><p class="noindent" ><a 
+ id="operator:RATINT"></a> This function has the following syntax:
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">ratint(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="pcrro8t-x-x-109">p</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="pcrro8t-x-x-109">q</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="pcrro8t-x-x-109">var</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">)</span></div>
+<!--l. 17--><p class="noindent" >where <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">p</span><span 
+class="cmsy-10x-x-109">⟩ </span>and <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">q</span><span 
+class="cmsy-10x-x-109">⟩ </span>are polynomials in <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">var</span><span 
+class="cmsy-10x-x-109">⟩</span>, so that <span 
+class="cmmi-10x-x-109">p∕q </span>is a rational function in <span 
+class="cmmi-10x-x-109">var</span>. The
+                                                                     
+
+                                                                     
+output of <span 
+class="pcrr8t-x-x-109">ratint </span>is a list of two elements: the ﬁrst is the polynomial part of the
+integral, the second is the logarithmic part. The integral is the sum of these
+parts.
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.46.1.2    </span> <a 
+ id="x257-111800020.46.1.2"></a>Examples</h5>
+<!--l. 20--><p class="noindent" >Consider the following examples in REDUCE (the meaning of the <span 
+class="pcrr8t-x-x-109">log_sum </span>operator
+will be explained in the next section).
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1342">
+ratint(1,x^2-2,x);
+ <br />
+ <br />{0,
+ <br />
+ <br />                  2    1
+ <br /> log_sum(beta,beta  - ---,0,log(2*beta*x - 1)*beta)}
+ <br />                       8
+ <br />
+ <br />p:=441*x^7+780*x^6-2861*x^5+4085*x^4+7695*x^3+3713*x^2
+ <br />          -43253*x+24500;
+ <br />
+ <br />q:=9*x^6+6*x^5-65*x^4+20*x^3+135*x^2-154*x+49;
+ <br />
+ <br />ratint(p,q,x);
+ <br />
+ <br />
+ <br />   49    6    226   5    268   4    1608   3
+ <br />{(----*(x  + -----*x  - -----*x  - ------*x
+ <br />   2          147        49          49
+ <br />
+ <br />            6011   2    536       256      4
+ <br />         + ------*x  + -----*x - -----))/(x
+ <br />            147         21         9
+ <br />
+ <br />        2   3      2          7
+ <br />     - ---*x  - 4*x  + 6*x - ---),
+ <br />        3                     3
+ <br />
+ <br /> 0}
+ <br />
+ <br />k:=36*x^6+126*x^5+183*x^4+(13807/6)*x^3-407*x^2
+ <br />      -(3242/5)*x+(3044/15);
+ <br />l:=(x^2+(7/6)*x+(1/3))^2*(x-(2/5))^3;
+ <br />
+ <br />ratint(k,l,x);
+ <br />
+ <br />   5271    3    39547   2    31018       7142
+ <br />  ------*(x  + -------*x  - -------*x + -------)
+                                                                     
+
+                                                                     
+ <br />    5           52710        26355       26355
+ <br />{------------------------------------------------,
+ <br />       4    11   3    11   2    2        4
+ <br />      x  + ----*x  - ----*x  - ----*x + ----
+ <br />            30        25        25       75
+ <br />
+ <br />  37451            2      91125           2
+ <br /> -------*(log(x - ---) + -------*log(x + ---)
+ <br />   16              5      37451           3
+ <br />
+ <br />              128000           1
+ <br />           - --------*log(x + ---))}
+ <br />              37451            2
+ <br />
+ <br />
+ <br />ratint(1,x^2+1,x);
+ <br />
+ <br />                    2    1
+ <br />{0,log_sum(beta,beta  + ---,0,log(2*beta*x - 1)*beta)}
+ <br />                         4
+</div>
+<!--l. 80--><p class="nopar" >
+</p><!--l. 82--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.46.2    </span> <a 
+ id="x257-111900020.46.2"></a>The Algorithm</h4>
+<!--l. 83--><p class="noindent" >The following main algorithm is used:
+</p>
+<div class="flushleft" 
+>
+<!--l. 85--><p class="noindent" >
+ procedure <span 
+class="ptmri8t-x-x-109">ratint</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">p,q,x</span><span 
+class="cmr-10x-x-109">);</span><br />
+% p and q are polynomials in <span 
+class="cmmi-10x-x-109">x</span>, with coeﬃcients in the<br />
+% constant ﬁeld Q<br />
+solution_list <span 
+class="cmsy-10x-x-109">← </span><span 
+class="cmmi-10x-x-109">HorowitzReduction</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">p,q,x</span><span 
+class="cmr-10x-x-109">)</span><br />
+<span 
+class="cmmi-10x-x-109">c∕d </span><span 
+class="cmsy-10x-x-109">← </span>part(solution_list,1)<br />
+<span 
+class="cmmi-10x-x-109">poly</span>_<span 
+class="cmmi-10x-x-109">part </span><span 
+class="cmsy-10x-x-109">← </span>part(solution_list,2)<br />
+<span 
+class="cmmi-10x-x-109">rat</span>_<span 
+class="cmmi-10x-x-109">part </span><span 
+class="cmsy-10x-x-109">← </span>part(solution_list,3)<br />
+<span 
+class="cmmi-10x-x-109">rat</span>_<span 
+class="cmmi-10x-x-109">part </span><span 
+class="cmsy-10x-x-109">← </span><span 
+class="cmmi-10x-x-109">LogarithmicPartIntegral</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">rat</span>_<span 
+class="cmmi-10x-x-109">part,x</span><span 
+class="cmr-10x-x-109">)</span><br />
+                                                                     
+
+                                                                     
+return(<span 
+class="cmmi-10x-x-109">rat</span>_<span 
+class="cmmi-10x-x-109">part </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">c∕d </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">poly</span>_<span 
+class="cmmi-10x-x-109">part</span>)<br />
+end</p></div>
+<!--l. 98--><p class="noindent" >The algorithm contains two subroutines, <span 
+class="ptmri8t-x-x-109">HorowitzReduction </span>and <span 
+class="ptmri8t-x-x-109">rt</span>. <span 
+class="ptmri8t-x-x-109">HorowitzReduction</span>
+is an implementation of Horowitz’ method to reduce a given rational function into a
+polynomial part and a logarithmic part. The integration of the polynomial part is a trivial
+task, and is done by the <span 
+class="ptmri8t-x-x-109">int </span>operator in REDUCE. The integration of the logarithmic part
+is done by the routine <span 
+class="ptmri8t-x-x-109">rt</span>, which is an implementation of the Rothstein and Trager
+method. These two answers are outputed in a list, the complete answer being the sum of
+these two parts. <br 
+class="newline" />These two algorithms are as follows:
+</p>
+<div class="flushleft" 
+>
+<!--l. 102--><p class="noindent" >
+ procedure <span 
+class="cmmi-10x-x-109">how</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">p,q,x</span><span 
+class="cmr-10x-x-109">)</span>
+</p><!--l. 105--><p class="noindent" >for a given rational function <span 
+class="cmmi-10x-x-109">p∕q </span>in <span 
+class="cmmi-10x-x-109">x</span>, this algorithm calculates the<br />
+reduction of <span 
+class="cmex-10x-x-109">∫</span>
+ <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">p∕q</span><span 
+class="cmr-10x-x-109">) </span>into a polynomial part and logarithmic part.
+</p><!--l. 108--><p class="noindent" ><span 
+class="cmmi-10x-x-109">poly</span>_<span 
+class="cmmi-10x-x-109">part </span><span 
+class="cmsy-10x-x-109">← </span><span 
+class="cmmi-10x-x-109">quo</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">p,q</span><span 
+class="cmr-10x-x-109">);    </span><span 
+class="cmmi-10x-x-109">p </span><span 
+class="cmsy-10x-x-109">← </span><span 
+class="cmmi-10x-x-109">rem</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">p,q</span><span 
+class="cmr-10x-x-109">)</span>;
+</p><!--l. 110--><p class="noindent" ><span 
+class="cmmi-10x-x-109">d </span><span 
+class="cmsy-10x-x-109">← </span><span 
+class="cmmi-10x-x-109">GCD</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">q,q</span><span 
+class="cmsy-10x-x-109">′</span><span 
+class="cmr-10x-x-109">)</span>;     <span 
+class="cmmi-10x-x-109">b </span><span 
+class="cmsy-10x-x-109">← </span><span 
+class="cmmi-10x-x-109">quo</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">q,d</span><span 
+class="cmr-10x-x-109">)</span>;     <span 
+class="cmmi-10x-x-109">m </span><span 
+class="cmsy-10x-x-109">← </span><span 
+class="cmmi-10x-x-109">deg</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">b</span><span 
+class="cmr-10x-x-109">)</span>;<br />
+<span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmsy-10x-x-109">← </span><span 
+class="cmmi-10x-x-109">deg</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">d</span><span 
+class="cmr-10x-x-109">)</span>;
+</p><!--l. 114--><p class="noindent" ><span 
+class="cmmi-10x-x-109">a </span><span 
+class="cmsy-10x-x-109">←</span><span 
+class="cmex-10x-x-109">∑</span>
+  <sub><span 
+class="cmmi-8">i</span><span 
+class="cmr-8">=1</span></sub><sup><span 
+class="cmmi-8">m</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">i</span></sup>;     <span 
+class="cmmi-10x-x-109">c </span><span 
+class="cmsy-10x-x-109">←</span><span 
+class="cmex-10x-x-109">∑</span>
+<sub><span 
+class="cmmi-8">i</span><span 
+class="cmr-8">=1</span></sub><sup><span 
+class="cmmi-8">n</span><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup><span 
+class="cmmi-10x-x-109">c</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">i</span></sup>;<br />
+<span 
+class="cmmi-10x-x-109">r </span><span 
+class="cmsy-10x-x-109">← </span><span 
+class="cmmi-10x-x-109">b </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">c</span><span 
+class="cmsy-10x-x-109">′− </span><span 
+class="cmmi-10x-x-109">quo</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">b </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">d</span><span 
+class="cmsy-10x-x-109">′</span><span 
+class="cmmi-10x-x-109">,d</span><span 
+class="cmr-10x-x-109">) + </span><span 
+class="cmmi-10x-x-109">d </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">a</span><span 
+class="cmr-10x-x-109">;</span>
+</p><!--l. 119--><p class="noindent" >for <span 
+class="cmmi-10x-x-109">i </span>from <span 
+class="cmr-10x-x-109">0 </span>to <span 
+class="cmmi-10x-x-109">m </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1 </span>do<br />
+                 {<br />
+                    <span 
+class="cmmi-10x-x-109">eqns</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">i</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmsy-10x-x-109">← </span><span 
+class="cmmi-10x-x-109">coeff</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">p,i</span><span 
+class="cmr-10x-x-109">) = </span><span 
+class="cmmi-10x-x-109">coeff</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">r,i</span><span 
+class="cmr-10x-x-109">)</span>;<br />
+                 };
+</p><!--l. 124--><p class="noindent" ><span 
+class="cmmi-10x-x-109">solve</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">eqns,</span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">a</span><span 
+class="cmr-10x-x-109">(0)</span><span 
+class="cmmi-10x-x-109">,....,a</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">m </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1)</span><span 
+class="cmmi-10x-x-109">,c</span><span 
+class="cmr-10x-x-109">(0)</span><span 
+class="cmmi-10x-x-109">,....,c</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1)</span><span 
+class="cmsy-10x-x-109">}</span><span 
+class="cmr-10x-x-109">);</span>
+</p><!--l. 126--><p class="noindent" >return(<span 
+class="cmmi-10x-x-109">c∕d </span><span 
+class="cmr-10x-x-109">+</span> <span 
+class="cmex-10x-x-109">∫</span>
+  <span 
+class="cmmi-10x-x-109">poly</span>_<span 
+class="cmmi-10x-x-109">part </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">a∕b</span>);<br />
+end;</p></div>
+<div class="flushleft" 
+>
+<!--l. 130--><p class="noindent" >
+ procedure RothsteinTrager(<span 
+class="cmmi-10x-x-109">a,b,x</span>)
+</p><!--l. 133--><p class="noindent" >% Given a rational function <span 
+class="cmmi-10x-x-109">a∕b </span>in <span 
+class="cmmi-10x-x-109">x </span>with <span 
+class="cmmi-10x-x-109">deg</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmmi-10x-x-109">&#x003C; deg</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">b</span><span 
+class="cmr-10x-x-109">)</span>,<br />
+with <span 
+class="cmmi-10x-x-109">b </span>monic and square free, we calculate <span 
+class="cmex-10x-x-109">∫</span>
+ <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a∕b</span><span 
+class="cmr-10x-x-109">)</span><br />
+                                                                     
+
+                                                                     
+<span 
+class="cmmi-10x-x-109">R</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmsy-10x-x-109">← </span><span 
+class="cmmi-10x-x-109">resultant</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">zb</span><span 
+class="cmsy-10x-x-109">′</span><span 
+class="cmmi-10x-x-109">,b</span><span 
+class="cmr-10x-x-109">)</span><br />
+<span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">r</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">...r</span><sub><span 
+class="cmmi-8">k</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)) </span><span 
+class="cmsy-10x-x-109">← </span><span 
+class="cmmi-10x-x-109">factors</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">R</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">))</span><br />
+integral <span 
+class="cmsy-10x-x-109">← </span><span 
+class="cmr-10x-x-109">0</span>
+</p><!--l. 139--><p class="noindent" >for <span 
+class="cmmi-10x-x-109">i </span>from <span 
+class="cmr-10x-x-109">1 </span>to <span 
+class="cmmi-10x-x-109">k </span>do<br />
+                    {<br />
+                     <span 
+class="cmmi-10x-x-109">d </span><span 
+class="cmsy-10x-x-109">← </span><span 
+class="cmmi-10x-x-109">degree</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">r</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">))</span><br />
+                     if <span 
+class="cmmi-10x-x-109">d </span><span 
+class="cmr-10x-x-109">= 1 </span>then {<br />
+                                            c <span 
+class="cmsy-10x-x-109">← </span><span 
+class="cmmi-10x-x-109">solve</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">r</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) = 0</span><span 
+class="cmmi-10x-x-109">,z</span><span 
+class="cmr-10x-x-109">)</span><br />
+                                            v <span 
+class="cmsy-10x-x-109">← </span><span 
+class="cmmi-10x-x-109">GCD</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">cb</span><span 
+class="cmsy-10x-x-109">′</span><span 
+class="cmmi-10x-x-109">,b</span><span 
+class="cmr-10x-x-109">)</span><br />
+                                            v <span 
+class="cmsy-10x-x-109">← </span><span 
+class="cmmi-10x-x-109">v∕lcoeff</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">v</span><span 
+class="cmr-10x-x-109">)</span><br />
+                                            <span 
+class="cmmi-10x-x-109">integral </span><span 
+class="cmsy-10x-x-109">←</span>
+<span 
+class="cmmi-10x-x-109">integral </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">c </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">log</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">v</span><span 
+class="cmr-10x-x-109">)</span><br />
+                                            }<br />
+                     else {<br />
+                            % we need to do a GCD over algebraic number
+ﬁeld<br />
+                            v <span 
+class="cmsy-10x-x-109">← </span><span 
+class="cmmi-10x-x-109">GCD</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">α </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">b</span><span 
+class="cmsy-10x-x-109">′</span><span 
+class="cmmi-10x-x-109">,b</span><span 
+class="cmr-10x-x-109">)</span><br />
+                            v <span 
+class="cmsy-10x-x-109">← </span><span 
+class="cmmi-10x-x-109">v∕lcoff</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">v</span><span 
+class="cmr-10x-x-109">)</span>,     where
+<span 
+class="cmmi-10x-x-109">α </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">roof</span>_<span 
+class="cmmi-10x-x-109">of</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">r</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">))</span><br />
+                     if <span 
+class="cmmi-10x-x-109">d </span><span 
+class="cmr-10x-x-109">= 2 </span>then {<br />
+                                            % give answer in terms of
+radicals<br />
+                                            c <span 
+class="cmsy-10x-x-109">← </span><span 
+class="cmmi-10x-x-109">solve</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">r</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) = 0</span><span 
+class="cmmi-10x-x-109">,z</span><span 
+class="cmr-10x-x-109">)</span><br />
+                                            for j from 1 to 2 do {<br />
+                                            <span 
+class="cmmi-10x-x-109">v</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">j</span><span 
+class="cmr-10x-x-109">] </span><span 
+class="cmsy-10x-x-109">← </span><span 
+class="cmmi-10x-x-109">substitute</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">α </span><span 
+class="cmr-10x-x-109">=</span>
+<span 
+class="cmmi-10x-x-109">c</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">j</span><span 
+class="cmr-10x-x-109">]</span><span 
+class="cmmi-10x-x-109">,v</span><span 
+class="cmr-10x-x-109">)</span><br />
+                                            <span 
+class="cmmi-10x-x-109">integral </span><span 
+class="cmsy-10x-x-109">←</span>
+<span 
+class="cmmi-10x-x-109">integral </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">c</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">j</span><span 
+class="cmr-10x-x-109">] </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">log</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">v</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">j</span><span 
+class="cmr-10x-x-109">])</span><br />
+                                            }<br />
+                                            else {<br />
+                                            % Need answer in terms of
+root_of notation<br />
+                                            for j from 1 to d do {<br />
+                                            v[j]
+<span 
+class="cmsy-10x-x-109">← </span><span 
+class="cmmi-10x-x-109">substitute</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">α </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">c</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">j</span><span 
+class="cmr-10x-x-109">]</span><span 
+class="cmmi-10x-x-109">,v</span><span 
+class="cmr-10x-x-109">)</span><br />
+                                            integral
+<span 
+class="cmsy-10x-x-109">← </span><span 
+class="cmmi-10x-x-109">integral </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">c</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">j</span><span 
+class="cmr-10x-x-109">] </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">log</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">v</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">j</span><span 
+class="cmr-10x-x-109">])</span><br />
+                                            % where
+<span 
+class="cmmi-10x-x-109">c</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">j</span><span 
+class="cmr-10x-x-109">] = </span><span 
+class="cmmi-10x-x-109">root</span>_<span 
+class="cmmi-10x-x-109">of</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">r</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)) </span>}<br />
+                                            }<br />
+                       }<br />
+                    }<br />
+return(integral)<br />
+                                                                     
+
+                                                                     
+end</p></div>
+<!--l. 175--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.46.3    </span> <a 
+ id="x257-112000020.46.3"></a>The <span 
+class="pcrr8t-x-x-109">log_sum </span>operator</h4>
+<a 
+ id="dx257-1120001"></a>
+<!--l. 178--><p class="noindent" ><a 
+ id="operator:LOG_SUM"></a> The algorithms above returns a sum of terms of the form
+</p>
+<table 
+class="equation-star"><tr><td>
+                       <span 
+class="cmex-10x-x-109">∑</span>
+                           <sub><span 
+class="cmmi-8">α</span><span 
+class="cmsy-8">∣</span><span 
+class="cmmi-8">R</span><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">α</span><span 
+class="cmr-8">)=0</span></sub> <span 
+class="cmr-10x-x-109">log</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">S</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">α,x</span><span 
+class="cmr-10x-x-109">))</span><span 
+class="cmmi-10x-x-109">,</span>
+</td></tr></table>
+<!--l. 180--><p class="nopar" >
+</p><!--l. 182--><p class="noindent" >where <span 
+class="cmmi-10x-x-109">R </span><span 
+class="cmsy-10x-x-109">∈ </span><span 
+class="cmmi-10x-x-109">K</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">] </span>is square free, and <span 
+class="cmmi-10x-x-109">S </span><span 
+class="cmsy-10x-x-109">∈ </span><span 
+class="cmmi-10x-x-109">K</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">z,x</span><span 
+class="cmr-10x-x-109">]</span>. In the cases where the degree of
+<span 
+class="cmmi-10x-x-109">R</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">α</span><span 
+class="cmr-10x-x-109">) </span>is less than two, this is merely a sum of logarithms. For cases where the
+degree is two or more, I have chosen to adopt this notation as the answer to the
+original problem of integrating the rational function. For example, consider the
+integral
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+         <span 
+class="cmex-10x-x-109">∫</span>
+            <img 
+src="manual546x.png" alt="a
+b-"  class="frac" align="middle" /> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∫</span>
+  <img 
+src="manual547x.png" alt="2x5 − 19x4 + 60x3 − 159 + x2 + 50x + 11
+x6 −-13x5-+-58x4-−-85x3-−-66x2 −-17x-+-1"  class="frac" align="middle" /><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">dx</span>
+</td></tr></table>
+<!--l. 184--><p class="nopar" >
+Calculating the resultant <span 
+class="cmmi-10x-x-109">R</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) = </span><span 
+class="cmmi-10x-x-109">res</span><sub><span 
+class="cmmi-8">x</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">zb</span><span 
+class="cmsy-10x-x-109">′</span><span 
+class="cmmi-10x-x-109">,b</span><span 
+class="cmr-10x-x-109">) </span>and factorising gives
+</p>
+<table 
+class="equation-star"><tr><td>
+              <span 
+class="cmmi-10x-x-109">R</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) = </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">190107645728000(</span><span 
+class="cmmi-10x-x-109">z</span><sup><span 
+class="cmr-8">3</span></sup> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">z</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">z </span><span 
+class="cmr-10x-x-109">+ 1)</span><sup><span 
+class="cmr-8">2</span></sup>
+</td></tr></table>
+<!--l. 186--><p class="nopar" >
+Making the result monic, we have
+</p>
+<table 
+class="equation-star"><tr><td>
+                       <span 
+class="cmmi-10x-x-109">R</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">) = </span><span 
+class="cmmi-10x-x-109">z</span><sup><span 
+class="cmr-8">3</span></sup> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">z</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">z </span><span 
+class="cmr-10x-x-109">+ 1</span>
+</td></tr></table>
+<!--l. 188--><p class="nopar" >
+which does not split over the constant ﬁeld <span 
+class="cmmi-10x-x-109">Q</span>. Continuting with the Rothstein Trager
+algorithm, we now calculate
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+               <span 
+class="cmmi-10x-x-109">gcd</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">α</span><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">b</span><span 
+class="cmsy-10x-x-109">′</span><span 
+class="cmmi-10x-x-109">,b</span><span 
+class="cmr-10x-x-109">) = </span><span 
+class="cmmi-10x-x-109">z</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">+ (2 </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">α </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">5) </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">z </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">α</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmmi-10x-x-109">,</span>
+</td></tr></table>
+<!--l. 191--><p class="nopar" >
+where <span 
+class="cmmi-10x-x-109">α </span>is a root of <span 
+class="cmmi-10x-x-109">R</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">z</span><span 
+class="cmr-10x-x-109">)</span>. <br 
+class="newline" />Thus we can write
+</p>
+<table 
+class="equation-star"><tr><td>
+          <span 
+class="cmex-10x-x-109">∫</span>
+            <img 
+src="manual548x.png" alt="a
+b-"  class="frac" align="middle" /> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∑</span>
+   <sub><span 
+class="cmmi-8">α</span><span 
+class="cmsy-8">∣</span><span 
+class="cmmi-8">α</span><sup><span 
+class="cmr-6">3</span></sup><span 
+class="cmsy-8">−</span><span 
+class="cmmi-8">α</span><sup><span 
+class="cmr-6">2</span></sup><span 
+class="cmr-8">+</span><span 
+class="cmmi-8">α</span><span 
+class="cmr-8">+1=0</span></sub><span 
+class="cmmi-10x-x-109">α </span><span 
+class="cmsy-10x-x-109">∗</span> <span 
+class="cmr-10x-x-109">log</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">+ 2</span><span 
+class="cmmi-10x-x-109">αx </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">5</span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">α</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,</span>
+</td></tr></table>
+<!--l. 193--><p class="nopar" >
+</p><!--l. 195--><p class="noindent" >and this is the answer now returned by REDUCE, via a function called <span 
+class="pcrr8t-x-x-109">log_sum</span>. This
+has the following syntax: </p>
+<div class="center" 
+>
+<!--l. 196--><p class="noindent" >
+</p><!--l. 196--><p class="noindent" ><span 
+class="cmr-10x-x-109">log</span>_<span 
+class="cmr-10x-x-109">sum</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">α,eqn</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">α</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">0</span><span 
+class="cmmi-10x-x-109">,sum</span>_<span 
+class="cmmi-10x-x-109">term,var</span><span 
+class="cmr-10x-x-109">)</span></p></div>
+<!--l. 197--><p class="noindent" >where <span 
+class="cmmi-10x-x-109">α </span>satisﬁes <span 
+class="cmmi-10x-x-109">eqn </span><span 
+class="cmr-10x-x-109">= 0</span>, and <span 
+class="cmmi-10x-x-109">sum</span>_<span 
+class="cmmi-10x-x-109">term </span>is the term of the summation in the variable
+<span 
+class="cmmi-10x-x-109">var</span>. Thus in the above example, we have
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+  <span 
+class="cmex-10x-x-109">∫</span>
+    <img 
+src="manual549x.png" alt="a-
+b"  class="frac" align="middle" /><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">dx </span><span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmr-10x-x-109">log</span>_<span 
+class="cmr-10x-x-109">sum</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">α,α</span><sup><span 
+class="cmr-8">3</span></sup> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">α</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">α </span><span 
+class="cmr-10x-x-109">+ 1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">0</span><span 
+class="cmmi-10x-x-109">,α </span><span 
+class="cmsy-10x-x-109">∗</span> <span 
+class="cmr-10x-x-109">log</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">+ 2</span><span 
+class="cmmi-10x-x-109">αx </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">5</span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">α</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,x</span><span 
+class="cmr-10x-x-109">)</span>
+</td></tr></table>
+<!--l. 198--><p class="nopar" >
+</p><!--l. 200--><p class="noindent" >Many rational functions that could not be integrated by REDUCE previously can now be
+integrated with this package. The above is one example; some more are given on the next
+page.
+</p><!--l. 202--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.46.3.1    </span> <a 
+ id="x257-112100020.46.3.1"></a>More examples</h5>
+<!--l. 203--><p class="noindent" ><img 
+src="manual550x.png" alt="∫
+   --1---dx = 1-log(x + 1)
+   x5 + 1     5 "  class="math"  />
+</p>
+<table 
+class="equation-star"><tr><td>
+   <span 
+class="cmr-10x-x-109">+ 5</span><span 
+class="cmr-10x-x-109">log</span>_<span 
+class="cmr-10x-x-109">sum</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">β,β</span><sup><span 
+class="cmr-8">4</span></sup> <span 
+class="cmr-10x-x-109">+</span> <img 
+src="manual551x.png" alt="1
+--
+5"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">β</span><sup><span 
+class="cmr-8">3</span></sup> <span 
+class="cmr-10x-x-109">+</span> <img 
+src="manual552x.png" alt="1
+---
+25"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">β</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">+</span> <img 
+src="manual553x.png" alt=" 1
+----
+125"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">β </span><span 
+class="cmr-10x-x-109">+</span> <img 
+src="manual554x.png" alt=" 1
+----
+625"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">0</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">log</span><span 
+class="cmr-10x-x-109">(5 </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">β </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">β</span><span 
+class="cmr-10x-x-109">)</span>
+</td></tr></table>
+<!--l. 208--><p class="nopar" >
+</p><!--l. 210--><p class="noindent" >which should be read as
+</p>
+                                                                     
+
+                                                                     
+<table 
+class="equation-star"><tr><td>
+ <span 
+class="cmex-10x-x-109">∫</span>
+   <img 
+src="manual555x.png" alt="---1--
+x5 + 1"  class="frac" align="middle" /><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">dx </span><span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual556x.png" alt="1-
+5"  class="frac" align="middle" /><span 
+class="cmr-10x-x-109">log</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">+ 1) +</span> <span 
+class="cmex-10x-x-109">∑</span>
+   <sub><span 
+class="cmmi-8">β</span><span 
+class="cmsy-8">∣</span><span 
+class="cmmi-8">β</span><sup><span 
+class="cmr-6">4</span></sup><span 
+class="cmr-8">+</span><img 
+src="manual557x.png" alt="1
+5"  class="frac" align="middle" /><span 
+class="cmmi-8">β</span><sup><span 
+class="cmr-6">3</span></sup><span 
+class="cmr-8">+</span><img 
+src="manual558x.png" alt="1-
+25"  class="frac" align="middle" /><span 
+class="cmmi-8">β</span><sup><span 
+class="cmr-6">2</span></sup><span 
+class="cmr-8">+</span><img 
+src="manual559x.png" alt="-1-
+125"  class="frac" align="middle" /><span 
+class="cmmi-8">β</span><span 
+class="cmr-8">+</span><img 
+src="manual560x.png" alt="-1-
+625"  class="frac" align="middle" /><span 
+class="cmr-8">=0</span></sub> <span 
+class="cmr-10x-x-109">log</span><span 
+class="cmr-10x-x-109">(5 </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">β </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">β</span>
+</td></tr></table>
+<!--l. 213--><p class="nopar" >
+</p><!--l. 215--><p class="noindent" ><img 
+src="manual561x.png" alt="∫
+   7x13 +-10x8-+-4x7-−-7x6 −-4x3 −-4x2-+-3x-+-3
+    x14 − 2x8 − 2x7 − 2x4 − 4x3 − x2 + 2x + 1 dx = "  class="math"  />
+</p>
+<table 
+class="equation-star"><tr><td>
+    <span 
+class="cmr-10x-x-109">log</span>_<span 
+class="cmr-10x-x-109">sum</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">α,α</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmmi-10x-x-109">α </span><span 
+class="cmsy-10x-x-109">−</span><img 
+src="manual562x.png" alt="1-
+4"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">0</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">log</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">αx</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">2</span><span 
+class="cmmi-10x-x-109">αx </span><span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmr-8">7</span></sup> <span 
+class="cmr-10x-x-109">+ </span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">1) </span><span 
+class="cmsy-10x-x-109">∗ </span><span 
+class="cmmi-10x-x-109">α,x</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,</span>
+</td></tr></table>
+<!--l. 221--><p class="nopar" >
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+<span 
+class="cmex-10x-x-109">∫</span>
+  <img 
+src="manual563x.png" alt="----1-----
+x3 + x+ 1"  class="frac" align="middle" /><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">dx </span><span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmr-10x-x-109">log</span>_<span 
+class="cmr-10x-x-109">sum</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">β,β</span><sup><span 
+class="cmr-8">3</span></sup><span 
+class="cmsy-10x-x-109">−</span><img 
+src="manual564x.png" alt="3--
+31"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">β</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmsy-10x-x-109">−</span><img 
+src="manual565x.png" alt="-1-
+31"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">0</span><span 
+class="cmmi-10x-x-109">,β</span> <span 
+class="cmr-10x-x-109">log</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">−</span><img 
+src="manual566x.png" alt="62-
+9"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">β</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmr-10x-x-109">+</span><img 
+src="manual567x.png" alt="31-
+9"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">β</span><span 
+class="cmr-10x-x-109">+</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">+</span><img 
+src="manual568x.png" alt="4-
+9"  class="frac" align="middle" /><span 
+class="cmr-10x-x-109">))</span><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 222--><p class="nopar" >
+</p><!--l. 224--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.46.4    </span> <a 
+ id="x257-112200020.46.4"></a>Options</h4>
+<!--l. 225--><p class="noindent" >There are several alternative forms that the answer to the integration problem can take.
+One output is the <span 
+class="pcrr8t-x-x-109">log_sum </span>form shown in the examples above. There is an option with
+this package to convert this to a “normal” sum of logarithms in the case when the degree
+of <span 
+class="cmmi-10x-x-109">eqn </span>in <span 
+class="cmmi-10x-x-109">α </span>is two, and <span 
+class="cmmi-10x-x-109">α </span>can be expressed in surds. To do this, use the function
+<span 
+class="pcrr8t-x-x-109">convert</span>, which has the following syntax:
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">convert(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exp</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">)</span></div>
+<!--l. 229--><p class="noindent" >If <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exp</span><span 
+class="cmsy-10x-x-109">⟩ </span>is free of <span 
+class="pcrr8t-x-x-109">log_sum </span>terms, then <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exp</span><span 
+class="cmsy-10x-x-109">⟩ </span>itself is returned. If <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exp</span><span 
+class="cmsy-10x-x-109">⟩ </span>contains
+<span 
+class="pcrr8t-x-x-109">log_sum </span>terms, then <span 
+class="cmmi-10x-x-109">α </span>is represented as surds, and substituted into the <span 
+class="pcrr8t-x-x-109">log_sum</span>
+expression. For example, using the last example, we have in REDUCE:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1343">
+2: ratint(a,b,x);
+ <br />
+ <br />{0,
+ <br />
+ <br />                    2            1
+ <br /> log_sum(alpha,alpha  - alpha - ---,0,log(
+ <br />                                 4
+ <br />
+ <br />                        2                7    2
+ <br />             - 2*alpha*x  - 2*alpha*x + x  + x
+ <br />
+ <br />             - 1)*alpha,x)}
+ <br />
+ <br />3: convert(ws);
+ <br />
+ <br />
+ <br /> 1
+ <br />---*(sqrt(2)
+ <br /> 2
+ <br />
+ <br />                      2                7
+ <br />     *log( - sqrt(2)*x  - sqrt(2)*x + x  - x - 1)
+ <br />
+ <br />     - sqrt(2)
+ <br />
+ <br />                   2                7
+ <br />     *log(sqrt(2)*x  + sqrt(2)*x + x  - x - 1) +
+ <br />
+ <br />                     2                7
+ <br />     log( - sqrt(2)*x  - sqrt(2)*x + x  - x - 1)
+ <br />
+ <br />                     2                7
+ <br />      + log(sqrt(2)*x  + sqrt(2)*x + x  - x - 1))
+</div>
+<!--l. 264--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p><!--l. 266--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><span class="titlemark">20.46.4.1    </span> <a 
+ id="x257-112300020.46.4.1"></a><span 
+class="pcrr8t-x-x-109">LogtoAtan </span>function</h5>
+<!--l. 267--><p class="noindent" >The user could then combine these to form a more elegant answer, using the switch
+combinelogs if one so wished. Another option is to convert complex logarithms to real
+arctangents  <span class="cite">[<a 
+href="manualap2.html#XBronstein:97">Bro97</a>]</span>, which is recommended if deﬁnite integration is the goal. This is
+implemented in REDUCE via a function <span 
+class="pcrr8t-x-x-109">convert_log</span>, which has the following
+syntax:
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">convert_log(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="pcrro8t-x-x-109">exp</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">)</span></div>
+<!--l. 271--><p class="noindent" >where <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exp</span><span 
+class="cmsy-10x-x-109">⟩ </span>is any expression containing <span 
+class="pcrr8t-x-x-109">log_sum </span>terms.
+</p><!--l. 273--><p class="noindent" >The procedure to convert complex logarithms to real arctangents is based on an
+algorithm by Rioboo. Here is what it does:
+</p><!--l. 275--><p class="noindent" >Given a ﬁeld <span 
+class="cmmi-10x-x-109">K </span>of characteristic 0 such that <img 
+src="manual569x.png" alt="√ ---
+  − 1"  class="sqrt"  /><span 
+class="cmr-10x-x-109">∉</span><span 
+class="cmmi-10x-x-109">K </span>and <span 
+class="cmmi-10x-x-109">A,B </span><span 
+class="cmsy-10x-x-109">∈ </span><span 
+class="cmmi-10x-x-109">K</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">] </span>with <span 
+class="cmmi-10x-x-109">B</span><span 
+class="cmr-10x-x-109">≠</span><span 
+class="cmr-10x-x-109">0</span>,
+return a sum <span 
+class="cmmi-10x-x-109">f </span>of arctangents of polynomials in <span 
+class="cmmi-10x-x-109">K</span><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">] </span>such that
+</p>
+<table 
+class="equation-star"><tr><td>
+                        <img 
+src="manual570x.png" alt="-df-
+dx"  class="frac" align="middle" /> <span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual571x.png" alt="-d-
+dx"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">i</span><span 
+class="cmr-10x-x-109">log</span><span 
+class="cmr-10x-x-109">(</span><img 
+src="manual572x.png" alt="A-+-iB-
+A − iB"  class="frac" align="middle" /><span 
+class="cmr-10x-x-109">)</span>
+</td></tr></table>
+<!--l. 277--><p class="nopar" >
+</p><!--l. 279--><p class="noindent" >Example:
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+  <span 
+class="cmex-10x-x-109">∫</span>
+    <img 
+src="manual573x.png" alt="    x4 − 3 ∗x2 + 6
+x6 −-5-∗x4-+-5-∗x2-+-4"  class="frac" align="middle" /><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">dx </span><span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmex-10x-x-109">∑</span>
+   <sub><span 
+class="cmmi-8">α</span><span 
+class="cmsy-8">∣</span><span 
+class="cmr-8">4</span><span 
+class="cmmi-8">α</span><span 
+class="cmr-8">+1=0</span></sub><span 
+class="cmmi-10x-x-109">α</span> <span 
+class="cmr-10x-x-109">log</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmr-8">3</span></sup> <span 
+class="cmr-10x-x-109">+ 2</span><span 
+class="cmmi-10x-x-109">αx</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">3</span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">4</span><span 
+class="cmmi-10x-x-109">α</span><span 
+class="cmr-10x-x-109">)</span>
+</td></tr></table>
+<!--l. 280--><p class="nopar" >
+</p><!--l. 282--><p class="noindent" >Substituting <span 
+class="cmmi-10x-x-109">α </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">i∕</span><span 
+class="cmr-10x-x-109">2 </span>and <span 
+class="cmmi-10x-x-109">α </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmmi-10x-x-109">i∕</span><span 
+class="cmr-10x-x-109">2 </span>gives the result
+</p>
+<table 
+class="equation-star"><tr><td>
+                     <img 
+src="manual574x.png" alt="i
+2-"  class="frac" align="middle" /><span 
+class="cmr-10x-x-109">log</span><span 
+class="cmr-10x-x-109">(</span><img 
+src="manual575x.png" alt="(x3 − 3x)+ i(x2 − 2 )
+(x3-−-3x)−-i(x2 −-2-)"  class="frac" align="middle" /><span 
+class="cmr-10x-x-109">)</span>
+</td></tr></table>
+<!--l. 284--><p class="nopar" >
+</p><!--l. 286--><p class="noindent" >Applying logtoAtan now with <span 
+class="cmmi-10x-x-109">A </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmr-8">3</span></sup> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">3</span><span 
+class="cmmi-10x-x-109">x</span>, and <span 
+class="cmmi-10x-x-109">B </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmsy-10x-x-109">− </span><span 
+class="cmr-10x-x-109">2 </span>we obtain </p><table 
+class="multline-star"><tr><td><img 
+src="manual576x.png" alt="∫       4      2
+   ----x-−-3-∗x--+-6----dx
+   x6 − 5 ∗x4 + 5∗ x2 + 4
+                            x5-−-3x3 +-x           3
+                   = arctan(     2      )+ arctan(x )+ arctan(x), "  /></td></tr></table>and
+this is the formula which should be used for deﬁnite integration.
+<!--l. 293--><p class="noindent" >Another example in REDUCE is given below:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1344">
+1: ratint(1,x^2+1,x);
+ <br />
+ <br />                    2    1
+ <br />{0,log_sum(beta,beta  + ---,0,log(2*beta*x - 1)*beta)}
+ <br />                         4
+ <br />
+ <br />13: part(ws,2);
+ <br />
+ <br />                 2    1
+ <br />log_sum(beta,beta  + ---,0,log(2*beta*x - 1)*beta)
+ <br />                      4
+ <br />
+ <br />14: on combinelogs;
+ <br />
+ <br />15: convertlog(ws);
+ <br />
+ <br /> 1        - i*x + 1
+ <br />---*log(------------)*i
+ <br /> 2         i*x + 1
+ <br />
+ <br />
+ <br />logtoAtan(-x,1,x);
+ <br />
+ <br /> - 2*atan(x)
+</div>
+<!--l. 319--><p class="nopar" >
+</p><!--l. 321--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.46.5    </span> <a 
+ id="x257-112400020.46.5"></a>Hermite’s method</h4>
+<!--l. 322--><p class="noindent" >The package also implements Hermite’s method to reduce the integral into its polynomial
+and logarithmic parts, but occasionally, REDUCE returns the incorrect answer when this
+algorithm is used. This is due to the REDUCE operator pf, which performs a complete
+partial fraction expansion when given a rational function as input. Work is presently
+being done to give the pf operator a facility which tells it that the input is already
+                                                                     
+
+                                                                     
+factored. This would then enable REDUCE to perform a partial fraction decomposition
+with respect to a square free denominator, which may not necessarily be fully factored
+over Q.
+</p><!--l. 324--><p class="noindent" >For a complete explanation of this and the other algorithms used in this package,
+including the theoretical justiﬁcation and proofs, please consult  <span class="cite">[<a 
+href="manualap2.html#XGeddes:92">GCL92</a>]</span>.
+</p><!--l. 326--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.46.6    </span> <a 
+ id="x257-112500020.46.6"></a>Tracing the <span 
+class="ptmri8t-x-x-109">ratint </span>program</h4>
+<!--l. 327--><p class="noindent" >The package includes a facility to trace in some detail the inner workings of the <span 
+class="pcrr8t-x-x-109">ratint</span>
+program. Messages are given at the key stages of the algorithm, together with the results
+obtained. These messages are displayed when the switch <span 
+class="pcrr8t-x-x-109">traceratint </span>is on, which is
+done in REDUCE with the command <a 
+ id="dx257-1125001"></a><a 
+ id="dx257-1125002"></a><a 
+ id="dx257-1125003"></a> <a 
+ id="switch:TRACERATINT"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1345">
+on traceratint;
+</div>
+<!--l. 332--><p class="nopar" > This switch is oﬀ by default. Here is an example of the output obtained with this switch
+on:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1346">
+1: on traceratint;
+ <br />
+ <br />
+ <br />2: ratint(1+x,x^2-2*x+1,x);
+ <br />
+ <br />                                     x + 1
+ <br />performing Howoritz reduction on --------------
+ <br />                                   2
+ <br />                                  x  - 2*x + 1
+ <br />
+ <br />                   - 2        1
+ <br />Howoritz gives: {-------,0,-------}
+ <br />                  x - 1     x - 1
+ <br />
+ <br />                                 1
+ <br />computing Rothstein Trager on -------
+ <br />                               x - 1
+ <br />
+ <br />integral in Rothstein T is log(x - 1)
+ <br />
+ <br />   - 2
+ <br />{-------,log(x - 1)}
+ <br />  x - 1
+</div>
+<!--l. 359--><p class="nopar" >
+</p><!--l. 361--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.46.7    </span> <a 
+ id="x257-112600020.46.7"></a>Bugs, suggestions and comments</h4>
+<!--l. 362--><p class="noindent" >This package was written when the author was working as a placement student at ZIB
+Berlin.
+</p><!--l. 942--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 944--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse171.html" >Up</a></td><td class="clinks"><a 
+href="manualse172.html" >Next</a></td><td class="clinks"><a 
+href="manualse170.html" >Prev</a></td><td class="clinks"><a 
+href="manualse170.html#tailmanualse170.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse171.html" >Front</a></td></tr></table><a 
+ id="tailmanualse171.html"></a>  </p> 
+</body> 
+</html>

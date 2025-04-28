@@ -1,0 +1,111 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Asymptotic Commands</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch11.html#manualse82.html" >Up</a></td><td class="clinks"><a 
+href="manualse81.html" >Prev</a></td><td class="clinks"><a 
+href="manualse81.html#tailmanualse81.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse82.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">11.4    </span> <a 
+ id="x105-21000011.4"></a>Asymptotic Commands</h3>
+<a 
+ id="dx105-210001"></a>
+<!--l. 754--><p class="noindent" >In expansions of polynomials involving variables that are known to be small, it is often
+desirable to throw away all powers of these variables beyond a certain point to avoid
+unnecessary computation. The command <span 
+class="pcrr8t-x-x-109">let </span>may be used to do this. For example, if
+only powers of <span 
+class="pcrr8t-x-x-109">x </span>up to <span 
+class="pcrr8t-x-x-109">x^7 </span>are needed, the command
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-415">
+        let x^8 = 0;
+</div>
+<!--l. 761--><p class="nopar" > will cause the system to delete all powers of <span 
+class="pcrr8t-x-x-109">x </span>higher than 7.
+</p><!--l. 764--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">CAUTION: </span>This particular simpliﬁcation works diﬀerently from most substitution
+mechanisms in REDUCE in that it is applied during polynomial manipulation rather than
+to the whole evaluated expression. Thus, with the above rule in eﬀect, <span 
+class="pcrr8t-x-x-109">x^10/x^5 </span>would
+give the result zero, since the numerator would simplify to zero. Similarly <span 
+class="pcrr8t-x-x-109">x^20/x^10</span>
+would give a <span 
+class="pcrr8t-x-x-109">Zero divisor </span>error message, since both numerator and denominator
+would ﬁrst simplify to zero.
+</p><!--l. 774--><p class="noindent" ><a 
+ id="command:WEIGHT"></a> The method just described is not adequate when expressions involve several variables
+having diﬀerent degrees of smallness. In this case, it is necessary to supply
+an asymptotic weight to each variable and count up the total weight of each
+product in an expanded expression before deciding whether to keep the term or
+not. There are two associated commands in the system to permit this type of
+asymptotic constraint. The command <span 
+class="pcrr8t-x-x-109">weight</span><a 
+ id="dx105-210002"></a> takes a list of equations of the
+form
+  </p><div class="syntax">
+   <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">kernel form</span><span 
+class="cmsy-10x-x-109">⟩ </span><span 
+class="pcrr8t-x-x-109">= </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">number</span><span 
+class="cmsy-10x-x-109">⟩</span></div>
+<!--l. 786--><p class="noindent" >where <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">number</span><span 
+class="cmsy-10x-x-109">⟩ </span>must be a positive integer (not just evaluate to a positive integer). This
+command assigns the weight <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">number</span><span 
+class="cmsy-10x-x-109">⟩ </span>to the relevant kernel form. A check is then made
+in all algebraic evaluations to see if the total weight of the term is greater than the weight
+level assigned to the calculation. If it is, the term is deleted. To compute the total weight
+of a product, the individual weights of each kernel form are multiplied by their
+corresponding powers and then added.
+</p><!--l. 794--><p class="noindent" ><a 
+ id="command:WTLEVEL"></a> The weight level of the system is initially set to 1. The user may change this setting by
+the command<a 
+ id="dx105-210003"></a>
+  </p><div class="syntax">
+   <span 
+class="pcrr8t-x-x-109">wtlevel </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">number</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">;</span></div>
+<!--l. 800--><p class="noindent" >which sets <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">number</span><span 
+class="cmsy-10x-x-109">⟩ </span>as the new weight level of the system. <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">number</span><span 
+class="cmsy-10x-x-109">⟩ </span>must evaluate to a
+positive integer. <span 
+class="pcrr8t-x-x-109">wtlevel </span>will also allow <span 
+class="pcrr8t-x-x-109">nil </span>as an argument, in which case the current
+weight level is returned.
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 1--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch11.html#manualse82.html" >Up</a></td><td class="clinks"><a 
+href="manualse81.html" >Prev</a></td><td class="clinks"><a 
+href="manualse81.html#tailmanualse81.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse82.html" >Front</a></td></tr></table><a 
+ id="tailmanualse82.html"></a> </p> 
+</body> 
+</html>

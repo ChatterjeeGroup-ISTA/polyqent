@@ -1,0 +1,82 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Additional Expression Types</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch22.html#manualse205.html" >Up</a></td><td class="clinks"><a 
+href="manualse206.html" >Next</a></td><td class="clinks"><a 
+href="manualse204.html" >Prev</a></td><td class="clinks"><a 
+href="manualse204.html#tailmanualse204.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse205.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">22.3    </span> <a 
+ id="x301-134900022.3"></a>Additional Expression Types</h3>
+<!--l. 147--><p class="noindent" >Two additional expression types are necessary for high energy calculations,
+namely
+</p><!--l. 150--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">22.3.1    </span> <a 
+ id="x301-135000022.3.1"></a>Vector Expressions</h4>
+<a 
+ id="dx301-1350001"></a>
+<!--l. 152--><p class="noindent" >These follow the normal rules of vector combination. Thus the product of a scalar or
+numerical expression and a vector expression is a vector, as are the sum and diﬀerence of
+vector expressions. If these rules are not followed, error messages are printed.
+Furthermore, if the system ﬁnds an undeclared variable where it expects a vector
+variable, it will ask the user in interactive mode whether to make that variable a vector or
+not. In batch mode, the declaration will be made automatically and the user informed of
+this by a message.
+</p><!--l. 161--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Examples:</span>
+</p><!--l. 163--><p class="noindent" >Assuming <span 
+class="pcrr8t-x-x-109">p </span>and <span 
+class="pcrr8t-x-x-109">q </span>have been declared vectors, the following are vector expressions
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1511">
+        p
+ <br />        2*q/3
+ <br />        2*x*y*p - p.q*q/(3*q.q)
+</div>
+<!--l. 169--><p class="nopar" > whereas <span 
+class="pcrr8t-x-x-109">p*q </span>and <span 
+class="pcrr8t-x-x-109">p/q </span>are not.
+</p><!--l. 172--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">22.3.2    </span> <a 
+ id="x301-135100022.3.2"></a>Dirac Expressions</h4>
+<!--l. 174--><p class="noindent" >These denote those expressions which involve <span 
+class="cmmi-10x-x-109">γ </span>matrices. A <span 
+class="cmmi-10x-x-109">γ </span>matrix is implicitly a 4 <span 
+class="cmsy-10x-x-109">×</span>
+4 matrix, and so the product, sum and diﬀerence of such expressions, or the product of a
+scalar and Dirac expression is again a Dirac expression. There are no Dirac variables in
+the system, so whenever a scalar variable appears in a Dirac expression without an
+associated <span 
+class="cmmi-10x-x-109">γ </span>matrix expression, an implicit unit 4 by 4 matrix is assumed. For
+example, <span 
+class="pcrr8t-x-x-109">g(l,p) + m </span>denotes <span 
+class="pcrr8t-x-x-109">g(l,p) + m*</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="pcrro8t-x-x-109">unit 4 by 4 matrix</span><span 
+class="cmsy-10x-x-109">⟩</span>.
+Multiplication of Dirac expressions, as for matrix expressions, is of course
+non-commutative.
+                                                                     
+
+                                                                     
+</p><!--l. 184--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch22.html#manualse205.html" >Up</a></td><td class="clinks"><a 
+href="manualse206.html" >Next</a></td><td class="clinks"><a 
+href="manualse204.html" >Prev</a></td><td class="clinks"><a 
+href="manualse204.html#tailmanualse204.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse205.html" >Front</a></td></tr></table><a 
+ id="tailmanualse205.html"></a>  </p> 
+</body> 
+</html>

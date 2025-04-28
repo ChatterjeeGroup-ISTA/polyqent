@@ -1,0 +1,101 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Scalar Expressions</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch3.html#manualse8.html" >Up</a></td><td class="clinks"><a 
+href="manualse9.html" >Next</a></td><td class="clinks"><a 
+href="#tailmanualse8.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">3.1    </span> <a 
+ id="x14-160003.1"></a>Scalar Expressions</h3>
+<a 
+ id="dx14-16001"></a>
+<!--l. 9--><p class="noindent" >Using the arithmetic operations <span 
+class="pcrr8t-x-x-109">+ - * / ^</span> <a 
+ id="dx14-16002"></a><a 
+ id="dx14-16003"></a><a 
+ id="dx14-16004"></a><a 
+ id="dx14-16005"></a><a 
+ id="dx14-16006"></a>(power) and parentheses, scalar
+expressions are composed from numbers, ordinary “scalar” variables (identiﬁers), array
+names with subscripts, operator or procedure names with arguments and statement
+expressions.
+</p><!--l. 19--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Examples:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-24">
+        x
+ <br />        x^3 - 2*y/(2*z^2 - df(x,z))
+ <br />        (p^2 + m^2)^(1/2)*log (y/m)
+ <br />        a(5) + b(i,q)
+</div>
+<!--l. 25--><p class="nopar" > The symbol <span 
+class="pcrr8t-x-x-109">** </span>may be used as an alternative to the caret symbol <a 
+ id="dx14-16007"></a>(<span 
+class="pcrr8t-x-x-109">^</span>) for forming
+powers, particularly in those systems that do not support a caret symbol. For details of
+operator precedence and associativity, see section <a 
+href="manualse7.html#x12-140002.7">2.7<!--tex4ht:ref: sect:infix --></a>.
+</p><!--l. 33--><p class="noindent" >Statement expressions, usually in parentheses, can also form part of a scalar<a 
+ id="dx14-16008"></a> expression,
+as in the example
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-25">
+        w + (c:=x+y) + z .
+</div>
+<!--l. 37--><p class="nopar" > When the algebraic value of an expression is needed, REDUCE determines it, starting
+with the algebraic values of the parts, roughly as follows:
+</p><!--l. 41--><p class="noindent" >Variables and operator symbols with an argument list have the algebraic values they were
+last assigned, or if never assigned stand for themselves. However, array elements have
+the algebraic values they were last assigned, or, if never assigned, are taken to be
+0.
+</p><!--l. 46--><p class="noindent" >Procedures are evaluated with the values of their actual parameters.
+</p><!--l. 48--><p class="noindent" >In evaluating expressions, the standard rules of algebra are applied. Unfortunately, this
+algebraic evaluation of an expression is not as unambiguous as is numerical
+evaluation. This process is generally referred to as “simpliﬁcation”<a 
+ id="dx14-16009"></a> in the sense
+that the evaluation usually but not always produces a simpliﬁed form for the
+expression.
+</p><!--l. 55--><p class="noindent" >There are many options available to the user for carrying out such simpliﬁcation<a 
+ id="dx14-16010"></a>. If
+the user doesn’t specify any method, the default method is used. The default
+evaluation of an expression involves expansion of the expression and collection of
+like terms, ordering of the terms, evaluation of derivatives and other functions
+and substitution for any expressions which have values assigned or declared
+(see assignments and <span 
+class="pcrr8t-x-x-109">let </span>statements). In many cases, this is all that the user
+needs.
+</p><!--l. 64--><p class="noindent" >The declarations by which the user can exercise some control over the way in which the
+evaluation is performed are explained in other sections. For example, if a real (ﬂoating
+point) number is encountered during evaluation, the system will normally convert it into
+a ratio of two integers. If the user wants to use real arithmetic, he can eﬀect this by the
+command <span 
+class="pcrr8t-x-x-109">on rounded;</span>.<a 
+ id="dx14-16011"></a><a 
+ id="dx14-16012"></a><a 
+ id="dx14-16013"></a> Other modes for coeﬃcient arithmetic are described
+elsewhere.
+</p><!--l. 72--><p class="noindent" >If an illegal action occurs during evaluation (such as division by zero) or functions are
+called with the wrong number of arguments, and so on, an appropriate error message is
+generated.
+                                                                     
+
+                                                                     
+</p><!--l. 77--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch3.html#manualse8.html" >Up</a></td><td class="clinks"><a 
+href="manualse9.html" >Next</a></td><td class="clinks"><a 
+href="manualse8.html" >Front</a></td></tr></table><a 
+ id="tailmanualse8.html"></a> </p> 
+</body> 
+</html>

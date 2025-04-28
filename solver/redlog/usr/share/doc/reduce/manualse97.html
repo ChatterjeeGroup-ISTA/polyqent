@@ -1,0 +1,55 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Matrix Assignments</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch14.html#manualse97.html" >Up</a></td><td class="clinks"><a 
+href="manualse98.html" >Next</a></td><td class="clinks"><a 
+href="manualse96.html" >Prev</a></td><td class="clinks"><a 
+href="manualse96.html#tailmanualse96.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse97.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">14.5    </span> <a 
+ id="x124-23500014.5"></a>Matrix Assignments</h3>
+<a 
+ id="dx124-235001"></a>
+<!--l. 280--><p class="noindent" >Matrix expressions may appear in the right-hand side of assignment statements. If the
+left-hand side of the assignment, which must be a variable, has not already been declared
+a matrix, it is declared by default to the size of the right-hand side. The variable is then
+set to the value of the right-hand side.
+</p><!--l. 286--><p class="noindent" >Such an assignment may be used very conveniently to ﬁnd the solution of a set
+of linear equations. For example, to ﬁnd the solution of the following set of
+equations
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-435">
+        a11*x(1) + a12*x(2) = y1
+ <br />        a21*x(1) + a22*x(2) = y2
+</div>
+<!--l. 292--><p class="nopar" > we simply write
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-436">
+        x := 1/mat((a11,a12),(a21,a22))*mat((y1),(y2));
+</div>
+<!--l. 296--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p><!--l. 298--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch14.html#manualse97.html" >Up</a></td><td class="clinks"><a 
+href="manualse98.html" >Next</a></td><td class="clinks"><a 
+href="manualse96.html" >Prev</a></td><td class="clinks"><a 
+href="manualse96.html#tailmanualse96.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse97.html" >Front</a></td></tr></table><a 
+ id="tailmanualse97.html"></a> </p> 
+</body> 
+</html>

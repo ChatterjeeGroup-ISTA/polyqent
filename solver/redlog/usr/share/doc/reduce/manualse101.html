@@ -1,0 +1,92 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Matrix- and List-valued Procedures</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch15.html#manualse101.html" >Up</a></td><td class="clinks"><a 
+href="manualse102.html" >Next</a></td><td class="clinks"><a 
+href="manualse100.html" >Prev</a></td><td class="clinks"><a 
+href="manualse100.html#tailmanualse100.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse101.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">15.3    </span> <a 
+ id="x129-24000015.3"></a>Matrix- and List-valued Procedures</h3>
+<a 
+ id="dx129-240001"></a>
+<!--l. 186--><p class="noindent" ><a 
+ id="reserved:MATRIXPROC"></a>
+</p><!--l. 188--><p class="noindent" >Normally, procedures can only return scalar values. In order for a procedure to return a
+matrix, it has to be declared of type <span 
+class="ptmb8t-x-x-109">matrixproc</span>:<a 
+ id="dx129-240002"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-448">
+        matrixproc SkewSym1 (w);
+ <br />           mat((0,-w(3,1),w(2,1)),
+ <br />               (w(3,1),0,-w(1,1)),
+ <br />               (-w(2,1), w(1,1), 0));
+</div>
+<!--l. 196--><p class="nopar" > Following this declaration, the call to <span 
+class="pcrr8t-x-x-109">SkewSym1 </span>can be used as a matrix,
+e.g.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-449">
+        X := SkewSym1(mat((qx),(qy),(qz)));
+ <br />
+ <br />
+ <br />             [  0     - qz   qy  ]
+ <br />             [                   ]
+ <br />        x := [ qz      0     - qx]
+ <br />             [                   ]
+ <br />             [ - qy   qx      0  ]
+ <br />
+ <br />        X * mat((rx),(ry),(rz));
+ <br />
+ <br />
+ <br />        [ qy*rz - qz*ry  ]
+ <br />        [                ]
+ <br />        [ - qx*rz + qz*rx]
+ <br />        [                ]
+ <br />        [ qx*ry - qy*rx  ]
+</div>
+<!--l. 216--><p class="nopar" > <a 
+ id="reserved:LISTPROC"></a> Similarly, by using the keyword <span 
+class="ptmb8t-x-x-109">listproc</span><a 
+ id="dx129-240003"></a>, an algebraic procedure can be declared to
+return a list:<a 
+ id="dx129-240004"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-450">
+listproc spat3(u,v,w);
+ <br />   begin scalar x,y;
+ <br />     x := u *. w;
+ <br />     y := u *. v;
+ <br />     return v*x - w*y
+ <br />   end;
+</div>
+<!--l. 227--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p><!--l. 230--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch15.html#manualse101.html" >Up</a></td><td class="clinks"><a 
+href="manualse102.html" >Next</a></td><td class="clinks"><a 
+href="manualse100.html" >Prev</a></td><td class="clinks"><a 
+href="manualse100.html#tailmanualse100.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse101.html" >Front</a></td></tr></table><a 
+ id="tailmanualse101.html"></a> </p> 
+</body> 
+</html>

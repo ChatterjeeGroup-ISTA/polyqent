@@ -1,0 +1,92 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Trace Calculations</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch22.html#manualse206.html" >Up</a></td><td class="clinks"><a 
+href="manualse207.html" >Next</a></td><td class="clinks"><a 
+href="manualse205.html" >Prev</a></td><td class="clinks"><a 
+href="manualse205.html#tailmanualse205.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse206.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">22.4    </span> <a 
+ id="x302-135200022.4"></a>Trace Calculations</h3>
+<a 
+ id="dx302-1352001"></a>
+<!--l. 185--><p class="noindent" ><a 
+ id="command:NOSPUR"></a> <a 
+ id="command:SPUR"></a>
+</p><!--l. 188--><p class="noindent" >When a Dirac expression is evaluated, the system computes one quarter of the trace of
+each <span 
+class="cmmi-10x-x-109">γ </span>matrix product in the expansion of the expression. One quarter of each trace is
+taken in order to avoid confusion between the trace of the scalar <span 
+class="pcrr8t-x-x-109">m</span>, say, and <span 
+class="pcrr8t-x-x-109">m</span>
+representing <span 
+class="pcrr8t-x-x-109">m * </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="pcrro8t-x-x-109">unit 4 by 4 matrix</span><span 
+class="cmsy-10x-x-109">⟩</span>. Contraction over indices occurring in
+such expressions is also performed. If an unmatched index is found in such an
+expression, an error occurs.
+</p><!--l. 197--><p class="noindent" >The algorithms used for trace calculations are the best available at the time this system
+was produced. For example, in addition to the algorithm developed by Chisholm for
+contracting indices in products of traces, REDUCE uses the elegant algorithm of Kahane
+for contracting indices in <span 
+class="cmmi-10x-x-109">γ </span>matrix products. These algorithms are described in <span class="cite">[<a 
+href="manualap2.html#XChisholm1963">Chi63</a>]</span>
+and <span class="cite">[<a 
+href="manualap2.html#XKahane:1968">Kah68</a>]</span>.
+</p><!--l. 204--><p class="noindent" >It is possible to prevent the trace calculation over any line identiﬁer by the declaration
+<span 
+class="pcrr8t-x-x-109">nospur</span>.<a 
+ id="dx302-1352002"></a> For example,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1512">
+        nospur l1,l2;
+</div>
+<!--l. 208--><p class="nopar" > will mean that no traces are taken of <span 
+class="cmmi-10x-x-109">γ </span>matrix terms involving the line numbers <span 
+class="pcrr8t-x-x-109">l1 </span>and
+<span 
+class="pcrr8t-x-x-109">l2</span>. However, in some calculations involving more than one line, a catastrophic
+error
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1513">
+        NOSPUR on more than one line not implemented
+</div>
+<!--l. 214--><p class="nopar" > can occur (for the reason stated!) If you encounter this error, please let us know!
+</p><!--l. 218--><p class="noindent" >A trace of a <span 
+class="cmmi-10x-x-109">γ </span>matrix expression involving a line identiﬁer which has been declared
+<span 
+class="pcrr8t-x-x-109">nospur </span>may be later taken by making the declaration <span 
+class="pcrr8t-x-x-109">spur</span>.<a 
+ id="dx302-1352003"></a>
+</p><!--l. 222--><p class="noindent" >See also the <span 
+class="ptmrc8t-x-x-109">C<span 
+class="small-caps">V</span><span 
+class="small-caps">I</span><span 
+class="small-caps">T</span> </span>package for an alternative mechanism (section <a 
+href="manualse225.html#x327-1410000D.2">D.2<!--tex4ht:ref: sec:CVIT --></a>).
+                                                                     
+
+                                                                     
+</p><!--l. 225--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch22.html#manualse206.html" >Up</a></td><td class="clinks"><a 
+href="manualse207.html" >Next</a></td><td class="clinks"><a 
+href="manualse205.html" >Prev</a></td><td class="clinks"><a 
+href="manualse205.html#tailmanualse205.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse206.html" >Front</a></td></tr></table><a 
+ id="tailmanualse206.html"></a> </p> 
+</body> 
+</html>

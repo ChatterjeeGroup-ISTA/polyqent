@@ -1,0 +1,93 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>QHULL: Compute the Complex Hull</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse167.html" >Up</a></td><td class="clinks"><a 
+href="manualse168.html" >Next</a></td><td class="clinks"><a 
+href="manualse166.html" >Prev</a></td><td class="clinks"><a 
+href="manualse166.html#tailmanualse166.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse167.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.42    </span> <a 
+ id="x250-108400020.42"></a>QHULL: Compute the Complex Hull</h3>
+<a 
+ id="dx250-1084001"></a>
+<a 
+ id="dx250-1084002"></a>
+<a 
+ id="dx250-1084003"></a>
+<a 
+ id="dx250-1084004"></a>
+<!--l. 863--><p class="noindent" >This package is an interface to qhull (<a 
+href="http://www.qhull.org" >www.qhull.org</a>), which has to be installed
+externally. There are 3 options for this package to ﬁnd the qhull program:
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   1. </dt><dd 
+class="enumerate-enumitem">Put it into the path of your shell (recommended).
+     </dd><dt class="enumerate-enumitem">
+   2. </dt><dd 
+class="enumerate-enumitem">Set and export an environment variable <span 
+class="pcrr8t-x-x-109">QHULL </span>to the complete path, e.g., in the
+     Bash:
+                                                                     
+
+                                                                     
+     <div class="verbatim" id="verbatim-1325">
+     export QHULL=/usr/bin/qhull
+</div>
+     <!--l. 872--><p class="nopar" >
+     </p></dd><dt class="enumerate-enumitem">
+   3. </dt><dd 
+class="enumerate-enumitem">Inside Reduce set the variable <span 
+class="pcrr8t-x-x-109">qhull_call!* </span>to the complete path,
+     e.g.,
+                                                                     
+
+                                                                     
+     <div class="verbatim" id="verbatim-1326">
+     symbolic(qhull_call!* := &#x0022;/usr/bin/qhull&#x0022;);
+</div>
+     <!--l. 876--><p class="nopar" ></p></dd></dl>
+<!--l. 878--><p class="noindent" >Example: Compute the convex hull of a list integer points as a subset of that list as
+follows:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1327">
+1: qhull {{2,0,0}, {0,2,0}, {0,2,2}, {0,0,0}, {1,1,1}};
+ <br />
+ <br />{{2,0,0},{0,2,0},{0,2,2},{0,0,0}}
+ <br />
+ <br />2: symbolic;
+ <br />
+ <br />nil
+ <br />
+ <br />3* qhull_qhull
+ <br />        {{2,0,0}, {0,2,0}, {0,2,2}, {0,0,0}, {1,1,1}};
+ <br />
+ <br />((2 0 0) (0 2 0) (0 2 2) (0 0 0))
+</div>
+<!--l. 894--><p class="nopar" >
+</p><!--l. 896--><p class="noindent" >Author: Thomas Sturm, March 2013
+</p><!--l. 898--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 901--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse167.html" >Up</a></td><td class="clinks"><a 
+href="manualse168.html" >Next</a></td><td class="clinks"><a 
+href="manualse166.html" >Prev</a></td><td class="clinks"><a 
+href="manualse166.html#tailmanualse166.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse167.html" >Front</a></td></tr></table><a 
+ id="tailmanualse167.html"></a> </p> 
+</body> 
+</html>

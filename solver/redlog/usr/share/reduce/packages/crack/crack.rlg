@@ -1,0 +1,381 @@
+off echo;
+
+
+        Integration: Integrating exact PDEs 
+
+                                   2         4       3
+de := 2*f   *g + 2*f *g  + 3*g  *g  *g*x + g  *x + g  *g
+         x,y        y  x      2x  x         x       x
+
+     3
+{{{g  *g*x*y + c_1 + c_2 + 2*f*g},
+    x
+
+  {},
+
+  {g,f,c_2,c_1},
+
+  {}}}
+
+g=g(x), f=f(x,y), c_2=c_2(y), c_1=c_1(x)
+
+=======================================================
+
+  Integration: Integration of an exact PDE + terms 
+
+               which are not exact (are not a total 
+
+               derivative) but which only involve 
+
+               unknown functions of fewer variables
+
+                                   2         4       3      y  2  2
+de := 2*f   *g + 2*f *g  + 3*g  *g  *g*x + g  *x + g  *g + e *g *x
+         x,y        y  x      2x  x         x       x
+
+                 2      2  2
+       + sin(y)*g *x + g *y
+
+            2
+{{{c_3   - g ,
+      3x
+
+                                         y        2          3      y
+   3*cos(y)*c_3  *x - 3*cos(y)*c_3  - 3*e *c_3  *x  - c_3  *y  + 6*e *c_3 *x
+               2x                 x           2x         2x              x
+
+          3            y
+    - 3*g  *g*x*y - 6*e *c_3 - 3*c_4 - 3*c_5 - 6*f*g},
+         x
+
+  {},
+
+  {g,f,c_5,c_4,c_3},
+
+  {}}}
+
+g=g(x), f=f(x,y), c_5=c_5(y), c_4=c_4(x), c_3=c_3(x)
+
+=======================================================
+
+          Integration: Integrating Factors
+
+       x               3       3      x
+de := e *f   *x + f  *x  - f *x  - 2*e *f
+          x,y      2x       x            y
+
+       2    x       x      2
+{{{f *x  + e *f  + e *c_6*x },
+    x          y
+
+  {},
+
+  {f,c_6},
+
+  {}}}
+
+f=f(x,y), c_6=c_6(y)
+
+=======================================================
+
+     Integration: Recognizing a 2-dim divergence
+
+             2                 2         3             2
+       f *x*y  + g    *sin(x)*y  + g   *y  + h *y + f*y  - h
+        x         x,2y              x,y       y
+de := -------------------------------------------------------
+                                 2
+                                y
+
+{{{},
+
+  {h=y*(cos(x)*g  + c_7 ),
+                y      x
+
+       - (c_7  + g  *sin(x) + g *y)
+             y    2y           y
+   f=-------------------------------},
+                    x
+
+  {g,c_7},
+
+  {}}}
+
+g=g(x,y), c_7=c_7(x,y)
+
+=======================================================
+
+      Integration: Solving ODEs for partial derivatives
+
+                    2          2  2       2    3
+        - 2*f   *x*y  + f    *x *y  - f *y  + x
+             x,y         2x,y          y
+de := -------------------------------------------
+                           2
+                          y
+
+{{{},
+
+       3/2  sqrt(13)*log(x)           sqrt(13)/2           sqrt(13)/2  3
+  {f=(x   *e               *c_10*y - x          *c_12*y - x          *x
+
+          3/2           sqrt(13)/2
+       + x   *c_11*y)/(x          *y)},
+
+  {c_12,c_11,c_10},
+
+  {}}}
+
+c_12=c_12(x), c_11=c_11(y), c_10=c_10(y)
+
+=======================================================
+
+       Separation: Direct separation of PDEs
+
+f=f(x), g=g(y), h=h(z)
+
+de := f*z + g*h*y
+
+{{{},{g=0,f=0},{},{}}}
+
+=======================================================
+
+       Separation: Indirect separation of PDEs
+
+                   (combined with integration)
+
+f=f(y), g=g(x), h=h(z)
+
+de := f*z + g*h*y
+
+de := {{{},{h=0,f=0},{g},{g}},
+
+       {{},
+
+             - c_13*z
+        {h=-----------,
+              c_14
+
+         g= - c_14,
+
+         f= - c_13*y},
+
+        {c_13,c_14},
+
+        {c_14,c_13}},
+
+       {{},{g=0,f=0},{h},{}}}
+
+{{{},{h=0,f=0},{g},{g}},
+
+ {{},
+
+       - c_13*z
+  {h=-----------,g= - c_14,f= - c_13*y},
+        c_14
+
+  {c_13,c_14},
+
+  {c_14,c_13}},
+
+ {{},{g=0,f=0},{h},{}}}
+
+g=g(x), c_13, c_14
+
+=======================================================
+
+    Combination: Pseudo Differential Groebner Basis
+
+                5             5         4           2            5   2
+de := 2*eta   *x *y1 + eta  *x  - eta *x  - 2*eta *x *y + eta  *x *y1
+           x,y            2x         x           x           2y
+
+                   2            5   2         5           4             2
+       - 4*eta *x*y  - 2*xi   *x *y1  - xi  *x *y1 - xi *x *y1 - 2*xi *x *y*y1
+              y            x,y            2x           x             x
+
+                  2         5   3          4   2          2     2
+       + 8*xi *x*y  - xi  *x *y1  - 2*xi *x *y1  - 4*xi *x *y*y1
+             x          2y              y              y
+
+                   2             2                   3
+       + 12*xi *x*y *y1 - 2*eta*x *y1 + 8*eta*x*y + x *xi*y1 + 6*x*xi*y*y1
+              y
+
+                2
+       - 16*xi*y
+
+{{{xi ,
+     y
+
+         2
+   xi  *x  - xi *x + xi,
+     2x        x
+
+        3                      2
+   xi *x  - xi *x*y - eta*x - x *xi + 3*xi*y},
+     x        x
+
+  {},
+
+  {xi,eta},
+
+  {}}}
+
+=======================================================
+
+      Combination: Shortening linear PDE systems
+
+de1 := 3*f  + sin(x)*y + 7*x
+          x
+
+                               2                        2  2               3
+de2 := 3*f *sin(x)*y + 9*f *x*y  - 12*f  + f *y + sin(x) *y  + 3*sin(x)*x*y
+          x               x            x    y
+
+                                                2  2      2
+        + 7*sin(x)*x*y - 4*sin(x)*y + f*x + 21*x *y  + x*y  - 28*x
+
+{{{3*f  + sin(x)*y + 7*x,
+      x
+
+                   2
+   f *y + f*x + x*y },
+    y
+
+  {},
+
+  {f},
+
+  {}}}
+
+=======================================================
+
+  Parametric solution of linear underdetermined ODEs
+
+de := cos(x)*f   - g
+              2x    2x
+
+{{{},
+
+              5               4                         4
+  {g=(6*cos(x) *c_17  - cos(x) *c_17  *sin(x) + 9*cos(x) *sin(x)*c_17
+                    x               2x
+
+                 3                 2                         2
+       + 2*cos(x) *c_17  - 2*cos(x) *c_17  *sin(x) + 2*cos(x) *sin(x)*c_17
+                       x                 2x
+
+                                                2
+       - 8*cos(x)*c_17  - 8*sin(x)*c_17)/(cos(x) *sin(x)
+                      x
+
+                4           2
+        *(cos(x)  + 4*cos(x)  + 4)),
+
+               4                  4                3
+   f=( - cos(x) *c_17   + 4*cos(x) *c_17 - 4*cos(x) *c_17 *sin(x)
+                     2x                                  x
+
+                 2                  2
+       - 2*cos(x) *c_17   - 6*cos(x) *c_17 - 4*cos(x)*c_17 *sin(x) - 4*c_17)/(
+                       2x                                 x
+
+              3        4           2
+        cos(x) *(cos(x)  + 4*cos(x)  + 4))},
+
+  {c_17},
+
+  {}}}
+
+c_17=c_17(x)
+
+=======================================================
+
+ Application: Investigating point symmetries of an ODE
+
+                5             5         4           2            5   2
+de := 2*eta   *x *y1 + eta  *x  - eta *x  - 2*eta *x *y + eta  *x *y1
+           x,y            2x         x           x           2y
+
+                   2            5   2         5           4             2
+       - 4*eta *x*y  - 2*xi   *x *y1  - xi  *x *y1 - xi *x *y1 - 2*xi *x *y*y1
+              y            x,y            2x           x             x
+
+                  2         5   3          4   2          2     2
+       + 8*xi *x*y  - xi  *x *y1  - 2*xi *x *y1  - 4*xi *x *y*y1
+             x          2y              y              y
+
+                   2             2                   3
+       + 12*xi *x*y *y1 - 2*eta*x *y1 + 8*eta*x*y + x *xi*y1 + 6*x*xi*y*y1
+              y
+
+                2
+       - 16*xi*y
+
+{{{},
+
+                                  2
+  {eta= - 2*log(x)*c_23*y - c_23*x  - c_24*y,
+
+       x*( - 2*log(x)*c_23 - c_23 - c_24)
+   xi=------------------------------------},
+                       2
+
+  {c_23,c_24},
+
+  {}}}
+
+c_23, c_24
+
+=======================================================
+
+  Integration: Solving a linear 1st order PDE
+
+de := f  - f *x*y + x
+       x    y
+
+                        2
+          - 2*c_27 - x%1
+{{{},{f=------------------},{c_27},{}}}
+                2
+
+c_27=c_27(y!%1)
+
+                                                                2
+                                                               x /2
+The list of transformations done (here only one): {{x%1=x,y%1=e    *y}}
+
+=======================================================
+
+  Integration: Integration enabled through a syzygy
+
+                              2
+de := {f   *sin(y)*x + f    *z  - 3*f  + f *sin(y) + 2*x*z,
+        x,y             2x,y         x    y
+
+                            2
+       cos(y)*f *x + f    *z  + f  *sin(y)*x - 3*f }
+               y      x,2y       2y               y
+
+         2                               2
+{{{f   *z  + f *sin(y)*x + c_28 - 3*f + x *z},
+    x,y       y
+
+  {},
+
+  {f,c_28},
+
+  {}}}
+
+f=f(x,y,z), c_28=c_28(z)
+
+=======================================================
+
+Tested on x86_64-pc-windows CSL
+1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 1: 
+Time: crack  360  0
+1: Leaving REDUCE ... 
+
+
+End of Lisp run after 0.43+0.01 seconds

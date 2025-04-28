@@ -1,0 +1,2135 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>GUARDIAN: Guarded Expressions in Practice</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse151.html" >Up</a></td><td class="clinks"><a 
+href="manualse152.html" >Next</a></td><td class="clinks"><a 
+href="manualse150.html" >Prev</a></td><td class="clinks"><a 
+href="manualse150.html#tailmanualse150.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse151.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.26    </span> <a 
+ id="x218-86200020.26"></a>GUARDIAN: Guarded Expressions in Practice</h3>
+<a 
+ id="dx218-862001"></a>
+<a 
+ id="dx218-862002"></a>
+<!--l. 539--><p class="noindent" >Computer algebra systems typically drop some degenerate cases when evaluating
+expressions, e.g., <span 
+class="cmmi-10x-x-109">x∕x </span>becomes <span 
+class="cmr-10x-x-109">1 </span>dropping the case <span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">= 0</span>. We claim that it is feasible in
+practice to compute also the degenerate cases yielding <span 
+class="ptmri8t-x-x-109">guarded expressions</span>. We work
+over real closed ﬁelds but our ideas about handling guarded expression can
+be easily transferred to other situations. Using formulas as guards provides a
+powerful tool for heuristically reducing the combinatorial explosion of cases:
+equivalent, redundant, tautological, and contradictive cases can be detected
+by simpliﬁcation and quantiﬁer elimination. Our approach allows to simplify
+the expressions on the basis of simpliﬁcation knowledge on the logical side.
+The method described in this paper is implemented in the REDUCE package
+<span 
+class="ptmrc8t-x-x-109">G<span 
+class="small-caps">U</span><span 
+class="small-caps">A</span><span 
+class="small-caps">R</span><span 
+class="small-caps">D</span><span 
+class="small-caps">I</span><span 
+class="small-caps">A</span><span 
+class="small-caps">N</span></span>.
+</p><!--l. 553--><p class="noindent" >Authors: Andreas Dolzmann and Thomas Sturm.
+<a 
+ id="dx218-862003"></a>
+<a 
+ id="dx218-862004"></a>
+<a 
+ id="dx218-862005"></a>
+<a 
+ id="dx218-862006"></a>
+</p><!--l. 5--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.26.1    </span> <a 
+ id="x218-86300020.26.1"></a>Introduction</h4>
+<!--l. 28--><p class="noindent" >It is meanwhile a well-known fact that evaluations obtained with the interactive use of
+computer algebra systems (<span 
+class="ptmrc8t-x-x-109"><span 
+class="small-caps">C</span><span 
+class="small-caps">A</span><span 
+class="small-caps">S</span></span>) are not entirely correct in general. Typically, some
+degenerate cases are dropped. Consider for instance the evaluation
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                               <img 
+src="manual284x.png" alt="x2
+-x-"  class="frac" align="middle" /> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">x,</span>
+</td></tr></table>
+<!--l. 34--><p class="nopar" >
+which is correct only if <span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmmi-10x-x-109">≠</span><span 
+class="cmr-10x-x-109">0</span>. The problem here is that <span 
+class="ptmrc8t-x-x-109"><span 
+class="small-caps">C</span><span 
+class="small-caps">A</span><span 
+class="small-caps">S</span> </span>consider variables to be
+transcendental elements. The user, in contrast, has in mind variables in the sense
+of logic. In other words: The user does not think of rational functions but of
+terms.
+</p><!--l. 41--><p class="noindent" >Next consider the valid expression
+</p>
+<table 
+class="equation-star"><tr><td>
+                             <img 
+src="manual285x.png" alt="√ --  √---
+--x-+--−-x-
+     x"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 44--><p class="nopar" >
+It is meaningless over the reals. <span 
+class="ptmrc8t-x-x-109">C<span 
+class="small-caps">A</span><span 
+class="small-caps">S</span> </span>often oﬀer no choice than to interprete surds over
+the complex numbers even if they distinguish between a <span 
+class="ptmri8t-x-x-109">real </span>and a <span 
+class="ptmri8t-x-x-109">complex</span>
+mode.
+</p><!--l. 49--><p class="noindent" >Corless and Jeﬀrey <span class="cite">[<a 
+href="manualap2.html#XCorlessJeffrey:92">CJ92</a>]</span> have examined the behavior of a number of <span 
+class="ptmrc8t-x-x-109"><span 
+class="small-caps">C</span><span 
+class="small-caps">A</span><span 
+class="small-caps">S</span> </span>with such
+input data. They come to the conclusion that simultaneous computation of all cases is
+exemplary but not feasible due to the combinatorial explosion of cases to be considered.
+Therefore, they suggest to ignore the degenerate cases but to provide the assumptions to
+the user on request. We claim, in contrast, that it is in fact feasible to compute all possible
+cases.
+</p><!--l. 57--><p class="noindent" >Our setting is as follows: Expressions are evaluated to <span 
+class="ptmri8t-x-x-109">guarded expressions </span>consisting of
+possibly several conventional expressions guarded by quantiﬁer-free formulas. For the
+above examples, we would obtain
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                  <img 
+src="manual286x.png" alt="[        |  ]
+  x ⁄=  0 |x"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">,   </span><img 
+src="manual287x.png" alt="[   |√x+-√-− x-]
+  F |    x"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 68--><p class="nopar" >
+As the second example illustrates, we are working in ordered ﬁelds, more precisely in
+real closed ﬁelds. The handling of guarded expressions as described in this paper can,
+however, be easily transferred to other situations.
+</p><!--l. 74--><p class="noindent" >Our approach can also deal with redundant guarded expressions, such as
+</p>
+<table 
+class="equation-star"><tr><td>
+                         <img 
+src="manual288x.png" alt="⌊       |        ⌋
+    T   | |x | − x
+⌈  x ≥ 0|    0   ⌉
+   x &#x003C; 0|  − 2x
+        |"  class="left" align="middle" />
+</td></tr></table>
+<!--l. 81--><p class="nopar" >
+which leads to algebraic simpliﬁcation techniques based on logical simpliﬁcation as
+proposed by Davenport and Faure <span class="cite">[<a 
+href="manualap2.html#XDavenportFaure:94">DF94</a>]</span>.
+</p><!--l. 86--><p class="noindent" >We use <span 
+class="ptmri8t-x-x-109">formulas </span>over the language of ordered rings as guards. This provides powerful tools
+for heuristically reducing the combinatorial explosion of cases: equivalent, redundant,
+tautological, and contradictive cases can be detected by <span 
+class="ptmri8t-x-x-109">simpliﬁcation</span> <span class="cite">[<a 
+href="manualap2.html#XDolzmann:97b">DS97b</a>]</span> and
+<span 
+class="ptmri8t-x-x-109">quantiﬁer elimination</span> <span class="cite">[<a 
+href="manualap2.html#XTarski:48">Tar48</a>, <a 
+href="manualap2.html#XCollins:75">Col75</a>, <a 
+href="manualap2.html#XWeispfenning:88">Wei88</a>, <a 
+href="manualap2.html#XLoosWeispfenning:93">RLW93</a>, <a 
+href="manualap2.html#XWeispfenning:96">Wei97</a>, <a 
+href="manualap2.html#XWeispfenning:94">Wei94</a>]</span>. In
+certain situations, we will allow the formulas also to contain extra functions
+such as <img 
+src="manual289x.png" alt="√ -
+  ⋅"  class="sqrt"  /> or <span 
+class="cmsy-10x-x-109">|⋅|</span>. Then we take care that there is no quantiﬁer elimination
+applied.
+                                                                     
+
+                                                                     
+</p><!--l. 96--><p class="noindent" >Simultaneous computation of several cases concerning certain expressions being zero or not has
+been extensively investigated as <span 
+class="ptmri8t-x-x-109">dynamic evaluation</span> <span class="cite">[<a 
+href="manualap2.html#XGomezDiaz:93">GD96</a>, <a 
+href="manualap2.html#XDuvalReynaud:94">DR94a</a>, <a 
+href="manualap2.html#XDuvalReynaud:94a">DR94b</a>, <a 
+href="manualap2.html#XBroadberryGomezDiazWatt:95">BGDW95</a>]</span>.
+It has also been extended to real closed ﬁelds <span class="cite">[<a 
+href="manualap2.html#XDuvalGonzalesVega:93">DGV96</a>]</span>. The idea behind the
+development of these methods is of a more theoretical nature than to overcome the
+problems with the interactive usage of <span 
+class="ptmrc8t-x-x-109"><span 
+class="small-caps">C</span><span 
+class="small-caps">A</span><span 
+class="small-caps">S</span> </span>sketched above: one wishes to compute in
+algebraic (or real) extension ﬁelds of the rationals. Guarded expressions occur naturally
+when solving problems parametrically. Consider, e.g., the <span 
+class="ptmri8t-x-x-109">Gr</span><span 
+class="ptmri8t-x-x-109">ö</span><span 
+class="ptmri8t-x-x-109">bner systems </span>used during
+the computation of <span 
+class="ptmri8t-x-x-109">comprehensive Gr</span><span 
+class="ptmri8t-x-x-109">ö</span><span 
+class="ptmri8t-x-x-109">bner bases </span><span class="cite">[<a 
+href="manualap2.html#XWeispfenning:92">Wei92</a>]</span>.
+</p><!--l. 110--><p class="noindent" >The algorithms described in this paper are implemented in the REDUCE
+package <span 
+class="ptmrc8t-x-x-109"><span 
+class="small-caps">G</span><span 
+class="small-caps">U</span><span 
+class="small-caps">A</span><span 
+class="small-caps">R</span><span 
+class="small-caps">D</span><span 
+class="small-caps">I</span><span 
+class="small-caps">A</span><span 
+class="small-caps">N</span></span>. It is based on the REDUCE <span class="cite">[<a 
+href="manualap2.html#XHearn:91">Hea95</a>, <a 
+href="manualap2.html#XMelenk:95">Mel95</a>]</span> package
+<span 
+class="ptmrc8t-x-x-109"><span 
+class="small-caps">R</span><span 
+class="small-caps">E</span><span 
+class="small-caps">D</span><span 
+class="small-caps">L</span><span 
+class="small-caps">O</span><span 
+class="small-caps">G</span></span> <span class="cite">[<a 
+href="manualap2.html#XDolzmannSturm:97a">DS97a</a>, <a 
+href="manualap2.html#XDolzmann:96a">DS96</a>]</span> implementing a formula data type with corresponding
+algorithms, in particular including simpliﬁcation and quantiﬁer elimination.
+</p><!--l. 117--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.26.2    </span> <a 
+ id="x218-86400020.26.2"></a>An outline of our method</h4>
+<!--l. 118--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x218-86500020.26.2"></a>Guarded expressions</h5>
+<!--l. 119--><p class="noindent" >A <span 
+class="ptmri8t-x-x-109">guarded expression </span>is a scheme
+</p>
+<table 
+class="equation-star"><tr><td>
+                             <img 
+src="manual290x.png" alt="⌊     |   ⌋
+  γ0  |t0
+||  γ1 |t1 ||
+|  ..  |..  |
+⌈  .  |.  ⌉
+   γn |tn"  class="left" align="middle" />
+</td></tr></table>
+                                                                     
+
+                                                                     
+<!--l. 127--><p class="nopar" >
+where each <span 
+class="cmmi-10x-x-109">γ</span><sub><span 
+class="cmmi-8">i</span></sub> is a quantiﬁer-free formula, the <span 
+class="ptmri8t-x-x-109">guard</span>, and each <span 
+class="cmmi-10x-x-109">t</span><sub><span 
+class="cmmi-8">i</span></sub> is an associated
+<span 
+class="ptmri8t-x-x-109">conventional expression</span>. The idea is that some <span 
+class="cmmi-10x-x-109">t</span><sub><span 
+class="cmmi-8">i</span></sub> is a valid interpretation iﬀ <span 
+class="cmmi-10x-x-109">γ</span><sub><span 
+class="cmmi-8">i</span></sub> holds.
+Each pair <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">γ</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmmi-10x-x-109">,t</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmr-10x-x-109">) </span>is called a <span 
+class="ptmri8t-x-x-109">case</span>.
+</p><!--l. 133--><p class="noindent" >The ﬁrst case <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">γ</span><sub><span 
+class="cmr-8">0</span></sub><span 
+class="cmmi-10x-x-109">,t</span><sub><span 
+class="cmr-8">0</span></sub><span 
+class="cmr-10x-x-109">) </span>is the <span 
+class="ptmri8t-x-x-109">generic </span>case: <span 
+class="cmmi-10x-x-109">t</span><sub><span 
+class="cmr-8">0</span></sub> is the expression the system would compute
+without our package, and <span 
+class="cmmi-10x-x-109">γ</span><sub><span 
+class="cmr-8">0</span></sub> is the corresponding guard.
+</p><!--l. 137--><p class="noindent" >The guards <span 
+class="cmmi-10x-x-109">γ</span><sub><span 
+class="cmmi-8">i</span></sub> need neither exclude one another, nor do we require that they form a
+complete case distinction. We shall, however, assume that all cases covered by a guarded
+expression are already covered by the generic case; in other words:
+</p>
+<table 
+class="equation"><tr><td><a 
+ id="x218-865001r71"></a>
+<center class="math-display" >
+<img 
+src="manual291x.png" alt="n∧
+  (γi − → γ0).
+i=1
+" class="math-display"  /></center></td><td class="equation-label">(20.71)</td></tr></table>
+<!--l. 143--><p class="nopar" >
+</p><!--l. 145--><p class="noindent" >Consider the following evaluation of <span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmsy-10x-x-109">| </span>to a guarded expression:
+</p>
+<table 
+class="equation-star"><tr><td>
+                          <img 
+src="manual292x.png" alt="⌊       |    ⌋
+⌈   T   ||x| ⌉
+  x ≥ 0 | x
+  x &#x003C; 0 |− x"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+                                                                     
+
+                                                                     
+<!--l. 152--><p class="nopar" >
+Here the non-generic cases already cover the whole domain. The generic case is in some
+way <span 
+class="ptmri8t-x-x-109">redundant</span>. It is just present for keeping track of the system’s default behavior.
+Formally we have
+</p>
+<table 
+class="equation"><tr><td><a 
+ id="x218-865002r72"></a>
+<center class="math-display" >
+<img 
+src="manual293x.png" alt="(∨n   )
+    γi ← →  γ0.
+ i=1
+" class="math-display"  /></center></td><td class="equation-label">(20.72)</td></tr></table>
+<!--l. 159--><p class="nopar" >
+As an example for a non-redundant, i.e., <span 
+class="ptmri8t-x-x-109">necessary </span>generic case we have the evaluation
+of the reciprocal <img 
+src="manual294x.png" alt="1x"  class="frac" align="middle" />:
+</p>
+<table 
+class="equation-star"><tr><td>
+                           <img 
+src="manual295x.png" alt="[       | 1-]
+  x ⁄= 0 | x"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 166--><p class="nopar" >
+</p><!--l. 168--><p class="noindent" >In every guarded expression, the generic case is explicitly marked as either necessary or
+redundant. The corresponding tag is inherited during the evaluation process.
+Unfortunately it can happen that guarded expressions satisfy (<a 
+href="#x218-865002r72">20.72<!--tex4ht:ref: formalredund --></a>) without being
+tagged redundant, e.g., specialization of
+                                                                     
+
+                                                                     
+</p>
+<table 
+class="equation-star"><tr><td>
+                          <img 
+src="manual296x.png" alt="[       |     ]
+    T   |sin x
+  x = 0 |  0"  class="left" align="middle" />
+</td></tr></table>
+<!--l. 178--><p class="nopar" >
+to <span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">= 0 </span>if the system cannot evaluate <span 
+class="cmr-10x-x-109">sin</span><span 
+class="cmr-10x-x-109">(0)</span>. This does not happen if one claims for
+necessary generic cases to have, as the reciprocal above, no alternative cases
+at all. Else, in the sequel “redundant generic case” has to be read as “tagged
+redundant.”
+</p><!--l. 184--><p class="noindent" >With guarded expressions, the evaluation splits into two independent parts:
+<span 
+class="ptmri8t-x-x-109">Algebraic evaluation </span>and a subsequent <span 
+class="ptmri8t-x-x-109">simpliﬁcation </span>of the guarded expression
+obtained.
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x218-86600020.26.2"></a>Guarding schemes</h5>
+<!--l. 189--><p class="noindent" >In the introduction we have seen that certain operators introduce case distinctions. For
+this, with each operator <span 
+class="cmmi-10x-x-109">f </span>there is a <span 
+class="ptmri8t-x-x-109">guarding scheme </span>associated providing information
+on how to map <span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">t</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,t</span><sub><span 
+class="cmmi-8">m</span></sub><span 
+class="cmr-10x-x-109">) </span>to a guarded expression provided that one does not have to
+care for the argument expressions <span 
+class="cmmi-10x-x-109">t</span><sub><span 
+class="cmr-8">1</span></sub>, …, <span 
+class="cmmi-10x-x-109">t</span><sub><span 
+class="cmmi-8">m</span></sub>. In the easiest case, this is a rewrite
+rule
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                      <span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,a</span><sub><span 
+class="cmmi-8">m</span></sub><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmsy-10x-x-109">→ </span><span 
+class="cmmi-10x-x-109">G</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,a</span><sub><span 
+class="cmmi-8">m</span></sub><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 197--><p class="nopar" >
+The actual terms <span 
+class="cmmi-10x-x-109">t</span><sub><span 
+class="cmr-8">1</span></sub>, …, <span 
+class="cmmi-10x-x-109">t</span><sub><span 
+class="cmmi-8">m</span></sub> are simply substituted for the formal symbols <span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmr-8">1</span></sub>, …, <span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmmi-8">m</span></sub> into
+the generic guarded expression <span 
+class="cmmi-10x-x-109">G</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,a</span><sub><span 
+class="cmmi-8">m</span></sub><span 
+class="cmr-10x-x-109">)</span>. We give some examples:
+</p><table 
+class="align">
+                   <tr><td 
+class="align-odd"><img 
+src="manual297x.png" alt="a1-
+a2"  class="frac" align="middle" /></td>                        <td 
+class="align-even"> <span 
+class="cmsy-10x-x-109">→</span><img 
+src="manual298x.png" alt="[         |a1 ]
+  a2 ⁄= 0  |a2"  class="left" align="middle" /></td>                        <td 
+class="align-label"></td>                   <td 
+class="align-label">
+                   </td></tr><tr><td 
+class="align-odd"><img 
+src="manual299x.png" alt="√a---
+   1"  class="sqrt"  /></td>                      <td 
+class="align-even"> <span 
+class="cmsy-10x-x-109">→</span><img 
+src="manual300x.png" alt="[ a  ≥ 0  |√a---]
+   1      |   1"  class="left" align="middle" /></td>                      <td 
+class="align-label"></td>                   <td 
+class="align-label">
+                   </td></tr><tr><td 
+class="align-odd">sign<span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmr-10x-x-109">)</span></td>                   <td 
+class="align-even"> <span 
+class="cmsy-10x-x-109">→</span><img 
+src="manual301x.png" alt="⌊        |         ⌋
+     T   |sign(a1)
+|| a1 &#x003E; 0 |   1     ||
+⌈ a1 = 0 |   0     ⌉
+  a1 &#x003C; 0 |   − 1
+         |"  class="left" align="middle" /></td>                   <td 
+class="align-label"></td>                   <td 
+class="align-label">
+                   </td></tr><tr><td 
+class="align-odd"><span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmsy-10x-x-109">|</span></td>                       <td 
+class="align-even"><span 
+class="cmsy-10x-x-109">→</span><img 
+src="manual302x.png" alt="⌊        |     ⌋
+     T   ||a1|
+⌈ a1 ≥ 0 | a1  ⌉
+  a1 &#x003C; 0 |− a1"  class="left" align="middle" /></td>                                          <td 
+class="align-label"><a 
+ id="x218-866001r73"></a>(20.73)                   </td></tr></table>
+<!--l. 225--><p class="noindent" >For functions of arbitrary arity, e.g., <span 
+class="cmr-10x-x-109">min</span> or <span 
+class="cmr-10x-x-109">max</span>, we formally assume inﬁnitely many
+operators of the same name. Technically, we associate a procedure parameterized with
+the number of arguments <span 
+class="cmmi-10x-x-109">m </span>that generates the corresponding rewrite rule. As
+<span 
+class="cmmi-10x-x-109">min</span>_<span 
+class="cmmi-10x-x-109">scheme</span><span 
+class="cmr-10x-x-109">(2)</span> we obtain, e.g.,
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+              <span 
+class="cmr-10x-x-109">min</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,a</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmsy-10x-x-109">→</span><img 
+src="manual303x.png" alt="          |
+⌊    T    |min (a1, a2) ⌋
+⌈  a ≤ a  |     a       ⌉
+    1   2 |      1
+   a2 ≤ a1|     a2"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">,</span>
+</td></tr></table>
+<!--l. 237--><p class="nopar" >
+while for higher arities there are more case distinctions necessary.
+</p><!--l. 240--><p class="noindent" >For later complexity analysis, we state the concept of a guarding scheme formally: a
+guarding scheme for an <span 
+class="cmmi-10x-x-109">m</span>-ary operator <span 
+class="cmmi-10x-x-109">f </span>is a map
+</p>
+<table 
+class="equation-star"><tr><td>
+                         gscheme<sub><span 
+class="cmmi-8">f</span></sub> <span 
+class="cmr-10x-x-109">:</span> E<sup><span 
+class="cmmi-8">m</span></sup> <span 
+class="cmsy-10x-x-109">→</span> GE
+</td></tr></table>
+<!--l. 245--><p class="nopar" >
+where E is the set of expressions, and GE is the set of guarded expressions. This allows
+to split <span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">t</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,t</span><sub><span 
+class="cmmi-8">m</span></sub><span 
+class="cmr-10x-x-109">) </span>in dependence on the form of the parameter expressions <span 
+class="cmmi-10x-x-109">t</span><sub><span 
+class="cmr-8">1</span></sub>,
+…, <span 
+class="cmmi-10x-x-109">t</span><sub><span 
+class="cmmi-8">m</span></sub>.
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x218-86700020.26.2"></a>Algebraic evaluation</h5>
+                                                                     
+
+                                                                     
+<!--l. 251--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x218-86800020.26.2"></a>Evaluating conventional expressions</h5>
+<!--l. 252--><p class="noindent" >The evaluation of conventional expressions into guarded expressions is performed
+recursively: Constants <span 
+class="cmmi-10x-x-109">c </span>evaluate to
+</p>
+<table 
+class="equation-star"><tr><td>
+                              <img 
+src="manual304x.png" alt="[ T |c ]
+    |"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 258--><p class="nopar" >
+For the evaluation of <span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">e</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,e</span><sub><span 
+class="cmmi-8">m</span></sub><span 
+class="cmr-10x-x-109">) </span>the argument expressions <span 
+class="cmmi-10x-x-109">e</span><sub><span 
+class="cmr-8">1</span></sub>, …, <span 
+class="cmmi-10x-x-109">e</span><sub><span 
+class="cmmi-8">m</span></sub> are recursively
+evaluated to guarded expressions
+</p>
+<table 
+class="equation"><tr><td><a 
+ id="x218-868001r74"></a>
+<center class="math-display" >
+<img 
+src="manual305x.png" alt="    ⌊      |    ⌋
+       γi0 |ti0
+ ′  ||  γi1 |ti1 ||
+ei = |⌈  ...  | ...  |⌉   for 1 ≤ i ≤ m.
+           |
+       γini |tini
+" class="math-display"  /></center></td><td class="equation-label">(20.74)</td></tr></table>
+<!--l. 269--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p><!--l. 271--><p class="noindent" >Then the operator <span 
+class="cmmi-10x-x-109">f </span>is “moved inside” the <span 
+class="cmmi-10x-x-109">e</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmsy-10x-x-109">′ </span>by combining all cases, technically a
+simultaneous Cartesian product computation of both the sets of guards and the sets of
+terms:
+</p>
+<table 
+class="equation"><tr><td><a 
+ id="x218-868002r75"></a>
+<center class="math-display" >
+<img 
+src="manual306x.png" alt="    ∏m                     m∏
+Γ =    {γi0,...,γini},  T  =   {ti0,...,tini}.
+    i=1                    i=1
+" class="math-display"  /></center></td><td class="equation-label">(20.75)</td></tr></table>
+<!--l. 278--><p class="nopar" >
+This leads to the intermediate result
+</p>
+<table 
+class="equation"><tr><td><a 
+ id="x218-868003r76"></a>
+<center class="math-display" >
+<img 
+src="manual307x.png" alt="⌊ γ   ∧ ⋅⋅⋅ ∧ γ    |f(t  ,...,t   ) ⌋
+|  10     .    m0  |   10  .   m0   |
+||         ..        |       ..        ||
+|  γ1n1 ∧ ⋅⋅⋅∧ γm0 |f (t1n1,...,tm0 ) | .
+||         ..        |       ..        ||
+⌈         .        |       .        ⌉
+  γ1n1 ∧ ⋅⋅⋅∧ γmnm |f(t1n1,...,tmnm)
+" class="math-display"  /></center></td><td class="equation-label">(20.76)</td></tr></table>
+<!--l. 292--><p class="nopar" >
+The new generic case is exactly the combination of the generic cases of the <span 
+class="cmmi-10x-x-109">e</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmsy-10x-x-109">′</span>. It is
+redundant if at least one of these combined cases is redundant.
+</p><!--l. 297--><p class="noindent" >Next, all non-generic cases containing at least one <span 
+class="ptmri8t-x-x-109">redundant </span>generic constituent <span 
+class="cmmi-10x-x-109">γ</span><sub><span 
+class="cmmi-8">i</span><span 
+class="cmr-8">0</span></sub> in
+their guard are deleted. The reason for this is that generic cases are only used to
+                                                                     
+
+                                                                     
+keep track of the system default behavior. All other cases get the status of a
+non-generic case even if they contain necessary generic constituents in their
+guard.
+</p><!--l. 304--><p class="noindent" >At this point, we apply the guarding scheme of <span 
+class="cmmi-10x-x-109">f </span>to all remaining expressions
+<span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">t</span><sub><span 
+class="cmr-8">1</span><span 
+class="cmmi-8">i</span><sub><span 
+class="cmr-6">1</span></sub></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,t</span><sub><span 
+class="cmmi-8">mi</span><sub><span 
+class="cmmi-6">m</span></sub></sub><span 
+class="cmr-10x-x-109">) </span>in the form (<a 
+href="#x218-868003r76">20.76<!--tex4ht:ref: intermediate --></a>) yielding a nested guarded expression
+</p>
+<table 
+class="equation"><tr><td><a 
+ id="x218-868004r77"></a>
+<center class="math-display" >
+<img 
+src="manual308x.png" alt="⌊     | ⌊      |     ⌋  ⌋
+      |    δ00 |u00
+| Γ   | |   ..  | ..   |  |
+||   0 | ⌈   .  | .   ⌉  ||
+||     |   δ0k0 |u0k0    ||
+||  ...  |        ...        || ,
+||     |⌊       |      ⌋ ||
+||     ||  δN0  |uN0   | ||
+⌈ Γ N |⌈   ...   |  ...   ⌉ ⌉
+      |  δNk   |uNk
+            N  |   N
+" class="math-display"  /></center></td><td class="equation-label">(20.77)</td></tr></table>
+<!--l. 319--><p class="nopar" >
+which can be straightforwardly resolved to a guarded expression
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                       <img 
+src="manual309x.png" alt="             |
+⌊  Γ 0 ∧ δ00 |u00   ⌋
+|      .     |  .   |
+||      ..     |  ..   ||
+||  Γ 0 ∧ δ0k0|u0k0  ||
+||      ..     |  ..   ||
+|      .     |  .   |
+||  Γ N ∧ δN0 |uN0   ||
+|⌈      ...     |  ...   |⌉
+  Γ  ∧ δ     |u
+   N    NkN  | NkN"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 331--><p class="nopar" >
+This form is treated analogously to the form (<a 
+href="#x218-868003r76">20.76<!--tex4ht:ref: intermediate --></a>): The new generic case
+<span 
+class="cmr-10x-x-109">(Γ</span><sub><span 
+class="cmr-8">0</span></sub> <span 
+class="cmsy-10x-x-109">∧ </span><span 
+class="cmmi-10x-x-109">δ</span><sub><span 
+class="cmr-8">00</span></sub><span 
+class="cmmi-10x-x-109">,u</span><sub><span 
+class="cmr-8">00</span></sub><span 
+class="cmr-10x-x-109">) </span>is redundant if at least one of <span class="big"><img 
+src="manual310x.png" alt="("  class="left" align="middle" /></span><span 
+class="cmr-10x-x-109">Γ</span><sub><span 
+class="cmr-8">0</span></sub><span 
+class="cmmi-10x-x-109">,f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">t</span><sub><span 
+class="cmr-8">10</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,t</span><sub><span 
+class="cmmi-8">m</span><span 
+class="cmr-8">0</span></sub><span 
+class="cmr-10x-x-109">)</span><span class="big"><img 
+src="manual311x.png" alt=")"  class="left" align="middle" /></span> and <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">δ</span><sub><span 
+class="cmr-8">00</span></sub><span 
+class="cmmi-10x-x-109">,u</span><sub><span 
+class="cmr-8">00</span></sub><span 
+class="cmr-10x-x-109">) </span>is
+redundant. Among the non-generic cases all those containing redundant generic
+constituents in their guard are deleted, and all those containing necessary generic
+constituents in their guard get the status of an ordinary non-generic case.
+</p><!--l. 340--><p class="noindent" >Finally the standard evaluator of the system—<span 
+class="pcrr8t-x-x-109">reval </span>in the case of <span 
+class="ptmrc8t-x-x-109"><span 
+class="small-caps">R</span><span 
+class="small-caps">E</span><span 
+class="small-caps">D</span><span 
+class="small-caps">U</span><span 
+class="small-caps">C</span><span 
+class="small-caps">E</span></span>—is
+applied to all contained expressions, which completes the algebraic part of the
+evaluation.
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x218-86900020.26.2"></a>Evaluating guarded expressions</h5>
+<!--l. 345--><p class="noindent" >The previous section was concerned with the evaluation of pure conventional expressions
+into guarded expressions. Our system currently combines both conventional and guarded
+expressions. We are thus faced with the problem of treating guarded subexpressions
+during evaluation.
+</p><!--l. 351--><p class="noindent" >When there is a <span 
+class="ptmri8t-x-x-109">guarded </span>subexpression <span 
+class="cmmi-10x-x-109">e</span><sub><span 
+class="cmmi-8">i</span></sub> detected during evaluation, all contained
+expressions are recursively evaluated to guarded expressions yielding a nested guarded
+expression of the form (<a 
+href="#x218-868004r77">20.77<!--tex4ht:ref: nestedge --></a>). This is resolved as described above yielding the
+evaluation subresult <span 
+class="cmmi-10x-x-109">e</span><sub><span 
+class="cmmi-8">i</span></sub><span 
+class="cmsy-10x-x-109">′</span>.
+</p><!--l. 357--><p class="noindent" >As a special case, this explains how guarded expressions are (re)evaluated to guarded
+expressions.
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x218-87000020.26.2"></a>Example</h5>
+<!--l. 361--><p class="noindent" >We describe the evaluation of the expression <span 
+class="cmr-10x-x-109">min</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x,</span><span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmr-10x-x-109">)</span>. The ﬁrst argument <span 
+class="cmmi-10x-x-109">e</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">x</span>
+                                                                     
+
+                                                                     
+evaluates recursively to
+</p>
+<table 
+class="equation"><tr><td><a 
+ id="x218-870001r78"></a>
+<center class="math-display" >
+<img 
+src="manual312x.png" alt="e′= [ T |x  ]
+ 1      |
+" class="math-display"  /></center></td><td class="equation-label">(20.78)</td></tr></table>
+<!--l. 366--><p class="nopar" >
+with a necessary generic case. The nested <span 
+class="cmmi-10x-x-109">x </span>inside <span 
+class="cmmi-10x-x-109">e</span><sub><span 
+class="cmr-8">2</span></sub> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmsy-10x-x-109">| </span>evaluates to the same
+form (<a 
+href="#x218-870001r78">20.78<!--tex4ht:ref: evalx --></a>). For obtaining <span 
+class="cmmi-10x-x-109">e</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmsy-10x-x-109">′</span>, we apply the guarding scheme (<a 
+href="#x218-866001r73">20.73<!--tex4ht:ref: absrewrite --></a>) of the absolute
+value to the only term of (<a 
+href="#x218-870001r78">20.78<!--tex4ht:ref: evalx --></a>) yielding
+</p>
+<table 
+class="equation-star"><tr><td>
+                      <img 
+src="manual313x.png" alt="⌊    |⌊   T   ||x| ⌋ ⌋
+⌈    |⌈       |    ⌉ ⌉
+  T  |  x ≥ 0 | x
+     |  x &#x003C; 0 |− x"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">,</span>
+</td></tr></table>
+<!--l. 378--><p class="nopar" >
+where the inner generic case is redundant. This form is resolved to
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                      <span 
+class="cmmi-10x-x-109">e</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmsy-10x-x-109">′ </span><span 
+class="cmr-10x-x-109">= </span><img 
+src="manual314x.png" alt="            |
+⌊   T ∧ T   ||x| ⌋
+⌈ T ∧ x ≥ 0 | x  ⌉
+            |
+  T ∧ x &#x003C; 0 |− x"  class="left" align="middle" />
+</td></tr></table>
+<!--l. 386--><p class="nopar" >
+with a redundant generic case. The next step is the combination of cases by Cartesian
+product computation. We obtain
+</p>
+<table 
+class="equation-star"><tr><td>
+                  <img 
+src="manual315x.png" alt="⌊                 |            ⌋
+    T ∧ (T ∧ T)   |min (x,|x|)
+⌈  T ∧(T ∧ x ≥ 0) | min(x,x )  ⌉
+   T ∧(T ∧ x &#x003C; 0) |min (x, − x)"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">,</span>
+</td></tr></table>
+<!--l. 395--><p class="nopar" >
+which corresponds to (<a 
+href="#x218-868003r76">20.76<!--tex4ht:ref: intermediate --></a>) above. For the outer <span 
+class="cmr-10x-x-109">min</span>, we apply the guarding
+scheme (<a 
+href="#x218-86600020.26.2">20.26.2<!--tex4ht:ref: binminscheme --></a>) to all terms yielding the nested guarded expression
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+           <img 
+src="manual316x.png" alt="                 |          |
+⌊                |⌊    T    |min (x,|x|) ⌋  ⌋
+|  T ∧ (T ∧ T)   |⌈ x ≤ |x| |     x      ⌉  |
+||                |          |               ||
+||                | ⌊|x| ≤ x |    |x|    ⌋   ||
+|                |      T   |min (x,x )     |
+|| T ∧(T ∧ x ≥ 0) | ⌈  x ≤ x |    x      ⌉   ||
+||                |⌊   x ≤ x |    x       ⌋  ||
+||                |     T    |min (x,− x)    ||
+⌈ T ∧(T ∧ x &#x003C; 0) |⌈ x ≤ − x |     x      ⌉  ⌉
+                 |  − x ≤ x |    − x
+                            |"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">,</span>
+</td></tr></table>
+<!--l. 417--><p class="nopar" >
+which is in turn resolved to
+</p>
+<table 
+class="equation-star"><tr><td>
+             <img 
+src="manual317x.png" alt="⌊     (T ∧ (T ∧ T)) ∧ T     |min (x,|x|) ⌋
+|    (T ∧ (T ∧T )) ∧ x ≤ |x|   |     x      |
+||                           |            ||
+|    (T ∧ (T ∧T )) ∧ |x| ≤ x   |    |x|     |
+||    (T ∧ (T ∧ x ≥ 0))∧ T    | min (x,x)  ||
+||  (T ∧ (T∧ x ≥ 0))∧ x ≤ x  |     x      ||
+||  (T ∧ (T∧ x ≥ 0))∧ x ≤ x  |     x      ||
+||    (T ∧ (T ∧ x &#x003C; 0))∧ T    |min (x,− x) ||
+⌈ (T ∧ (T∧ x &#x003C; 0))∧ x ≤ − x |     x      ⌉
+  (T ∧ (T∧ x &#x003C; 0))∧ − x ≤ x |    − x
+                            |"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 431--><p class="nopar" >
+From this, we delete the two non-generic cases obtained by combination with the
+redundant generic case of the <span 
+class="cmr-10x-x-109">min</span>. The ﬁnal result of the algebraic evaluation step is the
+following:
+</p>
+<table 
+class="equation"><tr><td><a 
+ id="x218-870002r79"></a>
+                                                                     
+
+                                                                     
+<center class="math-display" >
+<img 
+src="manual318x.png" alt="⌊                           |            ⌋
+       (T ∧ (T ∧ T )) ∧ T    |min (x, |x |)
+||    (T∧ (T ∧ T))∧ x ≤ |x |  |     x      ||
+||    (T∧ (T ∧ T))∧ |x| ≤ x  |     |x|     ||
+||   (T ∧ (T ∧x ≥ 0)) ∧x ≤ x  |     x      || .
+||   (T ∧ (T ∧x ≥ 0)) ∧x ≤ x  |     x      ||
+⌈  (T∧ (T ∧ x &#x003C; 0)) ∧ x ≤ − x|     x      ⌉
+   (T∧ (T ∧ x &#x003C; 0)) ∧ − x ≤ x|    − x
+                            |
+" class="math-display"  /></center></td><td class="equation-label">(20.79)</td></tr></table>
+<!--l. 445--><p class="nopar" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x218-87100020.26.2"></a>Worst-case complexity</h5>
+<!--l. 447--><p class="noindent" >Our measure of complexity <span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmmi-10x-x-109">G</span><span 
+class="cmsy-10x-x-109">| </span>for guarded expressions <span 
+class="cmmi-10x-x-109">G </span>is the number of contained
+cases:
+</p>
+<table 
+class="equation-star"><tr><td>
+                        <img 
+src="manual319x.png" alt="|⌊     |   ⌋|
+||  γ0 |t0  ||
+||  γ1 |t1 ||
+||||  .  |.  ||||
+||⌈  ..  |..  ⌉||
+|  γn |tn  |"  class="left" align="middle" /> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmr-10x-x-109">+ 1</span><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 456--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p><!--l. 458--><p class="noindent" >As in Section <a 
+href="#x218-86700020.26.2">20.26.2<!--tex4ht:ref: algeval --></a>, consider an <span 
+class="cmmi-10x-x-109">m</span>-ary operator <span 
+class="cmmi-10x-x-109">f</span>, guarded expression arguments <span 
+class="cmmi-10x-x-109">e</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmsy-10x-x-109">′</span>,
+…, <span 
+class="cmmi-10x-x-109">e</span><sub><span 
+class="cmmi-8">m</span></sub><span 
+class="cmsy-10x-x-109">′ </span>as in equation (<a 
+href="#x218-868001r74">20.74<!--tex4ht:ref: eprimes --></a>), and the Cartesian product <span 
+class="cmmi-10x-x-109">T </span>as in equation (<a 
+href="#x218-868002r75">20.75<!--tex4ht:ref: cartprod --></a>).
+Then
+</p><table 
+class="align-star">
+     <tr><td 
+class="align-odd"><span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">e</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmsy-10x-x-109">′</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,e</span><sub><span 
+class="cmmi-8">m</span></sub><span 
+class="cmsy-10x-x-109">′</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmsy-10x-x-109">|</span></td>     <td 
+class="align-even"><span 
+class="cmsy-10x-x-109">≤</span><span 
+class="cmex-10x-x-109">∑</span>
+   <sub><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">t</span><sub><span 
+class="cmr-6">1</span></sub><span 
+class="cmmi-8">,</span><span 
+class="cmmi-8">…</span><span 
+class="cmmi-8">,t</span><sub><span 
+class="cmmi-6">m</span></sub><span 
+class="cmr-8">)</span><span 
+class="cmsy-8">∈</span><span 
+class="cmmi-8">T</span> </sub><span 
+class="cmsy-10x-x-109">|</span>gscheme<sub><span 
+class="cmmi-8">f</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">t</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,t</span><sub><span 
+class="cmmi-8">m</span></sub><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmsy-10x-x-109">|</span></td>                         <td 
+class="align-label"></td>     <td 
+class="align-label">
+     </td></tr><tr><td 
+class="align-odd"></td>                 <td 
+class="align-even"><span 
+class="cmsy-10x-x-109">≤</span> <span 
+class="cmr-10x-x-109">max</span><sub><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">t</span><sub><span 
+class="cmr-6">1</span></sub><span 
+class="cmmi-8">,</span><span 
+class="cmmi-8">…</span><span 
+class="cmmi-8">,t</span><sub><span 
+class="cmmi-6">m</span></sub><span 
+class="cmr-8">)</span><span 
+class="cmsy-8">∈</span><span 
+class="cmmi-8">T</span> </sub><span 
+class="cmsy-10x-x-109">|</span>gscheme<sub><span 
+class="cmmi-8">f</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">t</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,t</span><sub><span 
+class="cmmi-8">m</span></sub><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmsy-10x-x-109">|⋅ </span><span 
+class="cmr-10x-x-109">#</span><span 
+class="cmmi-10x-x-109">T</span></td>                   <td 
+class="align-label"></td>     <td 
+class="align-label">
+     </td></tr><tr><td 
+class="align-odd"></td>                 <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmr-10x-x-109">max</span><sub><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">t</span><sub><span 
+class="cmr-6">1</span></sub><span 
+class="cmmi-8">,</span><span 
+class="cmmi-8">…</span><span 
+class="cmmi-8">,t</span><sub><span 
+class="cmmi-6">m</span></sub><span 
+class="cmr-8">)</span><span 
+class="cmsy-8">∈</span><span 
+class="cmmi-8">T</span> </sub><span 
+class="cmsy-10x-x-109">|</span>gscheme<sub><span 
+class="cmmi-8">f</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">t</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,t</span><sub><span 
+class="cmmi-8">m</span></sub><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmsy-10x-x-109">|⋅</span><span 
+class="cmex-10x-x-109">∏</span>
+  <sub><span 
+class="cmmi-8">j</span><span 
+class="cmr-8">=1</span></sub><sup><span 
+class="cmmi-8">m</span></sup><span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmmi-10x-x-109">e</span><sub>
+<span 
+class="cmmi-8">j</span></sub><span 
+class="cmsy-10x-x-109">′|</span></td>           <td 
+class="align-label"></td>     <td 
+class="align-label">
+     </td></tr><tr><td 
+class="align-odd"></td>                 <td 
+class="align-even"><span 
+class="cmsy-10x-x-109">≤</span> <span 
+class="cmr-10x-x-109">max</span><sub><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">t</span><sub><span 
+class="cmr-6">1</span></sub><span 
+class="cmmi-8">,</span><span 
+class="cmmi-8">…</span><span 
+class="cmmi-8">,t</span><sub><span 
+class="cmmi-6">m</span></sub><span 
+class="cmr-8">)</span><span 
+class="cmsy-8">∈</span><span 
+class="cmmi-8">T</span> </sub><span 
+class="cmsy-10x-x-109">|</span>gscheme<sub><span 
+class="cmmi-8">f</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">t</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,t</span><sub><span 
+class="cmmi-8">m</span></sub><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmsy-10x-x-109">|⋅</span><span class="big"><img 
+src="manual320x.png" alt="("  class="left" align="middle" /></span><span 
+class="cmr-10x-x-109">max</span><sub><span 
+class="cmr-8">1</span><span 
+class="cmsy-8">≤</span><span 
+class="cmmi-8">j</span><span 
+class="cmsy-8">≤</span><span 
+class="cmmi-8">m</span></sub><span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmmi-10x-x-109">e</span><sub><span 
+class="cmmi-8">j</span></sub><span 
+class="cmsy-10x-x-109">′|</span><span class="big"><img 
+src="manual321x.png" alt=")"  class="left" align="middle" /></span><sup><span 
+class="cmmi-8">m</span></sup><span 
+class="cmmi-10x-x-109">.</span></td>     <td 
+class="align-label"></td>     <td 
+class="align-label"></td></tr></table>
+<!--l. 473--><p class="noindent" >In the important special case that the guarding scheme of <span 
+class="cmmi-10x-x-109">f </span>is a rewrite rule
+<span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">a</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,a</span><sub><span 
+class="cmmi-8">m</span></sub><span 
+class="cmr-10x-x-109">) </span><span 
+class="cmsy-10x-x-109">→ </span><span 
+class="cmmi-10x-x-109">G</span>, the above complexity estimation simpliﬁes to
+</p>
+<table 
+class="equation-star"><tr><td>
+       <span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">e</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmsy-10x-x-109">′</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,e</span><sub><span 
+class="cmmi-8">m</span></sub><span 
+class="cmsy-10x-x-109">′</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmsy-10x-x-109">|≤|</span><span 
+class="cmmi-10x-x-109">G</span><span 
+class="cmsy-10x-x-109">|⋅</span><span 
+class="cmex-10x-x-109">∏</span>
+  <sub><span 
+class="cmmi-8">j</span><span 
+class="cmr-8">=1</span></sub><sup><span 
+class="cmmi-8">m</span></sup><span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmmi-10x-x-109">e</span><sub>
+<span 
+class="cmmi-8">j</span></sub><span 
+class="cmsy-10x-x-109">′|≤|</span><span 
+class="cmmi-10x-x-109">G</span><span 
+class="cmsy-10x-x-109">|⋅</span><span class="big"><img 
+src="manual322x.png" alt="("  class="left" align="middle" /></span><span 
+class="cmr-10x-x-109">max</span><sub><span 
+class="cmr-8">1</span><span 
+class="cmsy-8">≤</span><span 
+class="cmmi-8">j</span><span 
+class="cmsy-8">≤</span><span 
+class="cmmi-8">m</span></sub><span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmmi-10x-x-109">e</span><sub><span 
+class="cmmi-8">j</span></sub><span 
+class="cmsy-10x-x-109">′|</span><span class="big"><img 
+src="manual323x.png" alt=")"  class="left" align="middle" /></span><sup><span 
+class="cmmi-8">m</span></sup><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+                                                                     
+
+                                                                     
+<!--l. 479--><p class="nopar" >
+In other words: <span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmmi-10x-x-109">G</span><span 
+class="cmsy-10x-x-109">| </span>plays the role of a factor, which, however, depends on <span 
+class="cmmi-10x-x-109">f</span>, and
+<span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmmi-10x-x-109">f</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">e</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmsy-10x-x-109">′</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,e</span><sub><span 
+class="cmmi-8">m</span></sub><span 
+class="cmsy-10x-x-109">′</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmsy-10x-x-109">| </span>is polynomial in the size of the <span 
+class="cmmi-10x-x-109">e</span><sub><span 
+class="cmmi-8">i</span></sub> but exponential in the arity of
+<span 
+class="cmmi-10x-x-109">f</span>.
+</p><!--l. 485--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x218-87200020.26.2"></a>Simpliﬁcation</h5>
+<!--l. 486--><p class="noindent" >In view of the increasing size of the guarded expressions coming into existence with
+subsequent computations, it is indispensable to apply simpliﬁcation strategies.
+There are two diﬀerent algorithms involved in the simpliﬁcation of guarded
+expressions:
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   1. </dt><dd 
+class="enumerate-enumitem">A <span 
+class="ptmri8t-x-x-109">formula simpliﬁer </span>mapping quantiﬁer-free formulas to equivalent simpler
+     ones.
+     </dd><dt class="enumerate-enumitem">
+   2. </dt><dd 
+class="enumerate-enumitem">Eﬀective <span 
+class="ptmri8t-x-x-109">quantiﬁer elimination </span>for real closed ﬁelds over the language of
+     ordered rings.</dd></dl>
+<!--l. 499--><p class="noindent" >It is not relevant, which simpliﬁer and which quantiﬁer elimination procedure is actually
+used. We use the formula simpliﬁer described in <span class="cite">[<a 
+href="manualap2.html#XDolzmann:97b">DS97b</a>]</span>. Our quantiﬁer elimination
+uses test point methods developed by Weispfenning <span class="cite">[<a 
+href="manualap2.html#XWeispfenning:88">Wei88</a>, <a 
+href="manualap2.html#XLoosWeispfenning:93">RLW93</a>, <a 
+href="manualap2.html#XWeispfenning:96">Wei97</a>]</span>. It is
+restricted to formulas obeying certain degree restrictions wrt. the quantiﬁed variables.
+As an alternative, <span 
+class="ptmrc8t-x-x-109"><span 
+class="small-caps">R</span><span 
+class="small-caps">E</span><span 
+class="small-caps">D</span><span 
+class="small-caps">L</span><span 
+class="small-caps">O</span><span 
+class="small-caps">G</span> </span>provides an interface to Hong’s <span 
+class="ptmrc8t-x-x-109"><span 
+class="small-caps">Q</span><span 
+class="small-caps">E</span><span 
+class="small-caps">P</span><span 
+class="small-caps">C</span><span 
+class="small-caps">A</span><span 
+class="small-caps">D</span> </span>quantiﬁer
+elimination package <span class="cite">[<a 
+href="manualap2.html#XHong:93">HCJE93</a>]</span>. Compared to the simpliﬁcation, the quantiﬁer
+elimination is more time consuming. It can be turned oﬀ by a <span 
+class="ptmri8t-x-x-109">switch</span>.
+</p><!--l. 511--><p class="noindent" >The following simpliﬁcation steps are applied in the given order:
+</p>
+<!--l. 513--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x218-87300020.26.2"></a><span 
+class="ptmb8t-x-x-109">Contraction of cases</span></span>
+This is restricted to the non-generic cases of the considered guarded expression. We
+contract diﬀerent cases containing the same terms:
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+               <img 
+src="manual324x.png" alt="      |
+⌊  γ0 |t0 ⌋
+|   . | . |
+||   .. | .. ||
+||  γi |ti ||
+||   .. | .. ||
+|   . | . |
+|⌈  γj |ti |⌉
+    ... | ..."  class="left" align="middle" />  becomes    <img 
+src="manual325x.png" alt="⌊         |   ⌋
+     γ0   |t0
+||     ...   |...  ||
+||  γ ∨ γ  |t  ||
+⌈   i . j |.i ⌉
+      ..   |.."  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 531--><p class="nopar" >
+</p>
+<!--l. 532--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x218-87400020.26.2"></a><span 
+class="ptmb8t-x-x-109">Simpliﬁcation of the guards</span></span>
+The simpliﬁer is applied to all guards replacing them by simpliﬁed equivalents. Since our
+simpliﬁer maps <span 
+class="cmmi-10x-x-109">γ </span><span 
+class="cmsy-10x-x-109">∨ </span><span 
+class="cmmi-10x-x-109">γ </span>to <span 
+class="cmmi-10x-x-109">γ</span>, this together with the contraction of cases takes care for the
+deletion of duplicate cases.
+</p>
+<!--l. 537--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x218-87500020.26.2"></a><span 
+class="ptmb8t-x-x-109">Keep one tautological case</span></span>
+If the guard of some non-generic case becomes “T,” we delete all other non-generic
+cases. Else, if quantiﬁer elimination is turned on, we try to detect a tautology by
+eliminating the universal closures <span class="underline"><span 
+class="cmsy-10x-x-109">∀</span></span><span 
+class="cmmi-10x-x-109">γ </span>of the guards <span 
+class="cmmi-10x-x-109">γ</span>. This quantiﬁer elimination is also
+applied to the guards of generic cases. These are, in case of success, simply replaced by
+“T” without deleting the case.
+</p>
+<!--l. 546--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x218-87600020.26.2"></a><span 
+class="ptmb8t-x-x-109">Remove contradictive cases</span></span>
+A non-generic case is deleted if its guard has become “F.” If quantiﬁer elimination is
+turned on, we try to detect further contradictive cases by eliminating the existential
+closure <span class="underline"><span 
+class="cmsy-10x-x-109">∃</span></span><span 
+class="cmmi-10x-x-109">γ </span>for each guard <span 
+class="cmmi-10x-x-109">γ</span>. This quantiﬁer elimination is also applied to generic cases.
+In case of success they are not deleted but their guards are replaced by “F.” Our
+assumption (<a 
+href="#x218-865001r71">20.71<!--tex4ht:ref: gencoversall --></a>) allows then to delete all non-generic cases.
+                                                                     
+
+                                                                     
+</p><!--l. 555--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x218-87700020.26.2"></a>Example revisited</h5>
+<!--l. 556--><p class="noindent" >We turn back to the form (<a 
+href="#x218-870002r79">20.79<!--tex4ht:ref: example --></a>) of our example <span 
+class="cmr-10x-x-109">min</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x,</span><span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmr-10x-x-109">)</span>. Contraction of cases with
+subsequent simpliﬁcation automatically yields
+</p>
+<table 
+class="equation-star"><tr><td>
+                    <img 
+src="manual326x.png" alt="              |
+⌊      T      |min (x,|x|) ⌋
+|      T      |     x      |
+|⌈  |x |− x ≤ 0 |    |x|     |⌉
+              |
+       F      |    − x"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">,</span>
+</td></tr></table>
+<!--l. 566--><p class="nopar" >
+of which only the tautological non-generic case survives:
+</p>
+<table 
+class="equation"><tr><td><a 
+ id="x218-877001r80"></a>
+<center class="math-display" >
+<img 
+src="manual327x.png" alt="[    |            ]
+  T  |min (x,|x|)
+  T  |     x       .
+" class="math-display"  /></center></td><td class="equation-label">(20.80)</td></tr></table>
+<!--l. 573--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p><!--l. 575--><p class="noindent" >
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x218-87800020.26.2"></a>Output modes</h5>
+<!--l. 576--><p class="noindent" >An <span 
+class="ptmri8t-x-x-109">output mode </span>determines which part of the information contained in the guarded
+expressions is provided to the user. <span 
+class="ptmrc8t-x-x-109">G<span 
+class="small-caps">U</span><span 
+class="small-caps">A</span><span 
+class="small-caps">R</span><span 
+class="small-caps">D</span><span 
+class="small-caps">I</span><span 
+class="small-caps">A</span><span 
+class="small-caps">N</span> </span>knows the following output
+modes:
+</p>
+<!--l. 580--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x218-87900020.26.2"></a><span 
+class="ptmb8t-x-x-109">Matrix</span></span>
+Output matrices in the style used throughout this paper. We have already seen that these
+can become very large in general.
+</p>
+<!--l. 583--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x218-88000020.26.2"></a><span 
+class="ptmb8t-x-x-109">Generic case</span></span>
+Output only the generic case.
+</p>
+<!--l. 584--><p class="noindent" ><span class="paragraphHead"><a 
+ id="x218-88100020.26.2"></a><span 
+class="ptmb8t-x-x-109">Generic term</span></span>
+Output only the generic term. Thus the output is exactly the same as without the
+guardian package. If the condition of the generic case becomes “F,” a <span 
+class="ptmri8t-x-x-109">warning</span>
+“<span 
+class="pcrr8t-x-x-109">contradictive situation</span>” is given. The computation can, however, be
+continued.
+</p><!--l. 590--><p class="noindent" >Note that output modes are restrictions concerning only the output; internally the system
+still computes with the complete guarded expressions.
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x218-88200020.26.2"></a>A smart mode</h5>
+<!--l. 595--><p class="noindent" >Consider the evaluation result (<a 
+href="#x218-877001r80">20.80<!--tex4ht:ref: minabs --></a>) of <span 
+class="cmr-10x-x-109">min</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x,</span><span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmr-10x-x-109">)</span>. The <span 
+class="ptmri8t-x-x-109">generic term </span>output mode
+would output <span 
+class="cmr-10x-x-109">min</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x,</span><span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmr-10x-x-109">)</span>, although more precise information could be given, namely <span 
+class="cmmi-10x-x-109">x</span>.
+The problem is caused by the fact that generic cases are used to keep track of the
+system’s default behavior. In this section we will describe an optional <span 
+class="ptmri8t-x-x-109">smart mode </span>with a
+diﬀerent notion of <span 
+class="ptmri8t-x-x-109">generic case</span>. To begin with, we show why the problem can not be
+overcome by a “smart output mode.”
+</p><!--l. 604--><p class="noindent" >Assume that there is an output mode which outputs <span 
+class="cmmi-10x-x-109">x </span>for (<a 
+href="#x218-877001r80">20.80<!--tex4ht:ref: minabs --></a>). As the next
+                                                                     
+
+                                                                     
+computation involving (<a 
+href="#x218-877001r80">20.80<!--tex4ht:ref: minabs --></a>) consider division by <span 
+class="cmmi-10x-x-109">y</span>. This would result in
+</p>
+<table 
+class="equation-star"><tr><td>
+                       <img 
+src="manual328x.png" alt="[        |min(x,|x|) ]
+  y ⁄=  0 |----y----
+  y ⁄= 0  |    xy"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 612--><p class="nopar" >
+Again, there are identic conditions for the generic case and some non-generic case, and,
+again, the term belonging to the latter is simpler. Our mode would output <img 
+src="manual329x.png" alt="xy"  class="frac" align="middle" />. Next, we
+apply the absolute value once more yielding
+</p>
+<table 
+class="equation-star"><tr><td>
+                   <img 
+src="manual330x.png" alt="⌊                ||min(x,|x|)| ⌋
+|     y ⁄=  0     |    |y|     |
+⌈  xy ≥ 0∧ y ⁄= 0 |    xy      ⌉
+   xy &#x003C; 0∧ y ⁄= 0 |    −x-
+                      y"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 623--><p class="nopar" >
+Here, the condition of the generic case diﬀers from all other conditions. We thus
+have to output the generic term. For the user, the evaluation of <span 
+class="cmsy-10x-x-109">|</span><img 
+src="manual331x.png" alt="xy"  class="frac" align="middle" /><span 
+class="cmsy-10x-x-109">| </span>results in
+<img 
+src="manual332x.png" alt="|min(x,|x|)|
+    |y|"  class="frac" align="middle" />.
+                                                                     
+
+                                                                     
+</p><!--l. 628--><p class="noindent" >The smart mode can turn a non-generic case into a necessary generic one dropping the
+original generic case and all other non-generic cases. Consider, e.g., (<a 
+href="#x218-877001r80">20.80<!--tex4ht:ref: minabs --></a>), where the
+conditions are equal, and the non-generic term is “simpler.”
+</p><!--l. 633--><p class="noindent" >In fact, the relevant relationship between the conditions is that the generic condition
+<span 
+class="ptmri8t-x-x-109">implies </span>the non-generic one. In other words: Some non-generic condition is not more
+restrictive than the generic condition, and thus covers the whole domain of the guarded
+expression. Note that from the implication and (<a 
+href="#x218-865001r71">20.71<!--tex4ht:ref: gencoversall --></a>) we may conclude that the cases
+are even equivalent.
+</p><!--l. 640--><p class="noindent" >Implication is heuristically checked by simpliﬁcation. If this fails, quantiﬁer elimination
+provides a decision procedure. Note that our test point methods are incomplete in this
+regard due to the degree restrictions. Also it cannot be applied straightforwardly
+to guards containing operators that do not belong to the language of ordered
+rings.
+</p><!--l. 647--><p class="noindent" >Whenever we happen to detect a relevant implication, we actually turn the corresponding
+non-generic case into the generic one. From our motivation of non-generic cases, we may
+expect that non-generic expressions are generally more convenient than generic
+ones.
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.26.3    </span> <a 
+ id="x218-88300020.26.3"></a>Examples</h4>
+<!--l. 653--><p class="noindent" >We give the results for the following computations as they are printed in the output mode
+<span 
+class="ptmri8t-x-x-109">matrix </span>providing the full information on the computation result. The reader can derive
+himself what the output in the mode <span 
+class="ptmri8t-x-x-109">generic case </span>or <span 
+class="ptmri8t-x-x-109">generic term </span>would be.
+</p>
+     <ul class="itemize1">
+     <li class="itemize">Smart mode or not:
+     <table 
+class="equation-star"><tr><td>
+                 <img 
+src="manual333x.png" alt="-----1-----
+x2 + 2x+ 1"  class="frac" align="middle" /> <span 
+class="cmr-10x-x-109">= </span><img 
+src="manual334x.png" alt="[                      ]
+  x + 1 ⁄= 0 | ---1----
+            | x2+2x+1"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">.</span>
+     </td></tr></table>
+                                                                     
+
+                                                                     
+     <!--l. 663--><p class="nopar" >
+     The simpliﬁer recognizes that the denominator is a square.
+     </p></li>
+     <li class="itemize">Smart mode or not:
+     <table 
+class="equation-star"><tr><td>
+                      <img 
+src="manual335x.png" alt="     1
+-2---------
+x  + 2x + 2"  class="frac" align="middle" /> <span 
+class="cmr-10x-x-109">= </span><img 
+src="manual336x.png" alt="[   |         ]
+  T |x2+21x+2-"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">.</span>
+     </td></tr></table>
+     <!--l. 670--><p class="nopar" >
+     Quantiﬁer    elimination    recognizes    the    positive    deﬁniteness    of    the
+     denominator.
+     </p></li>
+     <li class="itemize">Smart mode:
+     <table 
+class="equation-star"><tr><td>
+                    <span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmsy-10x-x-109">|−</span><img 
+src="manual337x.png" alt="√--
+ x"  class="sqrt"  /> <span 
+class="cmr-10x-x-109">= </span><img 
+src="manual338x.png" alt="[       |  √ --     ]
+  x ≥ 0 |−   x + x"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">.</span>
+     </td></tr></table>
+     <!--l. 678--><p class="nopar" >
+     The square root allows to forget about the negative branch of the absolute
+     value.
+                                                                     
+
+                                                                     
+     </p></li>
+     <li class="itemize">Smart mode:
+     <table 
+class="equation-star"><tr><td>
+                    <span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmr-8">2</span></sup> <span 
+class="cmr-10x-x-109">+ 2</span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">+ 1</span><span 
+class="cmsy-10x-x-109">| </span><span 
+class="cmr-10x-x-109">= </span><img 
+src="manual339x.png" alt="[   | 2           ]
+ T  |x  + 2x +  1"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">.</span>
+     </td></tr></table>
+     <!--l. 686--><p class="nopar" >
+     The  simpliﬁer  recognizes  the  positive  semideﬁniteness  of  the  argument.
+     <span 
+class="ptmrc8t-x-x-109">R<span 
+class="small-caps">E</span><span 
+class="small-caps">D</span><span 
+class="small-caps">U</span><span 
+class="small-caps">C</span><span 
+class="small-caps">E</span> </span>itself recognizes squares within absolute values only in very special
+     cases such as <span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmsy-10x-x-109">|</span>.
+     </p></li>
+     <li class="itemize">Smart mode:
+     <table 
+class="equation-star"><tr><td>
+                      <span 
+class="cmr-10x-x-109">min</span><span class="big"><img 
+src="manual340x.png" alt="("  class="left" align="middle" /></span><span 
+class="cmmi-10x-x-109">x,</span><span 
+class="cmr-10x-x-109">max</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x,y</span><span 
+class="cmr-10x-x-109">)</span><span class="big"><img 
+src="manual341x.png" alt=")"  class="left" align="middle" /></span> <span 
+class="cmr-10x-x-109">= </span><img 
+src="manual342x.png" alt="[   |   ]
+  T | x"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">.</span>
+     </td></tr></table>
+     <!--l. 695--><p class="nopar" >
+     Note  that  <span 
+class="ptmrc8t-x-x-109"><span 
+class="small-caps">R</span><span 
+class="small-caps">E</span><span 
+class="small-caps">D</span><span 
+class="small-caps">U</span><span 
+class="small-caps">C</span><span 
+class="small-caps">E</span>  </span>does  not  know  any  rules  about  nested  minima  and
+     maxima.
+     </p></li>
+     <li class="itemize">Smart mode:
+     <table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                      <span 
+class="cmr-10x-x-109">min</span><span class="big"><img 
+src="manual343x.png" alt="("  class="left" align="middle" /></span>sign<span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1</span><span class="big"><img 
+src="manual344x.png" alt=")"  class="left" align="middle" /></span> <span 
+class="cmr-10x-x-109">= </span><img 
+src="manual345x.png" alt="[   |    ]
+  T |− 1"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">.</span>
+     </td></tr></table>
+     <!--l. 704--><p class="nopar" >
+     </p></li>
+     <li class="itemize">Smart mode or not:
+     <table 
+class="equation-star"><tr><td>
+                      <span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmsy-10x-x-109">|− </span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">= </span><img 
+src="manual346x.png" alt="⌊       |        ⌋
+    T   ||x| − x
+⌈ x ≥ 0 |   0    ⌉
+  x &#x003C; 0 |  − 2x"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">.</span>
+     </td></tr></table>
+     <!--l. 712--><p class="nopar" >
+     This example is taken from <span class="cite">[<a 
+href="manualap2.html#XDavenportFaure:94">DF94</a>]</span>.
+     </p></li>
+     <li class="itemize">Smart mode or not:
+     <table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+       <img 
+src="manual347x.png" alt="∘ -----2-2--2----2----
+  1 + x y (x +  y − 3)"  class="sqrt"  /> <span 
+class="cmr-10x-x-109">= </span><img 
+src="manual348x.png" alt="[   |∘ --4-2----2--4-----2--2---- ]
+  T |  x  y  + x y  −  3x y  +  1"  class="left" align="middle" />
+     </td></tr></table>
+     <!--l. 719--><p class="nopar" >
+     The  <span 
+class="ptmri8t-x-x-109">Motzkin  polynomial  </span>is  recognized  to  be  positive  semideﬁnite  by
+     quantiﬁer elimination.</p></li></ul>
+<!--l. 723--><p class="noindent" >The evaluation time for the last example is 119 ms on a <span 
+class="ptmrc8t-x-x-109"><span 
+class="small-caps">S</span><span 
+class="small-caps">U</span><span 
+class="small-caps">N</span> <span 
+class="small-caps">S</span><span 
+class="small-caps">P</span><span 
+class="small-caps">A</span><span 
+class="small-caps">R</span><span 
+class="small-caps">C</span>-4</span>. This illustrates
+that eﬃciency is no problem with such interactive examples.
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.26.4    </span> <a 
+ id="x218-88400020.26.4"></a>Outlook</h4>
+<!--l. 727--><p class="noindent" >This section describes possible extensions of the <span 
+class="ptmrc8t-x-x-109"><span 
+class="small-caps">G</span><span 
+class="small-caps">U</span><span 
+class="small-caps">A</span><span 
+class="small-caps">R</span><span 
+class="small-caps">D</span><span 
+class="small-caps">I</span><span 
+class="small-caps">A</span><span 
+class="small-caps">N</span></span>. The extensions
+proposed in Section <a 
+href="#x218-88500020.26.4">20.26.4<!--tex4ht:ref: simplification --></a> on simpliﬁcation of terms and Section <a 
+href="#x218-88600020.26.4">20.26.4<!--tex4ht:ref: background --></a>
+on a background theory are clear from a theoretical point of view but not yet
+implemented. Section <a 
+href="#x218-88700020.26.4">20.26.4<!--tex4ht:ref: integration --></a> collects some ideas on the application of our ideas
+to the <span 
+class="ptmrc8t-x-x-109"><span 
+class="small-caps">R</span><span 
+class="small-caps">E</span><span 
+class="small-caps">D</span><span 
+class="small-caps">U</span><span 
+class="small-caps">C</span><span 
+class="small-caps">E</span> </span>integrator. In this ﬁeld, there is some more theoretical work
+necessary.
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x218-88500020.26.4"></a>Simpliﬁcation of terms</h5>
+<!--l. 736--><p class="noindent" >Consider the expression sign<span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmsy-10x-x-109">−|</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmsy-10x-x-109">|</span>. It evaluates to the following guarded
+expression:
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                    <img 
+src="manual349x.png" alt="        |
+⌊   T   |− |x | + sign(x)x ⌋
+⌈ x ⁄= 0 |       0        ⌉
+        |
+  x = 0 |      − x"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 744--><p class="nopar" >
+This suggests to substitute <span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmmi-10x-x-109">x </span>by <span 
+class="cmr-10x-x-109">0 </span>in the third case, which would in turn allow to
+contract the two non-generic cases yielding
+</p>
+<table 
+class="equation-star"><tr><td>
+                      <img 
+src="manual350x.png" alt="[   |                 ]
+  T |− |x| + sign(x)x
+  T |       0"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 751--><p class="nopar" >
+In smart mode second case would then become the only generic case.
+</p><!--l. 754--><p class="noindent" >Generally, one would proceed as follows: If the guard is a conjunction containing as
+toplevel equations
+</p>
+<table 
+class="equation-star"><tr><td>
+                         <span 
+class="cmmi-10x-x-109">t</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">= 0</span><span 
+class="cmmi-10x-x-109">,</span>   <span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,   t</span><sub><span 
+class="cmmi-8">k</span></sub> <span 
+class="cmr-10x-x-109">= 0</span><span 
+class="cmmi-10x-x-109">,</span>
+</td></tr></table>
+                                                                     
+
+                                                                     
+<!--l. 758--><p class="nopar" >
+reduce the corresponding expression modulo the set of univariate linear polynomials
+among <span 
+class="cmmi-10x-x-109">t</span><sub><span 
+class="cmr-8">1</span></sub>, …, <span 
+class="cmmi-10x-x-109">t</span><sub><span 
+class="cmmi-8">k</span></sub>.
+</p><!--l. 762--><p class="noindent" >A more general approach would reduce the expression modulo a Gröbner basis of all
+the <span 
+class="cmmi-10x-x-109">t</span><sub><span 
+class="cmr-8">1</span></sub>, …, <span 
+class="cmmi-10x-x-109">t</span><sub><span 
+class="cmmi-8">k</span></sub>. This leads, however, to larger expressions in general.
+</p><!--l. 766--><p class="noindent" >One can also imagine to make use of non-conjunctive guards in the following
+way:
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   1. </dt><dd 
+class="enumerate-enumitem">Compute a <span 
+class="ptmrc8t-x-x-109"><span 
+class="small-caps">D</span><span 
+class="small-caps">N</span><span 
+class="small-caps">F</span> </span>of the guard.
+     </dd><dt class="enumerate-enumitem">
+   2. </dt><dd 
+class="enumerate-enumitem">Split  the  case  into  several  cases  corresponding  to  the  conjunctions  in  the
+     <span 
+class="ptmrc8t-x-x-109"><span 
+class="small-caps">D</span><span 
+class="small-caps">N</span><span 
+class="small-caps">F</span></span>.
+     </dd><dt class="enumerate-enumitem">
+   3. </dt><dd 
+class="enumerate-enumitem">Simplify the terms.
+     </dd><dt class="enumerate-enumitem">
+   4. </dt><dd 
+class="enumerate-enumitem">Apply   the   standard   simpliﬁcation   procedure   to   the   resulting   guarded
+     expression. Note that it includes <span 
+class="ptmri8t-x-x-109">contraction of cases</span>.</dd></dl>
+<!--l. 776--><p class="noindent" >According to experiences with similar ideas in the “Gröbner simpliﬁer” described
+in <span class="cite">[<a 
+href="manualap2.html#XDolzmann:97b">DS97b</a>]</span>, this should work well.
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x218-88600020.26.4"></a>Background theory</h5>
+<!--l. 781--><p class="noindent" >In practice one often computes with quantities guaranteed to lie in a certain range. For
+instance, when computing an electrical resistance, one knows in advance that it will not
+be negative. For such cases one would like to have some facility to provide external
+information to the system. This can then be used to reduce the complexity of the guarded
+expressions.
+</p><!--l. 788--><p class="noindent" >One would provide a function <span 
+class="pcrr8t-x-x-109">assert(</span><span 
+class="cmmi-10x-x-109">φ</span><span 
+class="pcrr8t-x-x-109">)</span>, which asserts the formula <span 
+class="cmmi-10x-x-109">φ </span>to hold.
+Successive applications of <span 
+class="pcrr8t-x-x-109">assert </span>establish a <span 
+class="ptmri8t-x-x-109">background theory</span>, which is a
+set of formulas considered conjunctively. The information contained in the
+background theory can be used with the guarded expression computation. The
+user must, however, not rely on all the background information to be actually
+used.
+</p><!--l. 796--><p class="noindent" >Technically, denote by <span 
+class="cmr-10x-x-109">Φ </span>the (conjunctive) background theory. For the <span 
+class="ptmri8t-x-x-109">simpliﬁcation of</span>
+<span 
+class="ptmri8t-x-x-109">the guards</span>, we can make use of the fact that our simpliﬁer is designed to simplify wrt. a
+                                                                     
+
+                                                                     
+theory, cf. <span class="cite">[<a 
+href="manualap2.html#XDolzmann:97b">DS97b</a>]</span>. For proving that some guard <span 
+class="cmmi-10x-x-109">γ </span>is <span 
+class="ptmri8t-x-x-109">tautological</span>, we try to
+prove
+</p>
+<table 
+class="equation-star"><tr><td>
+                               <span class="underline"><span 
+class="cmsy-10x-x-109">∀</span></span><span 
+class="cmr-10x-x-109">(Φ</span><span 
+class="cmmi-10x-x-109">→</span><span 
+class="cmmi-10x-x-109">γ</span><span 
+class="cmr-10x-x-109">)</span>
+</td></tr></table>
+<!--l. 801--><p class="nopar" >
+instead of <span class="underline"><span 
+class="cmsy-10x-x-109">∀</span></span><span 
+class="cmmi-10x-x-109">γ</span>. Similarly, for proving that <span 
+class="cmmi-10x-x-109">γ </span>is <span 
+class="ptmri8t-x-x-109">contradictive</span>, we try to disprove
+</p>
+<table 
+class="equation-star"><tr><td>
+                              <span class="underline"><span 
+class="cmsy-10x-x-109">∃</span></span><span 
+class="cmr-10x-x-109">(Φ </span><span 
+class="cmsy-10x-x-109">∧ </span><span 
+class="cmmi-10x-x-109">γ</span><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 804--><p class="nopar" >
+Instead of proving <span class="underline"><span 
+class="cmsy-10x-x-109">∀</span></span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">γ</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">→</span><span 
+class="cmmi-10x-x-109">γ</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmr-10x-x-109">) </span>in smart mode, we try to prove
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                           <span class="underline"><span 
+class="cmsy-10x-x-109">∀</span></span><span class="big"><img 
+src="manual351x.png" alt="("  class="left" align="middle" /></span><span 
+class="cmr-10x-x-109">(Φ </span><span 
+class="cmsy-10x-x-109">∧ </span><span 
+class="cmmi-10x-x-109">γ</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">→</span><span 
+class="cmmi-10x-x-109">γ</span><sub><span 
+class="cmr-8">2</span></sub><span class="big"><img 
+src="manual352x.png" alt=")"  class="left" align="middle" /></span><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 807--><p class="nopar" >
+</p><!--l. 809--><p class="noindent" >Independently, one can imagine to use a background theory for reducing the <span 
+class="ptmri8t-x-x-109">output </span>with
+the <span 
+class="ptmri8t-x-x-109">matrix </span>output mode. For this, one simpliﬁes each guard wrt. the theory at the
+output stage treating contradictions and tautologies appropriately. Using the
+theory for replacing all cases by one at output stage in a smart mode manner
+leads once more to the problem of expressions or even guarded expressions
+“mysteriously” getting more complicated. Applying the theory only at the output stage
+makes it possible to implement a procedure <span 
+class="pcrr8t-x-x-109">unassert(</span><span 
+class="cmmi-10x-x-109">φ</span><span 
+class="pcrr8t-x-x-109">) </span>in a reasonable
+way.
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x218-88700020.26.4"></a>Integration</h5>
+<!--l. 820--><p class="noindent" ><span 
+class="ptmrc8t-x-x-109">C<span 
+class="small-caps">A</span><span 
+class="small-caps">S</span> </span>integrators make “mistakes” similar to those we have examined. Consider, e.g., the
+typical result
+</p>
+<table 
+class="equation-star"><tr><td>
+                        <span 
+class="cmex-10x-x-109">∫</span>
+                           <span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">a</span></sup><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">dx </span><span 
+class="cmr-10x-x-109">=</span> <img 
+src="manual353x.png" alt="-1---
+a+ 1"  class="frac" align="middle" /><span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmmi-8">a</span><span 
+class="cmr-8">+1</span></sup><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 824--><p class="nopar" >
+It does not cover the case <span 
+class="cmmi-10x-x-109">a </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">1</span>, for which one wishes to obtain
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                           <span 
+class="cmex-10x-x-109">∫</span>
+                             <span 
+class="cmmi-10x-x-109">x</span><sup><span 
+class="cmsy-8">−</span><span 
+class="cmr-8">1</span></sup><span style="margin-left:0.3em" class="thinspace"></span><span 
+class="cmmi-10x-x-109">dx </span><span 
+class="cmr-10x-x-109">=</span> <span 
+class="cmr-10x-x-109">ln</span><span 
+class="cmmi-10x-x-109">x.</span>
+</td></tr></table>
+<!--l. 828--><p class="nopar" >
+This problem can also be solved by using guarded expressions for integration
+results.
+</p><!--l. 832--><p class="noindent" >Within the framework of this paper, we would have to associate a guarding scheme to the
+integrator <span 
+class="pcrr8t-x-x-109">int</span>. It is not hard to see that this cannot be done in a reasonable way without
+putting as much knowledge into the scheme as into the integrator itself. Thus
+for treating integration, one has to modify the integrator to provide guarded
+expressions.
+</p><!--l. 839--><p class="noindent" >Next, we have to clarify what the guarded expression for the above integral would look
+like. Since we know that the integral is deﬁned for all interpretations of the variables, our
+assumption (<a 
+href="#x218-865001r71">20.71<!--tex4ht:ref: gencoversall --></a>) implies that the generic condition be “T.” We obtain the guarded
+expression
+</p>
+<table 
+class="equation-star"><tr><td>
+                       <img 
+src="manual354x.png" alt="⌊         |∫  a    ⌋
+     T    |  x dx
+⌈ a ⁄= − 1 |a1+1xa+1 ⌉
+  a = − 1 |  ln x"  class="left" align="middle" /><span 
+class="cmmi-10x-x-109">.</span>
+</td></tr></table>
+<!--l. 850--><p class="nopar" >
+Note that the redundant generic case does not model the system’s current behavior.
+                                                                     
+
+                                                                     
+</p>
+<h5 class="subsubsectionHead"><a 
+ id="x218-88800020.26.4"></a>Combining algebra with logic</h5>
+<!--l. 855--><p class="noindent" >Our method, in the described form, uses an already implemented algebraic evaluator. In
+the previous section, we have seen that this point of view is not suﬃcient for treating
+integration appropriately.
+</p><!--l. 860--><p class="noindent" >Also our approach runs into trouble with built-in knowledge such as
+</p><table 
+class="align">
+                            <tr><td 
+class="align-odd"><img 
+src="manual355x.png" alt="  ---
+√ x2"  class="sqrt"  /></td>                               <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= </span><span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmmi-10x-x-109">,</span></td>                                                        <td 
+class="align-label"><a 
+ id="x218-888001r81"></a>(20.81)
+                            </td></tr><tr><td 
+class="align-odd">sign<span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmr-10x-x-109">)</span></td>                            <td 
+class="align-even"> <span 
+class="cmr-10x-x-109">= 1</span><span 
+class="cmmi-10x-x-109">.</span></td>                                                         <td 
+class="align-label"><a 
+ id="x218-888002r82"></a>(20.82)                            </td></tr></table>
+<!--l. 865--><p class="noindent" >Equation (<a 
+href="#x218-888001r81">20.81<!--tex4ht:ref: sqrtrule --></a>) introduces an absolute value operator within a non-generic term
+without making a case distinction. Equation (<a 
+href="#x218-888002r82">20.82<!--tex4ht:ref: signrule --></a>) is wrong when not considering <span 
+class="cmmi-10x-x-109">x</span>
+transcendental. In contrast to the situation with reciprocals, our technique cannot be used
+to avoid this “mistake.” We obtain
+</p>
+<table 
+class="equation-star"><tr><td>
+                                                                     
+
+                                                                     
+                      sign<span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmr-10x-x-109">) = </span><img 
+src="manual356x.png" alt="         |
+⌊   T    |1 ⌋
+⌈  x ⁄= 0 |1 ⌉
+         |
+   x = 0 |0"  class="left" align="middle" />
+</td></tr></table>
+<!--l. 876--><p class="nopar" >
+yielding two diﬀerent answers for <span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">= 0</span>.
+</p><!--l. 879--><p class="noindent" >We have already seen in the example Section <a 
+href="#x218-88300020.26.3">20.26.3<!--tex4ht:ref: examples --></a> that the implementation of
+knowledge such as (<a 
+href="#x218-888001r81">20.81<!--tex4ht:ref: sqrtrule --></a>) and (<a 
+href="#x218-888002r82">20.82<!--tex4ht:ref: signrule --></a>) is usually quite <span 
+class="ptmri8t-x-x-109">ad hoc</span>, and can be
+mostly covered by using guarded expressions. This observation gives rise to the
+following question: When designing a new <span 
+class="ptmrc8t-x-x-109"><span 
+class="small-caps">C</span><span 
+class="small-caps">A</span><span 
+class="small-caps">S</span> </span>based on guarded expressions, how
+should the knowledge be distributed between the algebraic side and the logic
+side?
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.26.5    </span> <a 
+ id="x218-88900020.26.5"></a>Conclusions</h4>
+<!--l. 888--><p class="noindent" >Guarded expressions can be used to overcome well-known problems with interpreting
+expressions as terms. We have explained in detail how to compute with guarded
+expressions including several simpliﬁcation techniques. Moreover we gain algebraic
+simpliﬁcation power from the logical simpliﬁcations. Numerous examples illustrate the
+power of our simpliﬁcation methods. The largest part of our ideas is eﬃciently
+implemented, and the software is published. The outlook on background theories and on
+the treatment of integration by guarded expressions points on interesting future
+extensions.
+</p><!--l. 557--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 559--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse151.html" >Up</a></td><td class="clinks"><a 
+href="manualse152.html" >Next</a></td><td class="clinks"><a 
+href="manualse150.html" >Prev</a></td><td class="clinks"><a 
+href="manualse150.html#tailmanualse150.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse151.html" >Front</a></td></tr></table><a 
+ id="tailmanualse151.html"></a>  </p> 
+</body> 
+</html>

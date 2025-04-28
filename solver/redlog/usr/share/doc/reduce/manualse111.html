@@ -1,0 +1,137 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Integrals</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch17.html#manualse111.html" >Up</a></td><td class="clinks"><a 
+href="manualse112.html" >Next</a></td><td class="clinks"><a 
+href="manualse110.html" >Prev</a></td><td class="clinks"><a 
+href="manualse110.html#tailmanualse110.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse111.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">17.4    </span> <a 
+ id="x145-27100017.4"></a>Integrals</h3>
+<a 
+ id="dx145-271001"></a>
+<!--l. 223--><p class="noindent" ><a 
+ id="operator:NUM_INT"></a>
+</p><!--l. 225--><p class="noindent" >For the numerical evaluation of univariate integrals over a ﬁnite interval the following
+strategy is used:
+     </p><dl class="enumerate-enumitem"><dt class="enumerate-enumitem">
+   1. </dt><dd 
+class="enumerate-enumitem">If the function has an antiderivative in close form which is bounded in the
+     integration interval, this is used.
+     </dd><dt class="enumerate-enumitem">
+   2. </dt><dd 
+class="enumerate-enumitem">Otherwise a Chebyshev approximation is computed, starting with order 20,
+     eventually  up  to  order  80.  If  that  is  recognized  as  suﬃciently  convergent
+     it is used for computing the integral by directly integrating the coeﬃcient
+     sequence.
+     </dd><dt class="enumerate-enumitem">
+   3. </dt><dd 
+class="enumerate-enumitem">If  none  of  these  methods  is  successful,  an  adaptive  multilevel  quadrature
+     algorithm is used.</dd></dl>
+<!--l. 239--><p class="noindent" >For multivariate integrals only the adaptive quadrature is used. This algorithm tolerates
+isolated singularities. The value <span 
+class="cmmi-10x-x-109">iterations </span>here limits the number of local interval
+intersection levels. <span 
+class="cmmi-10x-x-109">Accuracy </span>is a measure for the relative total discretization error
+(comparison of order 1 and order 2 approximations).
+</p><!--l. 246--><p class="noindent" >Syntax:
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">num_int</span> </dt><dd 
+class="description"><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">exp,var</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmr-10x-x-109">= (</span><span 
+class="cmmi-10x-x-109">l</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">..u</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmr-10x-x-109">)[</span><span 
+class="cmmi-10x-x-109">,var</span><sub><span 
+class="cmr-8">2</span></sub> <span 
+class="cmr-10x-x-109">= (</span><span 
+class="cmmi-10x-x-109">l</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">..u</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmr-10x-x-109">)</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmr-10x-x-109">]</span>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109"> </span><span 
+class="ptmb8t-x-x-109"> </span><span 
+class="ptmb8t-x-x-109"> </span><span 
+class="ptmb8t-x-x-109"> </span><span 
+class="ptmb8t-x-x-109"> </span><span 
+class="ptmb8t-x-x-109"> </span> </dt><dd 
+class="description"><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">,accuracy </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">a</span><span 
+class="cmr-10x-x-109">][</span><span 
+class="cmmi-10x-x-109">,iterations </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">i</span><span 
+class="cmr-10x-x-109">])</span>
+     <!--l. 252--><p class="noindent" >where <span 
+class="cmmi-10x-x-109">exp </span>is the function to be integrated,
+     </p><!--l. 254--><p class="noindent" ><span 
+class="cmmi-10x-x-109">var</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,var</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span> are the integration variables,
+     </p><!--l. 256--><p class="noindent" ><span 
+class="cmmi-10x-x-109">l</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,l</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span> are the lower bounds,
+     </p><!--l. 258--><p class="noindent" ><span 
+class="cmmi-10x-x-109">u</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,u</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span> are the upper bounds.
+                                                                     
+
+                                                                     
+     </p><!--l. 260--><p class="noindent" >Result is the value of the integral.
+</p>
+     </dd></dl>
+<!--l. 264--><p class="noindent" >Example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-523">
+    num_int(sin x,x=(0 .. pi));
+ <br />
+ <br />    2.0
+</div>
+<!--l. 270--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p><!--l. 272--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch17.html#manualse111.html" >Up</a></td><td class="clinks"><a 
+href="manualse112.html" >Next</a></td><td class="clinks"><a 
+href="manualse110.html" >Prev</a></td><td class="clinks"><a 
+href="manualse110.html#tailmanualse110.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse111.html" >Front</a></td></tr></table><a 
+ id="tailmanualse111.html"></a> </p> 
+</body> 
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Mode Handling Declarations</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch6.html#manualse22.html" >Up</a></td><td class="clinks"><a 
+href="manualse23.html" >Next</a></td><td class="clinks"><a 
+href="manualse21.html" >Prev</a></td><td class="clinks"><a 
+href="manualse21.html#tailmanualse21.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse22.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">6.2    </span> <a 
+ id="x31-470006.2"></a>Mode Handling Declarations</h3>
+<a 
+ id="dx31-47001"></a>
+<!--l. 60--><p class="noindent" ><a 
+ id="command:ON"></a> <a 
+ id="command:OFF"></a> <a 
+ id="switch:TIME"></a> <a 
+ id="switch:DEMO"></a>
+<a 
+ id="dx31-47002"></a>
+<a 
+ id="dx31-47003"></a>
+<a 
+ id="dx31-47004"></a>
+<a 
+ id="dx31-47005"></a>
+</p><!--l. 67--><p class="noindent" >The <span 
+class="pcrr8t-x-x-109">on</span><a 
+ id="dx31-47006"></a> and <span 
+class="pcrr8t-x-x-109">off</span><a 
+ id="dx31-47007"></a> declarations are available to the user for controlling various system
+options. Each option is represented by a <span 
+class="ptmri8t-x-x-109">switch</span><a 
+ id="dx31-47008"></a> name. <span 
+class="pcrr8t-x-x-109">on </span>and <span 
+class="pcrr8t-x-x-109">off </span>take a list of switch
+names as argument and turn them on and oﬀ respectively, e.g.,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-76">
+       on time;
+</div>
+<!--l. 74--><p class="nopar" > causes the system to print a message after each command giving the elapsed CPU time
+since the last command, or since <span 
+class="pcrr8t-x-x-109">time</span><a 
+ id="dx31-47009"></a><a 
+ id="dx31-47010"></a><a 
+ id="dx31-47011"></a> was last turned oﬀ, or the session began. Another
+useful switch with interactive use is <span 
+class="pcrr8t-x-x-109">demo</span>,<a 
+ id="dx31-47012"></a><a 
+ id="dx31-47013"></a><a 
+ id="dx31-47014"></a> which causes the system to pause after each
+command in a ﬁle (with the exception of comments) until a <span class="fbox"><span 
+class="phvr8t-x-x-109">Return</span></span> is typed on the
+terminal. This enables a user to set up a demonstration ﬁle and step through it command
+by command.
+</p><!--l. 84--><p class="noindent" >As with most declarations, arguments to <span 
+class="pcrr8t-x-x-109">on </span>and <span 
+class="pcrr8t-x-x-109">off </span>may be strung together separated
+by commas. For example,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-77">
+        off time,demo;
+</div>
+<!--l. 88--><p class="nopar" > will turn oﬀ both the time messages and the demonstration switch.
+</p><!--l. 91--><p class="noindent" >We note here that while most <span 
+class="pcrr8t-x-x-109">on </span>and <span 
+class="pcrr8t-x-x-109">off </span>commands are obeyed almost instantaneously,
+some trigger slower actions such as reading in necessary modules from secondary
+storage.
+</p><!--l. 95--><p class="noindent" >A diagnostic message is printed if <span 
+class="pcrr8t-x-x-109">on</span><a 
+ id="dx31-47015"></a> or <span 
+class="pcrr8t-x-x-109">off</span><a 
+ id="dx31-47016"></a> are used with a switch that is not known to
+the system. For example, if you misspell <span 
+class="pcrr8t-x-x-109">demo </span>and type
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-78">
+     on demq;
+</div>
+<!--l. 100--><p class="nopar" > you will get the message<a 
+ id="dx31-47017"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-79">
+        ***** demq not defined as switch.
+</div>
+<!--l. 104--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p><!--l. 106--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch6.html#manualse22.html" >Up</a></td><td class="clinks"><a 
+href="manualse23.html" >Next</a></td><td class="clinks"><a 
+href="manualse21.html" >Prev</a></td><td class="clinks"><a 
+href="manualse21.html#tailmanualse21.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse22.html" >Front</a></td></tr></table><a 
+ id="tailmanualse22.html"></a> </p> 
+</body> 
+</html>

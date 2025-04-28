@@ -1,0 +1,87 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Fast Loading Code Generation Program</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch23.html#manualse212.html" >Up</a></td><td class="clinks"><a 
+href="manualse213.html" >Next</a></td><td class="clinks"><a 
+href="manualse211.html" >Prev</a></td><td class="clinks"><a 
+href="manualse211.html#tailmanualse211.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse212.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">23.2    </span> <a 
+ id="x309-135900023.2"></a>Fast Loading Code Generation Program</h3>
+<a 
+ id="dx309-1359001"></a>
+<!--l. 39--><p class="noindent" ><a 
+ id="command:LOAD"></a> <a 
+ id="command:LOAD_PACKAGE"></a> In most versions of REDUCE, it is possible to take any set of Lisp, Rlisp or REDUCE
+commands and build a fast loading version of them. In Rlisp or REDUCE, one does the
+following:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1518">
+         faslout &#x003C;filename&#x003E;;
+ <br />         &#x003C;commands or IN statements&#x003E;
+ <br />         faslend;
+</div>
+<!--l. 48--><p class="nopar" > To load such a ﬁle, one uses the command <span 
+class="pcrr8t-x-x-109">load</span>,<a 
+ id="dx309-1359002"></a> e.g. <span 
+class="pcrr8t-x-x-109">load foo; </span>or <span 
+class="pcrr8t-x-x-109">load</span>
+<span 
+class="pcrr8t-x-x-109">foo,bah;</span>
+</p><!--l. 53--><p class="noindent" >This process produces a fast-loading version of the original ﬁle. In some implementations,
+this means another ﬁle is created with the same name but a diﬀerent extension. For
+example, in PSL-based systems, the extension is <span 
+class="pcrr8t-x-x-109">b </span>(for binary). In CSL-based systems,
+however, this process adds the fast-loading code to a single ﬁle in which all such code is
+stored. Particular functions are provided by CSL for managing this ﬁle, and described in
+the CSL user documentation.
+</p><!--l. 61--><p class="noindent" >In doing this build, as with the production of a Standard Lisp form of such statements, it
+is important to remember that some of the commands must be instantiated during the
+building process. For example, macros must be expanded, and some property list
+operations must happen. The REDUCE sources should be consulted for further details on
+this.
+</p><!--l. 70--><p class="noindent" >To avoid excessive printout, input statements should be followed by a <span 
+class="pcrr8t-x-x-109">$ </span>instead of the
+semicolon. With <span 
+class="pcrr8t-x-x-109">load </span>however, the input doesn’t print out regardless of which
+terminator is used with the command.
+</p><!--l. 74--><p class="noindent" >If you subsequently change the source ﬁles used in producing a fast loading ﬁle, don’t
+forget to repeat the above process in order to update the fast loading ﬁle correspondingly.
+Remember also that the text which is read in during the creation of the fast load
+ﬁle, in the compiling process described above, is <span 
+class="ptmri8t-x-x-109">not </span>stored in your REDUCE
+environment, but only translated and output. If you want to use the ﬁle just created,
+you must then use <span 
+class="pcrr8t-x-x-109">load </span>to load the output of the fast-loading ﬁle generation
+program.
+</p><!--l. 83--><p class="noindent" >When the ﬁle to be loaded contains a complete package for a given application,
+<span 
+class="pcrr8t-x-x-109">load_package</span><a 
+ id="dx309-1359003"></a> rather than <span 
+class="pcrr8t-x-x-109">load </span>should be used. The syntax is the same. However,
+<span 
+class="pcrr8t-x-x-109">load_package </span>does some additional bookkeeping such as recording that this
+package has now been loaded, that is required for the correct operation of the
+system.
+                                                                     
+
+                                                                     
+</p><!--l. 90--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch23.html#manualse212.html" >Up</a></td><td class="clinks"><a 
+href="manualse213.html" >Next</a></td><td class="clinks"><a 
+href="manualse211.html" >Prev</a></td><td class="clinks"><a 
+href="manualse211.html#tailmanualse211.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse212.html" >Front</a></td></tr></table><a 
+ id="tailmanualse212.html"></a> </p> 
+</body> 
+</html>

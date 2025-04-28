@@ -1,0 +1,211 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Roots of Functions / Solutions of Equations</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch17.html#manualse110.html" >Up</a></td><td class="clinks"><a 
+href="manualse111.html" >Next</a></td><td class="clinks"><a 
+href="manualse109.html" >Prev</a></td><td class="clinks"><a 
+href="manualse109.html#tailmanualse109.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse110.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">17.3    </span> <a 
+ id="x144-27000017.3"></a>Roots of Functions / Solutions of Equations</h3>
+<a 
+ id="dx144-270001"></a>
+<!--l. 157--><p class="noindent" ><a 
+ id="operator:NUM_SOLVE"></a>
+</p><!--l. 159--><p class="noindent" >An adaptively damped Newton iteration is used to ﬁnd an approximative zero of a
+function, a function vector or the solution of an equation or an equation system.
+Equations are internally converted to a diﬀerence of lhs and rhs such that the Newton
+method (=zero detection) can be applied. The expressions must have continuous
+derivatives for all variables. A starting point for the iteration can be given. If not given,
+random values are taken instead. If the number of forms is not equal to the number of
+variables, the Newton method cannot be applied. Then the minimum of the sum of
+absolute squares is located instead.
+</p><!--l. 171--><p class="noindent" >With <span 
+class="pcrr8t-x-x-109">oncomplex </span>solutions with imaginary parts can be found, if either the
+expression(s) or the starting point contain a nonzero imaginary part.
+</p><!--l. 175--><p class="noindent" >Syntax:
+     </p><dl class="description"><dt class="description">
+<span 
+class="pcrb8t-x-x-109">num_solve</span> </dt><dd 
+class="description"><span 
+class="pcrr8t-x-x-109">(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">exp</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">var</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmsy-10x-x-109">⟩</span>[=val<sub><span 
+class="cmr-8">1</span></sub>][,accuracy=a][,iterations=i])
+     <!--l. 180--><p class="noindent" >or
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">num_solve</span> </dt><dd 
+class="description"><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">exp</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,exp</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmsy-10x-x-109">}</span><span 
+class="cmmi-10x-x-109">,var</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmr-10x-x-109">[= </span><span 
+class="cmmi-10x-x-109">val</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmr-10x-x-109">]</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,var</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmr-10x-x-109">[= </span><span 
+class="cmmi-10x-x-109">val</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmr-10x-x-109">]</span>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109"> </span><span 
+class="ptmb8t-x-x-109"> </span><span 
+class="ptmb8t-x-x-109"> </span><span 
+class="ptmb8t-x-x-109"> </span><span 
+class="ptmb8t-x-x-109"> </span><span 
+class="ptmb8t-x-x-109"> </span><span 
+class="ptmb8t-x-x-109"> </span><span 
+class="ptmb8t-x-x-109"> </span> </dt><dd 
+class="description"><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">,accuracy </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">a</span><span 
+class="cmr-10x-x-109">][</span><span 
+class="cmmi-10x-x-109">,iterations </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">i</span><span 
+class="cmr-10x-x-109">])</span>
+     <!--l. 186--><p class="noindent" >or
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">num_solve</span> </dt><dd 
+class="description"><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">exp</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,exp</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmsy-10x-x-109">}</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">var</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmr-10x-x-109">[= </span><span 
+class="cmmi-10x-x-109">val</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmr-10x-x-109">]</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,var</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmr-10x-x-109">[= </span><span 
+class="cmmi-10x-x-109">val</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmr-10x-x-109">]</span><span 
+class="cmsy-10x-x-109">}</span>
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109"> </span><span 
+class="ptmb8t-x-x-109"> </span><span 
+class="ptmb8t-x-x-109"> </span><span 
+class="ptmb8t-x-x-109"> </span><span 
+class="ptmb8t-x-x-109"> </span><span 
+class="ptmb8t-x-x-109"> </span><span 
+class="ptmb8t-x-x-109"> </span><span 
+class="ptmb8t-x-x-109"> </span> </dt><dd 
+class="description"><span 
+class="cmr-10x-x-109">[</span><span 
+class="cmmi-10x-x-109">,accuracy </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">a</span><span 
+class="cmr-10x-x-109">][</span><span 
+class="cmmi-10x-x-109">,iterations </span><span 
+class="cmr-10x-x-109">= </span><span 
+class="cmmi-10x-x-109">i</span><span 
+class="cmr-10x-x-109">])</span>
+     <!--l. 192--><p class="noindent" >where <span 
+class="cmmi-10x-x-109">exp</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,exp</span><sub><span 
+class="cmmi-8">n</span></sub> are function expressions,
+     </p><!--l. 194--><p class="noindent" ><span 
+class="cmmi-10x-x-109">var</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,var</span><sub><span 
+class="cmmi-8">n</span></sub> are the variables,
+     </p><!--l. 196--><p class="noindent" ><span 
+class="cmmi-10x-x-109">val</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmmi-10x-x-109">,val</span><sub><span 
+class="cmmi-8">n</span></sub> are optional start values.
+                                                                     
+
+                                                                     
+     </p><!--l. 198--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">num_solve </span>tries to ﬁnd a zero/solution of the expression(s). Result is a list
+     of equations, where the variables are equated to the coordinates of the result
+     point.
+     </p><!--l. 202--><p class="noindent" ><a 
+ id="reserved:JACOBIAN"></a> The  Jacobian  matrix  is  stored  as  a  side  eﬀect  in  the  shared  variable
+     <span 
+class="pcrr8t-x-x-109">jacobian</span><a 
+ id="dx144-270002"></a>.
+</p>
+     </dd></dl>
+<!--l. 208--><p class="noindent" >Example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-522">
+    num_solve({sin x=cos y, x + y = 1},{x=1,y=1});
+ <br />
+ <br />    {x= - 1.85619449019,y=2.85619449019}
+ <br />
+ <br />    jacobian;
+ <br />
+ <br />    [cos(x)  sin(y)]
+ <br />    [              ]
+ <br />    [  1       1   ]
+</div>
+<!--l. 219--><p class="nopar" >
+                                                                     
+
+                                                                     
+</p><!--l. 221--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch17.html#manualse110.html" >Up</a></td><td class="clinks"><a 
+href="manualse111.html" >Next</a></td><td class="clinks"><a 
+href="manualse109.html" >Prev</a></td><td class="clinks"><a 
+href="manualse109.html#tailmanualse109.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse110.html" >Front</a></td></tr></table><a 
+ id="tailmanualse110.html"></a> </p> 
+</body> 
+</html>

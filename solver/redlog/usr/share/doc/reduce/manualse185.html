@@ -1,0 +1,454 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>TRIGD: Trigonometrical Functions with Degree Arguments</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse185.html" >Up</a></td><td class="clinks"><a 
+href="manualse186.html" >Next</a></td><td class="clinks"><a 
+href="manualse184.html" >Prev</a></td><td class="clinks"><a 
+href="manualse184.html#tailmanualse184.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse185.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">20.60    </span> <a 
+ id="x275-126800020.60"></a>TRIGD: Trigonometrical Functions with Degree
+Arguments</h3>
+<a 
+ id="dx275-1268001"></a>
+<a 
+ id="dx275-1268002"></a>
+<!--l. 1307--><p class="noindent" >This module provides facilities for the numerical evaluation and algebraic simpliﬁcation
+of expressions involving trigonometrical functions with arguments given in
+degrees rather than in radians. The degree-valued inverse functions are also
+provided.
+</p><!--l. 1312--><p class="noindent" >Author: Alan Barnes
+<a 
+ id="dx275-1268003"></a>
+<a 
+ id="dx275-1268004"></a>
+<a 
+ id="dx275-1268005"></a>
+<a 
+ id="dx275-1268006"></a>
+</p><!--l. 5--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.60.1    </span> <a 
+ id="x275-126900020.60.1"></a>Introduction</h4>
+<!--l. 6--><p class="noindent" >This module provides facilities for the numerical evaluation and algebraic simpliﬁcation
+of expressions involving trigonometrical functions with arguments given in
+degrees rather than in radians. The degree-valued inverse functions are also
+provided.
+</p><!--l. 8--><p class="noindent" >Any user at all familiar with the normal trig functions in REDUCE should have no
+trouble in using the facilities of this module. The names of the degree-based functions are
+those of the normal trig functions with the letter d appended, for example <span 
+class="pcrr8t-x-x-109">sind</span>, <span 
+class="pcrr8t-x-x-109">cosd</span>
+and <span 
+class="pcrr8t-x-x-109">tand </span>denote the sine, cosine and tangent repectively and their corresponding inverse
+functions are <span 
+class="pcrr8t-x-x-109">asind</span>, <span 
+class="pcrr8t-x-x-109">acosd </span>and <span 
+class="pcrr8t-x-x-109">atand</span>. The secant, cosecant and cotangent functions
+and their inverses are also supported and, indeed, are treated more as <span 
+class="ptmri8t-x-x-109">ﬁrst class </span>objects
+than their corresponding radian-based functions which are often converted to expressions
+involving sine and cosine by some of the standard REDUCE simpliﬁcations
+rules.
+</p><!--l. 10--><p class="noindent" >Below I give a brief description of the facilities available together with a few examples
+of their use. More examples and the output that they should produce may be
+found in the test ﬁles <span 
+class="pcrr8t-x-x-109">trigd-num.tst </span>and <span 
+class="pcrr8t-x-x-109">trigd-simp.tst </span>and their
+                                                                     
+
+                                                                     
+corresponding log ﬁles with extension <span 
+class="pcrr8t-x-x-109">.rlg </span>which may be found in the directory
+<span 
+class="pcrr8t-x-x-109">packages/misc </span>of the REDUCE distribution along with the source code of the
+module.
+</p><!--l. 12--><p class="noindent" >These degree-based functions are probably best regarded as functions deﬁned for
+<span 
+class="ptmri8t-x-x-109">real </span>values only, but complex arguments are supported for completeness. The
+numerical evaluation routines are fairly comprehensive for both real and complex
+arguments. However, few simpliﬁcations occur for trigd functions with complex
+arguments.
+</p><!--l. 15--><p class="noindent" >The range of the principal values returned by the inverse functions is consistent with
+those of the corresponding radian-valued functions. More precisely, for <span 
+class="pcrr8t-x-x-109">asind</span>, <span 
+class="pcrr8t-x-x-109">atand</span>
+and <span 
+class="pcrr8t-x-x-109">acscd </span>the (closure of the) range is <span 
+class="cmr-10x-x-109">[</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">90</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">90] </span>whilst for <span 
+class="pcrr8t-x-x-109">acosd</span>, <span 
+class="pcrr8t-x-x-109">acotd </span>and <span 
+class="pcrr8t-x-x-109">asecd</span>
+the (closure of the) range is <span 
+class="cmr-10x-x-109">[0</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">180]</span>. In addition the operator <span 
+class="pcrr8t-x-x-109">atan2d </span>is the degree
+valued version of the two argument inverse tangent function which returns an angle in the
+half-open interval <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">180</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">180] </span>in the correct quadrant depending on the signs of
+its two arguments. For <span 
+class="cmmi-10x-x-109">x &#x003E; </span><span 
+class="cmr-10x-x-109">0</span>, <span 
+class="pcrr8t-x-x-109">atan2d(y, x) </span>returns the same numerical
+value as <span 
+class="pcrr8t-x-x-109">atand(y/x)</span>. If <span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">= 0 </span>then <span 
+class="cmsy-10x-x-109">±</span><span 
+class="cmr-10x-x-109">90 </span>is returned depending on the sign of
+<span 
+class="cmmi-10x-x-109">y</span>.
+</p><!--l. 17--><p class="noindent" >It might be thought that the facilities provided in this module could be easily provided by
+deﬁning suitable rule lists to convert between the radian and degree-based versions of the
+trig functions. For example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1419">
+1: operator sind, asind$
+ <br />2:  d2r_list := {sind(~x) =&#x003E;
+ <br />        sin(x*pi/180), asind(~x) =&#x003E; 180*asin(x)/pi}$
+ <br />3:  r2d_list := {sin(~x) =&#x003E;
+ <br />       sind(180x/pi), asin(~x) =&#x003E; pi*sind(x)/180}$
+ <br />4:  sind(x+360) where d2r_list$
+ <br />5:  ws where r2d_list;
+ <br />         sind(x)
+ <br />6:  sind(360) where d2r_list;
+ <br />       0
+</div>
+<!--l. 29--><p class="nopar" >
+</p><!--l. 31--><p class="noindent" >However, this approach <span 
+class="ptmri8t-x-x-109">seldom works </span>— try it! The result produced by step 4 defeats the current
+rule<span class="footnote-mark"><a 
+href="manual276.html#fn49x20"><sup class="textsuperscript">49</sup></a></span><a 
+ id="x275-1269001f49"></a> 
+used to simplify expressions of the form <span 
+class="cmr-10x-x-109">sin</span><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmr-10x-x-109">+ 2</span><span 
+class="cmmi-10x-x-109">π</span><span 
+class="cmr-10x-x-109">) </span>although it does manage step 6. The
+rule list approach is more reliable if diﬀerentiation, integration or numerical evaluation of
+expressions involving <span 
+class="pcrr8t-x-x-109">sind </span>etc. is required. However it is not particularly convenient
+even if the rules and operator declarations are stored in a ﬁle so that they may be loaded
+at will.
+</p><!--l. 35--><p class="noindent" >This module aims to overcome these deﬁciences by providing the degree-based trig
+functions as <span 
+class="ptmri8t-x-x-109">ﬁrst class </span>objects of the system just like their radian-based cousins. The aim
+is to provide facilities for numerical evaluation, symbolic simpliﬁcation and
+diﬀerentiation totally analgous to those for the the basic trig functions and their inverses.
+It is hoped that the module will be of value to students and teachers at secondary school
+level as well as being suﬃciently powerful and ﬂexible to be of genuine utility in ﬁelds
+where angles measured in degrees (and arc minutes and seconds) are in common usage.
+For more advanced situations (involving integration, complex arguments and values
+etc.), users are urged to use the standard trig functions already provided by the
+system.
+</p>
+                                                                     
+
+                                                                     
+<h4 class="subsectionHead"><span class="titlemark">20.60.2    </span> <a 
+ id="x275-127000020.60.2"></a>Simpliﬁcation</h4>
+<!--l. 38--><p class="noindent" >As in other parts of REDUCE, basic simpliﬁcation of expressions involving the <span 
+class="pcrr8t-x-x-109">trigd</span>
+functions takes place automatically (bracketted terms are multiplied out, like terms are
+gathered together, zero terms removed from sums and so on). The system <span 
+class="ptmri8t-x-x-109">knows </span>and
+automatically applies the basic properties of the functions to simplify the input.
+For example <span 
+class="pcrr8t-x-x-109">sind(0) </span>is replaced by 0 and <span 
+class="pcrr8t-x-x-109">sind(-X) </span>by <span 
+class="pcrr8t-x-x-109">sind(X)</span>. If the
+switch <span 
+class="pcrr8t-x-x-109">rounded </span>is <span 
+class="pcrr8t-x-x-109">off </span>all arithmetic is exact and transcendental functions
+such as <span 
+class="pcrr8t-x-x-109">sind </span>are not evaluated numerically even if their arguments are purely
+numerical.
+</p><!--l. 40--><p class="noindent" >The built-in simpliﬁcation rules are totally analogous to those of the standard trig
+functions namely: </p>
+     <ul class="itemize1">
+     <li class="itemize">Replacement  of  a  function  application  by  its  value  if  a  simple  analytical
+     value  is  known.  For  example  <span 
+class="pcrr8t-x-x-109">cosd(60) =&#x003E; 1/2 </span>and  <span 
+class="pcrr8t-x-x-109">acscd(1) =&#x003E;</span>
+     <span 
+class="pcrr8t-x-x-109">90</span>.  Currently  the  only  argument  values  where  simpliﬁcation  takes  place
+     correspond to angles that are integral multiples of <span 
+class="cmr-10x-x-109">15</span><sup><span 
+class="cmsy-8">∘</span></sup>.
+     </li>
+     <li class="itemize">Use of the odd and even properties of the trig. functions so that for example
+     <span 
+class="pcrr8t-x-x-109">sind(-x) =&#x003E; -sind(x)</span>, <span 
+class="pcrr8t-x-x-109">cosd(-x) =&#x003E; cosd(x) </span>and <br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">acosd(-x) =&#x003E; 180 - acosd(x)</span>.
+     </li>
+     <li class="itemize">Argument shifts by integral multiples of <span 
+class="cmr-10x-x-109">180</span><sup><span 
+class="cmsy-8">∘</span></sup> so that any residual numerical
+     argument lies in the range <span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">90</span><sup><span 
+class="cmsy-8">∘</span></sup><span 
+class="cmmi-10x-x-109">…</span><span 
+class="cmr-10x-x-109">90</span><sup><span 
+class="cmsy-8">∘</span></sup>. Thus
+                                                                     
+
+                                                                     
+     <div class="verbatim" id="verbatim-1420">
+         sind(x+540) =&#x003E; -sind(x),
+      <br />    cosd(x+350) =&#x003E; cosd(x-10).
+</div>
+     <!--l. 50--><p class="nopar" >
+     </p></li>
+     <li class="itemize">Removal of argument shifts of <span 
+class="cmsy-10x-x-109">±</span><span 
+class="cmr-10x-x-109">90</span><sup><span 
+class="cmsy-8">∘</span></sup> so that for example <br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">sind(x-90) =&#x003E; -cosd(x) </span>and <span 
+class="pcrr8t-x-x-109">cotd(x+90) =&#x003E; -tand(x)</span>.
+     </li>
+     <li class="itemize">Replacement of <span 
+class="pcrr8t-x-x-109">tand(x) </span>by <span 
+class="pcrr8t-x-x-109">sind(x)/cosd(x) </span>and e.g., <span 
+class="pcrr8t-x-x-109">secd(x) </span>by
+     <span 
+class="pcrr8t-x-x-109">1/cosd(x) </span>and the like, but <span 
+class="ptmri8t-x-x-109">only when the ﬁnal result is simpler than the</span>
+     <span 
+class="ptmri8t-x-x-109">original</span>.
+     </li>
+     <li class="itemize">Basic properties relating a function and it inverse so that for example
+     <br 
+class="newline" /><span 
+class="pcrr8t-x-x-109">sind(asind(x)) =&#x003E; x</span>.
+     </li>
+     <li class="itemize">A few basic rules for <span 
+class="pcrr8t-x-x-109">atan2d </span>when the signs of its arguments can be determined.
+     For example <span 
+class="pcrr8t-x-x-109">atan2d(y, 0) </span>is replaced by <span 
+class="cmsy-10x-x-109">±</span><span 
+class="cmr-10x-x-109">90 </span>depending on the sign of
+     <span 
+class="cmmi-10x-x-109">y</span>.</li></ul>
+<!--l. 59--><p class="noindent" >Extra rules can be added by the user for example addition formulae, double angle
+rules and tangent half-angle formulae as and when required as described in
+chapter <a 
+href="manualch11.html#x101-19800011">11<!--tex4ht:ref: chapter:subst --></a>.
+</p><!--l. 61--><p class="noindent" >Rules are provided for the symbolic diﬀerentiation of all the trig functions and their
+inverses. These rules are suﬃcient fot the power series of the trig functions and their
+inverses to be found using either the <span 
+class="ptmrc8t-x-x-109">T<span 
+class="small-caps">P</span><span 
+class="small-caps">S</span> </span>or <span 
+class="ptmrc8t-x-x-109">T<span 
+class="small-caps">A</span><span 
+class="small-caps">Y</span><span 
+class="small-caps">L</span><span 
+class="small-caps">O</span><span 
+class="small-caps">R</span> </span>packages in the standard
+way.
+</p><!--l. 64--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.60.3    </span> <a 
+ id="x275-127100020.60.3"></a>Numerical Evaluation</h4>
+<!--l. 65--><p class="noindent" >When the switch <span 
+class="pcrr8t-x-x-109">rounded </span>is <span 
+class="pcrr8t-x-x-109">on </span>and the arguments of the operators evaluate to
+numbers, then the ﬂoating point value of the expression is calculated to the currently
+speciﬁed <span 
+class="pcrr8t-x-x-109">precision </span>in the normal way. The <span 
+class="ptmri8t-x-x-109">bigﬂoat </span>capabilities are the same as for
+the standard trig functions.
+                                                                     
+
+                                                                     
+</p><!--l. 67--><p class="noindent" >If these functions are supplied with complex numerical arguments, numerical evaluation
+will <span 
+class="ptmri8t-x-x-109">NOT </span>be performed when the switch <span 
+class="pcrr8t-x-x-109">rounded </span>is <span 
+class="pcrr8t-x-x-109">on</span>, but the switch <span 
+class="pcrr8t-x-x-109">complex </span>is
+<span 
+class="pcrr8t-x-x-109">off </span>— the input expression will be returned basically unaltered. Similarly inputs such as
+<span 
+class="pcrr8t-x-x-109">asind(2) </span>or <span 
+class="pcrr8t-x-x-109">asecd(0.5) </span>are not evaluated numerically. The values of these
+expressions are, of course, complex.
+</p><!--l. 70--><p class="noindent" >If the switch <span 
+class="pcrr8t-x-x-109">complex </span>is also <span 
+class="pcrr8t-x-x-109">on </span>, numerical evaluation is performed. For
+example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1421">
+1: load_package trigd$
+ <br />
+ <br />2:  on rounded;
+ <br />
+ <br />3:  asecd(2);
+ <br />
+ <br />         60.0
+ <br />
+ <br />4:  asecd(0.5);
+ <br />
+ <br />      asecd(0.5)
+ <br />
+ <br />5: on complex;
+ <br />
+ <br />    *** Domain mode rounded changed to complex-rounded
+ <br />
+ <br />6:  asecd(0.5);
+ <br />
+ <br />     75.4561292902*i
+ <br />
+</div>
+<!--l. 92--><p class="nopar" >
+</p><!--l. 94--><p class="noindent" >The function <span 
+class="pcrr8t-x-x-109">atan2d </span>(like <span 
+class="pcrr8t-x-x-109">atan2</span>) is only deﬁned if <span 
+class="ptmri8t-x-x-109">BOTH </span>its arguments are real. If
+they are also numerical, it will be evaluated whenever <span 
+class="pcrr8t-x-x-109">rounded </span>is <span 
+class="pcrr8t-x-x-109">on</span>. Attempting to
+evaluate it with complex numerical arguments will cause either the unaltered expression
+to be returned or an error to be raised when the switch <span 
+class="pcrr8t-x-x-109">complex </span>is <span 
+class="pcrr8t-x-x-109">off </span>or <span 
+class="pcrr8t-x-x-109">on</span>
+respectively.
+</p><!--l. 114--><p class="noindent" >Note the sine of an angle speciﬁed in degrees, minutes and seconds <span 
+class="ptmri8t-x-x-109">cannot </span>be calculated
+by calling <span 
+class="pcrr8t-x-x-109">sind </span>directly with a dms list (i.e. as a list of length 3). Instead one must ﬁrst
+convert the dms values to degrees using a call to <span 
+class="pcrr8t-x-x-109">dms2deg </span>and then call <span 
+class="pcrr8t-x-x-109">sind </span>on the
+result. Applied directly to a list (of any length) any <span 
+class="pcrr8t-x-x-109">trigd </span>function wil be applied to
+each member of the list separately just like most other REDUCE operators. Here is an
+example illustrating tese points:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-1422">
+1: load_package trigd$
+ <br />
+ <br />2: on rounded;
+ <br />
+ <br />3: sind dms2deg {60, 45, 30};
+ <br />
+ <br />0.872567064923
+ <br />
+ <br />4: sind {60,45, 30};
+ <br />
+ <br />{0.866025403784,0.707106781187,0.5}
+ <br />
+ <br />5: off rounded;
+ <br />
+ <br />6: sind{60, 45, 30};
+ <br />
+ <br />  sqrt(3)   sqrt(2)   1
+ <br />{---------,---------,---}
+ <br />     2         2      2
+ <br />
+</div>
+<!--l. 136--><p class="nopar" >
+</p><!--l. 138--><p class="noindent" >Of course the results will be formatted much more attractively on a terminal supporting
+nice graphics.
+</p><!--l. 174--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">20.60.4    </span> <a 
+ id="x275-127200020.60.4"></a>Bugs, Restrictions and Planned Extensions</h4>
+<!--l. 175--><p class="noindent" >The behaviour of the numerical evaluation routines for inverse trig functions with
+complex arguments at branch points could be improved; these values are <span 
+class="ptmri8t-x-x-109">undeﬁned </span>and
+attempting to evaluate such a function at one of its branch points <span 
+class="ptmri8t-x-x-109">ought </span>to raise an error,
+however sometimes the input expression will be returned unaltered. It is hoped to
+improve this behaviour in due course.
+</p><!--l. 177--><p class="noindent" >Currently there are no facilities analogous to those provided in the module <span 
+class="pcrr8t-x-x-109">TRIGSIMP</span>
+                                                                     
+
+                                                                     
+for the standard trig. functions. There users have a wide range of standard simpliﬁcation
+formulae available for use and can control which are to be used depending on the
+requirements of their particular application: whether to eliminate <span 
+class="pcrr8t-x-x-109">sin </span>in favour
+of <span 
+class="pcrr8t-x-x-109">cos </span>or vice-versa or to get rid of both in favour of <span 
+class="pcrr8t-x-x-109">tan </span>of half-angles; or
+whether to use the trigonometrical addition formulae in order to transform trig
+functions whose arguments are sums into a form where the arguments are single
+terms or whether to perform the inverse transformations. It is hoped to make the
+<span 
+class="pcrr8t-x-x-109">TRIGSIMP </span>faciliites available for use with the <span 
+class="pcrr8t-x-x-109">TRIGD </span>functions in the near
+future.
+</p><!--l. 180--><p class="noindent" >Integration is not directly supported although the approach using rule-lists to convert the
+<span 
+class="pcrr8t-x-x-109">TRIGD </span>functions to standard trig ones should work well. Introducing direct supp&#x003C;ort for
+integration will not therefore be a priority.
+</p><!--l. 182--><p class="noindent" >For the standard sine function there is a rule for imaginary arguments namely:
+<span 
+class="pcrr8t-x-x-109">sin(i*x) =&#x003E; i*sinh(x)</span>. The corresponding rule for the degree version is
+<span 
+class="pcrr8t-x-x-109">sind(i*x) =&#x003E; i*sinh(x*pi/180)</span>. However, currently such rules are <span 
+class="ptmri8t-x-x-109">NOT</span>
+implemented by the system. They may be implemented in future, but it is not a high
+priority as it is felt that the radian-based trig functions are best suited for such symbolic
+calculations.
+</p><!--l. 184--><p class="noindent" >There are <span 
+class="ptmri8t-x-x-109">NO D </span>versions of the hyperbolic functions — that would be a <span 
+class="ptmri8t-x-x-109">step too</span>
+<span 
+class="ptmri8t-x-x-109">far</span>! And should the new functions be called <span 
+class="pcrr8t-x-x-109">sinhd </span>and so on? Or perhaps
+<span 
+class="pcrr8t-x-x-109">sindh</span><span class="footnote-mark"><a 
+href="manual277.html#fn50x20"><sup class="textsuperscript">50</sup></a></span><a 
+ id="x275-1272001f50"></a> 
+etc?
+</p><!--l. 1316--><p class="noindent" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 1318--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch20.html#manualse185.html" >Up</a></td><td class="clinks"><a 
+href="manualse186.html" >Next</a></td><td class="clinks"><a 
+href="manualse184.html" >Prev</a></td><td class="clinks"><a 
+href="manualse184.html#tailmanualse184.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse185.html" >Front</a></td></tr></table><a 
+ id="tailmanualse185.html"></a>  </p> 
+</body> 
+</html>

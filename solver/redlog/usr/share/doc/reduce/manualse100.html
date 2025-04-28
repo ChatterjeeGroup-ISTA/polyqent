@@ -1,0 +1,175 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Procedure Body</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch15.html#manualse100.html" >Up</a></td><td class="clinks"><a 
+href="manualse101.html" >Next</a></td><td class="clinks"><a 
+href="manualse99.html" >Prev</a></td><td class="clinks"><a 
+href="manualse99.html#tailmanualse99.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse100.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">15.2    </span> <a 
+ id="x128-23900015.2"></a>Procedure Body</h3>
+<a 
+ id="dx128-239001"></a>
+<!--l. 92--><p class="noindent" >Following the delimiter that ends the procedure heading must be a <span 
+class="ptmri8t-x-x-109">single </span>statement
+deﬁning the action to be performed or the value to be delivered. A terminator must follow
+the statement. If it is a semicolon, the name of the procedure just deﬁned is printed. It is
+not printed if a dollar sign is used.
+</p><!--l. 98--><p class="noindent" >If the result wanted is given by a formula of some kind, the body is just that formula,
+using the variables in the procedure heading.
+</p><!--l. 101--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Simple Example:</span>
+</p><!--l. 103--><p class="noindent" >If <span 
+class="pcrr8t-x-x-109">f(x) </span>is to mean <span 
+class="pcrr8t-x-x-109">(x+5)*(x+6)/(x+7)</span>, the entire procedure deﬁnition could
+read
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-442">
+        procedure f x; (x+5)*(x+6)/(x+7);
+</div>
+<!--l. 107--><p class="nopar" > Then <span 
+class="pcrr8t-x-x-109">f(10) </span>would evaluate to 240/17, <span 
+class="pcrr8t-x-x-109">f(a-6) </span>to <span 
+class="pcrr8t-x-x-109">a*(a-1)/(a+1)</span>, and so
+on.
+</p><!--l. 111--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">More Complicated Example:</span>
+</p><!--l. 113--><p class="noindent" >Suppose we need a function <span 
+class="pcrr8t-x-x-109">p(n,x) </span>that, for any positive integer <span 
+class="pcrr8t-x-x-109">n</span>, is the Legendre
+polynomial<a 
+ id="dx128-239002"></a> of order <span 
+class="cmmi-10x-x-109">n</span>. We can deﬁne this operator using the textbook formula deﬁning
+these functions:
+</p>
+<table 
+class="equation-star"><tr><td>
+                 <span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) = </span><img 
+src="manual59x.png" alt="                      |
+1  dn         1       ||
+-- --n--------------1-|
+n! dy  (y2 − 2xy + 1)2 |"  class="left" align="middle" /><sub><span 
+class="cmmi-8">y</span><span 
+class="cmr-8">=0</span></sub>
+</td></tr></table>
+<!--l. 120--><p class="nopar" >
+Put into words, the Legendre polynomial <span 
+class="cmmi-10x-x-109">p</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmr-10x-x-109">(</span><span 
+class="cmmi-10x-x-109">x</span><span 
+class="cmr-10x-x-109">) </span>is the result of substituting <span 
+class="cmmi-10x-x-109">y </span><span 
+class="cmr-10x-x-109">= 0 </span>in the
+<span 
+class="cmmi-10x-x-109">n</span><sup><span 
+class="cmmi-8">th</span></sup> partial derivative with respect to <span 
+class="cmmi-10x-x-109">y </span>of a certain fraction involving <span 
+class="cmmi-10x-x-109">x </span>and <span 
+class="cmmi-10x-x-109">y</span>, then
+dividing that by <span 
+class="cmmi-10x-x-109">n</span><span 
+class="cmr-10x-x-109">!</span>.
+</p><!--l. 125--><p class="noindent" >This verbal formula can easily be written in REDUCE:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-443">
+        procedure p(n,x);
+ <br />           sub(y=0,df(1/(y^2-2*x*y+1)^(1/2),y,n))
+ <br />               /(for i:=1:n product i);
+</div>
+<!--l. 130--><p class="nopar" > Having input this deﬁnition, the expression evaluation
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-444">
+        2p(2,w);
+</div>
+<!--l. 134--><p class="nopar" > would result in the output
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-445">
+           2
+ <br />        3*w  - 1 .
+</div>
+<!--l. 139--><p class="nopar" > If the desired process is best described as a series of steps, then a group or compound
+statement can be used.
+</p><!--l. 144--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Example:</span>
+</p><!--l. 146--><p class="noindent" >The above Legendre polynomial example can be rewritten as a series of steps instead of a
+single formula as follows:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-446">
+        procedure p(n,x);
+ <br />          begin scalar seed,deriv,top,fact;
+ <br />               seed:=1/(y^2 - 2*x*y +1)^(1/2);
+ <br />               deriv:=df(seed,y,n);
+ <br />               top:=sub(y=0,deriv);
+ <br />               fact:=for i:=1:n product i;
+ <br />               return top/fact
+ <br />          end;
+</div>
+<!--l. 157--><p class="nopar" > Procedures may also be deﬁned recursively. In other words, the procedure body<a 
+ id="dx128-239003"></a> can
+include references to the procedure name itself, or to other procedures that themselves
+reference the given procedure. As an example, we can deﬁne the Legendre polynomial
+through its standard recurrence relation:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-447">
+    procedure p(n,x);
+ <br />       if n&#x003C;0 then rederr &#x0022;Invalid argument to P(N,X)&#x0022;
+ <br />        else if n=0 then 1
+ <br />        else if n=1 then x
+ <br />        else ((2*n-1)*x*p(n-1,x)-(n-1)*p(n-2,x))/n;
+</div>
+<!--l. 169--><p class="nopar" >
+</p><!--l. 171--><p class="noindent" ><a 
+ id="operator:REDERR"></a> The operator <span 
+class="pcrr8t-x-x-109">rederr</span><a 
+ id="dx128-239004"></a> in the above example provides for a simple error exit from an
+algebraic procedure (and also a block). It can take a string as argument.
+</p><!--l. 176--><p class="noindent" >It should be noted however that all the above deﬁnitions of <span 
+class="pcrr8t-x-x-109">p(n,x) </span>are quite ineﬃcient
+if extensive use is to be made of such polynomials, since each call eﬀectively recomputes
+all lower order polynomials. It would be better to store these expressions in an array, and
+then use say the recurrence relation to compute only those polynomials that have not
+already been derived. We leave it as an exercise for the reader to write such a
+deﬁnition.
+                                                                     
+
+                                                                     
+</p><!--l. 184--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch15.html#manualse100.html" >Up</a></td><td class="clinks"><a 
+href="manualse101.html" >Next</a></td><td class="clinks"><a 
+href="manualse99.html" >Prev</a></td><td class="clinks"><a 
+href="manualse99.html#tailmanualse99.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse100.html" >Front</a></td></tr></table><a 
+ id="tailmanualse100.html"></a> </p> 
+</body> 
+</html>

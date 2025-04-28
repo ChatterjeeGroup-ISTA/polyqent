@@ -1,0 +1,268 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Operations on Lists</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch4.html#manualse13.html" >Up</a></td><td class="clinks"><a 
+href="#tailmanualse13.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">4.1    </span> <a 
+ id="x20-220004.1"></a>Operations on Lists</h3>
+<a 
+ id="dx20-22001"></a>
+<!--l. 20--><p class="noindent" >Several operators in the system return their results as lists, and a user can create new lists
+using braces and commas. Alternatively, one can use the operator <span 
+class="pcrr8t-x-x-109">list </span>to
+construct a list. An important class of operations on lists are <span 
+class="pcrr8t-x-x-109">map </span>and <span 
+class="pcrr8t-x-x-109">select</span>
+operations. For details, please refer to the chapters on <span 
+class="pcrr8t-x-x-109">map</span>, <span 
+class="pcrr8t-x-x-109">select </span>and the
+<span 
+class="pcrr8t-x-x-109">for </span>command. See also the documentation on the <a 
+href="manualse127.html#ASSIST">ASSIST</a> (chapter <a 
+href="manualse127.html#x169-39900020.2">20.2<!--tex4ht:ref: ASSIST --></a>)
+package.
+</p><!--l. 27--><p class="noindent" >To facilitate the use of lists, a number of operators are also available for manipulating
+them.<a 
+ id="dx20-22002"></a> <span 
+class="pcrr8t-x-x-109">part(</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="pcrro8t-x-x-109">list</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">,n) </span>for example will return the <span 
+class="cmmi-10x-x-109">n</span><sup><span 
+class="cmmi-8">th</span></sup> element of a list. <a 
+ id="dx20-22003"></a> <span 
+class="pcrr8t-x-x-109">length</span><a 
+ id="dx20-22004"></a>
+will return the length of a list. Several operators are also deﬁned uniquely for lists. For
+those familiar with them, these operators in fact mirror the operations deﬁned for Lisp
+lists. These operators are as follows:
+</p><!--l. 38--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">4.1.1    </span> <a 
+ id="x20-230004.1.1"></a>list</h4>
+<!--l. 39--><p class="noindent" ><a 
+ id="operator:LIST"></a>
+</p><!--l. 41--><p class="noindent" >The operator <span 
+class="pcrr8t-x-x-109">list </span>is an alternative to the usage of curly brackets. <span 
+class="pcrr8t-x-x-109">list </span>accepts an
+arbitrary number of arguments and returns a list of its arguments. This operator is useful
+in cases where operators have to be passed as arguments. E.g.,
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-38">
+list(a,list(list(b,c),d),e);       -&#x003E;  {{a},{{b,c},d},e}
+</div>
+<!--l. 47--><p class="nopar" >
+</p><!--l. 49--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">4.1.2    </span> <a 
+ id="x20-240004.1.2"></a>FIRST</h4>
+<!--l. 50--><p class="noindent" ><a 
+ id="operator:FIRST"></a>
+</p><!--l. 52--><p class="noindent" >This operator<a 
+ id="dx20-24001"></a> returns the ﬁrst member of a list. An error occurs if the argument is not a
+list, or the list is empty.
+</p><!--l. 55--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">4.1.3    </span> <a 
+ id="x20-250004.1.3"></a>SECOND</h4>
+<!--l. 56--><p class="noindent" ><a 
+ id="operator:SECOND"></a>
+</p><!--l. 58--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">second</span><a 
+ id="dx20-25001"></a> returns the second member of a list. An error occurs if the argument is not a list
+or has no second element.
+</p><!--l. 61--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">4.1.4    </span> <a 
+ id="x20-260004.1.4"></a>THIRD</h4>
+<!--l. 62--><p class="noindent" ><a 
+ id="operator:THIRD"></a>
+</p><!--l. 64--><p class="noindent" >This operator<a 
+ id="dx20-26001"></a> returns the third member of a list. An error occurs if the argument is not a
+list or has no third element.
+</p><!--l. 67--><p class="noindent" >
+                                                                     
+
+                                                                     
+</p>
+<h4 class="subsectionHead"><span class="titlemark">4.1.5    </span> <a 
+ id="x20-270004.1.5"></a>REST</h4>
+<!--l. 68--><p class="noindent" ><a 
+ id="operator:REST"></a>
+</p><!--l. 70--><p class="noindent" ><span 
+class="pcrr8t-x-x-109">rest</span><a 
+ id="dx20-27001"></a> returns its argument with the ﬁrst element removed. An error occurs if the
+argument is not a list, or is empty.
+</p><!--l. 73--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">4.1.6    </span> <a 
+ id="x20-280004.1.6"></a><span 
+class="ptmb8t-x-x-109">. </span>(Cons) Operator</h4>
+<!--l. 74--><p class="noindent" ><a 
+ id="operator:CONS"></a> <a 
+ id="reserved:consop"></a>
+</p><!--l. 77--><p class="noindent" >This operator<a 
+ id="dx20-28001"></a> adds (“conses”) an expression to the front of a list. For example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-39">
+        a . {b,c}     -&#x003E;   {a,b,c}.
+</div>
+<!--l. 81--><p class="nopar" >
+</p><!--l. 83--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">4.1.7    </span> <a 
+ id="x20-290004.1.7"></a>APPEND</h4>
+<!--l. 84--><p class="noindent" ><a 
+ id="operator:APPEND"></a>
+</p><!--l. 86--><p class="noindent" >This operator<a 
+ id="dx20-29001"></a> appends its ﬁrst argument to its second to form a new list. <span 
+class="ptmri8t-x-x-109">Examples:</span>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-40">
+        append({a,b},{c,d})     -&#x003E;     {a,b,c,d}
+ <br />        append({{a,b}},{c,d})   -&#x003E;     {{a,b},c,d}.
+</div>
+<!--l. 92--><p class="nopar" >
+</p><!--l. 94--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">4.1.8    </span> <a 
+ id="x20-300004.1.8"></a>REVERSE</h4>
+<!--l. 95--><p class="noindent" ><a 
+ id="operator:REVERSE"></a>
+</p><!--l. 97--><p class="noindent" >The operator <span 
+class="pcrr8t-x-x-109">reverse</span><a 
+ id="dx20-30001"></a> returns its argument with the elements in the reverse order. It
+only applies to the top level list, not any lower level lists that may occur. Examples
+are:<a 
+ id="dx20-30002"></a>
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-41">
+        reverse({a,b,c})        -&#x003E;     {c,b,a}
+ <br />        reverse({{a,b,c},d})    -&#x003E;     {d,{a,b,c}}.
+</div>
+<!--l. 103--><p class="nopar" >
+</p><!--l. 105--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">4.1.9    </span> <a 
+ id="x20-310004.1.9"></a>List Arguments of Other Operators</h4>
+<!--l. 106--><p class="noindent" ><a 
+ id="switch:LISTARGS"></a> <a 
+ id="command:LISTARGP"></a>
+</p><!--l. 109--><p class="noindent" >If an operator other than those speciﬁcally deﬁned for lists is given a single argument that
+is a list, then the result of this operation will be a list in which that operator is applied to
+each element of the list. For example, the result of evaluating <span 
+class="pcrr8t-x-x-109">log{a,b,c} </span>is the
+expression <span 
+class="pcrr8t-x-x-109">{log(a),log(b),log(c)}</span>.
+</p><!--l. 115--><p class="noindent" >There are two ways to inhibit this operator distribution. Firstly, the switch <span 
+class="pcrr8t-x-x-109">listargs</span>,<a 
+ id="dx20-31001"></a><a 
+ id="dx20-31002"></a><a 
+ id="dx20-31003"></a> if
+on, will globally inhibit such distribution. Secondly, one can inhibit this distribution for a
+speciﬁc operator by the declaration <span 
+class="pcrr8t-x-x-109">listargp</span>.<a 
+ id="dx20-31004"></a> For example, with the declaration
+<span 
+class="pcrr8t-x-x-109">listargp log</span>, <span 
+class="pcrr8t-x-x-109">log{a,b,c} </span>would evaluate to <span 
+class="pcrr8t-x-x-109">log({a,b,c})</span>.
+</p><!--l. 122--><p class="noindent" >If an operator has more than one argument, no such distribution occurs.
+</p><!--l. 124--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">4.1.10    </span> <a 
+ id="x20-320004.1.10"></a>Caveats and Examples</h4>
+<!--l. 126--><p class="noindent" >Some of the natural list operations such as <span 
+class="ptmri8t-x-x-109">member </span>or <span 
+class="ptmri8t-x-x-109">delete </span>are available only after
+loading the package <a 
+href="manualse127.html#ASSIST"><span 
+class="ptmri8t-x-x-109">ASSIST</span></a> (chapter <a 
+href="manualse127.html#x169-39900020.2">20.2<!--tex4ht:ref: ASSIST --></a>).
+</p><!--l. 130--><p class="noindent" >Please note that a non-list as second argument to CONS (a &#x0022;dotted pair&#x0022; in LISP terms) is
+not allowed and causes an &#x0022;invalid as list&#x0022; error.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-42">
+ a := 17 . 4;
+ <br />
+ <br />***** 17 4 invalid as list
+</div>
+<!--l. 137--><p class="nopar" > Also, the initialization of a scalar variable is not the empty list – one has to set list type
+variables explicitly, as in the following example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-43">
+ load_package assist;
+ <br />
+ <br /> procedure lotto (n,m);
+ <br />  begin scalar list_1_n, luckies, hit;
+ <br />     list_1_n := {};
+ <br />     luckies := {};
+ <br />     for k:=1:n do list_1_n := k . list_1_n;
+ <br />     for k:=1:m do
+ <br />       &#x003C;&#x003C; hit := part(list_1_n,random(n-k+1) + 1);
+ <br />          list_1_n := delete(hit,list_1_n);
+ <br />          luckies := hit . luckies &#x003E;&#x003E;;
+ <br />     return luckies;
+ <br />  end;
+ <br />                 % In Germany, try lotto (49,6);
+</div>
+<!--l. 156--><p class="nopar" >
+</p><!--l. 158--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Another example: </span>Find all coeﬃcients of a multivariate polynomial with respect to a list
+of variables:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-44">
+procedure allcoeffs(q,lis);
+ <br />   % q : polynomial, lis: list of vars
+ <br />   allcoeffs1 (list q,lis);
+ <br />
+ <br />procedure allcoeffs1(q,lis);
+ <br />  if lis={} then q else
+ <br />    allcoeffs1(foreach qq in q join coeff(qq,first lis),
+ <br />               rest lis);
+</div>
+<!--l. 170--><p class="nopar" >
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 1--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch4.html#manualse13.html" >Up</a></td><td class="clinks"><a 
+href="manualse13.html" >Front</a></td></tr></table><a 
+ id="tailmanualse13.html"></a>  </p> 
+</body> 
+</html>

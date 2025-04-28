@@ -1,0 +1,1384 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Logo Turtle Graphics</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch18.html#manualse118.html" >Up</a></td><td class="clinks"><a 
+href="manualse117.html" >Prev</a></td><td class="clinks"><a 
+href="manualse117.html#tailmanualse117.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse118.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">18.3    </span> <a 
+ id="x155-29900018.3"></a>Logo Turtle Graphics</h3>
+<a 
+ id="dx155-299001"></a>
+<a 
+ id="dx155-299002"></a>
+<a 
+ id="dx155-299003"></a>
+<a 
+ id="dx155-299004"></a>
+<!--l. 7--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">18.3.1    </span> <a 
+ id="x155-30000018.3.1"></a>Introduction</h4>
+<!--l. 9--><p class="noindent" >Logo Turtle Graphics<span class="footnote-mark"><a 
+href="manual156.html#fn3x18"><sup class="textsuperscript">3</sup></a></span><a 
+ id="x155-300001f3"></a> 
+(henceforth referred to as “LogoTurtle”) is a REDUCE emulation of <a 
+href="https://en.wikipedia.org/wiki/Turtle_graphics" >traditional Logo
+turtle graphics</a> with one turtle, modelled on <a 
+href="http://people.eecs.berkeley.edu/~bh/logo.html" >Berkeley Logo by Brian Harvey</a> and
+<a 
+href="https://fmslogo.sourceforge.io/" >FMSLogo by David Costanzo</a> (which is an updated version of George Mills’ MSWLogo,
+a multimedia-enhanced version for Microsoft Windows, which is itself based on
+Berkeley Logo). This manual section is derived primarily from the Graphics chapter of
+the Berkeley Logo manual available from <a 
+href="https://github.com/jrincayc/ucblogo-code" >GitHub</a>.
+</p><!--l. 23--><p class="noindent" >This package is inspired by, and related to, the REDUCE <a 
+href="manualse117.html#x153-28900018.2">Turtle package</a> by Caroline
+Cotter (ZIB, Berlin, 1998), and the word “Turtle” below (with a capital T) will refer
+speciﬁcally to that package. Both packages are built on the REDUCE <a 
+href="manualse116.html#x151-27700018.1">Gnuplot package</a>,
+which itself uses <a 
+href="http://gnuplot.info/" >Gnuplot</a> to display plots. This means that plotting is not fully interactive
+as it would be in <a 
+href="https://en.wikipedia.org/wiki/Logo_(programming_language)" >traditional Logo</a>; a plot is constructed invisibly and only displayed when
+requested. However, turning on the <span 
+class="pcrr8t-x-x-109">LOGOTURTLE_AUTODRAW </span>switch makes
+LogoTurtle as interactive as possible. This package aims to be more eﬃcient, more
+authentic, more interactive and more complete than Turtle.
+</p><!--l. 37--><p class="noindent" >Note that LogoTurtle and Turtle cannot both be run in the same REDUCE session
+because they deﬁne some procedures with the same names.
+</p>
+                                                                     
+
+                                                                     
+<h4 class="subsectionHead"><span class="titlemark">18.3.2    </span> <a 
+ id="x155-30100018.3.2"></a>Design</h4>
+<!--l. 43--><p class="noindent" >LogoTurtle is entirely functional. It uses “getters” and “setters”, and does not use any
+algebraic-mode variables (unlike Turtle). Most command names are as in Berkeley
+Logo and/or FMSLogo, and their function is the same or similar. (Identical
+behaviour is not always possible.) However, all commands are REDUCE procedure
+calls.
+</p><!--l. 50--><p class="noindent" >Getters (query procedures) return values that are accepted as input by their matching
+setters (command procedures). If more than one data value is involved then a list is used.
+For example, the <a 
+href="#x155-35200018.3.11"><span 
+class="pcrr8t-x-x-109">LABELFONT</span></a> query returns a list of the current label font face and size
+if both are set, which the corresponding <a 
+href="#x155-34600018.3.10"><span 
+class="pcrr8t-x-x-109">SETLABELFONT</span></a> command accepts as its
+argument.
+</p><!--l. 59--><p class="noindent" >LogoTurtle commands other than queries return nothing (<span 
+class="pcrr8t-x-x-109">nil</span>) and plotting is achieved
+via side eﬀects, not via returned values as for Turtle. A plot is displayed by calling the
+(non-traditional) <a 
+href="#x155-30700018.3.7"><span 
+class="pcrr8t-x-x-109">DRAW</span></a> command as for Turtle. The plot displayed need not be
+complete; <span 
+class="pcrr8t-x-x-109">DRAW </span>displays the plot constructed so far, which allows an element of
+interactivity.
+</p><!--l. 66--><p class="noindent" >LogoTurtle makes essential use of commands to lower and raise the pen (unlike Turtle;
+see <a 
+href="#x155-35400018.3.12">Pen and Background Control</a>). Lowering the pen begins a “curve”, namely a
+sequence of points connected by straight lines, and raising the pen ends that curve. Each
+time the pen is lowered, the turtle moved and the pen raised, a distinct curve is
+produced.
+</p><!--l. 73--><p class="noindent" >LogoTurtle uses Lisp ﬂoating-point numbers internally and does not require any
+particular REDUCE number domain settings. However, all command arguments
+and list elements relating to turtle position must be expressions that can be
+evaluated to real numbers. All returned values and list elements relating to turtle
+position will be ﬂoating-point numbers. Note that LogoTurtle lists are REDUCE
+algebraic-mode lists delimited by curly braces, <span 
+class="pcrr8t-x-x-109">{</span><span 
+class="pcrr8t-x-x-109"> }</span>, not the square brackets
+used in traditional Logo, and that REDUCE list elements must be separated by
+commas.
+</p><!--l. 84--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">18.3.3    </span> <a 
+ id="x155-30200018.3.3"></a>User Interface</h4>
+<!--l. 86--><p class="noindent" >To use LogoTurtle, execute the REDUCE command
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-556">
+     load_package logoturtle;
+</div>
+<!--l. 89--><p class="nopar" >
+</p><!--l. 91--><p class="noindent" >LogoTurtle sets the scaling of the two axes to be the same so that the aspect ratio is
+1:1 and geometry is correct (although beware that Gnuplot may not always
+honour this). By default, LogoTurtle scales the graphics window so that turtle
+coordinates <span 
+class="cmr-10x-x-109">(</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">100</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">−</span><span 
+class="cmr-10x-x-109">100) </span>and <span 
+class="cmr-10x-x-109">(100</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">100) </span>ﬁt, and the center of the graphics
+window is turtle location <span 
+class="cmr-10x-x-109">(0</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">0)</span>, i.e. the origin or home position. But this ﬁxed
+window can be turned oﬀ so that Gnuplot automatically sizes the display to
+include the whole plot (as for Turtle). The position of the origin (the turtle home
+location <span 
+class="cmr-10x-x-109">(0</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">0)</span>) is then not ﬁxed and may be diﬀerent for diﬀerent plots. The
+window size can also be changed; see <a 
+href="#x155-33300018.3.10">Turtle and Window Control</a> for further
+details.
+</p><!--l. 104--><p class="noindent" >Positive <span 
+class="cmmi-10x-x-109">x </span>is to the right; positive <span 
+class="cmmi-10x-x-109">y </span>is up. Headings (angles) are measured in degrees
+clockwise from the positive <span 
+class="cmmi-10x-x-109">y </span>axis. (Note that this diﬀers from the common mathematical
+convention, also used by Turtle, of measuring angles counterclockwise from the positive
+<span 
+class="cmmi-10x-x-109">x </span>axis!) Initially, the turtle is at the origin (Cartesian coordinates <span 
+class="cmr-10x-x-109">(0</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">0)</span>) facing up
+(heading 0 degrees) with the pen up.
+</p><!--l. 111--><p class="noindent" >LogoTurtle uses by default a white background, and pen, ﬁll and label colours chosen
+automatically by Gnuplot, but you can set all these to any colour provided by
+Gnuplot.
+</p><!--l. 115--><p class="noindent" >Note that LogoTurtle command names are shown using upper case letters in the
+descriptions after the example below to distinguish them clearly from their
+arguments, but LogoTurtle is case insensitive, so commands can be entered in either
+case.
+</p><!--l. 120--><p class="noindent" >Commands that never take any arguments use special syntax and <span 
+class="ptmri8t-x-x-109">need not be followed by</span>
+<span 
+class="ptmri8t-x-x-109">empty parentheses</span>. Query commands that take no arguments can be used like (read-only)
+variables. For example, the following command increments the <span 
+class="cmmi-10x-x-109">x</span>-coordinate of the turtle
+by 10 steps:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-557">
+     setx(xcor + 10);
+</div>
+<!--l. 127--><p class="nopar" > Multiple command arguments must be enclosed in parentheses; single or no
+arguments may be enclosed in parentheses, although parentheses can be, and
+usually are, omitted with a single argument or no arguments. However, if a single
+argument is an expression involving inﬁx operators then it must be enclosed in
+parentheses.
+</p><!--l. 134--><p class="noindent" >When the switch <span 
+class="pcrr8t-x-x-109">TRLOGOTURTLE </span>is on, LogoTurtle outputs Cartesian coordinates
+corresponding to every move of the turtle and <span 
+class="pcrr8t-x-x-109">DRAW </span>outputs the list of curves that it is
+about to draw. When the switch <span 
+class="pcrr8t-x-x-109">TRPLOT </span>is on, the commands sent to Gnuplot (but
+not the actual plot data) are also output. Turning the switch <span 
+class="pcrr8t-x-x-109">TRLOGOTURTLE</span>
+on or oﬀ also turns the switch <span 
+class="pcrr8t-x-x-109">TRPLOT </span>on or oﬀ. Both switches are oﬀ by
+default.
+</p><!--l. 143--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">18.3.4    </span> <a 
+ id="x155-30300018.3.4"></a>A Simple Example</h4>
+<!--l. 145--><p class="noindent" >This example assumes LogoTurtle has just been loaded but not yet used. If this is not the
+case then ﬁrst execute the commands
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-558">
+  clearscreen; penup;
+</div>
+<!--l. 149--><p class="nopar" >
+</p><!--l. 151--><p class="noindent" >The following code draws an equilateral triangle with side length 100 centred on the
+origin, with one vertex on the positive Y axis. The sides are coloured red, green and blue.
+To make this example as interactive as possible, the plot is displayed after each side is
+drawn (but for this eﬀect to be visible each line ending with <span 
+class="pcrr8t-x-x-109">draw; </span>must be executed
+separately; if you input all the commands together then you will only see the complete
+triangle).
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-559">
+  forward(100/sqrt 3); pendown;
+ <br />  setpencolor red; right 150; forward 100; draw;
+ <br />  setpencolor green; right 120; forward 100; draw;
+ <br />  setpencolor blue; right 120; forward 100; draw;
+</div>
+<!--l. 163--><p class="nopar" >
+</p><!--l. 165--><p class="noindent" >For more interesting examples, please see the ﬁles <a 
+href="https://sourceforge.net/p/reduce-algebra/code/HEAD/tree/trunk/packages/plot/logoturtle.tst" ><span 
+class="pcrr8t-x-x-109">logoturtle.tst</span></a> and
+<a 
+href="https://sourceforge.net/p/reduce-algebra/code/HEAD/tree/trunk/packages/plot/mondrian.tst" ><span 
+class="pcrr8t-x-x-109">mondrian.tst</span></a>, which can be found online or in the <span 
+class="pcrr8t-x-x-109">packages/plot </span>directory in a
+standard REDUCE distribution.
+</p><!--l. 174--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">18.3.5    </span> <a 
+ id="x155-30400018.3.5"></a>Turtle</h4>
+<!--l. 176--><p class="noindent" >The turtle is optionally displayed as an unﬁlled isosceles triangle; see <a 
+href="#x155-33300018.3.10">Turtle
+and Window Control</a>. The turtle is drawn using black default-thickness lines
+on top of the current plot; the colour and line thickness cannot currently be
+changed. The turtle is never wrapped, although it is clipped if any turtle mode is in
+eﬀect, i.e. for drawing the turtle any turtle mode other than <span 
+class="pcrr8t-x-x-109">false </span>is treated as
+<span 
+class="pcrr8t-x-x-109">window</span>.
+</p><!--l. 184--><p class="noindent" >The turtle looks like an arrow head pointing in the direction of the turtle’s heading. The
+height of the isosceles triangle (i.e. the length of the turtle) is <span 
+class="cmmi-10x-x-109">ℓ</span><span 
+class="cmr-10x-x-109">(= 0</span><span 
+class="cmmi-10x-x-109">.</span><span 
+class="cmr-10x-x-109">1) </span>times the
+average of the maximum <span 
+class="cmmi-10x-x-109">x </span>and <span 
+class="cmmi-10x-x-109">y </span>coordinates set by the window size (even
+if windowing is not in eﬀect) and the apex angle (at the head of the turtle) is
+twice <span 
+class="cmmi-10x-x-109">α</span><span 
+class="cmr-10x-x-109">(= 10</span><sup><span 
+class="cmsy-8">∘</span></sup><span 
+class="cmr-10x-x-109">) </span>(so that the two equal sides are at angles of <span 
+class="cmmi-10x-x-109">α </span>to the turtle’s
+heading).<span class="footnote-mark"><a 
+href="manual157.html#fn4x18"><sup class="textsuperscript">4</sup></a></span><a 
+ id="x155-304001f4"></a> 
+</p><!--l. 198--><p class="noindent" >The nominal turtle position is at the midpoint of the base (the short side). However, the
+                                                                     
+
+                                                                     
+turtle is drawn one step behind its nominal position, so that the display of the base of the
+turtle’s triangle does not obscure a line drawn perpendicular to it (as would happen after
+drawing a square).
+</p>
+<h4 class="subsectionHead"><span class="titlemark">18.3.6    </span> <a 
+ id="x155-30500018.3.6"></a>Colours</h4>
+<!--l. 208--><p class="noindent" >LogoTurtle oﬀers both the traditional Berkeley Logo palette model and some of the
+Gnuplot model, which is much more ﬂexible and usually more convenient. Colours may
+be input and output in several diﬀerent formats, but colour numbers and RGB lists are
+used only for input and only the formats accepted by Gnuplot are used for output, since
+these are the only formats used internally.
+     </p><dl class="description"><dt class="description">
+<span 
+class="ptmb8t-x-x-109">A colour number (input only)</span> </dt><dd 
+class="description">is an integer between 0 and 15 inclusive. The initial
+     colour assignments are
+     <div class="center" 
+>
+<!--l. 218--><p class="noindent" >
+</p>
+<div class="tabular"> <table id="TBL-30" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-30-1g"><col 
+id="TBL-30-1" /><col 
+id="TBL-30-2" /><col 
+id="TBL-30-3" /><col 
+id="TBL-30-4" /><col 
+id="TBL-30-5" /><col 
+id="TBL-30-6" /><col 
+id="TBL-30-7" /><col 
+id="TBL-30-8" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-30-1-"><td  style="white-space:nowrap; text-align:right;" id="TBL-30-1-1"  
+class="td11"> 0  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-30-1-2"  
+class="td11"> black     </td><td  style="white-space:nowrap; text-align:right;" id="TBL-30-1-3"  
+class="td11">  1  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-30-1-4"  
+class="td11"> blue         </td><td  style="white-space:nowrap; text-align:right;" id="TBL-30-1-5"  
+class="td11">  2  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-30-1-6"  
+class="td11"> green    </td><td  style="white-space:nowrap; text-align:right;" id="TBL-30-1-7"  
+class="td11">  3  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-30-1-8"  
+class="td11"> cyan    </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-30-2-"><td  style="white-space:nowrap; text-align:right;" id="TBL-30-2-1"  
+class="td11">  4  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-30-2-2"  
+class="td11"> red         </td><td  style="white-space:nowrap; text-align:right;" id="TBL-30-2-3"  
+class="td11">  5  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-30-2-4"  
+class="td11"> magenta  </td><td  style="white-space:nowrap; text-align:right;" id="TBL-30-2-5"  
+class="td11">  6  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-30-2-6"  
+class="td11"> yellow  </td><td  style="white-space:nowrap; text-align:right;" id="TBL-30-2-7"  
+class="td11">  7  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-30-2-8"  
+class="td11"> white  </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-30-3-"><td  style="white-space:nowrap; text-align:right;" id="TBL-30-3-1"  
+class="td11">  8  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-30-3-2"  
+class="td11"> brown    </td><td  style="white-space:nowrap; text-align:right;" id="TBL-30-3-3"  
+class="td11">  9  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-30-3-4"  
+class="td11"> tan           </td><td  style="white-space:nowrap; text-align:right;" id="TBL-30-3-5"  
+class="td11"> 10  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-30-3-6"  
+class="td11"> forest    </td><td  style="white-space:nowrap; text-align:right;" id="TBL-30-3-7"  
+class="td11"> 11  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-30-3-8"  
+class="td11"> aqua    </td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-30-4-"><td  style="white-space:nowrap; text-align:right;" id="TBL-30-4-1"  
+class="td11"> 12  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-30-4-2"  
+class="td11"> salmon  </td><td  style="white-space:nowrap; text-align:right;" id="TBL-30-4-3"  
+class="td11"> 13  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-30-4-4"  
+class="td11"> purple      </td><td  style="white-space:nowrap; text-align:right;" id="TBL-30-4-5"  
+class="td11"> 14  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-30-4-6"  
+class="td11"> orange  </td><td  style="white-space:nowrap; text-align:right;" id="TBL-30-4-7"  
+class="td11"> 15  </td><td  style="white-space:nowrap; text-align:left;" id="TBL-30-4-8"  
+class="td11"> grey    </td>
+</tr></table></div></div>
+     <!--l. 226--><p class="noindent" >but other colours can be assigned to numbers 8–15 by the <a 
+href="#x155-35800018.3.12"><span 
+class="pcrr8t-x-x-109">SETPALETTE</span></a>
+     command. Colour numbers are useful for cycling programmatically through a
+     range of colours.
+     </p></dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">An RGB list (input only)</span> </dt><dd 
+class="description">is a list of three nonnegative numbers not greater than 100
+     specifying the percent saturation of red, green, and blue in the desired colour. RGB
+     lists are also easy to use programmatically.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">An identiﬁer or string (input and output)</span> </dt><dd 
+class="description">can be used to represent a colour in any way
+     that is acceptable to Gnuplot, such as a colour name or hexadecimal number,
+     e.g. <span 
+class="pcrr8t-x-x-109">red</span>, <span 
+class="pcrr8t-x-x-109">&#x0022;red&#x0022; </span>or <span 
+class="pcrr8t-x-x-109">&#x0022;#FF0000&#x0022;</span>.
+     </dd><dt class="description">
+<span 
+class="ptmb8t-x-x-109">The identiﬁer </span><span 
+class="pcrb8t-x-x-109">FALSE </span><span 
+class="ptmb8t-x-x-109">(input and output)</span> </dt><dd 
+class="description">means that no colour is set. In this case,
+     Gnuplot uses its own automatic colour-choice algorithm.</dd></dl>
+                                                                     
+
+                                                                     
+<!--l. 247--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">18.3.7    </span> <a 
+ id="x155-30600018.3.7"></a>Displaying Logo Turtle Graphics</h4>
+<!--l. 249--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-30700018.3.7"></a>Draw command</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-560">
+     DRAW
+</div>
+<!--l. 252--><p class="nopar" > can be used at any time to display the current plot, i.e. the plot and/or labels constructed
+so far (provided there is something to display). It initially opens a Gnuplot window and
+subsequently updates it.
+</p><!--l. 259--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-30800018.3.7"></a>Autodraw switch</h5>
+<!--l. 260--><p class="noindent" >When the switch <span 
+class="pcrr8t-x-x-109">LOGOTURTLE_AUTODRAW </span>is on, making any visible change to a plot
+causes it to be redrawn (or drawn) automatically. In this situation it can be useful to turn
+on display of the turtle (using <a 
+href="#x155-33400018.3.10"><span 
+class="pcrr8t-x-x-109">SHOWTURTLE</span></a>), since this makes the turtle’s heading and
+position visible even when the pen is up.
+</p><!--l. 268--><p class="noindent" >When using REDUCE programming constructs (e.g. group or loop statements) to run
+multiple LogoTurtle commands, it is best to have the <span 
+class="pcrr8t-x-x-109">LOGOTURTLE_AUTODRAW </span>switch
+oﬀ, and instead to execute the <span 
+class="pcrr8t-x-x-109">DRAW </span>command explicitly once the programming
+construct has completed, because intermediate changes to the plot will not be visible and
+repeatedly redrawing it is pointless.
+</p><!--l. 276--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">18.3.8    </span> <a 
+ id="x155-30900018.3.8"></a>Turtle Motion</h4>
+<!--l. 278--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-31000018.3.8"></a>Forward command</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-561">
+     FORWARD dist
+</div>
+<!--l. 281--><p class="nopar" > moves the turtle forward, in the direction that it’s facing, by the speciﬁed distance
+(measured in turtle steps).
+</p><!--l. 286--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-31100018.3.8"></a>Back command</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-562">
+     BACK dist
+</div>
+<!--l. 289--><p class="nopar" > moves the turtle backward, i.e., exactly opposite to the direction that it’s facing, by the
+speciﬁed distance. (The heading of the turtle does not change.)
+</p><!--l. 295--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-31200018.3.8"></a>Left command</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-563">
+     LEFT degrees
+</div>
+<!--l. 298--><p class="nopar" > turns the turtle counterclockwise by the speciﬁed angle, measured in degrees. (A degree
+is 1/360 of a full circle.)
+</p><!--l. 303--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-31300018.3.8"></a>Right command</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-564">
+     RIGHT degrees
+</div>
+<!--l. 306--><p class="nopar" > turns the turtle clockwise by the speciﬁed angle, measured in degrees.
+</p><!--l. 311--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-31400018.3.8"></a>Setpos command</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-565">
+     SETPOS position
+</div>
+<!--l. 314--><p class="nopar" > moves the turtle to an absolute position in the graphics window. The input is a list of two
+numbers, the <span 
+class="cmmi-10x-x-109">x </span>and <span 
+class="cmmi-10x-x-109">y </span>coordinates, e.g. “<span 
+class="pcrr8t-x-x-109">SETPOS {50, 50}</span>”.
+</p><!--l. 320--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-31500018.3.8"></a>Setxy command</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-566">
+     SETXY(xcor, ycor)
+</div>
+<!--l. 323--><p class="nopar" > moves the turtle to an absolute position in the graphics window. The two inputs are
+numbers, the <span 
+class="cmmi-10x-x-109">x </span>and <span 
+class="cmmi-10x-x-109">y </span>coordinates.
+</p><!--l. 327--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-31600018.3.8"></a>Setx command</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-567">
+     SETX xcor
+</div>
+<!--l. 330--><p class="nopar" > moves the turtle horizontally from its old position to a new absolute horizontal
+coordinate. The input is the new <span 
+class="cmmi-10x-x-109">x </span>coordinate.
+</p><!--l. 334--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-31700018.3.8"></a>Sety command</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-568">
+     SETY ycor
+</div>
+<!--l. 337--><p class="nopar" > moves the turtle vertically from its old position to a new absolute vertical coordinate.
+The input is the new <span 
+class="cmmi-10x-x-109">y </span>coordinate.
+</p><!--l. 341--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-31800018.3.8"></a>Setheading command</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-569">
+     SETHEADING degrees
+</div>
+<!--l. 344--><p class="nopar" > turns the turtle to a new absolute heading. The input is a number, the heading in degrees
+clockwise from the positive <span 
+class="cmmi-10x-x-109">y </span>axis.
+</p><!--l. 350--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-31900018.3.8"></a>Home command</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-570">
+     HOME
+</div>
+<!--l. 353--><p class="nopar" > moves the turtle to its starting position (the origin) and orientation. Equivalent to
+“<a 
+href="#x155-31400018.3.8"><span 
+class="pcrr8t-x-x-109">SETPOS</span></a><span 
+class="pcrr8t-x-x-109"> {0,</span><span 
+class="pcrr8t-x-x-109"> 0}; </span><a 
+href="#x155-31800018.3.8"><span 
+class="pcrr8t-x-x-109">SETHEADING</span></a><span 
+class="pcrr8t-x-x-109"> 0</span>”.
+</p><!--l. 359--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-32000018.3.8"></a>Arc command</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-571">
+     ARC(angle, radius)
+</div>
+<!--l. 362--><p class="nopar" > draws a circular arc centred on the turtle with the speciﬁed positive radius, starting
+at the turtle’s heading and extending clockwise through the speciﬁed angle
+(counter-clockwise if angle is negative). The turtle does not move and the arc is
+drawn as if the turtle mode is <span 
+class="pcrr8t-x-x-109">WINDOW </span>for all modes unless windowing is turned
+oﬀ.
+</p><!--l. 369--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-32100018.3.8"></a>Circle command</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-572">
+     CIRCLE radius
+</div>
+<!--l. 372--><p class="nopar" > draws a circle centred on the turtle with the positive radius speciﬁed. The turtle does not
+move and the circle is drawn as if the turtle mode is <span 
+class="pcrr8t-x-x-109">WINDOW </span>for all modes unless
+windowing is turned oﬀ. Equivalent to <span 
+class="pcrr8t-x-x-109">ARC(360, radius)</span>.
+</p><!--l. 378--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-32200018.3.8"></a>Arc2 command</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-573">
+     ARC2(angle, radius)
+</div>
+<!--l. 381--><p class="nopar" > moves the turtle around a circular arc that sweeps through the speciﬁed angle with the
+speciﬁed positive radius. The turtle always moves forwards: if angle is positive, then the
+turtle moves forwards in a clockwise direction; if angle is negative, then the turtle moves
+forwards in a counter-clockwise direction. At the end of the arc, the turtle’s heading is
+increased by angle.
+</p><!--l. 389--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-32300018.3.8"></a>Circle2 command</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-574">
+     CIRCLE2 radius
+</div>
+<!--l. 392--><p class="nopar" > moves the turtle clockwise around a circle with the speciﬁed positive radius. The
+turtle ends in the same position in which it starts. Equivalent to <span 
+class="pcrr8t-x-x-109">ARC2(360,</span>
+<span 
+class="pcrr8t-x-x-109">radius)</span>.
+</p><!--l. 397--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-32400018.3.8"></a>Ellipticarc command</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-575">
+     ELLIPTICARC(range, crosswise, inline, start)
+</div>
+<!--l. 400--><p class="nopar" > draws an elliptic arc based on the turtle’s position and heading. The turtle does not
+move. The center-point of the ellipse is the turtle’s current position. The size and shape
+of the ellipse are determined by the speciﬁed positive crosswise and inline semi-axes.
+The crosswise semi-axis is the distance from the turtle to the ellipse in the direction
+perpendicular to the turtle’s current heading. The inline semi-axis is the distance from the
+turtle to the ellipse in the direction in which the turtle is currently heading. Hence the
+turtle’s heading determines the orientation of the ellipse. The elliptic arc starts at angle
+parameter start degrees and the angle parameter sweeps through range degrees. The
+elliptic arc is drawn clockwise if range is positive and counter-clockwise if range is
+negative.
+</p><!--l. 415--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-32500018.3.8"></a>Ellipse command</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-576">
+     ELLIPSE(crosswise, inline)
+</div>
+<!--l. 418--><p class="nopar" > draws an ellipse based on the turtle’s position and heading. The turtle does not
+move. The center-point of the ellipse is the turtle’s current position. The size and
+shape of the ellipse are determined by the speciﬁed positive crosswise and inline
+semi-axes. The crosswise semi-axis is the distance from the turtle to the ellipse in the
+direction perpendicular to the turtle’s current heading. The inline semi-axis is
+the distance from the turtle to the ellipse in the direction in which the turtle
+is currently heading. Hence the turtle’s heading determines the orientation of
+the ellipse. Equivalent to <span 
+class="pcrr8t-x-x-109">ELLIPTICARC(360, crosswise, inline,</span>
+<span 
+class="pcrr8t-x-x-109">0)</span>.
+</p><!--l. 431--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">18.3.9    </span> <a 
+ id="x155-32600018.3.9"></a>Turtle Motion Queries</h4>
+<!--l. 433--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-32700018.3.9"></a>Pos query</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-577">
+     POS
+</div>
+<!--l. 436--><p class="nopar" > returns the turtle’s current position, as a list of two numbers, the <span 
+class="cmmi-10x-x-109">x </span>and <span 
+class="cmmi-10x-x-109">y </span>coordinates.
+</p><!--l. 440--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-32800018.3.9"></a>Xcor query</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-578">
+     XCOR
+</div>
+<!--l. 443--><p class="nopar" > returns a number, the turtle’s <span 
+class="cmmi-10x-x-109">x </span>coordinate.
+</p><!--l. 446--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-32900018.3.9"></a>Ycor query</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-579">
+     YCOR
+</div>
+<!--l. 449--><p class="nopar" > returns a number, the turtle’s <span 
+class="cmmi-10x-x-109">y </span>coordinate.
+</p><!--l. 452--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-33000018.3.9"></a>Heading query</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-580">
+     HEADING
+</div>
+<!--l. 455--><p class="nopar" > returns a number, the turtle’s heading in degrees.
+</p><!--l. 458--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-33100018.3.9"></a>Towards query</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-581">
+     TOWARDS position
+</div>
+<!--l. 461--><p class="nopar" > returns a number, the heading at which the turtle should be facing so that it would point
+from its current position to the position given as the input in the form of a list of two
+numbers, the <span 
+class="cmmi-10x-x-109">x </span>and <span 
+class="cmmi-10x-x-109">y </span>coordinates.
+</p><!--l. 467--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-33200018.3.9"></a>Distance query</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-582">
+     DISTANCE position
+</div>
+<!--l. 470--><p class="nopar" > returns a number, the distance the turtle must travel along a straight line to reach
+the position given as input in the form of a list of two numbers, the <span 
+class="cmmi-10x-x-109">x </span>and <span 
+class="cmmi-10x-x-109">y</span>
+coordinates.
+</p><!--l. 475--><p class="noindent" >As an example of using <span 
+class="pcrr8t-x-x-109">TOWARDS </span>and <span 
+class="pcrr8t-x-x-109">DISTANCE</span>, here is a somewhat convoluted way
+to angle the turtle towards, and then move it to, the position with coordinates
+<span 
+class="cmr-10x-x-109">(1</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmr-10x-x-109">2)</span>:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-583">
+     setheading towards {1, 2};
+ <br />     forward distance {1, 2};
+</div>
+<!--l. 481--><p class="nopar" >
+</p><!--l. 484--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">18.3.10    </span> <a 
+ id="x155-33300018.3.10"></a>Turtle and Window Control</h4>
+<!--l. 487--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-33400018.3.10"></a>Showturtle command</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-584">
+     SHOWTURTLE
+</div>
+<!--l. 490--><p class="nopar" > makes the turtle visible (next time the picture is drawn).
+</p><!--l. 495--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-33500018.3.10"></a>Hideturtle command</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-585">
+     HIDETURTLE
+</div>
+<!--l. 498--><p class="nopar" > makes the turtle invisible (next time the picture is drawn).
+</p><!--l. 503--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-33600018.3.10"></a>Clean command</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-586">
+     CLEAN
+</div>
+<!--l. 506--><p class="nopar" > erases the graphics window. The turtle’s state (position, heading, pen mode, etc.) is not
+changed.
+</p><!--l. 510--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-33700018.3.10"></a>Clearscreen command</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-587">
+     CLEARSCREEN
+</div>
+<!--l. 513--><p class="nopar" > erases <span 
+class="ptmri8t-x-x-109">and closes </span>the graphics window, and sends the turtle to its initial position and
+heading. Like <a 
+href="#x155-31900018.3.8"><span 
+class="pcrr8t-x-x-109">HOME</span></a> and <span 
+class="pcrr8t-x-x-109">CLEAN </span>together.
+</p><!--l. 519--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-33800018.3.10"></a>Setwindowsize command</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-588">
+     SETWINDOWSIZE n
+ <br />     SETWINDOWSIZE(m, n)
+ <br />     SETWINDOWSIZE {m, n}
+</div>
+<!--l. 524--><p class="nopar" > with a single numerical argument <span 
+class="cmmi-10x-x-109">n </span>sets the size of the graphics window so that
+<span 
+class="cmsy-10x-x-109">−|</span><span 
+class="cmmi-10x-x-109">n</span><span 
+class="cmsy-10x-x-109">|≤ </span><span 
+class="cmmi-10x-x-109">x,y </span><span 
+class="cmsy-10x-x-109">≤|</span><span 
+class="cmmi-10x-x-109">n</span><span 
+class="cmsy-10x-x-109">|</span>; with two numerical arguments <span 
+class="cmmi-10x-x-109">m,n </span>or with a single list
+argument <span 
+class="pcrr8t-x-x-109">{m, n} </span>in which <span 
+class="cmmi-10x-x-109">m </span>and <span 
+class="cmmi-10x-x-109">n </span>are numerical it sets the size of the graphics
+window so that <span 
+class="cmsy-10x-x-109">−|</span><span 
+class="cmmi-10x-x-109">m</span><span 
+class="cmsy-10x-x-109">|≤ </span><span 
+class="cmmi-10x-x-109">x </span><span 
+class="cmsy-10x-x-109">≤|</span><span 
+class="cmmi-10x-x-109">m</span><span 
+class="cmsy-10x-x-109">|</span><span 
+class="cmmi-10x-x-109">,</span><span 
+class="cmsy-10x-x-109">−|</span><span 
+class="cmmi-10x-x-109">n</span><span 
+class="cmsy-10x-x-109">|≤ </span><span 
+class="cmmi-10x-x-109">y </span><span 
+class="cmsy-10x-x-109">≤|</span><span 
+class="cmmi-10x-x-109">n</span><span 
+class="cmsy-10x-x-109">|</span>. The default window size is
+<span 
+class="cmsy-10x-x-109">−|</span><span 
+class="cmr-10x-x-109">100</span><span 
+class="cmsy-10x-x-109">|≤ </span><span 
+class="cmmi-10x-x-109">x,y </span><span 
+class="cmsy-10x-x-109">≤|</span><span 
+class="cmr-10x-x-109">100</span><span 
+class="cmsy-10x-x-109">|</span>.
+</p><!--l. 532--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-33900018.3.10"></a>Wrap command</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-589">
+     WRAP
+</div>
+<!--l. 535--><p class="nopar" > tells the turtle to enter wrap mode. From now on, if the turtle is asked to move
+past the boundary of the graphics window, it will “wrap around” and reappear
+at the opposite edge of the window. The top edge wraps to the bottom edge,
+while the left edge wraps to the right edge. (So the window is topologically
+equivalent to a torus.) This is the turtle’s initial mode. Compare <span 
+class="pcrr8t-x-x-109">WINDOW </span>and
+<span 
+class="pcrr8t-x-x-109">FENCE</span>.
+</p><!--l. 544--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-34000018.3.10"></a>Window command</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-590">
+     WINDOW
+</div>
+<!--l. 547--><p class="nopar" > tells the turtle to enter window mode. From now on, if the turtle is asked to move past
+the boundary of the graphics window, it will move oﬀscreen. The visible graphics
+window is considered as just part of an inﬁnite graphics plane; the turtle can be anywhere
+on the plane. (If you lose the turtle, <span 
+class="pcrr8t-x-x-109">HOME </span>will bring it back to the center of the window.)
+Compare <span 
+class="pcrr8t-x-x-109">WRAP </span>and <span 
+class="pcrr8t-x-x-109">FENCE</span>.
+</p><!--l. 555--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-34100018.3.10"></a>Fence command</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-591">
+     FENCE
+</div>
+<!--l. 558--><p class="nopar" > tells the turtle to enter fence mode. From now on, if the turtle is asked to move past
+the boundary of the graphics window, it will move as far as it can and then
+stop at the edge with an “out of bounds” error message. Compare <span 
+class="pcrr8t-x-x-109">WRAP </span>and
+<span 
+class="pcrr8t-x-x-109">WINDOW</span>.
+</p><!--l. 564--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-34200018.3.10"></a>Setturtlemode command</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-592">
+     SETTURTLEMODE mode
+</div>
+<!--l. 567--><p class="nopar" > sets the turtle (windowing) mode to one of <span 
+class="pcrr8t-x-x-109">WRAP</span>, <span 
+class="pcrr8t-x-x-109">FENCE</span>, <span 
+class="pcrr8t-x-x-109">WINDOW</span>, with meaning as
+above, or <span 
+class="pcrr8t-x-x-109">FALSE</span>, meaning that (like Turtle) there are no constraints on where the turtle
+draws.
+</p><!--l. 573--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-34300018.3.10"></a>Fill command</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-593">
+     FILL
+</div>
+<!--l. 576--><p class="nopar" > ﬁlls the region of the graphics window bounded by the lines that have just been drawn,
+i.e. the current curve if the pen is down or the last curve if the pen is up (or the pen
+colour or size has been changed). The ﬁll colour is the current pen colour and the
+pen size is ignored. The curve is implicitly closed but the turtle is not moved.
+For example, the following code draws a ﬁlled blue triangle and a ﬁlled green
+circle:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-594">
+  clearscreen;
+ <br />  setpencolor blue;
+ <br />  pendown; setxy(0, 20); setxy(20, 0); fill;
+ <br />  penup; setxy(50, 50);
+ <br />  setpencolor green;
+ <br />  pendown; circle(20); fill;
+ <br />  draw;
+</div>
+<!--l. 592--><p class="nopar" > Note that ﬁlling may cause the <span 
+class="ptmri8t-x-x-109">default </span>pen (and hence ﬁll) colour to change, but if the
+pen colour has been set explicitly then it will not change.
+</p><!--l. 597--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-34400018.3.10"></a>Filled command</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-595">
+     FILLED(colour, commands...)
+</div>
+<!--l. 600--><p class="nopar" > executes the commands in the order written, remembering all points visited, and then
+draws the resulting curve, <span 
+class="ptmri8t-x-x-109">starting and ending </span>with the turtle’s initial position, ﬁlled with
+the speciﬁed colour; see <a 
+href="#x155-30500018.3.6">Colours</a>. The pen size, whether the pen is up or down, and the
+pen colour are all ignored. The command arguments should be commands or lists of
+commands that move the turtle or draw curves. For example, the following code
+draws the same ﬁlled blue triangle and ﬁlled green circle as in the previous
+example:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-596">
+  clearscreen; penup;
+ <br />  filled(blue, setxy(0, 20), setxy(20, 0));
+ <br />  setxy(50, 50);
+ <br />  filled(green, circle(20));
+ <br />  draw;
+</div>
+<!--l. 616--><p class="nopar" > Note that the sequence of commands used by <span 
+class="pcrr8t-x-x-109">FILLED </span>cannot be generated directly
+using a loop construct such as <span 
+class="pcrr8t-x-x-109">FOR</span>, whereas with <span 
+class="pcrr8t-x-x-109">FILL </span>it can. However, the command
+arguments to <span 
+class="pcrr8t-x-x-109">FILLED </span>can be calls of procedures that can contain arbitrary code,
+e.g.
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-597">
+  procedure shape;
+ <br />     for i := 1 : 4 do &#x003C;&#x003C; forward 80; arc2(-90, 40) &#x003E;&#x003E;;
+ <br />
+ <br />  clearscreen; penup;
+ <br />  setxy(40, 80); setheading(-90);
+ <br />  filled(false, shape());
+ <br />  draw;
+</div>
+<!--l. 630--><p class="nopar" >
+</p><!--l. 632--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-34500018.3.10"></a>Label command</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-598">
+     LABEL text
+</div>
+<!--l. 635--><p class="nopar" > takes a printable item or list of printable items as input and prints it on the graphics
+window with the top left-hand corner of the label at the turtle’s position. The items in a
+list are concatenated with no additional spacing. Beware that long labels will just
+fall oﬀ the edge of the graphics window. Multi-line labels can be produced by
+including newline characters encoded as <span 
+class="pcrr8t-x-x-109">\n </span>within the text, e.g. <span 
+class="pcrr8t-x-x-109">&#x0022;This is</span>
+<span 
+class="pcrr8t-x-x-109">a\nmulti-line label&#x0022;</span>. (The newline is recognised by Gnuplot, not by
+REDUCE.)
+</p><!--l. 645--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-34600018.3.10"></a>Setlabelfont command</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-599">
+     SETLABELFONT face
+ <br />     SETLABELFONT size
+ <br />     SETLABELFONT(face, size)
+ <br />     SETLABELFONT {face, size}
+ <br />     SETLABELFONT false
+</div>
+<!--l. 652--><p class="nopar" > sets the face and/or size of the label font. If the face is speciﬁed then it should be the
+only or ﬁrst input and must be an identiﬁer or string, e.g. <span 
+class="pcrr8t-x-x-109">&#x0022;Arial&#x0022;</span>. If the size is
+speciﬁed then it should be the only or second input and must be a positive integer. If only
+one of the face and size is set then the other reverts to the default, not the previous value
+set. Alternatively, the single input can be a list of the form <span 
+class="pcrr8t-x-x-109">{face, size}</span>, or
+<span 
+class="pcrr8t-x-x-109">false </span>to revert to the default. The inputs must specify a font in a way that
+is accepted by Gnuplot but the details of font setting depend on the Gnuplot
+terminal in use. The defaults for the wxt terminal are face Sans and size 10. For the
+canvas terminal (and hence on Web REDUCE) setting the label font face is
+ignored.
+</p><!--l. 667--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-34700018.3.10"></a>Setlabelcolor command</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-600">
+     SETLABELCOLOR colour
+</div>
+<!--l. 670--><p class="nopar" > sets the label foreground colour; see <a 
+href="#x155-30500018.3.6">Colours</a>.
+</p><!--l. 675--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">18.3.11    </span> <a 
+ id="x155-34800018.3.11"></a>Turtle and Window Queries</h4>
+<!--l. 677--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-34900018.3.11"></a>Shownp query</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-601">
+     SHOWNP
+</div>
+<!--l. 680--><p class="nopar" > returns <span 
+class="pcrr8t-x-x-109">TRUE </span>if the turtle is shown (visible), <span 
+class="pcrr8t-x-x-109">FALSE </span>if the turtle is hidden. See
+<a 
+href="#x155-33400018.3.10"><span 
+class="pcrr8t-x-x-109">SHOWTURTLE</span></a> and <a 
+href="#x155-33500018.3.10"><span 
+class="pcrr8t-x-x-109">HIDETURTLE</span></a>.
+</p><!--l. 687--><p class="noindent" >Note that generally in LogoTurtle <span 
+class="pcrr8t-x-x-109">TRUE</span>/<span 
+class="pcrr8t-x-x-109">FALSE </span>values returned by query commands
+can be used to facilitate programming LogoTurtle by writing code such as the
+following:
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-602">
+     if shownp = true then ...
+</div>
+<!--l. 692--><p class="nopar" >
+</p><!--l. 694--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-35000018.3.11"></a>Windowsize query</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-603">
+     WINDOWSIZE
+</div>
+<!--l. 697--><p class="nopar" > returns the current size of the graphics window as a list of the form <span 
+class="cmsy-10x-x-109">{</span><span 
+class="cmmi-10x-x-109">x</span><sub><span 
+class="cmmi-8">max</span></sub><span 
+class="cmmi-10x-x-109">,y</span><sub><span 
+class="cmmi-8">max</span></sub><span 
+class="cmsy-10x-x-109">}</span>.
+</p><!--l. 701--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-35100018.3.11"></a>Turtlemode query</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-604">
+     TURTLEMODE
+</div>
+<!--l. 704--><p class="nopar" > returns the word <span 
+class="pcrr8t-x-x-109">WRAP</span>, <span 
+class="pcrr8t-x-x-109">FENCE</span>, <span 
+class="pcrr8t-x-x-109">WINDOW </span>or <span 
+class="pcrr8t-x-x-109">FALSE </span>depending on the current turtle
+mode.
+</p><!--l. 708--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-35200018.3.11"></a>Labelfont query</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-605">
+     LABELFONT
+</div>
+<!--l. 711--><p class="nopar" > returns a list of the current label font face and size if both are set, or whichever of the
+face or size is set, or <span 
+class="pcrr8t-x-x-109">false </span>indicating that no label font information is set. Unset font
+information reverts to the Gnuplot default.
+</p><!--l. 718--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-35300018.3.11"></a>Labelcolor query</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-606">
+     LABELCOLOR
+</div>
+<!--l. 721--><p class="nopar" > returns the current label foreground colour; see <a 
+href="#x155-30500018.3.6">Colours</a>.
+</p><!--l. 726--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">18.3.12    </span> <a 
+ id="x155-35400018.3.12"></a>Pen and Background Control</h4>
+<!--l. 729--><p class="noindent" >The turtle carries a pen that can draw pictures. At any time the pen can be UP (in which
+case moving the turtle does not change what’s on the graphics screen) or DOWN (in
+which case the turtle leaves a trace). Initially, the pen is UP.
+</p><!--l. 734--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-35500018.3.12"></a>Pendown command</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-607">
+     PENDOWN
+</div>
+<!--l. 737--><p class="nopar" > sets the pen’s position to <span 
+class="pcrr8t-x-x-109">DOWN</span>, i.e. lowers it so that the turtle draws when it
+moves.
+</p><!--l. 742--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-35600018.3.12"></a>Penup command</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-608">
+     PENUP
+</div>
+<!--l. 745--><p class="nopar" > sets the pen’s position to <span 
+class="pcrr8t-x-x-109">UP</span>, i.e. raises it so that the turtle moves without
+drawing.
+</p><!--l. 750--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-35700018.3.12"></a>Setpencolor command</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-609">
+     SETPENCOLOR colour
+</div>
+<!--l. 753--><p class="nopar" > sets the pen colour; see <a 
+href="#x155-30500018.3.6">Colours</a>.
+</p><!--l. 758--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-35800018.3.12"></a>Setpalette command</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-610">
+     SETPALETTE(colournumber, colour)
+</div>
+<!--l. 761--><p class="nopar" > sets the actual colour corresponding to a given colour number. The ﬁrst argument must
+be an integer <span 
+class="cmmi-10x-x-109">n </span>such that <span 
+class="cmr-10x-x-109">8 </span><span 
+class="cmsy-10x-x-109">≤ </span><span 
+class="cmmi-10x-x-109">n </span><span 
+class="cmsy-10x-x-109">≤ </span><span 
+class="cmr-10x-x-109">15</span>. (LogoTurtle keeps the ﬁrst 8 colours constant.)
+The second argument may be either an RGB list of three nonnegative numbers not
+greater than 100 specifying the percent saturation of red, green, and blue in the desired
+colour, or an identiﬁer or string representing a colour in any way that is acceptable to
+Gnuplot, such as a colour name or hexadecimal number, e.g. <span 
+class="pcrr8t-x-x-109">red</span>, <span 
+class="pcrr8t-x-x-109">&#x0022;red&#x0022; </span>or
+<span 
+class="pcrr8t-x-x-109">&#x0022;#FF0000&#x0022;</span>. See <a 
+href="#x155-30500018.3.6">Colours</a> for further details.
+</p><!--l. 774--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-35900018.3.12"></a>Setpensize command</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-611">
+     SETPENSIZE size
+</div>
+<!--l. 777--><p class="nopar" > sets the thickness of the pen. The input is a positive integer representing a multiple of the
+default thickness, or <span 
+class="pcrr8t-x-x-109">FALSE</span>, meaning unspeciﬁed, which is equivalent to 1 but slightly
+more eﬃcient.
+</p><!--l. 783--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-36000018.3.12"></a>Setbackground command</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-612">
+     SETBACKGROUND colour
+</div>
+<!--l. 786--><p class="nopar" > sets the screen background colour; see <a 
+href="#x155-30500018.3.6">Colours</a>. Currently, however, this command
+requires the <span 
+class="pcrr8t-x-x-109">GNUTERM </span>environment variable to be set to the Gnuplot terminal type. This
+is because in Gnuplot the background is a property of the terminal, so the terminal type is
+required as part of the command to set the background. Unless you already specify the
+appropriate Gnuplot terminal type, you can ﬁnd it by running Gnuplot interactively,
+when it will report something like
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-613">
+     Terminal type set to ’wxt’
+</div>
+<!--l. 798--><p class="nopar" > In this case, the correct value to assign to the <span 
+class="pcrr8t-x-x-109">GNUTERM </span>environment variable would be
+<span 
+class="pcrr8t-x-x-109">wxt </span>(without any quotes).
+</p><!--l. 803--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">18.3.13    </span> <a 
+ id="x155-36100018.3.13"></a>Pen and Background Queries</h4>
+<!--l. 805--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-36200018.3.13"></a>Pendownp query</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-614">
+     PENDOWNP
+</div>
+<!--l. 808--><p class="nopar" > returns the identiﬁer <span 
+class="pcrr8t-x-x-109">TRUE </span>if the pen is down, <span 
+class="pcrr8t-x-x-109">FALSE </span>if it’s up.
+</p><!--l. 813--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-36300018.3.13"></a>Pencolor query</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-615">
+     PENCOLOR
+</div>
+<!--l. 816--><p class="nopar" > returns the pen colour; see <a 
+href="#x155-30500018.3.6">Colours</a>.
+</p><!--l. 821--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-36400018.3.13"></a>Palette query</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-616">
+     PALETTE colournumber
+</div>
+<!--l. 824--><p class="nopar" > returns the colour associated with the given number; see <a 
+href="#x155-30500018.3.6">Colours</a>. Colournumber must
+be a nonnegative integer not greater than 15.
+</p><!--l. 829--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-36500018.3.13"></a>Pensize query</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-617">
+     PENSIZE
+</div>
+<!--l. 832--><p class="nopar" > returns a positive integer specifying the thickness of the pen as a multiple of the default
+thickness, or <span 
+class="pcrr8t-x-x-109">false</span>, meaning unspeciﬁed, which is equivalent to 1 but slightly more
+eﬃcient.
+</p><!--l. 837--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-36600018.3.13"></a>Background query</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-618">
+     BACKGROUND
+</div>
+<!--l. 840--><p class="nopar" > returns the graphics background colour; see <a 
+href="#x155-30500018.3.6">Colours</a>.
+</p><!--l. 846--><p class="noindent" >
+</p>
+<h4 class="subsectionHead"><span class="titlemark">18.3.14    </span> <a 
+ id="x155-36700018.3.14"></a>Saving and Loading Pictures</h4>
+<!--l. 849--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-36800018.3.14"></a>Savepict command</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-619">
+     SAVEPICT identifier
+</div>
+<!--l. 852--><p class="nopar" > saves the current plot and labels to internal storage under the speciﬁed identiﬁer without
+changing them. The saved data can be restored as the current plot and labels using
+<span 
+class="pcrr8t-x-x-109">LOADPICT</span>.
+</p><!--l. 858--><p class="noindent" >
+</p>
+<h5 class="likesubsubsectionHead"><a 
+ id="x155-36900018.3.14"></a>Loadpict command</h5>
+                                                                     
+
+                                                                     
+<div class="verbatim" id="verbatim-620">
+     LOADPICT(identifiers)
+</div>
+<!--l. 861--><p class="nopar" > retrieves the plots and labels saved under the speciﬁed identiﬁers, which must have been
+saved by <span 
+class="pcrr8t-x-x-109">SAVEPICT </span>commands, merges them in the order speciﬁed, and makes the
+result current. (The order is only signiﬁcant in that it determines the colour of each plot if
+it is set automatically by Gnuplot, and if plots or labels overlap then later plots and labels
+overlay earlier ones and so hide them.) The previous current plot and labels are lost if not
+saved using <span 
+class="pcrr8t-x-x-109">SAVEPICT</span>.
+                                                                     
+
+                                                                     
+                                                                     
+
+                                                                     
+</p><!--l. 1--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch18.html#manualse118.html" >Up</a></td><td class="clinks"><a 
+href="manualse117.html" >Prev</a></td><td class="clinks"><a 
+href="manualse117.html#tailmanualse117.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse118.html" >Front</a></td></tr></table><a 
+ id="tailmanualse118.html"></a>   </p> 
+</body> 
+</html>

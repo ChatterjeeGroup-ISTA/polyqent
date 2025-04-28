@@ -1,0 +1,165 @@
+<!DOCTYPE html> 
+<html lang="en-US" xml:lang="en-US" > 
+<head><title>Matrix Expressions</title> 
+<meta  charset="utf-8" /> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)" /> 
+<meta name="viewport" content="width=device-width,initial-scale=1" /> 
+<link rel="stylesheet" type="text/css" href="manual.css" /> 
+<meta name="src" content="manual.tex" /> 
+</head><body 
+>
+<header>REDUCE</header><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch14.html#manualse95.html" >Up</a></td><td class="clinks"><a 
+href="manualse96.html" >Next</a></td><td class="clinks"><a 
+href="manualse94.html" >Prev</a></td><td class="clinks"><a 
+href="manualse94.html#tailmanualse94.html" >PrevTail</a></td><td class="clinks"><a 
+href="#tailmanualse95.html">Tail</a></td></tr></table><h3 class="sectionHead"><span class="titlemark">14.3    </span> <a 
+ id="x122-22600014.3"></a>Matrix Expressions</h3>
+<!--l. 61--><p class="noindent" >These follow the normal rules of matrix algebra as deﬁned by the following
+syntax:<a 
+ id="dx122-226001"></a>
+  </p><div class="syntax">
+  <!--tex4ht:inline--><div class="tabular"> <table id="TBL-28" class="tabular" 
+cellspacing="0" cellpadding="0"  
+><colgroup id="TBL-28-1g"><col 
+id="TBL-28-1" /><col 
+id="TBL-28-2" /><col 
+id="TBL-28-3" /></colgroup><tr  
+ style="vertical-align:baseline;" id="TBL-28-1-"><td  style="white-space:nowrap; text-align:left;" id="TBL-28-1-1"  
+class="td01"><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">matrix expression</span><span 
+class="cmsy-10x-x-109">⟩ </span></td><td  style="white-space:nowrap; text-align:center;" id="TBL-28-1-2"  
+class="td11"> <span 
+class="cmmi-10x-x-109">→</span> </td><td  style="white-space:nowrap; text-align:left;" id="TBL-28-1-3"  
+class="td11"> <span 
+class="pcrr8t-x-x-109">mat</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">matrix description</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmsy-10x-x-109">∣</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">matrix variable</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmsy-10x-x-109">∣</span><span 
+class="cmmi-10x-x-109">  </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-28-2-"><td  style="white-space:nowrap; text-align:left;" id="TBL-28-2-1"  
+class="td01">              </td><td  style="white-space:nowrap; text-align:center;" id="TBL-28-2-2"  
+class="td11">   </td><td  style="white-space:nowrap; text-align:left;" id="TBL-28-2-3"  
+class="td11"> <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">scalar expression</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">*</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">matrix expression</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmsy-10x-x-109">∣</span><span 
+class="cmmi-10x-x-109">        </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-28-3-"><td  style="white-space:nowrap; text-align:left;" id="TBL-28-3-1"  
+class="td01">              </td><td  style="white-space:nowrap; text-align:center;" id="TBL-28-3-2"  
+class="td11">   </td><td  style="white-space:nowrap; text-align:left;" id="TBL-28-3-3"  
+class="td11"> <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">matrix expression</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">*</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">matrix expression</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmsy-10x-x-109">∣</span><span 
+class="cmmi-10x-x-109">        </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-28-4-"><td  style="white-space:nowrap; text-align:left;" id="TBL-28-4-1"  
+class="td01">              </td><td  style="white-space:nowrap; text-align:center;" id="TBL-28-4-2"  
+class="td11">   </td><td  style="white-space:nowrap; text-align:left;" id="TBL-28-4-3"  
+class="td11"> <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">matrix expression</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">+</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">matrix expression</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmsy-10x-x-109">∣</span><span 
+class="cmmi-10x-x-109">        </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-28-5-"><td  style="white-space:nowrap; text-align:left;" id="TBL-28-5-1"  
+class="td01">              </td><td  style="white-space:nowrap; text-align:center;" id="TBL-28-5-2"  
+class="td11">   </td><td  style="white-space:nowrap; text-align:left;" id="TBL-28-5-3"  
+class="td11"> <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">matrix expression</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">^</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">integer</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="cmmi-10x-x-109"> </span><span 
+class="cmsy-10x-x-109">∣</span><span 
+class="cmmi-10x-x-109">                  </span></td>
+</tr><tr  
+ style="vertical-align:baseline;" id="TBL-28-6-"><td  style="white-space:nowrap; text-align:left;" id="TBL-28-6-1"  
+class="td01">              </td><td  style="white-space:nowrap; text-align:center;" id="TBL-28-6-2"  
+class="td11">   </td><td  style="white-space:nowrap; text-align:left;" id="TBL-28-6-3"  
+class="td11"> <span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">matrix expression</span><span 
+class="cmsy-10x-x-109">⟩</span><span 
+class="pcrr8t-x-x-109">/</span><span 
+class="cmsy-10x-x-109">⟨</span><span 
+class="ptmri8t-x-x-109">matrix expression</span><span 
+class="cmsy-10x-x-109">⟩     </span></td></tr></table>
+  </div></div>
+<!--l. 71--><p class="noindent" >Sums and products of matrix expressions must be of compatible size; otherwise an error
+will result during their evaluation. Similarly, only square matrices may be raised to a
+power. A negative power is computed as the inverse of the matrix raised to the
+corresponding positive power. <span 
+class="pcrr8t-x-x-109">a/b </span>is interpreted as <span 
+class="pcrr8t-x-x-109">a*b^(-1)</span>.
+</p><!--l. 77--><p class="noindent" ><span 
+class="ptmri8t-x-x-109">Examples:</span>
+</p><!--l. 79--><p class="noindent" >Assuming <span 
+class="pcrr8t-x-x-109">x </span>and <span 
+class="pcrr8t-x-x-109">y </span>have been declared as matrices, the following are matrix
+expressions
+                                                                     
+
+                                                                     
+</p>
+<div class="verbatim" id="verbatim-426">
+        y
+ <br />        y^2*x-3*y^(-2)*x
+ <br />        y + mat((1,a),(b,c))/2
+</div>
+<!--l. 85--><p class="nopar" > <a 
+ id="switch:CRAMER"></a> The computation of the quotient of two matrices normally uses a two-step
+elimination method due to Bareiss. An alternative method using Cramer’s method is
+also available. This is usually less eﬃcient than the Bareiss method unless the
+matrices are large and dense, although we have no solid statistics on this as
+yet. To use Cramer’s method instead, the switch <span 
+class="pcrr8t-x-x-109">cramer</span><a 
+ id="dx122-226002"></a><a 
+ id="dx122-226003"></a><a 
+ id="dx122-226004"></a> should be turned
+on.
+                                                                     
+
+                                                                     
+</p><!--l. 95--><p class="noindent" ><table cellspacing="5"><tr><td class="clinks"><a 
+href="manualch14.html#manualse95.html" >Up</a></td><td class="clinks"><a 
+href="manualse96.html" >Next</a></td><td class="clinks"><a 
+href="manualse94.html" >Prev</a></td><td class="clinks"><a 
+href="manualse94.html#tailmanualse94.html" >PrevTail</a></td><td class="clinks"><a 
+href="manualse95.html" >Front</a></td></tr></table><a 
+ id="tailmanualse95.html"></a> </p> 
+</body> 
+</html>
