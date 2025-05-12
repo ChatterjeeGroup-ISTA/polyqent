@@ -1,6 +1,6 @@
 # Experiments
 
-This folder contains all the necessary files for running the experiments described in the paper. 
+This folder contains all the necessary files for running the experiments described in the paper. We assume `[HOME]` is the main directory of polyqent (i.e. the parent of the current directory)
 
 ## Directory Structure
 
@@ -25,7 +25,7 @@ This folder contains all the necessary files for running the experiments describ
 
 To run all the experiments in the paper, one can run `python run_all.py` which runs PolyQEnt on the benchmarks in the `benchmarks` folder using their respective config files. This command runs experiments one by one and you will get the results in `outputs` folder. However, this command takes a long time (several weeks) to terminate. 
 
-For this reason, we have included the commands that should be run for solving each of the benchmarks in the `Outputs-*.csv` files. You can run the following script to run all the commands in the `.csv` files:
+For this reason, we have included the commands that should be run for solving each of the benchmarks in the `Results-*.csv` files. You can run the following script to run all the commands in the `.csv` files:
 ```bash
 python run_solved.py
 ```
@@ -39,12 +39,13 @@ python fig1-left.py
 python fig1-right.py
 ```
 
+In case you decided to run all the experiments using the `run_all.py` script, the outputs of all tools will be stored in the `[HOME]/outputs` directory and the summerized version (in .csv format) will be stored in `[HOME]/spreadsheets` directory. You can run the `figure1-left.py` and `figure1-right.py` scripts in that directory to replicate Figure 1 of the paper. 
+
 Note that mathematica is not installed on the docker container due to its strict licensing. If you wish to run the mathematica on the benchmarks, please follow the instructions [here](https://reference.wolfram.com/language/tutorial/InstallingMathematica.html.en) to install and activate mathematica first. 
 
 [1] Termination analysis of probabilistic programs through positivstellensatz's. CAV 2016 \
 [2] Cost analysis of nondeterministic probabilistic programs. In: PLDI 2019 \
-[3] Tail probabilities for randomized program runtimes
-via martingales for higher moments. In: TACAS 2019 \
+[3] Tail probabilities for randomized program runtimes via martingales for higher moments. In: TACAS 2019 \
 [4] Algebro-geometric algorithms for template-based synthesis of polynomial programs. In OOPSLA 2023 \
 [5] Proving non-termination by program reversal. In: PLDI 2021 \
 [6] Polynomial reachability witnesses via stellensätze. In: PLDI 2021
